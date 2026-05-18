@@ -228,10 +228,11 @@
     margin-top: 5px;
     flex-shrink: 0;
   }
-  .dot-blocked { background: var(--red); box-shadow: 0 0 0 3px rgba(220,38,38,.15); }
-  .dot-pending { background: #CBD5E1; }
-  .dot-active  { background: var(--blue-soft); box-shadow: 0 0 0 3px rgba(37,99,235,.15); }
-  .dot-done    { background: var(--green); }
+  .dot-blocked  { background: var(--red); box-shadow: 0 0 0 3px rgba(220,38,38,.15); }
+  .dot-pending  { background: #CBD5E1; }
+  .dot-active   { background: var(--blue-soft); box-shadow: 0 0 0 3px rgba(37,99,235,.15); }
+  .dot-done     { background: var(--green); }
+  .dot-warning  { background: #F59E0B; box-shadow: 0 0 0 3px rgba(245,158,11,.15); }
   .milestone-text { flex: 1; }
   .milestone-name { font-size: 13px; font-weight: 600; color: var(--text); }
   .milestone-resp { font-size: 11px; color: var(--muted); margin-top: 2px; }
@@ -249,6 +250,7 @@
   .status-pending { background: #F1F5F9; color: var(--muted); }
   .status-active  { background: #DBEAFE; color: var(--blue-soft); }
   .status-done    { background: #D1FAE5; color: var(--green); }
+  .status-warning { background: #FEF3C7; color: #D97706; }
 
   /* ── COMPONENTES ── */
   .components {
@@ -534,18 +536,18 @@
 
         <li class="milestone-phase">Fase 1 — Kickoff + Formalização</li>
         <li class="milestone">
-          <div class="milestone-dot dot-blocked"></div>
+          <div class="milestone-dot dot-warning"></div>
           <div class="milestone-text">
-            <div class="milestone-name">Confirmação interlocutor CNH</div>
-            <div class="milestone-resp">Lucas + Abilio</div>
+            <div class="milestone-name">Documentação Finalizada da LAB</div>
+            <div class="milestone-resp">Abilio Martins · prazo 16/05</div>
           </div>
-          <span class="milestone-status status-blocked">Bloqueado</span>
+          <span class="milestone-status status-warning">Atrasado</span>
         </li>
         <li class="milestone">
           <div class="milestone-dot dot-pending"></div>
           <div class="milestone-text">
-            <div class="milestone-name">Kickoff formal com CNH</div>
-            <div class="milestone-resp">Lucas</div>
+            <div class="milestone-name">Finalização Etapa de Kickoff (NTICS)</div>
+            <div class="milestone-resp">Abilio Martins · prazo 28/05</div>
           </div>
           <span class="milestone-status status-pending">Pendente</span>
         </li>
@@ -554,16 +556,16 @@
         <li class="milestone">
           <div class="milestone-dot dot-pending"></div>
           <div class="milestone-text">
-            <div class="milestone-name">Definição de escolas por cidade</div>
-            <div class="milestone-resp">Lucas</div>
+            <div class="milestone-name">Pré-projeto concluído</div>
+            <div class="milestone-resp">a definir</div>
           </div>
           <span class="milestone-status status-pending">Pendente</span>
         </li>
         <li class="milestone">
           <div class="milestone-dot dot-pending"></div>
           <div class="milestone-text">
-            <div class="milestone-name">KV + materiais pré — Bloco A</div>
-            <div class="milestone-resp">Lucas</div>
+            <div class="milestone-name">Materiais de comunicação prontos</div>
+            <div class="milestone-resp">a definir</div>
           </div>
           <span class="milestone-status status-pending">Pendente</span>
         </li>
@@ -572,8 +574,8 @@
         <li class="milestone">
           <div class="milestone-dot dot-pending"></div>
           <div class="milestone-text">
-            <div class="milestone-name">Início das oficinas — 1ª cidade</div>
-            <div class="milestone-resp">Lucas</div>
+            <div class="milestone-name">Início da execução em campo Cidade X</div>
+            <div class="milestone-resp">a definir</div>
           </div>
           <span class="milestone-status status-pending">Pendente</span>
         </li>
@@ -582,16 +584,16 @@
         <li class="milestone">
           <div class="milestone-dot dot-pending"></div>
           <div class="milestone-text">
-            <div class="milestone-name">Evento final por cidade (certificação)</div>
-            <div class="milestone-resp">Lucas</div>
+            <div class="milestone-name">Engajamento Realizado</div>
+            <div class="milestone-resp">a definir</div>
           </div>
           <span class="milestone-status status-pending">Pendente</span>
         </li>
         <li class="milestone">
           <div class="milestone-dot dot-pending"></div>
           <div class="milestone-text">
-            <div class="milestone-name">Evento DOMO — Curitiba/PR</div>
-            <div class="milestone-resp">Lucas</div>
+            <div class="milestone-name">Finalização do projeto (último dia de ação)</div>
+            <div class="milestone-resp">a definir</div>
           </div>
           <span class="milestone-status status-pending">Pendente</span>
         </li>
@@ -600,8 +602,8 @@
         <li class="milestone">
           <div class="milestone-dot dot-pending"></div>
           <div class="milestone-text">
-            <div class="milestone-name">Encerramento + Relatório ESG</div>
-            <div class="milestone-resp">Lucas + Abilio</div>
+            <div class="milestone-name">Projeto Finalizado</div>
+            <div class="milestone-resp">a definir</div>
           </div>
           <span class="milestone-status status-pending">Pendente</span>
         </li>
