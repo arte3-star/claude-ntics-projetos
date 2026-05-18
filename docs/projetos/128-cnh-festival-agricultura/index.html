@@ -346,6 +346,106 @@
   .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
   .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
 
+  /* ── RELATÓRIO SEMANAL ── */
+  .report-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .report-week {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--nh-blue);
+    color: #fff;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .report-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .update-list { list-style: none; }
+  .update-item {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .update-item:last-child { border-bottom: none; }
+  .update-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--nh-gold);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .update-text { font-size: 13px; color: var(--text); line-height: 1.45; }
+  .update-date { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* ── GALERIA ── */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .photo-slot {
+    aspect-ratio: 4/3;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, var(--nh-dark) 0%, var(--nh-blue) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  .photo-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+  }
+  .photo-slot .photo-label {
+    font-size: 11px;
+    color: rgba(255,255,255,.6);
+    text-align: center;
+    padding: 0 12px;
+    line-height: 1.3;
+    position: relative;
+    z-index: 1;
+  }
+  .photo-slot .photo-icon {
+    font-size: 28px;
+    position: relative;
+    z-index: 1;
+  }
+  .photo-slot.has-photo .photo-label,
+  .photo-slot.has-photo .photo-icon { display: none; }
+  .photo-caption {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 4px;
+  }
+  .photo-wrap { display: flex; flex-direction: column; }
+
+  @media (max-width: 768px) {
+    .report-grid { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
   /* ── FOOTER ── */
   footer {
     border-top: 1px solid var(--border);
@@ -621,6 +721,105 @@
       <div class="deliverable-id">D1–D2</div>
       <div class="deliverable-name">Certificados alunos + professores</div>
       <div class="deliverable-type">Template A4</div>
+    </div>
+  </div>
+
+  <!-- RELATÓRIO SEMANAL -->
+  <div class="report-header">
+    <div class="section-title" style="margin-bottom:0">Relatório semanal</div>
+    <span class="report-week">📅 Semana de 12 a 18/05/2026</span>
+  </div>
+
+  <div class="report-grid">
+
+    <!-- ENTREGAS DA SEMANA -->
+    <div class="card">
+      <div class="card-title">✅ Entregas da semana</div>
+      <ul class="update-list">
+        <li class="update-item">
+          <div class="update-dot"></div>
+          <div>
+            <div class="update-text">TAP do projeto criado e estruturado no ClickUp (8 seções)</div>
+            <div class="update-date">18/05/2026 · Lucas Rotta</div>
+          </div>
+        </li>
+        <li class="update-item">
+          <div class="update-dot"></div>
+          <div>
+            <div class="update-text">Dashboard de acompanhamento publicado para o cliente</div>
+            <div class="update-date">18/05/2026 · Lucas Rotta</div>
+          </div>
+        </li>
+        <li class="update-item">
+          <div class="update-dot"></div>
+          <div>
+            <div class="update-text">Identidade visual e paleta New Holland definidas para o projeto</div>
+            <div class="update-date">16/05/2026 · Lucas Rotta</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- PRÓXIMAS ENTREGAS -->
+    <div class="card">
+      <div class="card-title">⏭️ Próximas entregas</div>
+      <ul class="update-list">
+        <li class="update-item">
+          <div class="update-dot" style="background:var(--red)"></div>
+          <div>
+            <div class="update-text">Confirmação do interlocutor oficial CNH/New Holland</div>
+            <div class="update-date">Urgente · Lucas + Abilio</div>
+          </div>
+        </li>
+        <li class="update-item">
+          <div class="update-dot" style="background:#CBD5E1"></div>
+          <div>
+            <div class="update-text">Kickoff formal com CNH — apresentação + cronograma</div>
+            <div class="update-date">Aguardando TAP · Lucas</div>
+          </div>
+        </li>
+        <li class="update-item">
+          <div class="update-dot" style="background:#CBD5E1"></div>
+          <div>
+            <div class="update-text">KV principal + biblioteca de ícones temáticos (Bloco A1)</div>
+            <div class="update-date">Pré-projeto · Lucas</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- GALERIA DE FOTOS -->
+  <div class="section-title">Registro fotográfico</div>
+  <div class="photo-grid">
+    <div class="photo-wrap">
+      <div class="photo-slot">
+        <span class="photo-icon">📷</span>
+        <span class="photo-label">Adicionar foto do projeto</span>
+      </div>
+      <div class="photo-caption">Kickoff</div>
+    </div>
+    <div class="photo-wrap">
+      <div class="photo-slot">
+        <span class="photo-icon">📷</span>
+        <span class="photo-label">Adicionar foto do projeto</span>
+      </div>
+      <div class="photo-caption">Reunião de planejamento</div>
+    </div>
+    <div class="photo-wrap">
+      <div class="photo-slot">
+        <span class="photo-icon">📷</span>
+        <span class="photo-label">Adicionar foto do projeto</span>
+      </div>
+      <div class="photo-caption">Oficina — 1ª cidade</div>
+    </div>
+    <div class="photo-wrap">
+      <div class="photo-slot">
+        <span class="photo-icon">📷</span>
+        <span class="photo-label">Adicionar foto do projeto</span>
+      </div>
+      <div class="photo-caption">Material pedagógico</div>
     </div>
   </div>
 
