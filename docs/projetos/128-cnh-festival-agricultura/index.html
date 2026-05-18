@@ -210,6 +210,18 @@
     border-bottom: 1px solid var(--border);
   }
   .milestone:last-child { border-bottom: none; }
+  .milestone-phase {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--nh-blue);
+    padding: 14px 0 4px;
+    list-style: none;
+    border-bottom: 1px solid var(--nh-light);
+    margin-bottom: 2px;
+  }
+  .milestone-phase:first-child { padding-top: 0; }
   .milestone-dot {
     width: 10px; height: 10px;
     border-radius: 50%;
@@ -419,14 +431,8 @@
         <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Concluído</div>
       </div>
       <ul class="milestones">
-        <li class="milestone">
-          <div class="milestone-dot dot-blocked"></div>
-          <div class="milestone-text">
-            <div class="milestone-name">TAP formal + PRONAC</div>
-            <div class="milestone-resp">Lucas + Abilio</div>
-          </div>
-          <span class="milestone-status status-blocked">Bloqueado</span>
-        </li>
+
+        <li class="milestone-phase">Fase 1 — Kickoff + Formalização</li>
         <li class="milestone">
           <div class="milestone-dot dot-blocked"></div>
           <div class="milestone-text">
@@ -443,6 +449,8 @@
           </div>
           <span class="milestone-status status-pending">Pendente</span>
         </li>
+
+        <li class="milestone-phase">Fase 2 — Pré-projeto</li>
         <li class="milestone">
           <div class="milestone-dot dot-pending"></div>
           <div class="milestone-text">
@@ -459,10 +467,22 @@
           </div>
           <span class="milestone-status status-pending">Pendente</span>
         </li>
+
+        <li class="milestone-phase">Fase 3 — Execução em Campo</li>
         <li class="milestone">
           <div class="milestone-dot dot-pending"></div>
           <div class="milestone-text">
             <div class="milestone-name">Início das oficinas — 1ª cidade</div>
+            <div class="milestone-resp">Lucas</div>
+          </div>
+          <span class="milestone-status status-pending">Pendente</span>
+        </li>
+
+        <li class="milestone-phase">Fase 4 — Evento Final + DOMO</li>
+        <li class="milestone">
+          <div class="milestone-dot dot-pending"></div>
+          <div class="milestone-text">
+            <div class="milestone-name">Evento final por cidade (certificação)</div>
             <div class="milestone-resp">Lucas</div>
           </div>
           <span class="milestone-status status-pending">Pendente</span>
@@ -475,6 +495,8 @@
           </div>
           <span class="milestone-status status-pending">Pendente</span>
         </li>
+
+        <li class="milestone-phase">Fase 5 — Encerramento</li>
         <li class="milestone">
           <div class="milestone-dot dot-pending"></div>
           <div class="milestone-text">
@@ -483,6 +505,7 @@
           </div>
           <span class="milestone-status status-pending">Pendente</span>
         </li>
+
       </ul>
     </div>
 
