@@ -3,680 +3,746 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Relatório Semanal NTICS · 19–23 mai 2026</title>
+<title>Painel Semanal NTICS · 19–23 mai 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --verde: #1b5e20;     --verde-light: #e8f5e9;
-    --azul: #0d47a1;      --azul-light: #e3f2fd;
-    --laranja: #e65100;   --laranja-light: #fff3e0;
-    --cinza: #37474f;     --cinza-light: #eceff1;
-    --vermelho: #b71c1c;  --vermelho-light: #ffebee;
-    --roxo: #4a148c;      --roxo-light: #f3e5f5;
-    --teal: #004d40;      --teal-light: #e0f2f1;
-    --amarelo: #f57f17;   --amarelo-light: #fffde7;
-    --bg: #f5f6fa;
-    --card-bg: #ffffff;
-    --radius: 10px;
-    --shadow: 0 2px 8px rgba(0,0,0,.09);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: #222; min-height: 100vh; }
+/* ─── TOKENS ─────────────────────────────────── */
+:root {
+  --bg: #f3f4f8;
+  --card: #fff;
+  --border: #e4e4e7;
+  --text: #18181b;
+  --muted: #71717a;
+  --font-d: 'Space Grotesk', system-ui, sans-serif;
+  --font-b: 'Inter', system-ui, sans-serif;
+  --r: 10px;
+  --sh: 0 2px 8px rgba(0,0,0,.08);
+  --sh2: 0 6px 24px rgba(0,0,0,.1);
+  /* project colors */
+  --c116: #0d47a1; --c119: #1b5e20; --c120: #00574A;
+  --c124: #5D4037; --c125: #4a148c; --c127g: #bf360c;
+  --c127s: #37474f; --c132: #4527a0; --c133: #004d40;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-b); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+h1,h2,h3,h4 { font-family: var(--font-d); letter-spacing: -.02em; }
 
-  /* HEADER */
-  .header { background: linear-gradient(135deg, #1a237e 0%, #0d47a1 50%, #1565c0 100%); color: #fff; padding: 32px 40px 24px; }
-  .header-top { display: flex; align-items: center; gap: 16px; margin-bottom: 10px; }
-  .ntics-badge { background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3); border-radius: 6px; padding: 4px 12px; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-  .header h1 { font-size: 26px; font-weight: 800; line-height: 1.2; }
-  .header h1 span { color: #90caf9; }
-  .header-meta { display: flex; gap: 20px; margin-top: 12px; flex-wrap: wrap; }
-  .header-meta-item { font-size: 13px; opacity: .85; display: flex; align-items: center; gap: 5px; }
-  .dot { width: 6px; height: 6px; border-radius: 50%; background: #90caf9; display: inline-block; }
+/* ─── TOPBAR ─────────────────────────────────── */
+.topbar { position: sticky; top: 0; z-index: 100; background: #1a237e; box-shadow: 0 2px 12px rgba(0,0,0,.18); }
+.topbar-head { display: flex; align-items: center; justify-content: space-between; padding: 10px 24px 0; gap: 12px; }
+.topbar-brand { font-family: var(--font-d); font-size: 14px; font-weight: 800; color: #fff; letter-spacing: -.01em; white-space: nowrap; }
+.topbar-brand span { color: #90caf9; font-weight: 400; font-size: 12px; margin-left: 8px; }
+.tab-scroller { overflow-x: auto; scrollbar-width: none; padding: 0 24px; }
+.tab-scroller::-webkit-scrollbar { display: none; }
+.tab-list { display: flex; gap: 2px; padding-bottom: 0; white-space: nowrap; }
+.t-btn {
+  background: transparent; border: none; cursor: pointer;
+  padding: 8px 16px 10px; font-family: var(--font-b); font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,.6); border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s; white-space: nowrap;
+  display: flex; align-items: center; gap: 5px;
+}
+.t-btn:hover { color: rgba(255,255,255,.9); }
+.t-btn.active { color: #fff; border-bottom-color: #90caf9; }
+.t-btn .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--tc, #90a4ae); opacity: .8; flex-shrink: 0; }
 
-  /* SUMMARY STRIP */
-  .summary-strip { background: #fff; border-bottom: 1px solid #e0e0e0; padding: 16px 40px; display: flex; gap: 32px; flex-wrap: wrap; align-items: center; }
-  .summary-num { text-align: center; }
-  .summary-num .n { font-size: 28px; font-weight: 800; color: var(--azul); line-height: 1; }
-  .summary-num .l { font-size: 11px; color: #607d8b; margin-top: 2px; }
-  .summary-sep { width: 1px; height: 36px; background: #e0e0e0; }
+/* ─── PANELS ──────────────────────────────────── */
+.panel { display: none; padding: 24px; max-width: 1400px; margin: 0 auto; animation: fade .18s ease; }
+.panel.active { display: block; }
+@keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
-  /* MAIN */
-  .main { padding: 20px 40px 40px; max-width: 1280px; margin: 0 auto; }
-  .section-label { font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: #90a4ae; margin: 28px 0 12px; }
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(520px, 1fr)); gap: 16px; }
+/* ─── SECTION HEADER ─────────────────────────── */
+.sec-hdr { display: flex; align-items: center; gap: 10px; margin: 28px 0 14px; }
+.sec-hdr:first-child { margin-top: 0; }
+.sec-hdr .ic { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+.sec-hdr h3 { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.sec-hdr .line { flex: 1; height: 1px; background: var(--border); }
 
-  /* PROJECT CARD */
-  .proj-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); border-left: 4px solid var(--azul); overflow: hidden; display: flex; flex-direction: column; }
-  .proj-card.color-verde   { border-left-color: var(--verde); }
-  .proj-card.color-azul    { border-left-color: var(--azul); }
-  .proj-card.color-teal    { border-left-color: var(--teal); }
-  .proj-card.color-roxo    { border-left-color: var(--roxo); }
-  .proj-card.color-laranja { border-left-color: var(--laranja); }
-  .proj-card.color-cinza   { border-left-color: var(--cinza); }
-  .proj-card.color-amarelo { border-left-color: var(--amarelo); }
+/* ─── CARDS ──────────────────────────────────── */
+.card { background: var(--card); border-radius: var(--r); box-shadow: var(--sh); border: 1px solid var(--border); }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(480px,1fr)); gap: 14px; }
+.proj-card { background: var(--card); border-radius: var(--r); box-shadow: var(--sh); border-left: 4px solid var(--tc,#0d47a1); overflow: hidden; }
 
-  .proj-header { display: flex; align-items: flex-start; justify-content: space-between; padding: 16px 18px 12px; gap: 12px; }
-  .proj-id { font-size: 11px; font-weight: 700; color: #90a4ae; letter-spacing: .05em; margin-bottom: 2px; }
-  .proj-nome { font-size: 15px; font-weight: 700; color: #1a237e; line-height: 1.25; }
-  .proj-pat  { font-size: 12px; color: #607d8b; margin-top: 2px; }
-  .proj-status { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; flex-shrink: 0; }
-  .status-execucao       { background: #e8f5e9; color: #2e7d32; }
-  .status-planejamento   { background: #e3f2fd; color: #1565c0; }
-  .status-urgente        { background: #fff8e1; color: #f57f17; }
-  .status-aguardando     { background: #eceff1; color: #546e7a; }
-  .status-encerrando     { background: #fce4ec; color: #880e4f; }
-  .status-kickoff        { background: #e8eaf6; color: #3949ab; }
+/* ─── PROJECT HEADER (shared) ─────────────────── */
+.ph { padding: 14px 16px 10px; display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.ph-id { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: .06em; margin-bottom: 2px; }
+.ph-name { font-size: 15px; font-weight: 700; color: #1a237e; line-height: 1.2; }
+.ph-pat { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.badge { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; flex-shrink: 0; }
+.s-exec { background: #e8f5e9; color: #2e7d32; }
+.s-plan { background: #e3f2fd; color: #1565c0; }
+.s-wait { background: #eceff1; color: #546e7a; }
+.s-end  { background: #fce4ec; color: #880e4f; }
+.s-kick { background: #e8eaf6; color: #3949ab; }
+.s-urg  { background: #fff8e1; color: #e65100; }
 
-  /* ACTIVITY TABLE */
-  .proj-body { padding: 0 18px 10px; flex: 1; }
-  .atividades-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 10px; }
-  .atividades-table th { background: #f5f6fa; color: #607d8b; font-weight: 600; font-size: 10px; letter-spacing: .07em; text-transform: uppercase; padding: 6px 8px; text-align: left; white-space: nowrap; }
-  .atividades-table td { padding: 6px 8px; border-top: 1px solid #f0f0f0; color: #37474f; vertical-align: middle; }
+/* ─── ACTIVITY TABLE ─────────────────────────── */
+.pb { padding: 0 16px 12px; }
+.at { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 8px; }
+.at th { background: #f5f6fa; color: var(--muted); font-weight: 600; font-size: 10px; letter-spacing: .07em; text-transform: uppercase; padding: 5px 8px; text-align: left; }
+.at td { padding: 6px 8px; border-top: 1px solid #f0f0f0; color: #37474f; vertical-align: middle; }
+.db { display: inline-block; border-radius: 4px; padding: 2px 6px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.db.ok   { background: #e8f5e9; color: #2e7d32; }
+.db.go   { background: #fff8e1; color: #f57f17; }
+.db.nx   { background: #e3f2fd; color: #1565c0; }
+.db.tbc  { background: #eceff1; color: #546e7a; }
+.db.def  { background: #e3f2fd; color: #1565c0; }
+.pb-badge { display: inline-block; background: #f3e5f5; color: #7b1fa2; border-radius: 4px; padding: 2px 6px; font-size: 11px; font-weight: 700; }
 
-  .data-badge { display: inline-block; border-radius: 4px; padding: 2px 6px; font-size: 11px; font-weight: 700; white-space: nowrap; background: #e3f2fd; color: #1565c0; }
-  .data-badge.concluido    { background: #e8f5e9; color: #2e7d32; }
-  .data-badge.em-andamento { background: #fff8e1; color: #f57f17; }
-  .data-badge.a-confirmar  { background: #eceff1; color: #546e7a; }
-  .part-badge { display: inline-block; background: #f3e5f5; color: #7b1fa2; border-radius: 4px; padding: 2px 6px; font-size: 11px; font-weight: 700; }
+/* ─── CAP ROW ────────────────────────────────── */
+.cap { display: flex; align-items: flex-start; gap: 7px; font-size: 12px; color: #455a64; padding: 5px 16px 8px; border-top: 1px solid #f5f5f5; }
+.cap .ci { flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+.cap .cv { color: #b0bec5; font-style: italic; }
 
-  /* PHOTOGRAPHER ROW */
-  .cap-row { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #455a64; margin-bottom: 4px; padding: 4px 0; border-top: 1px solid #f5f5f5; }
-  .cam-icon { font-size: 13px; flex-shrink: 0; }
-  .cap-vazio { color: #b0bec5; font-style: italic; }
+/* ─── ALERTS ────────────────────────────────── */
+.al { display: flex; align-items: flex-start; gap: 6px; font-size: 12px; padding: 5px 9px; border-radius: 6px; margin: 0 16px 5px; }
+.al.err  { color: #b71c1c; background: #ffebee; }
+.al.warn { color: #e65100; background: #fff3e0; }
+.al.info { color: #1565c0; background: #e3f2fd; }
+.al.ok   { color: #1b5e20; background: #e8f5e9; }
 
-  /* ALERTS + HIGHLIGHTS */
-  .alerts-block { margin-top: 6px; }
-  .alert-item { display: flex; align-items: flex-start; gap: 6px; font-size: 12px; color: #b71c1c; margin-bottom: 4px; background: var(--vermelho-light); padding: 5px 9px; border-radius: 5px; }
-  .alert-item.info { color: #1565c0; background: var(--azul-light); }
-  .alert-item.warn { color: #e65100; background: var(--laranja-light); }
-  .highlight-item { display: flex; gap: 6px; font-size: 12px; color: #1b5e20; background: var(--verde-light); padding: 5px 9px; border-radius: 5px; margin-bottom: 4px; }
+/* ─── PROGR COLLAPSIBLE ──────────────────────── */
+.cprog { margin: 6px 16px 10px; border: 1px solid #e8edf0; border-radius: 8px; overflow: hidden; }
+.cprog summary { padding: 7px 12px; font-size: 11.5px; font-weight: 600; color: var(--muted); cursor: pointer; background: #f7f8fa; list-style: none; display: flex; align-items: center; gap: 6px; user-select: none; }
+.cprog summary::-webkit-details-marker { display: none; }
+.cprog summary .arr { font-size: 8px; transition: transform .2s; }
+.cprog[open] summary .arr { transform: rotate(90deg); }
+.cprog summary:hover { background: #e3f2fd; color: #1565c0; }
+.cprog-body { padding: 8px 14px 10px; border-top: 1px solid #e8edf0; }
+.pr { display: flex; gap: 8px; padding: 3px 0; align-items: center; border-bottom: 1px solid #f5f5f5; font-size: 11.5px; }
+.pr:last-child { border-bottom: none; }
+.pr-d { min-width: 70px; font-weight: 700; font-size: 11px; }
+.pr-d.ok { color: #2e7d32; } .pr-d.go { color: #f57f17; }
+.pr-d.nx { color: #1565c0; } .pr-d.tbc { color: #90a4ae; }
+.pr-info { color: #455a64; flex: 1; }
+.cprog-foot { margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0f0f0; display: flex; justify-content: flex-end; }
+.btn-brief { font-size: 11.5px; font-weight: 700; color: #fff; background: #1565c0; text-decoration: none; padding: 6px 14px; border-radius: 6px; display: inline-flex; align-items: center; gap: 5px; }
+.btn-brief:hover { background: #0d47a1; }
+.btn-brief.off { background: #cfd8dc; color: #90a4ae; pointer-events: none; cursor: default; }
 
-  /* PROGRAMAÇÃO COLAPSÁVEL */
-  .card-prog {
-    margin: 6px 18px 0;
-    border: 1px solid #e8edf0;
-    border-radius: 7px;
-    overflow: hidden;
-    font-size: 12px;
-  }
-  .card-prog > summary {
-    padding: 7px 12px;
-    font-size: 11.5px;
-    font-weight: 600;
-    color: #546e7a;
-    cursor: pointer;
-    background: #f5f7fa;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    user-select: none;
-  }
-  .card-prog > summary::-webkit-details-marker { display: none; }
-  .card-prog > summary .arrow { font-size: 8px; color: #90a4ae; transition: transform .2s; display: inline-block; }
-  .card-prog[open] > summary .arrow { transform: rotate(90deg); }
-  .card-prog > summary:hover { background: var(--azul-light); color: #1565c0; }
-  .prog-body { padding: 8px 14px 10px; border-top: 1px solid #e8edf0; }
-  .prog-row { display: flex; gap: 8px; padding: 3px 0; align-items: center; border-bottom: 1px solid #f5f5f5; }
-  .prog-row:last-of-type { border-bottom: none; }
-  .prog-date { min-width: 68px; font-weight: 700; font-size: 11px; }
-  .prog-date.done  { color: #2e7d32; }
-  .prog-date.going { color: #f57f17; }
-  .prog-date.next  { color: #1565c0; }
-  .prog-date.tbc   { color: #90a4ae; }
-  .prog-desc { color: #455a64; font-size: 11.5px; flex: 1; }
-  .prog-footer { margin-top: 10px; padding-top: 8px; border-top: 1px solid #f0f0f0; display: flex; justify-content: flex-end; }
-  .btn-captacao {
-    font-size: 11.5px; font-weight: 700; color: #fff; background: #1565c0; text-decoration: none;
-    padding: 6px 14px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px;
-    letter-spacing: .01em; transition: background .15s;
-  }
-  .btn-captacao:hover { background: #0d47a1; }
-  .btn-captacao.indisponivel { background: #cfd8dc; color: #90a4ae; pointer-events: none; cursor: default; }
+/* ─── DASHBOARD SUMMARY ──────────────────────── */
+.sumbar { background: #fff; border-radius: var(--r); box-shadow: var(--sh); padding: 16px 24px; display: flex; gap: 28px; flex-wrap: wrap; align-items: center; margin-bottom: 20px; border: 1px solid var(--border); }
+.sum-n { text-align: center; }
+.sum-n .n { font-family: var(--font-d); font-size: 28px; font-weight: 800; color: #0d47a1; line-height: 1; }
+.sum-n .l { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.sum-sep { width: 1px; height: 36px; background: var(--border); }
 
-  /* PLANNING CARDS */
-  .planning-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
-  .plan-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px; border-top: 3px solid var(--cinza); }
-  .plan-card.color-teal   { border-top-color: var(--teal); }
-  .plan-card.color-roxo   { border-top-color: var(--roxo); }
-  .plan-card.color-cinza  { border-top-color: var(--cinza); }
-  .plan-card.color-amarelo{ border-top-color: var(--amarelo); }
-  .plan-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-  .plan-id   { font-size: 10px; font-weight: 700; color: #90a4ae; }
-  .plan-nome { font-size: 13px; font-weight: 700; color: #1a237e; line-height: 1.3; }
-  .plan-pat  { font-size: 11px; color: #607d8b; }
-  .plan-items { list-style: none; }
-  .plan-items li { display: flex; gap: 7px; font-size: 12px; color: #455a64; padding: 4px 0; border-bottom: 1px solid #f5f5f5; align-items: flex-start; }
-  .plan-items li:last-child { border-bottom: none; }
-  .bullet { color: #90a4ae; flex-shrink: 0; margin-top: 1px; }
+/* ─── MINI PROJECT CARD (dashboard) ─────────── */
+.mini-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 10px; }
+.mini-card { background: var(--card); border-radius: var(--r); border: 1px solid var(--border); border-left: 4px solid var(--tc,#90a4ae); padding: 12px 14px; cursor: pointer; transition: box-shadow .2s, transform .15s; }
+.mini-card:hover { box-shadow: var(--sh2); transform: translateY(-1px); }
+.mini-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+.mini-id { font-size: 10px; font-weight: 700; color: var(--muted); }
+.mini-name { font-size: 13px; font-weight: 700; color: #1a237e; line-height: 1.25; }
+.mini-pat { font-size: 11px; color: var(--muted); }
+.mini-meta { margin-top: 6px; font-size: 11px; color: var(--muted); }
+.mini-sm { display: flex; gap: 4px; margin-top: 6px; flex-wrap: wrap; }
+.sm-chip { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 4px; }
+.sm-chip.pub  { background: #e8f5e9; color: #2e7d32; }
+.sm-chip.rev  { background: #fff8e1; color: #e65100; }
+.sm-chip.plan { background: #e3f2fd; color: #1565c0; }
+.sm-chip.pend { background: #eceff1; color: #546e7a; }
 
-  /* GAPS */
-  .gaps-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px 22px; border-top: 3px solid #607d8b; margin-top: 24px; }
-  .gaps-card h3 { font-size: 14px; font-weight: 700; color: #37474f; margin-bottom: 12px; }
-  .gap-item { display: flex; gap: 8px; font-size: 12.5px; color: #546e7a; padding: 6px 0; border-bottom: 1px solid #f0f0f0; align-items: flex-start; }
-  .gap-item:last-child { border-bottom: none; }
-  .gap-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: 2px 7px; border-radius: 4px; flex-shrink: 0; margin-top: 1px; }
-  .gap-label.sem-dados { background: #eceff1; color: #546e7a; }
-  .gap-label.whatsapp  { background: #e8f5e9; color: #2e7d32; }
-  .gap-label.pendente  { background: #fff8e1; color: #f57f17; }
+/* ─── SOCIAL MEDIA TRACKER ───────────────────── */
+.sm-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.sm-table th { background: #f5f6fa; color: var(--muted); font-weight: 600; font-size: 10px; letter-spacing: .07em; text-transform: uppercase; padding: 6px 10px; text-align: left; }
+.sm-table td { padding: 7px 10px; border-top: 1px solid #f0f0f0; color: #37474f; vertical-align: middle; }
+.sm-table tr:hover td { background: #fafafa; }
+.sm-empty { text-align: center; padding: 20px; color: #b0bec5; font-size: 13px; font-style: italic; }
+.sm-status { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.sm-pub    { background: #e8f5e9; color: #2e7d32; }
+.sm-rev    { background: #fff8e1; color: #e65100; }
+.sm-plan   { background: #e3f2fd; color: #1565c0; }
+.sm-pend   { background: #eceff1; color: #546e7a; }
+.sm-urgent { background: #ffebee; color: #b71c1c; }
 
-  /* FOOTER */
-  .footer { text-align: center; padding: 24px 40px; font-size: 11px; color: #90a4ae; border-top: 1px solid #e0e0e0; background: #fff; margin-top: 40px; }
+/* ─── BRIEFING SECTION ───────────────────────── */
+.brief-card { background: var(--card); border-radius: var(--r); box-shadow: var(--sh); border: 1px solid var(--border); overflow: hidden; }
+.brief-header { padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.brief-foto { display: flex; align-items: center; gap: 12px; }
+.foto-av { width: 44px; height: 44px; border-radius: 50%; background: var(--tc,#0d47a1); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.foto-name { font-family: var(--font-d); font-size: 15px; font-weight: 700; }
+.foto-tel  { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.foto-dates { font-size: 11.5px; color: #455a64; margin-top: 3px; }
+.brief-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn-open { font-size: 12px; font-weight: 700; color: #fff; background: #1565c0; text-decoration: none; padding: 7px 16px; border-radius: 7px; display: inline-flex; align-items: center; gap: 5px; }
+.btn-open:hover { background: #0d47a1; }
+.btn-open.sec { background: #f5f6fa; color: #455a64; border: 1px solid var(--border); }
+.btn-open.sec:hover { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
+.brief-iframe-wrap { border-top: 1px solid var(--border); position: relative; }
+.brief-iframe { width: 100%; height: 550px; border: none; display: block; }
+.brief-na { padding: 28px; text-align: center; color: var(--muted); font-size: 13px; }
+.brief-na .na-icon { font-size: 32px; margin-bottom: 10px; }
+.brief-na p { margin-bottom: 12px; }
 
-  @media (max-width: 680px) {
-    .header, .summary-strip, .main { padding-left: 16px; padding-right: 16px; }
-    .projects-grid, .planning-grid { grid-template-columns: 1fr; }
-    .summary-strip { gap: 18px; }
-  }
+/* ─── GAPS CARD ──────────────────────────────── */
+.gaps-card { background: var(--card); border-radius: var(--r); box-shadow: var(--sh); border: 1px solid var(--border); padding: 18px 20px; border-top: 3px solid #607d8b; }
+.gaps-card h4 { font-size: 13px; font-weight: 700; color: #37474f; margin-bottom: 10px; }
+.gap-row { display: flex; gap: 8px; font-size: 12px; color: #546e7a; padding: 5px 0; border-bottom: 1px solid #f0f0f0; align-items: flex-start; }
+.gap-row:last-child { border-bottom: none; }
+.gap-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: 2px 7px; border-radius: 4px; flex-shrink: 0; }
+.gl-pend { background: #fff8e1; color: #e65100; }
+.gl-none { background: #eceff1; color: #546e7a; }
+.gl-wa   { background: #e8f5e9; color: #2e7d32; }
+
+/* ─── PLAN CARD ──────────────────────────────── */
+.plan-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 10px; }
+.plan-card { background: var(--card); border-radius: var(--r); box-shadow: var(--sh); border: 1px solid var(--border); border-top: 3px solid var(--tc,#607d8b); padding: 14px 16px; }
+.plan-id { font-size: 10px; font-weight: 700; color: var(--muted); }
+.plan-name { font-size: 13px; font-weight: 700; color: #1a237e; line-height: 1.3; margin: 2px 0; }
+.plan-pat { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+.plan-items { list-style: none; }
+.plan-items li { display: flex; gap: 6px; font-size: 12px; color: #455a64; padding: 3px 0; border-bottom: 1px solid #f5f5f5; align-items: flex-start; }
+.plan-items li:last-child { border-bottom: none; }
+.blt { color: #90a4ae; flex-shrink: 0; margin-top: 1px; }
+
+@media (max-width: 680px) {
+  .panel { padding: 14px; }
+  .card-grid, .mini-grid, .plan-grid { grid-template-columns: 1fr; }
+  .sumbar { gap: 16px; }
+  .topbar-head { padding: 8px 16px 0; }
+  .tab-scroller { padding: 0 16px; }
+}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-top">
-    <span class="ntics-badge">NTICS Projetos</span>
-    <span class="ntics-badge">Relatório Semanal</span>
+<!-- ══════════════════════════════════════════════
+     TOPBAR + TABS
+══════════════════════════════════════════════ -->
+<div class="topbar">
+  <div class="topbar-head">
+    <div class="topbar-brand">NTICS Projetos <span>Painel Semanal · 19–23 mai 2026</span></div>
   </div>
-  <h1>Semana <span>19–23 mai 2026</span></h1>
-  <div class="header-meta">
-    <div class="header-meta-item"><span class="dot"></span> Fontes: ClickUp · Google Drive</div>
-    <div class="header-meta-item"><span class="dot"></span> Gerado em: 23/05/2026</div>
+  <div class="tab-scroller">
+    <div class="tab-list" id="tabList">
+      <button class="t-btn active" data-tab="dash"><span style="font-size:13px">📊</span> Visão Geral</button>
+      <button class="t-btn" data-tab="p116" style="--tc:#0d47a1"><span class="dot" style="--tc:#0d47a1"></span>116 · Áster</button>
+      <button class="t-btn" data-tab="p119" style="--tc:#1b5e20"><span class="dot" style="--tc:#1b5e20"></span>119 · Sylvamo</button>
+      <button class="t-btn" data-tab="p120" style="--tc:#00574A"><span class="dot" style="--tc:#00574A"></span>120 · Statkraft</button>
+      <button class="t-btn" data-tab="p124" style="--tc:#5D4037"><span class="dot" style="--tc:#5D4037"></span>124 · Compagas</button>
+      <button class="t-btn" data-tab="p125" style="--tc:#4a148c"><span class="dot" style="--tc:#4a148c"></span>125 · GRU Gastro</button>
+      <button class="t-btn" data-tab="p127g" style="--tc:#bf360c"><span class="dot" style="--tc:#bf360c"></span>127 · PIE GRU</button>
+      <button class="t-btn" data-tab="p127s" style="--tc:#37474f"><span class="dot" style="--tc:#37474f"></span>127 · SOTREQ</button>
+      <button class="t-btn" data-tab="p132" style="--tc:#4527a0"><span class="dot" style="--tc:#4527a0"></span>132 · Samarco</button>
+      <button class="t-btn" data-tab="p133" style="--tc:#004d40"><span class="dot" style="--tc:#004d40"></span>133 · Vibra</button>
+    </div>
   </div>
 </div>
 
-<!-- SUMMARY STRIP -->
-<div class="summary-strip">
-  <div class="summary-num"><div class="n">5</div><div class="l">Projetos em Campo</div></div>
-  <div class="summary-sep"></div>
-  <div class="summary-num"><div class="n">7+</div><div class="l">Atividades Executadas</div></div>
-  <div class="summary-sep"></div>
-  <div class="summary-num"><div class="n">190</div><div class="l">Alunos (125 · 19/05)</div></div>
-  <div class="summary-sep"></div>
-  <div class="summary-num"><div class="n">1</div><div class="l">Proj. Próxima Semana</div></div>
-  <div class="summary-sep"></div>
-  <div class="summary-num"><div class="n">5</div><div class="l">Em Planejamento</div></div>
-</div>
+<!-- ══════════════════════════════════════════════
+     DASHBOARD
+══════════════════════════════════════════════ -->
+<div class="panel active" id="t-dash">
+  <div class="sumbar">
+    <div class="sum-n"><div class="n">5</div><div class="l">Projetos em Campo</div></div>
+    <div class="sum-sep"></div>
+    <div class="sum-n"><div class="n">7+</div><div class="l">Atividades Executadas</div></div>
+    <div class="sum-sep"></div>
+    <div class="sum-n"><div class="n">190</div><div class="l">Alunos (125 · 19/05)</div></div>
+    <div class="sum-sep"></div>
+    <div class="sum-n"><div class="n">1</div><div class="l">Proj. Próxima Semana</div></div>
+    <div class="sum-sep"></div>
+    <div class="sum-n"><div class="n">5</div><div class="l">Em Planejamento</div></div>
+    <div class="sum-sep"></div>
+    <div class="sum-n"><div class="n">4</div><div class="l">Posts Em Revisão/Urgente</div></div>
+  </div>
 
-<!-- MAIN -->
-<div class="main">
-
-  <!-- ATIVIDADES EM CAMPO -->
-  <div class="section-label">Projetos com atividades em campo esta semana</div>
-  <div class="projects-grid">
-
-    <!-- ═══════════════════════════════════════ 116 ÁSTER ROBÓTICA -->
-    <div class="proj-card color-azul">
-      <div class="proj-header">
-        <div>
-          <div class="proj-id">116</div>
-          <div class="proj-nome">Cultura Robótica</div>
-          <div class="proj-pat">Áster Máquinas</div>
-        </div>
-        <span class="proj-status status-execucao">Execução</span>
-      </div>
-      <div class="proj-body">
-        <table class="atividades-table">
-          <thead><tr><th>Data</th><th>Escola / Local</th><th>Localidade</th><th>Atividade</th><th>Participantes</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><span class="data-badge concluido">19/05</span></td>
-              <td>—</td>
-              <td>São Gabriel do Oeste, MS</td>
-              <td>Oficina Robótica</td>
-              <td>—</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="cap-row"><span class="cam-icon">📸</span> Kassyano · (67) 9676-0917 · Sidrolândia (12–14/05 ✓) · São Gabriel (19/05 ✓) · Maracaju (28/05)</div>
-      </div>
-      <details class="card-prog">
-        <summary><span class="arrow">▶</span> Programação completa do projeto</summary>
-        <div class="prog-body">
-          <div class="prog-row"><span class="prog-date done">12–14/05</span><span class="prog-desc">Sidrolândia, MS — Oficina Robótica</span></div>
-          <div class="prog-row"><span class="prog-date done">19/05</span><span class="prog-desc">São Gabriel do Oeste, MS — Oficina Robótica</span></div>
-          <div class="prog-row"><span class="prog-date next">28/05</span><span class="prog-desc">Maracaju, MS — Oficina Robótica</span></div>
-          <div class="prog-footer">
-            <a href="../../116_cultura_robotica/" target="_blank" class="btn-captacao">📸 Entrar na orientação para captação →</a>
-          </div>
-        </div>
-      </details>
+  <div class="sec-hdr"><div class="ic" style="background:#e3f2fd">🏫</div><h3>Projetos em Campo</h3><div class="line"></div></div>
+  <div class="mini-grid">
+    <div class="mini-card" style="--tc:#0d47a1" onclick="switchTab('p116')">
+      <div class="mini-top"><div><div class="mini-id">116</div><div class="mini-name">Cultura Robótica</div><div class="mini-pat">Áster Máquinas</div></div><span class="badge s-exec">Execução</span></div>
+      <div class="mini-meta">📸 Kassyano · 19/05 São Gabriel ✓ · próxima: 28/05 Maracaju</div>
+      <div class="mini-sm"><span class="sm-chip pend">SM: a planejar</span></div>
     </div>
-
-    <!-- ═══════════════════════════════════════ 119 SYLVAMO PEC -->
-    <div class="proj-card color-verde">
-      <div class="proj-header">
-        <div>
-          <div class="proj-id">119</div>
-          <div class="proj-nome">PEC Eu Faço Parte</div>
-          <div class="proj-pat">Sylvamo</div>
-        </div>
-        <span class="proj-status status-execucao">Execução</span>
-      </div>
-      <div class="proj-body">
-        <table class="atividades-table">
-          <thead><tr><th>Data</th><th>Escola / Local</th><th>Localidade</th><th>Atividade</th><th>Participantes</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><span class="data-badge concluido">19/05</span></td>
-              <td>—</td>
-              <td>Mogi Guaçu, SP</td>
-              <td>PEC — Oficina Escola</td>
-              <td>—</td>
-            </tr>
-            <tr>
-              <td><span class="data-badge em-andamento">22/05</span></td>
-              <td>—</td>
-              <td>Mogi Guaçu, SP</td>
-              <td>PEC — Oficina Escola</td>
-              <td>—</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="cap-row"><span class="cam-icon">📸</span> Junior · (11) 99229-0598 · 11/05 ✓ · 15/05 ✓ · 22/05 ✓ · 29/05 (próxima)</div>
-        <div class="alerts-block">
-          <div class="alert-item warn">⚡ Ponto focal mudou: Tay → Doro (Dorothe)</div>
-          <div class="highlight-item">✅ Carrossel Durante (Mogi Guaçu) em revisão · Vídeo 1 em revisão</div>
-          <div class="highlight-item">🌳 Over-delivery aprovado: visita à área verde / parque florestal da Sylvamo</div>
-        </div>
-      </div>
-      <details class="card-prog">
-        <summary><span class="arrow">▶</span> Programação completa do projeto</summary>
-        <div class="prog-body">
-          <div class="prog-row"><span class="prog-date done">11/05</span><span class="prog-desc">Mogi Guaçu, SP — PEC Oficina Escola</span></div>
-          <div class="prog-row"><span class="prog-date done">15/05</span><span class="prog-desc">Mogi Guaçu, SP — PEC Oficina Escola</span></div>
-          <div class="prog-row"><span class="prog-date done">22/05</span><span class="prog-desc">Mogi Guaçu, SP — PEC Oficina Escola</span></div>
-          <div class="prog-row"><span class="prog-date next">29/05</span><span class="prog-desc">Mogi Guaçu, SP — PEC Oficina Escola</span></div>
-          <div class="prog-footer">
-            <a href="../../119_pec/" target="_blank" class="btn-captacao">📸 Entrar na orientação para captação →</a>
-          </div>
-        </div>
-      </details>
+    <div class="mini-card" style="--tc:#1b5e20" onclick="switchTab('p119')">
+      <div class="mini-top"><div><div class="mini-id">119</div><div class="mini-name">PEC Eu Faço Parte</div><div class="mini-pat">Sylvamo</div></div><span class="badge s-exec">Execução</span></div>
+      <div class="mini-meta">📸 Junior · 22/05 ✓ · próxima: 29/05</div>
+      <div class="mini-sm"><span class="sm-chip rev">Carrossel em revisão</span><span class="sm-chip rev">Vídeo em revisão</span></div>
     </div>
-
-    <!-- ═══════════════════════════════════════ 120 STATKRAFT -->
-    <div class="proj-card color-teal">
-      <div class="proj-header">
-        <div>
-          <div class="proj-id">120</div>
-          <div class="proj-nome">Negócio Cultural 2ª Ed.</div>
-          <div class="proj-pat">Statkraft · Porto Itapoá, SC · Sertão Baiano, BA</div>
-        </div>
-        <span class="proj-status status-execucao">Execução</span>
-      </div>
-      <div class="proj-body">
-        <table class="atividades-table">
-          <thead><tr><th>Data</th><th>Escola / Local</th><th>Localidade</th><th>Atividade</th><th>Participantes</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><span class="data-badge em-andamento">22/05</span></td>
-              <td>Col. Municipal Riacho de Areia</td>
-              <td>Uibaí, BA</td>
-              <td>Oficinas na Escola</td>
-              <td>—</td>
-            </tr>
-            <tr>
-              <td><span class="data-badge">25–28/05</span></td>
-              <td>4 escolas confirmadas</td>
-              <td>Ibipeba, BA</td>
-              <td>Oficinas na Escola</td>
-              <td>—</td>
-            </tr>
-            <tr>
-              <td><span class="data-badge">26–28/05</span></td>
-              <td>Col. Municipal Riacho de Areia +1</td>
-              <td>Uibaí, BA</td>
-              <td>Oficinas na Escola</td>
-              <td>—</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="cap-row"><span class="cam-icon">📸</span> Fotógrafo Porto Itapoá: Breno Bigi · (92) 98481-6362 · em andamento</div>
-        <div class="alerts-block">
-          <div class="alert-item warn">⚡ Demora no retorno das secretarias (Statkraft). Jeferson Santana apoiando engajamento.</div>
-          <div class="highlight-item">💡 Evento final: Hackathon Cultural "Dia da Cultura Empreendedora" — Porto Itapoá. Reunião com Rafa na sexta.</div>
-        </div>
-      </div>
-      <details class="card-prog">
-        <summary><span class="arrow">▶</span> Programação completa do projeto</summary>
-        <div class="prog-body">
-          <div class="prog-row"><span class="prog-date going">22/05</span><span class="prog-desc">Uibaí, BA — Col. Municipal Riacho de Areia · Oficinas na Escola</span></div>
-          <div class="prog-row"><span class="prog-date next">25–28/05</span><span class="prog-desc">Ibipeba, BA — 4 escolas · Oficinas na Escola</span></div>
-          <div class="prog-row"><span class="prog-date next">26–28/05</span><span class="prog-desc">Uibaí, BA — Col. Municipal Riacho de Areia +1 · Oficinas na Escola</span></div>
-          <div class="prog-row"><span class="prog-date next">em andamento</span><span class="prog-desc">Porto Itapoá, SC — atividades em campo · Breno Bigi (fotógrafo)</span></div>
-          <div class="prog-footer">
-            <a href="../../120_statkraft/" target="_blank" class="btn-captacao">📸 Entrar na orientação para captação →</a>
-          </div>
-        </div>
-      </details>
+    <div class="mini-card" style="--tc:#00574A" onclick="switchTab('p120')">
+      <div class="mini-top"><div><div class="mini-id">120</div><div class="mini-name">Negócio Cultural 2ª Ed.</div><div class="mini-pat">Statkraft</div></div><span class="badge s-exec">Execução</span></div>
+      <div class="mini-meta">📸 Breno Bigi (Porto Itapoá) · Ibipeba 25–28/05</div>
+      <div class="mini-sm"><span class="sm-chip pend">SM: a planejar</span></div>
     </div>
-
-    <!-- ═══════════════════════════════════════ 125 GASTRONOMIA GRU -->
-    <div class="proj-card color-roxo">
-      <div class="proj-header">
-        <div>
-          <div class="proj-id">125</div>
-          <div class="proj-nome">Gastronomia Também É Arte 2ª Ed.</div>
-          <div class="proj-pat">GRU Airport · Guarulhos, SP</div>
-        </div>
-        <span class="proj-status status-execucao">Execução</span>
-      </div>
-      <div class="proj-body">
-        <table class="atividades-table">
-          <thead><tr><th>Data</th><th>Escola / Local</th><th>Localidade</th><th>Atividade</th><th>Participantes</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><span class="data-badge concluido">19/05</span></td>
-              <td>E.E. Walter Fusco</td>
-              <td>Guarulhos, SP</td>
-              <td>Workshop Fotografia · 8h–17h</td>
-              <td><span class="part-badge">190 alunos</span></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="cap-row"><span class="cam-icon">📸</span> Fotógrafo João · Material disponível no Drive</div>
-        <div class="alerts-block">
-          <div class="alert-item info">ℹ️ Exposição final prevista para 05/07 no GRU Airport</div>
-        </div>
-      </div>
-      <details class="card-prog">
-        <summary><span class="arrow">▶</span> Programação completa do projeto</summary>
-        <div class="prog-body">
-          <div class="prog-row"><span class="prog-date done">19/05</span><span class="prog-desc">E.E. Walter Fusco, Guarulhos — Workshop Fotografia · 190 alunos</span></div>
-          <div class="prog-row"><span class="prog-date next">05/07</span><span class="prog-desc">GRU Airport — Exposição final</span></div>
-          <div class="prog-footer">
-            <a href="../../125_gastronomia/" target="_blank" class="btn-captacao">📸 Entrar na orientação para captação →</a>
-          </div>
-        </div>
-      </details>
+    <div class="mini-card" style="--tc:#4a148c" onclick="switchTab('p125')">
+      <div class="mini-top"><div><div class="mini-id">125</div><div class="mini-name">Gastronomia Também É Arte 2ª Ed.</div><div class="mini-pat">GRU Airport</div></div><span class="badge s-exec">Execução</span></div>
+      <div class="mini-meta">📸 João · 19/05 E.E. Walter Fusco ✓ · 190 alunos</div>
+      <div class="mini-sm"><span class="sm-chip plan">Post material disponível</span></div>
     </div>
-
-    <!-- ═══════════════════════════════════════ 127 GRU AIRPORT -->
-    <div class="proj-card color-laranja">
-      <div class="proj-header">
-        <div>
-          <div class="proj-id">127 · GRU Airport</div>
-          <div class="proj-nome">PIE Empreendedorismo É Arte 2ª Ed.</div>
-          <div class="proj-pat">GRU Airport · Guarulhos, SP</div>
-        </div>
-        <span class="proj-status status-execucao">Execução</span>
-      </div>
-      <div class="proj-body">
-        <table class="atividades-table">
-          <thead><tr><th>Data</th><th>Escola / Local</th><th>Localidade</th><th>Atividade</th><th>Participantes</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><span class="data-badge concluido">19/05</span></td>
-              <td>Escola Alexandre Lopes</td>
-              <td>Guarulhos, SP</td>
-              <td>Palestras e Atividades</td>
-              <td>—</td>
-            </tr>
-            <tr>
-              <td><span class="data-badge concluido">21/05</span></td>
-              <td>Campo aberto</td>
-              <td>Guarulhos, SP</td>
-              <td>Captação em Campo</td>
-              <td>—</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="cap-row"><span class="cam-icon">📸</span> Captação 21/05 realizada — fotos aprovadas pelo cliente</div>
-        <div class="alerts-block">
-          <div class="alert-item info">ℹ️ Próximas: E.E. JD Nova Cumbica (25–27/05) · E.E. PEI Cidade Soimco II (28–29/05)</div>
-          <div class="highlight-item">📋 "Fotos Oficinas Artes Plásticas" — alta prioridade esta semana</div>
-        </div>
-      </div>
-      <details class="card-prog">
-        <summary><span class="arrow">▶</span> Programação completa do projeto</summary>
-        <div class="prog-body">
-          <div class="prog-row"><span class="prog-date done">19/05</span><span class="prog-desc">Escola Alexandre Lopes, Guarulhos — Palestras e Atividades</span></div>
-          <div class="prog-row"><span class="prog-date done">21/05</span><span class="prog-desc">Guarulhos — Captação em Campo (fotos aprovadas)</span></div>
-          <div class="prog-row"><span class="prog-date next">25–27/05</span><span class="prog-desc">E.E. JD Nova Cumbica, Guarulhos</span></div>
-          <div class="prog-row"><span class="prog-date next">28–29/05</span><span class="prog-desc">E.E. PEI Cidade Soimco II, Guarulhos</span></div>
-          <div class="prog-row"><span class="prog-date next">02/06, 26/06</span><span class="prog-desc">E.E. Walter Fusco, Guarulhos</span></div>
-          <div class="prog-row"><span class="prog-date next">08–12/06</span><span class="prog-desc">E.E. Milton Cernach, Guarulhos</span></div>
-          <div class="prog-footer">
-            <a href="../../127_pie_guarulhos/" target="_blank" class="btn-captacao">📸 Entrar na orientação para captação →</a>
-          </div>
-        </div>
-      </details>
+    <div class="mini-card" style="--tc:#bf360c" onclick="switchTab('p127g')">
+      <div class="mini-top"><div><div class="mini-id">127 · GRU</div><div class="mini-name">PIE Empreendedorismo É Arte</div><div class="mini-pat">GRU Airport</div></div><span class="badge s-exec">Execução</span></div>
+      <div class="mini-meta">📸 Captação 21/05 ✓ aprovada · próxima: 25–27/05</div>
+      <div class="mini-sm"><span class="sm-chip" style="background:#ffebee;color:#b71c1c">URGENTE: post 22/05</span></div>
     </div>
-
-    <!-- ═══════════════════════════════════════ 127 SOTREQ -->
-    <div class="proj-card color-cinza">
-      <div class="proj-header">
-        <div>
-          <div class="proj-id">127 · SOTREQ</div>
-          <div class="proj-nome">PIE Empreendedorismo É Arte 2ª Ed.</div>
-          <div class="proj-pat">SOTREQ · Guarulhos, SP</div>
-        </div>
-        <span class="proj-status status-aguardando">Aguardando</span>
-      </div>
-      <div class="proj-body">
-        <table class="atividades-table">
-          <thead><tr><th>Data</th><th>Escola / Local</th><th>Localidade</th><th>Atividade</th><th>Participantes</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><span class="data-badge a-confirmar">A confirmar</span></td>
-              <td>E.E. Maria Hilda Ornelas</td>
-              <td>Guarulhos, SP</td>
-              <td>Palestras e Atividades</td>
-              <td>—</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="cap-row"><span class="cam-icon">📸</span> <span class="cap-vazio">Fotógrafo: aguardando definição de data</span></div>
-      </div>
-      <details class="card-prog">
-        <summary><span class="arrow">▶</span> Programação completa do projeto</summary>
-        <div class="prog-body">
-          <div class="prog-row"><span class="prog-date tbc">A confirmar</span><span class="prog-desc">E.E. Maria Hilda Ornelas, Guarulhos — Palestras e Atividades</span></div>
-          <div class="prog-footer">
-            <a href="../../127_pie_serra/" target="_blank" class="btn-captacao">📸 Entrar na orientação para captação →</a>
-          </div>
-        </div>
-      </details>
-    </div>
-
-  </div><!-- end campo grid -->
-
-  <!-- PRÓXIMA SEMANA -->
-  <div class="section-label">Atividades confirmadas · Próxima semana</div>
-  <div class="projects-grid">
-
-    <!-- ═══════════════════════════════════════ 124 COMPAGAS -->
-    <div class="proj-card color-cinza">
-      <div class="proj-header">
-        <div>
-          <div class="proj-id">124</div>
-          <div class="proj-nome">Gastronomia Também É Arte</div>
-          <div class="proj-pat">Compagas · CEJU — Lapa, PR</div>
-        </div>
-        <span class="proj-status status-execucao">Execução</span>
-      </div>
-      <div class="proj-body">
-        <table class="atividades-table">
-          <thead><tr><th>Data</th><th>Escola / Local</th><th>Localidade</th><th>Atividade</th><th>Participantes</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><span class="data-badge">27/05</span></td>
-              <td>CEJU — Lapa</td>
-              <td>Lapa, PR</td>
-              <td>Aula Show Culinária · 13h · Abertura Exposição</td>
-              <td><span class="part-badge">30 alunos</span></td>
-            </tr>
-            <tr>
-              <td><span class="data-badge">28/05</span></td>
-              <td>CEJU — Lapa</td>
-              <td>Lapa, PR</td>
-              <td>Workshop Fotografia · 2 turmas · 9h e 14h</td>
-              <td><span class="part-badge">40/turma</span></td>
-            </tr>
-            <tr>
-              <td><span class="data-badge">27/05–27/06</span></td>
-              <td>CEJU — Lapa</td>
-              <td>Lapa, PR</td>
-              <td>Exposição "Gastronomia Também É Arte"</td>
-              <td><span class="part-badge">1.000 alunos</span></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="cap-row"><span class="cam-icon">📸</span> Fotógrafo: Douglas Coelho · (41) 99669-2757 · Captações 27/05 e 28/05</div>
-        <div class="alerts-block">
-          <div class="alert-item info">ℹ️ Próximas atividades: Aula Show (29/05, 03/06, 10/06) · Workshops (01/06, 02/06) · Palestra virtual 26/06 — 30 professores</div>
-        </div>
-      </div>
-      <details class="card-prog">
-        <summary><span class="arrow">▶</span> Programação completa do projeto</summary>
-        <div class="prog-body">
-          <div class="prog-row"><span class="prog-date next">27/05</span><span class="prog-desc">CEJU Lapa — Aula Show Culinária 13h · Abertura Exposição · 30 alunos</span></div>
-          <div class="prog-row"><span class="prog-date next">28/05</span><span class="prog-desc">CEJU Lapa — Workshop Fotografia ×2 (9h + 14h) · 40 alunos/turma</span></div>
-          <div class="prog-row"><span class="prog-date next">29/05</span><span class="prog-desc">CEJU Lapa — Aula Show Culinária 9h</span></div>
-          <div class="prog-row"><span class="prog-date next">01–02/06</span><span class="prog-desc">CEJU Lapa — Workshops Fotografia (múltiplas turmas)</span></div>
-          <div class="prog-row"><span class="prog-date next">03/06</span><span class="prog-desc">CEJU Lapa — Aula Show Culinária 13h</span></div>
-          <div class="prog-row"><span class="prog-date next">10/06</span><span class="prog-desc">CEJU Lapa — Aula Show Culinária 9h</span></div>
-          <div class="prog-row"><span class="prog-date next">26/06</span><span class="prog-desc">CEJU Lapa — Palestra virtual · 30 professores</span></div>
-          <div class="prog-row"><span class="prog-date next">27/05–27/06</span><span class="prog-desc">Exposição "Gastronomia Também É Arte" no CEJU · 1.000 alunos</span></div>
-          <div class="prog-footer">
-            <a href="../../124_compagas/" target="_blank" class="btn-captacao">📸 Entrar na orientação para captação →</a>
-          </div>
-        </div>
-      </details>
-    </div>
-
-  </div><!-- end próxima semana grid -->
-
-  <!-- PROJETOS EM PLANEJAMENTO -->
-  <div class="section-label">Projetos em planejamento ativo esta semana</div>
-  <div class="planning-grid">
-
-    <div class="plan-card color-teal">
-      <div class="plan-header">
-        <div>
-          <div class="plan-id">133</div>
-          <div class="plan-nome">Ecoarte Caminhão ODS</div>
-          <div class="plan-pat">Vibra Energia · Manaus, AM</div>
-        </div>
-        <span class="proj-status status-planejamento">Planejamento</span>
-      </div>
-      <ul class="plan-items">
-        <li><span class="bullet">●</span> Engajamento com escolas em Manaus: IFAM (ODS 2) e SEMMA iniciados semana</li>
-        <li><span class="bullet">●</span> Design dos painéis internos do caminhão em desenvolvimento</li>
-        <li><span class="bullet">●</span> Evento principal: Talk em 12/06 e Praça em 14/06</li>
-        <li><span class="bullet">●</span> Secretaria de Educação do RJ acionada (modelo norteador enviado)</li>
-      </ul>
-    </div>
-
-    <div class="plan-card color-roxo">
-      <div class="plan-header">
-        <div>
-          <div class="plan-id">132</div>
-          <div class="plan-nome">Estação Samarco</div>
-          <div class="plan-pat">Samarco · MG (múltiplas cidades)</div>
-        </div>
-        <span class="proj-status status-planejamento">Planejamento</span>
-      </div>
-      <ul class="plan-items">
-        <li><span class="bullet">●</span> Profissional de empreendedorismo contratada: Lígia Mendes (R$ 850/encontro)</li>
-        <li><span class="bullet">●</span> Primeiro contato com produtor/culinarista ES iniciado</li>
-        <li><span class="bullet">●</span> Cidades mapeadas: Bento Rodrigues, Brumal, Catas Altas, Antônio Pereira, Santa Rita Durão, Camargos, Paracatú</li>
-      </ul>
-    </div>
-
-    <div class="plan-card color-cinza">
-      <div class="plan-header">
-        <div>
-          <div class="plan-id">117</div>
-          <div class="plan-nome">Teatro e Oficina Robótica 4ª Ed.</div>
-          <div class="plan-pat">Whirlpool · Rio Claro / Joinville</div>
-        </div>
-        <span class="proj-status status-encerrando">Encerrando</span>
-      </div>
-      <ul class="plan-items">
-        <li><span class="bullet">●</span> Carta de Comprovação Rio Claro devida esta semana</li>
-        <li><span class="bullet">●</span> Visitação escolar à Whirlpool: 11–12/06 (15 alunos + professor)</li>
-        <li><span class="bullet">●</span> Premiação dos vencedores: definir data com Diretora Cléa</li>
-        <li><span class="bullet">●</span> Materiais preservados na escola até premiação (banners, roll-up, robô gigante)</li>
-      </ul>
-    </div>
-
-    <div class="plan-card color-amarelo">
-      <div class="plan-header">
-        <div>
-          <div class="plan-id">74</div>
-          <div class="plan-nome">Global Goals Educa</div>
-          <div class="plan-pat">Áster Máquinas · MT / Pantanal</div>
-        </div>
-        <span class="proj-status status-urgente">Encerrando</span>
-      </div>
-      <ul class="plan-items">
-        <li><span class="bullet">●</span> Orçamento para viagem de premiação MT / Pantanal em andamento</li>
-        <li><span class="bullet">●</span> Notificação da Áster sobre premiação pendente (Abilio)</li>
-        <li><span class="bullet">●</span> Bruna levantando reunião com a rede para divulgação</li>
-      </ul>
-    </div>
-
-    <div class="plan-card color-cinza">
-      <div class="plan-header">
-        <div>
-          <div class="plan-id">129</div>
-          <div class="plan-nome">Agrofuturo Cultural nas Escolas</div>
-          <div class="plan-pat">CNH / Case IH</div>
-        </div>
-        <span class="proj-status status-kickoff">Kickoff</span>
-      </div>
-      <ul class="plan-items">
-        <li><span class="bullet">●</span> Reunião 19/05: 14 pontos de ajuste na apresentação comercial (urgente)</li>
-        <li><span class="bullet">●</span> Kickoff com Case IH agendado</li>
-        <li><span class="bullet">●</span> Pré-Termo de Abertura em elaboração</li>
-      </ul>
-    </div>
-
-  </div><!-- end planning-grid -->
-
-  <!-- GAPS E PENDÊNCIAS -->
-  <div class="gaps-card">
-    <h3>Gaps / Pendências · Dados não levantados</h3>
-    <div class="gap-item">
-      <span class="gap-label whatsapp">WhatsApp</span>
-      Grupos dos projetos não acessados — WhatsApp Web requer sessão autenticada com browser.
-    </div>
-    <div class="gap-item">
-      <span class="gap-label whatsapp">Instagram</span>
-      Posts e stories da semana @nticsprojetos não coletados — Instagram é SPA e requer autenticação.
-    </div>
-    <div class="gap-item">
-      <span class="gap-label sem-dados">Sem dados</span>
-      116 (Áster): número de alunos em São Gabriel do Oeste não disponível nas fontes consultadas.
-    </div>
-    <div class="gap-item">
-      <span class="gap-label sem-dados">Sem dados</span>
-      119 (Sylvamo): escolas específicas visitadas em Mogi Guaçu não identificadas.
-    </div>
-    <div class="gap-item">
-      <span class="gap-label sem-dados">Sem dados</span>
-      120 (Statkraft / Uibaí 22/05): número de alunos não disponível.
-    </div>
-    <div class="gap-item">
-      <span class="gap-label pendente">Pendente</span>
-      127 (SOTREQ): data de execução na E.E. Maria Hilda Ornelas ainda sem definição.
-    </div>
-    <div class="gap-item">
-      <span class="gap-label pendente">Pendente</span>
-      120 (Statkraft / Porto Itapoá): datas específicas das captações de Breno Bigi não confirmadas.
-    </div>
-    <div class="gap-item">
-      <span class="gap-label pendente">Pendente</span>
-      125 (GRU Gastronomia): próximas datas de captação com o fotógrafo João além de 19/05 não identificadas.
+    <div class="mini-card" style="--tc:#37474f" onclick="switchTab('p127s')">
+      <div class="mini-top"><div><div class="mini-id">127 · SOTREQ</div><div class="mini-name">PIE Empreendedorismo É Arte</div><div class="mini-pat">SOTREQ</div></div><span class="badge s-wait">Aguardando</span></div>
+      <div class="mini-meta">E.E. Maria Hilda Ornelas · data a confirmar</div>
+      <div class="mini-sm"><span class="sm-chip pend">SM: aguardando data</span></div>
     </div>
   </div>
 
-</div><!-- end main -->
+  <div class="sec-hdr" style="margin-top:28px"><div class="ic" style="background:#e8eaf6">📋</div><h3>Atividades Confirmadas · Próxima Semana</h3><div class="line"></div></div>
+  <div class="mini-grid">
+    <div class="mini-card" style="--tc:#5D4037" onclick="switchTab('p124')">
+      <div class="mini-top"><div><div class="mini-id">124</div><div class="mini-name">Gastronomia Também É Arte</div><div class="mini-pat">Compagas · Lapa, PR</div></div><span class="badge s-exec">Execução</span></div>
+      <div class="mini-meta">📸 Douglas Coelho · Captações 27/05 e 28/05 · Abertura exposição 27/05</div>
+      <div class="mini-sm"><span class="sm-chip plan">Post exposição (27/05)</span><span class="sm-chip plan">Post workshop (28/05)</span></div>
+    </div>
+  </div>
 
-<div class="footer">
-  NTICS Projetos · Relatório gerado a partir de ClickUp e Google Drive · 23/05/2026 &nbsp;|&nbsp;
-  <a href="../../index.html" style="color:#90a4ae">← Início</a>
+  <div class="sec-hdr" style="margin-top:28px"><div class="ic" style="background:#eceff1">📌</div><h3>Em Planejamento</h3><div class="line"></div></div>
+  <div class="plan-grid">
+    <div class="plan-card" style="--tc:#004d40" onclick="switchTab('p133')">
+      <div class="plan-id">133</div><div class="plan-name">Ecoarte Caminhão ODS</div><div class="plan-pat">Vibra Energia · Manaus, AM</div>
+      <ul class="plan-items">
+        <li><span class="blt">●</span>Talk 12/06 · Praça 14/06 — posts em preparação</li>
+        <li><span class="blt">●</span>Engajamento IFAM e SEMMA iniciado</li>
+      </ul>
+    </div>
+    <div class="plan-card" style="--tc:#4527a0" onclick="switchTab('p132')">
+      <div class="plan-id">132</div><div class="plan-name">Estação Samarco</div><div class="plan-pat">Samarco · MG</div>
+      <ul class="plan-items">
+        <li><span class="blt">●</span>Lígia Mendes contratada · Cidades confirmando</li>
+        <li><span class="blt">●</span>Primeiro contato culinarista ES iniciado</li>
+      </ul>
+    </div>
+    <div class="plan-card" style="--tc:#37474f">
+      <div class="plan-id">117</div><div class="plan-name">Teatro e Oficina Robótica 4ª Ed.</div><div class="plan-pat">Whirlpool · Rio Claro / Joinville</div>
+      <ul class="plan-items"><li><span class="blt">●</span>Carta de Comprovação devida · Visitação 11–12/06</li></ul>
+    </div>
+    <div class="plan-card" style="--tc:#e65100">
+      <div class="plan-id">74</div><div class="plan-name">Global Goals Educa</div><div class="plan-pat">Áster Máquinas · MT / Pantanal</div>
+      <ul class="plan-items"><li><span class="blt">●</span>Orçamento premiação MT/Pantanal em andamento</li></ul>
+    </div>
+    <div class="plan-card" style="--tc:#37474f">
+      <div class="plan-id">129</div><div class="plan-name">Agrofuturo Cultural nas Escolas</div><div class="plan-pat">CNH / Case IH</div>
+      <ul class="plan-items"><li><span class="blt">●</span>14 ajustes pós-reunião 19/05 · Kickoff agendado</li></ul>
+    </div>
+  </div>
+
+  <div class="gaps-card" style="margin-top:24px">
+    <h4>Gaps / Dados não levantados</h4>
+    <div class="gap-row"><span class="gap-lbl gl-wa">WhatsApp</span>Grupos dos projetos não acessados — requer sessão autenticada no browser.</div>
+    <div class="gap-row"><span class="gap-lbl gl-wa">Instagram</span>@nticsprojetos — posts e stories da semana não coletados via WebFetch (SPA autenticado).</div>
+    <div class="gap-row"><span class="gap-lbl gl-pend">Pendente</span>127 SOTREQ · 120 Porto Itapoá (Breno): datas de captação específicas não confirmadas.</div>
+    <div class="gap-row"><span class="gap-lbl gl-none">Sem dados</span>SM de 116, 120, 127-SOTREQ, 132, 133 — datas de postagem não identificadas no ClickUp.</div>
+  </div>
 </div>
 
+<!-- ══════════════════════════════════════════════
+     116 · ÁSTER ROBÓTICA
+══════════════════════════════════════════════ -->
+<div class="panel" id="t-p116">
+  <!-- CAMPO -->
+  <div class="sec-hdr"><div class="ic" style="background:#e3f2fd">🏫</div><h3>Campo</h3><div class="line"></div></div>
+  <div class="card-grid">
+    <div class="proj-card" style="--tc:#0d47a1">
+      <div class="ph"><div><div class="ph-id">116</div><div class="ph-name">Cultura Robótica</div><div class="ph-pat">Áster Máquinas</div></div><span class="badge s-exec">Execução</span></div>
+      <div class="pb">
+        <table class="at"><thead><tr><th>Data</th><th>Escola / Local</th><th>Localidade</th><th>Atividade</th><th>Participantes</th></tr></thead>
+        <tbody>
+          <tr><td><span class="db ok">12–14/05</span></td><td>—</td><td>Sidrolândia, MS</td><td>Oficina Robótica</td><td>—</td></tr>
+          <tr><td><span class="db ok">19/05</span></td><td>—</td><td>São Gabriel do Oeste, MS</td><td>Oficina Robótica</td><td>—</td></tr>
+          <tr><td><span class="db nx">28/05</span></td><td>—</td><td>Maracaju, MS</td><td>Oficina Robótica</td><td>—</td></tr>
+        </tbody></table>
+      </div>
+      <div class="cap"><span class="ci">📸</span>Kassyano · (67) 9676-0917 · Sidrolândia (12–14/05 ✓) · São Gabriel (19/05 ✓) · Maracaju (28/05)</div>
+      <details class="cprog"><summary><span class="arr">▶</span> Programação completa</summary>
+        <div class="cprog-body">
+          <div class="pr"><span class="pr-d ok">12–14/05</span><span class="pr-info">Sidrolândia, MS — Oficina Robótica</span></div>
+          <div class="pr"><span class="pr-d ok">19/05</span><span class="pr-info">São Gabriel do Oeste, MS — Oficina Robótica</span></div>
+          <div class="pr"><span class="pr-d nx">28/05</span><span class="pr-info">Maracaju, MS — Oficina Robótica</span></div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- REDES SOCIAIS -->
+  <div class="sec-hdr"><div class="ic" style="background:#f3e5f5">📱</div><h3>Redes Sociais · Acompanhamento</h3><div class="line"></div></div>
+  <div class="card" style="overflow:hidden">
+    <table class="sm-table"><thead><tr><th>Tipo</th><th>Conteúdo</th><th>Data prevista</th><th>Status</th><th>Plataforma</th></tr></thead>
+    <tbody>
+      <tr><td>Post / Reel</td><td>Atividade São Gabriel do Oeste — 19/05</td><td>A definir</td><td><span class="sm-status sm-plan">A planejar</span></td><td>Instagram</td></tr>
+      <tr><td>Post / Reel</td><td>Atividade Maracaju — 28/05</td><td>Pós 28/05</td><td><span class="sm-status sm-pend">Aguardando captação</span></td><td>Instagram</td></tr>
+    </tbody></table>
+  </div>
+
+  <!-- BRIEFING -->
+  <div class="sec-hdr"><div class="ic" style="background:#e8f5e9">📸</div><h3>Briefing Fotógrafo</h3><div class="line"></div></div>
+  <div class="brief-card">
+    <div class="brief-header">
+      <div class="brief-foto">
+        <div class="foto-av" style="background:#0d47a1">📷</div>
+        <div><div class="foto-name">Kassyano</div><div class="foto-tel">(67) 9676-0917</div><div class="foto-dates">12–14/05 Sidrolândia · 19/05 São Gabriel do Oeste · 28/05 Maracaju</div></div>
+      </div>
+      <div class="brief-actions">
+        <a href="../../116_cultura_robotica/" target="_blank" class="btn-open">📸 Abrir briefing completo ↗</a>
+      </div>
+    </div>
+    <div class="brief-iframe-wrap">
+      <iframe src="../../116_cultura_robotica/" class="brief-iframe" loading="lazy" title="Briefing 116 Cultura Robótica"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     119 · SYLVAMO PEC
+══════════════════════════════════════════════ -->
+<div class="panel" id="t-p119">
+  <div class="sec-hdr"><div class="ic" style="background:#e8f5e9">🏫</div><h3>Campo</h3><div class="line"></div></div>
+  <div class="card-grid">
+    <div class="proj-card" style="--tc:#1b5e20">
+      <div class="ph"><div><div class="ph-id">119</div><div class="ph-name">PEC Eu Faço Parte</div><div class="ph-pat">Sylvamo</div></div><span class="badge s-exec">Execução</span></div>
+      <div class="pb">
+        <table class="at"><thead><tr><th>Data</th><th>Escola / Local</th><th>Localidade</th><th>Atividade</th><th>Participantes</th></tr></thead>
+        <tbody>
+          <tr><td><span class="db ok">11/05</span></td><td>—</td><td>Mogi Guaçu, SP</td><td>PEC — Oficina Escola</td><td>—</td></tr>
+          <tr><td><span class="db ok">15/05</span></td><td>—</td><td>Mogi Guaçu, SP</td><td>PEC — Oficina Escola</td><td>—</td></tr>
+          <tr><td><span class="db ok">22/05</span></td><td>—</td><td>Mogi Guaçu, SP</td><td>PEC — Oficina Escola</td><td>—</td></tr>
+          <tr><td><span class="db nx">29/05</span></td><td>—</td><td>Mogi Guaçu, SP</td><td>PEC — Oficina Escola</td><td>—</td></tr>
+        </tbody></table>
+      </div>
+      <div class="cap"><span class="ci">📸</span>Junior · (11) 99229-0598 · 11/05 ✓ · 15/05 ✓ · 22/05 ✓ · 29/05 (próxima)</div>
+      <div class="al warn">⚡ Ponto focal mudou: Tay → Doro (Dorothe)</div>
+      <div class="al ok" style="margin-bottom:8px">✅ Carrossel "Durante" em revisão · Vídeo 1 em revisão · Over-delivery parque florestal aprovado</div>
+    </div>
+  </div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#f3e5f5">📱</div><h3>Redes Sociais · Acompanhamento</h3><div class="line"></div></div>
+  <div class="card" style="overflow:hidden">
+    <table class="sm-table"><thead><tr><th>Tipo</th><th>Conteúdo</th><th>Data prevista</th><th>Status</th><th>Plataforma</th></tr></thead>
+    <tbody>
+      <tr><td>Carrossel</td><td>"Durante" — Mogi Guaçu · captação 22/05</td><td>A definir</td><td><span class="sm-status sm-rev">Em revisão</span></td><td>Instagram</td></tr>
+      <tr><td>Vídeo</td><td>Vídeo 1 — PEC Eu Faço Parte</td><td>A definir</td><td><span class="sm-status sm-rev">Em revisão</span></td><td>Instagram</td></tr>
+      <tr><td>Post / Reel</td><td>Captação 29/05 — Mogi Guaçu</td><td>Pós 29/05</td><td><span class="sm-status sm-pend">Aguardando captação</span></td><td>Instagram</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#e8f5e9">📸</div><h3>Briefing Fotógrafo</h3><div class="line"></div></div>
+  <div class="brief-card">
+    <div class="brief-header">
+      <div class="brief-foto">
+        <div class="foto-av" style="background:#1b5e20">📷</div>
+        <div><div class="foto-name">Junior</div><div class="foto-tel">(11) 99229-0598</div><div class="foto-dates">11/05 ✓ · 15/05 ✓ · 22/05 ✓ · 29/05 (próxima)</div></div>
+      </div>
+      <div class="brief-actions"><a href="../../119_pec/" target="_blank" class="btn-open">📸 Abrir briefing completo ↗</a></div>
+    </div>
+    <div class="brief-iframe-wrap">
+      <iframe src="../../119_pec/" class="brief-iframe" loading="lazy" title="Briefing 119 PEC Sylvamo"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     120 · STATKRAFT
+══════════════════════════════════════════════ -->
+<div class="panel" id="t-p120">
+  <div class="sec-hdr"><div class="ic" style="background:#e0f2f1">🏫</div><h3>Campo</h3><div class="line"></div></div>
+  <div class="card-grid">
+    <div class="proj-card" style="--tc:#00574A">
+      <div class="ph"><div><div class="ph-id">120</div><div class="ph-name">Negócio Cultural 2ª Ed.</div><div class="ph-pat">Statkraft · Porto Itapoá, SC · Sertão Baiano, BA</div></div><span class="badge s-exec">Execução</span></div>
+      <div class="pb">
+        <table class="at"><thead><tr><th>Data</th><th>Escola / Local</th><th>Localidade</th><th>Atividade</th><th>Participantes</th></tr></thead>
+        <tbody>
+          <tr><td><span class="db go">22/05</span></td><td>Col. Municipal Riacho de Areia</td><td>Uibaí, BA</td><td>Oficinas na Escola</td><td>—</td></tr>
+          <tr><td><span class="db nx">25–28/05</span></td><td>4 escolas confirmadas</td><td>Ibipeba, BA</td><td>Oficinas na Escola</td><td>—</td></tr>
+          <tr><td><span class="db nx">26–28/05</span></td><td>Col. Municipal Riacho de Areia +1</td><td>Uibaí, BA</td><td>Oficinas na Escola</td><td>—</td></tr>
+        </tbody></table>
+      </div>
+      <div class="cap"><span class="ci">📸</span>Breno Bigi · (92) 98481-6362 · Porto Itapoá, SC (em andamento) · BA: fotógrafo a definir</div>
+      <div class="al info">💡 Evento final: Hackathon Cultural "Dia da Cultura Empreendedora" — Porto Itapoá. Reunião com Rafa na sexta.</div>
+    </div>
+  </div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#f3e5f5">📱</div><h3>Redes Sociais · Acompanhamento</h3><div class="line"></div></div>
+  <div class="card" style="overflow:hidden">
+    <table class="sm-table"><thead><tr><th>Tipo</th><th>Conteúdo</th><th>Data prevista</th><th>Status</th><th>Plataforma</th></tr></thead>
+    <tbody>
+      <tr><td>Post</td><td>Atividades Porto Itapoá — material Breno Bigi</td><td>A definir</td><td><span class="sm-status sm-plan">A planejar</span></td><td>Instagram</td></tr>
+      <tr><td>Post</td><td>Oficinas Uibaí / Ibipeba — BA</td><td>Pós 28/05</td><td><span class="sm-status sm-pend">Aguardando captação</span></td><td>Instagram</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#e0f2f1">📸</div><h3>Briefing Fotógrafo</h3><div class="line"></div></div>
+  <div class="brief-card">
+    <div class="brief-header">
+      <div class="brief-foto">
+        <div class="foto-av" style="background:#00574A">📷</div>
+        <div><div class="foto-name">Breno Bigi</div><div class="foto-tel">(92) 98481-6362</div><div class="foto-dates">Porto Itapoá, SC — em andamento · BA: fotógrafo a confirmar</div></div>
+      </div>
+      <div class="brief-actions"><a href="../../120_statkraft/" target="_blank" class="btn-open">📸 Abrir briefing completo ↗</a></div>
+    </div>
+    <div class="brief-iframe-wrap">
+      <iframe src="../../120_statkraft/" class="brief-iframe" loading="lazy" title="Briefing 120 Statkraft"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     124 · COMPAGAS
+══════════════════════════════════════════════ -->
+<div class="panel" id="t-p124">
+  <div class="sec-hdr"><div class="ic" style="background:#efebe9">🏫</div><h3>Campo · Próxima Semana</h3><div class="line"></div></div>
+  <div class="card-grid">
+    <div class="proj-card" style="--tc:#5D4037">
+      <div class="ph"><div><div class="ph-id">124</div><div class="ph-name">Gastronomia Também É Arte</div><div class="ph-pat">Compagas · CEJU — Lapa, PR</div></div><span class="badge s-exec">Execução</span></div>
+      <div class="pb">
+        <table class="at"><thead><tr><th>Data</th><th>Escola / Local</th><th>Localidade</th><th>Atividade</th><th>Participantes</th></tr></thead>
+        <tbody>
+          <tr><td><span class="db nx">27/05</span></td><td>CEJU — Lapa</td><td>Lapa, PR</td><td>Aula Show Culinária 13h · Abertura Exposição</td><td><span class="pb-badge">30</span></td></tr>
+          <tr><td><span class="db nx">28/05</span></td><td>CEJU — Lapa</td><td>Lapa, PR</td><td>Workshop Fotografia · 2 turmas · 9h e 14h</td><td><span class="pb-badge">40/turma</span></td></tr>
+          <tr><td><span class="db nx">27/05–27/06</span></td><td>CEJU — Lapa</td><td>Lapa, PR</td><td>Exposição "Gastronomia Também É Arte"</td><td><span class="pb-badge">1.000</span></td></tr>
+        </tbody></table>
+      </div>
+      <div class="cap"><span class="ci">📸</span>Douglas Coelho · (41) 99669-2757 · Captações 27/05 e 28/05</div>
+      <div class="al info" style="margin-bottom:8px">ℹ️ Assessoria de imprensa: grupo WhatsApp criado · Próximas: Aula Show 29/05, 03/06, 10/06 · Workshops 01–02/06 · Palestra virtual 26/06 (30 professores)</div>
+    </div>
+  </div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#f3e5f5">📱</div><h3>Redes Sociais · Acompanhamento</h3><div class="line"></div></div>
+  <div class="card" style="overflow:hidden">
+    <table class="sm-table"><thead><tr><th>Tipo</th><th>Conteúdo</th><th>Data prevista</th><th>Status</th><th>Plataforma</th></tr></thead>
+    <tbody>
+      <tr><td>Post</td><td>Abertura da Exposição + Aula Show Culinária</td><td>27/05</td><td><span class="sm-status sm-plan">A planejar</span></td><td>Instagram</td></tr>
+      <tr><td>Post / Reel</td><td>Workshop de Fotografia Culinária — alunos fotógrafos</td><td>28/05</td><td><span class="sm-status sm-plan">A planejar</span></td><td>Instagram</td></tr>
+      <tr><td>Assessoria</td><td>Nota para imprensa local (Lapa/PR)</td><td>27/05</td><td><span class="sm-status sm-plan">A planejar</span></td><td>Imprensa local</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#efebe9">📸</div><h3>Briefing Fotógrafo</h3><div class="line"></div></div>
+  <div class="brief-card">
+    <div class="brief-header">
+      <div class="brief-foto">
+        <div class="foto-av" style="background:#5D4037">📷</div>
+        <div><div class="foto-name">Douglas Coelho</div><div class="foto-tel">(41) 99669-2757</div><div class="foto-dates">27/05 e 28/05 — CEJU, Lapa, PR</div></div>
+      </div>
+      <div class="brief-actions"><a href="../../124_compagas/" target="_blank" class="btn-open">📸 Abrir briefing completo ↗</a></div>
+    </div>
+    <div class="brief-iframe-wrap">
+      <iframe src="../../124_compagas/" class="brief-iframe" loading="lazy" title="Briefing 124 Compagas"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     125 · GRU GASTRONOMIA
+══════════════════════════════════════════════ -->
+<div class="panel" id="t-p125">
+  <div class="sec-hdr"><div class="ic" style="background:#f3e5f5">🏫</div><h3>Campo</h3><div class="line"></div></div>
+  <div class="card-grid">
+    <div class="proj-card" style="--tc:#4a148c">
+      <div class="ph"><div><div class="ph-id">125</div><div class="ph-name">Gastronomia Também É Arte 2ª Ed.</div><div class="ph-pat">GRU Airport · Guarulhos, SP</div></div><span class="badge s-exec">Execução</span></div>
+      <div class="pb">
+        <table class="at"><thead><tr><th>Data</th><th>Escola / Local</th><th>Localidade</th><th>Atividade</th><th>Participantes</th></tr></thead>
+        <tbody>
+          <tr><td><span class="db ok">19/05</span></td><td>E.E. Walter Fusco</td><td>Guarulhos, SP</td><td>Workshop Fotografia · 8h–17h</td><td><span class="pb-badge">190</span></td></tr>
+        </tbody></table>
+      </div>
+      <div class="cap"><span class="ci">📸</span>Fotógrafo João · Material disponível no Drive · Próximas datas a confirmar</div>
+      <div class="al info" style="margin-bottom:8px">ℹ️ Exposição final prevista para 05/07 no GRU Airport</div>
+    </div>
+  </div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#f3e5f5">📱</div><h3>Redes Sociais · Acompanhamento</h3><div class="line"></div></div>
+  <div class="card" style="overflow:hidden">
+    <table class="sm-table"><thead><tr><th>Tipo</th><th>Conteúdo</th><th>Data prevista</th><th>Status</th><th>Plataforma</th></tr></thead>
+    <tbody>
+      <tr><td>Post / Carrossel</td><td>E.E. Walter Fusco — 190 alunos · 19/05</td><td>A definir</td><td><span class="sm-status sm-plan">Material disponível</span></td><td>Instagram</td></tr>
+      <tr><td>Post</td><td>Exposição final GRU Airport</td><td>Pós 05/07</td><td><span class="sm-status sm-pend">Aguardando evento</span></td><td>Instagram</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#e8f5e9">📸</div><h3>Briefing Fotógrafo</h3><div class="line"></div></div>
+  <div class="brief-card">
+    <div class="brief-header">
+      <div class="brief-foto">
+        <div class="foto-av" style="background:#4a148c">📷</div>
+        <div><div class="foto-name">João</div><div class="foto-tel">Contato via equipe NTICS</div><div class="foto-dates">19/05 E.E. Walter Fusco ✓ · Próximas datas a confirmar</div></div>
+      </div>
+      <div class="brief-actions"><a href="../../125_gastronomia/" target="_blank" class="btn-open">📸 Abrir briefing completo ↗</a></div>
+    </div>
+    <div class="brief-iframe-wrap">
+      <iframe src="../../125_gastronomia/" class="brief-iframe" loading="lazy" title="Briefing 125 GRU Gastronomia"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     127 · PIE GRU
+══════════════════════════════════════════════ -->
+<div class="panel" id="t-p127g">
+  <div class="sec-hdr"><div class="ic" style="background:#fff3e0">🏫</div><h3>Campo</h3><div class="line"></div></div>
+  <div class="card-grid">
+    <div class="proj-card" style="--tc:#bf360c">
+      <div class="ph"><div><div class="ph-id">127 · GRU Airport</div><div class="ph-name">PIE Empreendedorismo É Arte 2ª Ed.</div><div class="ph-pat">GRU Airport · Guarulhos, SP</div></div><span class="badge s-exec">Execução</span></div>
+      <div class="pb">
+        <table class="at"><thead><tr><th>Data</th><th>Escola / Local</th><th>Localidade</th><th>Atividade</th><th>Participantes</th></tr></thead>
+        <tbody>
+          <tr><td><span class="db ok">19/05</span></td><td>Escola Alexandre Lopes</td><td>Guarulhos, SP</td><td>Palestras e Atividades</td><td>—</td></tr>
+          <tr><td><span class="db ok">21/05</span></td><td>Campo aberto</td><td>Guarulhos, SP</td><td>Captação em Campo</td><td>—</td></tr>
+          <tr><td><span class="db nx">25–27/05</span></td><td>E.E. JD Nova Cumbica</td><td>Guarulhos, SP</td><td>Palestras e Atividades</td><td>—</td></tr>
+          <tr><td><span class="db nx">28–29/05</span></td><td>E.E. PEI Cidade Soimco II</td><td>Guarulhos, SP</td><td>Palestras e Atividades</td><td>—</td></tr>
+        </tbody></table>
+      </div>
+      <div class="cap"><span class="ci">📸</span>Captação 21/05 realizada — fotos aprovadas pelo cliente</div>
+      <div class="al err">🚨 Cliente pediu fotos do 21/05 para postagem imediata (22/05) — verificar se foi atendido</div>
+      <div class="al ok" style="margin-bottom:8px">📋 "Fotos Oficinas Artes Plásticas" — alta prioridade esta semana</div>
+    </div>
+  </div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#f3e5f5">📱</div><h3>Redes Sociais · Acompanhamento</h3><div class="line"></div></div>
+  <div class="card" style="overflow:hidden">
+    <table class="sm-table"><thead><tr><th>Tipo</th><th>Conteúdo</th><th>Data prevista</th><th>Status</th><th>Plataforma</th></tr></thead>
+    <tbody>
+      <tr><td>Post</td><td>Captação 21/05 — fotos aprovadas pelo cliente</td><td>22/05</td><td><span class="sm-status sm-urgent">URGENTE</span></td><td>Instagram</td></tr>
+      <tr><td>Post / Carrossel</td><td>Fotos Oficinas Artes Plásticas</td><td>A definir</td><td><span class="sm-status sm-rev">Alta prioridade</span></td><td>Instagram</td></tr>
+      <tr><td>Post</td><td>Atividades E.E. Nova Cumbica — 25–27/05</td><td>Pós 27/05</td><td><span class="sm-status sm-pend">Aguardando captação</span></td><td>Instagram</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#e8f5e9">📸</div><h3>Briefing Fotógrafo</h3><div class="line"></div></div>
+  <div class="brief-card">
+    <div class="brief-header">
+      <div class="brief-foto">
+        <div class="foto-av" style="background:#bf360c">📷</div>
+        <div><div class="foto-name">Fotógrafo PIE GRU</div><div class="foto-tel">Contato via equipe NTICS</div><div class="foto-dates">21/05 captação ✓ · próximas: 25/05 Nova Cumbica, 28/05 Soimco II</div></div>
+      </div>
+      <div class="brief-actions"><a href="../../127_pie_guarulhos/" target="_blank" class="btn-open">📸 Abrir briefing completo ↗</a></div>
+    </div>
+    <div class="brief-iframe-wrap">
+      <iframe src="../../127_pie_guarulhos/" class="brief-iframe" loading="lazy" title="Briefing 127 PIE Guarulhos"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     127 · PIE SOTREQ
+══════════════════════════════════════════════ -->
+<div class="panel" id="t-p127s">
+  <div class="sec-hdr"><div class="ic" style="background:#eceff1">🏫</div><h3>Campo</h3><div class="line"></div></div>
+  <div class="card-grid">
+    <div class="proj-card" style="--tc:#37474f">
+      <div class="ph"><div><div class="ph-id">127 · SOTREQ</div><div class="ph-name">PIE Empreendedorismo É Arte 2ª Ed.</div><div class="ph-pat">SOTREQ · Guarulhos, SP</div></div><span class="badge s-wait">Aguardando</span></div>
+      <div class="pb">
+        <table class="at"><thead><tr><th>Data</th><th>Escola / Local</th><th>Localidade</th><th>Atividade</th><th>Participantes</th></tr></thead>
+        <tbody>
+          <tr><td><span class="db tbc">A confirmar</span></td><td>E.E. Maria Hilda Ornelas</td><td>Guarulhos, SP</td><td>Palestras e Atividades</td><td>—</td></tr>
+        </tbody></table>
+      </div>
+      <div class="cap"><span class="ci">📸</span><span class="cv">Fotógrafo: aguardando definição de data</span></div>
+    </div>
+  </div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#f3e5f5">📱</div><h3>Redes Sociais · Acompanhamento</h3><div class="line"></div></div>
+  <div class="card" style="padding:20px;text-align:center;color:#90a4ae;font-size:13px;font-style:italic">Aguardando confirmação de data de execução para planejar postagens.</div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#e8f5e9">📸</div><h3>Briefing Fotógrafo</h3><div class="line"></div></div>
+  <div class="brief-card">
+    <div class="brief-header">
+      <div class="brief-foto">
+        <div class="foto-av" style="background:#37474f">📷</div>
+        <div><div class="foto-name">Fotógrafo SOTREQ</div><div class="foto-tel">A definir</div><div class="foto-dates">Data de execução ainda não confirmada</div></div>
+      </div>
+      <div class="brief-actions"><a href="../../127_pie_serra/" target="_blank" class="btn-open">📸 Abrir briefing completo ↗</a></div>
+    </div>
+    <div class="brief-iframe-wrap">
+      <iframe src="../../127_pie_serra/" class="brief-iframe" loading="lazy" title="Briefing 127 PIE SOTREQ"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     132 · ESTAÇÃO SAMARCO
+══════════════════════════════════════════════ -->
+<div class="panel" id="t-p132">
+  <div class="sec-hdr"><div class="ic" style="background:#ede7f6">📌</div><h3>Planejamento</h3><div class="line"></div></div>
+  <div class="card-grid">
+    <div class="proj-card" style="--tc:#4527a0">
+      <div class="ph"><div><div class="ph-id">132</div><div class="ph-name">Estação Samarco</div><div class="ph-pat">Samarco · MG (múltiplas cidades)</div></div><span class="badge s-plan">Planejamento</span></div>
+      <div class="pb">
+        <table class="at"><thead><tr><th>Data</th><th>Escola / Local</th><th>Localidade</th><th>Atividade</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><span class="db tbc">A definir</span></td><td>Múltiplas cidades MG</td><td>MG (7 cidades)</td><td>Programa completo (a detalhar)</td><td><span class="db tbc">Confirmando</span></td></tr>
+        </tbody></table>
+      </div>
+      <div class="cap"><span class="ci">📸</span><span class="cv">Fotógrafo: não definido — aguardando confirmação de cidades e datas</span></div>
+    </div>
+  </div>
+  <div class="al info" style="margin:0 0 8px">ℹ️ Lígia Mendes contratada (empreendedorismo, R$850/encontro) · Cidades: Bento Rodrigues, Brumal, Catas Altas, Antônio Pereira, Santa Rita Durão, Camargos, Paracatú · Produtor/culinarista ES: primeiro contato feito</div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#f3e5f5">📱</div><h3>Redes Sociais · Acompanhamento</h3><div class="line"></div></div>
+  <div class="card" style="overflow:hidden">
+    <table class="sm-table"><thead><tr><th>Tipo</th><th>Conteúdo</th><th>Data prevista</th><th>Status</th><th>Plataforma</th></tr></thead>
+    <tbody>
+      <tr><td colspan="5" class="sm-empty">Datas de postagem não identificadas no ClickUp · Preencher conforme cronograma de atividades for confirmado</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#e8f5e9">📸</div><h3>Briefing Fotógrafo</h3><div class="line"></div></div>
+  <div class="brief-card">
+    <div class="brief-na">
+      <div class="na-icon">📋</div>
+      <p>Página de briefing fotógrafo ainda não criada para Estação Samarco.<br>Disponível após confirmação do cronograma e fotógrafo.</p>
+      <span class="btn-open sec" style="pointer-events:none;opacity:.5">Briefing em preparação</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     133 · VIBRA / ECOARTE
+══════════════════════════════════════════════ -->
+<div class="panel" id="t-p133">
+  <div class="sec-hdr"><div class="ic" style="background:#e0f2f1">📌</div><h3>Planejamento</h3><div class="line"></div></div>
+  <div class="card-grid">
+    <div class="proj-card" style="--tc:#004d40">
+      <div class="ph"><div><div class="ph-id">133</div><div class="ph-name">Ecoarte Caminhão ODS</div><div class="ph-pat">Vibra Energia · Manaus, AM</div></div><span class="badge s-plan">Planejamento</span></div>
+      <div class="pb">
+        <table class="at"><thead><tr><th>Data</th><th>Local</th><th>Cidade</th><th>Atividade</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><span class="db nx">12/06</span></td><td>A definir</td><td>Manaus, AM</td><td>Talk</td><td><span class="db nx">Confirmado</span></td></tr>
+          <tr><td><span class="db nx">14/06</span></td><td>Praça pública</td><td>Manaus, AM</td><td>Evento Praça</td><td><span class="db nx">Confirmado</span></td></tr>
+        </tbody></table>
+      </div>
+      <div class="cap"><span class="ci">📸</span><span class="cv">Fotógrafo: não definido — aguardando confirmação logística</span></div>
+    </div>
+  </div>
+  <div class="al info" style="margin:0 0 8px">ℹ️ Engajamento IFAM (ODS 2) e SEMMA iniciado · Design painéis caminhão em desenvolvimento · Secretaria de Educação RJ acionada</div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#f3e5f5">📱</div><h3>Redes Sociais · Acompanhamento</h3><div class="line"></div></div>
+  <div class="card" style="overflow:hidden">
+    <table class="sm-table"><thead><tr><th>Tipo</th><th>Conteúdo</th><th>Data prevista</th><th>Status</th><th>Plataforma</th></tr></thead>
+    <tbody>
+      <tr><td>Post / Reels</td><td>Engajamento escolas Manaus — IFAM e SEMMA</td><td>A definir</td><td><span class="sm-status sm-plan">A planejar</span></td><td>Instagram</td></tr>
+      <tr><td>Post</td><td>Cobertura Talk — 12/06</td><td>12/06</td><td><span class="sm-status sm-plan">A planejar</span></td><td>Instagram</td></tr>
+      <tr><td>Post / Reel</td><td>Evento Praça — 14/06</td><td>14/06</td><td><span class="sm-status sm-plan">A planejar</span></td><td>Instagram</td></tr>
+      <tr><td>Stories</td><td>Bastidores do caminhão e painéis</td><td>Pré-evento</td><td><span class="sm-status sm-pend">Aguardando design pronto</span></td><td>Instagram</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="sec-hdr"><div class="ic" style="background:#e8f5e9">📸</div><h3>Briefing Fotógrafo</h3><div class="line"></div></div>
+  <div class="brief-card">
+    <div class="brief-na">
+      <div class="na-icon">📋</div>
+      <p>Página de briefing fotógrafo ainda não criada para Ecoarte Caminhão ODS.<br>Disponível após confirmação de fotógrafo para os eventos de 12–14/06.</p>
+      <a href="../../marketing/plano-comunicacao-133-vibra/" target="_blank" class="btn-open sec">📄 Ver plano de comunicação ↗</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.t-btn');
+  const panels = document.querySelectorAll('.panel');
+
+  function switchTab(id) {
+    tabs.forEach(b => b.classList.toggle('active', b.dataset.tab === id));
+    panels.forEach(p => p.classList.toggle('active', p.id === 't-' + id));
+    window.scrollTo(0, 0);
+  }
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+</script>
 </body>
 </html>
