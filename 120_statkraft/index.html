@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Negócio Cultural 2ª Ed. | Statkraft · Orientação para Captação</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #00694A;
+  --green-dark: #004B34;
+  --green-mid: #008B63;
+  --green-light: #E6F4EF;
+  --accent: #6DD4A0;
+  --gold: #D4A017;
+  --white: #fff;
+  --gray-50: #FAFAFA;
+  --gray-100: #F4F4F5;
+  --gray-200: #E4E4E7;
+  --gray-500: #71717A;
+  --gray-700: #3F3F46;
+  --gray-900: #18181B;
+  --font-d: 'Space Grotesk', system-ui, sans-serif;
+  --font-b: 'Inter', system-ui, sans-serif;
+  --shadow-md: 0 4px 16px rgba(0,0,0,.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,.12);
+  --r: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-b); color: var(--gray-900); background: var(--white); -webkit-font-smoothing: antialiased; }
+h1,h2,h3,h4 { font-family: var(--font-d); font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+/* PROGRESS */
+#prog { position: fixed; top: 0; left: 0; height: 3px; z-index: 200; background: linear-gradient(90deg, var(--green), var(--accent)); transform-origin: left; transform: scaleX(0); transition: transform .1s linear; }
+
+/* HEADER */
+.hdr { position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: background .35s, box-shadow .35s; }
+.hdr.scrolled { background: rgba(255,255,255,.93); backdrop-filter: blur(16px); box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+.hdr-inner { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1rem,4vw,2.5rem); height: 68px; display: flex; align-items: center; justify-content: space-between; }
+.hdr-brand { display: flex; flex-direction: column; gap: 1px; }
+.hdr-brand .prog-name { font-family: var(--font-d); font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -.02em; }
+.hdr-brand .cli-name { font-size: 11px; font-weight: 500; color: rgba(255,255,255,.7); letter-spacing: .04em; }
+.hdr.scrolled .hdr-brand .prog-name { color: var(--green-dark); }
+.hdr.scrolled .hdr-brand .cli-name { color: var(--gray-500); }
+.hdr-nav { display: flex; gap: 1.8rem; align-items: center; }
+.hdr-nav a { font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.8); transition: color .25s; }
+.hdr-nav a:hover { color: var(--accent); }
+.hdr.scrolled .hdr-nav a { color: var(--gray-500); }
+.hdr.scrolled .hdr-nav a:hover { color: var(--green); }
+@media (max-width: 680px) { .hdr-nav { display: none; } }
+
+/* HERO */
+.hero { min-height: 100vh; display: flex; align-items: center; background: linear-gradient(145deg, #00361F 0%, #00694A 55%, #008B63 100%); overflow: hidden; position: relative; }
+.hero-mesh { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 70% at 70% 30%, rgba(109,212,160,.18) 0%, transparent 60%); }
+.hero-inner { max-width: 1200px; margin: 0 auto; padding: 100px clamp(1rem,4vw,2.5rem) 60px; position: relative; z-index: 1; }
+.hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); border-radius: 999px; padding: 5px 14px; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.9); margin-bottom: 20px; }
+.hero h1 { font-size: clamp(2.4rem,5vw,4rem); color: #fff; margin-bottom: 16px; max-width: 700px; }
+.hero h1 em { color: var(--accent); font-style: normal; }
+.hero-sub { font-size: 1.1rem; color: rgba(255,255,255,.75); max-width: 520px; line-height: 1.65; margin-bottom: 36px; }
+.hero-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+.chip { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); border-radius: 8px; padding: 6px 14px; font-size: 12px; color: rgba(255,255,255,.9); font-weight: 500; }
+.chip strong { color: var(--accent); }
+
+/* SECTION */
+.sec { padding: 80px clamp(1rem,4vw,2.5rem); }
+.sec-inner { max-width: 1200px; margin: 0 auto; }
+.sec-tag { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+.sec-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+.sec h2 { font-size: clamp(1.6rem,3vw,2.4rem); color: var(--gray-900); margin-bottom: 10px; }
+.sec-desc { font-size: 1rem; color: var(--gray-500); line-height: 1.65; max-width: 600px; margin-bottom: 40px; }
+
+/* CRONOGRAMA */
+.cron-bg { background: var(--gray-50); }
+.cron-grid { display: grid; gap: 12px; }
+.cron-card { background: #fff; border-radius: var(--r); border: 1px solid var(--gray-200); padding: 16px 20px; display: flex; gap: 16px; align-items: flex-start; box-shadow: var(--shadow-md); transition: box-shadow .2s, transform .2s; }
+.cron-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+.cron-date { min-width: 80px; text-align: center; background: var(--green-light); border-radius: 8px; padding: 8px 10px; }
+.cron-date .d { font-family: var(--font-d); font-size: 18px; font-weight: 800; color: var(--green-dark); line-height: 1; }
+.cron-date .m { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--green-mid); margin-top: 2px; }
+.cron-date.ongoing { background: #FFF0E6; }
+.cron-date.ongoing .d { color: #C5470B; font-size: 13px; font-weight: 700; }
+.cron-date.ongoing .m { color: #E07040; }
+.cron-info { flex: 1; }
+.cron-info h4 { font-family: var(--font-d); font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
+.cron-info .loc { font-size: 12.5px; color: var(--gray-500); display: flex; align-items: center; gap: 5px; }
+.cron-info .activity { font-size: 12px; color: var(--gray-700); margin-top: 4px; background: var(--green-light); display: inline-block; padding: 2px 8px; border-radius: 4px; }
+.cron-tag { align-self: center; flex-shrink: 0; }
+.badge { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; }
+.badge.ok   { background: #E6F4EF; color: var(--green-dark); }
+.badge.go   { background: #FFF7E1; color: #B45309; }
+.badge.next { background: #EFF6FF; color: #1D4ED8; }
+.badge.tbc  { background: #F3F4F6; color: #6B7280; }
+
+/* FOTÓGRAFO */
+.foto-card { background: linear-gradient(135deg, var(--green-dark), var(--green-mid)); border-radius: 16px; padding: 28px 32px; color: #fff; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin-bottom: 40px; }
+.foto-icon { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+.foto-info h3 { font-size: 1.15rem; color: #fff; margin-bottom: 4px; }
+.foto-info p { font-size: 13px; color: rgba(255,255,255,.75); }
+.foto-info .tel { font-size: 15px; font-weight: 700; color: var(--accent); margin-top: 4px; }
+
+/* DIRETRIZES */
+.dir-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 16px; }
+.dir-card { background: #fff; border-radius: var(--r); border: 1px solid var(--gray-200); padding: 20px; box-shadow: var(--shadow-md); }
+.dir-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 12px; }
+.dir-card h4 { font-size: 13.5px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+.dir-card p { font-size: 12.5px; color: var(--gray-500); line-height: 1.65; }
+
+/* CONTATO */
+.contact-bg { background: var(--green-dark); }
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 16px; }
+.contact-card { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); border-radius: var(--r); padding: 18px 20px; }
+.contact-card .role { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.contact-card .name { font-family: var(--font-d); font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+.contact-card .detail { font-size: 12.5px; color: rgba(255,255,255,.65); }
+
+/* FOOTER */
+.ft { background: #00361F; padding: 28px clamp(1rem,4vw,2.5rem); text-align: center; }
+.ft p { font-size: 12px; color: rgba(255,255,255,.4); }
+.ft a { color: rgba(255,255,255,.6); font-weight: 600; }
+.ft a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- HEADER -->
+<header class="hdr" id="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-brand">
+      <span class="prog-name">Negócio Cultural 2ª Ed.</span>
+      <span class="cli-name">Statkraft · Porto Itapoá e Sertão Baiano</span>
+    </div>
+    <nav class="hdr-nav">
+      <a href="#cronograma">Cronograma</a>
+      <a href="#fotografo">Fotógrafo</a>
+      <a href="#diretrizes">Diretrizes</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-mesh"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">
+      <span>🌿</span> Orientação para Captação · Projeto 120
+    </div>
+    <h1>Negócio Cultural <em>2ª Edição</em></h1>
+    <p class="hero-sub">Oficinas de cultura e empreendedorismo em escolas públicas de Porto Itapoá (SC) e do Sertão Baiano (BA). Realização NTICS Projetos, patrocínio Statkraft.</p>
+    <div class="hero-chips">
+      <div class="chip">📍 <strong>Porto Itapoá, SC</strong></div>
+      <div class="chip">📍 <strong>Uibaí / Ibipeba, BA</strong></div>
+      <div class="chip">📸 <strong>Breno Bigi</strong> · (92) 98481-6362</div>
+      <div class="chip">🏫 Escolas públicas</div>
+    </div>
+  </div>
+</section>
+
+<!-- CRONOGRAMA -->
+<section class="sec cron-bg" id="cronograma">
+  <div class="sec-inner">
+    <div class="sec-tag"><span class="dot"></span> Programação</div>
+    <h2>Cronograma de Captações</h2>
+    <p class="sec-desc">Datas e locais confirmados no ClickUp. As captações de Porto Itapoá (Breno Bigi) seguem agenda própria.</p>
+    <div class="cron-grid">
+      <div class="cron-card">
+        <div class="cron-date"><div class="d">22</div><div class="m">mai</div></div>
+        <div class="cron-info">
+          <h4>Col. Municipal Riacho de Areia</h4>
+          <div class="loc">📍 Uibaí, BA</div>
+          <span class="activity">Oficinas na Escola</span>
+        </div>
+        <div class="cron-tag"><span class="badge go">Em andamento</span></div>
+      </div>
+      <div class="cron-card">
+        <div class="cron-date"><div class="d">25–28</div><div class="m">mai</div></div>
+        <div class="cron-info">
+          <h4>4 escolas confirmadas</h4>
+          <div class="loc">📍 Ibipeba, BA</div>
+          <span class="activity">Oficinas na Escola · múltiplas turmas</span>
+        </div>
+        <div class="cron-tag"><span class="badge next">Próxima semana</span></div>
+      </div>
+      <div class="cron-card">
+        <div class="cron-date"><div class="d">26–28</div><div class="m">mai</div></div>
+        <div class="cron-info">
+          <h4>Col. Municipal Riacho de Areia + 1</h4>
+          <div class="loc">📍 Uibaí, BA</div>
+          <span class="activity">Oficinas na Escola · continuação</span>
+        </div>
+        <div class="cron-tag"><span class="badge next">Próxima semana</span></div>
+      </div>
+      <div class="cron-card">
+        <div class="cron-date ongoing"><div class="d">em andamento</div><div class="m">SC</div></div>
+        <div class="cron-info">
+          <h4>Atividades em Porto Itapoá</h4>
+          <div class="loc">📍 Porto Itapoá, SC</div>
+          <span class="activity">Oficinas e captações · Fotógrafo Breno Bigi</span>
+        </div>
+        <div class="cron-tag"><span class="badge go">Ativo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOTÓGRAFO -->
+<section class="sec" id="fotografo">
+  <div class="sec-inner">
+    <div class="sec-tag"><span class="dot"></span> Equipe de Captação</div>
+    <h2>Fotógrafo do Projeto</h2>
+    <p class="sec-desc">Contato direto para agendamento e dúvidas operacionais em campo.</p>
+    <div class="foto-card">
+      <div class="foto-icon">📸</div>
+      <div class="foto-info">
+        <h3>Breno Bigi</h3>
+        <p>Fotógrafo — Porto Itapoá, SC</p>
+        <div class="tel">(92) 98481-6362</div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:#6B7280;">Para as atividades em Uibaí e Ibipeba (BA): fotógrafo local a ser definido. Alinhar com equipe NTICS.</p>
+  </div>
+</section>
+
+<!-- DIRETRIZES -->
+<section class="sec cron-bg" id="diretrizes">
+  <div class="sec-inner">
+    <div class="sec-tag"><span class="dot"></span> Orientação</div>
+    <h2>Diretrizes de Captação</h2>
+    <p class="sec-desc">O que registrar, como enquadrar e que atmosfera transmitir no material visual do projeto.</p>
+    <div class="dir-grid">
+      <div class="dir-card">
+        <div class="dir-icon">🏫</div>
+        <h4>Contexto Escolar</h4>
+        <p>Priorize o ambiente da escola — fachada, corredores, sala de aula. Mostre que o projeto chegou até a comunidade.</p>
+      </div>
+      <div class="dir-card">
+        <div class="dir-icon">🧑‍🎓</div>
+        <h4>Protagonismo dos Alunos</h4>
+        <p>O aluno deve ser o centro. Capture momentos de engajamento real: mãos na atividade, trocas de olhar, construção coletiva.</p>
+      </div>
+      <div class="dir-card">
+        <div class="dir-icon">🤝</div>
+        <h4>Interação Educador–Aluno</h4>
+        <p>Registre a relação entre o facilitador e os estudantes. Momentos de explicação, orientação e descoberta conjunta.</p>
+      </div>
+      <div class="dir-card">
+        <div class="dir-icon">🌱</div>
+        <h4>Identidade Local</h4>
+        <p>Elementos do contexto regional (BA ou SC) enriquecem o material. Camisetas, bandeiras escolares, letreiros de cidade.</p>
+      </div>
+      <div class="dir-card">
+        <div class="dir-icon">💡</div>
+        <h4>Luz Natural</h4>
+        <p>Prefira luz natural sempre que possível. Evite flash direto — use rebatedor ou posicione o aluno perto da janela.</p>
+      </div>
+      <div class="dir-card">
+        <div class="dir-icon">📦</div>
+        <h4>Entrega do Material</h4>
+        <p>Upload na pasta Drive do projeto. Pelo menos 50 imagens por dia de captação, selecionadas e não editadas. RAW + JPG quando possível.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="sec contact-bg" id="contato">
+  <div class="sec-inner">
+    <div class="sec-tag" style="color:var(--accent)"><span class="dot" style="background:var(--accent)"></span> Equipe NTICS</div>
+    <h2 style="color:#fff;margin-bottom:10px">Contatos do Projeto</h2>
+    <p class="sec-desc" style="color:rgba(255,255,255,.6);margin-bottom:28px">Para dúvidas sobre datas, locais ou aprovação de material.</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="role">Coordenação</div>
+        <div class="name">Lucas Rotta</div>
+        <div class="detail">Head IA · NTICS Projetos</div>
+      </div>
+      <div class="contact-card">
+        <div class="role">Apoio ao Engajamento</div>
+        <div class="name">Jeferson Santana</div>
+        <div class="detail">Engajamento escolar · BA</div>
+      </div>
+      <div class="contact-card">
+        <div class="role">Patrocinador</div>
+        <div class="name">Statkraft</div>
+        <div class="detail">Energia renovável · Porto Itapoá, SC</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="ft">
+  <p>NTICS Projetos &nbsp;·&nbsp; Negócio Cultural 2ª Ed. &nbsp;·&nbsp; Projeto 120 &nbsp;·&nbsp;
+    <a href="https://ntics.com.br" target="_blank">ntics.com.br</a>
+  </p>
+</footer>
+
+<script>
+  const hdr = document.getElementById('hdr');
+  const prog = document.getElementById('prog');
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('scrolled', window.scrollY > 60);
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    prog.style.transform = `scaleX(${pct})`;
+  });
+</script>
+</body>
+</html>
