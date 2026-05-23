@@ -139,6 +139,7 @@
   .status-execucao { background: #e8f5e9; color: #2e7d32; }
   .status-planejamento { background: #e3f2fd; color: #1565c0; }
   .status-planejamento-urgente { background: #fff8e1; color: #f57f17; }
+  .status-aguardando { background: #eceff1; color: #546e7a; }
 
   /* ACTIVITY TABLE */
   .proj-body { padding: 0 18px 16px; }
@@ -171,6 +172,7 @@
   }
   .data-badge.concluido { background: #e8f5e9; color: #2e7d32; }
   .data-badge.em-andamento { background: #fff8e1; color: #f57f17; }
+  .data-badge.proximo { background: #e3f2fd; color: #1565c0; }
   .part-badge {
     display: inline-block;
     background: #f3e5f5;
@@ -313,7 +315,7 @@
   </div>
   <h1>Semana <span>19–23 mai 2026</span></h1>
   <div class="header-meta">
-    <div class="header-meta-item"><span class="dot"></span> Fontes: ClickUp · Google Drive · WhatsApp (indisponível)</div>
+    <div class="header-meta-item"><span class="dot"></span> Fontes: ClickUp · Google Drive</div>
     <div class="header-meta-item"><span class="dot"></span> Gerado em: 23/05/2026</div>
   </div>
 </div>
@@ -324,20 +326,21 @@
   <div class="summary-sep"></div>
   <div class="summary-num"><div class="n">7+</div><div class="l">Atividades Executadas</div></div>
   <div class="summary-sep"></div>
-  <div class="summary-num"><div class="n">190</div><div class="l">Alunos (125 | 19/05)</div></div>
+  <div class="summary-num"><div class="n">190</div><div class="l">Alunos (125 · 19/05)</div></div>
   <div class="summary-sep"></div>
-  <div class="summary-num"><div class="n">4</div><div class="l">Projetos em Planejamento</div></div>
+  <div class="summary-num"><div class="n">1</div><div class="l">Proj. Próxima Semana</div></div>
   <div class="summary-sep"></div>
-  <div class="summary-num" style="color:var(--vermelho)"><div class="n" style="color:var(--vermelho)">2</div><div class="l">Alertas Críticos</div></div>
+  <div class="summary-num"><div class="n">5</div><div class="l">Projetos em Planejamento</div></div>
+  <div class="summary-sep"></div>
+  <div class="summary-num" style="color:var(--vermelho)"><div class="n" style="color:var(--vermelho)">1</div><div class="l">Alerta Crítico</div></div>
 </div>
 
 <!-- ALERT BANNER -->
 <div class="alert-banner">
   <span class="alert-icon">⚠️</span>
   <div>
-    <strong>2 alertas críticos esta semana:</strong>
-    119 (Sylvamo) — falta autorização de imagem, bloqueia postagem de redes sociais.
-    116 (Áster) — autorização de imagem precisa ser alinhada com fotógrafo antes de publicar material.
+    <strong>1 alerta crítico esta semana:</strong>
+    116 (Áster) — autorização de imagem precisa ser alinhada com o fotógrafo antes de publicar qualquer material.
   </div>
 </div>
 
@@ -376,7 +379,7 @@
         <div class="cap-row"><span class="cam-icon">📸</span> Fotógrafo: Kassyano · (67) 9676-0917</div>
         <div class="alert-list">
           <div class="alert-item">⚠️ Autorização de imagem precisa ser alinhada com o fotógrafo (Lucas + Raíza)</div>
-          <div class="alert-item info">ℹ️ Próxima data: Maracaju (28/05)</div>
+          <div class="alert-item info">ℹ️ Próxima data confirmada: Maracaju (28/05)</div>
         </div>
       </div>
     </div>
@@ -414,7 +417,6 @@
           </tbody>
         </table>
         <div class="alert-list">
-          <div class="alert-item">🚨 FALTA autorização de imagem — bloqueia postagem de redes sociais</div>
           <div class="alert-item warn">⚡ Ponto focal mudou: Tay → Doro (Dorothe)</div>
         </div>
         <div class="highlight-item">✅ Carrossel Durante (Mogi Guaçu) em revisão · Vídeo 1 em revisão</div>
@@ -428,14 +430,14 @@
         <div>
           <div class="proj-id">120</div>
           <div class="proj-nome">Negócio Cultural 2ª Ed.</div>
-          <div class="proj-pat">Statkraft · Porto Itapoá</div>
+          <div class="proj-pat">Statkraft · Porto Itapoá (SC) · Sertão Baiano (BA)</div>
         </div>
         <span class="proj-status status-execucao">Execução</span>
       </div>
       <div class="proj-body">
         <table class="atividades-table">
           <thead>
-            <tr><th>Data</th><th>Local</th><th>Estado</th><th>Escola / Local</th><th>Atividade</th></tr>
+            <tr><th>Data</th><th>Cidade</th><th>UF</th><th>Escola / Local</th><th>Atividade</th></tr>
           </thead>
           <tbody>
             <tr>
@@ -445,10 +447,24 @@
               <td>Col. Municipal Riacho de Areia</td>
               <td>Oficinas na Escola</td>
             </tr>
+            <tr>
+              <td><span class="data-badge proximo">25–28/05</span></td>
+              <td>Ibipeba</td>
+              <td>BA</td>
+              <td>4 escolas confirmadas</td>
+              <td>Oficinas na Escola</td>
+            </tr>
+            <tr>
+              <td><span class="data-badge proximo">26–28/05</span></td>
+              <td>Uibaí</td>
+              <td>BA</td>
+              <td>Col. Municipal Riacho de Areia + 1</td>
+              <td>Oficinas na Escola</td>
+            </tr>
           </tbody>
         </table>
+        <div class="cap-row"><span class="cam-icon">📸</span> Fotógrafo Porto Itapoá: Breno Bigi · (92) 98481-6362 · em andamento</div>
         <div class="alert-list">
-          <div class="alert-item info">ℹ️ Fotógrafo Breno Bigi em Porto Itapoá · (92) 98481-6362</div>
           <div class="alert-item warn">⚡ Demora no retorno das secretarias (Statkraft). Jeferson Santana apoiando engajamento.</div>
         </div>
         <div class="highlight-item">💡 Ideia de evento final: Hackathon Cultural "Dia da Cultura Empreendedora" — Porto Itapoá. Reunião com Rafa na sexta.</div>
@@ -461,14 +477,14 @@
         <div>
           <div class="proj-id">125</div>
           <div class="proj-nome">Gastronomia Também É Arte 2ª Ed.</div>
-          <div class="proj-pat">GRU Airport</div>
+          <div class="proj-pat">GRU Airport · Guarulhos, SP</div>
         </div>
         <span class="proj-status status-execucao">Execução</span>
       </div>
       <div class="proj-body">
         <table class="atividades-table">
           <thead>
-            <tr><th>Data</th><th>Local</th><th>Estado</th><th>Escola</th><th>Alunos</th></tr>
+            <tr><th>Data</th><th>Local</th><th>UF</th><th>Escola</th><th>Alunos</th></tr>
           </thead>
           <tbody>
             <tr>
@@ -480,56 +496,127 @@
             </tr>
           </tbody>
         </table>
-        <div class="cap-row"><span class="cam-icon">📸</span> Fotógrafo João · 8h–17h · Material no Drive</div>
+        <div class="cap-row"><span class="cam-icon">📸</span> Fotógrafo João · 8h–17h · Material disponível no Drive</div>
         <div class="alert-list">
-          <div class="alert-item warn">⚡ Fotógrafo João: fotos disponíveis, mas vídeos ainda não entregues</div>
           <div class="alert-item info">ℹ️ Exposição final prevista para 05/07 no GRU</div>
         </div>
       </div>
     </div>
 
-    <!-- 127 PIE GRU / SOTREQ -->
+    <!-- 127-A PIE GRU / Guarulhos -->
     <div class="proj-card color-laranja">
       <div class="proj-header">
         <div>
-          <div class="proj-id">127</div>
+          <div class="proj-id">127 · GRU Airport</div>
           <div class="proj-nome">PIE Empreendedorismo É Arte 2ª Ed.</div>
-          <div class="proj-pat">GRU Airport · SOTREQ</div>
+          <div class="proj-pat">GRU Airport · Guarulhos, SP</div>
         </div>
         <span class="proj-status status-execucao">Execução</span>
       </div>
       <div class="proj-body">
         <table class="atividades-table">
           <thead>
-            <tr><th>Data</th><th>Local</th><th>Estado</th><th>Escola</th><th>Atividade</th></tr>
+            <tr><th>Data</th><th>Escola</th><th>Atividade</th><th>Status</th></tr>
           </thead>
           <tbody>
             <tr>
               <td><span class="data-badge concluido">19/05</span></td>
-              <td>Guarulhos</td>
-              <td>SP</td>
               <td>Escola Alexandre Lopes</td>
               <td>Palestras e Atividades</td>
+              <td><span class="data-badge concluido">Concluído</span></td>
             </tr>
             <tr>
               <td><span class="data-badge concluido">21/05</span></td>
-              <td>Guarulhos</td>
-              <td>SP</td>
               <td>—</td>
               <td>Captação em Campo</td>
+              <td><span class="data-badge concluido">Realizado</span></td>
             </tr>
           </tbody>
         </table>
-        <div class="cap-row"><span class="cam-icon">📸</span> Captações realizadas em 21/05 — material aprovado pelo cliente</div>
+        <div class="cap-row"><span class="cam-icon">📸</span> Captação 21/05 — fotos disponíveis, aprovadas pelo cliente</div>
         <div class="alert-list">
-          <div class="alert-item warn">⚡ Cliente pediu fotos do dia 21/05 para postagem imediata (22/05)</div>
-          <div class="alert-item warn">⚡ Fotógrafo João é exclusivo de Gastronomia (125) — PIE precisa outro profissional</div>
+          <div class="alert-item info">ℹ️ Próximas datas: E.E. JD Nova Cumbica (25–27/05) · E.E. PEI Cidade Soimco II (28–29/05)</div>
         </div>
-        <div class="highlight-item">📋 "Fotos Oficinas Artes Plásticas" devida esta semana (alta prioridade)</div>
+        <div class="highlight-item">📋 "Fotos Oficinas Artes Plásticas" — alta prioridade esta semana</div>
+      </div>
+    </div>
+
+    <!-- 127-B PIE SOTREQ -->
+    <div class="proj-card color-amarelo">
+      <div class="proj-header">
+        <div>
+          <div class="proj-id">127 · SOTREQ</div>
+          <div class="proj-nome">PIE Empreendedorismo É Arte 2ª Ed.</div>
+          <div class="proj-pat">SOTREQ · Guarulhos, SP</div>
+        </div>
+        <span class="proj-status status-aguardando">Aguardando</span>
+      </div>
+      <div class="proj-body">
+        <table class="atividades-table">
+          <thead>
+            <tr><th>Escola</th><th>Município</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>E.E. Maria Hilda Ornelas</td>
+              <td>Guarulhos, SP</td>
+              <td><span class="data-badge">Data a confirmar</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
   </div><!-- end projects-grid -->
+
+  <!-- PRÓXIMA SEMANA — ATIVIDADES CONFIRMADAS -->
+  <div class="section-label">Atividades confirmadas · Próxima semana</div>
+  <div class="projects-grid">
+
+    <!-- 124 COMPAGAS -->
+    <div class="proj-card color-cinza">
+      <div class="proj-header">
+        <div>
+          <div class="proj-id">124</div>
+          <div class="proj-nome">Gastronomia Também É Arte</div>
+          <div class="proj-pat">Compagas · CEJU — Lapa, PR</div>
+        </div>
+        <span class="proj-status status-execucao">Execução</span>
+      </div>
+      <div class="proj-body">
+        <table class="atividades-table">
+          <thead>
+            <tr><th>Data</th><th>Horário</th><th>Atividade</th><th>Alunos</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="data-badge proximo">27/05</span></td>
+              <td>13h</td>
+              <td>Aula Show Culinária · Abertura da Exposição</td>
+              <td><span class="part-badge">30 alunos</span></td>
+            </tr>
+            <tr>
+              <td><span class="data-badge proximo">28/05</span></td>
+              <td>9h e 14h</td>
+              <td>Workshop Fotografia (2 turmas)</td>
+              <td><span class="part-badge">40 alunos/turma</span></td>
+            </tr>
+            <tr>
+              <td><span class="data-badge proximo">27/05–27/06</span></td>
+              <td>—</td>
+              <td>Exposição "Gastronomia Também É Arte" (CEJU)</td>
+              <td><span class="part-badge">1.000 alunos</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="cap-row"><span class="cam-icon">📸</span> Fotógrafo: Douglas Coelho · (41) 99669-2757 · Captações 27/05 e 28/05</div>
+        <div class="alert-list">
+          <div class="alert-item info">ℹ️ Próximas atividades: Aula Show (29/05, 03/06, 10/06) · Workshops (01/06, 02/06) · Palestra virtual 26/06 (30 professores)</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end próxima semana grid -->
 
   <!-- PROJETOS EM PLANEJAMENTO -->
   <div class="section-label">Projetos em planejamento ativo esta semana</div>
@@ -583,7 +670,7 @@
       </div>
       <ul class="plan-items">
         <li><span class="bullet">●</span> Carta de Comprovação Rio Claro devida esta semana</li>
-        <li><span class="bullet">●</span> Visitação escolar à Whirlpool: 11-12/06 (15 alunos + professor)</li>
+        <li><span class="bullet">●</span> Visitação escolar à Whirlpool: 11–12/06 (15 alunos + professor)</li>
         <li><span class="bullet">●</span> Premiação dos vencedores: definir data com Diretora Cléa</li>
         <li><span class="bullet">●</span> Materiais (banners, roll-up, robô gigante) preservados na escola até premiação</li>
       </ul>
@@ -617,26 +704,9 @@
         <span class="proj-status status-planejamento">Kickoff</span>
       </div>
       <ul class="plan-items">
-        <li><span class="bullet">●</span> Reunião 19/05 → 14 pontos de ajuste na apresentação comercial (urgente)</li>
+        <li><span class="bullet">●</span> Reunião 19/05: 14 pontos de ajuste na apresentação comercial (urgente)</li>
         <li><span class="bullet">●</span> Kickoff com Case IH agendado</li>
         <li><span class="bullet">●</span> Pré-Termo de Abertura em elaboração</li>
-      </ul>
-    </div>
-
-    <!-- 124 COMPAGAS -->
-    <div class="plan-card color-cinza">
-      <div class="plan-header">
-        <div>
-          <div class="plan-id">124</div>
-          <div class="plan-nome">Gastronomia Também É Arte</div>
-          <div class="plan-pat">Compagas · Lapa / PR</div>
-        </div>
-        <span class="proj-status status-planejamento">Aguardando</span>
-      </div>
-      <ul class="plan-items">
-        <li><span class="bullet">●</span> Fotógrafo Douglas Coelho · (41) 99669-2757</li>
-        <li><span class="bullet">●</span> Captações agendadas: 27/05 (13h) e 28/05 (9h) — próxima semana</li>
-        <li><span class="bullet">●</span> Assessoria de imprensa: grupo WhatsApp criado</li>
       </ul>
     </div>
 
@@ -647,11 +717,15 @@
     <h3>Gaps / Pendências · Dados não levantados</h3>
     <div class="gap-item">
       <span class="gap-label whatsapp">WhatsApp</span>
-      WhatsApp Web requer navegador autenticado com JavaScript (SPA). Não é acessível via WebFetch. Dados de grupos dos projetos desta semana NÃO foram coletados — acesso manual necessário.
+      WhatsApp Web requer navegador autenticado (JavaScript SPA). Dados dos grupos dos projetos desta semana não foram coletados — acesso manual necessário.
+    </div>
+    <div class="gap-item">
+      <span class="gap-label whatsapp">Instagram</span>
+      Instagram é JavaScript SPA. Posts e stories da semana 19–23/05 em @nticsprojetos não foram coletados via WebFetch — verificação manual necessária.
     </div>
     <div class="gap-item">
       <span class="gap-label sem-dados">Sem dados</span>
-      116 (Áster): número de alunos na atividade de São Gabriel do Oeste não disponível nas fontes consultadas.
+      116 (Áster): número de alunos na atividade de São Gabriel do Oeste não disponível.
     </div>
     <div class="gap-item">
       <span class="gap-label sem-dados">Sem dados</span>
@@ -663,18 +737,22 @@
     </div>
     <div class="gap-item">
       <span class="gap-label pendente">Pendente</span>
-      127 (PIE): fotógrafo para as próximas atividades ainda sem definição (João é exclusivo da Gastronomia).
+      127 (PIE / SOTREQ): E.E. Maria Hilda Ornelas — data de execução ainda sem definição.
     </div>
     <div class="gap-item">
-      <span class="gap-label sem-dados">Sem dados</span>
-      Planilhas de engajamento (Drive): apenas 133/Vibra e 128/CNH disponíveis via busca. Planilhas de 116, 119, 125, 127 e 120 não indexadas ou com acesso restrito.
+      <span class="gap-label pendente">Pendente</span>
+      120 (Statkraft / Porto Itapoá): datas específicas das sessões de captação de Breno Bigi não confirmadas.
+    </div>
+    <div class="gap-item">
+      <span class="gap-label pendente">Pendente</span>
+      125 (GRU Gastronomia): próximas datas de captação com o fotógrafo João além de 19/05 não identificadas.
     </div>
   </div>
 
 </div><!-- end main -->
 
 <div class="footer">
-  NTICS Projetos · Relatório gerado automaticamente a partir de ClickUp e Google Drive · 23/05/2026 &nbsp;|&nbsp;
+  NTICS Projetos · Relatório gerado a partir de ClickUp e Google Drive · 23/05/2026 &nbsp;|&nbsp;
   <a href="../../index.html" style="color:#90a4ae">← Início</a>
 </div>
 
