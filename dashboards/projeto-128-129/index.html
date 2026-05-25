@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CNH 128+129 · Cruzamento Temas × Formatos MinC</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --nh-blue: #003D7A;
+    --nh-blue-soft: #E6EEF7;
+    --case-red: #C8102E;
+    --case-red-soft: #FCE7EA;
+    --ink: #111827;
+    --muted: #6B7280;
+    --line: #E5E7EB;
+  }
+  body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: var(--ink); }
+  .nh-bg { background: var(--nh-blue); }
+  .nh-tint { background: var(--nh-blue-soft); }
+  .nh-text { color: var(--nh-blue); }
+  .nh-border { border-color: var(--nh-blue); }
+  .case-bg { background: var(--case-red); }
+  .case-tint { background: var(--case-red-soft); }
+  .case-text { color: var(--case-red); }
+  .case-border { border-color: var(--case-red); }
+  .star { color: #F59E0B; font-size: 1.1em; }
+  .check { color: #10B981; font-size: 1em; }
+  .dash { color: #D1D5DB; }
+  table { border-collapse: collapse; }
+  th, td { border: 1px solid var(--line); padding: 10px 12px; vertical-align: top; font-size: 14px; }
+  th { background: #F9FAFB; text-align: left; font-weight: 600; }
+  .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; }
+  .pill-nh { background: var(--nh-blue); color: white; }
+  .pill-case { background: var(--case-red); color: white; }
+  .pill-anchor { background: #FEF3C7; color: #92400E; border: 1px solid #F59E0B; }
+  .pill-soft-nh { background: var(--nh-blue-soft); color: var(--nh-blue); }
+  .pill-soft-case { background: var(--case-red-soft); color: var(--case-red); }
+  .card { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: white; }
+  .card-header { padding: 14px 18px; font-weight: 600; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .card-body { padding: 18px; }
+  .grid-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .opt-card { border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: white; }
+  .opt-title { font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 8px; }
+  .opt-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dashed #F3F4F6; font-size: 14px; }
+  .opt-row:last-child { border-bottom: none; }
+  .opt-label { font-weight: 600; }
+  .opt-free { margin-top: 10px; padding-top: 10px; border-top: 2px dotted #E5E7EB; font-size: 13px; color: var(--muted); }
+  details > summary { cursor: pointer; list-style: none; padding: 10px 14px; background: #F9FAFB; border-radius: 8px; font-weight: 600; font-size: 14px; }
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] > summary { background: #EFF6FF; }
+  .legend-icon { width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; border-radius: 4px; font-size: 11px; font-weight: 700; margin-right: 6px; }
+  .ic-ap { background: #FCE7F3; color: #9D174D; }
+  .ic-ft { background: #DBEAFE; color: #1E40AF; }
+  .ic-ac { background: #FEF3C7; color: #92400E; }
+  .matrix td:nth-child(n+3):nth-child(-n+5) { text-align: center; font-size: 18px; }
+  .anchor-card { background: linear-gradient(135deg, #FFFBEB, #FEF3C7); border: 2px solid #F59E0B; border-radius: 14px; padding: 22px; }
+</style>
+</head>
+<body class="bg-gray-50">
+
+<!-- HEADER -->
+<header class="bg-white border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-6 py-6">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="pill pill-nh">128 · New Holland</span>
+      <span class="pill pill-case">129 · Case IH</span>
+    </div>
+    <h1 class="text-2xl font-bold text-gray-900">Cruzamento Temas × Formatos MinC</h1>
+    <p class="text-sm text-gray-500 mt-1">Análise dos 14 temas-agro vendidos ao CNH × Relatório de Sustentabilidade CNH 2025 × Formatos culturais inscritos no MinC. Rascunho de trabalho · 2026-05-24.</p>
+  </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-8 space-y-12">
+
+<!-- LEGENDA -->
+<section>
+  <h2 class="text-lg font-bold mb-4 text-gray-900">Como ler este documento</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="text-xs text-gray-500 uppercase tracking-wider mb-2">Formatos MinC</div>
+        <div class="space-y-2 text-sm">
+          <div><span class="legend-icon ic-ap">AP</span> Artes Plásticas · 1 por projeto</div>
+          <div><span class="legend-icon ic-ft">FT</span> Fotografia · 1 por projeto</div>
+          <div><span class="legend-icon ic-ac">AC</span> Artes Cênicas · 1 apenas no 128</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="text-xs text-gray-500 uppercase tracking-wider mb-2">Símbolos de encaixe</div>
+        <div class="space-y-2 text-sm">
+          <div><span class="star">★★★</span> encaixe ideal, primeira escolha</div>
+          <div><span class="star">★★</span> encaixe natural, candidato forte</div>
+          <div><span class="check">✓</span> também cabe, alternativa viável</div>
+          <div><span class="dash">—</span> não encaixa naturalmente</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="text-xs text-gray-500 uppercase tracking-wider mb-2">Estrutura do projeto</div>
+        <div class="text-sm text-gray-700">7 temas-agro por projeto. Cada projeto escolhe alguns para serem entregues como oficina MinC (formato cultural); o resto fica com formato livre, sem amarra MinC.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTE 1: TEMAS × RELATÓRIO CNH (independente de formato) -->
+<section>
+  <div class="flex items-baseline justify-between mb-3">
+    <h2 class="text-xl font-bold text-gray-900">1. Temas × Relatório de Sustentabilidade CNH 2025</h2>
+    <span class="text-xs text-gray-500">independente do formato MinC</span>
+  </div>
+  <p class="text-sm text-gray-600 mb-6">Para cada tema, o que o relatório oferece em tecnologia, case real e página. A coluna "Âncora" marca os temas que sustentam o pedido literal da Raquel (biometano em NH, etanol em Case).</p>
+
+  <!-- 128 -->
+  <div class="card mb-6">
+    <div class="card-header nh-bg text-white">Projeto 128 · Festival AgriCULTURA Sustentável · New Holland</div>
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr>
+            <th style="width:32px">#</th>
+            <th>Tema</th>
+            <th class="bg-gray-100">Como está hoje (apresentação vendida)</th>
+            <th>Tecnologia CNH no relatório</th>
+            <th>Page</th>
+            <th>Adaptação proposta (ângulo NH)</th>
+            <th style="width:90px">Âncora</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td class="font-semibold">Terra e Semente</td>
+            <td class="bg-gray-50 text-xs"><strong>Conceitos:</strong> solo, germinação, compostagem. <br><strong>Atividade:</strong> plantio de sementes e criação de mini composteira escolar.</td>
+            <td>Soil Health Focus, Strip Till 1000, guidance lines no FieldOps. Solo como "wealth do agricultor".</td>
+            <td>p.3, 17 a 19</td>
+            <td>Pequeno produtor cuidando do solo como riqueza. Adicionar referência ao Strip Till como técnica que protege o solo da erosão.</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td class="font-semibold">Ciclo da Água</td>
+            <td class="bg-gray-50 text-xs"><strong>Conceitos:</strong> uso racional da água, captação de chuva. <br><strong>Atividade:</strong> construção de maquete de irrigação por gotejamento.</td>
+            <td>SenseApply e IntelliSense (pulverização nozzle a nozzle, reduz herbicida em até 65%). Gestão hídrica industrial, meta menos 50% até 2030. 50,4% da água industrial reciclada.</td>
+            <td>p.4, 15, 19, 27, 28</td>
+            <td><strong>Trocar gotejamento por pulverização seletiva</strong> (pedido literal Raquel). NH não fabrica gotejamento, fabrica pulverização inteligente que salva até 65% de insumos.</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td class="font-semibold">Alimentos do Campo e da Cidade</td>
+            <td class="bg-gray-50 text-xs"><strong>Conceitos:</strong> origem dos alimentos, cadeia produtiva. <br><strong>Atividade:</strong> mapa vivo da alimentação + criação de cardápios sustentáveis.</td>
+            <td>FarmScore (intensidade de carbono por pixel 16x16m). Forage HarvestCam e Corn Header Automation melhoram nutrição animal.</td>
+            <td>p.15, 20, 93</td>
+            <td>Alimento como resultado de ciclo longo que conecta campo e cidade. Adicionar FarmScore como exemplo de medição de carbono na cadeia.</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td class="font-semibold">Nova Agricultura e Sabores Locais</td>
+            <td class="bg-gray-50 text-xs"><strong>Conceitos:</strong> cultura do campo, IGs, principais alimentos do estado, saberes indígenas e quilombolas. <br><strong>Atividade:</strong> roda de histórias + desenho das plantas da região.</td>
+            <td>xFarm + UNISG, dados ambientais virando vídeos. Programas técnicos no Brasil (SENAI, SENAR, ETEC).</td>
+            <td>p.5, 69, 89</td>
+            <td>NH valoriza diversidade do produtor brasileiro e saberes locais. Material agro do relatório é raso aqui (esperado). <strong>Buscar IPHAN, BNCC, SECULT local.</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td class="font-semibold">Clima e o Campo</td>
+            <td class="bg-gray-50 text-xs"><strong>Conceitos:</strong> efeitos do clima na produção agrícola. <br><strong>Atividade:</strong> jogo de simulação climática (seca, geada, calor) e soluções (conectividade, plantio direto, tecnologias).</td>
+            <td>Decarbonização menos 12,5% Scope 1+2 em 2025. FarmScore CO2e por pixel agrícola. 30 plantas com ISO 50001.</td>
+            <td>p.4, 7, 8, 20, 26</td>
+            <td>Clima é desafio comum, tecnologia ajuda a fazenda a se adaptar. Trazer dado de decarbonização CNH como conquista positiva (sem virar "agro polui demais").</td>
+            <td></td>
+          </tr>
+          <tr class="bg-yellow-50">
+            <td>6</td>
+            <td class="font-semibold">Ciclo do Metano (biometano)</td>
+            <td class="bg-yellow-100 text-xs"><strong>Conceitos:</strong> aproveitamento de resíduos, geração de energia, tecnologias no campo. <br><strong>Atividade:</strong> não detalhada na apresentação vendida.</td>
+            <td><strong>T6.180 CNG entregue para Fresno State University Jordan College para formação prática em sustentabilidade.</strong> CNH membro da European Biogas Association. Advocacy biometano UE e China.</td>
+            <td><strong>p.13</strong>, 88, 89</td>
+            <td><strong>Detalhar atividade.</strong> Ancorar no T6.180 CNG: maquete do ciclo lixo→biodigestor→trator→campo. Diferencial NH visível.</td>
+            <td><span class="pill pill-anchor">Âncora NH</span></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td class="font-semibold">Cidadania e Sustentabilidade</td>
+            <td class="bg-gray-50 text-xs"><strong>Conceitos:</strong> papel da criança como guardiã da terra. <br><strong>Atividade:</strong> carta ao futuro + mural do compromisso com a Terra.</td>
+            <td>ODS presentes em todas as iniciativas comunitárias. US$ 9,7 milhões em comunidades locais em 2025, 14 mil horas de voluntariado. UN Global Compact Brasil.</td>
+            <td>p.5, 7, 67, 89</td>
+            <td>Manter "guardiãs da terra" como conceito-âncora. Adicionar ODS específicos e referência ao Global Compact Brasil (CNH é primeira fabricante a aderir).</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 129 -->
+  <div class="card">
+    <div class="card-header case-bg text-white">Projeto 129 · Agrofuturo Cultural nas Escolas · Case IH</div>
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr>
+            <th style="width:32px">#</th>
+            <th>Tema</th>
+            <th class="bg-gray-100">Como está hoje (apresentação vendida)</th>
+            <th>Tecnologia CNH no relatório</th>
+            <th>Page</th>
+            <th>Adaptação proposta (ângulo Case)</th>
+            <th style="width:90px">Âncora</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td class="font-semibold">Do Campo à Mesa</td>
+            <td class="bg-gray-50 text-xs"><strong>Conceitos:</strong> trajeto dos alimentos, segurança alimentar, agroindustrialização. <br><strong>Atividade:</strong> simulação de cadeia produtiva com cartas e objetos. <br><strong>ODS:</strong> 2 (Fome Zero).</td>
+            <td>FarmScore (CI score por pixel). Plantas Case IH no Brasil: Curitiba (combinadas, tratores), Piracicaba (colhedoras de cana, pulverizadores), Sorocaba.</td>
+            <td>p.20, 97</td>
+            <td>Cadeia produtiva moderna conecta grande produtor à indústria. Citar as 3 plantas Case IH no Brasil como elos reais da cadeia.</td>
+            <td></td>
+          </tr>
+          <tr class="bg-yellow-50">
+            <td>2</td>
+            <td class="font-semibold">Tecnologia no Campo (drones, sensores)</td>
+            <td class="bg-yellow-100 text-xs"><strong>Conceitos:</strong> drones, tratores inteligentes, sensores transformando o agro. <br><strong>Atividade:</strong> simulação de uso de drone para irrigação com mapas e trajetos. <br><strong>ODS:</strong> 9 (Indústria, Inovação, Infraestrutura).</td>
+            <td>SenseApply (camera based spot spraying). HarvestCommand e IntelliSense Combine Automation. Steiger 785 Quadtrac. R4 autonomous robot (conceito). Plaksha University smart farm com drones.</td>
+            <td>p.15, 16, 19, 71, 72</td>
+            <td>Trocar "drone para irrigação" (CNH não faz) por <strong>SenseApply spot spraying</strong> (drone-like AI vision em pulverizador). Vanguarda em IA, automação e robótica visível.</td>
+            <td><span class="pill pill-anchor">Diferencial Case</span></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td class="font-semibold">Água: Fonte de Vida e Produção</td>
+            <td class="bg-gray-50 text-xs"><strong>Conceitos:</strong> ciclo da água no campo, economia de água com tecnologia. <br><strong>Atividade:</strong> maquete (proposta de substituir por mata ciliar e preservação dos leitos). <br><strong>ODS:</strong> 6 (Água Potável e Saneamento).</td>
+            <td>SenseApply (pulverização seletiva), FieldOps. Gestão industrial: 50,4% da água reciclada, meta menos 50% até 2030.</td>
+            <td>p.4, 19, 27, 28</td>
+            <td>Confirmar mata ciliar como atividade. <strong>Adicionar SenseApply</strong> como exemplo de economia de água via IA, no lugar de gotejamento.</td>
+            <td></td>
+          </tr>
+          <tr class="bg-yellow-50">
+            <td>4</td>
+            <td class="font-semibold">Energia no Agro (etanol)</td>
+            <td class="bg-yellow-100 text-xs"><strong>Conceitos:</strong> fontes de energia no campo, biocombustíveis. <br><strong>Atividade:</strong> "pensar em alguma atividade envolvendo etanol" (sem detalhar). <br><strong>ODS:</strong> 7 (Energia Limpa).</td>
+            <td><strong>Colhedora de cana 100% etanol Case IH com FPT Cursor 13, 420 hp diesel equivalente, cerca de 90% menos GHG e 90% menos NOx (Agrishow 2025).</strong> Case IH 9000 series yield monitoring 70 a 80% mais preciso. Planta Piracicaba fabrica colhedoras de cana.</td>
+            <td><strong>p.19</strong>, 20, 97</td>
+            <td><strong>Retirar solar, eólica, biomassa.</strong> Focar em etanol. Ancorar na colhedora 100% etanol como produto comercial real. Diferencial Case visível.</td>
+            <td><span class="pill pill-anchor">Âncora Case</span></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td class="font-semibold">Agro e Clima</td>
+            <td class="bg-gray-50 text-xs"><strong>Conceitos:</strong> impacto das mudanças climáticas na produção. <br><strong>Atividade:</strong> simular efeitos de seca/chuva e como tecnologias podem auxiliar. <br><strong>ODS:</strong> 13 (Ação Contra Mudança Climática).</td>
+            <td>Decarbonização menos 12,5%. FarmScore CO2e. Avaliação quantitativa de cenários climáticos físicos. UN Global Compact Brasil (Climate WG).</td>
+            <td>p.4, 20, 26, 84, 89</td>
+            <td>Agro do futuro mede pegada de carbono talhão a talhão. Trazer FarmScore como ferramenta de adaptação no jogo de simulação.</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td class="font-semibold">Cidadania e Sustentabilidade no Campo</td>
+            <td class="bg-gray-50 text-xs"><strong>Conceitos:</strong> papel dos jovens como transformadores do agronegócio. <br><strong>Atividade:</strong> criar propostas para fazenda modelo sustentável em grupo. <br><strong>ODS:</strong> 12 (Consumo e Produção Responsáveis).</td>
+            <td>US$ 9,7 milhões em comunidades. SENAI, SENAR, ETEC nos estados SP, MT, PR. Cursos com foco em mulheres no agro. Pehel India, TechPro2 China.</td>
+            <td>p.5, 69, 71, 72</td>
+            <td>Jovens como protagonistas. Adicionar referência ao SENAI/SENAR/ETEC nos estados como caminho real de formação profissional. Pode antecipar lógica do hackathon.</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td class="font-semibold">Desafio AgroFuturo (Hackathon)</td>
+            <td class="bg-gray-50 text-xs"><strong>Conceitos:</strong> integradora, escape room rural. Grupos solucionam problemas de produção, sustentabilidade e inovação. <br><strong>Atividade:</strong> apresentação de soluções dos grupos.</td>
+            <td>Síntese das tecnologias acima usadas como ferramentas nos desafios do hackathon.</td>
+            <td>síntese</td>
+            <td>Integração final, manifesto público do agrofuturo. AC entra como treinamento de pitch.</td>
+            <td><span class="pill pill-anchor">Entrega final</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PARTE 2: ADEQUAÇÃO DOS TEMAS AOS FORMATOS MinC -->
+<section>
+  <h2 class="text-xl font-bold text-gray-900 mb-3">2. Adequação dos temas aos formatos MinC</h2>
+  <p class="text-sm text-gray-600 mb-6">Para cada tema, quão natural é entregá-lo nos formatos AP, FT e AC. Lendo cada linha, dá para ver onde estão os candidatos fortes para cada formato.</p>
+
+  <!-- Matriz 128 -->
+  <div class="card mb-6">
+    <div class="card-header nh-bg text-white">Projeto 128 · candidatos para AP, FT e AC</div>
+    <div class="overflow-x-auto">
+      <table class="w-full matrix">
+        <thead>
+          <tr>
+            <th style="width:32px">#</th>
+            <th>Tema</th>
+            <th>AP</th>
+            <th>FT</th>
+            <th>AC</th>
+            <th>Por que (formato com encaixe mais forte)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Terra e Semente</td>
+            <td><span class="star">★★★</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td>Argila, sementes, plantio: AP entrega ciclo de modo tangível.</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Ciclo da Água</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="star">★★★</span></td>
+            <td><span class="check">✓</span></td>
+            <td>Corpos d'água da cidade pedem registro fotográfico direto.</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Alimentos Campo e Cidade</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="star">★★★</span></td>
+            <td><span class="check">✓</span></td>
+            <td>Confronto visual feira da cidade vs horta do campo é foto.</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Sabores Locais</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="star">★★★</span></td>
+            <td>Saberes orais, IGs, festas regionais: AC é insubstituível.</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Clima e o Campo</td>
+            <td><span class="star">★★</span></td>
+            <td><span class="star">★★</span></td>
+            <td><span class="star">★★</span></td>
+            <td>Tema flexível, qualquer formato cabe. Bom para deixar livre.</td>
+          </tr>
+          <tr class="bg-yellow-50">
+            <td>6</td>
+            <td>Ciclo do Metano (biometano)</td>
+            <td><span class="star">★★★</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="star">★★</span></td>
+            <td>Ciclo circular pede maquete (AP) ou dramatização (AC). Os dois.</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Cidadania e Sustentabilidade</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="star">★★★</span></td>
+            <td>Carta ao Futuro lida em roda. Ritual de encerramento NH.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Matriz 129 -->
+  <div class="card">
+    <div class="card-header case-bg text-white">Projeto 129 · candidatos para AP e FT (sem AC)</div>
+    <div class="overflow-x-auto">
+      <table class="w-full matrix">
+        <thead>
+          <tr>
+            <th style="width:32px">#</th>
+            <th>Tema</th>
+            <th>AP</th>
+            <th>FT</th>
+            <th>Por que (formato com encaixe mais forte)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Do Campo à Mesa</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="star">★★★</span></td>
+            <td>Cadeia produtiva pede registro fotográfico em campo e indústria.</td>
+          </tr>
+          <tr class="bg-yellow-50">
+            <td>2</td>
+            <td>Tecnologia no Campo (drones)</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="star">★★★</span></td>
+            <td>Tema é a vanguarda tech Case, FT é o veículo natural.</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Água: Fonte de Vida</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="star">★★★</span></td>
+            <td>Mata ciliar, leito de rio, recurso visível.</td>
+          </tr>
+          <tr class="bg-yellow-50">
+            <td>4</td>
+            <td>Energia no Agro (etanol)</td>
+            <td><span class="star">★★★</span></td>
+            <td><span class="check">✓</span></td>
+            <td>Ciclo cana ao tanque pede ilustração técnica (AP). Âncora Case.</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Agro e Clima</td>
+            <td><span class="star">★★</span></td>
+            <td><span class="check">✓</span></td>
+            <td>Jogo visual seca vs chuva cabe como tabuleiro plástico.</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Cidadania no Campo</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="star">★★★</span></td>
+            <td>Retratos dos próprios jovens como "futuro do agro".</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Desafio AgroFuturo</td>
+            <td>—</td>
+            <td>—</td>
+            <td>Hackathon, formato próprio (apresentação de soluções).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PARTE 3: OPÇÕES DE COMBINAÇÃO -->
+<section>
+  <h2 class="text-xl font-bold text-gray-900 mb-3">3. Opções de combinação</h2>
+  <p class="text-sm text-gray-600 mb-6">Cada opção é uma forma de escolher quais temas viram oficina MinC. As outras oficinas dentro do mesmo projeto ficam com formato livre, sem amarra MinC.</p>
+
+  <!-- 128 OPCOES -->
+  <h3 class="font-bold text-base mb-3 nh-text">Projeto 128 · 4 opções de combinação AP + FT + AC</h3>
+  <div class="grid-opts mb-8">
+
+    <div class="opt-card border-t-4 nh-border">
+      <div class="opt-title">Opção A · Encaixe puro</div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ap">AP</span> Artes Plásticas</span><span>Tema 1 · Terra e Semente</span></div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ft">FT</span> Fotografia</span><span>Tema 2 · Ciclo da Água</span></div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ac">AC</span> Artes Cênicas</span><span>Tema 4 · Sabores Locais</span></div>
+      <div class="opt-free">Livres: 3 Alimentos · 5 Clima · 6 Metano · 7 Cidadania</div>
+      <p class="text-xs text-gray-500 mt-2">Cada formato vai para o tema onde tem encaixe mais natural. Equilibrado, sem risco. <strong>Não eleva a âncora biometano</strong>, que fica como oficina livre.</p>
+    </div>
+
+    <div class="opt-card border-t-4 border-yellow-400">
+      <div class="opt-title">Opção B · Âncora biometano em destaque</div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ap">AP</span> Artes Plásticas</span><span><strong>Tema 6 · Ciclo do Metano</strong> <span class="pill pill-anchor">âncora</span></span></div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ft">FT</span> Fotografia</span><span>Tema 3 · Alimentos Campo e Cidade</span></div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ac">AC</span> Artes Cênicas</span><span>Tema 4 · Sabores Locais</span></div>
+      <div class="opt-free">Livres: 1 Terra e Semente · 2 Água · 5 Clima · 7 Cidadania</div>
+      <p class="text-xs text-gray-500 mt-2">Coloca o T6 biometano (p.13) como produto da oficina-âncora AP em maquete do ciclo circular. <strong>Casa com o par etanol do 129.</strong></p>
+    </div>
+
+    <div class="opt-card border-t-4 nh-border">
+      <div class="opt-title">Opção C · Ritual de encerramento</div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ap">AP</span> Artes Plásticas</span><span>Tema 1 · Terra e Semente</span></div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ft">FT</span> Fotografia</span><span>Tema 2 · Ciclo da Água</span></div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ac">AC</span> Artes Cênicas</span><span><strong>Tema 7 · Cidadania</strong> (Carta ao Futuro)</span></div>
+      <div class="opt-free">Livres: 3 Alimentos · 4 Sabores · 5 Clima · 6 Metano</div>
+      <p class="text-xs text-gray-500 mt-2">AC vira ritual de encerramento Guardiões da Terra antes do domo. Forte simbolicamente.</p>
+    </div>
+
+    <div class="opt-card border-t-4 nh-border">
+      <div class="opt-title">Opção D · Espalhada pelo arco</div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ap">AP</span> Artes Plásticas</span><span>Tema 1 · Terra e Semente <span class="text-xs text-gray-400">(início)</span></span></div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ft">FT</span> Fotografia</span><span>Tema 5 · Clima e Campo <span class="text-xs text-gray-400">(meio)</span></span></div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ac">AC</span> Artes Cênicas</span><span>Tema 7 · Cidadania <span class="text-xs text-gray-400">(fim)</span></span></div>
+      <div class="opt-free">Livres: 2 Água · 3 Alimentos · 4 Sabores · 6 Metano</div>
+      <p class="text-xs text-gray-500 mt-2">As 3 entregas MinC espalhadas no tempo (início, meio, fim) marcam o ritmo do ano.</p>
+    </div>
+
+  </div>
+
+  <!-- 129 OPCOES -->
+  <h3 class="font-bold text-base mb-3 case-text">Projeto 129 · 3 opções de combinação AP + FT</h3>
+  <div class="grid-opts">
+
+    <div class="opt-card border-t-4 border-yellow-400">
+      <div class="opt-title">Opção A · Diferencial Case duplo</div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ap">AP</span> Artes Plásticas</span><span><strong>Tema 4 · Energia / Etanol</strong> <span class="pill pill-anchor">âncora</span></span></div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ft">FT</span> Fotografia</span><span><strong>Tema 2 · Tecnologia (drones)</strong> <span class="pill pill-anchor">tech</span></span></div>
+      <div class="opt-free">Livres: 1 Campo à Mesa · 3 Água · 5 Clima · 6 Cidadania · 7 Hackathon</div>
+      <p class="text-xs text-gray-500 mt-2">As 2 oficinas MinC carregam os dois eixos diferenciais Case (etanol comercial + vanguarda tech). <strong>Casa com a Opção B do 128 (biometano em AP).</strong></p>
+    </div>
+
+    <div class="opt-card border-t-4 case-border">
+      <div class="opt-title">Opção B · Fotografável fácil</div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ap">AP</span> Artes Plásticas</span><span>Tema 5 · Agro e Clima</span></div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ft">FT</span> Fotografia</span><span>Tema 1 · Do Campo à Mesa</span></div>
+      <div class="opt-free">Livres: 2 Tecnologia · 3 Água · 4 Etanol · 6 Cidadania · 7 Hackathon</div>
+      <p class="text-xs text-gray-500 mt-2">Privilegia operação fácil em sala (não precisa levar aluno em concessionária ou canavial). <strong>Não eleva a âncora etanol</strong>, que fica como oficina livre.</p>
+    </div>
+
+    <div class="opt-card border-t-4 border-yellow-400">
+      <div class="opt-title">Opção C · Âncora + manifesto humano</div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ap">AP</span> Artes Plásticas</span><span><strong>Tema 4 · Energia / Etanol</strong> <span class="pill pill-anchor">âncora</span></span></div>
+      <div class="opt-row"><span class="opt-label"><span class="legend-icon ic-ft">FT</span> Fotografia</span><span>Tema 6 · Cidadania no Campo</span></div>
+      <div class="opt-free">Livres: 1 Campo à Mesa · 2 Tecnologia · 3 Água · 5 Clima · 7 Hackathon</div>
+      <p class="text-xs text-gray-500 mt-2">AP carrega a âncora etanol; FT vira manifesto dos próprios jovens como futuro do agro. <strong>Casa com a Opção C do 128 (Cidadania em AC).</strong></p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PARTE 4: PARES DE COMBINAÇÃO 128+129 -->
+<section>
+  <h2 class="text-xl font-bold text-gray-900 mb-3">4. Pares 128 ↔ 129 (qual opção combina com qual)</h2>
+  <p class="text-sm text-gray-600 mb-6">As opções acima podem ser combinadas. Algumas formam pares mais coerentes que outros.</p>
+
+  <div class="anchor-card mb-6">
+    <div class="text-xs text-amber-700 font-semibold uppercase tracking-wider mb-2">Par recomendado</div>
+    <div class="flex flex-col md:flex-row items-start md:items-center gap-3 mb-2">
+      <span class="pill pill-nh">128 · Opção B</span>
+      <span class="text-gray-400">+</span>
+      <span class="pill pill-case">129 · Opção A</span>
+    </div>
+    <p class="text-sm text-gray-800">Os dois projetos colocam a âncora de marca como oficina MinC AP, espelhando o pedido literal da Raquel: biometano em destaque no 128 (T6.180 CNG, p.13) e etanol em destaque no 129 (colhedora 100% etanol Case IH, p.19). É o par mais forte para apresentação à Comunicação CNH.</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="opt-card">
+      <div class="opt-title">Par alternativo · Encerramento humano</div>
+      <div class="flex items-center gap-2 mb-2">
+        <span class="pill pill-nh">128 · Opção C</span>
+        <span class="text-gray-400">+</span>
+        <span class="pill pill-case">129 · Opção C</span>
+      </div>
+      <p class="text-sm text-gray-700">128 termina com AC ritual (Cidadania, Carta ao Futuro). 129 termina com FT manifesto (Cidadania, retratos). Os dois encerram em chave humana, com âncora etanol em AP no 129.</p>
+    </div>
+
+    <div class="opt-card">
+      <div class="opt-title">Par alternativo · Caminho mais fácil</div>
+      <div class="flex items-center gap-2 mb-2">
+        <span class="pill pill-nh">128 · Opção A</span>
+        <span class="text-gray-400">+</span>
+        <span class="pill pill-case">129 · Opção B</span>
+      </div>
+      <p class="text-sm text-gray-700">As entregas MinC vão para os temas mais simples de operar em sala (solo, água, alimentos, sabores, clima). Nenhuma âncora elevada. Risco menor de execução, narrativa de marca mais diluída.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PARTE 5: HACKATHON -->
+<section>
+  <h2 class="text-xl font-bold text-gray-900 mb-3">5. Hackathon do 129 e Artes Cênicas como instrumento</h2>
+  <p class="text-sm text-gray-600 mb-4">No 129 não há oficina MinC de Artes Cênicas. Mas AC pode aparecer como <strong>preparação para o pitch do hackathon</strong>, dentro de uma das oficinas livres ou em sessões transversais.</p>
+  <div class="card">
+    <div class="card-body">
+      <table class="w-full">
+        <thead>
+          <tr>
+            <th>Etapa AC (treinamento)</th>
+            <th>O que treina</th>
+            <th>Por que importa no hackathon</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Expressão corporal e voz</td><td>Postura, projeção, timing</td><td>Aluno consegue ser ouvido na hora do pitch</td></tr>
+          <tr><td>Construção de personagem</td><td>"Eu sou o agricultor que tem este problema"</td><td>Solução do grupo ganha rosto humano</td></tr>
+          <tr><td>Estrutura narrativa</td><td>Começo, meio, fim do arco de apresentação</td><td>Pitch tem conflito e fechamento</td></tr>
+          <tr><td>Improvisação</td><td>Resposta a perguntas do júri</td><td>Não trava na arguição</td></tr>
+          <tr><td>Pitch ensaiado</td><td>Apresentação cronometrada</td><td>Hackathon roda no tempo</td></tr>
+        </tbody>
+      </table>
+      <p class="text-xs text-gray-500 mt-3"><strong>Importante:</strong> AC no 129 é instrumental (prepara para pitch), não temática. Não disputa lugar com uma oficina-tema. No 128, AC é temática (Sabores Locais ou Cidadania).</p>
+    </div>
+  </div>
+</section>
+
+<!-- PARTE 6: PERGUNTAS DE FECHAMENTO -->
+<section>
+  <h2 class="text-xl font-bold text-gray-900 mb-3">6. Perguntas para decidir</h2>
+  <div class="space-y-3">
+    <details>
+      <summary>1. Qual par 128 ↔ 129 escolher (B+A âncoras, C+C encerramento, A+B fácil, ou outra combinação)?</summary>
+      <p class="text-sm text-gray-600 p-4">A escolha do par muda o que vai como oficina MinC e o que fica livre. Par B+A é o mais alinhado ao pedido literal da Raquel; C+C tem encerramento humano forte; A+B é o operacionalmente mais simples.</p>
+    </details>
+    <details>
+      <summary>2. As oficinas livres têm formato pré-definido ou cada cidade escolhe na hora?</summary>
+      <p class="text-sm text-gray-600 p-4">As 4 oficinas livres do 128 e as 5 do 129 podem ter formato sugerido (vídeo, debate, jogo, visita técnica, oficina maker, mini-doc) ou ficar à critério do instrutor de campo.</p>
+    </details>
+    <details>
+      <summary>3. As 3 oficinas MinC do 128 são as mesmas em todas as 4 cidades?</summary>
+      <p class="text-sm text-gray-600 p-4">Faz sentido manter consistente para curadoria do domo final em Curitiba (que precisa de obras de todas as cidades). Mas pode ser interessante adaptar 1 oficina à realidade local (sabores em Dom Pedrito ≠ sabores em Toledo).</p>
+    </details>
+    <details>
+      <summary>4. AC no 129 entra como sessão transversal antes do hackathon ou dentro de uma oficina livre?</summary>
+      <p class="text-sm text-gray-600 p-4">Se transversal, é um módulo curto repetido antes do hackathon. Se dentro de uma livre, vira parte da oficina de Cidadania (129.6) por exemplo.</p>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer class="border-t border-gray-200 mt-12 py-6">
+  <div class="max-w-7xl mx-auto px-6 text-xs text-gray-500">
+    <p>Rascunho de trabalho · NTICS Projetos · 2026-05-24</p>
+    <p>Fontes: CNH Sustainability Report 2025; Projeto Pedagógico e Proposta Museográfica MinC dos dois projetos; reunião CNH 22/05/2026 (Raquel Mozardo).</p>
+  </div>
+</footer>
+
+</body>
+</html>
