@@ -131,6 +131,35 @@
   .chip-128   { background: #d0ebff; color: #0b4f8c; }
   .chip-129   { background: #ffd6d6; color: #a02020; }
   .chip-ambos { background: #fff3bf; color: #846100; }
+  .chip-minc  { background: #c3fae8; color: #0c5848; }
+  .card.minc { border-left-color: #0c5848; }
+  .section-note {
+    font-size: 0.875rem;
+    color: #4b5563;
+    margin: -8px 0 16px;
+    padding: 10px 14px;
+    background: #f0fdfa;
+    border-left: 3px solid #0c5848;
+    border-radius: 0 4px 4px 0;
+  }
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 56px 0 24px;
+  }
+  .section-divider-line {
+    flex: 1;
+    height: 1px;
+    background: #d1d5db;
+  }
+  .section-divider-text {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #6b7280;
+  }
   .alert {
     background: #fff8e1;
     border: 1px solid #f5b400;
@@ -336,10 +365,146 @@
         <span class="legend-item"><span class="chip chip-129">129</span></span>
         <span class="legend-item"><span class="chip chip-ambos">AMBOS</span></span>
       </div>
+      <div class="legend-group">
+        <span class="legend-label">Origem</span>
+        <span class="legend-item"><span class="chip chip-minc">MinC</span> Produto cultural Rouanet</span>
+      </div>
     </div>
 
     <div class="alert">
-      <strong>Diretriz de leitura:</strong> tudo que a Raquel sugeriu na reunião entra como sugestão a avaliar, não como decisão. NTICS avalia (viabilidade orçamentária, MinC, operacional, narrativa) e decide o que vira escopo. Cada item desta lista tem chip indicando se aplica ao 128, ao 129 ou aos dois.
+      <strong>Diretriz de leitura:</strong> o documento tem dois blocos. Em cima, <strong>Entregas MinC</strong>, com produtos culturais aprovados no Rouanet que ainda precisam de definição de formato — independem da reunião com a Raquel. Em baixo, os itens que saíram da reunião de kickoff de 22/05 (decisões NTICS, cobranças à CNH, validações internas, sugestões da Raquel). Cada item tem chip indicando se aplica ao 128, ao 129 ou aos dois. Sugestões da Raquel entram como sugestão a avaliar, não como decisão fechada.
+    </div>
+
+    <section>
+      <div class="section-head">
+        <h2>Entregas MinC · formato em aberto</h2>
+        <span class="count">7 itens</span>
+      </div>
+      <p class="section-note">Produtos culturais aprovados no MinC (Rouanet) que precisam de definição interna de formato, conteúdo e amarração temática antes de virarem briefing operacional. Owner padrão: Lucas + Ana. Validação MinC: Mayara.</p>
+
+      <div class="grid">
+
+        <div class="card minc">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-128">128</span>
+              <span class="chip chip-minc">MinC</span>
+              <h3>Palestra "Arte e Sustentabilidade" para professores (ampliação de acesso)</h3>
+            </div>
+            <span class="tag tag-urgent">Não previsto</span>
+          </div>
+          <p>Aprovada no MinC como ampliação de acesso, dirigida a professores. <strong>Não está prevista no plano de execução atual.</strong> Precisa ser confirmada se entra no escopo operacional ou se vai exigir reavaliação com a Mayara.</p>
+          <div class="footer">
+            <span><strong>Público:</strong> 100 professores por cidade · 4 cidades = 400 no total</span>
+            <span><strong>Owner:</strong> Lucas + Mayara</span>
+          </div>
+        </div>
+
+        <div class="card minc">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-128">128</span>
+              <span class="chip chip-minc">MinC</span>
+              <h3>Oficina de Fotografia "Do Campo ao Olhar Artístico"</h3>
+            </div>
+            <span class="tag tag-high">Definir formato</span>
+          </div>
+          <p>Produto cultural MinC. Definição de formato, conteúdo e amarração com a temática agrícola/sustentabilidade pendente. Verificar também a compatibilidade da faixa etária com a faixa pactuada no kickoff (8º/9º ano + ensino médio).</p>
+          <div class="footer">
+            <span><strong>Faixa etária:</strong> 13 a 17 anos</span>
+            <span><strong>Owner:</strong> Lucas + Ana</span>
+          </div>
+        </div>
+
+        <div class="card minc">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-128">128</span>
+              <span class="chip chip-minc">MinC</span>
+              <h3>Oficina de Artes Plásticas "Águas e Expressão"</h3>
+            </div>
+            <span class="tag tag-high">Definir formato</span>
+          </div>
+          <p>Produto cultural MinC. Definição de formato, conteúdo, materiais e amarração com tema água/pulverização seletiva pendente. Faixa etária mais ampla que a do kickoff, contempla também crianças menores.</p>
+          <div class="footer">
+            <span><strong>Faixa etária:</strong> 7 a 14 anos</span>
+            <span><strong>Owner:</strong> Lucas + Ana</span>
+          </div>
+        </div>
+
+        <div class="card minc">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-128">128</span>
+              <span class="chip chip-minc">MinC</span>
+              <h3>Oficina de Contação de Histórias "Vozes da Terra"</h3>
+            </div>
+            <span class="tag tag-high">Definir formato</span>
+          </div>
+          <p>Produto cultural MinC. Definição de roteiro, contadores e amarração com a narrativa do agro sustentável pendente.</p>
+          <div class="footer">
+            <span><strong>Faixa etária:</strong> 7 a 14 anos</span>
+            <span><strong>Owner:</strong> Lucas + Ana</span>
+          </div>
+        </div>
+
+        <div class="card minc">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-129">129</span>
+              <span class="chip chip-minc">MinC</span>
+              <h3>Oficina de Artes Plásticas "A Terra em Cores"</h3>
+            </div>
+            <span class="tag tag-high">Definir formato</span>
+          </div>
+          <p>Produto cultural MinC. Definição de conteúdo, materiais e amarração com tecnologia / inovação Case IH (drone, telemetria, etanol) pendente.</p>
+          <div class="footer">
+            <span><strong>Faixa etária:</strong> 7 a 12 anos</span>
+            <span><strong>Duração:</strong> 2h30</span>
+            <span><strong>Owner:</strong> Lucas + Ana</span>
+          </div>
+        </div>
+
+        <div class="card minc">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-129">129</span>
+              <span class="chip chip-minc">MinC</span>
+              <h3>Oficina de Fotografia (129)</h3>
+            </div>
+            <span class="tag tag-high">Definir formato</span>
+          </div>
+          <p>Produto cultural MinC. Definição de formato, conteúdo e amarração com tecnologia / inovação Case IH pendente.</p>
+          <div class="footer">
+            <span><strong>Faixa etária:</strong> 13 a 17 anos</span>
+            <span><strong>Duração:</strong> 2h30</span>
+            <span><strong>Owner:</strong> Lucas + Ana</span>
+          </div>
+        </div>
+
+        <div class="card minc">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-129">129</span>
+              <span class="chip chip-minc">MinC</span>
+              <h3>Exposição (1 por cidade) · eixos temáticos definidos</h3>
+            </div>
+            <span class="tag tag-normal">Definir curadoria</span>
+          </div>
+          <p>Eixos temáticos validados: <strong>Terra e natureza · Desenho e colagem · Agro sustentabilidade · Trabalho artístico · Inovação e futuro · Fotografia sobre tecnologia · Juventude e foco · Olhares criativos de crianças e adolescentes.</strong> Em aberto: como traduzir cada eixo em obras concretas e como amarrar com os produtos das oficinas de fotografia e artes plásticas.</p>
+          <div class="footer">
+            <span><strong>Formato:</strong> 1 exposição por cidade</span>
+            <span><strong>Owner:</strong> Lucas + Ana + curadoria</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="section-divider">
+      <span class="section-divider-line"></span>
+      <span class="section-divider-text">A seguir · pontos da reunião de kickoff 22/05</span>
+      <span class="section-divider-line"></span>
     </div>
 
     <section>
