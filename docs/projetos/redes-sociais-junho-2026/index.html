@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redes Sociais — Planejamento Junho 2026 · NTICS</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ntics-blue:  #003087;
+  --ntics-dark:  #001A5C;
+  --ntics-mid:   #0047BB;
+  --accent:      #F5A623;
+  --bg:          #F0F4FA;
+  --card:        #FFFFFF;
+  --text:        #0D1B3E;
+  --sub:         #3D4F72;
+  --muted:       #7B8CAB;
+  --border:      #DDE4F0;
+  --green:       #059669;
+  --green-bg:    #ECFDF5;
+  --amber:       #D97706;
+  --amber-bg:    #FFFBEB;
+  --red:         #DC2626;
+  --red-bg:      #FEF2F2;
+  --orange:      #EA580C;
+  --orange-bg:   #FFF7ED;
+  --purple:      #7C3AED;
+  --purple-bg:   #F5F3FF;
+  --blue:        #2563EB;
+  --blue-bg:     #EFF6FF;
+  --r:           12px;
+  --r-sm:        7px;
+  --sh:          0 1px 3px rgba(0,20,80,.06), 0 4px 14px rgba(0,20,80,.08);
+  --sh-lg:       0 4px 8px rgba(0,20,80,.06), 0 12px 32px rgba(0,20,80,.12);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+.top-banner {
+  background: var(--ntics-blue);
+  color: #fff;
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+header {
+  background: linear-gradient(135deg, var(--ntics-dark) 0%, var(--ntics-mid) 100%);
+  color: #fff;
+  padding: 36px 40px 32px;
+}
+header .eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 10px;
+}
+header h1 {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 6px;
+}
+header .subtitle {
+  color: rgba(255,255,255,.7);
+  font-size: 14px;
+}
+.header-meta {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.header-stat {
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: var(--r-sm);
+  padding: 10px 16px;
+  text-align: center;
+  min-width: 90px;
+}
+.header-stat .n { font-size: 22px; font-weight: 800; line-height: 1; }
+.header-stat .l { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.6); margin-top: 3px; }
+
+/* ── LAYOUT ── */
+main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 60px; }
+section { margin-bottom: 40px; }
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--sub);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--card);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  box-shadow: var(--sh);
+  padding: 20px 24px;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+.kpi-card {
+  background: var(--card);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  box-shadow: var(--sh);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.kpi-card .kpi-n { font-size: 28px; font-weight: 800; line-height: 1; }
+.kpi-card .kpi-l { font-size: 11px; font-weight: 600; color: var(--sub); text-transform: uppercase; letter-spacing: .08em; }
+.kpi-card .kpi-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.kpi-card.blue  { border-left: 3px solid var(--blue);   } .kpi-card.blue .kpi-n  { color: var(--blue); }
+.kpi-card.orange{ border-left: 3px solid var(--orange); } .kpi-card.orange .kpi-n{ color: var(--orange); }
+.kpi-card.green { border-left: 3px solid var(--green);  } .kpi-card.green .kpi-n { color: var(--green); }
+.kpi-card.purple{ border-left: 3px solid var(--purple); } .kpi-card.purple .kpi-n{ color: var(--purple); }
+.kpi-card.amber { border-left: 3px solid var(--amber);  } .kpi-card.amber .kpi-n { color: var(--amber); }
+.kpi-card.red   { border-left: 3px solid var(--red);    } .kpi-card.red .kpi-n   { color: var(--red); }
+
+/* ── CALENDAR ── */
+.cal-wrapper { overflow-x: auto; }
+.cal {
+  display: grid;
+  grid-template-columns: 60px repeat(7, 1fr);
+  gap: 3px;
+  min-width: 820px;
+}
+.cal-header {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--muted);
+  padding: 6px 4px;
+  text-align: center;
+}
+.cal-week-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--sub);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
+.cal-day {
+  background: var(--bg);
+  border-radius: var(--r-sm);
+  padding: 6px 6px 8px;
+  min-height: 90px;
+  position: relative;
+  border: 1px solid var(--border);
+}
+.cal-day.today { border-color: var(--ntics-mid); background: #EEF4FF; }
+.cal-day.capture-day { border-color: var(--red); background: #FFF5F5; }
+.cal-day-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sub);
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.cal-day-num .capture-pin { font-size: 12px; }
+.cal-event {
+  display: block;
+  font-size: 9px;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 2px 5px;
+  margin-bottom: 2px;
+  line-height: 1.3;
+  cursor: default;
+}
+.ev-carrossel  { background: #DBEAFE; color: #1D4ED8; }
+.ev-video      { background: #FFEDD5; color: #C2410C; }
+.ev-artigo     { background: #FEF9C3; color: #854D0E; }
+.ev-newsletter { background: #F0FDF4; color: #166534; }
+.ev-post-proj  { background: #CCFBF1; color: #0F766E; }
+.ev-campo      { background: #FEE2E2; color: #991B1B; font-weight: 700; }
+.cal-day.empty { background: transparent; border-color: transparent; min-height: 0; }
+
+/* ── BADGES ── */
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+.badge-blue   { background: var(--blue-bg);   color: var(--blue); }
+.badge-orange { background: var(--orange-bg); color: var(--orange); }
+.badge-green  { background: var(--green-bg);  color: var(--green); }
+.badge-amber  { background: var(--amber-bg);  color: var(--amber); }
+.badge-red    { background: var(--red-bg);    color: var(--red); }
+.badge-purple { background: var(--purple-bg); color: var(--purple); }
+.badge-muted  { background: #F1F5F9;          color: var(--sub); }
+
+/* ── TABLES ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+thead th {
+  background: var(--bg);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--sub);
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 2px solid var(--border);
+}
+tbody td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: #F8FAFC; }
+.date-col { font-weight: 700; color: var(--sub); white-space: nowrap; font-size: 12px; }
+.task-name { font-weight: 600; }
+.project-name { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+/* ── SECTION TABS ── */
+.section-nav {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.section-nav a {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--sub);
+  text-decoration: none;
+  transition: all .15s;
+}
+.section-nav a:hover { background: var(--ntics-blue); color: #fff; border-color: var(--ntics-blue); }
+
+/* ── ALERT ── */
+.alert {
+  border-radius: var(--r-sm);
+  padding: 12px 16px;
+  font-size: 13px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.alert-red    { background: var(--red-bg);    border-left: 3px solid var(--red); }
+.alert-amber  { background: var(--amber-bg);  border-left: 3px solid var(--amber); }
+.alert-blue   { background: var(--blue-bg);   border-left: 3px solid var(--blue); }
+.alert-icon   { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.alert-body strong { font-weight: 700; display: block; margin-bottom: 2px; }
+.alert-body p { color: var(--sub); font-size: 12px; }
+
+/* ── LOAD BARS ── */
+.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.bar-label { font-size: 11px; font-weight: 600; color: var(--sub); width: 100px; flex-shrink: 0; }
+.bar-track { flex: 1; background: var(--bg); border-radius: 20px; height: 10px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 20px; transition: width .6s ease; }
+.bar-count { font-size: 11px; font-weight: 700; color: var(--sub); width: 24px; text-align: right; }
+
+/* ── PEOPLE ── */
+.person-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.person-row:last-child { border-bottom: none; }
+.avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  font-size: 13px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+}
+.av-aline  { background: linear-gradient(135deg, #7C3AED, #A855F7); }
+.av-marcos { background: linear-gradient(135deg, #EA580C, #FB923C); }
+.av-lucas  { background: linear-gradient(135deg, #2563EB, #60A5FA); }
+.person-info { flex: 1; }
+.person-info .name { font-weight: 700; font-size: 14px; }
+.person-info .role { font-size: 11px; color: var(--muted); }
+.person-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+
+/* ── TYPE GRID ── */
+.type-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.type-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  box-shadow: var(--sh);
+}
+.type-card .type-icon { font-size: 22px; margin-bottom: 8px; }
+.type-card .type-name { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.type-card .type-count { font-size: 22px; font-weight: 800; }
+.type-card .type-who { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ntics-dark);
+  color: rgba(255,255,255,.45);
+  text-align: center;
+  padding: 20px;
+  font-size: 11px;
+}
+footer strong { color: rgba(255,255,255,.8); }
+
+@media (max-width: 640px) {
+  header { padding: 24px 20px; }
+  main { padding: 20px 14px 40px; }
+  header h1 { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-banner">NTICS — Social Media · Planejamento Mensal · Gerado em 27/05/2026</div>
+
+<header>
+  <div class="eyebrow">Redes Sociais NTICS</div>
+  <h1>Planejamento — Junho 2026</h1>
+  <p class="subtitle">Calendário de posts, pipeline de edição e agenda de captação em campo</p>
+  <div class="header-meta">
+    <div class="header-stat"><div class="n">56</div><div class="l">Posts</div></div>
+    <div class="header-stat"><div class="n">21</div><div class="l">Vídeos</div></div>
+    <div class="header-stat"><div class="n">2</div><div class="l">Captações</div></div>
+    <div class="header-stat"><div class="n">4</div><div class="l">Projetos campo</div></div>
+    <div class="header-stat"><div class="n">7</div><div class="l">Pontos abertos</div></div>
+  </div>
+</header>
+
+<main>
+
+<nav class="section-nav">
+  <a href="#calendario">📅 Calendário Macro</a>
+  <a href="#videos">🎬 Edição de Vídeo</a>
+  <a href="#campo">📍 Captação em Campo</a>
+  <a href="#tipos">🗂️ Tipos de Conteúdo</a>
+  <a href="#abertos">⚠️ Pontos em Aberto</a>
+</nav>
+
+<!-- ─── KPIs ─── -->
+<div class="card-grid" style="margin-bottom:32px">
+  <div class="kpi-card blue">
+    <div class="kpi-n">56</div>
+    <div class="kpi-l">Posts publicados</div>
+    <div class="kpi-sub">18 editorial + 38 projetos (9 EcoArte/Vibra)</div>
+  </div>
+  <div class="kpi-card orange">
+    <div class="kpi-n">21</div>
+    <div class="kpi-l">Vídeos para editar</div>
+    <div class="kpi-sub">Aline: 15 · Marcos: 6</div>
+  </div>
+  <div class="kpi-card red">
+    <div class="kpi-n">2</div>
+    <div class="kpi-l">Captações confirmadas</div>
+    <div class="kpi-sub">08/06 e 11/06 — Negócio Cultural</div>
+  </div>
+  <div class="kpi-card green">
+    <div class="kpi-n">4</div>
+    <div class="kpi-l">Projetos com material</div>
+    <div class="kpi-sub">material de maio publicável em junho</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-n">5</div>
+    <div class="kpi-l">Projetos em planejamento</div>
+    <div class="kpi-sub">captação ainda sem data confirmada</div>
+  </div>
+  <div class="kpi-card purple">
+    <div class="kpi-n">7</div>
+    <div class="kpi-l">Pontos em aberto</div>
+    <div class="kpi-sub">para resolver na reunião</div>
+  </div>
+</div>
+
+<!-- ─── CALENDARIO ─── -->
+<section id="calendario">
+  <div class="section-title">📅 Calendário Macro — Junho 2026</div>
+
+  <div class="card" style="margin-bottom:12px; padding:12px 20px;">
+    <div style="display:flex; gap:10px; flex-wrap:wrap; font-size:11px; font-weight:600; align-items:center;">
+      <span style="color:var(--muted);">Legenda:</span>
+      <span class="cal-event ev-carrossel" style="display:inline-block">🖼️ Carrossel</span>
+      <span class="cal-event ev-video" style="display:inline-block">🎬 Vídeo/Reel post</span>
+      <span class="cal-event ev-artigo" style="display:inline-block">✍️ Artigo/Newsletter</span>
+      <span class="cal-event ev-post-proj" style="display:inline-block">📱 Post Projeto</span>
+      <span class="cal-event ev-campo" style="display:inline-block">📍 Campo</span>
+      <span style="font-size:10px; color:var(--muted);">A = Aline · M = Marina · L = Lucas</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="cal-wrapper">
+      <div class="cal">
+        <!-- Header -->
+        <div class="cal-header"></div>
+        <div class="cal-header">Seg</div>
+        <div class="cal-header">Ter</div>
+        <div class="cal-header">Qua</div>
+        <div class="cal-header">Qui</div>
+        <div class="cal-header">Sex</div>
+        <div class="cal-header">Sáb</div>
+        <div class="cal-header">Dom</div>
+
+        <!-- S1: 01–07/06 -->
+        <div class="cal-week-label">S1</div>
+        <div class="cal-day"><div class="cal-day-num">01</div>
+          <span class="cal-event ev-video">🎬 A · Vid1 Durante GRU · PIE</span></div>
+        <div class="cal-day"><div class="cal-day-num">02</div>
+          <span class="cal-event ev-carrossel">🖼️ Proj S10 · ODS (Moove)</span>
+          <span class="cal-event ev-post-proj">📱 M · ODS Talks Liderança</span></div>
+        <div class="cal-day"><div class="cal-day-num">03</div>
+          <span class="cal-event ev-post-proj">📱 A · Case Itabaianinha · GGE</span>
+          <span class="cal-event ev-video">🎬 A · Postar · Gastron. GRU</span>
+          <span class="cal-event ev-video">🎬 A · Vid2 Durante · PEC</span></div>
+        <div class="cal-day"><div class="cal-day-num">04</div></div>
+        <div class="cal-day"><div class="cal-day-num">05</div>
+          <span class="cal-event ev-carrossel">🖼️ Notícias Proj S11</span>
+          <span class="cal-event ev-post-proj">📱 M · Atividades Escolas</span>
+          <span class="cal-event ev-video">🎬 A · Vid1 Durante Guatapará</span>
+          <span class="cal-event ev-video">🎬 A · Case Pós · Teatro Rob 4Ed</span></div>
+        <div class="cal-day"><div class="cal-day-num">06</div></div>
+        <div class="cal-day"><div class="cal-day-num">07</div>
+          <span class="cal-event ev-artigo">✍️ L · Artigo ESG S11</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Notícias ESG S11</span></div>
+
+        <!-- S2: 08–14/06 -->
+        <div class="cal-week-label">S2</div>
+        <div class="cal-day capture-day"><div class="cal-day-num">08 <span class="capture-pin">📍</span></div>
+          <span class="cal-event ev-campo">📍 CAMPO · Neg. Cultural (Kley)</span>
+          <span class="cal-event ev-post-proj">📱 M · LinkedIn Mídia Kit</span>
+          <span class="cal-event ev-post-proj">📱 M · Faltam 7 Dias (Manaus)</span>
+          <span class="cal-event ev-video">🎬 A · Vid1 Durante · Gastron.</span>
+          <span class="cal-event ev-video">🎬 A · Pré-Proj · Cultura Rob 2ªEd</span>
+          <span class="cal-event ev-video">🎬 A · Postar · Gastron. GRU</span></div>
+        <div class="cal-day"><div class="cal-day-num">09</div>
+          <span class="cal-event ev-carrossel">🖼️ Proj S11 · Teatro Robótica</span>
+          <span class="cal-event ev-post-proj">📱 A · Case Alto Araguaia · GGE</span>
+          <span class="cal-event ev-video">🎬 A · Vid2 Durante · Gastron.</span>
+          <span class="cal-event ev-video">🎬 A · Durante Evento · Cultura Rob.</span></div>
+        <div class="cal-day"><div class="cal-day-num">10</div>
+          <span class="cal-event ev-post-proj">📱 M · Influencers Locais</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Carrossel Pré-proj · Cultura 2ªEd</span>
+          <span class="cal-event ev-video">🎬 A · Venda 1 · Teatro Rob 4Ed</span></div>
+        <div class="cal-day capture-day"><div class="cal-day-num">11 <span class="capture-pin">📍</span></div>
+          <span class="cal-event ev-campo">📍 CAMPO · Neg. Cultural (Kley)</span>
+          <span class="cal-event ev-artigo">✍️ Artigo M03 · Confiança</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Case Pós · Teatro Rob 4Ed</span></div>
+        <div class="cal-day"><div class="cal-day-num">12</div>
+          <span class="cal-event ev-carrossel">🖼️ Notícias Proj S12</span>
+          <span class="cal-event ev-post-proj">📱 M · LinkedIn Vibra Caminhão</span>
+          <span class="cal-event ev-post-proj">📱 M · Vem Aí! Caminhão Manaus</span></div>
+        <div class="cal-day"><div class="cal-day-num">13</div>
+          <span class="cal-event ev-post-proj">📱 M · ODS Talks ao Vivo</span>
+          <span class="cal-event ev-post-proj">📱 M · Amanhã Começa</span></div>
+        <div class="cal-day"><div class="cal-day-num">14</div>
+          <span class="cal-event ev-artigo">✍️ L · Artigo ESG S12</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Notícias ESG S12</span></div>
+
+        <!-- S3: 15–21/06 -->
+        <div class="cal-week-label">S3</div>
+        <div class="cal-day"><div class="cal-day-num">15</div>
+          <span class="cal-event ev-artigo">📧 Newsletter M03 · Confiança</span></div>
+        <div class="cal-day"><div class="cal-day-num">16</div>
+          <span class="cal-event ev-carrossel">🖼️ Proj S12 · Caminhão ODS (TCP)</span>
+          <span class="cal-event ev-video">🎬 A · Venda 2 · Teatro Rob 4Ed</span>
+          <span class="cal-event ev-post-proj">📱 A · Case Peixoto · GGE</span></div>
+        <div class="cal-day"><div class="cal-day-num">17</div>
+          <span class="cal-event ev-carrossel">🖼️ A · Carrossel pós · Neg. Cultural</span></div>
+        <div class="cal-day"><div class="cal-day-num">18</div>
+          <span class="cal-event ev-carrossel">🖼️ A · Carrossel Pós · PEC Sylvamo</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Case Pós · Cultura Rob. (Áster)</span></div>
+        <div class="cal-day"><div class="cal-day-num">19</div>
+          <span class="cal-event ev-carrossel">🖼️ Notícias Proj S13</span></div>
+        <div class="cal-day"><div class="cal-day-num">20</div></div>
+        <div class="cal-day"><div class="cal-day-num">21</div>
+          <span class="cal-event ev-artigo">✍️ L · Artigo ESG S13</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Notícias ESG S13</span></div>
+
+        <!-- S4: 22–28/06 -->
+        <div class="cal-week-label">S4</div>
+        <div class="cal-day"><div class="cal-day-num">22</div>
+          <span class="cal-event ev-video">🎬 A · Case Pós · Cultura Rob. (Áster)</span>
+          <span class="cal-event ev-video">🎬 A · pós Evento · Neg. Cultural</span></div>
+        <div class="cal-day"><div class="cal-day-num">23</div>
+          <span class="cal-event ev-carrossel">🖼️ Proj S13 · Caminhão ODS (Moove)</span>
+          <span class="cal-event ev-video">🎬 A · Case Pós · Estação Samarco</span></div>
+        <div class="cal-day"><div class="cal-day-num">24</div>
+          <span class="cal-event ev-post-proj">📱 A · Case Novo Repartimento · GGE</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Carrossel Case Pós · Samarco</span></div>
+        <div class="cal-day"><div class="cal-day-num">25</div>
+          <span class="cal-event ev-video">🎬 A · Vídeo Case · PEC Sylvamo</span></div>
+        <div class="cal-day"><div class="cal-day-num">26</div>
+          <span class="cal-event ev-carrossel">🖼️ Notícias Proj S14</span>
+          <span class="cal-event ev-video">🎬 A · Venda 1 · Neg. Cultural</span></div>
+        <div class="cal-day"><div class="cal-day-num">27</div></div>
+        <div class="cal-day"><div class="cal-day-num">28</div>
+          <span class="cal-event ev-artigo">✍️ L · Artigo ESG S14</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Notícias ESG S14</span></div>
+
+        <!-- S5 parcial: 29–30/06 -->
+        <div class="cal-week-label">S5</div>
+        <div class="cal-day"><div class="cal-day-num">29</div>
+          <span class="cal-event ev-video">🎬 A · Venda 1 · Estação Samarco</span></div>
+        <div class="cal-day"><div class="cal-day-num">30</div>
+          <span class="cal-event ev-carrossel">🖼️ A · Case Pós · Gastronomia (Compagas)</span></div>
+        <div class="cal-day empty"></div>
+        <div class="cal-day empty"></div>
+        <div class="cal-day empty"></div>
+        <div class="cal-day empty"></div>
+        <div class="cal-day empty"></div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px; padding-top:16px; border-top:1px solid var(--border); display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:8px;">
+      <div style="font-size:12px; color:var(--sub);">
+        <strong style="display:block; margin-bottom:2px;">Artigos ESG + Carrosséis ESG</strong>
+        07 · 14 · 21 · 28/06 — toda semana (dom) — Lucas + Aline
+      </div>
+      <div style="font-size:12px; color:var(--sub);">
+        <strong style="display:block; margin-bottom:2px;">EcoArte / 133 Vibra — Marina (9)</strong>
+        02 · 05 · 08 · 10 · 12 · 13/06 — LinkedIn, Stories, Posts
+      </div>
+      <div style="font-size:12px; color:var(--sub);">
+        <strong style="display:block; margin-bottom:2px;">Global Goals Educa — GGE (4)</strong>
+        Itabaianinha (03) · Alto Araguaia (09) · Peixoto (16) · Novo Repartimento (24)
+      </div>
+      <div style="font-size:12px; color:var(--sub);">
+        <strong style="display:block; margin-bottom:2px;">Captações em Campo (📍)</strong>
+        08/06 e 11/06 — Neg. Cultural/Statkraft — Kley, BA
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── VÍDEOS ─── -->
+<section id="videos">
+  <div class="section-title">🎬 Pipeline de Edição de Vídeo</div>
+
+  <!-- pessoas -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="person-row">
+      <div class="avatar av-aline">AB</div>
+      <div class="person-info">
+        <div class="name">Aline B.</div>
+        <div class="role">Editora de vídeo + Gestora de redes</div>
+      </div>
+      <div class="person-tags">
+        <span class="badge badge-orange">15 vídeos</span>
+        <span class="badge badge-blue">14 posts editoriais</span>
+        <span class="badge badge-purple">29 posts projetos</span>
+        <span class="badge badge-muted">58 tarefas total</span>
+      </div>
+    </div>
+    <div class="person-row">
+      <div class="avatar av-marcos">MQ</div>
+      <div class="person-info">
+        <div class="name">Marcos Queiroz</div>
+        <div class="role">Editor de vídeo</div>
+      </div>
+      <div class="person-tags">
+        <span class="badge badge-orange">6 vídeos</span>
+        <span class="badge badge-muted">backlog</span>
+      </div>
+    </div>
+    <div class="person-row">
+      <div class="avatar" style="background:linear-gradient(135deg,#0F766E,#2DD4BF);">MC</div>
+      <div class="person-info">
+        <div class="name">Marina Chagas</div>
+        <div class="role">Social Media · EcoArte Container (Proj 133 / Vibra)</div>
+      </div>
+      <div class="person-tags">
+        <span class="badge" style="background:#CCFBF1;color:#0F766E;">9 posts</span>
+        <span class="badge badge-muted">LinkedIn · Stories · Posts</span>
+      </div>
+    </div>
+    <div class="person-row">
+      <div class="avatar av-lucas">LR</div>
+      <div class="person-info">
+        <div class="name">Lucas Rotta</div>
+        <div class="role">Redação editorial</div>
+      </div>
+      <div class="person-tags">
+        <span class="badge badge-blue">6 tarefas</span>
+        <span class="badge badge-muted">artigos + newsletter</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- carga por semana -->
+  <div class="card" style="margin-bottom:16px; padding:20px 24px;">
+    <div style="font-size:12px; font-weight:700; color:var(--sub); margin-bottom:14px; text-transform:uppercase; letter-spacing:.08em;">Carga de vídeo por semana</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+      <div>
+        <div style="font-size:11px; font-weight:700; color:var(--purple); margin-bottom:10px;">Aline — 15 vídeos</div>
+        <div class="bar-row"><div class="bar-label">S1 (01–07)</div><div class="bar-track"><div class="bar-fill" style="width:40%; background:var(--purple);"></div></div><div class="bar-count">6</div></div>
+        <div class="bar-row"><div class="bar-label">S2 (08–14)</div><div class="bar-track"><div class="bar-fill" style="width:13%; background:var(--purple);"></div></div><div class="bar-count">2</div></div>
+        <div class="bar-row"><div class="bar-label">S3 (15–21)</div><div class="bar-track"><div class="bar-fill" style="width:13%; background:var(--purple);"></div></div><div class="bar-count">2</div></div>
+        <div class="bar-row"><div class="bar-label">S4 (22–28)</div><div class="bar-track"><div class="bar-fill" style="width:33%; background:var(--purple);"></div></div><div class="bar-count">5</div></div>
+      </div>
+      <div>
+        <div style="font-size:11px; font-weight:700; color:var(--orange); margin-bottom:10px;">Marcos — 6 vídeos</div>
+        <div class="bar-row"><div class="bar-label">S1 (01–07)</div><div class="bar-track"><div class="bar-fill" style="width:33%; background:var(--orange);"></div></div><div class="bar-count">2</div></div>
+        <div class="bar-row"><div class="bar-label">S2 (08–14)</div><div class="bar-track"><div class="bar-fill" style="width:33%; background:var(--orange);"></div></div><div class="bar-count">2</div></div>
+        <div class="bar-row"><div class="bar-label">S3 (15–21)</div><div class="bar-track"><div class="bar-fill" style="width:0%;  background:var(--orange);"></div></div><div class="bar-count">0</div></div>
+        <div class="bar-row"><div class="bar-label">S4 (22–28)</div><div class="bar-track"><div class="bar-fill" style="width:33%; background:var(--orange);"></div></div><div class="bar-count">2</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- tabela aline -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="padding:0 0 12px; display:flex; align-items:center; justify-content:space-between;">
+      <span style="font-size:13px; font-weight:700;">Vídeos — Aline B. (15)</span>
+      <span class="badge badge-purple">15 tarefas</span>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Data</th><th>Tarefa</th><th>Tipo</th><th>Projeto</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="date-col">~01/06</td><td class="task-name">Criar Vídeo</td><td><span class="badge badge-muted">Genérico</span></td><td>125. Gastronomia 2ªEd (GRU)</td></tr>
+        <tr><td class="date-col">~02/06</td><td class="task-name">Criar Vídeo 1 - Durante Evento</td><td><span class="badge badge-red">Durante campo</span></td><td>124. Gastronomia (Compagas)</td></tr>
+        <tr><td class="date-col">~02/06</td><td class="task-name">Criar Vídeo 2 - Durante Evento</td><td><span class="badge badge-red">Durante campo</span></td><td>124. Gastronomia (Compagas)</td></tr>
+        <tr><td class="date-col">~03/06</td><td class="task-name">Criar Vídeo 1 Durante - Guatapará</td><td><span class="badge badge-red">Durante campo</span></td><td>119. PEC Eu Faço Parte (Sylvamo)</td></tr>
+        <tr><td class="date-col">~05/06</td><td class="task-name">Criar Vídeo Durante Evento</td><td><span class="badge badge-red">Durante campo</span></td><td>116. Cultura Robótica (Áster)</td></tr>
+        <tr><td class="date-col">~06/06</td><td class="task-name">Criar Vídeo Pré Projeto</td><td><span class="badge badge-blue">Pré-projeto</span></td><td>115. Cultura Robótica 2ªEd</td></tr>
+        <tr><td class="date-col">~12/06</td><td class="task-name">Criar Vídeo Venda NTICS 2</td><td><span class="badge badge-orange">Venda NTICS</span></td><td>117. Teatro Robótica 4Ed (Whirlpool)</td></tr>
+        <tr><td class="date-col">~16/06</td><td class="task-name">Criar Vídeo Case Pós</td><td><span class="badge badge-green">Case pós-evento</span></td><td>132. Estação Samarco</td></tr>
+        <tr><td class="date-col">~17/06</td><td class="task-name">Criar Vídeo Venda NTICS 1</td><td><span class="badge badge-orange">Venda NTICS</span></td><td>124. Gastronomia (Compagas)</td></tr>
+        <tr><td class="date-col">~19/06</td><td class="task-name">Criar Vídeo pós Evento</td><td><span class="badge badge-green">Pós-evento</span></td><td>120. Negócio Cultural 2ªEd</td></tr>
+        <tr><td class="date-col">~22/06</td><td class="task-name">Criar Vídeo Venda NTICS 2</td><td><span class="badge badge-orange">Venda NTICS</span></td><td>124. Gastronomia (Compagas)</td></tr>
+        <tr><td class="date-col">~22/06</td><td class="task-name">Criar Vídeo Venda NTICS 1</td><td><span class="badge badge-orange">Venda NTICS</span></td><td>116. Cultura Robótica (Áster)</td></tr>
+        <tr><td class="date-col">~23/06</td><td class="task-name">Criar Vídeo Venda NTICS 1</td><td><span class="badge badge-orange">Venda NTICS</span></td><td>120. Negócio Cultural 2ªEd</td></tr>
+        <tr><td class="date-col">~26/06</td><td class="task-name">Criar Vídeo Venda NTICS 2</td><td><span class="badge badge-orange">Venda NTICS</span></td><td>116. Cultura Robótica (Áster)</td></tr>
+        <tr><td class="date-col">~29/06</td><td class="task-name">Criar Vídeo Venda 1</td><td><span class="badge badge-orange">Venda NTICS</span></td><td>119. PEC Eu Faço Parte (Sylvamo)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- tabela marcos -->
+  <div class="card">
+    <div style="padding:0 0 12px; display:flex; align-items:center; justify-content:space-between;">
+      <span style="font-size:13px; font-weight:700;">Vídeos — Marcos Queiroz (6)</span>
+      <span class="badge badge-orange">6 tarefas · todos em backlog</span>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Data</th><th>Tarefa</th><th>Tipo</th><th>Projeto</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="date-col">~02/06</td><td class="task-name">Criar Vídeo Pré-Projeto (SOTREQ)</td><td><span class="badge badge-blue">Pré-projeto</span></td><td>127. PIE 2Ed (GRU/SOTREQ)</td></tr>
+        <tr><td class="date-col">~02/06</td><td class="task-name">Criar Vídeo Case Pós</td><td><span class="badge badge-green">Case pós-evento</span></td><td>117. Teatro Robótica 4Ed (Whirlpool)</td></tr>
+        <tr><td class="date-col">~09/06</td><td class="task-name">Criar Vídeo Case Pós</td><td><span class="badge badge-green">Case pós-evento</span></td><td>116. Cultura Robótica (Áster)</td></tr>
+        <tr><td class="date-col">~09/06</td><td class="task-name">Criar Vídeo Venda NTICS 1</td><td><span class="badge badge-orange">Venda NTICS</span></td><td>117. Teatro Robótica 4Ed (Whirlpool)</td></tr>
+        <tr><td class="date-col">~25/06</td><td class="task-name">Criar Vídeo Case</td><td><span class="badge badge-green">Case</span></td><td>119. PEC Eu Faço Parte (Sylvamo)</td></tr>
+        <tr><td class="date-col">~26/06</td><td class="task-name">Criar Vídeo Case - Pós-Evento</td><td><span class="badge badge-green">Case pós-evento</span></td><td>124. Gastronomia (Compagas)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ─── CAMPO ─── -->
+<section id="campo">
+  <div class="section-title">📍 Captação em Campo</div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+    <!-- confirmadas -->
+    <div class="card">
+      <div style="font-size:13px; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+        <span class="badge badge-red">Confirmadas</span> Junho
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="background:var(--red-bg); border-radius:var(--r-sm); padding:12px 14px;">
+          <div style="font-weight:700; font-size:13px;">08/06 — Segunda-feira</div>
+          <div style="font-size:12px; color:var(--sub); margin-top:3px;">Negócio Cultural 2ª Ed. (Statkraft)</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:2px;">📷 Kley · (74) 8854-9603 · Ibipeba/Uibaí, BA</div>
+        </div>
+        <div style="background:var(--red-bg); border-radius:var(--r-sm); padding:12px 14px;">
+          <div style="font-weight:700; font-size:13px;">11/06 — Quinta-feira</div>
+          <div style="font-size:12px; color:var(--sub); margin-top:3px;">Negócio Cultural 2ª Ed. (Statkraft)</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:2px;">📷 Kley · (74) 8854-9603 · Ibipeba/Uibaí, BA</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- material de maio -->
+    <div class="card">
+      <div style="font-size:13px; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+        <span class="badge badge-amber">Material chegando</span> Captações de maio
+      </div>
+      <table style="font-size:12px;">
+        <thead><tr><th>Data</th><th>Projeto</th><th>Fotógrafo</th></tr></thead>
+        <tbody>
+          <tr><td class="date-col">27–29/05</td><td>Gastronomia (Compagas)<div class="project-name">CEJU, Lapa, PR</div></td><td>Douglas Coelho<div class="project-name">(41) 99669-2757</div></td></tr>
+          <tr><td class="date-col">28/05</td><td>Cultura Robótica (Áster)<div class="project-name">Maracaju, MS</div></td><td>Kassyano<div class="project-name">(67) 9676-0917</div></td></tr>
+          <tr><td class="date-col">29/05</td><td>PEC Eu Faço Parte (Sylvamo)<div class="project-name">Guatapará, SP</div></td><td>Junior<div class="project-name">(11) 99229-0598</div></td></tr>
+          <tr><td class="date-col">28/05</td><td>Negócio Cultural 2ªEd<div class="project-name">Ibipeba, BA</div></td><td>Kley<div class="project-name">(74) 8854-9603</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- em planejamento -->
+  <div class="card">
+    <div style="font-size:13px; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+      <span class="badge badge-muted">Em planejamento</span> Sem data confirmada
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:8px;">
+      <div style="background:var(--bg); border-radius:var(--r-sm); padding:10px 12px; border:1px dashed var(--border);">
+        <div style="font-size:12px; font-weight:700;">Porto Itapoá</div>
+        <div style="font-size:11px; color:var(--muted);">Negócio Cultural 2ªEd</div>
+        <div style="font-size:11px; color:var(--muted);">Fotógrafo: Breno Bigi</div>
+      </div>
+      <div style="background:var(--bg); border-radius:var(--r-sm); padding:10px 12px; border:1px dashed var(--border);">
+        <div style="font-size:12px; font-weight:700;">Gastronomia 2ªEd</div>
+        <div style="font-size:11px; color:var(--muted);">GRU / Guarulhos, SP</div>
+        <div style="font-size:11px; color:var(--muted);">Fotógrafo: a definir</div>
+      </div>
+      <div style="background:var(--bg); border-radius:var(--r-sm); padding:10px 12px; border:1px dashed var(--border);">
+        <div style="font-size:12px; font-weight:700;">PIE Empreend. 2ªEd</div>
+        <div style="font-size:11px; color:var(--muted);">GRU / SOTREQ</div>
+        <div style="font-size:11px; color:var(--muted);">Fotógrafo: a definir</div>
+      </div>
+      <div style="background:var(--bg); border-radius:var(--r-sm); padding:10px 12px; border:1px dashed var(--border);">
+        <div style="font-size:12px; font-weight:700;">Teatro Robótica 4ªEd</div>
+        <div style="font-size:11px; color:var(--muted);">Whirlpool</div>
+        <div style="font-size:11px; color:var(--muted);">Fotógrafo: a definir</div>
+      </div>
+      <div style="background:var(--bg); border-radius:var(--r-sm); padding:10px 12px; border:1px dashed var(--border);">
+        <div style="font-size:12px; font-weight:700;">Estação Samarco</div>
+        <div style="font-size:11px; color:var(--muted);">MG / ES</div>
+        <div style="font-size:11px; color:var(--muted);">Fotógrafo: a definir</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TIPOS ─── -->
+<section id="tipos">
+  <div class="section-title">🗂️ Tipos de Conteúdo</div>
+  <div class="type-grid">
+    <div class="type-card" style="border-left:3px solid var(--blue);">
+      <div class="type-icon">🖼️</div>
+      <div class="type-name">Carrossel — Projeto</div>
+      <div class="type-count" style="color:var(--blue);">4</div>
+      <div class="type-who">Aline · 1 por semana<br>Cases de projetos específicos (série S10–S13)</div>
+    </div>
+    <div class="type-card" style="border-left:3px solid #0EA5E9;">
+      <div class="type-icon">📰</div>
+      <div class="type-name">Carrossel — Notícias Projetos</div>
+      <div class="type-count" style="color:#0EA5E9;">4</div>
+      <div class="type-who">Aline · 1 por semana<br>Reunião de notícias dos projetos (S11–S14)</div>
+    </div>
+    <div class="type-card" style="border-left:3px solid var(--green);">
+      <div class="type-icon">🌱</div>
+      <div class="type-name">Carrossel — Notícias ESG</div>
+      <div class="type-count" style="color:var(--green);">4</div>
+      <div class="type-who">Aline · 1 por semana<br>Curadoria ESG e sustentabilidade</div>
+    </div>
+    <div class="type-card" style="border-left:3px solid var(--amber);">
+      <div class="type-icon">✍️</div>
+      <div class="type-name">Artigo — ESG Semanal</div>
+      <div class="type-count" style="color:var(--amber);">4</div>
+      <div class="type-who">Lucas · 1 por semana<br>Artigos editoriais (S11–S14)</div>
+    </div>
+    <div class="type-card" style="border-left:3px solid var(--purple);">
+      <div class="type-icon">📧</div>
+      <div class="type-name">Newsletter + Artigo Mensal</div>
+      <div class="type-count" style="color:var(--purple);">2</div>
+      <div class="type-who">Lucas + Aline · 1 newsletter + 1 artigo<br>Tema: Confiança e Método (M03)</div>
+    </div>
+    <div class="type-card" style="border-left:3px solid var(--red);">
+      <div class="type-icon">🎬</div>
+      <div class="type-name">Vídeo — Durante Campo</div>
+      <div class="type-count" style="color:var(--red);">4</div>
+      <div class="type-who">Aline · material chegando de maio<br>Gastronomia (2), PEC, Cultura Robótica</div>
+    </div>
+    <div class="type-card" style="border-left:3px solid var(--green);">
+      <div class="type-icon">🏆</div>
+      <div class="type-name">Vídeo — Case Pós-Evento</div>
+      <div class="type-count" style="color:var(--green);">5</div>
+      <div class="type-who">Marcos (3) + Aline (2)<br>Resumo após conclusão de projeto</div>
+    </div>
+    <div class="type-card" style="border-left:3px solid var(--orange);">
+      <div class="type-icon">📢</div>
+      <div class="type-name">Vídeo — Venda NTICS</div>
+      <div class="type-count" style="color:var(--orange);">9</div>
+      <div class="type-who">Aline (7) + Marcos (1) + Lucas (1)<br>Portfólio e prospecção de novos clientes</div>
+    </div>
+    <div class="type-card" style="border-left:3px solid var(--blue);">
+      <div class="type-icon">🚀</div>
+      <div class="type-name">Vídeo — Pré-Projeto</div>
+      <div class="type-count" style="color:var(--blue);">2</div>
+      <div class="type-who">Aline (1) + Marcos (1)<br>Apresentação antes do início do projeto</div>
+    </div>
+    <div class="type-card" style="border-left:3px solid var(--muted);">
+      <div class="type-icon">📱</div>
+      <div class="type-name">Stories — Campo ao Vivo</div>
+      <div class="type-count" style="color:var(--sub);">?</div>
+      <div class="type-who">Transmissão WhatsApp durante eventos<br>Formato S01–S10 por projeto</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABERTOS ─── -->
+<section id="abertos">
+  <div class="section-title">⚠️ Pontos em Aberto — Reunião</div>
+
+  <div class="alert alert-red">
+    <div class="alert-icon">🔴</div>
+    <div class="alert-body">
+      <strong>1. Tarefa de edição pós-campo — Negócio Cultural não criada</strong>
+      <p>As captações de 08/06 e 11/06 (Kley, BA) não têm tarefa de edição no ClickUp para nenhum editor. Quem edita? Qual o prazo de entrega após a captação?</p>
+    </div>
+  </div>
+
+  <div class="alert alert-red">
+    <div class="alert-icon">🔴</div>
+    <div class="alert-body">
+      <strong>2. Briefing de videomaker de junho não publicado</strong>
+      <p>O URL do briefing para junho retorna 404. O de maio (2026-05-04) é o único publicado. Quando o briefing de junho sai? Quem publica?</p>
+    </div>
+  </div>
+
+  <div class="alert alert-amber">
+    <div class="alert-icon">🟡</div>
+    <div class="alert-body">
+      <strong>3. 5 projetos sem captação confirmada em junho</strong>
+      <p>Porto Itapoá, Gastronomia 2ªEd GRU, PIE 2ªEd, Teatro Robótica 4ªEd e Estação Samarco estão em planejamento. Se algum confirmar captação, o calendário e o pipeline de vídeo precisam ser atualizados.</p>
+    </div>
+  </div>
+
+  <div class="alert alert-amber">
+    <div class="alert-icon">🟡</div>
+    <div class="alert-body">
+      <strong>4. 21 vídeos todos em status "backlog"</strong>
+      <p>Nenhuma das tarefas de Aline ou Marcos está "em andamento". As datas são estimativas do ClickUp. Qual a prioridade real semana a semana? Especialmente para os 6 vídeos de Aline concentrados na primeira semana.</p>
+    </div>
+  </div>
+
+  <div class="alert alert-amber">
+    <div class="alert-icon">🟡</div>
+    <div class="alert-body">
+      <strong>5. Operação de stories ao vivo nos dias de campo (08 e 11/06)</strong>
+      <p>O briefing de maio mostra transmissão em tempo real via WhatsApp. Quem opera no campo nos dias 08/06 e 11/06 — só Kley ou alguém da equipe NTICS também vai a campo?</p>
+    </div>
+  </div>
+
+  <div class="alert alert-blue">
+    <div class="alert-icon">🔵</div>
+    <div class="alert-body">
+      <strong>6. Volume de Reels publicados por mês</strong>
+      <p>O calendário lista 21 vídeos para editar, mas quantos são publicados como Reels no Instagram? Não há tarefa de publicação separada no cronograma para vídeos.</p>
+    </div>
+  </div>
+
+  <div class="alert alert-blue">
+    <div class="alert-icon">🔵</div>
+    <div class="alert-body">
+      <strong>7. Prazo do Case Pós de Estação Samarco (16/06)</strong>
+      <p>A tarefa "Criar Vídeo Case Pós" da Estação Samarco tem prazo ~16/06, mas captação em MG/ES ainda está sem data confirmada. Esse prazo é realista?</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>NTICS</strong> · Relatório gerado em 27/05/2026 · Dados extraídos do ClickUp e briefing videomaker<br>
+  Lista: 🗓️ Cronograma de redes sociais NTICS · Subtarefas dos projetos
+</footer>
+
+</body>
+</html>
