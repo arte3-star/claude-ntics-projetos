@@ -153,9 +153,9 @@ section { margin-bottom: 40px; }
 .cal-wrapper { overflow-x: auto; }
 .cal {
   display: grid;
-  grid-template-columns: 60px repeat(6, 1fr);
+  grid-template-columns: 60px repeat(7, 1fr);
   gap: 3px;
-  min-width: 700px;
+  min-width: 820px;
 }
 .cal-header {
   font-size: 10px;
@@ -205,11 +205,12 @@ section { margin-bottom: 40px; }
   line-height: 1.3;
   cursor: default;
 }
-.ev-carrossel { background: #DBEAFE; color: #1D4ED8; }
-.ev-video     { background: #FFEDD5; color: #C2410C; }
-.ev-artigo    { background: #FEF9C3; color: #854D0E; }
-.ev-newsletter{ background: #F0FDF4; color: #166534; }
-.ev-campo     { background: #FEE2E2; color: #991B1B; font-weight: 700; }
+.ev-carrossel  { background: #DBEAFE; color: #1D4ED8; }
+.ev-video      { background: #FFEDD5; color: #C2410C; }
+.ev-artigo     { background: #FEF9C3; color: #854D0E; }
+.ev-newsletter { background: #F0FDF4; color: #166534; }
+.ev-post-proj  { background: #CCFBF1; color: #0F766E; }
+.ev-campo      { background: #FEE2E2; color: #991B1B; font-weight: 700; }
 .cal-day.empty { background: transparent; border-color: transparent; min-height: 0; }
 
 /* ── BADGES ── */
@@ -367,7 +368,7 @@ footer strong { color: rgba(255,255,255,.8); }
   <h1>Planejamento — Junho 2026</h1>
   <p class="subtitle">Calendário de posts, pipeline de edição e agenda de captação em campo</p>
   <div class="header-meta">
-    <div class="header-stat"><div class="n">18</div><div class="l">Posts</div></div>
+    <div class="header-stat"><div class="n">56</div><div class="l">Posts</div></div>
     <div class="header-stat"><div class="n">21</div><div class="l">Vídeos</div></div>
     <div class="header-stat"><div class="n">2</div><div class="l">Captações</div></div>
     <div class="header-stat"><div class="n">4</div><div class="l">Projetos campo</div></div>
@@ -388,9 +389,9 @@ footer strong { color: rgba(255,255,255,.8); }
 <!-- ─── KPIs ─── -->
 <div class="card-grid" style="margin-bottom:32px">
   <div class="kpi-card blue">
-    <div class="kpi-n">18</div>
-    <div class="kpi-l">Posts no cronograma</div>
-    <div class="kpi-sub">carrosséis · artigos · newsletter</div>
+    <div class="kpi-n">56</div>
+    <div class="kpi-l">Posts publicados</div>
+    <div class="kpi-sub">18 editorial + 38 projetos (9 EcoArte/Vibra)</div>
   </div>
   <div class="kpi-card orange">
     <div class="kpi-n">21</div>
@@ -427,10 +428,11 @@ footer strong { color: rgba(255,255,255,.8); }
     <div style="display:flex; gap:10px; flex-wrap:wrap; font-size:11px; font-weight:600; align-items:center;">
       <span style="color:var(--muted);">Legenda:</span>
       <span class="cal-event ev-carrossel" style="display:inline-block">🖼️ Carrossel</span>
-      <span class="cal-event ev-video" style="display:inline-block">🎬 Vídeo/Reel</span>
-      <span class="cal-event ev-artigo" style="display:inline-block">✍️ Artigo</span>
-      <span class="cal-event ev-newsletter" style="display:inline-block">📧 Newsletter</span>
+      <span class="cal-event ev-video" style="display:inline-block">🎬 Vídeo/Reel post</span>
+      <span class="cal-event ev-artigo" style="display:inline-block">✍️ Artigo/Newsletter</span>
+      <span class="cal-event ev-post-proj" style="display:inline-block">📱 Post Projeto</span>
       <span class="cal-event ev-campo" style="display:inline-block">📍 Campo</span>
+      <span style="font-size:10px; color:var(--muted);">A = Aline · M = Marina · L = Lucas</span>
     </div>
   </div>
 
@@ -445,144 +447,112 @@ footer strong { color: rgba(255,255,255,.8); }
         <div class="cal-header">Qui</div>
         <div class="cal-header">Sex</div>
         <div class="cal-header">Sáb</div>
+        <div class="cal-header">Dom</div>
 
-        <!-- Semana 1: 02–07/06 -->
+        <!-- S1: 01–07/06 -->
         <div class="cal-week-label">S1</div>
-        <div class="cal-day">
-          <div class="cal-day-num">02</div>
-          <span class="cal-event ev-carrossel">🖼️ Proj S10 · Conhecendo os ODS</span>
-          <span class="cal-event ev-video">🎬 A · Vídeo Durante · Gastronomia ×2</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">03</div>
-          <span class="cal-event ev-video">🎬 M · Case Pós · Teatro Rob. (início)</span>
-          <span class="cal-event ev-video">🎬 A · Durante · PEC Guatapará</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">04</div>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">05</div>
+        <div class="cal-day"><div class="cal-day-num">01</div>
+          <span class="cal-event ev-video">🎬 A · Vid1 Durante GRU · PIE</span></div>
+        <div class="cal-day"><div class="cal-day-num">02</div>
+          <span class="cal-event ev-carrossel">🖼️ Proj S10 · ODS (Moove)</span>
+          <span class="cal-event ev-post-proj">📱 M · ODS Talks Liderança</span></div>
+        <div class="cal-day"><div class="cal-day-num">03</div>
+          <span class="cal-event ev-post-proj">📱 A · Case Itabaianinha · GGE</span>
+          <span class="cal-event ev-video">🎬 A · Postar · Gastron. GRU</span>
+          <span class="cal-event ev-video">🎬 A · Vid2 Durante · PEC</span></div>
+        <div class="cal-day"><div class="cal-day-num">04</div></div>
+        <div class="cal-day"><div class="cal-day-num">05</div>
           <span class="cal-event ev-carrossel">🖼️ Notícias Proj S11</span>
-          <span class="cal-event ev-video">🎬 M · Venda NTICS · Teatro Rob.</span>
-          <span class="cal-event ev-video">🎬 A · Durante Evento · Cultura Rob.</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">06</div>
-          <span class="cal-event ev-video">🎬 A · Pré-Projeto · Cultura Rob. 2ªEd</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">07</div>
-          <span class="cal-event ev-artigo">✍️ Artigo ESG S11</span>
-          <span class="cal-event ev-carrossel">🖼️ Notícias ESG S11</span>
-          <span class="cal-event ev-video">🎬 M · Case Pós · Cultura Rob. (início)</span>
-        </div>
+          <span class="cal-event ev-post-proj">📱 M · Atividades Escolas</span>
+          <span class="cal-event ev-video">🎬 A · Vid1 Durante Guatapará</span>
+          <span class="cal-event ev-video">🎬 A · Case Pós · Teatro Rob 4Ed</span></div>
+        <div class="cal-day"><div class="cal-day-num">06</div></div>
+        <div class="cal-day"><div class="cal-day-num">07</div>
+          <span class="cal-event ev-artigo">✍️ L · Artigo ESG S11</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Notícias ESG S11</span></div>
 
-        <!-- Semana 2: 08–14/06 -->
+        <!-- S2: 08–14/06 -->
         <div class="cal-week-label">S2</div>
-        <div class="cal-day capture-day">
-          <div class="cal-day-num">08 <span class="capture-pin">📍</span></div>
+        <div class="cal-day capture-day"><div class="cal-day-num">08 <span class="capture-pin">📍</span></div>
           <span class="cal-event ev-campo">📍 CAMPO · Neg. Cultural (Kley)</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">09</div>
+          <span class="cal-event ev-post-proj">📱 M · LinkedIn Mídia Kit</span>
+          <span class="cal-event ev-post-proj">📱 M · Faltam 7 Dias (Manaus)</span>
+          <span class="cal-event ev-video">🎬 A · Vid1 Durante · Gastron.</span>
+          <span class="cal-event ev-video">🎬 A · Pré-Proj · Cultura Rob 2ªEd</span>
+          <span class="cal-event ev-video">🎬 A · Postar · Gastron. GRU</span></div>
+        <div class="cal-day"><div class="cal-day-num">09</div>
           <span class="cal-event ev-carrossel">🖼️ Proj S11 · Teatro Robótica</span>
-          <span class="cal-event ev-video">🎬 M · Case Pós · Teatro Rob. ✓</span>
-          <span class="cal-event ev-video">🎬 M · Case Pós · Cultura Rob. ✓</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">10</div>
-        </div>
-        <div class="cal-day capture-day">
-          <div class="cal-day-num">11 <span class="capture-pin">📍</span></div>
+          <span class="cal-event ev-post-proj">📱 A · Case Alto Araguaia · GGE</span>
+          <span class="cal-event ev-video">🎬 A · Vid2 Durante · Gastron.</span>
+          <span class="cal-event ev-video">🎬 A · Durante Evento · Cultura Rob.</span></div>
+        <div class="cal-day"><div class="cal-day-num">10</div>
+          <span class="cal-event ev-post-proj">📱 M · Influencers Locais</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Carrossel Pré-proj · Cultura 2ªEd</span>
+          <span class="cal-event ev-video">🎬 A · Venda 1 · Teatro Rob 4Ed</span></div>
+        <div class="cal-day capture-day"><div class="cal-day-num">11 <span class="capture-pin">📍</span></div>
           <span class="cal-event ev-campo">📍 CAMPO · Neg. Cultural (Kley)</span>
-          <span class="cal-event ev-artigo">✍️ Artigo M03</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">12</div>
+          <span class="cal-event ev-artigo">✍️ Artigo M03 · Confiança</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Case Pós · Teatro Rob 4Ed</span></div>
+        <div class="cal-day"><div class="cal-day-num">12</div>
           <span class="cal-event ev-carrossel">🖼️ Notícias Proj S12</span>
-          <span class="cal-event ev-video">🎬 A · Venda NTICS 2 · Teatro Rob.</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">13</div>
-          <span class="cal-event ev-artigo">✍️ Artigo ESG S12</span>
-          <span class="cal-event ev-carrossel">🖼️ Notícias ESG S12</span>
-        </div>
+          <span class="cal-event ev-post-proj">📱 M · LinkedIn Vibra Caminhão</span>
+          <span class="cal-event ev-post-proj">📱 M · Vem Aí! Caminhão Manaus</span></div>
+        <div class="cal-day"><div class="cal-day-num">13</div>
+          <span class="cal-event ev-post-proj">📱 M · ODS Talks ao Vivo</span>
+          <span class="cal-event ev-post-proj">📱 M · Amanhã Começa</span></div>
+        <div class="cal-day"><div class="cal-day-num">14</div>
+          <span class="cal-event ev-artigo">✍️ L · Artigo ESG S12</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Notícias ESG S12</span></div>
 
-        <!-- Semana 3: 15–21/06 -->
+        <!-- S3: 15–21/06 -->
         <div class="cal-week-label">S3</div>
-        <div class="cal-day">
-          <div class="cal-day-num">15</div>
-          <span class="cal-event ev-newsletter">📧 Newsletter M03</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">16</div>
+        <div class="cal-day"><div class="cal-day-num">15</div>
+          <span class="cal-event ev-artigo">📧 Newsletter M03 · Confiança</span></div>
+        <div class="cal-day"><div class="cal-day-num">16</div>
           <span class="cal-event ev-carrossel">🖼️ Proj S12 · Caminhão ODS (TCP)</span>
-          <span class="cal-event ev-video">🎬 A · Case Pós · Estação Samarco</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">17</div>
-          <span class="cal-event ev-video">🎬 A · Venda NTICS 1 · Gastronomia</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">18</div>
-          <span class="cal-event ev-video">🎬 M · Vídeo Case · PEC (início)</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">19</div>
-          <span class="cal-event ev-carrossel">🖼️ Notícias Proj S13</span>
-          <span class="cal-event ev-video">🎬 A · pós Evento · Negócio Cultural</span>
-          <span class="cal-event ev-video">🎬 M · Case · Gastronomia (início)</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">20</div>
-          <span class="cal-event ev-artigo">✍️ Artigo ESG S13</span>
-          <span class="cal-event ev-carrossel">🖼️ Notícias ESG S13</span>
-        </div>
+          <span class="cal-event ev-video">🎬 A · Venda 2 · Teatro Rob 4Ed</span>
+          <span class="cal-event ev-post-proj">📱 A · Case Peixoto · GGE</span></div>
+        <div class="cal-day"><div class="cal-day-num">17</div>
+          <span class="cal-event ev-carrossel">🖼️ A · Carrossel pós · Neg. Cultural</span></div>
+        <div class="cal-day"><div class="cal-day-num">18</div>
+          <span class="cal-event ev-carrossel">🖼️ A · Carrossel Pós · PEC Sylvamo</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Case Pós · Cultura Rob. (Áster)</span></div>
+        <div class="cal-day"><div class="cal-day-num">19</div>
+          <span class="cal-event ev-carrossel">🖼️ Notícias Proj S13</span></div>
+        <div class="cal-day"><div class="cal-day-num">20</div></div>
+        <div class="cal-day"><div class="cal-day-num">21</div>
+          <span class="cal-event ev-artigo">✍️ L · Artigo ESG S13</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Notícias ESG S13</span></div>
 
-        <!-- Semana 4: 22–28/06 -->
+        <!-- S4: 22–28/06 -->
         <div class="cal-week-label">S4</div>
-        <div class="cal-day">
-          <div class="cal-day-num">22</div>
-          <span class="cal-event ev-video">🎬 A · Venda NTICS · Gastronomia</span>
-          <span class="cal-event ev-video">🎬 A · Venda NTICS 1 · Cultura Rob.</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">23</div>
+        <div class="cal-day"><div class="cal-day-num">22</div>
+          <span class="cal-event ev-video">🎬 A · Case Pós · Cultura Rob. (Áster)</span>
+          <span class="cal-event ev-video">🎬 A · pós Evento · Neg. Cultural</span></div>
+        <div class="cal-day"><div class="cal-day-num">23</div>
           <span class="cal-event ev-carrossel">🖼️ Proj S13 · Caminhão ODS (Moove)</span>
-          <span class="cal-event ev-video">🎬 A · Venda NTICS 1 · Neg. Cultural</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">24</div>
-          <span class="cal-event ev-video">🎬 M · Vídeo Case · PEC ✓</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">25</div>
-          <span class="cal-event ev-video">🎬 M · Case Pós · Gastronomia ✓</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">26</div>
+          <span class="cal-event ev-video">🎬 A · Case Pós · Estação Samarco</span></div>
+        <div class="cal-day"><div class="cal-day-num">24</div>
+          <span class="cal-event ev-post-proj">📱 A · Case Novo Repartimento · GGE</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Carrossel Case Pós · Samarco</span></div>
+        <div class="cal-day"><div class="cal-day-num">25</div>
+          <span class="cal-event ev-video">🎬 A · Vídeo Case · PEC Sylvamo</span></div>
+        <div class="cal-day"><div class="cal-day-num">26</div>
           <span class="cal-event ev-carrossel">🖼️ Notícias Proj S14</span>
-          <span class="cal-event ev-video">🎬 A · Venda NTICS 2 · Cultura Rob.</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">27</div>
-          <span class="cal-event ev-artigo">✍️ Artigo ESG S14</span>
-          <span class="cal-event ev-carrossel">🖼️ Notícias ESG S14</span>
-        </div>
+          <span class="cal-event ev-video">🎬 A · Venda 1 · Neg. Cultural</span></div>
+        <div class="cal-day"><div class="cal-day-num">27</div></div>
+        <div class="cal-day"><div class="cal-day-num">28</div>
+          <span class="cal-event ev-artigo">✍️ L · Artigo ESG S14</span>
+          <span class="cal-event ev-carrossel">🖼️ A · Notícias ESG S14</span></div>
 
-        <!-- Semana 5 parcial: 28–30/06 -->
+        <!-- S5 parcial: 29–30/06 -->
         <div class="cal-week-label">S5</div>
-        <div class="cal-day">
-          <div class="cal-day-num">28</div>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">29</div>
-          <span class="cal-event ev-video">🎬 A · Venda 1 · PEC Sylvamo</span>
-        </div>
-        <div class="cal-day">
-          <div class="cal-day-num">30</div>
-        </div>
+        <div class="cal-day"><div class="cal-day-num">29</div>
+          <span class="cal-event ev-video">🎬 A · Venda 1 · Estação Samarco</span></div>
+        <div class="cal-day"><div class="cal-day-num">30</div>
+          <span class="cal-event ev-carrossel">🖼️ A · Case Pós · Gastronomia (Compagas)</span></div>
+        <div class="cal-day empty"></div>
+        <div class="cal-day empty"></div>
         <div class="cal-day empty"></div>
         <div class="cal-day empty"></div>
         <div class="cal-day empty"></div>
@@ -591,16 +561,20 @@ footer strong { color: rgba(255,255,255,.8); }
 
     <div style="margin-top:16px; padding-top:16px; border-top:1px solid var(--border); display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:8px;">
       <div style="font-size:12px; color:var(--sub);">
-        <strong style="display:block; margin-bottom:2px;">Artigos ESG (Lucas)</strong>
-        07 · 13 · 20 · 27/06 — 4 artigos semanais
+        <strong style="display:block; margin-bottom:2px;">Artigos ESG + Carrosséis ESG</strong>
+        07 · 14 · 21 · 28/06 — toda semana (dom) — Lucas + Aline
       </div>
       <div style="font-size:12px; color:var(--sub);">
-        <strong style="display:block; margin-bottom:2px;">Notícias ESG (Aline)</strong>
-        07 · 13 · 20 · 27/06 — 4 carrosséis ESG
+        <strong style="display:block; margin-bottom:2px;">EcoArte / 133 Vibra — Marina (9)</strong>
+        02 · 05 · 08 · 10 · 12 · 13/06 — LinkedIn, Stories, Posts
       </div>
       <div style="font-size:12px; color:var(--sub);">
-        <strong style="display:block; margin-bottom:2px;">Legenda vídeos</strong>
-        🎬 A = Aline · M = Marcos · ✓ = prazo de entrega
+        <strong style="display:block; margin-bottom:2px;">Global Goals Educa — GGE (4)</strong>
+        Itabaianinha (03) · Alto Araguaia (09) · Peixoto (16) · Novo Repartimento (24)
+      </div>
+      <div style="font-size:12px; color:var(--sub);">
+        <strong style="display:block; margin-bottom:2px;">Captações em Campo (📍)</strong>
+        08/06 e 11/06 — Neg. Cultural/Statkraft — Kley, BA
       </div>
     </div>
   </div>
@@ -621,7 +595,8 @@ footer strong { color: rgba(255,255,255,.8); }
       <div class="person-tags">
         <span class="badge badge-orange">15 vídeos</span>
         <span class="badge badge-blue">14 posts editoriais</span>
-        <span class="badge badge-muted">29 tarefas total</span>
+        <span class="badge badge-purple">29 posts projetos</span>
+        <span class="badge badge-muted">58 tarefas total</span>
       </div>
     </div>
     <div class="person-row">
@@ -633,6 +608,17 @@ footer strong { color: rgba(255,255,255,.8); }
       <div class="person-tags">
         <span class="badge badge-orange">6 vídeos</span>
         <span class="badge badge-muted">backlog</span>
+      </div>
+    </div>
+    <div class="person-row">
+      <div class="avatar" style="background:linear-gradient(135deg,#0F766E,#2DD4BF);">MC</div>
+      <div class="person-info">
+        <div class="name">Marina Chagas</div>
+        <div class="role">Social Media · EcoArte Container (Proj 133 / Vibra)</div>
+      </div>
+      <div class="person-tags">
+        <span class="badge" style="background:#CCFBF1;color:#0F766E;">9 posts</span>
+        <span class="badge badge-muted">LinkedIn · Stories · Posts</span>
       </div>
     </div>
     <div class="person-row">
