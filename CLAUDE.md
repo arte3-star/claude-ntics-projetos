@@ -16,13 +16,13 @@ You're working inside the **WAT framework**: Workflows (SOPs in `workflows/`) �
 | Landing / navegação | `NTICS.md` | Identidade, org chart, mapa "quero X → ir para Y" |
 | Organograma | `org/ORG.md` | Missão, responsável e recursos por departamento |
 | Workflows | `workflows/INDEX.md` | Todos os SOPs por área + cadeia editorial |
-| Tools | `tools/INDEX.md` | tool → workflow(s) → APIs → status |
+| Tools | `tools/INDEX.md` | Sumário por área → sub-índices `index-conteudo.md`, `index-integracoes.md`, `index-operacoes.md` para scripts individuais |
 | Squads | `squads/INDEX.md` | 10 squads de marketing, routing chief→specialist |
 | Brand Book | `brand-book/INDEX.md` | Identidade visual e verbal NTICS |
 | Assets de projetos | `assets/INDEX.md` | Fotos, logos, KVs, brand guidelines, relatórios — acervo físico por projeto. **Primeira fonte** antes de ClickUp/Drive |
 | SecondBrain | `SecondBrain/INDEX.md` | Memória institucional: atas, clientes, projetos, decisões, conhecimento |
 
-**Antes de produzir conteúdo NTICS:** consulte `brand-book/data/brand-data.yaml` (números) e `brand-book/02-identidade-verbal/tom-de-voz.md` (tom).  
+**Antes de produzir conteúdo NTICS:** consulte `brand-book/QUICK.md` (resumo 500 tokens: boilerplate, números, regras de tom). Para detalhes completos: `brand-book/data/brand-data.yaml` e `brand-book/02-identidade-verbal/tom-de-voz.md`.  
 **Pontuação em textos (regra geral):** NUNCA usar travessão `—` (em-dash) em textos publicados (artigos, captions, e-mails, copy em geral). Substituir pelo que fizer sentido gramatical: `,` para aposto ou explicação curta; `.` quando separa ideias completas; espaço/reescrita quando o travessão for só ornamento. Vale para todo conteúdo que o usuário vai ler ou publicar, inclusive este chat.
 **Segundo cérebro:** Se a tarefa envolver contexto histórico, cliente, projeto ou decisão passada, **leia `SecondBrain/INDEX.md` primeiro** e navegue só para a nota relevante. Não carregue o vault inteiro. `/salvar` grava momentos novos no vault.  
 **Skills:** `.claude/skills/` são atalhos `/comando` que apontam para workflows. A SOP real sempre vive em `workflows/`.
