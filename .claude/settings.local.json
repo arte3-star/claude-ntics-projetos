@@ -21,7 +21,14 @@
       "Skill(ai-image-generation)",
       "Skill(ai-image-generation:*)",
       "mcp__5cef576d-bc98-4847-9b33-9ca9928ad708__clickup_filter_tasks",
-      "Bash(xargs ls *)"
+      "Bash(xargs ls *)",
+      "Bash(cat ~/.claude/skills/dream/.dream-config 2>/dev/null || echo \"DREAM_MEMORY_TYPE=native\")",
+      "Bash(ls -la \"C:/Users/lucas/.claude/projects/G--O-meu-disco-Claude-NTICS-Projetos/memory/.last-dream\" 2>/dev/null; ls -la \"C:/Users/lucas/.claude/.dream-pending\" 2>/dev/null; echo \"---\"; find \"C:/Users/lucas/.claude/projects/G--O-meu-disco-Claude-NTICS-Projetos/\" -maxdepth 1 -name \"*.jsonl\" -mtime -3 2>/dev/null | head -30)",
+      "Bash(python -c ' *)",
+      "Bash(date +%s > \"C:/Users/lucas/.claude/projects/G--O-meu-disco-Claude-NTICS-Projetos/memory/.last-dream\" && rm -f \"C:/Users/lucas/.claude/.dream-pending\" && echo \"OK: last-dream written, dream-pending removed\" && wc -l \"C:/Users/lucas/.claude/projects/G--O-meu-disco-Claude-NTICS-Projetos/memory/MEMORY.md\")",
+      "Bash(ls -d ~/.claude/projects/*/memory/ 2>/dev/null)",
+      "Bash(xargs -I{} ls -la {})",
+      "Bash(sort -k6,7)"
     ]
   }
 }

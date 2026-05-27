@@ -29,6 +29,7 @@ SOPs de planejamento, estruturação e gestão de projetos NTICS.
 | **Projeto Abrir** | `projeto-abrir.md` | `/projeto-abrir` — bootstrap de projeto novo (state.yaml, PLAYBOOK, tasks.yaml, brief, brand…) a partir de inputs Drive + ClickUp + KV + logos |
 | **Projeto Retrospectiva** | `projeto-retrospectiva.md` | `/projeto-retrospectiva` — captura aprendizado por tarefa em 4 perguntas; detecta rule-of-3; gera stub de skill nova se padrão emerge |
 | **Projeto Tasks Sync** | `projeto-tasks-sync.md` | `/projeto-tasks-sync` — espelhamento ClickUp ↔ tasks.yaml com diff explícito; nunca escreve no ClickUp |
+| **Formalização de Fornecedores** | `formalizacao_fornecedores.md` | Gera emails de formalização de contratação (padrão NTICS) e salva como draft no Gmail, a partir das linhas do Budget |
 
 **Cadeia de dependências típica:**
 ```

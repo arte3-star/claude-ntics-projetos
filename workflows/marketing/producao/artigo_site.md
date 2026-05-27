@@ -164,21 +164,53 @@ ARTICLE BODY (<article class="article-body">, max 760px)
 2. Imagens na mesma pasta (`output/marketing/artigos/`)
 3. Abrir no navegador com `start "" "caminho/do/arquivo.html"`
 
+### Fase 5: Publicar no WordPress (NTICS)
+
+Para publicar direto via WP REST API ao inves de copiar e colar no WPBakery:
+
+```bash
+python tools/content-gen/publicar_artigo_wp.py --publish \
+  --content-file tmp/artigo-{slug}-body.html \
+  --prompts-file  tmp/artigo-{slug}-prompts.json \
+  --title  "Titulo de blog provocativo (NAO o tema mensal)" \
+  --slug   "kebab-case-do-titulo" \
+  --excerpt "Deck/subtitulo de ~50 palavras que vira meta-description" \
+  --hero    output/marketing/artigos/hero-{slug}.jpg \
+  --inline  output/marketing/artigos/img-inline-1.jpg
+```
+
+**Flags:**
+- `--dry-run` -- imprime payload sem postar (sempre rodar antes de publicar)
+- `--draft` -- POST com status=draft (Lucas revisa no wp-admin antes de publicar)
+- `--publish` -- POST com status=publish (post fica imediatamente publico em ntics.com.br)
+- `--update-id NNN` -- atualiza post existente em vez de criar novo (util para corrigir conteudo apos publish)
+
+**Credenciais:** lidas de `.env` (`WP_URL`, `WP_USER`, `WP_APP_PASSWORD`).
+**IDs default (verificados 2026-05-22):** Categoria Artigos = 73; Tags ESG = 91 e RESPONSABILIDADE SOCIAL = 89; Autor Ntics Projetos = 1.
+
+**Verificacao apos publish (obrigatoria):**
+1. WebFetch no URL publico com cache-buster (`?v=2`) para confirmar que imagens renderizam
+2. GET `/wp-json/wp/v2/posts/{id}?context=edit` para conferir content salvo
+3. Confirmar que `{img:KEY}` NAO aparece no content (placeholders foram resolvidos)
+4. Se alguma midia ficou orfa (upload sem uso), deletar via `DELETE /wp-json/wp/v2/media/{id}?force=true`
+
 ---
 
 ## Checklist Final
 
 - [ ] Hero com imagem fotorrealista Nano Banana 2 (para banner WordPress)
-- [ ] 2 imagens inline nas secoes relevantes
+- [ ] 1-2 imagens inline com prompts brasileiros autenticos (NAO corporativo generico)
 - [ ] HTML contem APENAS corpo do artigo (sem header, navbar, CTA, footer)
-- [ ] Lead paragraph em azul petroleo com border-bottom
-- [ ] Resumo executivo com box destacado (border-top azul petroleo)
+- [ ] `.article-deck` no topo (NAO `.article-lead` azul -- legacy)
+- [ ] Resumo Executivo como H2 + texto corrido (NAO em caixa estilizada)
 - [ ] Tipografia Inter via Google Fonts
 - [ ] Cores do Brand Book v2.0
-- [ ] H2 com numeros coloridos verdes (01, 02, 03...)
-- [ ] Tabelas com header azul petroleo
-- [ ] Blockquotes com borda verde + fundo cinza
-- [ ] Ultimo paragrafo: boilerplate NTICS (fundacao, numeros, metodo)
+- [ ] H2 SEM numero de secao (padrao publicado nao usa "01", "02"...)
+- [ ] Blockquotes com citacao real (Larry Fink/BlackRock, Gates, OIT, Banco Mundial) -- NUNCA dado fabricado
+- [ ] Bloco `.ntics-about` no fim com boilerplate atualizado (24 anos, 1.060+, 11,4M, 165 cidades, NPS 88, 4 patrocinadores ancora)
+- [ ] **SEM** `.video-cta`, `.stats-row`, `.cta-box`, `<dl class="seo-meta">` no body
+- [ ] **SEM** mencao a "Semana 1/2/3/4" ou "video da semana"
+- [ ] **No maximo 2-3 projetos NTICS** citados como exemplos (Conhecendo os ODS, Robotica, Amazonia 2030)
 - [ ] Responsivo (breakpoints 1023px e 639px)
-- [ ] Aberto no navegador para revisao visual
-- [ ] HTML pronto para colar no WordPress/WPBakery
+- [ ] Aberto no navegador para revisao visual antes de publicar
+- [ ] Apos publish, verificar URL publico que imagens renderizam (sem `{img:` cru)

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acesso restrito · Negócio Cultural Itapoá</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/portal.css">
+</head>
+<body data-auth="false">
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="../publico/home.html" class="brand-block">
+      <div class="brand-row"><span class="brand-dot"></span><span class="brand-name">NTICS · MTX</span></div>
+      <div class="project-title">Negócio Cultural Itapoá</div>
+    </a>
+    <nav class="main-nav nav-publica">
+      <a class="nav-link" href="../publico/home.html">O Projeto</a>
+      <a class="nav-link" href="../publico/metodologia.html">Metodologia</a>
+      <a class="nav-link" href="../publico/onde-acontece.html">Onde Acontece</a>
+      <a class="nav-link" href="../publico/galeria.html">Galeria</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page active">
+  <section class="login-section">
+    <div class="login-card">
+      <div class="login-eyebrow">Área Restrita · Patrocinador</div>
+      <h1 class="login-title">Bem-vinda, <em>Andrea</em>.</h1>
+      <p class="login-sub">Acesso restrito ao patrocinador do projeto. Use suas credenciais TAG Investimentos.</p>
+
+      <form class="login-form" onsubmit="event.preventDefault();">
+        <label>
+          <span>Email</span>
+          <input type="email" value="andrea.silva@tag.com.br" readonly>
+        </label>
+        <label>
+          <span>Senha</span>
+          <input type="password" value="••••••••••" readonly>
+        </label>
+        <button type="submit" class="btn-primary" data-action="login">Entrar no portal</button>
+      </form>
+
+      <div class="login-note">
+        <strong>Demonstração:</strong> em produção, integraremos com SSO ou login WordPress do patrocinador. Clique em Entrar para acessar o portal com dados simulados.
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="../assets/js/portal.js"></script>
+</body>
+</html>

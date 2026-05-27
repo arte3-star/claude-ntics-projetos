@@ -66,12 +66,19 @@ def load_exclusao(semana_atual: str) -> dict:
             try:
                 data = json.loads(manifest_path.read_text(encoding="utf-8"))
                 for item in data.get("noticias", []):
-                    if item.get("url"):
-                        urls.add(item["url"])
-                    if item.get("titulo_noticia"):
-                        titulos.append(item["titulo_noticia"][:60])
-                    if item.get("empresa_cliente_ntics"):
-                        empresas.append(item["empresa_cliente_ntics"])
+                    # suporta schema v3 (titulo_noticia) e v2 legado (titulo)
+                    url = item.get("url") or item.get("url_real")
+                    if url:
+                        urls.add(url)
+                    titulo = item.get("titulo_noticia") or item.get("titulo")
+                    if titulo:
+                        titulos.append(titulo[:60])
+                    # suporta schema v3 (empresa_cliente_ntics) e v2 legado (cliente_nome)
+                    empresa = item.get("empresa_cliente_ntics")
+                    if empresa is None and item.get("is_cliente_ntics"):
+                        empresa = item.get("cliente_nome")
+                    if empresa:
+                        empresas.append(empresa)
             except Exception:
                 pass
 

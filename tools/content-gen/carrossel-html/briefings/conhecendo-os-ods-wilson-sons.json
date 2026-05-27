@@ -1,0 +1,102 @@
+{
+  "slug": "conhecendo-os-ods-wilson-sons",
+  "titulo": "Carrossel S09 #98 Conhecendo os ODS (Wilson Sons) - 2025",
+  "cards": [
+    {
+      "num": 1,
+      "label": "capa",
+      "badge_text": "PROJETO DE IMPACTO",
+      "badge_color": "#3DAA35",
+      "badge_text_color": "#FFFFFF",
+      "headline_line1": "CONHECENDO",
+      "headline_line2": "OS ODS 2025",
+      "headline_color": "#3DAA35",
+      "body": "Circuito itinerante de educação para os ODS em 7 cidades brasileiras com patrocínio <yellow>Wilson Sons</yellow> via Lei Rouanet",
+      "foto": "tools/content-gen/carrossel-html/assets/photos/conhecendo-os-ods-wilson-sons/06-resultados-reciclagem.jpg"
+    },
+    {
+      "num": 2,
+      "label": "o-projeto",
+      "badge_text": "O PROJETO",
+      "badge_color": "#00A5B8",
+      "badge_text_color": "#FFFFFF",
+      "headline_line1": "ARTE E ODS",
+      "headline_line2": "NAS ESCOLAS",
+      "headline_color": "#00A5B8",
+      "body": "Circuito com <yellow>7 paradas pedagógicas</yellow> levou teatro, realidade virtual e oficinas sobre os ODS para estudantes da rede pública",
+      "foto": "tools/content-gen/carrossel-html/assets/photos/conhecendo-os-ods-wilson-sons/02-o-projeto-estudantes.jpg"
+    },
+    {
+      "num": 3,
+      "label": "metodologia",
+      "badge_text": "METODOLOGIA",
+      "badge_color": "#F5B800",
+      "badge_text_color": "#005F73",
+      "headline_line1": "EDUCAÇÃO",
+      "headline_line2": "STEAM",
+      "headline_color": "#F5B800",
+      "body": "Oficina ressignificar, jogos dos ODS, realidade virtual, experiência prática, <yellow>oficina e peça teatral</yellow> protagonizada pelos alunos",
+      "foto": "tools/content-gen/carrossel-html/assets/photos/conhecendo-os-ods-wilson-sons/03-metodologia-oficina-teatro.jpg"
+    },
+    {
+      "num": 4,
+      "label": "alcance",
+      "badge_text": "ALCANCE",
+      "badge_color": "#00A5B8",
+      "badge_text_color": "#FFFFFF",
+      "headline_line1": "7 CIDADES",
+      "headline_line2": "18 ESCOLAS",
+      "headline_color": "#00A5B8",
+      "body": "Guarujá, Ilhabela, Paraty, Mangaratiba, Rio de Janeiro, Niterói e São Luís com <yellow>6.539 alunos</yellow> e 506 professores impactados",
+      "foto": "tools/content-gen/carrossel-html/assets/photos/conhecendo-os-ods-wilson-sons/04-alcance-banner-wilson.jpg"
+    },
+    {
+      "num": 5,
+      "label": "a-empresa",
+      "badge_text": "A EMPRESA",
+      "badge_color": "#3DAA35",
+      "badge_text_color": "#FFFFFF",
+      "headline_line1": "WILSON SONS",
+      "headline_line2": "TRANSFORMA",
+      "headline_color": "#3DAA35",
+      "body": "Patrocínio via <yellow>Lei Rouanet</yellow> reafirma compromisso com ODS 3, 4, 11, 12 e 14 nas comunidades onde a Wilson Sons atua",
+      "foto": "tools/content-gen/carrossel-html/assets/photos/conhecendo-os-ods-wilson-sons/05-empresa-cods-banner.jpg"
+    },
+    {
+      "num": 6,
+      "label": "resultados",
+      "badge_text": "RESULTADOS",
+      "badge_color": "#E86428",
+      "badge_text_color": "#FFFFFF",
+      "headline_line1": "NOTA 10",
+      "headline_line2": "DE AVALIAÇÃO",
+      "headline_color": "#E86428",
+      "body": "<yellow>431 professores</yellow> participaram da palestra Como a arte pode ser ensinada nas escolas com 100% de interesse em repetir",
+      "foto": "tools/content-gen/carrossel-html/assets/photos/conhecendo-os-ods-wilson-sons/07-impacto-oficina-cenicas.jpg"
+    },
+    {
+      "num": 7,
+      "label": "impacto",
+      "badge_text": "IMPACTO",
+      "badge_color": "#D41A6A",
+      "badge_text_color": "#FFFFFF",
+      "headline_line1": "7.045 PESSOAS",
+      "headline_line2": "IMPACTADAS",
+      "headline_color": "#D41A6A",
+      "body": "Estudantes que <yellow>internalizaram saúde e sustentabilidade</yellow> de forma vivencial e hoje multiplicam os ODS em suas comunidades",
+      "foto": "tools/content-gen/carrossel-html/assets/photos/conhecendo-os-ods-wilson-sons/01-capa-wilson-banner.jpg"
+    },
+    {
+      "num": 8,
+      "label": "cta",
+      "badge_text": "CONECTE-SE",
+      "badge_color": "#00A5B8",
+      "badge_text_color": "#FFFFFF",
+      "headline_line1": "SIGA PARA",
+      "headline_line2": "MAIS PROJETOS",
+      "headline_color": "#00A5B8",
+      "body": "Cada projeto é uma história de transformação. Acompanhe <yellow>@nticsprojetos</yellow> para conhecer cases de impacto",
+      "foto": null
+    }
+  ]
+}

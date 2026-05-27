@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card">
+    {# Top half: foto de fundo #}
+    {% if foto %}
+    <div class="photo" style="background-image: url('{{ foto }}');"></div>
+    {% endif %}
+
+    {# Logo NTICS branca no canto superior esquerdo, ACIMA da foto #}
+    <img class="logo-ntics" src="assets/logo-ntics-branca.png" alt="NTICS Projetos">
+
+    {# Card teal arredondado na metade inferior #}
+    <div class="card-teal">
+      {# Badge categorizado por cor #}
+      <div class="badge" style="background-color: {{ badge_color }}; color: {{ badge_text_color | default('#FFFFFF') }};">
+        {{ badge_text }}
+      </div>
+
+      {# Headline com 2 linhas: linha 1 branca, linha 2 com cor da categoria #}
+      <h1 class="headline">
+        <span class="line1">{{ headline_line1 }}</span>
+        <span class="line2" style="color: {{ headline_color }};">{{ headline_line2 }}</span>
+      </h1>
+
+      {# Body com destaque amarelo (via <yellow>...</yellow> no JSON) #}
+      <p class="body">{{ body | safe }}</p>
+
+      {# Pill ntics.com.br no canto inferior direito #}
+      <div class="pill-ntics">ntics.com.br</div>
+    </div>
+
+    {# Barra gradiente colorida na borda inferior #}
+    <div class="gradient-bar"></div>
+  </div>
+</body>
+</html>

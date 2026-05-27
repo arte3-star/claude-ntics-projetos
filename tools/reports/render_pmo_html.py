@@ -160,6 +160,11 @@ def main():
     if not args.no_inline:
         html = inline_css(html)
 
+    if "—" in html:
+        n = html.count("—")
+        html = html.replace("—", " - ")
+        print(f"[render] sanitizado: {n} em-dash(es) substituido(s) por ' - '", file=sys.stderr)
+
     errs = auto_review(html)
     if errs:
         if args.allow_warnings:

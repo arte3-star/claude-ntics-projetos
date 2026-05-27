@@ -195,6 +195,52 @@ Saiba mais: nticsprojetos.com.br
 #ImpactoSocial #ESG #LeiRouanet #ODS #Sustentabilidade #Whirlpool #NTICSProjetos #ResponsabilidadeSocial #Cultura #AgendaDiamante2030""",
     },
 
+    # ── Projeto Cultura na Comunidade (Rabobank) ─────────────────────────────
+    "cultura-na-comunidade-rabobank": {
+        "instagram": """9.107 alunos. 6 cidades. 1 caminhão que virou sala de aula sobre saúde e bem-estar. 🚛💚
+
+Em 2024, o Caminhão Meus Hábitos Saudáveis percorreu São Paulo e Minas Gerais levando educação sobre alimentação balanceada, atividade física e consumo consciente para escolas públicas, com patrocínio do Rabobank via Lei Rouanet.
+
+📊 Resultados da edição:
+→ 9.107 alunos impactados diretamente
+→ 27.321 pessoas alcançadas indiretamente
+→ 88 professores capacitados
+→ 14 escolas atendidas
+→ 24 empregos locais gerados
+→ 9.000 cartilhas educativas distribuídas
+→ 90,3% dos alunos acreditam em um novo olhar para o mundo
+
+6 estações interativas dentro do caminhão: pirâmide alimentar, jogo de identificação, escada alimentar, atividade física, oficina de teatro com fantoches e workshop para professores. Cultura, saúde e educação caminhando juntas. 💚
+
+Salve e compartilhe com quem acredita em saúde como direito. 👇
+
+#CulturaNaComunidade #MeusHabitosSaudaveis #ImpactoSocial #Rabobank #LeiRouanet #ESG #NTICSProjetos #SaudeEEducacao #ODS #AgendaDiamante2030""",
+
+        "linkedin": """9.107 alunos. 88 professores. 14 escolas. 6 cidades em SP e MG. Saúde e bem-estar como ferramenta de transformação social.
+
+O projeto Cultura na Comunidade - Caminhão Meus Hábitos Saudáveis foi realizado pela NTICS Projetos com patrocínio do Rabobank via Lei Rouanet em Limeira, São Carlos, Ribeirão Preto, Franca, Uberaba e Uberlândia entre 6 e 30 de agosto de 2024. O projeto levou um caminhão interativo de 6 estações educativas para escolas públicas das duas regiões.
+
+Indicadores verificados:
+• 9.107 alunos impactados diretamente
+• 27.321 pessoas alcançadas indiretamente
+• 88 professores capacitados em workshop
+• 14 escolas públicas atendidas
+• 24 empregos locais gerados
+• 9.000 cartilhas educativas impressas e distribuídas
+• 90,3% dos alunos manifestaram acreditar em um novo olhar para o mundo
+• 89,1% dos participantes passaram a reconhecer o Rabobank como parceiro
+
+Metodologia em 6 estações: pirâmide alimentar com ímãs, jogo interativo de identificação de alimentos saudáveis, escada alimentar com módulo de digestão, estação de atividade física, oficina de teatro com fantoches e workshop de capacitação para professores conduzido por nutricionista.
+
+O projeto está alinhado aos ODS 3 (Saúde e Bem-Estar), 4 (Educação de Qualidade), 8 (Trabalho Decente e Crescimento Econômico) e 17 (Parcerias para a Implementação).
+
+Para empresas que buscam associar marca a saúde, educação e impacto comunitário mensurável via Lei Rouanet: esse é o modelo MHS.
+
+Saiba mais: nticsprojetos.com.br
+
+#ImpactoSocial #ESG #LeiRouanet #SaudeEEducacao #ODS #Sustentabilidade #Rabobank #NTICSProjetos #ResponsabilidadeSocial #MeusHabitosSaudaveis""",
+    },
+
     # ── Projeto 2 ─────────────────────────────────────────────────────────────
     "teatro-robotica-cnh": {
         "instagram": """Crianças do interior do Piauí construindo robôs com materiais recicláveis. 🤖♻️
@@ -290,6 +336,13 @@ PROJETOS_PDF = [
     },
     {
         "slug": "caminhao-ods-rabobank",
+        "cards": [
+            "01-capa.jpg", "02-o-projeto.jpg", "03-metodologia.jpg", "04-alcance.jpg",
+            "05-a-empresa.jpg", "06-resultados.jpg", "07-impacto.jpg", "08-cta.jpg",
+        ],
+    },
+    {
+        "slug": "cultura-na-comunidade-rabobank",
         "cards": [
             "01-capa.jpg", "02-o-projeto.jpg", "03-metodologia.jpg", "04-alcance.jpg",
             "05-a-empresa.jpg", "06-resultados.jpg", "07-impacto.jpg", "08-cta.jpg",

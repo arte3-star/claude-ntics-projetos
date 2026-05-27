@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aprovações · Negócio Cultural Itapoá</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/portal.css">
+</head>
+<body data-auth="true">
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="dashboard.html" class="brand-block">
+      <div class="brand-row"><span class="brand-dot"></span><span class="brand-name">NTICS · MTX</span></div>
+      <div class="project-title">Negócio Cultural Itapoá</div>
+    </a>
+    <nav class="main-nav nav-cliente">
+      <a class="nav-link" href="dashboard.html">Dashboard</a>
+      <a class="nav-link" href="relatorio-semanal.html">Relatório</a>
+      <a class="nav-link active" href="aprovacoes.html">Aprovações</a>
+      <a class="nav-link" href="diario-campo.html">Diário</a>
+      <div class="nav-divider"></div>
+      <a class="btn-cliente" data-action="logout" href="#">Sair</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page active">
+  <section class="container aprov-head">
+    <div class="hero-eyebrow">Peças aguardando aprovação · 3 itens</div>
+    <h1 class="report-title">Cada peça pronta — só falta seu <em>aval</em>.</h1>
+    <p class="report-sub">Peças geradas pelo time MTX a partir dos templates Figma aprovados no carrê. Identidade visual, cores e logomarca TAG já aplicadas. Use os botões abaixo para aprovar ou pedir ajuste.</p>
+  </section>
+
+  <section class="container">
+    <div class="aprov-grid">
+
+      <article class="aprov-card">
+        <div class="aprov-thumb" style="background:linear-gradient(135deg,#B8412C 0%,#D9876A 100%)">
+          <div class="thumb-label">Cartaz · A2</div>
+          <div class="thumb-mock">
+            <strong>Apresentação Cultural Coletiva</strong>
+            <span>03 jun · Praça Central · 18h</span>
+          </div>
+        </div>
+        <div class="aprov-body">
+          <div class="aprov-status">AGUARDANDO</div>
+          <h4>Cartaz da Apresentação Cultural Coletiva</h4>
+          <div class="aprov-meta">
+            <span>Tipo: Cartaz A2 impressão</span>
+            <span>Tiragem: 80 cópias</span>
+            <span>Gerado: 20 mai · 14:32</span>
+          </div>
+          <p>Peça para divulgação do evento aberto na Praça Central de Itapoá. Será afixada nas 5 escolas + 12 pontos comerciais parceiros.</p>
+          <div class="aprov-actions">
+            <button class="btn-primary" data-action="aprovar">✓ Aprovar</button>
+            <button class="btn-ghost" data-action="rejeitar">Pedir ajuste</button>
+            <a class="btn-link" href="#">Ver em alta resolução</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="aprov-card">
+        <div class="aprov-thumb" style="background:linear-gradient(135deg,#5C6B47 0%,#8B9A6F 100%)">
+          <div class="thumb-label">Banner · 3x1m</div>
+          <div class="thumb-mock">
+            <strong>Encerramento Etapa 01</strong>
+            <span>Imersão Cultural · 08 jun</span>
+          </div>
+        </div>
+        <div class="aprov-body">
+          <div class="aprov-status">AGUARDANDO</div>
+          <h4>Banner do Encerramento — Etapa 01</h4>
+          <div class="aprov-meta">
+            <span>Tipo: Banner 3x1m lona</span>
+            <span>Tiragem: 5 cópias (1 por escola)</span>
+            <span>Gerado: 21 mai · 10:18</span>
+          </div>
+          <p>Marca o fechamento da Imersão Cultural em cada uma das 5 escolas. Será reutilizado no Festival final em outubro.</p>
+          <div class="aprov-actions">
+            <button class="btn-primary" data-action="aprovar">✓ Aprovar</button>
+            <button class="btn-ghost" data-action="rejeitar">Pedir ajuste</button>
+            <a class="btn-link" href="#">Ver em alta resolução</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="aprov-card">
+        <div class="aprov-thumb" style="background:linear-gradient(135deg,#C9A961 0%,#E5C58A 100%)">
+          <div class="thumb-label">Flyer · A5</div>
+          <div class="thumb-mock">
+            <strong>Oficina Especial Audiovisual</strong>
+            <span>Carlos Mendes · 27 mai</span>
+          </div>
+        </div>
+        <div class="aprov-body">
+          <div class="aprov-status">AGUARDANDO</div>
+          <h4>Flyer da Oficina Especial — Carlos Mendes</h4>
+          <div class="aprov-meta">
+            <span>Tipo: Flyer A5 digital</span>
+            <span>Distribuição: redes da escola</span>
+            <span>Gerado: 22 mai · 08:45</span>
+          </div>
+          <p>Convite para a oficina especial conduzida pelo produtor Carlos Mendes na EEB Pontal. Apenas digital, sem impressão.</p>
+          <div class="aprov-actions">
+            <button class="btn-primary" data-action="aprovar">✓ Aprovar</button>
+            <button class="btn-ghost" data-action="rejeitar">Pedir ajuste</button>
+            <a class="btn-link" href="#">Ver em alta resolução</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="aprov-historico">
+      <h3>Peças já aprovadas (8)</h3>
+      <ul class="historico-list">
+        <li><span class="badge ok">Aprovada</span> Cartaz Imersão Cultural · 02 mai</li>
+        <li><span class="badge ok">Aprovada</span> Banner abertura EEB Itapoá · 28 abr</li>
+        <li><span class="badge ok">Aprovada</span> Camiseta equipe · 25 abr</li>
+        <li><span class="badge ok">Aprovada</span> Carrê de identidade · 12 abr</li>
+        <li><span class="badge ok">Aprovada</span> Flyer convite escolas · 08 abr</li>
+        <li><span class="badge ok">Aprovada</span> Adesivo identificador · 05 abr</li>
+        <li><span class="badge ok">Aprovada</span> Material professor · 02 abr</li>
+        <li><span class="badge ok">Aprovada</span> Apresentação institucional · 30 mar</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<script src="../assets/js/portal.js"></script>
+</body>
+</html>

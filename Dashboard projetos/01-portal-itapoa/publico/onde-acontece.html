@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onde Acontece · Negócio Cultural Itapoá</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/portal.css">
+</head>
+<body data-auth="false">
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="home.html" class="brand-block">
+      <div class="brand-row"><span class="brand-dot"></span><span class="brand-name">NTICS · MTX</span></div>
+      <div class="project-title">Negócio Cultural Itapoá</div>
+    </a>
+    <nav class="main-nav nav-publica">
+      <a class="nav-link" href="home.html">O Projeto</a>
+      <a class="nav-link" href="metodologia.html">Metodologia</a>
+      <a class="nav-link active" href="onde-acontece.html">Onde Acontece</a>
+      <a class="nav-link" href="galeria.html">Galeria</a>
+      <div class="nav-divider"></div>
+      <a class="btn-cliente" href="../cliente/login.html">Área do Cliente</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page active">
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">Itapoá · SC · 5 escolas</div>
+      <h1 class="hero-title">Cinco escolas, <em>uma cidade</em>, todo o litoral norte.</h1>
+      <p class="hero-sub">As cinco escolas atendidas estão distribuídas entre Centro, Itapema do Norte e Pontal do Norte, cobrindo cerca de 70% do território urbano de Itapoá.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="map-block">
+        <svg viewBox="0 0 800 500" class="map-svg" xmlns="http://www.w3.org/2000/svg">
+          <rect width="800" height="500" fill="#EBE3D5"/>
+          <path d="M0,300 Q200,250 400,280 T800,260 L800,500 L0,500 Z" fill="#5C6B47" opacity="0.15"/>
+          <path d="M0,280 Q200,230 400,260 T800,240" stroke="#5C6B47" stroke-width="2" fill="none" opacity="0.4"/>
+          <text x="600" y="350" font-family="JetBrains Mono" font-size="10" fill="#8B8680">OCEANO ATLÂNTICO</text>
+          <g class="escola-pin" data-name="EEB Itapoá">
+            <circle cx="280" cy="180" r="8" fill="#B8412C"/>
+            <text x="295" y="184" font-family="Inter Tight" font-size="12" fill="#1A1A1A">EEB Itapoá</text>
+            <text x="295" y="198" font-family="JetBrains Mono" font-size="10" fill="#8B8680">CENTRO · 64 estudantes</text>
+          </g>
+          <g class="escola-pin" data-name="EMEF Bela Vista">
+            <circle cx="200" cy="220" r="8" fill="#B8412C"/>
+            <text x="215" y="224" font-family="Inter Tight" font-size="12" fill="#1A1A1A">EMEF Bela Vista</text>
+            <text x="215" y="238" font-family="JetBrains Mono" font-size="10" fill="#8B8680">ITAPEMA · 48 estudantes</text>
+          </g>
+          <g class="escola-pin" data-name="EEB Pontal">
+            <circle cx="430" cy="140" r="8" fill="#B8412C"/>
+            <text x="445" y="144" font-family="Inter Tight" font-size="12" fill="#1A1A1A">EEB Pontal do Norte</text>
+            <text x="445" y="158" font-family="JetBrains Mono" font-size="10" fill="#8B8680">PONTAL · 52 estudantes</text>
+          </g>
+          <g class="escola-pin" data-name="EMEF Tabuleiro">
+            <circle cx="380" cy="240" r="8" fill="#B8412C"/>
+            <text x="395" y="244" font-family="Inter Tight" font-size="12" fill="#1A1A1A">EMEF Tabuleiro</text>
+            <text x="395" y="258" font-family="JetBrains Mono" font-size="10" fill="#8B8680">CENTRO · 40 estudantes</text>
+          </g>
+          <g class="escola-pin" data-name="EEB Barra do Saí">
+            <circle cx="320" cy="100" r="8" fill="#B8412C"/>
+            <text x="335" y="104" font-family="Inter Tight" font-size="12" fill="#1A1A1A">EEB Barra do Saí</text>
+            <text x="335" y="118" font-family="JetBrains Mono" font-size="10" fill="#8B8680">BARRA · 36 estudantes</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="escolas-grid">
+        <div class="escola-card">
+          <div class="escola-num">01</div>
+          <h4>EEB Itapoá</h4>
+          <div class="escola-meta">Centro · 64 estudantes · 2 turmas</div>
+          <p>Escola âncora do projeto, sede do Festival de Negócios Culturais.</p>
+        </div>
+        <div class="escola-card">
+          <div class="escola-num">02</div>
+          <h4>EMEF Bela Vista</h4>
+          <div class="escola-meta">Itapema do Norte · 48 estudantes</div>
+          <p>Foco em audiovisual e gastronomia regional.</p>
+        </div>
+        <div class="escola-card">
+          <div class="escola-num">03</div>
+          <h4>EEB Pontal do Norte</h4>
+          <div class="escola-meta">Pontal do Norte · 52 estudantes</div>
+          <p>Foco em música, surf cultural e turismo.</p>
+        </div>
+        <div class="escola-card">
+          <div class="escola-num">04</div>
+          <h4>EMEF Tabuleiro</h4>
+          <div class="escola-meta">Centro · 40 estudantes</div>
+          <p>Foco em artes visuais e design gráfico.</p>
+        </div>
+        <div class="escola-card">
+          <div class="escola-num">05</div>
+          <h4>EEB Barra do Saí</h4>
+          <div class="escola-meta">Barra do Saí · 36 estudantes</div>
+          <p>Foco em pesca artesanal e gastronomia litorânea.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-brand">NTICS · MTX</div>
+      <div class="footer-meta">Negócio Cultural Itapoá · 2026</div>
+    </div>
+    <div class="footer-nav">
+      <a href="home.html">O Projeto</a>
+      <a href="metodologia.html">Metodologia</a>
+      <a href="onde-acontece.html">Onde Acontece</a>
+      <a href="galeria.html">Galeria</a>
+      <a href="../cliente/login.html">Área Restrita</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/portal.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plataforma NTICS — Índice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#F5F1EA; --bg-deep:#EBE3D5; --ink:#1A1A1A; --ink-soft:#4A4A4A; --ink-mute:#8B8680; --accent:#B8412C; --moss:#5C6B47; --cream:#FAF7F0; --line:#2A2A2A; --line-soft:#D8D2C5; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Inter Tight', sans-serif; padding: 60px 40px; }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  header { border-bottom: 1px solid var(--line); padding-bottom: 32px; margin-bottom: 56px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; }
+  h1 { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(40px, 5vw, 64px); line-height: 1; letter-spacing: -0.03em; margin-bottom: 20px; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lead { font-size: 17px; color: var(--ink-soft); max-width: 720px; line-height: 1.6; }
+  .meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-mute); margin-top: 20px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .section-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 14px; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 24px; }
+  .group { margin-bottom: 64px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .card { background: var(--cream); border: 1px solid var(--line-soft); padding: 24px; transition: all 0.2s; display: block; }
+  .card:hover { background: var(--bg-deep); border-color: var(--ink); }
+  .card-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .card h3 { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 500; margin-bottom: 8px; line-height: 1.2; }
+  .card p { font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+  .card-arrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); margin-top: 12px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .pill { display: inline-block; padding: 2px 8px; background: var(--moss); color: var(--cream); font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; margin-left: 6px; }
+  .pill.draft { background: var(--ink-mute); }
+  footer { margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--line); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Plataforma NTICS · Estrutura modular de projetos</div>
+    <h1>Tudo o que <em>já está</em> construído.</h1>
+    <p class="lead">Esta pasta é a base do novo formato de plataforma para projetos da MTX. Documento mestre, protótipo navegável do portal piloto Itapoá, e especificação dos fluxos de automação. Cada entrega é independente — pode ser revisada, ajustada ou expandida sem quebrar as outras.</p>
+    <div class="meta">Versão 0.1 · 24 maio 2026 · Pasta · Dashboard projetos/</div>
+  </header>
+
+  <section class="group">
+    <div class="section-num">00 / BLUEPRINT</div>
+    <h2 class="section-title">Documento mestre</h2>
+    <div class="cards">
+      <a class="card" href="00-blueprint/BLUEPRINT.md">
+        <div class="card-tag">Markdown <span class="pill">final</span></div>
+        <h3>BLUEPRINT.md</h3>
+        <p>Arquitetura em camadas, stack escolhido, fluxos da semana, fases de implementação, decisões em aberto, riscos. Documento de referência para tudo o que vem depois.</p>
+        <div class="card-arrow">Abrir →</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="group">
+    <div class="section-num">01 / PORTAL PILOTO</div>
+    <h2 class="section-title">Negócio Cultural Itapoá — protótipo navegável</h2>
+
+    <h3 style="font-family:'Fraunces',serif; font-size:18px; font-weight:500; margin: 24px 0 12px; color: var(--ink-soft);">Área pública</h3>
+    <div class="cards">
+      <a class="card" href="01-portal-itapoa/publico/home.html">
+        <div class="card-tag">HTML · público</div>
+        <h3>Home / O Projeto</h3>
+        <p>Apresentação institucional, indicadores-meta, público atendido.</p>
+        <div class="card-arrow">Ver página →</div>
+      </a>
+      <a class="card" href="01-portal-itapoa/publico/metodologia.html">
+        <div class="card-tag">HTML · público</div>
+        <h3>Metodologia</h3>
+        <p>Quatro etapas progressivas e princípios que sustentam o programa.</p>
+        <div class="card-arrow">Ver página →</div>
+      </a>
+      <a class="card" href="01-portal-itapoa/publico/onde-acontece.html">
+        <div class="card-tag">HTML · público</div>
+        <h3>Onde Acontece</h3>
+        <p>Mapa das cinco escolas em Itapoá com perfil de cada uma.</p>
+        <div class="card-arrow">Ver página →</div>
+      </a>
+      <a class="card" href="01-portal-itapoa/publico/galeria.html">
+        <div class="card-tag">HTML · público</div>
+        <h3>Galeria</h3>
+        <p>Registros públicos selecionados (versão pública resumida).</p>
+        <div class="card-arrow">Ver página →</div>
+      </a>
+    </div>
+
+    <h3 style="font-family:'Fraunces',serif; font-size:18px; font-weight:500; margin: 32px 0 12px; color: var(--ink-soft);">Área restrita do cliente</h3>
+    <div class="cards">
+      <a class="card" href="01-portal-itapoa/cliente/login.html">
+        <div class="card-tag">HTML · restrito</div>
+        <h3>Acesso (login simulado)</h3>
+        <p>Entrada da área do patrocinador. Clique em "Entrar" para acessar o dashboard.</p>
+        <div class="card-arrow">Abrir login →</div>
+      </a>
+      <a class="card" href="01-portal-itapoa/cliente/dashboard.html">
+        <div class="card-tag">HTML · restrito</div>
+        <h3>Dashboard</h3>
+        <p>Visão geral viva: KPIs, próximos eventos, alertas, status por escola.</p>
+        <div class="card-arrow">Ver dashboard →</div>
+      </a>
+      <a class="card" href="01-portal-itapoa/cliente/relatorio-semanal.html">
+        <div class="card-tag">HTML · restrito</div>
+        <h3>Relatório Semanal</h3>
+        <p>Análise dos últimos 7 dias, gráfico de atividade, destaques e pontos de atenção.</p>
+        <div class="card-arrow">Ver relatório →</div>
+      </a>
+      <a class="card" href="01-portal-itapoa/cliente/aprovacoes.html">
+        <div class="card-tag">HTML · restrito</div>
+        <h3>Aprovações de Peças</h3>
+        <p>Peças gráficas aguardando aval do cliente, com botões para aprovar/ajustar.</p>
+        <div class="card-arrow">Ver aprovações →</div>
+      </a>
+      <a class="card" href="01-portal-itapoa/cliente/diario-campo.html">
+        <div class="card-tag">HTML · restrito</div>
+        <h3>Diário de Campo</h3>
+        <p>Timeline cronológica do que está acontecendo nas escolas.</p>
+        <div class="card-arrow">Ver diário →</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="group">
+    <div class="section-num">02 / AUTOMAÇÃO</div>
+    <h2 class="section-title">Especificação dos fluxos Cloud Code</h2>
+    <div class="cards">
+      <a class="card" href="02-automacao/FLUXOS-CLOUD-CODE.md">
+        <div class="card-tag">Markdown <span class="pill draft">spec</span></div>
+        <h3>FLUXOS-CLOUD-CODE.md</h3>
+        <p>Sincronização diária, relatório semanal de sexta, geração de peça gráfica. Inclui estrutura esperada do ClickUp, prompts dos agentes e roadmap de implementação.</p>
+        <div class="card-arrow">Abrir →</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="group">
+    <div class="section-num">03 / REFERÊNCIAS</div>
+    <h2 class="section-title">Artefatos originais da conversa</h2>
+    <div class="cards">
+      <a class="card" href="03-referencias/01-arquitetura-visual.html">
+        <div class="card-tag">HTML · referência</div>
+        <h3>Visão da arquitetura (original)</h3>
+        <p>Documento visual com as 4 camadas, rotina semanal e mockup conceitual. Base para o BLUEPRINT.md.</p>
+        <div class="card-arrow">Abrir →</div>
+      </a>
+      <a class="card" href="03-referencias/02-prototipo-monolitico.html">
+        <div class="card-tag">HTML · referência</div>
+        <h3>Protótipo monolítico (original)</h3>
+        <p>Versão SPA do portal em um único arquivo. Substituído pelo portal modular em 01-portal-itapoa/.</p>
+        <div class="card-arrow">Abrir →</div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    Plataforma NTICS · Versão 0.1 · Próximo passo: revisar com a equipe e validar decisões em aberto do BLUEPRINT.
+  </footer>
+</div>
+
+</body>
+</html>

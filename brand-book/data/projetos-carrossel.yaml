@@ -104,7 +104,7 @@ projetos:
       pessoas_indiretas: 27321
       empregos: 24
       cartilhas: 9000
-    status_carrossel: pendente
+    status_carrossel: feito
 
   - slug: teatro-ods-repsol
     nome: "TEATRO DOS ODS"

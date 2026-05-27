@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Projeto · Festival Agricultura Sustentável</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/portal.css">
+<style>
+  .proj-layout { display: grid; grid-template-columns: 220px 1fr; gap: 56px; align-items: start; }
+  .proj-toc { position: sticky; top: 96px; border-left: 1px solid var(--line-soft); padding: 12px 0 12px 18px; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .proj-toc a { display: block; color: var(--ink-mute); padding: 7px 0; transition: color 0.2s; }
+  .proj-toc a:hover { color: var(--accent); }
+  .proj-toc .toc-eyebrow { color: var(--ink); margin-bottom: 12px; }
+  .proj-section { padding: 56px 0; border-bottom: 1px solid var(--line-soft); }
+  .proj-section:last-child { border-bottom: none; }
+  .proj-section h2 { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .proj-section h2 em { color: var(--accent); font-style: italic; }
+  .proj-section .sec-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-mute); margin-bottom: 6px; }
+  .proj-section p { color: var(--ink-soft); margin: 14px 0; max-width: 720px; }
+  .proj-section p.lead { font-size: 19px; color: var(--ink); font-weight: 400; }
+  .proj-section h4 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; margin: 8px 0 4px; }
+  .num-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin: 24px 0 8px; }
+  .num-card { background: var(--cream); border: 1px solid var(--line-soft); padding: 22px 20px; }
+  .num-card .nc-num { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 400; color: var(--accent); line-height: 1; }
+  .num-card .nc-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-mute); margin-top: 8px; }
+  .num-card .nc-sub { font-size: 13px; color: var(--ink-soft); margin-top: 4px; }
+  .escopo-block { background: var(--cream); border: 1px solid var(--line-soft); padding: 24px; margin: 16px 0; }
+  .escopo-block .eb-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 6px; }
+  .escopo-block ul { margin: 12px 0 0 18px; color: var(--ink-soft); }
+  .escopo-block li { margin: 4px 0; }
+  .ind-row { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 16px 0; border-bottom: 1px dashed var(--line-soft); }
+  .ind-row:last-child { border-bottom: none; }
+  .ind-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-mute); padding-top: 3px; }
+  .ind-val { color: var(--ink); }
+  .ind-val strong { color: var(--accent); }
+  .ods-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .ods-chip { background: var(--bg-deep); border: 1px solid var(--line-soft); padding: 8px 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.05em; color: var(--ink); }
+  .ods-chip strong { color: var(--accent); margin-right: 6px; }
+  .comm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 20px; }
+  .comm-card { background: var(--cream); border: 1px solid var(--line-soft); padding: 22px; }
+  .comm-card .cc-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 8px; }
+  .comm-card h4 { margin-bottom: 8px; }
+  .comm-card ul { margin: 8px 0 0 18px; color: var(--ink-soft); font-size: 14px; }
+  .pecas-table { width: 100%; border-collapse: collapse; margin-top: 18px; }
+  .pecas-table th { text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-mute); padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  .pecas-table td { padding: 14px; border-bottom: 1px solid var(--line-soft); color: var(--ink-soft); font-size: 14px; vertical-align: top; }
+  .pecas-table td strong { color: var(--ink); }
+  .invest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px; }
+  .invest-card { background: var(--cream); border: 1px solid var(--line-soft); padding: 28px; }
+  .invest-card .ic-big { font-family: 'Fraunces', serif; font-size: 44px; font-weight: 400; color: var(--accent); line-height: 1; }
+  .invest-card .ic-cap { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-mute); margin-top: 8px; }
+  .invest-card p { font-size: 14px; margin-top: 14px; }
+  .alloc-bar { display: flex; height: 28px; border: 1px solid var(--line); margin-top: 20px; }
+  .alloc-bar div { display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--cream); text-transform: uppercase; letter-spacing: 0.05em; }
+  .alloc-legend { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 24px; margin-top: 16px; font-size: 13px; color: var(--ink-soft); }
+  .alloc-legend span::before { content: ''; display: inline-block; width: 10px; height: 10px; margin-right: 8px; vertical-align: middle; }
+  @media (max-width: 900px) { .proj-layout { grid-template-columns: 1fr; } .proj-toc { position: static; border-left: none; border-bottom: 1px solid var(--line-soft); padding: 18px 0; } .num-grid, .comm-grid, .invest-grid { grid-template-columns: 1fr 1fr; } .ind-row { grid-template-columns: 1fr; gap: 6px; } }
+</style>
+</head>
+<body data-auth="true">
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="dashboard.html" class="brand-block">
+      <div class="brand-row"><span class="brand-dot"></span><span class="brand-name">NTICS · New Holland</span></div>
+      <div class="project-title">Festival Agricultura Sustentável</div>
+    </a>
+    <nav class="main-nav nav-cliente">
+      <a class="nav-link" href="dashboard.html">Dashboard</a>
+      <a class="nav-link active" href="o-projeto.html">O Projeto</a>
+      <a class="nav-link" href="relatorio-semanal.html">Relatório</a>
+      <a class="nav-link" href="aprovacoes.html">Aprovações</a>
+      <a class="nav-link" href="diario-campo.html">Diário</a>
+      <div class="nav-divider"></div>
+      <a class="btn-cliente" data-action="logout" href="#">Sair</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page active">
+  <section class="container" style="padding-top: 48px;">
+    <div class="hero-eyebrow">Projeto Festival Agricultura Sustentável · CNH / New Holland · Lei Rouanet · PRONAC 259965</div>
+    <h1 class="report-title" style="max-width: 900px;">Tudo sobre o projeto que <em>vocês</em> patrocinam.</h1>
+    <p class="report-sub" style="max-width: 760px;">Um documento vivo sobre o programa: o que é, o que entrega, como mede e o que vai ao ar. Navegue pelas seções ao lado.</p>
+  </section>
+
+  <section class="container">
+    <div class="proj-layout">
+
+      <aside class="proj-toc">
+        <div class="toc-eyebrow">Nesta página</div>
+        <a href="#sumario">01 · Sumário executivo</a>
+        <a href="#o-que-e">02 · O que é</a>
+        <a href="#escopo">03 · Escopo</a>
+        <a href="#metas">04 · Metas</a>
+        <a href="#indicadores">05 · Indicadores</a>
+        <a href="#metodologia">06 · Metodologia</a>
+        <a href="#comunicacao">07 · Plano de comunicação</a>
+        <a href="#pecas">08 · Peças de comunicação</a>
+        <a href="#investimento">09 · Investimento</a>
+      </aside>
+
+      <div class="proj-content">
+
+        <section id="sumario" class="proj-section">
+          <div class="sec-num">01 · Sumário executivo</div>
+          <h2>O projeto em <em>um minuto</em>.</h2>
+          <p class="lead">Festival Agricultura Sustentável é um programa itinerante de educação cultural sobre agricultura sustentável, patrocinado pela CNH/New Holland via Lei Rouanet (PRONAC 259965), executado pela NTICS entre agosto e outubro de 2026.</p>
+          <p>O projeto percorre quatro cidades em sequência (Dom Pedrito/RS, Toledo/PR, Guarapuava/PR e Curitiba/PR), levando sete oficinas lúdicas e práticas a 1.000 alunos únicos de escolas públicas, preferencialmente rurais, do ensino fundamental e médio. O ciclo encerra em Curitiba com um Festival aberto ao público em praça pública, com DOMO imersivo, exposição das produções dos alunos e cerimônia de entrega dos certificados Guardião da Terra.</p>
+          <div class="num-grid">
+            <div class="num-card"><div class="nc-num">R$ 600 mil</div><div class="nc-label">Investimento aprovado</div><div class="nc-sub">Incentivo fiscal Rouanet</div></div>
+            <div class="num-card"><div class="nc-num">1.000</div><div class="nc-label">Alunos únicos</div><div class="nc-sub">250 por cidade</div></div>
+            <div class="num-card"><div class="nc-num">28</div><div class="nc-label">Oficinas executadas</div><div class="nc-sub">7 oficinas × 4 cidades</div></div>
+            <div class="num-card"><div class="nc-num">4</div><div class="nc-label">Cidades RS + PR</div><div class="nc-sub">Itinerância sequencial</div></div>
+          </div>
+        </section>
+
+        <section id="o-que-e" class="proj-section">
+          <div class="sec-num">02 · O que é</div>
+          <h2>Um festival que vai <em>até a escola</em>.</h2>
+          <p class="lead">A maior parte dos projetos culturais espera o público ir até o evento. Aqui é o contrário: o festival se desloca para escolas públicas, preferencialmente rurais, e fica três semanas em cada cidade. No fim do ciclo, abre-se ao público em uma praça pública.</p>
+          <p>A proposta é apresentar a crianças e jovens, com linguagem lúdica e prática, as ferramentas da agricultura sustentável — não como tema técnico, mas como cultura. Cada oficina combina conteúdo BNCC (Base Nacional Comum Curricular) e Agenda 2030 da ONU em uma atividade concreta: plantio de sementes, ensaio fotográfico, maquete de irrigação, roda de histórias, simulação de clima, dinâmica de geração de energia.</p>
+
+          <h4>Por que existe</h4>
+          <p>A CNH/New Holland tem uma marca historicamente associada ao campo e à tecnologia agrícola. O projeto traduz esse repertório para a escola pública, com foco em formar Guardiões da Terra — uma identidade positiva e futurista para a criança, longe do assistencialismo ou da oposição entre urbano e rural.</p>
+
+          <h4>O que entrega de concreto</h4>
+          <ul style="margin: 12px 0 0 18px; color: var(--ink-soft);">
+            <li>Formação dos alunos com certificado <strong>Guardião da Terra</strong></li>
+            <li>Formação dos professores com certificado <strong>20h BNCC</strong></li>
+            <li>Plataforma digital <strong>New Holland Online</strong> com áreas para professor, estudante e gestão do projeto</li>
+            <li>Festival aberto à comunidade em Curitiba com DOMO imersivo</li>
+            <li>Relatório ESG final com indicadores ODS</li>
+          </ul>
+        </section>
+
+        <section id="escopo" class="proj-section">
+          <div class="sec-num">03 · Escopo</div>
+          <h2>O que está <em>contratado</em> para entregar.</h2>
+          <p>Quatro blocos de entregáveis, executados em sequência. O Bloco A destrava todos os outros porque define a identidade visual.</p>
+
+          <div class="escopo-block">
+            <div class="eb-tag">Bloco A · Pré-projeto digital</div>
+            <h4>Identidade e comunicação inicial</h4>
+            <ul>
+              <li><strong>KV New Holland Festival</strong> + biblioteca de sete ícones temáticos (um por oficina)</li>
+              <li><strong>Carrossel informativo pré-projeto</strong> (8 cards)</li>
+              <li>Convite post por cidade · template editável · 4 cidades</li>
+              <li>Imagem convite WhatsApp para escolas · template · 4 cidades</li>
+              <li>Card de inscrição QR para professores na plataforma</li>
+              <li>Mockup da landing page da plataforma New Holland Online</li>
+            </ul>
+          </div>
+
+          <div class="escopo-block">
+            <div class="eb-tag">Bloco B · Material pedagógico</div>
+            <h4>Para a sala de aula</h4>
+            <ul>
+              <li><strong>Kit pedagógico físico</strong> por escola (apostilas, jogos, materiais por oficina)</li>
+              <li>Manual do facilitador (7 oficinas detalhadas)</li>
+              <li>Plano de aula para professor alinhado à BNCC</li>
+            </ul>
+          </div>
+
+          <div class="escopo-block">
+            <div class="eb-tag">Bloco C · Estrutura de campo</div>
+            <h4>DOMO + Festival final em Curitiba</h4>
+            <ul>
+              <li>Layout interno do DOMO (duas ambientações)</li>
+              <li>Sinalização externa do DOMO: placa, banner, pantojet</li>
+              <li>Camisetas da equipe e uniforme do facilitador</li>
+            </ul>
+          </div>
+
+          <div class="escopo-block">
+            <div class="eb-tag">Bloco D · Certificados</div>
+            <h4>Reconhecimento formal</h4>
+            <ul>
+              <li>Certificado <strong>Guardião da Terra</strong> para alunos (A4 horizontal)</li>
+              <li>Certificado de formação <strong>20h BNCC</strong> para professores (A4 horizontal)</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="metas" class="proj-section">
+          <div class="sec-num">04 · Metas</div>
+          <h2>O que <em>vamos atingir</em> ao final do ciclo.</h2>
+          <p>Metas firmadas no Termo de Abertura do Projeto, adequadas à verba aprovada de R$ 600 mil.</p>
+
+          <div class="num-grid">
+            <div class="num-card"><div class="nc-num">1.000</div><div class="nc-label">Alunos únicos beneficiados</div><div class="nc-sub">250 por cidade × 4 cidades</div></div>
+            <div class="num-card"><div class="nc-num">7.000</div><div class="nc-label">Atendimentos totais</div><div class="nc-sub">250 alunos × 7 oficinas × 4</div></div>
+            <div class="num-card"><div class="nc-num">28</div><div class="nc-label">Oficinas executadas</div><div class="nc-sub">12 culturais MinC + 16 temáticas</div></div>
+            <div class="num-card"><div class="nc-num">500 a 1.000</div><div class="nc-label">Público no festival final</div><div class="nc-sub">Curitiba · praça pública</div></div>
+            <div class="num-card"><div class="nc-num">11</div><div class="nc-label">Módulos de formação</div><div class="nc-sub">Plataforma New Holland Online</div></div>
+            <div class="num-card"><div class="nc-num">20h</div><div class="nc-label">Certificação BNCC</div><div class="nc-sub">Para cada professor formado</div></div>
+            <div class="num-card"><div class="nc-num">4</div><div class="nc-label">Vídeos case por cidade</div><div class="nc-sub">+ 1 case final consolidado</div></div>
+            <div class="num-card"><div class="nc-num">6</div><div class="nc-label">ODS atendidos</div><div class="nc-sub">Agenda 2030 da ONU</div></div>
+          </div>
+        </section>
+
+        <section id="indicadores" class="proj-section">
+          <div class="sec-num">05 · Indicadores</div>
+          <h2>Como <em>medimos</em> o impacto.</h2>
+          <p>Indicadores quantitativos e qualitativos consolidados no Relatório ESG final, alinhados à Agenda 2030 da ONU e às linguagens culturais MinC.</p>
+
+          <div class="ind-row">
+            <div class="ind-label">Alcance educacional</div>
+            <div class="ind-val"><strong>1.000 alunos únicos · 7.000 atendimentos · 28 oficinas</strong>. Distribuídos em 4 cidades de RS e PR, em escolas públicas preferencialmente rurais.</div>
+          </div>
+          <div class="ind-row">
+            <div class="ind-label">Formação docente</div>
+            <div class="ind-val">Plataforma New Holland Online com <strong>11 módulos</strong> e certificação de <strong>20 horas BNCC</strong> para cada professor formado.</div>
+          </div>
+          <div class="ind-row">
+            <div class="ind-label">Linguagens MinC</div>
+            <div class="ind-val">12 oficinas culturais (<strong>artes plásticas, fotografia, contação de histórias</strong>) + 16 oficinas temáticas complementares.</div>
+          </div>
+          <div class="ind-row">
+            <div class="ind-label">ODS atendidos</div>
+            <div class="ind-val">
+              <div class="ods-grid">
+                <div class="ods-chip"><strong>ODS 2</strong> Fome zero</div>
+                <div class="ods-chip"><strong>ODS 4</strong> Educação de qualidade</div>
+                <div class="ods-chip"><strong>ODS 6</strong> Água potável</div>
+                <div class="ods-chip"><strong>ODS 7</strong> Energia limpa</div>
+                <div class="ods-chip"><strong>ODS 12</strong> Consumo responsável</div>
+                <div class="ods-chip"><strong>ODS 13</strong> Ação contra mudança global do clima</div>
+              </div>
+            </div>
+          </div>
+          <div class="ind-row">
+            <div class="ind-label">Engajamento de público</div>
+            <div class="ind-val"><strong>500 a 1.000 pessoas</strong> esperadas no Festival final em Curitiba (praça pública aberta).</div>
+          </div>
+          <div class="ind-row">
+            <div class="ind-label">Cobertura editorial</div>
+            <div class="ind-val">9 vídeos (4 pré + 4 durante + 1 case final), 6 carrosséis editoriais e cobertura semanal em redes sociais.</div>
+          </div>
+        </section>
+
+        <section id="metodologia" class="proj-section">
+          <div class="sec-num">06 · Metodologia</div>
+          <h2>Como <em>levamos</em> à sala.</h2>
+          <p class="lead">Três semanas em cada cidade. Sete oficinas sequenciais, duas em cada dia, com 30 alunos por sala em 5 períodos = 150 alunos por dia.</p>
+
+          <h4>Estrutura intra-cidade (15 dias úteis)</h4>
+          <p>Semana 1: oficinas 1 e 2 (Terra e Semente, Ciclo da Água). Semana 2: oficinas 3, 4 e início da 5 (Alimentos, Sabores Locais, Clima). Semana 3: fim da 5, oficinas 6 e 7 (Metano, Cidadania), encerrando com Grande Contação de Histórias e entrega Guardião da Terra. Em Curitiba, a entrega acontece no Festival do DOMO em outubro.</p>
+
+          <h4>Equipe pedagógica</h4>
+          <p>Um <strong>especialista técnico local em cada cidade</strong> (perfil do campo, técnico, marcante; até 2 oficinas) + um <strong>educador pedagógico itinerante</strong> que viaja com o projeto nas 4 cidades garantindo a coerência didática.</p>
+
+          <h4>Princípios</h4>
+          <ul style="margin: 12px 0 0 18px; color: var(--ink-soft);">
+            <li><strong>Lúdica e prática, sempre.</strong> Cada oficina combina vivência cultural com atividade concreta.</li>
+            <li><strong>BNCC + Agenda 2030.</strong> Conteúdo alinhado à base curricular e a um ODS-âncora identificado por oficina.</li>
+            <li><strong>Crianças como guardiãs.</strong> O aluno sai com identidade clara de responsabilidade pela terra.</li>
+          </ul>
+          <p style="margin-top: 20px;"><a class="btn-link" href="../publico/metodologia.html">Ver o detalhamento das 7 oficinas →</a></p>
+        </section>
+
+        <section id="comunicacao" class="proj-section">
+          <div class="sec-num">07 · Plano de comunicação</div>
+          <h2>Como <em>contamos</em> a história.</h2>
+          <p>Três janelas editoriais — antes, durante e depois de cada cidade — com formatos diferentes para cada momento. Distribuição em redes NTICS + repost no canal CNH/New Holland + redes parceiras locais (secretarias, escolas, produtor regional).</p>
+
+          <div class="comm-grid">
+            <div class="comm-card">
+              <div class="cc-tag">Janela 1 · Pré-cidade</div>
+              <h4>Apresentar e mobilizar</h4>
+              <ul>
+                <li>Carrossel informativo pré-projeto</li>
+                <li>1 vídeo de apresentação por cidade (4 ao todo)</li>
+                <li>Convite post por cidade e convite WhatsApp para escolas</li>
+                <li>Card de inscrição QR para professores</li>
+              </ul>
+            </div>
+            <div class="comm-card">
+              <div class="cc-tag">Janela 2 · Durante</div>
+              <h4>Cobertura editorial em campo</h4>
+              <ul>
+                <li>1 vídeo de cobertura por cidade (4 ao todo)</li>
+                <li>1 carrossel editorial por cidade (4 ao todo)</li>
+                <li>Diário de campo alimentado semanalmente</li>
+                <li>Cobertura especial do DOMO + Festival em Curitiba</li>
+              </ul>
+            </div>
+            <div class="comm-card">
+              <div class="cc-tag">Janela 3 · Pós-projeto</div>
+              <h4>Consolidar legado</h4>
+              <ul>
+                <li>Vídeo case final consolidado (2 a 3 minutos)</li>
+                <li>Carrossel de encerramento com números e fotos</li>
+                <li>Relatório ESG completo + indicadores ODS</li>
+                <li>Distribuição para reuso institucional da CNH</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="pecas" class="proj-section">
+          <div class="sec-num">08 · Peças de comunicação</div>
+          <h2>O que <em>será produzido</em> no total.</h2>
+          <p>Inventário completo dos materiais comunicacionais e gráficos do projeto. Cada peça passa por aprovação interna NTICS, aprovação CNH/New Holland e — quando aplicável — fechamento MINC.</p>
+
+          <table class="pecas-table">
+            <thead>
+              <tr><th>ID</th><th>Peça</th><th>Tipo</th><th>Quantidade</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>A1</td><td><strong>KV + biblioteca de ícones</strong> (7 ícones temáticos)</td><td>Identidade visual</td><td>1 kit</td></tr>
+              <tr><td>A2</td><td>Carrossel informativo pré-projeto</td><td>Carrossel social</td><td>8 cards</td></tr>
+              <tr><td>A3</td><td>Convite post por cidade</td><td>Template editável</td><td>4 cidades × 2 formatos</td></tr>
+              <tr><td>A4</td><td>Imagem convite WhatsApp escolas</td><td>Template editável</td><td>4 cidades × 2 formatos</td></tr>
+              <tr><td>A5</td><td>Card inscrição QR professores</td><td>Template editável</td><td>1 base</td></tr>
+              <tr><td>A6</td><td>Mockup LP plataforma New Holland Online</td><td>Mockup landing page</td><td>1</td></tr>
+              <tr><td>B1</td><td>Kit pedagógico físico por escola</td><td>Impresso pedagógico</td><td>1 kit × n escolas</td></tr>
+              <tr><td>B2</td><td>Manual do facilitador</td><td>Documento</td><td>1 (7 oficinas detalhadas)</td></tr>
+              <tr><td>B3</td><td>Plano de aula para professor</td><td>Documento BNCC</td><td>1 (com módulos)</td></tr>
+              <tr><td>C1</td><td>Layout interno DOMO</td><td>Cenografia</td><td>2 ambientações</td></tr>
+              <tr><td>C2</td><td>Sinalização externa DOMO</td><td>Impresso grande</td><td>Placa + banner + pantojet</td></tr>
+              <tr><td>C3</td><td>Camisetas equipe + uniforme facilitador</td><td>Têxtil</td><td>Equipe completa</td></tr>
+              <tr><td>D1</td><td>Certificado Guardião da Terra</td><td>Template A4</td><td>1.000 alunos</td></tr>
+              <tr><td>D2</td><td>Certificado 20h BNCC professores</td><td>Template A4</td><td>Professores formados</td></tr>
+              <tr><td>VID</td><td>Vídeos pré + durante + case final</td><td>Reels + horizontal</td><td>4 + 4 + 1 = 9 vídeos</td></tr>
+              <tr><td>CAR</td><td>Carrosséis pré + durante + pós</td><td>Carrossel social</td><td>1 + 4 + 1 = 6 carrosséis</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="investimento" class="proj-section">
+          <div class="sec-num">09 · Investimento</div>
+          <h2>De onde vem o <em>recurso</em>.</h2>
+          <p class="lead">O projeto é executado com R$ 600 mil aprovados via Lei Rouanet (PRONAC 259965). O recurso vem da CNH/New Holland por incentivo fiscal: a empresa direciona valor que seria pago em Imposto de Renda diretamente para o projeto.</p>
+
+          <div class="invest-grid">
+            <div class="invest-card">
+              <div class="ic-big">R$ 600.000</div>
+              <div class="ic-cap">Aprovado · Rouanet · PRONAC 259965</div>
+              <p>Valor adequado em reunião de alinhamento de 18 de maio de 2026, com redução de 60% sobre o escopo original (R$ 1,5 mi) para caber na verba disponível.</p>
+            </div>
+            <div class="invest-card">
+              <div class="ic-big">100%</div>
+              <div class="ic-cap">Dedutível do IR devido</div>
+              <p>Por se tratar de Lei Rouanet, o valor patrocinado é integralmente deduzido do Imposto de Renda devido pela CNH/New Holland. Custo líquido efetivo para a empresa: muito próximo de zero.</p>
+            </div>
+          </div>
+
+          <h4 style="margin-top: 32px;">Distribuição estimada do investimento</h4>
+          <p>Distribuição estimada dos R$ 600 mil entre as grandes linhas de custo do projeto. Detalhamento completo no orçamento aprovado pelo MinC.</p>
+          <div class="alloc-bar">
+            <div style="width:30%; background:#005EB8;">Produção pedagógica · 30%</div>
+            <div style="width:20%; background:#3C4763;">Equipe em campo · 20%</div>
+            <div style="width:18%; background:#5C6B47;">Estrutura DOMO + Festival · 18%</div>
+            <div style="width:14%; background:#C9A961; color: var(--ink);">Comunicação · 14%</div>
+            <div style="width:10%; background:#7C8497;">Deslocamento · 10%</div>
+            <div style="width:8%; background:#14213D;">Administração · 8%</div>
+          </div>
+          <div class="alloc-legend">
+            <span><strong>Produção pedagógica</strong> · kits físicos, manual, plano de aula, plataforma</span>
+            <span><strong>Equipe em campo</strong> · especialistas locais + educador itinerante</span>
+            <span><strong>Estrutura DOMO + Festival</strong> · cenografia, palco, exposição</span>
+            <span><strong>Comunicação</strong> · 9 vídeos, 6 carrosséis, peças gráficas</span>
+            <span><strong>Deslocamento</strong> · transporte entre as 4 cidades</span>
+            <span><strong>Administração</strong> · gestão, prestação de contas, MINC</span>
+          </div>
+
+          <h4 style="margin-top: 32px;">Proponente da Lei Rouanet</h4>
+          <p>Sustentabilidade e Cultura Produções Artísticas Ltda · CNPJ 19.541.589/0001-63. Nome oficial inscrito no MinC: <strong>Festival AgriCULTURA Sustentável</strong> (com destaque em CULTURA). Nome comercial vendido: Festival Agricultura Sustentável.</p>
+        </section>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="../assets/js/portal.js"></script>
+</body>
+</html>

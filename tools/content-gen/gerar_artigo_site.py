@@ -23,7 +23,11 @@ import time
 import json
 import argparse
 import requests
+import urllib3
 from pathlib import Path
+
+# Norton intercepta certificados SSL no Windows — desabilita verificacao local
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # ── Config ──────────────────────────────────────────────────────────────────
 ROOT = Path(__file__).resolve().parents[2]
@@ -59,7 +63,7 @@ def gerar_imagem_leonardo(prompt: str, api_key: str = "") -> str:
 
     resp = requests.post(
         "https://cloud.leonardo.ai/api/rest/v2/generations",
-        headers=headers, json=payload, timeout=30,
+        headers=headers, json=payload, timeout=30, verify=False,
     )
     if not resp.ok:
         print(f"    Leonardo erro: {resp.status_code} -- {resp.text[:300]}")
@@ -84,7 +88,7 @@ def gerar_imagem_leonardo(prompt: str, api_key: str = "") -> str:
     for attempt in range(12):
         r = requests.get(
             f"https://cloud.leonardo.ai/api/rest/v1/generations/{gen_id}",
-            headers=poll_headers, timeout=20,
+            headers=poll_headers, timeout=20, verify=False,
         )
         job = r.json().get("generations_by_pk", {})
         status = job.get("status", "PENDING")
@@ -102,7 +106,7 @@ def gerar_imagem_leonardo(prompt: str, api_key: str = "") -> str:
 
 def baixar_imagem(url: str, caminho: Path) -> None:
     """Baixa imagem de URL para arquivo local."""
-    resp = requests.get(url, timeout=60)
+    resp = requests.get(url, timeout=60, verify=False)
     resp.raise_for_status()
     caminho.write_bytes(resp.content)
     print(f"    Salvo: {caminho.name} ({len(resp.content)//1024} KB)")
@@ -163,7 +167,7 @@ body {
   margin: 0 auto;
 }
 
-/* Lead */
+/* Lead (legado M01-local; manter para retrocompat) */
 .article-lead {
   font-size: 20px;
   font-weight: 400;
@@ -171,6 +175,17 @@ body {
   color: var(--azul-petroleo);
   margin-bottom: 48px;
   padding-bottom: 48px;
+  border-bottom: 1px solid var(--cinza-claro);
+}
+
+/* Deck/subtitulo (padrao publicado: paragrafo em destaque logo apos titulo) */
+.article-deck {
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--grafite);
+  margin: 0 0 40px 0;
+  padding-bottom: 32px;
   border-bottom: 1px solid var(--cinza-claro);
 }
 
@@ -398,6 +413,59 @@ blockquote p {
   font-weight: 500;
 }
 
+/* CTA Box (final do artigo, antes do "Sobre a NTICS") */
+.cta-box {
+  background: linear-gradient(135deg, var(--azul-petroleo) 0%, #003d4d 100%);
+  color: var(--branco);
+  border-radius: 20px;
+  padding: 48px 40px;
+  margin: 72px 0 40px;
+  text-align: center;
+}
+.cta-box h3 {
+  font-size: 26px;
+  font-weight: 800;
+  margin: 0 0 16px 0;
+  color: var(--branco);
+}
+.cta-box p {
+  font-size: 17px;
+  opacity: 0.88;
+  color: var(--branco);
+  margin: 0;
+}
+
+/* Sobre a NTICS */
+.ntics-about {
+  border-top: 2px solid var(--cinza-claro);
+  margin-top: 48px;
+  padding-top: 32px;
+}
+.ntics-about h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--azul-petroleo);
+  margin: 0 0 16px 0;
+}
+.ntics-about p {
+  font-size: 15px;
+  color: var(--cinza-medio);
+  line-height: 1.7;
+}
+
+/* SEO Meta (DL final) */
+.seo-meta {
+  background: var(--cinza-claro);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-top: 40px;
+  font-size: 13px;
+  color: var(--cinza-medio);
+}
+.seo-meta dt { font-weight: 700; color: var(--grafite); margin-top: 8px; }
+.seo-meta dt:first-child { margin-top: 0; }
+.seo-meta dd { margin: 4px 0 0 0; }
+
 /* Responsive */
 @media (max-width: 639px) {
   body { padding: 24px 16px; }
@@ -405,6 +473,7 @@ blockquote p {
   .stats-row { grid-template-columns: repeat(2, 1fr); }
   .signs-grid { grid-template-columns: 1fr; }
   .elements-grid { grid-template-columns: 1fr; }
+  .cta-box { padding: 32px 24px; }
 }
 """
 
@@ -428,7 +497,31 @@ def montar_html_wrapper(titulo: str, article_body_html: str) -> str:
 </html>"""
 
 
-# ── Artigo M01 hardcoded (para primeira execucao) ───────────────────────────
+# ── Carregamento de body + prompts via arquivos externos ───────────────────
+def carregar_body(content_file: Path, imgs: dict) -> str:
+    """
+    Le o HTML body do arquivo e substitui placeholders {img:KEY} pelos
+    nomes de arquivo das imagens geradas (resultado de gerar_imagens).
+    """
+    html = Path(content_file).read_text(encoding="utf-8")
+    for key, filename in imgs.items():
+        html = html.replace("{img:" + key + "}", filename)
+    return html
+
+
+def carregar_prompts(prompts_file: Path, slug: str) -> list:
+    """
+    Le array de prompts do JSON. Formato esperado:
+    [{"key": "hero", "filename": "hero-{slug}.jpg", "prompt": "..."}]
+    Substitui {slug} no filename.
+    """
+    data = json.loads(Path(prompts_file).read_text(encoding="utf-8"))
+    for p in data:
+        p["filename"] = p["filename"].replace("{slug}", slug)
+    return data
+
+
+# ── Artigo M01 hardcoded (mantido como referencia) ──────────────────────────
 def artigo_m01_body(imgs: dict) -> str:
     """Retorna HTML do corpo do artigo M01 — Consciencia e Proposito."""
     img_rs = imgs.get("inline-rs-estrategica", "img-rs-estrategica.jpg")
@@ -657,7 +750,8 @@ def main():
     parser = argparse.ArgumentParser(description="Gera artigo de site NTICS")
     parser.add_argument("--slug", default="consciencia-e-proposito-m01")
     parser.add_argument("--titulo", default="Do Proposito ao Impacto: RS Estrategica como diferencial")
-    parser.add_argument("--content-file", help="Arquivo .md com conteudo (futuro)")
+    parser.add_argument("--content-file", help="Arquivo .html com body do artigo (com placeholders {img:KEY})")
+    parser.add_argument("--prompts-file", help="Arquivo .json com array de prompts Leonardo")
     parser.add_argument("--skip-images", action="store_true", help="Pular geracao de imagens")
     args = parser.parse_args()
 
@@ -667,57 +761,36 @@ def main():
     print(f"Artigo Site NTICS: {args.slug}")
     print("=" * 60)
 
+    # Resolver fonte dos prompts e do body
+    if args.prompts_file:
+        prompts = carregar_prompts(Path(args.prompts_file), args.slug)
+    else:
+        # Fallback M01 hardcoded
+        prompts = [
+            {"key": "hero", "filename": f"hero-{args.slug}.jpg",
+             "prompt": "Candid documentary photograph of a Brazilian corporate executive and a community leader in an informal meeting outdoors in a urban park in Brazil, reviewing a social impact project report together. Both engaged, genuine expressions. Natural golden hour lighting. Shot with Canon EOS R5, 35mm f1.8, editorial documentary photography, ultra realistic. No text no watermarks no logos."},
+            {"key": "inline-rs-estrategica", "filename": "img-rs-estrategica.jpg",
+             "prompt": "Photojournalistic photograph of a diverse group of Brazilian business professionals in a modern conference room reviewing ESG sustainability charts on a laptop screen, collaborative discussion, genuine engagement. Warm natural daylight from large windows. Nikon Z6, 50mm f2, candid moment, editorial style. No text no watermarks no logos."},
+            {"key": "inline-educacao", "filename": "img-educacao-territorio.jpg",
+             "prompt": "Authentic documentary photograph of a Brazilian teacher leading an outdoor activity with a group of elementary school children in a community park, hands-on learning session, children engaged and curious. Overcast natural light. Sony A7III, 35mm f2.8, photojournalistic, editorial photography. No text no watermarks no logos."},
+        ]
+
     # Imagens
     imgs = {}
     if not args.skip_images:
-        prompts = [
-            {
-                "key": "hero",
-                "filename": f"hero-{args.slug}.jpg",
-                "prompt": (
-                    "Candid documentary photograph of a Brazilian corporate executive and a community leader "
-                    "in an informal meeting outdoors in a urban park in Brazil, reviewing a social impact project report together. "
-                    "Both engaged, genuine expressions. Natural golden hour lighting. "
-                    "Shot with Canon EOS R5, 35mm f1.8, editorial documentary photography, ultra realistic. "
-                    "No text no watermarks no logos."
-                ),
-            },
-            {
-                "key": "inline-rs-estrategica",
-                "filename": "img-rs-estrategica.jpg",
-                "prompt": (
-                    "Photojournalistic photograph of a diverse group of Brazilian business professionals "
-                    "in a modern conference room reviewing ESG sustainability charts on a laptop screen, "
-                    "collaborative discussion, genuine engagement. Warm natural daylight from large windows. "
-                    "Nikon Z6, 50mm f2, candid moment, editorial style. No text no watermarks no logos."
-                ),
-            },
-            {
-                "key": "inline-educacao",
-                "filename": "img-educacao-territorio.jpg",
-                "prompt": (
-                    "Authentic documentary photograph of a Brazilian teacher leading an outdoor activity "
-                    "with a group of elementary school children in a community park, hands-on learning session, "
-                    "children engaged and curious. Overcast natural light. "
-                    "Sony A7III, 35mm f2.8, photojournalistic, editorial photography. No text no watermarks no logos."
-                ),
-            },
-        ]
         print("\n[1/2] Gerando imagens via Leonardo AI...")
         imgs = gerar_imagens(prompts, OUTPUT_DIR)
         print(f"  OK: {len(imgs)} imagens prontas")
     else:
-        # Usar imagens existentes
-        imgs = {
-            "hero": f"hero-{args.slug}.jpg",
-            "inline-rs-estrategica": "img-rs-estrategica.jpg",
-            "inline-educacao": "img-educacao-territorio.jpg",
-        }
+        imgs = {p["key"]: p["filename"] for p in prompts}
         print("\n[1/2] Imagens: usando existentes (--skip-images)")
 
     # HTML
     print("\n[2/2] Montando HTML (body only)...")
-    body_html = artigo_m01_body(imgs)
+    if args.content_file:
+        body_html = carregar_body(Path(args.content_file), imgs)
+    else:
+        body_html = artigo_m01_body(imgs)
     full_html = montar_html_wrapper(args.titulo, body_html)
 
     html_path = OUTPUT_DIR / f"artigo-{args.slug}.html"

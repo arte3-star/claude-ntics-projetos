@@ -121,7 +121,14 @@ visao_2030:
 projetos_destaque:
   - nome: "Conhecendo os ODS"
     tipo: "Circuito + Caminhão + Festival"
-    impacto: "326.086 pessoas, 868 cidades"
+    impacto: "168.061 diretas, 504.183 indiretas, 75 cidades em 15 estados (jan/2023-jul/2024)"
+    fonte: "https://www.conhecendoosods.com.br/ (secao 'Nossos Indicadores de 2023 ate Julho 2024')"
+    detalhes:
+      alunos: 75927
+      professores: 4191
+      empregos_gerados: 2915
+      clientes_atendidos: 34
+      ods_trabalhados: 17
   - nome: "CineGastroArte"
     tipo: "Festival cultural"
     impacto: "53.292 pessoas diretamente"

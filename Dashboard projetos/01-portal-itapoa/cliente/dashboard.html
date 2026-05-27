@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · Negócio Cultural Itapoá</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/portal.css">
+</head>
+<body data-auth="true">
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="dashboard.html" class="brand-block">
+      <div class="brand-row"><span class="brand-dot"></span><span class="brand-name">NTICS · MTX</span></div>
+      <div class="project-title">Negócio Cultural Itapoá</div>
+    </a>
+    <nav class="main-nav nav-cliente">
+      <a class="nav-link active" href="dashboard.html">Dashboard</a>
+      <a class="nav-link" href="relatorio-semanal.html">Relatório</a>
+      <a class="nav-link" href="aprovacoes.html">Aprovações</a>
+      <a class="nav-link" href="diario-campo.html">Diário</a>
+      <div class="nav-divider"></div>
+      <a class="btn-cliente" data-action="logout" href="#">Sair</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page active">
+  <section class="dash-hero">
+    <div class="container">
+      <div class="dash-greeting">
+        <div class="dash-eyebrow">Patrocinador · TAG Investimentos</div>
+        <h1 class="dash-title">Bem-vinda, <em>Andrea</em>.</h1>
+        <div class="dash-meta">Última atualização automática: <strong>sexta, 22 mai · 09:14</strong> · <span class="dot-on"></span> Dados em dia</div>
+      </div>
+      <div class="dash-progress">
+        <div class="progress-label">Execução do projeto</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:38%"></div></div>
+        <div class="progress-meta"><strong>38%</strong> · Mês 3 de 9 · Próximo marco: encerramento da Imersão Cultural (08 jun)</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Estudantes ativos</div>
+        <div class="kpi-value">236<span class="kpi-total">/240</span></div>
+        <div class="kpi-trend up">+3 esta semana</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Escolas engajadas</div>
+        <div class="kpi-value">5<span class="kpi-total">/5</span></div>
+        <div class="kpi-trend stable">Todas operando</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Oficinas realizadas</div>
+        <div class="kpi-value">12<span class="kpi-total">/32</span></div>
+        <div class="kpi-trend up">+4 esta semana</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Peças aprovadas</div>
+        <div class="kpi-value">8<span class="kpi-total">/14</span></div>
+        <div class="kpi-trend attention">3 aguardando</div>
+      </div>
+    </div>
+
+    <div class="two-col-dash">
+      <div class="dash-block">
+        <h3>Próximos eventos</h3>
+        <ul class="event-list">
+          <li>
+            <div class="event-date"><span>27</span><small>mai</small></div>
+            <div class="event-body">
+              <strong>Visita ao Studio Local de Audiovisual</strong>
+              <span>EEB Pontal · 36 estudantes · Oficina 13</span>
+            </div>
+          </li>
+          <li>
+            <div class="event-date"><span>30</span><small>mai</small></div>
+            <div class="event-body">
+              <strong>Encontro com produtor cultural Carlos Mendes</strong>
+              <span>EMEF Bela Vista · 48 estudantes · Oficina 14</span>
+            </div>
+          </li>
+          <li>
+            <div class="event-date"><span>03</span><small>jun</small></div>
+            <div class="event-body">
+              <strong>Apresentação Cultural Coletiva</strong>
+              <span>Praça Central · Aberto · ~250 pessoas previstas</span>
+            </div>
+          </li>
+          <li>
+            <div class="event-date"><span>08</span><small>jun</small></div>
+            <div class="event-body">
+              <strong>Encerramento Etapa 01 — Imersão Cultural</strong>
+              <span>Todas as escolas · 240 estudantes</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="dash-block">
+        <h3>Atenção desta semana</h3>
+        <div class="alert-card">
+          <div class="alert-tag tag-warning">Aprovação pendente</div>
+          <strong>3 peças gráficas aguardando seu aval</strong>
+          <p>Cartaz da Apresentação Cultural (03 jun), banner do encerramento e flyer da oficina especial. Última atualização há 2 dias.</p>
+          <a class="btn-link" href="aprovacoes.html">Revisar agora →</a>
+        </div>
+        <div class="alert-card">
+          <div class="alert-tag tag-info">Marco próximo</div>
+          <strong>Encerramento da Etapa 01 em 17 dias</strong>
+          <p>Imersão Cultural fecha em 08/06 com avaliação consolidada das 8 oficinas iniciais. Relatório de etapa será disparado em 10/06.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-block">
+      <h3>Por escola</h3>
+      <table class="dash-table">
+        <thead>
+          <tr><th>Escola</th><th>Estudantes</th><th>Oficinas</th><th>Engajamento</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>EEB Itapoá</td><td>62 / 64</td><td>3 de 6</td><td><span class="bar bar-90"></span> 92%</td><td><span class="badge ok">Em dia</span></td></tr>
+          <tr><td>EMEF Bela Vista</td><td>48 / 48</td><td>3 de 6</td><td><span class="bar bar-85"></span> 87%</td><td><span class="badge ok">Em dia</span></td></tr>
+          <tr><td>EEB Pontal do Norte</td><td>52 / 52</td><td>3 de 6</td><td><span class="bar bar-95"></span> 96%</td><td><span class="badge ok">Em dia</span></td></tr>
+          <tr><td>EMEF Tabuleiro</td><td>38 / 40</td><td>3 de 6</td><td><span class="bar bar-78"></span> 78%</td><td><span class="badge att">Acompanhar</span></td></tr>
+          <tr><td>EEB Barra do Saí</td><td>36 / 36</td><td>3 de 6</td><td><span class="bar bar-88"></span> 89%</td><td><span class="badge ok">Em dia</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script src="../assets/js/portal.js"></script>
+</body>
+</html>

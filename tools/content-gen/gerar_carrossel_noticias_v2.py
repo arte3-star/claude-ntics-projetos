@@ -30,6 +30,8 @@ import textwrap
 import time
 from pathlib import Path
 
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import requests
 import yaml
 from dotenv import load_dotenv
@@ -437,6 +439,7 @@ def upload_init_image_leonardo(api_key, image_path):
         headers=headers,
         json={"extension": "jpg"},
         timeout=15,
+        verify=False,
     )
     if not resp.ok:
         return None
@@ -461,6 +464,7 @@ def upload_init_image_leonardo(api_key, image_path):
             data=form_data,
             files={"file": ("image.jpg", f, "image/jpeg")},
             timeout=30,
+            verify=False,
         )
     if upload_resp.status_code not in (200, 204):
         return None
@@ -519,7 +523,7 @@ def gerar_leonardo(prompt_descricao, init_image_path=None):
     try:
         resp = requests.post(
             "https://cloud.leonardo.ai/api/rest/v2/generations",
-            headers=headers, json=payload, timeout=30,
+            headers=headers, json=payload, timeout=30, verify=False,
         )
         if not resp.ok:
             return None
@@ -543,7 +547,7 @@ def gerar_leonardo(prompt_descricao, init_image_path=None):
 
         poll_url = f"https://cloud.leonardo.ai/api/rest/v1/generations/{gen_id}"
         for _ in range(12):
-            resp = requests.get(poll_url, headers={"accept": "application/json", "authorization": f"Bearer {api_key}"}, timeout=15)
+            resp = requests.get(poll_url, headers={"accept": "application/json", "authorization": f"Bearer {api_key}"}, timeout=15, verify=False)
             job = resp.json().get("generations_by_pk", {})
             if job.get("status") == "COMPLETE":
                 images = job.get("generated_images", [])
@@ -819,7 +823,7 @@ def gerar_card_leonardo(photo_path, categoria, titulo, highlight_words, corpo, f
     try:
         resp = requests.post(
             "https://cloud.leonardo.ai/api/rest/v2/generations",
-            headers=headers, json=payload, timeout=30,
+            headers=headers, json=payload, timeout=30, verify=False,
         )
         if not resp.ok:
             print(f"    Leonardo card erro: {resp.status_code} — {resp.text[:200]}")
@@ -845,13 +849,13 @@ def gerar_card_leonardo(photo_path, categoria, titulo, highlight_words, corpo, f
         poll_url = f"https://cloud.leonardo.ai/api/rest/v1/generations/{gen_id}"
         poll_headers = {"accept": "application/json", "authorization": f"Bearer {api_key}"}
         for attempt in range(10):
-            r = requests.get(poll_url, headers=poll_headers, timeout=20)
+            r = requests.get(poll_url, headers=poll_headers, timeout=20, verify=False)
             job = r.json().get("generations_by_pk", {})
             status = job.get("status", "PENDING")
             if status == "COMPLETE":
                 imgs = job.get("generated_images", [])
                 if imgs:
-                    img_data = requests.get(imgs[0]["url"], timeout=60).content
+                    img_data = requests.get(imgs[0]["url"], timeout=60, verify=False).content
                     # Salvar resultado
                     from io import BytesIO
                     img = Image.open(BytesIO(img_data)).convert("RGB")
@@ -1206,7 +1210,7 @@ def gerar_capa_leonardo(titulo_capa, noticias, output_path, photo_path=None, cen
     try:
         resp = requests.post(
             "https://cloud.leonardo.ai/api/rest/v2/generations",
-            headers=headers, json=payload, timeout=30,
+            headers=headers, json=payload, timeout=30, verify=False,
         )
         if not resp.ok:
             print(f"  [CAPA] Erro Leonardo: {resp.status_code}")
@@ -1231,14 +1235,14 @@ def gerar_capa_leonardo(titulo_capa, noticias, output_path, photo_path=None, cen
         poll_url = f"https://cloud.leonardo.ai/api/rest/v1/generations/{gen_id}"
         poll_headers = {"accept": "application/json", "authorization": f"Bearer {api_key}"}
         for attempt in range(10):
-            r = requests.get(poll_url, headers=poll_headers, timeout=20)
+            r = requests.get(poll_url, headers=poll_headers, timeout=20, verify=False)
             job = r.json().get("generations_by_pk", {})
             status = job.get("status", "PENDING")
             if status == "COMPLETE":
                 imgs = job.get("generated_images", [])
                 if imgs:
                     from io import BytesIO
-                    img_data = requests.get(imgs[0]["url"], timeout=60).content
+                    img_data = requests.get(imgs[0]["url"], timeout=60, verify=False).content
                     img = Image.open(BytesIO(img_data)).convert("RGB")
                     img.save(str(output_path), "JPEG", quality=95)
                     print(f"  [CAPA] ✓ salvo: {output_path.name}")
@@ -1287,7 +1291,7 @@ def gerar_cta_leonardo(output_path):
     try:
         resp = requests.post(
             "https://cloud.leonardo.ai/api/rest/v2/generations",
-            headers=headers, json=payload, timeout=30,
+            headers=headers, json=payload, timeout=30, verify=False,
         )
         if not resp.ok:
             print(f"  [CTA] Erro: {resp.status_code}")
@@ -1312,14 +1316,14 @@ def gerar_cta_leonardo(output_path):
         poll_url = f"https://cloud.leonardo.ai/api/rest/v1/generations/{gen_id}"
         poll_headers = {"accept": "application/json", "authorization": f"Bearer {api_key}"}
         for attempt in range(10):
-            r = requests.get(poll_url, headers=poll_headers, timeout=20)
+            r = requests.get(poll_url, headers=poll_headers, timeout=20, verify=False)
             job = r.json().get("generations_by_pk", {})
             status = job.get("status", "PENDING")
             if status == "COMPLETE":
                 imgs = job.get("generated_images", [])
                 if imgs:
                     from io import BytesIO
-                    img_data = requests.get(imgs[0]["url"], timeout=60).content
+                    img_data = requests.get(imgs[0]["url"], timeout=60, verify=False).content
                     img = Image.open(BytesIO(img_data)).convert("RGB")
                     img.save(str(output_path), "JPEG", quality=95)
                     print(f"  [CTA] ✓ base salvo: {output_path.name}")

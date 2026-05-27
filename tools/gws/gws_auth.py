@@ -6,11 +6,20 @@ Supports: Gmail, Calendar, Drive.
 import os
 import json
 import sys
+import ssl
+import urllib3
 from pathlib import Path
+
+import requests as _requests
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+ssl._create_default_https_context = ssl._create_unverified_context
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
+
+_http_session = _requests.Session()
+_http_session.verify = False
 
 TOKEN_PATH = Path(__file__).parent / "token.json"
 CREDS_PATH = Path(__file__).parent / "credentials.json"
@@ -40,7 +49,7 @@ def get_credentials() -> Credentials:
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
+            creds.refresh(Request(session=_http_session))
         else:
             if not CREDS_PATH.exists():
                 print(
@@ -57,6 +66,18 @@ def get_credentials() -> Credentials:
         TOKEN_PATH.write_text(creds.to_json())
 
     return creds
+
+
+def build_service(service_name: str, version: str):
+    """Build a Google API service client with SSL verification disabled (Windows fix)."""
+    import httplib2
+    from googleapiclient.discovery import build as gapi_build
+    from google_auth_httplib2 import AuthorizedHttp
+
+    creds = get_credentials()
+    http = httplib2.Http(disable_ssl_certificate_validation=True)
+    authed_http = AuthorizedHttp(creds, http=http)
+    return gapi_build(service_name, version, http=authed_http)
 
 
 if __name__ == "__main__":
