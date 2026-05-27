@@ -36,5 +36,12 @@
       "port": 8768,
       "cwd": "Dashboard projetos/02-festival-agricultura"
     }
+    ,{
+      "name": "redes-junho-2026",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8769"],
+      "port": 8769,
+      "cwd": "docs/projetos/redes-sociais-junho-2026"
+    }
   ]
 }
