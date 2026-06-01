@@ -4,25 +4,40 @@ Authenticates once, saves token for reuse.
 Supports: Gmail, Calendar, Drive.
 """
 import os
-import json
 import sys
-import ssl
+import platform
 import urllib3
 from pathlib import Path
 
 import requests as _requests
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-ssl._create_default_https_context = ssl._create_unverified_context
+
+# SSL hack so ido no Windows onde certifi nao inclui o cert store do sistema.
+# Em Linux (GitHub Actions) deixamos o comportamento padrao.
+if platform.system() == "Windows":
+    import ssl
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    ssl._create_default_https_context = ssl._create_unverified_context
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 _http_session = _requests.Session()
-_http_session.verify = False
+_http_session.verify = (platform.system() != "Windows")
 
 TOKEN_PATH = Path(__file__).parent / "token.json"
 CREDS_PATH = Path(__file__).parent / "credentials.json"
+
+
+def _bootstrap_from_env():
+    """Escreve credentials/token de env vars se nao existirem (suporte a CI)."""
+    token_env = os.environ.get("GMAIL_TOKEN_JSON")
+    if token_env and not TOKEN_PATH.exists():
+        TOKEN_PATH.write_text(token_env, encoding="utf-8")
+
+    creds_env = os.environ.get("GMAIL_CREDENTIALS_JSON")
+    if creds_env and not CREDS_PATH.exists():
+        CREDS_PATH.write_text(creds_env, encoding="utf-8")
 
 # All scopes we need
 SCOPES = [
@@ -42,6 +57,7 @@ SCOPES = [
 
 def get_credentials() -> Credentials:
     """Return valid credentials, refreshing or re-authenticating as needed."""
+    _bootstrap_from_env()
     creds = None
 
     if TOKEN_PATH.exists():
@@ -69,13 +85,14 @@ def get_credentials() -> Credentials:
 
 
 def build_service(service_name: str, version: str):
-    """Build a Google API service client with SSL verification disabled (Windows fix)."""
+    """Build a Google API service client."""
     import httplib2
     from googleapiclient.discovery import build as gapi_build
     from google_auth_httplib2 import AuthorizedHttp
 
     creds = get_credentials()
-    http = httplib2.Http(disable_ssl_certificate_validation=True)
+    disable_ssl = (platform.system() == "Windows")
+    http = httplib2.Http(disable_ssl_certificate_validation=disable_ssl)
     authed_http = AuthorizedHttp(creds, http=http)
     return gapi_build(service_name, version, http=authed_http)
 
