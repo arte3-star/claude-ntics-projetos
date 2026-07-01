@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise e escolha das oficinas · CNH 128 + 129 · versão modelo semana única</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
+    background: #f5f6f7;
+    color: #1a1a1a;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 96px; }
+  header {
+    background: #0e2235;
+    color: #fff;
+    padding: 32px 40px;
+    border-radius: 6px;
+    margin-bottom: 32px;
+    border-left: 6px solid #f5b400;
+  }
+  header .eyebrow { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: #f5b400; font-weight: 600; margin-bottom: 8px; }
+  header h1 { font-size: 1.875rem; line-height: 1.2; font-weight: 700; margin-bottom: 6px; }
+  header .sub { font-size: 0.9375rem; color: rgba(255,255,255,0.75); font-weight: 400; margin-bottom: 16px; }
+  header .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  header .kpi { padding: 10px 12px; background: rgba(255,255,255,0.05); border-radius: 4px; }
+  header .kpi .v { font-size: 1.25rem; font-weight: 700; color: #f5b400; }
+  header .kpi .l { font-size: 0.6875rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+  .chip { display: inline-block; font-size: 0.6875rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.04em; margin-right: 6px; }
+  .chip-128 { background: #d0ebff; color: #0b4f8c; }
+  .chip-129 { background: #ffd6d6; color: #a02020; }
+  .chip-ambos { background: #fff3bf; color: #846100; }
+  .chip-yes { background: #d3f9d8; color: #2b8a3e; }
+  .chip-no { background: #ffe3e3; color: #c92a2a; }
+  .chip-maybe { background: #fff3bf; color: #846100; }
+  .chip-star { background: linear-gradient(135deg, #ffd43b 0%, #f59f00 100%); color: #5c3d00; }
+  section { margin-bottom: 40px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #1a1a1a;
+  }
+  .section-head h2 { font-size: 1.25rem; font-weight: 700; color: #0e2235; }
+  .section-head .count { font-size: 0.75rem; color: #6b7280; font-weight: 600; background: #e5e7eb; padding: 2px 8px; border-radius: 10px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.04); font-size: 0.875rem; }
+  th { background: #0e2235; color: #fff; padding: 12px 14px; text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+  td { padding: 10px 14px; border-top: 1px solid #e5e7eb; vertical-align: top; }
+  td.center { text-align: center; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.high { font-weight: 700; color: #0e2235; }
+  tr.total { background: #f8f9fa; }
+  tr.total td { font-weight: 700; border-top: 2px solid #0e2235; }
+  tr.recommended { background: #ebfbee; }
+  tr.recommended td { font-weight: 600; }
+  .alert {
+    background: #fff8e1;
+    border: 1px solid #f5b400;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    font-size: 0.875rem;
+  }
+  .alert.critical { background: #ffe3e3; border-color: #c92a2a; }
+  .alert strong { color: #0e2235; }
+  .cards-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .cards-row.two { grid-template-columns: 1fr 1fr; }
+  .cards-row.four { grid-template-columns: repeat(4, 1fr); }
+  .card {
+    background: #fff;
+    border-radius: 6px;
+    padding: 20px 22px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    border-left: 4px solid #d1d5db;
+  }
+  .card.nh { border-left-color: #003DA5; }
+  .card.case { border-left-color: #C8102E; }
+  .card.mix { border-left-color: #f5b400; }
+  .card.constraint { border-left-color: #c92a2a; }
+  .card h3 { font-size: 1rem; font-weight: 700; color: #0e2235; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .card .role { font-size: 0.75rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-bottom: 4px; }
+  .card .price { font-size: 1.375rem; font-weight: 700; color: #0e2235; }
+  .card .price .unit { font-size: 0.75rem; color: #6b7280; font-weight: 500; }
+  .card .desc { font-size: 0.8125rem; color: #4b5563; margin-top: 8px; line-height: 1.5; }
+  .card ul { list-style: none; padding: 0; margin-top: 8px; font-size: 0.8125rem; color: #374151; }
+  .card ul li { padding: 3px 0; }
+  .card ul li::before { content: "▸ "; color: #6b7280; font-weight: 700; }
+  .highlight-box {
+    background: #f8f9fa;
+    border-left: 4px solid #f5b400;
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.875rem;
+  }
+  .highlight-box strong { color: #0e2235; }
+  .grand-total {
+    background: linear-gradient(135deg, #0e2235 0%, #1a3a5c 100%);
+    color: #fff;
+    padding: 32px 40px;
+    border-radius: 6px;
+    margin: 32px 0;
+  }
+  .grand-total .lbl { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: #f5b400; font-weight: 600; margin-bottom: 8px; }
+  .grand-total .v { font-size: 2.5rem; font-weight: 700; color: #fff; line-height: 1; }
+  .grand-total .split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.15); }
+  .grand-total .split .b { padding: 14px 18px; background: rgba(255,255,255,0.05); border-radius: 4px; }
+  .grand-total .split .b .lbl2 { font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.7); margin-bottom: 4px; }
+  .grand-total .split .b .v2 { font-size: 1.5rem; font-weight: 700; color: #fff; }
+  .instrutor-tag { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .instrutor-tag.artistico { background: #f3d9fa; color: #6741d9; }
+  .instrutor-tag.tecnico { background: #c3fae8; color: #087f5b; }
+  .instrutor-tag.storytelling { background: #ffe066; color: #856404; }
+  .matrix-table th { background: #f1f3f5; color: #1a1a1a; font-size: 0.6875rem; border-bottom: 2px solid #0e2235; }
+  .matrix-table td { font-size: 0.8125rem; padding: 10px; }
+  .matrix-table .opt-name { font-weight: 700; color: #0e2235; }
+  .matrix-table .verdict-recommended { background: #d3f9d8; color: #2b8a3e; font-weight: 700; text-transform: uppercase; font-size: 0.6875rem; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.05em; }
+  .matrix-table .verdict-skip { background: #ffe3e3; color: #c92a2a; font-weight: 700; text-transform: uppercase; font-size: 0.6875rem; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.05em; }
+  .matrix-table .verdict-adaptar { background: #fff3bf; color: #846100; font-weight: 700; text-transform: uppercase; font-size: 0.6875rem; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.05em; }
+  footer.page-foot {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid #d1d5db;
+    font-size: 0.75rem;
+    color: #6b7280;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  @media print {
+    body { background: #fff; }
+    header, .grand-total { background: #fff; color: #0e2235; border: 2px solid #0e2235; }
+    section { break-inside: avoid-page; }
+  }
+  @media (max-width: 720px) {
+    .cards-row, .cards-row.two, .cards-row.four { grid-template-columns: 1fr; }
+    .grand-total .split { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.375rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <div class="eyebrow">Análise operacional das oficinas · versão modelo semana única</div>
+      <h1>Escolha das oficinas + budget calibrado</h1>
+      <div class="sub">Cruzamento entre viabilidade em bloco de 50 min × 80 alunos · disponibilidade de profissionais · impacto de imagem/case · budget realista com cachês corrigidos</div>
+      <div class="kpi-row">
+        <div class="kpi"><div class="v">50 min</div><div class="l">Por tema, por bloco</div></div>
+        <div class="kpi"><div class="v">80 alunos</div><div class="l">Simultâneos por bloco</div></div>
+        <div class="kpi"><div class="v">3 blocos</div><div class="l">Rodam por manhã</div></div>
+        <div class="kpi"><div class="v">14 temas</div><div class="l">7 do 128 + 7 do 129</div></div>
+        <div class="kpi"><div class="v">R$ 431 k</div><div class="l">Budget total oficinas (2 projetos)</div></div>
+      </div>
+    </header>
+
+    <div class="alert critical">
+      <strong>⚠ Restrição operacional real:</strong> cada aluno individual tem <b>50 minutos</b> de contato com cada tema (uma aula do bloco). O instrutor conduz o mesmo tema <b>3 vezes na manhã</b>, com 80 alunos por vez. Isso muda drasticamente a viabilidade das opções do benchmark original (que foram pensadas para 30 alunos em 3h).
+    </div>
+
+    <section>
+      <div class="section-head"><h2>Como filtrei as opções</h2></div>
+      <div class="cards-row four">
+        <div class="card constraint">
+          <div class="role">Critério 1</div>
+          <h3>Cabe em 50 min?</h3>
+          <div class="desc">A atividade completa (chegada + execução + fechamento) precisa fechar em 50 min por aluno. Isso desqualifica oficinas que exigem construção elaborada, cura de material, revelação química demorada.</div>
+        </div>
+        <div class="card constraint">
+          <div class="role">Critério 2</div>
+          <h3>Escala para 80?</h3>
+          <div class="desc">80 alunos simultâneos por bloco. Materiais em massa. Instrutor consegue conduzir todos ao mesmo tempo, com ajuda dos 2 apoios locais. Oficinas que exigem 1:1 (light painting, drone) não escalam.</div>
+        </div>
+        <div class="card constraint">
+          <div class="role">Critério 3</div>
+          <h3>Gera case / impacto?</h3>
+          <div class="desc">Precisa gerar produto visual (foto, mural, obra) ou momento de fala (pitch, cena) que vira material de redes sociais, release e relatório ESG. Sem esse critério, cai pra "atividade escolar comum".</div>
+        </div>
+        <div class="card constraint">
+          <div class="role">Critério 4</div>
+          <h3>Custo controlado?</h3>
+          <div class="desc">Materiais compráveis em capital ou local. Sem profissional adicional além dos 3 instrutores já contratados. Kit reusável entre cidades.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Análise por tema · Projeto 128 (New Holland)</h2></div>
+
+      <div class="card nh" style="margin-bottom:16px;">
+        <h3><span class="chip chip-128">T1</span> Terra e Semente (Artes Plásticas)</h3>
+        <table class="matrix-table" style="box-shadow:none;">
+          <thead><tr><th>Opção</th><th>Cabe em 50 min?</th><th>Escala 80?</th><th>Impacto</th><th>Custo/cidade</th><th>Verdito</th></tr></thead>
+          <tbody>
+            <tr><td class="opt-name">A · Aquário-terrário coletivo</td><td><span class="chip chip-no">Não</span> — 90 min</td><td>OK em grupos</td><td>Alto (fica na escola)</td><td>R$ 3.600</td><td><span class="verdict-skip">Cortar</span></td></tr>
+            <tr><td class="opt-name">B · Maquete de solo simplificada</td><td><span class="chip chip-maybe">Apertado</span></td><td>OK com kit</td><td>Médio</td><td>R$ 2.500</td><td><span class="verdict-adaptar">Adaptar</span></td></tr>
+            <tr><td class="opt-name">C · Eco-print botânico</td><td><span class="chip chip-no">Não</span> — 60-90 min</td><td>Difícil</td><td>Muito alto (obra individual)</td><td>R$ 3.600</td><td><span class="verdict-skip">Cortar</span></td></tr>
+            <tr class="recommended"><td class="opt-name">🌟 Adaptação NTICS · Kit-mini-terrário</td><td><span class="chip chip-yes">Sim</span></td><td>Ótimo</td><td>Alto (obra individual)</td><td>R$ 2.800</td><td><span class="verdict-recommended">Escolher</span></td></tr>
+          </tbody>
+        </table>
+        <div class="desc" style="font-size:0.8125rem;color:#4b5563;margin-top:10px;">
+          <b>Kit-mini-terrário adaptado:</b> tampa/pote pequeno pré-preparado com substrato + semente + regador com conta-gotas. Aluno personaliza em 15 min, semeia (10 min), registra observação em ficha (15 min), monta em varal coletivo (10 min). Cada aluno leva o mini-terrário pra casa. Fotos coletivas do varal geram case.
+        </div>
+      </div>
+
+      <div class="card nh" style="margin-bottom:16px;">
+        <h3><span class="chip chip-128">T2</span> Ciclo da Água (Fotografia)</h3>
+        <table class="matrix-table" style="box-shadow:none;">
+          <thead><tr><th>Opção</th><th>Cabe em 50 min?</th><th>Escala 80?</th><th>Impacto</th><th>Custo/cidade</th><th>Verdito</th></tr></thead>
+          <tbody>
+            <tr><td class="opt-name">A · Irrigador gotejamento PET</td><td><span class="chip chip-maybe">Apertado</span></td><td>OK</td><td>Médio</td><td>R$ 800</td><td><span class="verdict-adaptar">Backup</span></td></tr>
+            <tr class="recommended"><td class="opt-name">🌟 B · Cianotipia (obra individual)</td><td><span class="chip chip-yes">Sim</span> — solução pronta antes</td><td>Sim</td><td>Muito alto (obra individual + exposição)</td><td>R$ 2.400</td><td><span class="verdict-recommended">Escolher</span></td></tr>
+            <tr><td class="opt-name">C · Light painting</td><td><span class="chip chip-no">Não</span> — 1 câmera só</td><td><span class="chip chip-no">Não</span></td><td>Muito alto</td><td>R$ 3.500</td><td><span class="verdict-skip">Cortar</span></td></tr>
+          </tbody>
+        </table>
+        <div class="desc" style="font-size:0.8125rem;color:#4b5563;margin-top:10px;">
+          <b>Cianotipia como Opção B:</b> instrutor artístico prepara solução fotossensível na noite anterior (aplicada em tecido pronto). Cada aluno compõe cena de 20x20 cm com folhas e formas (15 min), expõe ao sol (10-15 min), lava em bacia (10 min). Cada aluno tem obra única. Exposição depois no varal + foto coletiva.
+        </div>
+      </div>
+
+      <div class="card nh" style="margin-bottom:16px;">
+        <h3><span class="chip chip-128">T3</span> Alimentos do Campo e Cidade (Livre)</h3>
+        <table class="matrix-table" style="box-shadow:none;">
+          <thead><tr><th>Opção</th><th>Cabe em 50 min?</th><th>Escala 80?</th><th>Impacto</th><th>Custo/cidade</th><th>Verdito</th></tr></thead>
+          <tbody>
+            <tr><td class="opt-name">A · Jogo cadeia produtiva (cards)</td><td><span class="chip chip-yes">Sim</span></td><td>Sim</td><td>Médio</td><td>R$ 600 (reusável)</td><td><span class="verdict-adaptar">Backup</span></td></tr>
+            <tr class="recommended"><td class="opt-name">🌟 B · Mercado simulado</td><td><span class="chip chip-yes">Sim</span></td><td>Excelente</td><td>Alto (papéis + debate)</td><td>R$ 400 (reusável)</td><td><span class="verdict-recommended">Escolher</span></td></tr>
+            <tr><td class="opt-name">C · Mercado gastronômico</td><td><span class="chip chip-no">Difícil</span></td><td>Difícil</td><td>Muito alto</td><td>R$ 1.920</td><td><span class="verdict-skip">Cortar</span></td></tr>
+          </tbody>
+        </table>
+        <div class="desc" style="font-size:0.8125rem;color:#4b5563;margin-top:10px;">
+          <b>Mercado simulado adaptado:</b> instrutor storytelling divide os 80 em 8 grupos de 10 (metade produtores, metade atravessadores/consumidores). Negociação de 20 min + debate final de 20 min. Manifesto de consumidor consciente registrado em cartaz coletivo. Reprodutível entre cidades, ótimo case.
+        </div>
+      </div>
+
+      <div class="card nh" style="margin-bottom:16px;">
+        <h3><span class="chip chip-128">T4</span> Nova Agricultura e Sabores Locais (Livre)</h3>
+        <table class="matrix-table" style="box-shadow:none;">
+          <thead><tr><th>Opção</th><th>Cabe em 50 min?</th><th>Escala 80?</th><th>Impacto</th><th>Custo/cidade</th><th>Verdito</th></tr></thead>
+          <tbody>
+            <tr class="recommended"><td class="opt-name">🌟 A · Mapa sensorial coletivo</td><td><span class="chip chip-yes">Sim</span></td><td>Ótimo</td><td>Alto (mapa fica na escola)</td><td>R$ 1.200</td><td><span class="verdict-recommended">Escolher</span></td></tr>
+            <tr><td class="opt-name">B · Zine da nova agricultura</td><td><span class="chip chip-yes">Sim</span></td><td>Sim</td><td>Médio</td><td>R$ 900</td><td><span class="verdict-adaptar">Backup</span></td></tr>
+            <tr><td class="opt-name">C · Culinária criativa</td><td><span class="chip chip-no">Não</span></td><td><span class="chip chip-no">Não</span></td><td>Muito alto</td><td>R$ 1.680</td><td><span class="verdict-skip">Cortar</span></td></tr>
+          </tbody>
+        </table>
+        <div class="desc" style="font-size:0.8125rem;color:#4b5563;margin-top:10px;">
+          <b>Mapa sensorial coletivo:</b> painel de papel kraft 3 m fixado na parede. Cada aluno contribui com um elemento (semente colada, foto local, palavra, desenho de produto da região). O mapa cresce ao longo dos 3 blocos e vira legado permanente da escola. Foto final gera case forte.
+        </div>
+      </div>
+
+      <div class="card nh" style="margin-bottom:16px;">
+        <h3><span class="chip chip-128">T5</span> Clima e o Campo (Livre)</h3>
+        <table class="matrix-table" style="box-shadow:none;">
+          <thead><tr><th>Opção</th><th>Cabe em 50 min?</th><th>Escala 80?</th><th>Impacto</th><th>Custo/cidade</th><th>Verdito</th></tr></thead>
+          <tbody>
+            <tr><td class="opt-name">A · Estação meteorológica artesanal</td><td><span class="chip chip-maybe">Apertado</span></td><td>OK</td><td>Médio</td><td>R$ 300</td><td><span class="verdict-adaptar">Backup</span></td></tr>
+            <tr><td class="opt-name">B · Cartografia climática</td><td><span class="chip chip-yes">Sim</span></td><td>Sim</td><td>Médio</td><td>R$ 720</td><td><span class="verdict-adaptar">Backup</span></td></tr>
+            <tr class="recommended"><td class="opt-name">🌟 C · Teatro Legislativo — Julgamento do Clima</td><td><span class="chip chip-yes">Sim</span></td><td>Excelente</td><td>Muito alto (case visual)</td><td>R$ 400</td><td><span class="verdict-recommended">Escolher</span></td></tr>
+          </tbody>
+        </table>
+        <div class="desc" style="font-size:0.8125rem;color:#4b5563;margin-top:10px;">
+          <b>Teatro Legislativo:</b> instrutor storytelling divide os 80 em 3 grupos (clima, agricultores, tribunal). Cena improvisada de 25 min + veredicto coletivo de 15 min. Gera cena viva ideal para vídeo/case. Sem custo de profissional extra (já é o instrutor storytelling).
+        </div>
+      </div>
+
+      <div class="card nh" style="margin-bottom:16px;">
+        <h3><span class="chip chip-128">T6</span> Ciclo do Metano (Livre)</h3>
+        <table class="matrix-table" style="box-shadow:none;">
+          <thead><tr><th>Opção</th><th>Cabe em 50 min?</th><th>Escala 80?</th><th>Impacto</th><th>Custo/cidade</th><th>Verdito</th></tr></thead>
+          <tbody>
+            <tr><td class="opt-name">A · Biodigestor de PET</td><td><span class="chip chip-maybe">Só com kit pronto</span></td><td>OK</td><td>Alto (experimento vivo)</td><td>R$ 1.200</td><td><span class="verdict-adaptar">Backup</span></td></tr>
+            <tr><td class="opt-name">B · Infográfico gigante coletivo</td><td><span class="chip chip-yes">Sim</span></td><td>Ótimo</td><td>Médio</td><td>R$ 500</td><td><span class="verdict-adaptar">Backup</span></td></tr>
+            <tr class="recommended"><td class="opt-name">🌟 C · Miniusina + visita técnica simulada</td><td><span class="chip chip-yes">Sim</span></td><td>Sim (roteiro rotativo)</td><td>Muito alto (chama demo)</td><td>R$ 1.200</td><td><span class="verdict-recommended">Escolher</span></td></tr>
+          </tbody>
+        </table>
+        <div class="desc" style="font-size:0.8125rem;color:#4b5563;margin-top:10px;">
+          <b>Miniusina simulada:</b> instrutor técnico monta biodigestor + filtro + chama demo (GPL controlado) na sala. Alunos em subgrupos rotativos recebem cartão-missão de 5 perguntas técnicas e circulam por 4 estações. Grande gancho de imagem: fotos da chama azul + capacetes de papel + alunos apresentando "como engenheiros".
+        </div>
+      </div>
+
+      <div class="card nh" style="margin-bottom:16px;">
+        <h3><span class="chip chip-128">T7</span> Cidadania + Hackathon "Guardiões da Terra" (Contação)</h3>
+        <div class="desc" style="font-size:0.875rem;color:#4b5563;">
+          <b>Sexta é o evento aberto na quadra da escola.</b> Formato diferente: TODOS os 240 alunos participam juntos, com convidados externos (prefeitura, pais, imprensa). Duração ~3h corridas na manhã.
+        </div>
+        <table class="matrix-table" style="box-shadow:none;">
+          <thead><tr><th>Formato recomendado</th><th>Duração</th><th>Descrição</th></tr></thead>
+          <tbody>
+            <tr><td>1. Contação coletiva</td><td>30 min</td><td>Instrutor storytelling faz grande contação com objetos do campo (Opção A do benchmark). Toda a turma junta.</td></tr>
+            <tr><td>2. Hackathon Lean Canvas</td><td>90 min</td><td>Alunos formam grupos de 6-8 (30 grupos). Cada grupo recebe desafio + Lean Canvas simplificado. Facilitação pelos 3 instrutores em rodízio.</td></tr>
+            <tr><td>3. Pitches curtos</td><td>60 min</td><td>Cada grupo faz pitch de 2 min. Banca com convidados. Prefeitura + pais + imprensa como plateia.</td></tr>
+            <tr><td>4. Cerimônia Guardiões</td><td>30 min</td><td>Entrega de certificados individuais. Foto oficial. Encerramento.</td></tr>
+          </tbody>
+        </table>
+        <div class="desc" style="font-size:0.8125rem;color:#4b5563;margin-top:10px;">
+          <b>Custo estimado do dia:</b> R$ 800 material + R$ 1.500 certificados impressos + R$ 500 coquetel simples = <b>R$ 2.800/cidade</b>. Instrutores já cobertos no cachê semanal.
+        </div>
+      </div>
+
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Análise por tema · Projeto 129 (Case IH)</h2></div>
+
+      <div class="card case" style="margin-bottom:16px;">
+        <h3><span class="chip chip-129">T1</span> Do Campo à Mesa (Livre)</h3>
+        <table class="matrix-table" style="box-shadow:none;">
+          <thead><tr><th>Opção</th><th>Cabe em 50 min?</th><th>Escala 80?</th><th>Impacto</th><th>Custo/cidade</th><th>Verdito</th></tr></thead>
+          <tbody>
+            <tr><td class="opt-name">A · Mapa jornada alimentar individual</td><td><span class="chip chip-yes">Sim</span></td><td>Sim</td><td>Médio</td><td>R$ 700</td><td><span class="verdict-adaptar">Backup</span></td></tr>
+            <tr><td class="opt-name">B · Jogo cadeia (cards)</td><td><span class="chip chip-yes">Sim</span></td><td>Sim</td><td>Médio</td><td>R$ 800</td><td><span class="verdict-adaptar">Backup</span></td></tr>
+            <tr class="recommended"><td class="opt-name">🌟 C · Colagem gigante — Atlas do Agro Local</td><td><span class="chip chip-yes">Sim</span></td><td>Excelente</td><td>Alto (fica na escola)</td><td>R$ 1.200</td><td><span class="verdict-recommended">Escolher</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card case" style="margin-bottom:16px;">
+        <h3><span class="chip chip-129">T2</span> Tecnologia no Campo · Drones (Livre)</h3>
+        <table class="matrix-table" style="box-shadow:none;">
+          <thead><tr><th>Opção</th><th>Cabe em 50 min?</th><th>Escala 80?</th><th>Impacto</th><th>Custo/cidade</th><th>Verdito</th></tr></thead>
+          <tbody>
+            <tr><td class="opt-name">A · Maquete lavoura com sensores</td><td><span class="chip chip-maybe">Apertado</span></td><td>OK</td><td>Médio</td><td>R$ 800</td><td><span class="verdict-adaptar">Backup</span></td></tr>
+            <tr class="recommended"><td class="opt-name">🌟 B · Programação desplugada (drone em papel)</td><td><span class="chip chip-yes">Sim</span></td><td>Excelente</td><td>Alto (raciocínio computacional)</td><td>R$ 600</td><td><span class="verdict-recommended">Escolher</span></td></tr>
+            <tr><td class="opt-name">C · Voo real de drone</td><td>OK como demo</td><td><span class="chip chip-no">Não em bloco</span></td><td>Muito alto</td><td>R$ 1.500</td><td><span class="verdict-adaptar">Só na sexta</span></td></tr>
+          </tbody>
+        </table>
+        <div class="desc" style="font-size:0.8125rem;color:#4b5563;margin-top:10px;">
+          <b>Recomendação:</b> Programação desplugada como oficina normal (B) + <b>demonstração de voo real de drone na sexta durante o hackathon</b> como highlight visual. Piloto ANAC contratado só uma vez por cidade (adicional de R$ 800/cidade na sexta).
+        </div>
+      </div>
+
+      <div class="card case" style="margin-bottom:16px;">
+        <h3><span class="chip chip-129">T3</span> Água · Fonte de Vida (Fotografia)</h3>
+        <div class="desc" style="font-size:0.875rem;color:#4b5563;">
+          Mesmo formato do 128.T2 · <span class="chip chip-129">🌟 Cianotipia</span> — obra individual, exposição, escala perfeita. R$ 2.400 por cidade.
+        </div>
+      </div>
+
+      <div class="card case" style="margin-bottom:16px;">
+        <h3><span class="chip chip-129">T4</span> Energia no Agro · Etanol (Livre)</h3>
+        <table class="matrix-table" style="box-shadow:none;">
+          <thead><tr><th>Opção</th><th>Cabe em 50 min?</th><th>Escala 80?</th><th>Impacto</th><th>Custo/cidade</th><th>Verdito</th></tr></thead>
+          <tbody>
+            <tr><td class="opt-name">A · Fermentação artesanal</td><td><span class="chip chip-maybe">Kit pronto</span></td><td>Grupos</td><td>Alto (experimento vivo)</td><td>R$ 900</td><td><span class="verdict-adaptar">Backup</span></td></tr>
+            <tr class="recommended"><td class="opt-name">🌟 B · Linha do tempo do etanol</td><td><span class="chip chip-yes">Sim</span></td><td>Excelente</td><td>Alto (infográfico coletivo)</td><td>R$ 600</td><td><span class="verdict-recommended">Escolher</span></td></tr>
+            <tr><td class="opt-name">C · Maquete de usina</td><td><span class="chip chip-no">Não</span></td><td><span class="chip chip-no">Não</span></td><td>Médio</td><td>R$ 1.500</td><td><span class="verdict-skip">Cortar</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card case" style="margin-bottom:16px;">
+        <h3><span class="chip chip-129">T5</span> Agro e Clima (Livre)</h3>
+        <table class="matrix-table" style="box-shadow:none;">
+          <thead><tr><th>Opção</th><th>Cabe em 50 min?</th><th>Escala 80?</th><th>Impacto</th><th>Custo/cidade</th><th>Verdito</th></tr></thead>
+          <tbody>
+            <tr><td class="opt-name">A · Jogo de cartas Agro vs Clima</td><td><span class="chip chip-yes">Sim</span></td><td>Sim</td><td>Médio</td><td>R$ 500</td><td><span class="verdict-adaptar">Backup</span></td></tr>
+            <tr class="recommended"><td class="opt-name">🌟 B · Simulação "Plantio do Futuro"</td><td><span class="chip chip-yes">Sim</span></td><td>Excelente</td><td>Alto (estratégia)</td><td>R$ 500</td><td><span class="verdict-recommended">Escolher</span></td></tr>
+            <tr><td class="opt-name">C · Mini-documentário radio</td><td><span class="chip chip-maybe">Apertado</span></td><td>OK</td><td>Alto</td><td>R$ 300</td><td><span class="verdict-adaptar">Backup</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card case" style="margin-bottom:16px;">
+        <h3><span class="chip chip-129">T6</span> Cidadania (Artes Plásticas)</h3>
+        <table class="matrix-table" style="box-shadow:none;">
+          <thead><tr><th>Opção</th><th>Cabe em 50 min?</th><th>Escala 80?</th><th>Impacto</th><th>Custo/cidade</th><th>Verdito</th></tr></thead>
+          <tbody>
+            <tr class="recommended"><td class="opt-name">🌟 A · Painel coletivo "Quem cuida do campo?"</td><td><span class="chip chip-yes">Sim</span></td><td>Excelente</td><td>Alto (fica na escola)</td><td>R$ 1.200</td><td><span class="verdict-recommended">Escolher</span></td></tr>
+            <tr><td class="opt-name">B · Fotomontagem individual</td><td><span class="chip chip-yes">Sim</span></td><td>Sim</td><td>Médio</td><td>R$ 900</td><td><span class="verdict-adaptar">Backup</span></td></tr>
+            <tr><td class="opt-name">C · Mural de azulejo</td><td><span class="chip chip-no">Não</span></td><td>Difícil</td><td>Muito alto</td><td>R$ 3.000</td><td><span class="verdict-skip">Cortar</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card case" style="margin-bottom:16px;">
+        <h3><span class="chip chip-129">T7</span> Desafio AgroFuturo · Hackathon (Livre)</h3>
+        <div class="desc" style="font-size:0.875rem;color:#4b5563;">
+          Sexta como evento aberto — mesmo formato do 128.T7, adaptado para linguagem startup: contação inicial + Lean Canvas + <b>demonstração de drone real</b> como highlight + pitches + certificados AgroFuturo.
+        </div>
+      </div>
+
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Quadro-resumo · oficinas recomendadas</h2></div>
+
+      <div class="cards-row two">
+
+        <div class="card nh">
+          <h3><span class="chip chip-128">128</span> Festival Agricultura Sustentável</h3>
+          <table style="box-shadow:none;font-size:0.8125rem;">
+            <thead><tr><th>#</th><th>Oficina recomendada</th><th class="num">R$/cidade</th></tr></thead>
+            <tbody>
+              <tr><td>T1</td><td>Kit-mini-terrário individual</td><td class="num">R$ 2.800</td></tr>
+              <tr><td>T2</td><td>Cianotipia (foto solar)</td><td class="num">R$ 2.400</td></tr>
+              <tr><td>T3</td><td>Mercado simulado</td><td class="num">R$ 400</td></tr>
+              <tr><td>T4</td><td>Mapa sensorial coletivo</td><td class="num">R$ 1.200</td></tr>
+              <tr><td>T5</td><td>Teatro Legislativo</td><td class="num">R$ 400</td></tr>
+              <tr><td>T6</td><td>Miniusina + visita técnica</td><td class="num">R$ 1.200</td></tr>
+              <tr><td>T7</td><td>Hackathon Guardiões (dia inteiro sex)</td><td class="num">R$ 2.800</td></tr>
+              <tr class="total"><td colspan="2">Total material 128 por cidade</td><td class="num">R$ 11.200</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card case">
+          <h3><span class="chip chip-129">129</span> Agrofuturo nas Escolas</h3>
+          <table style="box-shadow:none;font-size:0.8125rem;">
+            <thead><tr><th>#</th><th>Oficina recomendada</th><th class="num">R$/cidade</th></tr></thead>
+            <tbody>
+              <tr><td>T1</td><td>Colagem gigante Atlas do Agro</td><td class="num">R$ 1.200</td></tr>
+              <tr><td>T2</td><td>Programação desplugada</td><td class="num">R$ 600</td></tr>
+              <tr><td>T3</td><td>Cianotipia (foto solar)</td><td class="num">R$ 2.400</td></tr>
+              <tr><td>T4</td><td>Linha do tempo etanol</td><td class="num">R$ 600</td></tr>
+              <tr><td>T5</td><td>Simulação "Plantio do Futuro"</td><td class="num">R$ 500</td></tr>
+              <tr><td>T6</td><td>Painel coletivo "Quem cuida do campo?"</td><td class="num">R$ 1.200</td></tr>
+              <tr><td>T7</td><td>Hackathon AgroFuturo + drone demo</td><td class="num">R$ 3.600</td></tr>
+              <tr class="total"><td colspan="2">Total material 129 por cidade</td><td class="num">R$ 10.100</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <div class="highlight-box">
+        <strong>Redução vs versão anterior:</strong> material por cidade caiu de R$ 12.000 (128) e R$ 15.600 (129) para R$ 11.200 e R$ 10.100. Economia total: <b>R$ 3.200 no 128 (4 cidades) + R$ 16.500 no 129 (3 cidades) = R$ 19.700</b>. A escolha mais racional das oficinas paga parte do aumento no cachê da equipe.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Equipe · cachês calibrados (valores do Lucas)</h2></div>
+      <div class="cards-row">
+        <div class="card mix">
+          <div class="role">Produção</div>
+          <h3>Produtor · R$ 800/dia</h3>
+          <div class="price">R$ 4.800 <span class="unit">/ semana (6 dias)</span></div>
+          <div class="desc">5 dias em campo + 1 dia prep. Coordena escola, imprensa, logística. Perfil sênior de produção itinerante.</div>
+        </div>
+        <div class="card mix">
+          <div class="role">Instrutor formado</div>
+          <h3>Instrutor · R$ 1.000-1.100/dia</h3>
+          <div class="price">R$ 6.600 <span class="unit">/ semana × 3</span></div>
+          <div class="desc">Profissional formado (biólogo, artista, contador de histórias, educador). Domina 2-3 temas. 5 dias em campo + 1 dia prep.</div>
+        </div>
+        <div class="card mix">
+          <div class="role">Apoio local</div>
+          <h3>Apoio local · R$ 250/dia</h3>
+          <div class="price">R$ 1.250 <span class="unit">/ semana × 3</span></div>
+          <div class="desc">Jovens/universitários contratados na cidade. Cuidam de materiais, presença, apoio ao instrutor. 5 dias em campo.</div>
+        </div>
+      </div>
+      <div class="highlight-box">
+        <strong>Total cachês/semana/cidade: R$ 28.350</strong><br>
+        1 produtor (R$ 4.800) + 3 instrutores (R$ 19.800) + 3 apoios locais (R$ 3.750) = R$ 28.350
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Budget consolidado calibrado</h2></div>
+      <table>
+        <thead>
+          <tr><th>Bloco</th><th class="num">Projeto 128 (4 cidades)</th><th class="num">Projeto 129 (3 cidades)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cachês equipe (R$ 28.350/cidade)</td><td class="num">R$ 113.400</td><td class="num">R$ 85.050</td></tr>
+          <tr><td>Deslocamento (voos + van + carretinha)</td><td class="num">R$ 17.275</td><td class="num">R$ 10.000</td></tr>
+          <tr><td>Material Premium por cidade (recomendação)</td><td class="num">R$ 44.800</td><td class="num">R$ 30.300</td></tr>
+          <tr><td>Kit inicial reusável (1×)</td><td class="num">R$ 6.000</td><td class="num">R$ 8.000</td></tr>
+          <tr><td>Hotel + alimentação</td><td class="num">R$ 17.000</td><td class="num">R$ 13.200</td></tr>
+          <tr><td>Preparação (2 sem prep + treinamento)</td><td class="num">R$ 15.000</td><td class="num">R$ 12.000</td></tr>
+          <tr><td>Piloto de drone ANAC (só 129 T7, na sexta)</td><td class="num">—</td><td class="num">R$ 2.400</td></tr>
+          <tr><td>Contingência 10%</td><td class="num">R$ 21.348</td><td class="num">R$ 16.095</td></tr>
+          <tr class="total"><td>TOTAL execução oficinas</td><td class="num">R$ 234.823</td><td class="num">R$ 177.045</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <div class="grand-total">
+        <div class="lbl">Total geral · execução das oficinas com escolha calibrada</div>
+        <div class="v">R$ 411.868</div>
+        <div class="split">
+          <div class="b">
+            <div class="lbl2">Projeto 128 · 4 cidades</div>
+            <div class="v2">R$ 234.823</div>
+          </div>
+          <div class="b">
+            <div class="lbl2">Projeto 129 · 3 cidades</div>
+            <div class="v2">R$ 177.045</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Comparativo com versões anteriores</h2></div>
+      <table>
+        <thead>
+          <tr><th>Cenário</th><th class="num">128</th><th class="num">129</th><th class="num">Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>V1 · benchmark bruto (todas opções Premium)</td><td class="num">R$ 216.875</td><td class="num">R$ 176.200</td><td class="num">R$ 393.075</td></tr>
+          <tr class="recommended"><td><strong>V2 · cachês calibrados + oficinas escolhidas para escala real</strong></td><td class="num"><strong>R$ 234.823</strong></td><td class="num"><strong>R$ 177.045</strong></td><td class="num"><strong>R$ 411.868</strong></td></tr>
+          <tr><td>Variação absoluta</td><td class="num">+ R$ 17.948</td><td class="num">+ R$ 845</td><td class="num">+ R$ 18.793</td></tr>
+          <tr><td>Variação %</td><td class="num">+ 8%</td><td class="num">+ 0,5%</td><td class="num">+ 4,8%</td></tr>
+        </tbody>
+      </table>
+      <div class="highlight-box">
+        <strong>Por que o 129 quase não muda?</strong> Aumento no cachê da equipe foi compensado pela troca de oficinas caras (mural de azulejo, drone real no bloco normal) por opções escaláveis (painel coletivo, programação desplugada) — só drone entra como demo na sexta.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Fit com verba aprovada do 128</h2></div>
+      <table>
+        <thead>
+          <tr><th>Linha</th><th class="num">Valor</th><th class="num">% verba</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="high">Verba aprovada 128</td><td class="num">R$ 600.000</td><td class="num">100%</td></tr>
+          <tr><td>(-) Execução oficinas nas 4 cidades</td><td class="num">R$ 234.823</td><td class="num">39%</td></tr>
+          <tr><td>(-) DOMO + Festival Curitiba (estimado)</td><td class="num">R$ 100.000</td><td class="num">17%</td></tr>
+          <tr><td>(-) Plataforma digital New Holland Online</td><td class="num">R$ 60.000</td><td class="num">10%</td></tr>
+          <tr><td>(-) KV + peças + carrossel + vídeos</td><td class="num">R$ 45.000</td><td class="num">8%</td></tr>
+          <tr><td>(-) Assessoria imprensa + release + clipping</td><td class="num">R$ 30.000</td><td class="num">5%</td></tr>
+          <tr><td>(-) Relatório ESG + prestação MinC + fechamento</td><td class="num">R$ 25.000</td><td class="num">4%</td></tr>
+          <tr><td>(-) Coordenação NTICS + gestão</td><td class="num">R$ 60.000</td><td class="num">10%</td></tr>
+          <tr class="total"><td>Total previsto</td><td class="num">R$ 554.823</td><td class="num">92%</td></tr>
+          <tr class="subtotal"><td>Margem/reserva</td><td class="num">R$ 45.177</td><td class="num">8%</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Recomendações finais</h2></div>
+      <ol style="padding-left:24px;line-height:1.8;font-size:0.9375rem;">
+        <li><strong>Cortar oficinas inviáveis para 50 min × 80 alunos:</strong> aquário-terrário, eco-print, culinária, mural de azulejo cerâmico, maquete de usina de etanol. Elas foram pensadas para 30 alunos em 3h — não escalam.</li>
+        <li><strong>Cianotipia é a joia do projeto:</strong> repete no 128 T2 e 129 T3 (água). Gera obra individual, exposição, foto coletiva. Baixo custo, alto impacto visual, cabe em 50 min com solução pré-aplicada.</li>
+        <li><strong>Hackathon como evento aberto na sexta:</strong> combinar contação + Lean Canvas + pitches + certificados. Melhor momento pra prefeitura, pais, imprensa. Um único dia por cidade absorve o T7.</li>
+        <li><strong>Drone só como demo na sexta do 129:</strong> não dá tempo pra 80 alunos verem em bloco de 50 min. Fica como highlight do dia do hackathon, com piloto ANAC contratado só nesse dia (+R$ 800/cidade).</li>
+        <li><strong>Instrutores mudam de rotina:</strong> cada um conduz o mesmo tema 3 vezes na manhã (bloco 1, 2, 3), com 80 alunos por vez. Cansaço acumula ao longo da semana — vale ter dia de folga na quarta ou apoio extra.</li>
+        <li><strong>Kit reusável entre cidades:</strong> cards (mercado simulado, agro vs clima), moldes de cartografia, papel kraft cortado, cianotipia pré-aplicada. Reduz custo da 2ª cidade em diante.</li>
+        <li><strong>Compra local vs central:</strong> materiais frescos (feira, verdura, palha, argila) sempre local. Kits impressos e químicos vão da capital na carretinha.</li>
+      </ol>
+    </section>
+
+    <footer class="page-foot">
+      <span>Análise operacional das oficinas · versão calibrada com feedback da reunião</span>
+      <span>Documento em construção · atualizado em 18/06/2026</span>
+    </footer>
+
+  </div>
+</body>
+</html>
