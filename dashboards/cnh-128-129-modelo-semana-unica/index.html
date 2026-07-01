@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta modelo semana única · CNH 128 + 129</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
+    background: #f5f6f7;
+    color: #1a1a1a;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 48px 24px 96px; }
+  header {
+    background: #0e2235;
+    color: #fff;
+    padding: 32px 40px;
+    border-radius: 6px;
+    margin-bottom: 32px;
+    border-left: 6px solid #f5b400;
+  }
+  header .eyebrow {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #f5b400;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  header h1 { font-size: 1.875rem; line-height: 1.2; font-weight: 700; margin-bottom: 6px; }
+  header .sub { font-size: 0.9375rem; color: rgba(255,255,255,0.75); font-weight: 400; margin-bottom: 16px; }
+  header .meta-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    font-size: 0.8125rem;
+  }
+  header .meta-row strong { display: block; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.6875rem; font-weight: 700; margin-bottom: 3px; }
+  .chip { display: inline-block; font-size: 0.6875rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.04em; margin-right: 6px; }
+  .chip-128 { background: #d0ebff; color: #0b4f8c; }
+  .chip-129 { background: #ffd6d6; color: #a02020; }
+  .chip-ambos { background: #fff3bf; color: #846100; }
+  .chip-alert { background: #ffe3e3; color: #c92a2a; }
+  .alert {
+    background: #fff8e1;
+    border: 1px solid #f5b400;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    font-size: 0.875rem;
+  }
+  .alert strong { color: #0e2235; }
+  section { margin-bottom: 40px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #1a1a1a;
+  }
+  .section-head h2 { font-size: 1.25rem; font-weight: 700; color: #0e2235; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.04); font-size: 0.875rem; }
+  th { background: #0e2235; color: #fff; padding: 12px 14px; text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+  td { padding: 12px 14px; border-top: 1px solid #e5e7eb; vertical-align: top; }
+  td.center { text-align: center; }
+  td.dim { color: #6b7280; text-decoration: line-through; }
+  td.high { font-weight: 700; color: #0e2235; }
+  .col-nh { border-left: 3px solid #003DA5; }
+  .col-case { border-left: 3px solid #C8102E; }
+  .gantt {
+    background: #fff;
+    border-radius: 6px;
+    padding: 20px;
+    overflow-x: auto;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .gantt-grid {
+    display: grid;
+    grid-template-columns: 180px repeat(9, minmax(80px, 1fr));
+    gap: 4px;
+    min-width: 900px;
+    font-size: 0.75rem;
+  }
+  .gantt-header { font-weight: 700; text-align: center; padding: 8px 4px; background: #e9ecef; border-radius: 3px; color: #495057; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.6875rem; }
+  .gantt-city { font-weight: 700; padding: 10px 8px; background: #f8f9fa; border-radius: 3px; display: flex; align-items: center; gap: 8px; }
+  .gantt-cell { padding: 10px 4px; border-radius: 3px; text-align: center; font-size: 0.6875rem; }
+  .gantt-cell.on-nh { background: #003DA5; color: #fff; font-weight: 700; }
+  .gantt-cell.on-case { background: #C8102E; color: #fff; font-weight: 700; }
+  .gantt-cell.gap { background: #f8f9fa; color: #adb5bd; }
+  .gantt-cell.event-nh { background: #001A4A; color: #fff; font-weight: 700; }
+  .gantt-cell.event-case { background: #7A0918; color: #fff; font-weight: 700; }
+  .gantt-cell.holiday { background: repeating-linear-gradient(45deg, #fff3bf, #fff3bf 4px, #ffe066 4px, #ffe066 8px); color: #846100; font-weight: 700; }
+  .cards-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 6px;
+    padding: 20px 24px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    border-left: 4px solid #d1d5db;
+  }
+  .card.nh { border-left-color: #003DA5; }
+  .card.case { border-left-color: #C8102E; }
+  .card h3 { font-size: 1rem; font-weight: 700; color: #0e2235; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .card .metric-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .metric { padding: 10px 12px; background: #f8f9fa; border-radius: 4px; }
+  .metric .value { font-size: 1.5rem; font-weight: 700; color: #0e2235; line-height: 1; }
+  .metric .label { font-size: 0.6875rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; font-weight: 600; }
+  .card ul { list-style: none; padding: 0; margin-top: 8px; }
+  .card ul li { padding: 4px 0; font-size: 0.875rem; color: #374151; }
+  .card ul li::before { content: "▸ "; color: #6b7280; font-weight: 700; }
+  .grid-manha {
+    background: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .blocos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .bloco {
+    background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 16px;
+  }
+  .bloco .badge {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    background: #0e2235;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .bloco .horario { font-size: 0.75rem; color: #6b7280; margin-bottom: 8px; }
+  .bloco .alunos { font-size: 1.375rem; font-weight: 700; color: #003DA5; margin-bottom: 2px; }
+  .bloco .alunos-case { color: #C8102E; }
+  .bloco .alunos-detail { font-size: 0.75rem; color: #6b7280; }
+  .semana-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .dia {
+    background: #fff;
+    border-radius: 6px;
+    padding: 14px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    border-top: 4px solid #6c757d;
+  }
+  .dia.seg { border-top-color: #4dabf7; }
+  .dia.ter { border-top-color: #63e6be; }
+  .dia.qua { border-top-color: #ffd43b; }
+  .dia.qui { border-top-color: #ff922b; }
+  .dia.sex { border-top-color: #f5b400; background: linear-gradient(180deg, #fff8e1 0%, #fff 100%); }
+  .dia .dia-nome { font-size: 0.6875rem; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .dia .dia-conteudo { font-size: 0.8125rem; color: #0e2235; font-weight: 600; }
+  .dia .dia-detail { font-size: 0.75rem; color: #6b7280; margin-top: 8px; line-height: 1.4; }
+  .dia.sex .dia-conteudo { font-size: 0.875rem; color: #846100; }
+  .highlight-box {
+    background: #f8f9fa;
+    border-left: 4px solid #f5b400;
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.875rem;
+  }
+  .highlight-box strong { color: #0e2235; }
+  footer.page-foot {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid #d1d5db;
+    font-size: 0.75rem;
+    color: #6b7280;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  @media print {
+    body { background: #fff; }
+    header { background: #fff; color: #0e2235; border: 2px solid #0e2235; }
+    header .eyebrow { color: #846100; }
+    header strong, header .sub { color: #1a1a1a; }
+    section { break-inside: avoid-page; }
+  }
+  @media (max-width: 720px) {
+    .cards-row, .blocos { grid-template-columns: 1fr; }
+    .semana-grid { grid-template-columns: 1fr 1fr; }
+    header h1 { font-size: 1.375rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <div class="eyebrow">Proposta de estrutura · pós-reunião interna</div>
+      <h1>Modelo de semana única por cidade</h1>
+      <div class="sub">Concentração do projeto em 1 semana intensa por cidade + 1 semana de intervalo · válido para 128 (New Holland) e 129 (Case IH)</div>
+      <div class="meta-row">
+        <div><strong>Duração/cidade</strong>1 semana (5 dias)</div>
+        <div><strong>Intervalo</strong>1 semana entre cidades</div>
+        <div><strong>Formato</strong>Manhã · 6 aulas em 3 blocos</div>
+        <div><strong>Hackathon</strong>Sexta como evento aberto</div>
+        <div><strong>Equipe/cidade</strong>6 pessoas</div>
+        <div><strong>Início</strong>Semana de 08/09/2026</div>
+      </div>
+    </header>
+
+    <div class="alert">
+      <strong>⚠ Alerta feriado:</strong> segunda 07/09 (Independência) cai dentro da semana 1 dos dois projetos. Cidade 1 pega apenas ter–sex (4 dias). Precisamos condensar temas de segunda para a semana. Detalhe na seção "Grade da semana".
+    </div>
+
+    <section>
+      <div class="section-head"><h2>Modelo atual x modelo proposto</h2></div>
+      <table>
+        <thead>
+          <tr>
+            <th>Dimensão</th>
+            <th class="col-nh">128 · atual</th>
+            <th class="col-nh">128 · proposto</th>
+            <th class="col-case">129 · atual</th>
+            <th class="col-case">129 · proposto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Duração/cidade</td><td class="dim">3 semanas</td><td class="high">1 semana</td><td class="dim">3 semanas</td><td class="high">1 semana</td></tr>
+          <tr><td>Turmas/cidade</td><td class="dim">4 turmas × 30 alunos</td><td class="high">6 turmas × 40 alunos</td><td class="dim">12 turmas × 30 alunos</td><td class="high">9 turmas × 40 alunos</td></tr>
+          <tr><td>Alunos únicos/cidade</td><td class="dim">250</td><td class="high">240</td><td class="dim">360</td><td class="high">360</td></tr>
+          <tr><td>Alunos únicos total</td><td class="dim">1.000</td><td class="high">960</td><td class="dim">1.080</td><td class="high">1.080</td></tr>
+          <tr><td>Atendimentos/cidade</td><td class="dim">1.750</td><td class="high">1.680</td><td class="dim">2.520</td><td class="high">2.520</td></tr>
+          <tr><td>Atendimentos total</td><td class="dim">7.000</td><td class="high">6.720 (-4%)</td><td class="dim">7.560</td><td class="high">7.560 (bate MinC)</td></tr>
+          <tr><td>Cidades</td><td>4 (Dom Pedrito · Toledo · Guarapuava · Curitiba)</td><td>4 (mesma sequência)</td><td>3 (Tangará · Água Boa · Cuiabá)</td><td>3 (mesma sequência)</td></tr>
+          <tr><td>Palestra de professores</td><td>Seg da semana 1 de cada cidade</td><td>Reencaixar (sugestão: seg 07/09 no lançamento nacional ou seg da semana 1)</td><td>—</td><td>—</td></tr>
+          <tr><td>Hackathon</td><td>Sexta da semana 3</td><td>Sexta como evento aberto (pais, prefeitura, imprensa)</td><td>Sexta da semana 3</td><td>Sexta como evento aberto (pais, prefeitura, imprensa)</td></tr>
+        </tbody>
+      </table>
+      <div class="highlight-box">
+        <strong>Impacto MinC:</strong> o 128 perde 4% do escopo (dá para negociar como leve). O 129 fica igual ao MinC. Ambos precisam da confirmação da Mayara antes de virar decisão fechada.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Cronograma macro proposto</h2></div>
+      <div class="gantt">
+        <div class="gantt-grid">
+          <div></div>
+          <div class="gantt-header">08–11/09</div>
+          <div class="gantt-header">14–18/09</div>
+          <div class="gantt-header">21–25/09</div>
+          <div class="gantt-header">28/09–02/10</div>
+          <div class="gantt-header">05–09/10</div>
+          <div class="gantt-header">12–16/10</div>
+          <div class="gantt-header">19–23/10</div>
+          <div class="gantt-header">26–30/10</div>
+          <div class="gantt-header">02–06/11</div>
+
+          <div class="gantt-city"><span class="chip chip-128">128</span> Dom Pedrito/RS</div>
+          <div class="gantt-cell on-nh holiday">Semana 1<br>(07 feriado)</div>
+          <div class="gantt-cell gap">intervalo</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+
+          <div class="gantt-city"><span class="chip chip-128">128</span> Toledo/PR</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell on-nh">Semana</div>
+          <div class="gantt-cell gap">intervalo</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+
+          <div class="gantt-city"><span class="chip chip-128">128</span> Guarapuava/PR</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell on-nh">Semana</div>
+          <div class="gantt-cell gap holiday">intervalo<br>(12 feriado)</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+
+          <div class="gantt-city"><span class="chip chip-128">128</span> Curitiba/PR</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell on-nh">Semana</div>
+          <div class="gantt-cell gap">intervalo</div>
+          <div class="gantt-cell event-nh">🎪 Festival<br>+ DOMO</div>
+
+          <div class="gantt-city"><span class="chip chip-129">129</span> Tangará da Serra/MT</div>
+          <div class="gantt-cell on-case holiday">Semana 1<br>(07 feriado)</div>
+          <div class="gantt-cell gap">intervalo</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+
+          <div class="gantt-city"><span class="chip chip-129">129</span> Água Boa/MT</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell on-case">Semana</div>
+          <div class="gantt-cell gap">intervalo</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+
+          <div class="gantt-city"><span class="chip chip-129">129</span> Cuiabá/MT</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell on-case">Semana</div>
+          <div class="gantt-cell gap holiday">intervalo<br>(12 feriado)</div>
+          <div class="gantt-cell event-case">🎪 Feira<br>Shopping Pantanal</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+        </div>
+      </div>
+      <div class="highlight-box">
+        <strong>Sobreposição:</strong> as 3 primeiras semanas dos dois projetos rodam em paralelo (setembro). Como as equipes são independentes (uma em MT, outra na região Sul), <strong>não há conflito operacional</strong>, mas a produção da NTICS precisa estar dobrada em campo em setembro.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Formato da manhã · 6 aulas em 3 blocos</h2></div>
+      <div class="cards-row">
+
+        <div class="card nh">
+          <h3><span class="chip chip-128">128</span> 6 turmas × 40 alunos = 240/manhã</h3>
+          <div class="blocos">
+            <div class="bloco">
+              <span class="badge">Bloco 1</span>
+              <div class="horario">Aulas 1 e 2</div>
+              <div class="alunos">80</div>
+              <div class="alunos-detail">2 turmas × 40</div>
+            </div>
+            <div class="bloco">
+              <span class="badge">Bloco 2</span>
+              <div class="horario">Aulas 3 e 4</div>
+              <div class="alunos">80</div>
+              <div class="alunos-detail">2 turmas × 40</div>
+            </div>
+            <div class="bloco">
+              <span class="badge">Bloco 3</span>
+              <div class="horario">Aulas 5 e 6</div>
+              <div class="alunos">80</div>
+              <div class="alunos-detail">2 turmas × 40</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card case">
+          <h3><span class="chip chip-129">129</span> 9 turmas × 40 alunos = 360/manhã</h3>
+          <div class="blocos">
+            <div class="bloco">
+              <span class="badge">Bloco 1</span>
+              <div class="horario">Aulas 1 e 2</div>
+              <div class="alunos alunos-case">120</div>
+              <div class="alunos-detail">3 turmas × 40</div>
+            </div>
+            <div class="bloco">
+              <span class="badge">Bloco 2</span>
+              <div class="horario">Aulas 3 e 4</div>
+              <div class="alunos alunos-case">120</div>
+              <div class="alunos-detail">3 turmas × 40</div>
+            </div>
+            <div class="bloco">
+              <span class="badge">Bloco 3</span>
+              <div class="horario">Aulas 5 e 6</div>
+              <div class="alunos alunos-case">120</div>
+              <div class="alunos-detail">3 turmas × 40</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="highlight-box">
+        Cada bloco recebe seus alunos e apresenta os temas do dia. Ao fim da manhã, todas as turmas rodaram por todos os temas do dia. Rotação entre salas ou palcos na quadra da escola.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Grade da semana · 7 temas + Hackathon</h2></div>
+      <div class="semana-grid">
+        <div class="dia seg">
+          <div class="dia-nome">Segunda</div>
+          <div class="dia-conteudo">2 temas</div>
+          <div class="dia-detail">Tema 1 (Terra e Semente / Do Campo à Mesa) + Tema 2 (Ciclo da Água / Tecnologia no Campo)</div>
+        </div>
+        <div class="dia ter">
+          <div class="dia-nome">Terça</div>
+          <div class="dia-conteudo">2 temas</div>
+          <div class="dia-detail">Tema 3 (Alimentos / Água) + Tema 4 (Nova Agricultura / Energia)</div>
+        </div>
+        <div class="dia qua">
+          <div class="dia-nome">Quarta</div>
+          <div class="dia-conteudo">1 tema</div>
+          <div class="dia-detail">Tema 5 (Clima e Campo / Agro e Clima)</div>
+        </div>
+        <div class="dia qui">
+          <div class="dia-nome">Quinta</div>
+          <div class="dia-conteudo">1 tema + preparação</div>
+          <div class="dia-detail">Tema 6 (Ciclo do Metano / Cidadania e Sustentabilidade no Campo) + preparação Hackathon</div>
+        </div>
+        <div class="dia sex">
+          <div class="dia-nome">Sexta</div>
+          <div class="dia-conteudo">🎯 Hackathon aberto</div>
+          <div class="dia-detail">Tema 7 (Guardiões da Terra / Desafio AgroFuturo) como evento aberto na escola · imprensa · pais · prefeitura</div>
+        </div>
+      </div>
+      <div class="highlight-box">
+        <strong>Semana 1 · adaptação por conta do feriado 07/09:</strong> como segunda é feriado, os 2 temas de segunda migram para terça. Terça vira o "dia cheio" (2 temas de manhã + 2 à tarde ou reconfigurar em blocos maiores). Quarta a sexta seguem o padrão. <span class="chip chip-alert">A validar</span>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Equipe por cidade</h2></div>
+      <table>
+        <thead>
+          <tr><th>Papel</th><th>Quantidade</th><th>Presença</th><th>Responsabilidade</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="high">Produção</td><td class="center">1</td><td>Segunda a sexta</td><td>Coordenação com escola, logística, apoio à imprensa no hackathon</td></tr>
+          <tr><td class="high">Facilitadores</td><td class="center">3</td><td>Segunda a sexta</td><td>Um por bloco simultâneo · condução das oficinas</td></tr>
+          <tr><td class="high">Apoio</td><td class="center">2</td><td>Segunda a sexta</td><td>Materiais, registro fotográfico, controle de presença</td></tr>
+          <tr><td class="high">Total</td><td class="center">6</td><td>1 semana em campo</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <div class="highlight-box">
+        <strong>Redução operacional:</strong> equipe fica só 1 semana em campo por cidade (contra 3 no modelo atual). Diária × 5 dias × N cidades vs 15 dias × N cidades = redução direta de ~66% em diária de campo (verificar impacto orçamentário e logística de deslocamento).
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Pontos a validar antes de fechar</h2></div>
+      <table>
+        <thead>
+          <tr><th>#</th><th>Ponto</th><th>Owner</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Compatibilidade do formato "semana única" com o escopo aprovado no MinC (PRONAC 259965 para o 128)</td><td>Mayara</td></tr>
+          <tr><td>2</td><td>Redução de 4% no volume do 128 (7.000 → 6.720 atendimentos) é aceitável ou precisa aditivo</td><td>Mayara + Abílio</td></tr>
+          <tr><td>3</td><td>Adaptação da semana 1 (feriado 07/09): migrar 2 temas para terça ou postergar cidade 1 para semana de 14/09</td><td>Lucas + Ana</td></tr>
+          <tr><td>4</td><td>Palestra dos professores (128): reencaixar na nova semana ou fazer em momento único nacional</td><td>Lucas + Ana</td></tr>
+          <tr><td>5</td><td>Escolas aceitam ocupar a quadra a manhã inteira durante 5 dias seguidos</td><td>Jeferson (no engajamento)</td></tr>
+          <tr><td>6</td><td>Datas da produção do hackathon (imprensa, convite pais, autorização prefeitura) em cada cidade</td><td>Lucas + Aline</td></tr>
+          <tr><td>7</td><td>Confirmar orçamento: 6 pessoas × 5 dias × N cidades vs modelo atual</td><td>Abílio</td></tr>
+          <tr><td>8</td><td>Confirmar operação em paralelo em setembro (Sul + MT) — equipes independentes</td><td>Abílio</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer class="page-foot">
+      <span>Proposta pós-reunião interna · para validação com Ana + Abílio + Mayara</span>
+      <span>Documento em construção · atualizado em 18/06/2026</span>
+    </footer>
+
+  </div>
+</body>
+</html>
