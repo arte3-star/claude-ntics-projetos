@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proposta modelo semana única · CNH 128 + 129</title>
+<title>Proposta modelo semana única · CNH 128 + 129 · com bloqueio eleitoral</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { font-size: 16px; }
@@ -14,7 +14,7 @@
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
-  .container { max-width: 1200px; margin: 0 auto; padding: 48px 24px 96px; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 96px; }
   header {
     background: #0e2235;
     color: #fff;
@@ -23,14 +23,7 @@
     margin-bottom: 32px;
     border-left: 6px solid #f5b400;
   }
-  header .eyebrow {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: #f5b400;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
+  header .eyebrow { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: #f5b400; font-weight: 600; margin-bottom: 8px; }
   header h1 { font-size: 1.875rem; line-height: 1.2; font-weight: 700; margin-bottom: 6px; }
   header .sub { font-size: 0.9375rem; color: rgba(255,255,255,0.75); font-weight: 400; margin-bottom: 16px; }
   header .meta-row {
@@ -56,6 +49,10 @@
     margin-bottom: 32px;
     font-size: 0.875rem;
   }
+  .alert.election {
+    background: #ffe3e3;
+    border-color: #c92a2a;
+  }
   .alert strong { color: #0e2235; }
   section { margin-bottom: 40px; }
   .section-head {
@@ -75,6 +72,25 @@
   td.high { font-weight: 700; color: #0e2235; }
   .col-nh { border-left: 3px solid #003DA5; }
   .col-case { border-left: 3px solid #C8102E; }
+  .election-calendar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .ec-box {
+    padding: 14px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    border-top: 4px solid;
+  }
+  .ec-box.election-round { border-top-color: #c92a2a; background: #fff5f5; }
+  .ec-box.buffer { border-top-color: #f59f00; background: #fff9db; }
+  .ec-box.open { border-top-color: #2f9e44; background: #ebfbee; }
+  .ec-date { font-size: 0.75rem; color: #6b7280; font-weight: 600; }
+  .ec-title { font-size: 0.9375rem; font-weight: 700; color: #0e2235; margin: 4px 0 6px; }
+  .ec-detail { font-size: 0.75rem; color: #4b5563; }
   .gantt {
     background: #fff;
     border-radius: 6px;
@@ -84,20 +100,23 @@
   }
   .gantt-grid {
     display: grid;
-    grid-template-columns: 180px repeat(9, minmax(80px, 1fr));
+    grid-template-columns: 180px repeat(12, minmax(72px, 1fr));
     gap: 4px;
-    min-width: 900px;
-    font-size: 0.75rem;
+    min-width: 1180px;
+    font-size: 0.6875rem;
   }
-  .gantt-header { font-weight: 700; text-align: center; padding: 8px 4px; background: #e9ecef; border-radius: 3px; color: #495057; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.6875rem; }
-  .gantt-city { font-weight: 700; padding: 10px 8px; background: #f8f9fa; border-radius: 3px; display: flex; align-items: center; gap: 8px; }
-  .gantt-cell { padding: 10px 4px; border-radius: 3px; text-align: center; font-size: 0.6875rem; }
+  .gantt-header { font-weight: 700; text-align: center; padding: 6px 3px; background: #e9ecef; border-radius: 3px; color: #495057; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.625rem; }
+  .gantt-header.election { background: #ffc9c9; color: #c92a2a; }
+  .gantt-city { font-weight: 700; padding: 8px 8px; background: #f8f9fa; border-radius: 3px; display: flex; align-items: center; gap: 6px; }
+  .gantt-cell { padding: 8px 3px; border-radius: 3px; text-align: center; font-size: 0.625rem; }
   .gantt-cell.on-nh { background: #003DA5; color: #fff; font-weight: 700; }
   .gantt-cell.on-case { background: #C8102E; color: #fff; font-weight: 700; }
   .gantt-cell.gap { background: #f8f9fa; color: #adb5bd; }
   .gantt-cell.event-nh { background: #001A4A; color: #fff; font-weight: 700; }
   .gantt-cell.event-case { background: #7A0918; color: #fff; font-weight: 700; }
   .gantt-cell.holiday { background: repeating-linear-gradient(45deg, #fff3bf, #fff3bf 4px, #ffe066 4px, #ffe066 8px); color: #846100; font-weight: 700; }
+  .gantt-cell.blocked { background: repeating-linear-gradient(45deg, #ffc9c9, #ffc9c9 4px, #ff8787 4px, #ff8787 8px); color: #a02020; font-weight: 700; }
+  .gantt-cell.between-turnos { background: linear-gradient(135deg, #fff8e1 0%, #fff3bf 100%); color: #846100; font-weight: 700; border: 1px dashed #f59f00; }
   .cards-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -113,19 +132,9 @@
   .card.nh { border-left-color: #003DA5; }
   .card.case { border-left-color: #C8102E; }
   .card h3 { font-size: 1rem; font-weight: 700; color: #0e2235; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-  .card .metric-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
-  .metric { padding: 10px 12px; background: #f8f9fa; border-radius: 4px; }
-  .metric .value { font-size: 1.5rem; font-weight: 700; color: #0e2235; line-height: 1; }
-  .metric .label { font-size: 0.6875rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; font-weight: 600; }
   .card ul { list-style: none; padding: 0; margin-top: 8px; }
   .card ul li { padding: 4px 0; font-size: 0.875rem; color: #374151; }
   .card ul li::before { content: "▸ "; color: #6b7280; font-weight: 700; }
-  .grid-manha {
-    background: #fff;
-    padding: 20px;
-    border-radius: 6px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-  }
   .blocos {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -185,6 +194,9 @@
     font-size: 0.875rem;
   }
   .highlight-box strong { color: #0e2235; }
+  .gantt-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 16px; font-size: 0.75rem; color: #4b5563; }
+  .gantt-legend .li { display: inline-flex; align-items: center; gap: 6px; }
+  .gantt-legend .sw { width: 18px; height: 12px; border-radius: 2px; display: inline-block; }
   footer.page-foot {
     margin-top: 64px;
     padding-top: 24px;
@@ -204,7 +216,7 @@
     section { break-inside: avoid-page; }
   }
   @media (max-width: 720px) {
-    .cards-row, .blocos { grid-template-columns: 1fr; }
+    .cards-row, .blocos, .election-calendar { grid-template-columns: 1fr; }
     .semana-grid { grid-template-columns: 1fr 1fr; }
     header h1 { font-size: 1.375rem; }
   }
@@ -214,22 +226,51 @@
   <div class="container">
 
     <header>
-      <div class="eyebrow">Proposta de estrutura · pós-reunião interna</div>
+      <div class="eyebrow">Proposta de estrutura · V2 com bloqueio eleitoral</div>
       <h1>Modelo de semana única por cidade</h1>
-      <div class="sub">Concentração do projeto em 1 semana intensa por cidade + 1 semana de intervalo · válido para 128 (New Holland) e 129 (Case IH)</div>
+      <div class="sub">Concentração do projeto em 1 semana intensa por cidade + 1 semana de intervalo · versão revisada respeitando eleições 2026</div>
       <div class="meta-row">
         <div><strong>Duração/cidade</strong>1 semana (5 dias)</div>
         <div><strong>Intervalo</strong>1 semana entre cidades</div>
-        <div><strong>Formato</strong>Manhã · 6 aulas em 3 blocos</div>
-        <div><strong>Hackathon</strong>Sexta como evento aberto</div>
+        <div><strong>Início 128</strong>24/08/2026 (Dom Pedrito)</div>
+        <div><strong>Início 129</strong>08/09/2026 (Tangará da Serra)</div>
+        <div><strong>Festival + Feira</strong>Semana de 09-13/11/2026</div>
         <div><strong>Equipe/cidade</strong>6 pessoas</div>
-        <div><strong>Início</strong>Semana de 08/09/2026</div>
       </div>
     </header>
 
-    <div class="alert">
-      <strong>⚠ Alerta feriado:</strong> segunda 07/09 (Independência) cai dentro da semana 1 dos dois projetos. Cidade 1 pega apenas ter–sex (4 dias). Precisamos condensar temas de segunda para a semana. Detalhe na seção "Grade da semana".
+    <div class="alert election">
+      <strong>⚠ Bloqueio eleitoral:</strong> as semanas de <b>28/09-04/10</b> (1º turno · dom 04/10) e <b>19-25/10</b> (2º turno · dom 25/10) estão bloqueadas para atividades em escolas. Buffer de 2 semanas confirmado. A janela entre turnos (<b>05-09/10</b>) foi aproveitada para a 4ª cidade do 128 e a 3ª cidade do 129.
     </div>
+
+    <section>
+      <div class="section-head"><h2>Calendário eleitoral 2026 · janelas do projeto</h2></div>
+      <div class="election-calendar">
+        <div class="ec-box open">
+          <div class="ec-date">até 26/09</div>
+          <div class="ec-title">Janela aberta pré-eleição</div>
+          <div class="ec-detail">7 semanas úteis para oficinas nas cidades (ago–set). Cabem 3 cidades do 128 e 2 do 129 nessa janela.</div>
+        </div>
+        <div class="ec-box election-round">
+          <div class="ec-date">28/09 – 04/10</div>
+          <div class="ec-title">🚫 1º turno</div>
+          <div class="ec-detail">Semana bloqueada. Escolas viram seções eleitorais no domingo 04/10.</div>
+        </div>
+        <div class="ec-box open">
+          <div class="ec-date">05 – 11/10</div>
+          <div class="ec-title">🟡 Entre turnos</div>
+          <div class="ec-detail">Janela aproveitada para a Cid 4 do 128 (Curitiba) e Cid 3 do 129 (Cuiabá).</div>
+        </div>
+        <div class="ec-box election-round">
+          <div class="ec-date">19 – 25/10</div>
+          <div class="ec-title">🚫 2º turno</div>
+          <div class="ec-detail">Semana bloqueada. Escolas viram seções eleitorais no domingo 25/10.</div>
+        </div>
+      </div>
+      <div class="highlight-box">
+        <strong>Buffer de 2 semanas confirmado.</strong> A prática de mercado sugere 4 semanas, mas o Lucas decidiu ir com 2 para aproveitar a semana entre turnos. Isso exige atenção redobrada com aprovações da Secretaria de Educação (que podem exigir buffer maior por precaução institucional).
+      </div>
+    </section>
 
     <section>
       <div class="section-head"><h2>Modelo atual x modelo proposto</h2></div>
@@ -247,41 +288,44 @@
           <tr><td>Duração/cidade</td><td class="dim">3 semanas</td><td class="high">1 semana</td><td class="dim">3 semanas</td><td class="high">1 semana</td></tr>
           <tr><td>Turmas/cidade</td><td class="dim">4 turmas × 30 alunos</td><td class="high">6 turmas × 40 alunos</td><td class="dim">12 turmas × 30 alunos</td><td class="high">9 turmas × 40 alunos</td></tr>
           <tr><td>Alunos únicos/cidade</td><td class="dim">250</td><td class="high">240</td><td class="dim">360</td><td class="high">360</td></tr>
-          <tr><td>Alunos únicos total</td><td class="dim">1.000</td><td class="high">960</td><td class="dim">1.080</td><td class="high">1.080</td></tr>
-          <tr><td>Atendimentos/cidade</td><td class="dim">1.750</td><td class="high">1.680</td><td class="dim">2.520</td><td class="high">2.520</td></tr>
           <tr><td>Atendimentos total</td><td class="dim">7.000</td><td class="high">6.720 (-4%)</td><td class="dim">7.560</td><td class="high">7.560 (bate MinC)</td></tr>
-          <tr><td>Cidades</td><td>4 (Dom Pedrito · Toledo · Guarapuava · Curitiba)</td><td>4 (mesma sequência)</td><td>3 (Tangará · Água Boa · Cuiabá)</td><td>3 (mesma sequência)</td></tr>
-          <tr><td>Palestra de professores</td><td>Seg da semana 1 de cada cidade</td><td>Reencaixar (sugestão: seg 07/09 no lançamento nacional ou seg da semana 1)</td><td>—</td><td>—</td></tr>
-          <tr><td>Hackathon</td><td>Sexta da semana 3</td><td>Sexta como evento aberto (pais, prefeitura, imprensa)</td><td>Sexta da semana 3</td><td>Sexta como evento aberto (pais, prefeitura, imprensa)</td></tr>
+          <tr><td>Início</td><td class="dim">03/08</td><td class="high">24/08 (antecipa para caber pré-eleição)</td><td class="dim">03/08</td><td class="high">08/09</td></tr>
+          <tr><td>Encerramento</td><td class="dim">Curitiba com festival + DOMO em nov</td><td class="high">Festival Curitiba 09-13/11</td><td class="dim">Feira Shopping Pantanal out</td><td class="high">Feira Shopping Pantanal 09-13/11</td></tr>
         </tbody>
       </table>
       <div class="highlight-box">
-        <strong>Impacto MinC:</strong> o 128 perde 4% do escopo (dá para negociar como leve). O 129 fica igual ao MinC. Ambos precisam da confirmação da Mayara antes de virar decisão fechada.
+        <strong>Antecipação do 128:</strong> como o 128 tem 4 cidades (contra 3 do 129), ele começa 2 semanas antes (24/08) para caber as 3 primeiras cidades na janela aberta pré-eleição e usar a semana entre turnos (05-09/10) para a 4ª cidade (Curitiba).
       </div>
     </section>
 
     <section>
-      <div class="section-head"><h2>Cronograma macro proposto</h2></div>
+      <div class="section-head"><h2>Cronograma macro · versão eleição</h2></div>
       <div class="gantt">
         <div class="gantt-grid">
           <div></div>
-          <div class="gantt-header">08–11/09</div>
-          <div class="gantt-header">14–18/09</div>
-          <div class="gantt-header">21–25/09</div>
-          <div class="gantt-header">28/09–02/10</div>
-          <div class="gantt-header">05–09/10</div>
-          <div class="gantt-header">12–16/10</div>
-          <div class="gantt-header">19–23/10</div>
-          <div class="gantt-header">26–30/10</div>
-          <div class="gantt-header">02–06/11</div>
+          <div class="gantt-header">24-28/08</div>
+          <div class="gantt-header">31/08-04/09</div>
+          <div class="gantt-header">08-12/09</div>
+          <div class="gantt-header">14-18/09</div>
+          <div class="gantt-header">21-25/09</div>
+          <div class="gantt-header election">28/09-04/10</div>
+          <div class="gantt-header">05-09/10</div>
+          <div class="gantt-header">12-16/10</div>
+          <div class="gantt-header election">19-25/10</div>
+          <div class="gantt-header">26-30/10</div>
+          <div class="gantt-header">02-06/11</div>
+          <div class="gantt-header">09-13/11</div>
 
           <div class="gantt-city"><span class="chip chip-128">128</span> Dom Pedrito/RS</div>
-          <div class="gantt-cell on-nh holiday">Semana 1<br>(07 feriado)</div>
+          <div class="gantt-cell on-nh">Semana</div>
           <div class="gantt-cell gap">intervalo</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
@@ -289,10 +333,13 @@
           <div class="gantt-city"><span class="chip chip-128">128</span> Toledo/PR</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell on-nh">Semana</div>
+          <div class="gantt-cell on-nh holiday">Semana<br>(07 feriado)</div>
           <div class="gantt-cell gap">intervalo</div>
           <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
@@ -303,7 +350,10 @@
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell on-nh">Semana</div>
-          <div class="gantt-cell gap holiday">intervalo<br>(12 feriado)</div>
+          <div class="gantt-cell blocked">🚫</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
@@ -314,18 +364,24 @@
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell on-nh">Semana</div>
+          <div class="gantt-cell blocked">🚫</div>
+          <div class="gantt-cell on-nh between-turnos">Semana<br>entre turnos</div>
           <div class="gantt-cell gap">intervalo</div>
+          <div class="gantt-cell blocked">🚫</div>
+          <div class="gantt-cell gap">preparação</div>
+          <div class="gantt-cell gap">preparação</div>
           <div class="gantt-cell event-nh">🎪 Festival<br>+ DOMO</div>
 
           <div class="gantt-city"><span class="chip chip-129">129</span> Tangará da Serra/MT</div>
-          <div class="gantt-cell on-case holiday">Semana 1<br>(07 feriado)</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell on-case holiday">Semana<br>(07 feriado)</div>
           <div class="gantt-cell gap">intervalo</div>
           <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
@@ -333,10 +389,13 @@
           <div class="gantt-city"><span class="chip chip-129">129</span> Água Boa/MT</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
           <div class="gantt-cell on-case">Semana</div>
-          <div class="gantt-cell gap">intervalo</div>
+          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
@@ -346,15 +405,26 @@
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell on-case">Semana</div>
-          <div class="gantt-cell gap holiday">intervalo<br>(12 feriado)</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell blocked">🚫</div>
+          <div class="gantt-cell on-case between-turnos">Semana<br>entre turnos</div>
+          <div class="gantt-cell gap">intervalo</div>
+          <div class="gantt-cell blocked">🚫</div>
+          <div class="gantt-cell gap">preparação</div>
+          <div class="gantt-cell gap">preparação</div>
           <div class="gantt-cell event-case">🎪 Feira<br>Shopping Pantanal</div>
-          <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap">·</div>
+        </div>
+        <div class="gantt-legend">
+          <span class="li"><span class="sw" style="background:#003DA5"></span>Semana New Holland</span>
+          <span class="li"><span class="sw" style="background:#C8102E"></span>Semana Case IH</span>
+          <span class="li"><span class="sw" style="background:linear-gradient(135deg, #fff8e1 0%, #fff3bf 100%); border:1px dashed #f59f00"></span>Semana entre turnos</span>
+          <span class="li"><span class="sw" style="background:repeating-linear-gradient(45deg, #ffc9c9, #ffc9c9 4px, #ff8787 4px, #ff8787 8px)"></span>🚫 Bloqueio eleitoral</span>
+          <span class="li"><span class="sw" style="background:repeating-linear-gradient(45deg, #fff3bf, #fff3bf 4px, #ffe066 4px, #ffe066 8px)"></span>Feriado</span>
+          <span class="li"><span class="sw" style="background:#001A4A"></span>Evento final</span>
         </div>
       </div>
       <div class="highlight-box">
-        <strong>Sobreposição:</strong> as 3 primeiras semanas dos dois projetos rodam em paralelo (setembro). Como as equipes são independentes (uma em MT, outra na região Sul), <strong>não há conflito operacional</strong>, mas a produção da NTICS precisa estar dobrada em campo em setembro.
+        <strong>Semanas de operação em paralelo:</strong> Sul + MT rodam simultâneas em 08-12/09 (Toledo + Tangará), 21-25/09 (Guarapuava + Água Boa) e 05-09/10 (Curitiba + Cuiabá). Como as equipes são independentes, não há conflito de pessoas — mas a produção NTICS precisa se dobrar em campo nas 3 semanas de sobreposição.
       </div>
     </section>
 
@@ -411,9 +481,6 @@
         </div>
 
       </div>
-      <div class="highlight-box">
-        Cada bloco recebe seus alunos e apresenta os temas do dia. Ao fim da manhã, todas as turmas rodaram por todos os temas do dia. Rotação entre salas ou palcos na quadra da escola.
-      </div>
     </section>
 
     <section>
@@ -446,7 +513,7 @@
         </div>
       </div>
       <div class="highlight-box">
-        <strong>Semana 1 · adaptação por conta do feriado 07/09:</strong> como segunda é feriado, os 2 temas de segunda migram para terça. Terça vira o "dia cheio" (2 temas de manhã + 2 à tarde ou reconfigurar em blocos maiores). Quarta a sexta seguem o padrão. <span class="chip chip-alert">A validar</span>
+        <strong>Semana com feriado 07/09:</strong> Toledo (128) e Tangará da Serra (129) começam na terça 08/09. Precisamos condensar os 2 temas de segunda em terça (2 blocos de 2 temas cada) ou postergar. <span class="chip chip-alert">A validar com Ana</span>
       </div>
     </section>
 
@@ -463,9 +530,6 @@
           <tr><td class="high">Total</td><td class="center">6</td><td>1 semana em campo</td><td>—</td></tr>
         </tbody>
       </table>
-      <div class="highlight-box">
-        <strong>Redução operacional:</strong> equipe fica só 1 semana em campo por cidade (contra 3 no modelo atual). Diária × 5 dias × N cidades vs 15 dias × N cidades = redução direta de ~66% em diária de campo (verificar impacto orçamentário e logística de deslocamento).
-      </div>
     </section>
 
     <section>
@@ -475,21 +539,23 @@
           <tr><th>#</th><th>Ponto</th><th>Owner</th></tr>
         </thead>
         <tbody>
-          <tr><td>1</td><td>Compatibilidade do formato "semana única" com o escopo aprovado no MinC (PRONAC 259965 para o 128)</td><td>Mayara</td></tr>
+          <tr><td>1</td><td>Compatibilidade do formato "semana única" com o escopo aprovado no MinC (PRONAC 259965 para o 128) + risco de precisar aditivo</td><td>Mayara</td></tr>
           <tr><td>2</td><td>Redução de 4% no volume do 128 (7.000 → 6.720 atendimentos) é aceitável ou precisa aditivo</td><td>Mayara + Abílio</td></tr>
-          <tr><td>3</td><td>Adaptação da semana 1 (feriado 07/09): migrar 2 temas para terça ou postergar cidade 1 para semana de 14/09</td><td>Lucas + Ana</td></tr>
-          <tr><td>4</td><td>Palestra dos professores (128): reencaixar na nova semana ou fazer em momento único nacional</td><td>Lucas + Ana</td></tr>
-          <tr><td>5</td><td>Escolas aceitam ocupar a quadra a manhã inteira durante 5 dias seguidos</td><td>Jeferson (no engajamento)</td></tr>
-          <tr><td>6</td><td>Datas da produção do hackathon (imprensa, convite pais, autorização prefeitura) em cada cidade</td><td>Lucas + Aline</td></tr>
-          <tr><td>7</td><td>Confirmar orçamento: 6 pessoas × 5 dias × N cidades vs modelo atual</td><td>Abílio</td></tr>
-          <tr><td>8</td><td>Confirmar operação em paralelo em setembro (Sul + MT) — equipes independentes</td><td>Abílio</td></tr>
+          <tr><td>3</td><td><b>Cid 4 do 128 e Cid 3 do 129 na semana entre turnos (05-09/10):</b> risco de Secretaria de Educação negar autorização por precaução institucional. Precisamos abordar isso já no engajamento com o Jeferson</td><td>Ana + Jeferson</td></tr>
+          <tr><td>4</td><td>Antecipação do 128 para 24/08: precisa fechar escola de Dom Pedrito com pelo menos 3 semanas de antecedência (até 03/08)</td><td>Jeferson</td></tr>
+          <tr><td>5</td><td>Adaptação da semana 08-12/09 (feriado 07): condensar temas na terça ou postergar cidade</td><td>Lucas + Ana</td></tr>
+          <tr><td>6</td><td>Palestra dos professores (128): reencaixar na nova semana ou fazer em momento único nacional</td><td>Lucas + Ana</td></tr>
+          <tr><td>7</td><td>Sobreposição Sul + MT em setembro/outubro: NTICS precisa 2 equipes de produção rodando em paralelo</td><td>Abílio</td></tr>
+          <tr><td>8</td><td>Confirmar orçamento: 6 pessoas × 5 dias × N cidades vs modelo atual (redução ~66% em diária de campo)</td><td>Abílio</td></tr>
+          <tr><td>9</td><td>Escolas aceitam ocupar a quadra a manhã inteira durante 5 dias seguidos</td><td>Jeferson (no engajamento)</td></tr>
+          <tr><td>10</td><td>Datas da produção do hackathon (imprensa, convite pais, autorização prefeitura) em cada cidade</td><td>Lucas + Aline</td></tr>
         </tbody>
       </table>
     </section>
 
     <footer class="page-foot">
-      <span>Proposta pós-reunião interna · para validação com Ana + Abílio + Mayara</span>
-      <span>Documento em construção · atualizado em 18/06/2026</span>
+      <span>Proposta pós-reunião interna V2 · com bloqueio eleitoral 2026</span>
+      <span>Atualizado em 18/06/2026 · para validação com Ana + Abílio + Mayara</span>
     </footer>
 
   </div>
