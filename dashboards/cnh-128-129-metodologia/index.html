@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metodologia consolidada · CNH 128 + 129</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
+    background: #f5f6f7;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+  .container { max-width: 1220px; margin: 0 auto; padding: 48px 24px 96px; }
+  header {
+    background: linear-gradient(135deg, #0e2235 0%, #1a3a5c 100%);
+    color: #fff;
+    padding: 40px 48px;
+    border-radius: 6px;
+    margin-bottom: 32px;
+    border-left: 6px solid #f5b400;
+  }
+  header .eyebrow { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: #f5b400; font-weight: 600; margin-bottom: 10px; }
+  header h1 { font-size: 2rem; line-height: 1.2; font-weight: 700; margin-bottom: 8px; }
+  header .sub { font-size: 1rem; color: rgba(255,255,255,0.85); margin-bottom: 20px; }
+  header .toc { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.15); }
+  header .toc a { display: block; padding: 10px 14px; background: rgba(255,255,255,0.06); border-radius: 4px; color: #f5b400; text-decoration: none; font-size: 0.8125rem; font-weight: 600; transition: background 0.2s; }
+  header .toc a:hover { background: rgba(255,255,255,0.12); }
+  .chip { display: inline-block; font-size: 0.6875rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.04em; margin-right: 6px; }
+  .chip-128 { background: #d0ebff; color: #0b4f8c; }
+  .chip-129 { background: #ffd6d6; color: #a02020; }
+  .chip-ambos { background: #fff3bf; color: #846100; }
+  .chip-passe { background: #e9ecef; color: #495057; font-weight: 700; }
+  section { margin-bottom: 44px; scroll-margin-top: 20px; }
+  .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid #1a1a1a; }
+  .section-head h2 { font-size: 1.375rem; font-weight: 700; color: #0e2235; }
+  h3 { font-size: 1.125rem; font-weight: 700; color: #0e2235; margin: 24px 0 12px; }
+  h4 { font-size: 1rem; font-weight: 600; color: #0e2235; margin: 16px 0 8px; }
+  p { margin-bottom: 12px; font-size: 0.9375rem; color: #374151; }
+  ul, ol { margin: 8px 0 12px 24px; }
+  li { font-size: 0.9375rem; color: #374151; margin-bottom: 4px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.04); font-size: 0.875rem; margin: 12px 0; }
+  th { background: #0e2235; color: #fff; padding: 12px 14px; text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+  td { padding: 10px 14px; border-top: 1px solid #e5e7eb; vertical-align: top; }
+  td.high { font-weight: 700; color: #0e2235; }
+  .card {
+    background: #fff;
+    border-radius: 6px;
+    padding: 20px 24px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    margin-bottom: 16px;
+    border-left: 4px solid;
+  }
+  .card.info { border-left-color: #4dabf7; background: #f0f9ff; }
+  .card.warning { border-left-color: #f59f00; background: #fff8e1; }
+  .card.critical { border-left-color: #c92a2a; background: #fff5f5; }
+  .card.success { border-left-color: #2b8a3e; background: #ebfbee; }
+  .card strong { color: #0e2235; }
+  .oficina-mini {
+    background: #fff;
+    border-radius: 6px;
+    padding: 18px 22px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    margin-bottom: 12px;
+    border-left: 4px solid #e5e7eb;
+  }
+  .oficina-mini.o1 { border-left-color: #4dabf7; }
+  .oficina-mini.o2 { border-left-color: #63e6be; }
+  .oficina-mini.o3 { border-left-color: #ffd43b; }
+  .oficina-mini.o4 { border-left-color: #ff922b; }
+  .oficina-mini.o5 { border-left-color: #f5b400; }
+  .oficina-mini h4 { font-size: 1rem; margin: 0 0 8px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .oficina-mini .lbl { font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.06em; color: #6b7280; font-weight: 700; margin-top: 8px; margin-bottom: 4px; }
+  .oficina-mini .content { font-size: 0.8125rem; color: #374151; }
+  .oficina-mini .input {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: rgba(0,0,0,0.03);
+    border-left: 3px solid #f5b400;
+    border-radius: 0 3px 3px 0;
+    font-size: 0.75rem;
+    color: #4b5563;
+  }
+  .oficina-mini .input strong { color: #846100; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .role-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 12px; }
+  .role-card { background: #fff; padding: 18px; border-radius: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); border-top: 4px solid; }
+  .role-card.a { border-top-color: #6741d9; }
+  .role-card.t { border-top-color: #087f5b; }
+  .role-card.s { border-top-color: #f5b400; }
+  .role-card h4 { font-size: 0.9375rem; margin-bottom: 8px; }
+  .role-card p { font-size: 0.8125rem; margin-bottom: 6px; }
+  .role-card ul { margin-left: 16px; margin-top: 4px; }
+  .role-card ul li { font-size: 0.75rem; }
+  footer.page-foot {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid #d1d5db;
+    font-size: 0.75rem;
+    color: #6b7280;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  @media (max-width: 720px) {
+    .grid-2, .role-cards { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <div class="eyebrow">Metodologia consolidada · CNH 128 + 129</div>
+      <h1>Framework pedagógico · semana única encadeada</h1>
+      <div class="sub">Metodologia completa dos dois projetos, revisada em 3 passes (construção · análise crítica · revisão final). Independe do cenário de valor escolhido (Enxuta / Equilibrada / Premium): a metodologia é a mesma.</div>
+      <div class="toc">
+        <a href="#filosofia">1. Filosofia central</a>
+        <a href="#framework">2. Framework semana encadeada</a>
+        <a href="#papeis">3. Papel dos 3 instrutores</a>
+        <a href="#128">4. Metodologia 128</a>
+        <a href="#129">5. Metodologia 129</a>
+        <a href="#hackathon">6. Mecânica dos Hackathons</a>
+        <a href="#critica">7. Análise crítica</a>
+        <a href="#pendencias">8. Pendências</a>
+      </div>
+    </header>
+
+    <section id="filosofia">
+      <div class="section-head"><h2>1 · Filosofia central</h2><span class="chip chip-ambos">AMBOS</span></div>
+      <p>A metodologia opera na intersecção de 4 vertentes pedagógicas consolidadas:</p>
+      <ol>
+        <li><strong>Aprendizagem baseada em projetos (ABP)</strong> · o aluno constrói uma solução real ao longo da semana, não consome informação passiva.</li>
+        <li><strong>Design Thinking educacional</strong> · jornada estruturada de empatia, ideação, prototipagem e teste.</li>
+        <li><strong>Storytelling como fio condutor</strong> · a narrativa do Guardião da Terra (128) ou AgroFuturo (129) amarra as oficinas ao Hackathon final.</li>
+        <li><strong>Cultura como linguagem</strong> · os formatos MinC (Artes Plásticas, Fotografia, Contação de História) não são anexos, são os meios pelos quais o conteúdo agro é entregue.</li>
+      </ol>
+      <h3>Base regulatória e curricular</h3>
+      <table>
+        <thead><tr><th>Referencial</th><th>Como se aplica</th></tr></thead>
+        <tbody>
+          <tr><td class="high">BNCC</td><td>Competências gerais 1 (Conhecimento), 2 (Pensamento científico), 4 (Comunicação), 5 (Cultura digital · só 129), 6 (Trabalho e projeto de vida), 7 (Argumentação), 10 (Responsabilidade e cidadania).</td></tr>
+          <tr><td class="high">ODS da ONU</td><td>128 aborda ODS 2, 4, 6, 7, 11, 12, 13, 15, 17. 129 aborda ODS 2, 4, 6, 7, 9, 12, 13, 15, 17.</td></tr>
+          <tr><td class="high">Pacto Global CNH</td><td>Presente na narrativa de comunicação (CNH é 1ª fabricante agrícola signatária no Brasil), nunca dentro da oficina.</td></tr>
+          <tr><td class="high">Lei Rouanet</td><td>128 · PRONAC 259965 · 129 · a confirmar. Produtos culturais rigorosamente enquadrados nos formatos MinC.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="framework">
+      <div class="section-head"><h2>2 · Framework da semana encadeada</h2><span class="chip chip-ambos">AMBOS</span></div>
+      <p>A semana tem estrutura fixa em todas as cidades. Cada dia da semana entrega um "input" que os grupos vão amadurecendo para o Hackathon final. Não é oficina isolada, é jornada em 5 atos.</p>
+      <div class="card info">
+        <strong>Princípio central:</strong> na segunda o desafio é apresentado; cada dia entrega uma perspectiva (ecossistêmica → econômica → ambiental → tecnológica); na sexta os grupos apresentam solução amadurecida.
+      </div>
+
+      <h3>Estrutura da manhã em blocos</h3>
+      <table>
+        <thead><tr><th>Projeto</th><th>Alunos/manhã</th><th>Blocos</th><th>Alunos/bloco</th><th>Subgrupos</th></tr></thead>
+        <tbody>
+          <tr><td class="high"><span class="chip chip-128">128</span> New Holland</td><td>240</td><td>3</td><td>80</td><td>4 subgrupos de 20</td></tr>
+          <tr><td class="high"><span class="chip chip-129">129</span> Case IH</td><td>360</td><td>3</td><td>120</td><td>6 subgrupos de 20</td></tr>
+        </tbody>
+      </table>
+
+      <div class="card warning">
+        <strong>Regra dos grupos do Hackathon:</strong> os grupos são formados na segunda-feira dentro do próprio bloco e permanecem os mesmos durante os 5 dias. A escola precisa se comprometer a manter os alunos nos mesmos blocos por 5 dias consecutivos. Isso é condição de execução.
+      </div>
+    </section>
+
+    <section id="papeis">
+      <div class="section-head"><h2>3 · Papel dos 3 instrutores</h2><span class="chip chip-ambos">AMBOS</span></div>
+      <p>Os 3 instrutores viajam com o projeto pelas cidades. Cada um domina um bloco de temas e assume responsabilidade específica no Hackathon.</p>
+      <div class="role-cards">
+        <div class="role-card a">
+          <h4>🎨 Instrutor Artístico</h4>
+          <p><strong>Perfil:</strong> fotógrafo ou artesão com experiência em oficinas. Câmera própria, sensibilidade estética.</p>
+          <p><strong>128:</strong></p>
+          <ul>
+            <li>Segunda · T1 Terrário + T2 Fotografia macro</li>
+            <li>Sexta · registro fotográfico + exposição rápida</li>
+          </ul>
+          <p><strong>129:</strong></p>
+          <ul>
+            <li>Terça · T3 Fotografia macro + light painting</li>
+            <li>Quinta · apoio T6 Painel coletivo</li>
+            <li>Sexta · registro do Desafio AgroFuturo</li>
+          </ul>
+        </div>
+        <div class="role-card t">
+          <h4>🔬 Instrutor Técnico</h4>
+          <p><strong>Perfil:</strong> biólogo, engenheiro ambiental ou agrônomo com didática forte.</p>
+          <p><strong>128:</strong></p>
+          <ul>
+            <li>Quinta · T6 Miniusina biometano + visita técnica</li>
+            <li>Apoio · T5 Cartografia (leitura dados INMET)</li>
+            <li>Sexta · banca com viés técnico</li>
+          </ul>
+          <p><strong>129:</strong></p>
+          <ul>
+            <li>Segunda · T2 Tecnologia (drones, sensores)</li>
+            <li>Terça · T4 Energia (maquete usina etanol)</li>
+            <li>Sexta · banca com viés técnico</li>
+          </ul>
+        </div>
+        <div class="role-card s">
+          <h4>📖 Instrutor Storytelling</h4>
+          <p><strong>Perfil:</strong> contador de história, educador social ou mentor de startups. Escuta ativa, conhece Lean Canvas.</p>
+          <p><strong>128:</strong></p>
+          <ul>
+            <li>Terça · T3 Mercado + T4 Mapa sensorial</li>
+            <li>Quinta · mentoria final Lean Canvas</li>
+            <li>Sexta · abre com contação (formato MinC)</li>
+          </ul>
+          <p><strong>129:</strong></p>
+          <ul>
+            <li>Quarta · T5 Jogo cartas + mini-documentário</li>
+            <li>Quinta · mentoria final</li>
+            <li>Sexta · MC do Desafio AgroFuturo</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="128">
+      <div class="section-head"><h2>4 · Metodologia 128 · Festival AgriCULTURA Sustentável</h2><span class="chip chip-128">128</span></div>
+      <p>Grade completa. Cada oficina tem detalhamento completo em <code>brief/metodologia.md</code>.</p>
+
+      <div class="oficina-mini o1">
+        <h4><span class="chip chip-128">128</span> T1+T2 · Segunda · Terrário + Fotografia macro</h4>
+        <div class="lbl">Formato MinC</div>
+        <div class="content">Artes Plásticas (T1) + Fotografia (T2) reconciliadas no mesmo dia como oficinas distintas de 3h cada.</div>
+        <div class="lbl">Duração</div>
+        <div class="content">100 min por bloco de 80 alunos.</div>
+        <div class="lbl">O que acontece</div>
+        <div class="content">4 subgrupos de 20 alunos por bloco. Cada subgrupo monta 2 aquários-terrário com musgo, cascas, gelo seco. Depois momento de fotografia macro com câmera do instrutor artístico + LEDs coloridos + vapor do gelo seco.</div>
+        <div class="input"><strong>Input pro Hackathon</strong> · Perspectiva ecossistêmica. Desafio Guardiões da Terra é apresentado pelo instrutor storytelling.</div>
+      </div>
+
+      <div class="oficina-mini o2">
+        <h4><span class="chip chip-128">128</span> T3+T4 · Terça · Mercado Simulado + Mapa Sensorial em Caixa</h4>
+        <div class="lbl">Formato MinC</div>
+        <div class="content">Livre + Livre.</div>
+        <div class="lbl">Duração</div>
+        <div class="content">150 min por bloco (90 min T3 + 60 min T4).</div>
+        <div class="lbl">O que acontece</div>
+        <div class="content">T3 · sala vira mercado, papéis (produtor / atravessador / consumidor), rodadas de negociação com evento climático surpresa. Debate sobre onde o valor se concentra. T4 · caixa on-base com colagem + amostras sensoriais do território.</div>
+        <div class="input"><strong>Input pro Hackathon</strong> · Perspectivas econômica e identitária. Onde estão os gargalos e os "sabores únicos" desta cidade?</div>
+      </div>
+
+      <div class="oficina-mini o3">
+        <h4><span class="chip chip-128">128</span> T5 · Quarta · Cartografia Climática</h4>
+        <div class="lbl">Formato MinC</div>
+        <div class="content">Livre.</div>
+        <div class="lbl">Duração</div>
+        <div class="content">100 min por bloco.</div>
+        <div class="lbl">O que acontece</div>
+        <div class="content">Grupos recebem dados reais INMET/Cemaden + mapa do município. Cada grupo mapeia um risco climático (seca, geada, enchente, praga, erosão) e propõe adaptação.</div>
+        <div class="input"><strong>Input pro Hackathon</strong> · Perspectiva ambiental com dado real. A solução responde a que risco climático?</div>
+      </div>
+
+      <div class="oficina-mini o4">
+        <h4><span class="chip chip-128">128</span> T6 · Quinta · Miniusina Biometano + prep Hackathon</h4>
+        <div class="lbl">Formato MinC</div>
+        <div class="content">Livre.</div>
+        <div class="lbl">Duração</div>
+        <div class="content">150 min por bloco (75 min T6 + 75 min prep).</div>
+        <div class="lbl">O que acontece</div>
+        <div class="content">Miniusina de biometano pré-montada. Grupos são "engenheiros contratados" com roteiro de visita técnica. Depois: consolidação do Lean Canvas simplificado + cartaz/protótipo + ensaio do pitch com o instrutor storytelling.</div>
+        <div class="input"><strong>Input pro Hackathon</strong> · Perspectiva tecnológica e circular. Como fecho a solução em uma proposta apresentável?</div>
+      </div>
+
+      <div class="oficina-mini o5">
+        <h4><span class="chip chip-128">128</span> T7 · Sexta · Contação de Histórias + Hackathon Guardiões da Terra</h4>
+        <div class="lbl">Formato MinC</div>
+        <div class="content"><strong>Contação de Histórias (formato obrigatório)</strong> na abertura.</div>
+        <div class="lbl">Duração</div>
+        <div class="content">Manhã inteira (aproximadamente 4h com convidados externos).</div>
+        <div class="lbl">O que acontece</div>
+        <div class="content">Contação de história de 30 min pelo instrutor storytelling (formato MinC oficial). Pitches de 3 min por grupo (~9 grupos apresentando). Banca externa (extensionista, prefeitura, concessionária). Premiação Guardiões da Terra. Ativo simples (água, suco, biscoito).</div>
+        <div class="input"><strong>Momento ápice</strong> · Case editorial + engajamento comunidade + storytelling amarra tudo. Prêmio simbólico sugerido: visita à fábrica New Holland em Curitiba.</div>
+      </div>
+    </section>
+
+    <section id="129">
+      <div class="section-head"><h2>5 · Metodologia 129 · Agrofuturo nas Escolas</h2><span class="chip chip-129">129</span></div>
+      <p>Grade completa. Adaptações principais em relação ao 128: 360 alunos por cidade, foco em agro 4.0, sem Contação como formato MinC. Detalhamento em <code>brief/metodologia.md</code>.</p>
+
+      <div class="oficina-mini o1">
+        <h4><span class="chip chip-129">129</span> T1+T2 · Segunda · Atlas visual do agro + Maquete de lavoura (drone)</h4>
+        <div class="lbl">Formato MinC</div>
+        <div class="content">Livre + Livre.</div>
+        <div class="lbl">Duração</div>
+        <div class="content">120 min por bloco de 120 alunos (T1 75 min + T2 45 min).</div>
+        <div class="lbl">O que acontece</div>
+        <div class="content">6 subgrupos de 20. T1 · colagem gigante em papel kraft 3m, atlas visual do agro local. T2 · maquete de lavoura com sensores de papel. Se a concessionária tiver drone com piloto ANAC, demonstração real ao vivo. Se não, palestra + vídeos.</div>
+        <div class="input"><strong>Input pro Hackathon</strong> · Perspectiva tecnológica e cadeia produtiva. Desafio AgroFuturo é apresentado pelo instrutor storytelling.</div>
+      </div>
+
+      <div class="oficina-mini o2">
+        <h4><span class="chip chip-129">129</span> T3+T4 · Terça · Fotografia + Maquete de usina etanol (paralelo)</h4>
+        <div class="lbl">Formato MinC</div>
+        <div class="content"><strong>Fotografia (T3 · obrigatório)</strong> + Livre (T4).</div>
+        <div class="lbl">Duração</div>
+        <div class="content">100 min por bloco. Subgrupos rodam entre 2 salas.</div>
+        <div class="lbl">O que acontece</div>
+        <div class="content">Bloco dividido: metade em sala escura para light painting, metade em sala clara construindo maquete de usina de etanol Case IH. Metade do tempo depois trocam. Fotografia macro da maquete pronta.</div>
+        <div class="input"><strong>Input pro Hackathon</strong> · Perspectivas visual (comunicação) e energética (circularidade).</div>
+      </div>
+
+      <div class="oficina-mini o3">
+        <h4><span class="chip chip-129">129</span> T5 · Quarta · Jogo Agro vs Clima + Mini-documentário</h4>
+        <div class="lbl">Formato MinC</div>
+        <div class="content">Livre.</div>
+        <div class="lbl">Duração</div>
+        <div class="content">100 min por bloco (60 min jogo + 40 min documentário).</div>
+        <div class="lbl">O que acontece</div>
+        <div class="content">Jogo de cartas Agro vs Clima (eventos climáticos vs respostas agrícolas). Depois cada grupo grava 3 min de mini-documentário falado sobre como o clima mudou o campo da cidade. Compilação em "programa de rádio" coletivo.</div>
+        <div class="input"><strong>Input pro Hackathon</strong> · Perspectiva climática com dado + vozes da comunidade.</div>
+      </div>
+
+      <div class="oficina-mini o4">
+        <h4><span class="chip chip-129">129</span> T6 · Quinta · Painel "Quem cuida do campo" + prep Desafio</h4>
+        <div class="lbl">Formato MinC</div>
+        <div class="content"><strong>Artes Plásticas (obrigatório)</strong>.</div>
+        <div class="lbl">Duração</div>
+        <div class="content">150 min por bloco (75 min T6 + 75 min prep).</div>
+        <div class="lbl">O que acontece</div>
+        <div class="content">Painel kraft 3m. Cada aluno pinta um "ator" (agricultora, técnico, criança, rio, árvore, inseto polinizador, chuva, sol). Recorta e cola no painel coletivo (legado permanente). Depois: consolidação do Lean Canvas + cartaz/protótipo + ensaio do pitch.</div>
+        <div class="input"><strong>Input pro Hackathon</strong> · Perspectiva cidadã. Quem é o guardião do campo na minha solução?</div>
+      </div>
+
+      <div class="oficina-mini o5">
+        <h4><span class="chip chip-129">129</span> T7 · Sexta · Desafio AgroFuturo</h4>
+        <div class="lbl">Formato MinC</div>
+        <div class="content">Livre.</div>
+        <div class="lbl">Duração</div>
+        <div class="content">Manhã inteira.</div>
+        <div class="lbl">O que acontece</div>
+        <div class="content">Introdução curta do desafio pelo instrutor storytelling (não é contação longa). Pitches de 3 min + Lean Canvas + cartaz/protótipo (~18 grupos apresentando). Banca externa (extensionista, empreendedor local, técnico Case IH). Premiação AgroFuturo.</div>
+        <div class="input"><strong>Momento ápice</strong> · Prêmio sugerido: visita à Fazenda Conectada da Agritex em Água Boa.</div>
+      </div>
+    </section>
+
+    <section id="hackathon">
+      <div class="section-head"><h2>6 · Mecânica dos Hackathons</h2><span class="chip chip-ambos">AMBOS</span></div>
+      <p>Ambos seguem a mesma lógica de amadurecimento em 5 dias. Diferenças de formato MinC e temática:</p>
+      <div class="grid-2">
+        <div class="card">
+          <h4><span class="chip chip-128">128</span> Hackathon Guardiões da Terra</h4>
+          <p><strong>Tema:</strong> soluções para o campo com foco em sustentabilidade agro e cidadania.</p>
+          <p><strong>Formato MinC:</strong> Contação de Histórias (o instrutor storytelling faz a contação de 30 min como produto MinC).</p>
+          <p><strong>Grupos:</strong> ~9 grupos (3 por bloco).</p>
+          <p><strong>Prêmio simbólico:</strong> visita à fábrica New Holland em Curitiba (grupo vencedor de cada cidade).</p>
+        </div>
+        <div class="card">
+          <h4><span class="chip chip-129">129</span> Desafio AgroFuturo</h4>
+          <p><strong>Tema:</strong> soluções de agro 4.0, inovação e tecnologia com impacto.</p>
+          <p><strong>Formato MinC:</strong> Livre (pitch + protótipo como produto cultural).</p>
+          <p><strong>Grupos:</strong> ~18 grupos (6 por bloco).</p>
+          <p><strong>Prêmio simbólico:</strong> visita à Fazenda Conectada da Agritex em Água Boa.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="critica">
+      <div class="section-head"><h2>7 · Análise crítica (Passe 2) e correções (Passe 3)</h2></div>
+      <p>A metodologia passou por 3 passes: construção, análise crítica (identificação de 17 pontos de atenção no 128 e 17 no 129), revisão final incorporando correções. Principais pontos endereçados:</p>
+
+      <div class="card warning">
+        <strong>Coerência do encadeamento</strong>
+        <ul>
+          <li>Grupos permanecem os mesmos por 5 dias (condição de execução com a escola).</li>
+          <li>Cada oficina termina com 10 min de "conexão com o Desafio" (post-its no mural).</li>
+          <li>Papel do instrutor storytelling explicitado em cada oficina.</li>
+        </ul>
+      </div>
+
+      <div class="card warning">
+        <strong>Escala e público</strong>
+        <ul>
+          <li>Cada bloco subdividido em subgrupos de 20 durante a atividade (não trabalhar com 80 ou 120 simultâneos na dinâmica).</li>
+          <li>129 recomenda 3 apoios locais por cidade (vs 2 no 128) pelo volume maior.</li>
+        </ul>
+      </div>
+
+      <div class="card warning">
+        <strong>Riscos operacionais</strong>
+        <ul>
+          <li>Gelo seco (T1 128): apenas apoios locais manipulam com luva. Alunos a mais de 1 metro.</li>
+          <li>Chama controlada (T6 128): instrutor técnico com extintor por perto. Alunos a mais de 2 metros.</li>
+          <li>Cola quente (T4 129): apenas instrutor ou apoio manipula.</li>
+          <li>Drone real (T2 129): área externa segura, piloto ANAC responsável.</li>
+          <li>Sala escura (T3 129): ventilador portátil obrigatório em Cuiabá.</li>
+          <li>Hackathon sempre em ambiente coberto (auditório, quadra coberta, biblioteca).</li>
+        </ul>
+      </div>
+
+      <div class="card warning">
+        <strong>Gestão de tempo</strong>
+        <ul>
+          <li>Segunda: 100 min por bloco (75 T1 + 45 T2, com margem de 10 min).</li>
+          <li>Terça: 150 min (90 T3 + 60 T4) no 128; 100 min (paralelo) no 129.</li>
+          <li>Quinta: 150 min (75 T6 + 75 prep Hackathon).</li>
+          <li>Sexta: manhã inteira com evento aberto (4h).</li>
+        </ul>
+      </div>
+
+      <div class="card success">
+        <strong>Comprovação MinC por oficina · sistematizada</strong>
+        <ol>
+          <li>Lista de presença assinada pela professora responsável</li>
+          <li>Fotos de execução com autorização de imagem</li>
+          <li>Produto físico ou registro fotográfico</li>
+          <li>Ficha de avaliação preenchida pelo professor</li>
+          <li>Ata do dia assinada pelo produtor e direção</li>
+        </ol>
+      </div>
+
+      <div class="card success">
+        <strong>Continuidade após o projeto · legado</strong>
+        <ul>
+          <li>128: terrários, painel do mapa sensorial, mapas climáticos, miniusina, fotografias, certificados, plataforma New Holland Online.</li>
+          <li>129: atlas visual do agro, maquete de lavoura, maquete de usina etanol, cartas do jogo, painel "Quem cuida do campo", fotografias, certificados, plataforma AgroFuturo Digital.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="pendencias">
+      <div class="section-head"><h2>8 · Pendências de validação</h2></div>
+      <div class="card critical">
+        <strong>Bloqueios pendentes de validação com a Mayara (MinC · NTICS):</strong>
+        <ul>
+          <li>128: reconciliação T1 + T2 no mesmo dia como duas oficinas distintas de 3h cada.</li>
+          <li>128: T7 como Contação de Histórias (a contação de 30 min na abertura do Hackathon conta como o produto MinC do dia).</li>
+          <li>128: cronograma total de oficinas culturais vs o PRONAC 259965 (que originalmente previa 30 oficinas culturais por cidade).</li>
+          <li>129: formato MinC do Desafio AgroFuturo (T7 Livre). Como o pitch + protótipo conta no PRONAC?</li>
+          <li>129: reconciliação de formatos T3 (Fotografia) e T6 (Artes Plásticas) com clareza no relatório.</li>
+          <li>129: contagem total de oficinas culturais no 129 vs o que foi aprovado no PRONAC.</li>
+        </ul>
+      </div>
+
+      <div class="card info">
+        <strong>Bloqueios pendentes de validação com a CNH (Raquel):</strong>
+        <ul>
+          <li>Prêmio simbólico dos Hackathons: visita à fábrica New Holland (128) e à Fazenda Conectada da Agritex (129).</li>
+          <li>Presença de drone real na T2 do 129: depende das concessionárias Max Case, Agritex, CD Cuiabá terem drone com piloto ANAC.</li>
+        </ul>
+      </div>
+
+      <div class="card info">
+        <strong>Bloqueios pendentes de validação com a escola (no engajamento):</strong>
+        <ul>
+          <li>Compromisso de manter os alunos nos mesmos blocos por 5 dias consecutivos.</li>
+          <li>Disponibilidade de parede de 3m para exposição de material permanente.</li>
+          <li>Disponibilidade de 2 salas simultâneas na terça do 129 (uma escura, uma clara).</li>
+          <li>Local coberto para o Hackathon na sexta (auditório, quadra coberta, biblioteca).</li>
+          <li>Compromisso do professor de ciências em acompanhar o legado (terrário, miniusina) após o projeto.</li>
+          <li>Acesso local a gelo seco (T1 128) e materiais frescos (T4 128 e 129).</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="page-foot">
+      <span>Metodologia consolidada · CNH 128 + 129 · versão 1.0 · para validação com Ana + Abílio + Mayara + CNH</span>
+      <span>Atualizado em 18/06/2026 · fonte canônica em brief/metodologia.md de cada projeto</span>
+    </footer>
+
+  </div>
+</body>
+</html>
