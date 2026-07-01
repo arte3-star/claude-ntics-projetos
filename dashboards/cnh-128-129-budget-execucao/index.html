@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Budget execução oficinas · CNH 128 + 129 · versão Premium</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
+    background: #f5f6f7;
+    color: #1a1a1a;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1240px; margin: 0 auto; padding: 48px 24px 96px; }
+  header {
+    background: #0e2235;
+    color: #fff;
+    padding: 32px 40px;
+    border-radius: 6px;
+    margin-bottom: 32px;
+    border-left: 6px solid #f5b400;
+  }
+  header .eyebrow { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: #f5b400; font-weight: 600; margin-bottom: 8px; }
+  header h1 { font-size: 1.875rem; line-height: 1.2; font-weight: 700; margin-bottom: 6px; }
+  header .sub { font-size: 0.9375rem; color: rgba(255,255,255,0.75); font-weight: 400; margin-bottom: 16px; }
+  header .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  header .kpi { padding: 10px 12px; background: rgba(255,255,255,0.05); border-radius: 4px; }
+  header .kpi .v { font-size: 1.25rem; font-weight: 700; color: #f5b400; }
+  header .kpi .l { font-size: 0.6875rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+  .chip { display: inline-block; font-size: 0.6875rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.04em; margin-right: 6px; }
+  .chip-128 { background: #d0ebff; color: #0b4f8c; }
+  .chip-129 { background: #ffd6d6; color: #a02020; }
+  .chip-ambos { background: #fff3bf; color: #846100; }
+  .chip-premium { background: #d3f9d8; color: #2b8a3e; }
+  section { margin-bottom: 40px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #1a1a1a;
+  }
+  .section-head h2 { font-size: 1.25rem; font-weight: 700; color: #0e2235; }
+  .section-head .count { font-size: 0.75rem; color: #6b7280; font-weight: 600; background: #e5e7eb; padding: 2px 8px; border-radius: 10px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.04); font-size: 0.875rem; }
+  th { background: #0e2235; color: #fff; padding: 12px 14px; text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+  td { padding: 10px 14px; border-top: 1px solid #e5e7eb; vertical-align: top; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.high { font-weight: 700; color: #0e2235; }
+  tr.total { background: #f8f9fa; }
+  tr.total td { font-weight: 700; border-top: 2px solid #0e2235; }
+  tr.subtotal { background: #fafafa; }
+  tr.subtotal td { font-weight: 600; }
+  .alert {
+    background: #fff8e1;
+    border: 1px solid #f5b400;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    font-size: 0.875rem;
+  }
+  .alert strong { color: #0e2235; }
+  .cards-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .cards-row.two { grid-template-columns: 1fr 1fr; }
+  .card {
+    background: #fff;
+    border-radius: 6px;
+    padding: 20px 22px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    border-left: 4px solid #d1d5db;
+  }
+  .card.nh { border-left-color: #003DA5; }
+  .card.case { border-left-color: #C8102E; }
+  .card.mix { border-left-color: #f5b400; }
+  .card h3 { font-size: 1rem; font-weight: 700; color: #0e2235; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .card .role { font-size: 0.75rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-bottom: 4px; }
+  .card .price { font-size: 1.5rem; font-weight: 700; color: #0e2235; }
+  .card .price .unit { font-size: 0.75rem; color: #6b7280; font-weight: 500; }
+  .card .desc { font-size: 0.8125rem; color: #4b5563; margin-top: 8px; line-height: 1.5; }
+  .card ul { list-style: none; padding: 0; margin-top: 8px; font-size: 0.8125rem; color: #374151; }
+  .card ul li { padding: 3px 0; }
+  .card ul li::before { content: "▸ "; color: #6b7280; font-weight: 700; }
+  .highlight-box {
+    background: #f8f9fa;
+    border-left: 4px solid #f5b400;
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.875rem;
+  }
+  .highlight-box strong { color: #0e2235; }
+  .grand-total {
+    background: linear-gradient(135deg, #0e2235 0%, #1a3a5c 100%);
+    color: #fff;
+    padding: 32px 40px;
+    border-radius: 6px;
+    margin: 32px 0;
+  }
+  .grand-total .lbl { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: #f5b400; font-weight: 600; margin-bottom: 8px; }
+  .grand-total .v { font-size: 2.5rem; font-weight: 700; color: #fff; line-height: 1; }
+  .grand-total .split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.15); }
+  .grand-total .split .b { padding: 14px 18px; background: rgba(255,255,255,0.05); border-radius: 4px; }
+  .grand-total .split .b .lbl2 { font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.7); margin-bottom: 4px; }
+  .grand-total .split .b .v2 { font-size: 1.5rem; font-weight: 700; color: #fff; }
+  .theme-map {
+    background: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .theme-map table td { padding: 8px 12px; }
+  .theme-map th { background: transparent; color: #1a1a1a; border-bottom: 2px solid #0e2235; text-transform: uppercase; font-size: 0.6875rem; }
+  .instrutor-tag { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .instrutor-tag.artistico { background: #f3d9fa; color: #6741d9; }
+  .instrutor-tag.tecnico { background: #c3fae8; color: #087f5b; }
+  .instrutor-tag.storytelling { background: #ffe066; color: #856404; }
+  footer.page-foot {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid #d1d5db;
+    font-size: 0.75rem;
+    color: #6b7280;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  @media print {
+    body { background: #fff; }
+    header, .grand-total { background: #fff; color: #0e2235; border: 2px solid #0e2235; }
+    section { break-inside: avoid-page; }
+  }
+  @media (max-width: 720px) {
+    .cards-row, .cards-row.two { grid-template-columns: 1fr; }
+    .grand-total .split { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.375rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <div class="eyebrow">Budget de execução das oficinas · versão Premium</div>
+      <h1>Precificação por cidade · modelo semana única</h1>
+      <div class="sub">Considera 1 produtor + 3 instrutores itinerantes + 2 apoios locais · deslocamento entre cidades a partir das capitais próximas (Curitiba p/ 128, Cuiabá p/ 129) · atividades Premium do benchmark</div>
+      <div class="kpi-row">
+        <div class="kpi"><div class="v">R$ 178 k</div><div class="l">Execução 128 (4 cidades)</div></div>
+        <div class="kpi"><div class="v">R$ 152 k</div><div class="l">Execução 129 (3 cidades)</div></div>
+        <div class="kpi"><div class="v">R$ 331 k</div><div class="l">Total geral oficinas</div></div>
+        <div class="kpi"><div class="v">7</div><div class="l">Cidades no total</div></div>
+        <div class="kpi"><div class="v">6</div><div class="l">Pessoas em campo</div></div>
+        <div class="kpi"><div class="v">5</div><div class="l">Dias por cidade</div></div>
+      </div>
+    </header>
+
+    <div class="alert">
+      <strong>Escopo:</strong> este budget cobre exclusivamente a execução das oficinas nas escolas (7 oficinas × N cidades). O evento final (Festival + DOMO em Curitiba / Feira no Shopping Pantanal em Cuiabá), plataforma digital, comunicação, KV e assessoria estão fora desta soma. Valores estimados com margem premium para negociação real.
+    </div>
+
+    <section>
+      <div class="section-head"><h2>Distribuição dos 7 temas entre 3 instrutores</h2><span class="count">2-3 oficinas por instrutor</span></div>
+      <p style="font-size:0.875rem;color:#4b5563;margin-bottom:16px;">Os 3 instrutores itinerantes acompanham a equipe pelas 5 dias, cada um responsável por 2 a 3 temas alinhados à sua especialidade. Isso reduz cachê (menos profissionais) e mantém qualidade (cada um domina seu bloco).</p>
+      <div class="theme-map">
+        <table>
+          <thead>
+            <tr><th>Perfil</th><th>Temas · 128 (New Holland)</th><th>Temas · 129 (Case IH)</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="instrutor-tag artistico">Artístico</span><br><small>fotógrafo/artesão</small></td>
+              <td>T1 Terra e Semente (eco-print) · T2 Ciclo da Água (cianotipia/light painting)</td>
+              <td>T3 Água (fotografia) · T6 Cidadania (mural azulejo)</td>
+            </tr>
+            <tr>
+              <td><span class="instrutor-tag tecnico">Técnico</span><br><small>biólogo/engenheiro</small></td>
+              <td>T5 Clima e Campo · T6 Ciclo do Metano (biodigestor)</td>
+              <td>T2 Tecnologia (drone + programação) · T4 Energia (fermentação etanol) · T5 Agro e Clima</td>
+            </tr>
+            <tr>
+              <td><span class="instrutor-tag storytelling">Storytelling</span><br><small>contador/mentor</small></td>
+              <td>T3 Alimentos · T4 Nova Agricultura · T7 Cidadania + Hackathon</td>
+              <td>T1 Do Campo à Mesa · T7 Desafio AgroFuturo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="highlight-box">
+        <strong>Vantagem:</strong> cada instrutor entra na cidade com 2 a 3 oficinas dominadas + kit próprio. Reduz custo de cachê (3 profissionais em vez de 7) sem perder qualidade Premium.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Equipe · cachês semanais</h2></div>
+      <div class="cards-row">
+        <div class="card mix">
+          <div class="role">Produção</div>
+          <h3>Produtor sênior itinerante</h3>
+          <div class="price">R$ 6.000 <span class="unit">/ semana</span></div>
+          <div class="desc">Coordena escola, imprensa, logística. 5 dias em campo + 1 dia prep. Acompanha as 7 cidades do total (não é substituível entre projetos).</div>
+        </div>
+        <div class="card mix">
+          <div class="role">Instrutor Premium</div>
+          <h3>Artístico (fotógrafo/artesão)</h3>
+          <div class="price">R$ 5.000 <span class="unit">/ semana</span></div>
+          <div class="desc">Profissional com portfólio, opera equipamento próprio (câmera/tripé, kit eco-print). Cachê topo de mercado para interior.</div>
+        </div>
+        <div class="card mix">
+          <div class="role">Instrutor Premium</div>
+          <h3>Técnico (biólogo/engenheiro)</h3>
+          <div class="price">R$ 4.500 <span class="unit">/ semana</span></div>
+          <div class="desc">Domina experimentos (biodigestor, fermentação, drone). Se puder operar drone com licença ANAC, aumenta valor.</div>
+        </div>
+        <div class="card mix">
+          <div class="role">Instrutor Premium</div>
+          <h3>Storytelling (contador/mentor)</h3>
+          <div class="price">R$ 4.500 <span class="unit">/ semana</span></div>
+          <div class="desc">Conduz contação de histórias, hackathon com Lean Canvas, dinâmicas de mercado simulado. Perfil de educador social.</div>
+        </div>
+        <div class="card mix">
+          <div class="role">Apoio local</div>
+          <h3>Apoio 1 + 2</h3>
+          <div class="price">R$ 1.200 <span class="unit">/ semana cada</span></div>
+          <div class="desc">Contratação local por cidade: jovens/universitários, contato com concessionária ou secretaria. Cuidam de materiais e presenças.</div>
+        </div>
+        <div class="card mix">
+          <div class="role">Total cachê/cidade</div>
+          <h3>Equipe consolidada</h3>
+          <div class="price">R$ 23.400 <span class="unit">/ semana</span></div>
+          <div class="desc">1 produtor (6.000) + 3 instrutores (5.000 + 4.500 + 4.500) + 2 apoios locais (2.400). Ida-volta de instrutores inclusa no cachê.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Deslocamento por cidade · Projeto 128 (base Curitiba)</h2></div>
+      <table>
+        <thead>
+          <tr><th>Cidade</th><th>Modal</th><th>Distância / rota</th><th class="num">Passagens/aluguel</th><th class="num">Material</th><th class="num">Total</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="high"><span class="chip chip-128">128</span> Dom Pedrito/RS</td>
+            <td>Avião + van</td>
+            <td>CWB → POA/BGE (voo) + van POA-Dom Pedrito (~480 km)</td>
+            <td class="num">R$ 6.500</td>
+            <td class="num">R$ 2.500</td>
+            <td class="num high">R$ 9.000</td>
+          </tr>
+          <tr>
+            <td class="high"><span class="chip chip-128">128</span> Toledo/PR</td>
+            <td>Van + carretinha</td>
+            <td>CWB → Toledo (630 km, ~7h)</td>
+            <td class="num">R$ 3.000</td>
+            <td class="num">R$ 1.000</td>
+            <td class="num high">R$ 4.000</td>
+          </tr>
+          <tr>
+            <td class="high"><span class="chip chip-128">128</span> Guarapuava/PR</td>
+            <td>Van + carretinha</td>
+            <td>CWB → Guarapuava (250 km, ~3h)</td>
+            <td class="num">R$ 2.275</td>
+            <td class="num">R$ 1.000</td>
+            <td class="num high">R$ 3.275</td>
+          </tr>
+          <tr>
+            <td class="high"><span class="chip chip-128">128</span> Curitiba/PR</td>
+            <td>Local (base)</td>
+            <td>—</td>
+            <td class="num">R$ 500</td>
+            <td class="num">R$ 500</td>
+            <td class="num high">R$ 1.000</td>
+          </tr>
+          <tr class="total"><td colspan="5">Subtotal deslocamento 128</td><td class="num">R$ 17.275</td></tr>
+        </tbody>
+      </table>
+      <div class="highlight-box">
+        <strong>Dom Pedrito exige avião:</strong> 4 passagens (produtor + 3 instrutores) CWB-POA + van POA-Dom Pedrito, mais transportadora dedicada para o material. Único ponto do 128 sem opção de carretinha. Apoios locais são contratados em Dom Pedrito e não precisam viajar.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Deslocamento por cidade · Projeto 129 (base Cuiabá)</h2></div>
+      <table>
+        <thead>
+          <tr><th>Cidade</th><th>Modal</th><th>Distância / rota</th><th class="num">Passagens/aluguel</th><th class="num">Material</th><th class="num">Total</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="high"><span class="chip chip-129">129</span> Tangará da Serra/MT</td>
+            <td>Van + carretinha</td>
+            <td>Cuiabá → Tangará (240 km, ~4h)</td>
+            <td class="num">R$ 2.500</td>
+            <td class="num">R$ 1.000</td>
+            <td class="num high">R$ 3.500</td>
+          </tr>
+          <tr>
+            <td class="high"><span class="chip chip-129">129</span> Água Boa/MT</td>
+            <td>Avião + van</td>
+            <td>Cuiabá → Água Boa (720 km · voo regional Azul/Gol)</td>
+            <td class="num">R$ 7.500</td>
+            <td class="num">R$ 2.500</td>
+            <td class="num high">R$ 10.000</td>
+          </tr>
+          <tr>
+            <td class="high"><span class="chip chip-129">129</span> Cuiabá/MT</td>
+            <td>Local (base)</td>
+            <td>—</td>
+            <td class="num">R$ 500</td>
+            <td class="num">R$ 500</td>
+            <td class="num high">R$ 1.000</td>
+          </tr>
+          <tr class="total"><td colspan="5">Subtotal deslocamento 129</td><td class="num">R$ 14.500</td></tr>
+        </tbody>
+      </table>
+      <div class="highlight-box">
+        <strong>Água Boa exige voo:</strong> 720 km de Cuiabá, 9h de estrada — inviável fazer semanal de van. Voos regionais Azul e Gol operam com frequência. Material vai por transportadora dedicada. Se voo estiver caro na janela, alternativa é 2 dias de van a mais no cronograma (mas não cabe no modelo semana única).
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Material Premium por cidade</h2><span class="count">240 alunos (128) · 360 alunos (129)</span></div>
+      <p style="font-size:0.875rem;color:#4b5563;margin-bottom:16px;">Valores por cidade considerando opção Premium do benchmark para cada tema, escalado para o volume real de alunos. Kit inicial reusável entra só uma vez por projeto.</p>
+      <div class="cards-row two">
+
+        <div class="card nh">
+          <h3><span class="chip chip-128">128</span> Material por cidade (240 alunos)</h3>
+          <table style="font-size:0.8125rem;box-shadow:none;margin-top:8px;">
+            <tbody>
+              <tr><td>T1 Terra e Semente (eco-print)</td><td class="num">R$ 3.600</td></tr>
+              <tr><td>T2 Ciclo da Água (cianotipia)</td><td class="num">R$ 2.400</td></tr>
+              <tr><td>T3 Alimentos (mercado gastronômico)</td><td class="num">R$ 1.920</td></tr>
+              <tr><td>T4 Nova Agricultura (culinária)</td><td class="num">R$ 1.680</td></tr>
+              <tr><td>T5 Clima (cartografia)</td><td class="num">R$ 720</td></tr>
+              <tr><td>T6 Ciclo do Metano (biodigestor)</td><td class="num">R$ 1.200</td></tr>
+              <tr><td>T7 Cidadania + Hackathon</td><td class="num">R$ 480</td></tr>
+              <tr class="total"><td>Subtotal por cidade</td><td class="num">R$ 12.000</td></tr>
+              <tr class="subtotal"><td>× 4 cidades</td><td class="num">R$ 48.000</td></tr>
+              <tr><td>Kit inicial reusável (1 vez)</td><td class="num">R$ 6.000</td></tr>
+              <tr class="total"><td>Total material 128</td><td class="num">R$ 54.000</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card case">
+          <h3><span class="chip chip-129">129</span> Material por cidade (360 alunos)</h3>
+          <table style="font-size:0.8125rem;box-shadow:none;margin-top:8px;">
+            <tbody>
+              <tr><td>T1 Do Campo à Mesa</td><td class="num">R$ 1.800</td></tr>
+              <tr><td>T2 Tecnologia (drone + prog.)</td><td class="num">R$ 3.600</td></tr>
+              <tr><td>T3 Água (cianotipia)</td><td class="num">R$ 3.600</td></tr>
+              <tr><td>T4 Energia (fermentação etanol)</td><td class="num">R$ 2.160</td></tr>
+              <tr><td>T5 Agro e Clima</td><td class="num">R$ 720</td></tr>
+              <tr><td>T6 Cidadania (mural azulejo)</td><td class="num">R$ 3.000</td></tr>
+              <tr><td>T7 Desafio AgroFuturo</td><td class="num">R$ 720</td></tr>
+              <tr class="total"><td>Subtotal por cidade</td><td class="num">R$ 15.600</td></tr>
+              <tr class="subtotal"><td>× 3 cidades</td><td class="num">R$ 46.800</td></tr>
+              <tr><td>Kit inicial reusável (1 vez)</td><td class="num">R$ 8.000</td></tr>
+              <tr class="total"><td>Total material 129</td><td class="num">R$ 54.800</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      <div class="highlight-box">
+        <strong>Compra local vs deslocamento:</strong> materiais frescos (feira, verdura, argila, palha) sempre compra local — economiza flete e valoriza o produtor da cidade. Kit reusável (cards plastificados, moldes, moldura de papelão pronta) vai na carretinha entre cidades. Cianotipia e drones podem exigir compra em capital antes.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Hotel + alimentação · por cidade</h2></div>
+      <table>
+        <thead>
+          <tr><th>Cidade</th><th class="num">Hotel (5 noites)</th><th class="num">Alimentação (5 dias)</th><th class="num">Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="chip chip-128">128</span> Dom Pedrito · Toledo · Guarapuava</td><td class="num">R$ 2.800</td><td class="num">R$ 2.200</td><td class="num high">R$ 5.000/cidade</td></tr>
+          <tr><td><span class="chip chip-128">128</span> Curitiba (base · sem hotel)</td><td class="num">R$ 0</td><td class="num">R$ 2.000</td><td class="num high">R$ 2.000</td></tr>
+          <tr><td><span class="chip chip-129">129</span> Tangará · Água Boa</td><td class="num">R$ 2.800</td><td class="num">R$ 2.200</td><td class="num high">R$ 5.000/cidade</td></tr>
+          <tr><td><span class="chip chip-129">129</span> Cuiabá (base · sem hotel)</td><td class="num">R$ 0</td><td class="num">R$ 2.000</td><td class="num high">R$ 2.000</td></tr>
+          <tr class="subtotal"><td colspan="3">Subtotal 128 (3 cidades fora + Curitiba)</td><td class="num">R$ 17.000</td></tr>
+          <tr class="subtotal"><td colspan="3">Subtotal 129 (2 cidades fora + Cuiabá)</td><td class="num">R$ 12.000</td></tr>
+        </tbody>
+      </table>
+      <div class="highlight-box">
+        <strong>Base:</strong> assume que os 3 instrutores + produtor têm residência ou família em Curitiba (128) e Cuiabá (129). Os 2 apoios locais são sempre da cidade da execução (não geram diária). Cachê de café da manhã incluso em hotel.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Consolidação por cidade · Projeto 128</h2></div>
+      <table>
+        <thead>
+          <tr><th>Cidade</th><th class="num">Cachês</th><th class="num">Desloc.</th><th class="num">Material</th><th class="num">Hotel + aliment.</th><th class="num">Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="high">Dom Pedrito/RS</td><td class="num">R$ 23.400</td><td class="num">R$ 9.000</td><td class="num">R$ 12.000</td><td class="num">R$ 5.000</td><td class="num high">R$ 49.400</td></tr>
+          <tr><td class="high">Toledo/PR</td><td class="num">R$ 23.400</td><td class="num">R$ 4.000</td><td class="num">R$ 12.000</td><td class="num">R$ 5.000</td><td class="num high">R$ 44.400</td></tr>
+          <tr><td class="high">Guarapuava/PR</td><td class="num">R$ 23.400</td><td class="num">R$ 3.275</td><td class="num">R$ 12.000</td><td class="num">R$ 5.000</td><td class="num high">R$ 43.675</td></tr>
+          <tr><td class="high">Curitiba/PR</td><td class="num">R$ 23.400</td><td class="num">R$ 1.000</td><td class="num">R$ 12.000</td><td class="num">R$ 2.000</td><td class="num high">R$ 38.400</td></tr>
+          <tr class="subtotal"><td>Kit inicial (1×)</td><td class="num">—</td><td class="num">—</td><td class="num">R$ 6.000</td><td class="num">—</td><td class="num">R$ 6.000</td></tr>
+          <tr class="subtotal"><td>Preparação (2 sem prep + treinamento equipe)</td><td colspan="4" class="num">—</td><td class="num">R$ 15.000</td></tr>
+          <tr class="subtotal"><td>Contingência 10%</td><td colspan="4" class="num">—</td><td class="num">R$ 20.000</td></tr>
+          <tr class="total"><td colspan="5"><strong>TOTAL execução oficinas 128 (4 cidades)</strong></td><td class="num"><strong>R$ 216.875</strong></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Consolidação por cidade · Projeto 129</h2></div>
+      <table>
+        <thead>
+          <tr><th>Cidade</th><th class="num">Cachês</th><th class="num">Desloc.</th><th class="num">Material</th><th class="num">Hotel + aliment.</th><th class="num">Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="high">Tangará da Serra/MT</td><td class="num">R$ 23.400</td><td class="num">R$ 3.500</td><td class="num">R$ 15.600</td><td class="num">R$ 5.000</td><td class="num high">R$ 47.500</td></tr>
+          <tr><td class="high">Água Boa/MT</td><td class="num">R$ 23.400</td><td class="num">R$ 10.000</td><td class="num">R$ 15.600</td><td class="num">R$ 5.000</td><td class="num high">R$ 54.000</td></tr>
+          <tr><td class="high">Cuiabá/MT</td><td class="num">R$ 23.400</td><td class="num">R$ 1.000</td><td class="num">R$ 15.600</td><td class="num">R$ 2.000</td><td class="num high">R$ 42.000</td></tr>
+          <tr class="subtotal"><td>Kit inicial (1×)</td><td class="num">—</td><td class="num">—</td><td class="num">R$ 8.000</td><td class="num">—</td><td class="num">R$ 8.000</td></tr>
+          <tr class="subtotal"><td>Preparação (2 sem prep + treinamento equipe)</td><td colspan="4" class="num">—</td><td class="num">R$ 12.000</td></tr>
+          <tr class="subtotal"><td>Contingência 10%</td><td colspan="4" class="num">—</td><td class="num">R$ 16.400</td></tr>
+          <tr class="total"><td colspan="5"><strong>TOTAL execução oficinas 129 (3 cidades)</strong></td><td class="num"><strong>R$ 179.900</strong></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <div class="grand-total">
+        <div class="lbl">Total geral · execução das oficinas nos 2 projetos</div>
+        <div class="v">R$ 396.775</div>
+        <div class="split">
+          <div class="b">
+            <div class="lbl2">Projeto 128 · 4 cidades</div>
+            <div class="v2">R$ 216.875</div>
+          </div>
+          <div class="b">
+            <div class="lbl2">Projeto 129 · 3 cidades</div>
+            <div class="v2">R$ 179.900</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Comparativo com verba aprovada · Projeto 128</h2></div>
+      <table>
+        <thead>
+          <tr><th>Linha</th><th class="num">Valor</th><th class="num">% verba</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="high">Verba aprovada 128</td><td class="num">R$ 600.000</td><td class="num">100%</td></tr>
+          <tr><td>(-) Execução oficinas nas 4 cidades</td><td class="num">R$ 216.875</td><td class="num">36%</td></tr>
+          <tr><td>(-) DOMO + Festival Curitiba (estimado)</td><td class="num">R$ 100.000</td><td class="num">17%</td></tr>
+          <tr><td>(-) Plataforma digital New Holland Online</td><td class="num">R$ 60.000</td><td class="num">10%</td></tr>
+          <tr><td>(-) KV + peças + carrossel + vídeos</td><td class="num">R$ 45.000</td><td class="num">8%</td></tr>
+          <tr><td>(-) Assessoria imprensa + release + clipping</td><td class="num">R$ 30.000</td><td class="num">5%</td></tr>
+          <tr><td>(-) Relatório ESG + prestação MinC + fechamento</td><td class="num">R$ 25.000</td><td class="num">4%</td></tr>
+          <tr><td>(-) Coordenação NTICS + gestão de projeto</td><td class="num">R$ 60.000</td><td class="num">10%</td></tr>
+          <tr class="total"><td>Total previsto</td><td class="num">R$ 536.875</td><td class="num">89%</td></tr>
+          <tr class="subtotal"><td>Margem/reserva</td><td class="num">R$ 63.125</td><td class="num">11%</td></tr>
+        </tbody>
+      </table>
+      <div class="highlight-box">
+        <strong>Sobra 11% de margem</strong> para negociação real de fornecedores (o budget está em preço Premium topo de mercado, cachê real de instrutor no interior costuma ser 15-20% menor). Se a Ana quiser, dá para incluir aditivos MinC ou reforçar comunicação.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Assumptions e ressalvas</h2></div>
+      <table>
+        <thead>
+          <tr><th>#</th><th>Item</th><th>Impacto</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Cachês em nível <b>Premium topo de mercado</b> (interior). Valor real de mercado pode ser 15 a 20% menor com boa negociação.</td><td>Redução potencial de R$ 25-40 k</td></tr>
+          <tr><td>2</td><td>Deslocamento aéreo Dom Pedrito e Água Boa considera <b>alta temporada</b>. Se bloquear com antecedência (60+ dias), pode cair 30%.</td><td>Redução R$ 5-8 k</td></tr>
+          <tr><td>3</td><td>Kit inicial reusável entre cidades exige transportadora dedicada. <b>Se falha logística</b>, precisa recomprar consumível em capital.</td><td>Risco: R$ 3-5 k por cidade</td></tr>
+          <tr><td>4</td><td>Alimentação estimada em <b>R$ 100/pessoa/dia</b> considerando restaurantes de cidade média. Se cidade não tem opção, sobe para R$ 130.</td><td>Aumento até R$ 3 k</td></tr>
+          <tr><td>5</td><td>Apoios locais (2 por cidade) são <b>jovens/universitários</b> contratados via concessionária ou escola parceira. Cachê R$ 1.200/semana é topo do interior; pode cair para R$ 800.</td><td>Redução R$ 6-10 k</td></tr>
+          <tr><td>6</td><td>Contingência 10% cobre alterações de rota (voo cancelado, escola trocada, feriado municipal não previsto).</td><td>Fica no bolso NTICS ou vira reforço</td></tr>
+          <tr><td>7</td><td><b>Fotógrafo profissional</b> pode não estar disponível em cidade pequena e ter que vir da capital. Cachê já contempla, mas deslocamento extra pode aparecer.</td><td>Risco R$ 1-2 k por cidade se cair</td></tr>
+          <tr><td>8</td><td>Instrutor de drone com licença ANAC é <b>escasso no interior</b>. Se não achar, T2 do 129 fica na Opção B (programação desplugada) sem impacto grande.</td><td>Zero se aceitar Opção B</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer class="page-foot">
+      <span>Budget de execução das oficinas · versão Premium · para validação com Ana + Abílio</span>
+      <span>Documento em construção · atualizado em 18/06/2026</span>
+    </footer>
+
+  </div>
+</body>
+</html>
