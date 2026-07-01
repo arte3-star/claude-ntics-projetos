@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade encadeada · Projeto 128 · Festival Agricultura Sustentável</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
+    background: #f5f6f7;
+    color: #1a1a1a;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1240px; margin: 0 auto; padding: 48px 24px 96px; }
+  header {
+    background: linear-gradient(135deg, #003DA5 0%, #001A4A 100%);
+    color: #fff;
+    padding: 36px 44px;
+    border-radius: 6px;
+    margin-bottom: 32px;
+    border-left: 6px solid #f5b400;
+  }
+  header .eyebrow { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: #f5b400; font-weight: 600; margin-bottom: 8px; }
+  header h1 { font-size: 1.875rem; line-height: 1.2; font-weight: 700; margin-bottom: 8px; }
+  header .sub { font-size: 0.9375rem; color: rgba(255,255,255,0.85); font-weight: 400; margin-bottom: 16px; }
+  header .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.15); }
+  header .kpi { padding: 10px 12px; background: rgba(255,255,255,0.08); border-radius: 4px; }
+  header .kpi .v { font-size: 1.25rem; font-weight: 700; color: #f5b400; }
+  header .kpi .l { font-size: 0.6875rem; color: rgba(255,255,255,0.75); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+  section { margin-bottom: 40px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #1a1a1a;
+  }
+  .section-head h2 { font-size: 1.25rem; font-weight: 700; color: #0e2235; }
+  .alert {
+    background: #fff8e1;
+    border: 1px solid #f5b400;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    font-size: 0.875rem;
+  }
+  .alert strong { color: #0e2235; }
+  .narrative {
+    background: #fff;
+    padding: 24px 28px;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    border-left: 4px solid #003DA5;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+  .narrative strong { color: #003DA5; }
+  .semana {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+  }
+  .dia-card {
+    background: #fff;
+    border-radius: 6px;
+    padding: 18px 18px 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    border-top: 5px solid;
+    display: flex;
+    flex-direction: column;
+    min-height: 480px;
+  }
+  .dia-card.d1 { border-top-color: #4dabf7; }
+  .dia-card.d2 { border-top-color: #63e6be; }
+  .dia-card.d3 { border-top-color: #ffd43b; }
+  .dia-card.d4 { border-top-color: #ff922b; }
+  .dia-card.d5 { border-top-color: #f5b400; background: linear-gradient(180deg, #fff8e1 0%, #fff 40%); }
+  .dia-card .day-lbl { font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #6b7280; margin-bottom: 4px; }
+  .dia-card h3 { font-size: 1rem; font-weight: 700; color: #0e2235; margin-bottom: 12px; line-height: 1.3; }
+  .dia-card .tema-tag {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-right: 4px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .tema-tag.ap { background: #f3d9fa; color: #6741d9; }
+  .tema-tag.foto { background: #c3fae8; color: #087f5b; }
+  .tema-tag.livre { background: #e9ecef; color: #495057; }
+  .tema-tag.contacao { background: #ffe066; color: #856404; }
+  .dia-card .desc { font-size: 0.8125rem; color: #374151; margin-bottom: 12px; line-height: 1.55; }
+  .dia-card .desc ul { padding-left: 16px; margin-top: 4px; }
+  .dia-card .desc ul li { padding: 2px 0; }
+  .dia-card .input-hack {
+    margin-top: auto;
+    padding: 10px 12px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    border-left: 3px solid #f5b400;
+    font-size: 0.75rem;
+    color: #4b5563;
+  }
+  .dia-card .input-hack strong { color: #846100; display: block; text-transform: uppercase; font-size: 0.625rem; letter-spacing: 0.08em; margin-bottom: 4px; font-weight: 700; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.04); font-size: 0.875rem; }
+  th { background: #0e2235; color: #fff; padding: 12px 14px; text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+  td { padding: 10px 14px; border-top: 1px solid #e5e7eb; vertical-align: top; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.high { font-weight: 700; color: #0e2235; }
+  tr.total { background: #f8f9fa; }
+  tr.total td { font-weight: 700; border-top: 2px solid #0e2235; }
+  .highlight-box {
+    background: #f8f9fa;
+    border-left: 4px solid #003DA5;
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.875rem;
+  }
+  .highlight-box strong { color: #003DA5; }
+  .price-box {
+    background: linear-gradient(135deg, #003DA5 0%, #001A4A 100%);
+    color: #fff;
+    padding: 28px 32px;
+    border-radius: 6px;
+    margin: 24px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+  .price-box .box { padding: 16px 20px; background: rgba(255,255,255,0.08); border-radius: 6px; }
+  .price-box .box .lbl { font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.1em; color: #f5b400; font-weight: 700; margin-bottom: 6px; }
+  .price-box .box .v { font-size: 1.75rem; font-weight: 700; color: #fff; line-height: 1; }
+  .price-box .box .n { font-size: 0.75rem; color: rgba(255,255,255,0.75); margin-top: 8px; }
+  footer.page-foot {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid #d1d5db;
+    font-size: 0.75rem;
+    color: #6b7280;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  @media (max-width: 720px) {
+    .semana { grid-template-columns: 1fr; }
+    .price-box { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.375rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <div class="eyebrow">Projeto 128 · New Holland · proposta pedagógica</div>
+      <h1>Grade encadeada · Festival AgriCULTURA Sustentável</h1>
+      <div class="sub">Semana única com 7 temas amarrados ao Hackathon "Guardiões da Terra": cada dia entrega um input para os grupos amadurecerem a solução final</div>
+      <div class="kpi-row">
+        <div class="kpi"><div class="v">7 temas</div><div class="l">1 semana</div></div>
+        <div class="kpi"><div class="v">240 alunos</div><div class="l">6 turmas × 40</div></div>
+        <div class="kpi"><div class="v">3 blocos</div><div class="l">manhã</div></div>
+        <div class="kpi"><div class="v">1 Hackathon</div><div class="l">construído desde o dia 1</div></div>
+        <div class="kpi"><div class="v">R$ 138 k</div><div class="l">128 · 4 cidades</div></div>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-head"><h2>Arquitetura narrativa · como o Hackathon nasce ao longo da semana</h2></div>
+      <div class="narrative">
+        Diferente do modelo tradicional (aluno chega no dia do Hackathon e tem 2 horas para inventar algo), aqui o desafio é <strong>apresentado na segunda-feira</strong> e cada oficina entrega um "input" que os grupos vão amadurecendo mentalmente durante a semana. Chega na sexta, os grupos <strong>não improvisam</strong> — eles apresentam algo que vem construindo há 4 dias.
+        <br><br>
+        O Hackathon vira o <strong>ápice narrativo</strong>: contação de história de abertura pelo instrutor storytelling (Tema 7 MinC), grupos apresentam a solução amadurecida, banca decide, premiação Guardião da Terra. Toda a semana serve para chegar até esse momento.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Grade da semana · dia a dia</h2></div>
+      <div class="semana">
+
+        <div class="dia-card d1">
+          <div class="day-lbl">Segunda</div>
+          <h3>Terrário + Fotografia macro</h3>
+          <div>
+            <span class="tema-tag ap">T1 · A. Plásticas</span>
+            <span class="tema-tag foto">T2 · Fotografia</span>
+          </div>
+          <div class="desc">
+            Construção coletiva de terrários com musgo, cascas, galhos e pedras (alunos trazem material de casa + coleta local). Efeito visual com <strong>gelo seco</strong> (vapor) e <strong>LEDs coloridos</strong>. Ao final, momento de fotografia macro com zoom, capturando gotas de água nas plantas e feixes de luz na fumaça.
+            <ul>
+              <li>1º momento (2h): montagem do terrário</li>
+              <li>2º momento (1h): captação fotográfica com técnica</li>
+              <li>Terrário fica na escola · fotografias impressas para exposição</li>
+            </ul>
+          </div>
+          <div class="input-hack">
+            <strong>Input pro Hackathon</strong>
+            Desafio é apresentado. Grupos começam a discutir: "que ecossistema quero cuidar?"
+          </div>
+        </div>
+
+        <div class="dia-card d2">
+          <div class="day-lbl">Terça</div>
+          <h3>Mercado simulado + Mapa sensorial na caixa</h3>
+          <div>
+            <span class="tema-tag livre">T3 · Livre</span>
+            <span class="tema-tag livre">T4 · Livre</span>
+          </div>
+          <div class="desc">
+            Manhã dividida em duas dinâmicas:
+            <ul>
+              <li><strong>Mercado simulado</strong> (T3): produtores × atravessadores × consumidores. Grupos descobrem onde o valor da cadeia é perdido ou concentrado.</li>
+              <li><strong>Mapa sensorial em caixa</strong> (T4): caixa on-base coletiva com colagens, sementes, palha, cheiros e cores do território agrícola local.</li>
+            </ul>
+          </div>
+          <div class="input-hack">
+            <strong>Input pro Hackathon</strong>
+            "Onde estão os gargalos e as riquezas da minha cidade?" · dado local entra no projeto.
+          </div>
+        </div>
+
+        <div class="dia-card d3">
+          <div class="day-lbl">Quarta</div>
+          <h3>Cartografia climática</h3>
+          <div>
+            <span class="tema-tag livre">T5 · Livre</span>
+          </div>
+          <div class="desc">
+            Grupos recebem dados reais do INMET/Cemaden e um cenário climático para o campo local (seca, geada, enchente, praga). Cada grupo produz um mapa de risco com adaptação proposta.
+            <ul>
+              <li>Trabalho em grupos de 8 (mesmos grupos do Hackathon)</li>
+              <li>Mapas ficam expostos na sala</li>
+            </ul>
+          </div>
+          <div class="input-hack">
+            <strong>Input pro Hackathon</strong>
+            "Meu projeto tem que responder a qual risco climático da minha região?" · lente ambiental.
+          </div>
+        </div>
+
+        <div class="dia-card d4">
+          <div class="day-lbl">Quinta</div>
+          <h3>Miniusina de biometano + prep Hackathon</h3>
+          <div>
+            <span class="tema-tag livre">T6 · Livre</span>
+          </div>
+          <div class="desc">
+            Manhã dividida:
+            <ul>
+              <li><strong>Miniusina visita técnica simulada</strong> (T6): grupos circulam entre as estações do biodigestor artesanal. Cada grupo apresenta como "engenheiros contratados" o processo do metano → biometano.</li>
+              <li><strong>Preparação Hackathon</strong>: grupos consolidam Lean Canvas usando os inputs dos 4 dias. Instrutores fazem mentoria por bloco.</li>
+            </ul>
+          </div>
+          <div class="input-hack">
+            <strong>Input pro Hackathon</strong>
+            "Como fecho a solução em uma proposta apresentável?" · última mentoria antes do pitch.
+          </div>
+        </div>
+
+        <div class="dia-card d5">
+          <div class="day-lbl">Sexta</div>
+          <h3>🎯 Hackathon Guardiões da Terra</h3>
+          <div>
+            <span class="tema-tag contacao">T7 · Contação</span>
+          </div>
+          <div class="desc">
+            Evento aberto na escola com prefeitura, pais e imprensa:
+            <ul>
+              <li><strong>Contação de histórias</strong> abertura pelo instrutor storytelling (formato MinC oficial)</li>
+              <li><strong>Pitches</strong> dos grupos (5 min cada) · soluções construídas ao longo da semana</li>
+              <li><strong>Banca</strong> com convidados externos (prefeitura, extensionista rural, concessionária)</li>
+              <li><strong>Premiação Guardiões da Terra</strong>: certificado + prêmio simbólico (visita à fábrica New Holland?)</li>
+            </ul>
+          </div>
+          <div class="input-hack">
+            <strong>Momento ápice</strong>
+            Case editorial forte + engajamento comunidade + storytelling amarra tudo.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Cabimento MinC · reconciliação de formatos</h2></div>
+      <table>
+        <thead>
+          <tr><th>Formato MinC exigido</th><th>Como entra na grade</th><th>Encaixe</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="high">1 oficina de Artes Plásticas</td>
+            <td>Segunda · construção do terrário</td>
+            <td>✅ perfeito</td>
+          </tr>
+          <tr>
+            <td class="high">1 oficina de Fotografia</td>
+            <td>Segunda · captação com gelo seco e LED · técnica macro</td>
+            <td>✅ perfeito · pode ficar como oficina independente no relatório MinC</td>
+          </tr>
+          <tr>
+            <td class="high">1 oficina de Contação de Histórias</td>
+            <td>Sexta · abertura do Hackathon pelo instrutor storytelling</td>
+            <td>✅ perfeito · única oficina de storytelling da semana, dentro do evento aberto</td>
+          </tr>
+          <tr>
+            <td class="high">4 oficinas livres (temáticas)</td>
+            <td>T3 mercado + T4 mapa (terça) · T5 cartografia (quarta) · T6 miniusina (quinta)</td>
+            <td>✅ 4 temas livres · alinhados com sustentabilidade agro</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="highlight-box">
+        <strong>Vantagem estratégica:</strong> Concentrar T1 e T2 em um único dia com o mesmo tema visual (terrário + foto do terrário) resolve dois formatos MinC de uma vez, entrega o "wow" fotográfico logo no dia 1 (bom para case editorial) e libera terça e quarta para o conteúdo temático. Confirmar com a Mayara que a contagem MinC aceita essa reconciliação.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Material · custo por cidade</h2></div>
+      <table>
+        <thead>
+          <tr><th>Bloco</th><th>Itens</th><th class="num">Cidade 1</th><th class="num">Cidades 2-4</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="high">Segunda · Terrário + Foto</td>
+            <td>6 aquários pequenos (R$ 30 × 6) · musgo (R$ 200) · gelo seco 2 kg (R$ 60) · 12 LEDs bateria (R$ 240) · 6 borrifadores (R$ 50) · substrato (R$ 40) · cascas/galhos/pedras (0 · coleta local) · impressão de 40 fotos A4 (R$ 120)</td>
+            <td class="num">R$ 890</td>
+            <td class="num">R$ 700</td>
+          </tr>
+          <tr>
+            <td class="high">Terça · Mercado + Mapa</td>
+            <td>Cards impressos plastificados (R$ 100 · reusáveis) · Fichas moedas (R$ 30) · Papel kraft 3m (R$ 30) · Cola + canetas (R$ 50) · Post-its (R$ 30) · terra/palha/sementes (coleta local)</td>
+            <td class="num">R$ 240</td>
+            <td class="num">R$ 100</td>
+          </tr>
+          <tr>
+            <td class="high">Quarta · Cartografia</td>
+            <td>Cartolina 30 folhas (R$ 60) · Canetas coloridas (R$ 80) · Impressão dados INMET (R$ 30) · Cola/fita (R$ 30)</td>
+            <td class="num">R$ 200</td>
+            <td class="num">R$ 180</td>
+          </tr>
+          <tr>
+            <td class="high">Quinta · Miniusina</td>
+            <td>Kit biodigestor (garrafão + mangueira + balão + veda-rosca · R$ 150) · Capacetes de papel (R$ 30) · Cartões-missão impressos (R$ 30) · Lean Canvas A3 (R$ 40 · reusável)</td>
+            <td class="num">R$ 250</td>
+            <td class="num">R$ 200</td>
+          </tr>
+          <tr>
+            <td class="high">Sexta · Hackathon</td>
+            <td>Post-its (R$ 60) · Marcadores (R$ 60) · Certificados Guardião da Terra impressos (R$ 8 × 240 = R$ 1.920) · Prêmio simbólico grupo vencedor (R$ 500)</td>
+            <td class="num">R$ 2.540</td>
+            <td class="num">R$ 2.540</td>
+          </tr>
+          <tr class="total"><td colspan="2">Subtotal material por cidade</td><td class="num">R$ 4.120</td><td class="num">R$ 3.720</td></tr>
+        </tbody>
+      </table>
+      <div class="highlight-box">
+        <strong>Total material 4 cidades:</strong> R$ 4.120 + (R$ 3.720 × 3) = <strong>R$ 15.280</strong> · muito abaixo dos R$ 44.800 da Versão C Premium. Reuso alto de cards, moldes, Lean Canvas, aquários (que podem ser doados para as escolas ao fim de cada cidade).
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Custo final e posicionamento</h2></div>
+      <div class="price-box">
+        <div class="box">
+          <div class="lbl">Enxuta encadeada</div>
+          <div class="v">R$ 120 k</div>
+          <div class="n">2 instrutores + cachês menores + mesma grade encadeada</div>
+        </div>
+        <div class="box">
+          <div class="lbl">Equilibrada encadeada</div>
+          <div class="v">R$ 138 k</div>
+          <div class="n">3 instrutores intermediários + grade encadeada Lucas</div>
+        </div>
+        <div class="box">
+          <div class="lbl">Premium encadeada</div>
+          <div class="v">R$ 158 k</div>
+          <div class="n">3 instrutores especialistas + coquetel + brindes</div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Bloco</th><th class="num">Enxuta (2 instrutores)</th><th class="num">Equilibrada (3 instrutores)</th><th class="num">Premium</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cachês (4 cidades)</td><td class="num">R$ 60.800</td><td class="num">R$ 72.800</td><td class="num">R$ 98.600</td></tr>
+          <tr><td>Material grade encadeada</td><td class="num">R$ 15.300</td><td class="num">R$ 15.300</td><td class="num">R$ 18.500</td></tr>
+          <tr><td>Deslocamento</td><td class="num">R$ 12.000</td><td class="num">R$ 12.000</td><td class="num">R$ 15.000</td></tr>
+          <tr><td>Hotel + alimentação</td><td class="num">R$ 12.000</td><td class="num">R$ 14.000</td><td class="num">R$ 17.000</td></tr>
+          <tr><td>Prep + contingência</td><td class="num">R$ 12.000</td><td class="num">R$ 15.000</td><td class="num">R$ 20.000</td></tr>
+          <tr><td>Extras (coquetel + prêmio)</td><td class="num">—</td><td class="num">R$ 4.000</td><td class="num">R$ 12.000</td></tr>
+          <tr class="total"><td>Total 128</td><td class="num">R$ 122.100</td><td class="num">R$ 137.700</td><td class="num">R$ 181.100</td></tr>
+        </tbody>
+      </table>
+      <div class="highlight-box">
+        <strong>Recomendação:</strong> ir com <strong>Equilibrada Encadeada (R$ 137,7 k)</strong>. 3 instrutores dão conta do encadeamento (cada um tem 2-3 temas e um papel claro no Hackathon), material fica barato pela alta reutilização, ainda cabe coquetel e prêmio simbólico. Muito abaixo do Premium sem perder impacto.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Pontos de atenção operacional</h2></div>
+      <table>
+        <thead>
+          <tr><th>#</th><th>Ponto</th><th>Mitigação</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td><strong>Gelo seco</strong> exige compra em loja de gases industriais e uso no mesmo dia. Não estoca.</td><td>Pedido feito com 2 dias de antecedência em cada cidade. Apoio local faz a coleta na manhã.</td></tr>
+          <tr><td>2</td><td><strong>Aquários de terrário</strong> podem quebrar durante deslocamento entre cidades.</td><td>Comprar em cada cidade (Mercado Livre entrega) ou doar para a escola ao fim de cada semana. Não deslocar.</td></tr>
+          <tr><td>3</td><td>Alunos podem <strong>não trazer material</strong> de casa (musgo, cascas). A oficina precisa funcionar mesmo assim.</td><td>Coleta prévia pela equipe apoio-local no dia anterior. Recado à escola: alunos trazem se puderem, é bônus.</td></tr>
+          <tr><td>4</td><td><strong>Manter a coerência do Hackathon</strong> ao longo de 5 dias exige disciplina do instrutor storytelling e do produtor.</td><td>Playbook amarrado pela NTICS antes de campo. Reunião de alinhamento de 1 dia entre produtor + instrutores antes de cada cidade.</td></tr>
+          <tr><td>5</td><td>Reconciliação MinC (T1+T2 no mesmo dia) precisa de <strong>confirmação da Mayara</strong>.</td><td>Levar ao MinC como interpretação: 1 oficina de arte com produto fotográfico anexo. Ou registrar como 2 oficinas distintas de 3h cada.</td></tr>
+          <tr><td>6</td><td><strong>Certificados Guardião da Terra</strong> personalizados (240 por cidade) — impressão com moldura pesa no material.</td><td>Certificados A4 impressos coloridos entregues em moldura simples R$ 8. Se cortar, cai para R$ 3.</td></tr>
+          <tr><td>7</td><td><strong>Prêmio da banca</strong> precisa acordo com CNH antes de virar promessa aos alunos.</td><td>Sugestões: visita à fábrica New Holland em Curitiba (só grupo vencedor de cada cidade) · kit STEM · livros. Depende de aporte da CNH.</td></tr>
+          <tr><td>8</td><td><strong>Banca externa</strong> na sexta exige convite antecipado a prefeitura, imprensa, extensionista.</td><td>Produtor + apoio local disparam convites 3 semanas antes de cada cidade. Kit de convite pronto pela NTICS.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer class="page-foot">
+      <span>Grade encadeada 128 · proposta de execução pedagógica</span>
+      <span>Atualizado em 18/06/2026 · para validação com Ana + Abílio + Mayara</span>
+    </footer>
+
+  </div>
+</body>
+</html>
