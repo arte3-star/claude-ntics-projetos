@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual do Facilitador · Segunda-feira · T1 Terrário + T2 Fotografia · Projeto 128</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
+    background: #f5f6f7;
+    color: #1a1a1a;
+    line-height: 1.65;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 24px 96px; }
+  header.doc {
+    background: linear-gradient(135deg, #003DA5 0%, #001A4A 100%);
+    color: #fff;
+    padding: 32px 40px;
+    border-radius: 6px;
+    margin-bottom: 28px;
+    border-left: 6px solid #f5b400;
+  }
+  header.doc .eyebrow { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: #f5b400; font-weight: 600; margin-bottom: 6px; }
+  header.doc h1 { font-size: 1.75rem; line-height: 1.25; font-weight: 700; margin-bottom: 6px; }
+  header.doc .sub { font-size: 0.9375rem; color: rgba(255,255,255,0.82); }
+  header.doc .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 8px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.18);
+    font-size: 0.75rem;
+  }
+  header.doc .meta strong { display: block; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.625rem; font-weight: 700; margin-bottom: 2px; }
+  .toc {
+    background: #fff;
+    padding: 20px 24px;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    margin-bottom: 32px;
+    border-left: 4px solid #003DA5;
+  }
+  .toc h2 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #6b7280; margin-bottom: 10px; }
+  .toc ol { margin: 0; padding-left: 20px; font-size: 0.875rem; }
+  .toc ol li { padding: 3px 0; }
+  .toc ol li a { color: #003DA5; text-decoration: none; }
+  .toc ol li a:hover { text-decoration: underline; }
+  h2.section {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #0e2235;
+    padding: 12px 16px;
+    background: #0e2235;
+    color: #fff;
+    border-radius: 6px 6px 0 0;
+    margin: 40px 0 0;
+    scroll-margin-top: 20px;
+  }
+  h2.section + .content { padding: 22px 24px 26px; background: #fff; border-radius: 0 0 6px 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); margin-bottom: 24px; }
+  h3 { font-size: 1.0625rem; font-weight: 700; color: #0e2235; margin: 22px 0 10px; padding-bottom: 4px; border-bottom: 2px solid #e5e7eb; }
+  h4 { font-size: 0.9375rem; font-weight: 700; color: #003DA5; margin: 16px 0 6px; }
+  p { margin-bottom: 12px; font-size: 0.9375rem; color: #374151; }
+  ul, ol { margin: 8px 0 12px 22px; }
+  ul li, ol li { font-size: 0.9375rem; color: #374151; margin-bottom: 4px; }
+  strong { color: #0e2235; }
+  em { color: #495057; }
+  code, pre { font-family: "SF Mono", Monaco, Consolas, monospace; font-size: 0.8125rem; }
+  code { background: #f1f3f5; padding: 1px 6px; border-radius: 3px; color: #C8102E; }
+  pre { background: #0e2235; color: #f8f9fa; padding: 16px 20px; border-radius: 6px; overflow-x: auto; margin: 12px 0; font-size: 0.75rem; line-height: 1.55; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; background: #fff; font-size: 0.875rem; border-radius: 4px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+  th { background: #003DA5; color: #fff; padding: 10px 14px; text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+  td { padding: 10px 14px; border-top: 1px solid #e5e7eb; vertical-align: top; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.high { font-weight: 700; color: #0e2235; }
+  tr.total { background: #f8f9fa; }
+  tr.total td { font-weight: 700; border-top: 2px solid #003DA5; }
+  .callout {
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin: 14px 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+  .callout.time { background: #e7f5ff; border-left: 4px solid #1971c2; }
+  .callout.warning { background: #fff8e1; border-left: 4px solid #f59f00; }
+  .callout.critical { background: #fff5f5; border-left: 4px solid #c92a2a; }
+  .callout.success { background: #ebfbee; border-left: 4px solid #2b8a3e; }
+  .callout.quote { background: #f8f9fa; border-left: 4px solid #6c757d; font-style: italic; color: #495057; }
+  .callout.quote::before { content: "\201C"; font-size: 2rem; color: #adb5bd; line-height: 0; vertical-align: -0.2em; margin-right: 4px; }
+  .callout.quote::after { content: "\201D"; font-size: 2rem; color: #adb5bd; line-height: 0; vertical-align: -0.4em; margin-left: 2px; }
+  .callout strong { color: inherit; }
+  .step {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-top: 1px dashed #e5e7eb;
+  }
+  .step:first-of-type { border-top: none; }
+  .step .time-tag {
+    flex-shrink: 0;
+    font-family: "SF Mono", Monaco, Consolas, monospace;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #003DA5;
+    background: #e7f5ff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    height: fit-content;
+    min-width: 100px;
+    text-align: center;
+  }
+  .step .step-body { flex: 1; }
+  .step .step-body h4 { margin-top: 0; }
+  .step .step-body p { margin-bottom: 6px; }
+  .roles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .role {
+    padding: 14px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-top: 3px solid;
+  }
+  .role.a { border-top-color: #6741d9; }
+  .role.t { border-top-color: #087f5b; }
+  .role.s { border-top-color: #f59f00; }
+  .role h4 { font-size: 0.8125rem; margin: 0 0 6px; }
+  .role p { font-size: 0.75rem; margin: 0; color: #495057; line-height: 1.5; }
+  hr.divider { border: none; height: 1px; background: #e5e7eb; margin: 32px 0; }
+  footer.doc {
+    margin-top: 48px;
+    padding: 20px 24px;
+    border-top: 2px solid #003DA5;
+    font-size: 0.75rem;
+    color: #6b7280;
+    text-align: center;
+  }
+  @media print {
+    body { background: #fff; }
+    header.doc { background: #fff; color: #0e2235; border: 2px solid #003DA5; }
+    header.doc .eyebrow, header.doc .meta strong { color: #003DA5; }
+    header.doc .sub, header.doc .meta { color: #1a1a1a; }
+    h2.section { background: #fff; color: #003DA5; border-top: 3px solid #003DA5; }
+    h2.section + .content { break-inside: avoid; box-shadow: none; border: 1px solid #e5e7eb; }
+    pre { background: #f1f3f5; color: #0e2235; border: 1px solid #dee2e6; }
+    .roles { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 720px) {
+    .roles { grid-template-columns: 1fr; }
+    .step { flex-direction: column; }
+    header.doc h1 { font-size: 1.375rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <header class="doc">
+      <div class="eyebrow">Manual do Facilitador · Projeto 128 · New Holland</div>
+      <h1>Segunda-feira · T1 Terrário + T2 Fotografia macro</h1>
+      <div class="sub">Manual completo com fundamentação, materiais com quantidades, distribuição dos alunos e roteiro passo a passo com falas sugeridas · dia 1 da semana única encadeada</div>
+      <div class="meta">
+        <div><strong>Formato MinC</strong>Artes Plásticas (T1) + Fotografia (T2)</div>
+        <div><strong>Duração por bloco</strong>100 minutos (2 aulas)</div>
+        <div><strong>Alunos por bloco</strong>80 · 8 grupos de 10</div>
+        <div><strong>Blocos por dia</strong>3 (240 alunos por cidade)</div>
+        <div><strong>Facilitador principal</strong>Artístico</div>
+        <div><strong>Momento-chave</strong>Apresentação do Desafio Guardiões da Terra</div>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <h2>Índice</h2>
+      <ol>
+        <li><a href="#p1">Fundamentação teórica</a></li>
+        <li><a href="#p2">Preparação prévia do facilitador</a></li>
+        <li><a href="#p3">Materiais completos com quantidades</a></li>
+        <li><a href="#p4">Distribuição dos alunos</a></li>
+        <li><a href="#p5">Roteiro passo a passo · minuto a minuto</a></li>
+        <li><a href="#p6">Comprovação MinC</a></li>
+        <li><a href="#p7">Adaptações e contingências</a></li>
+        <li><a href="#p8">Checklist final do facilitador</a></li>
+      </ol>
+    </nav>
+
+    <h2 class="section" id="p1">Parte 1 · Fundamentação teórica</h2>
+    <div class="content">
+      <h3>1.1 Por que terrário + fotografia macro juntas?</h3>
+      <p>Duas oficinas em um dia é decisão pedagógica, não corte de custo. A justificativa é tríplice:</p>
+
+      <h4>Motivo 1 · Ciclo de aprendizagem completo em um dia</h4>
+      <p>O aluno constrói fisicamente um objeto (terrário) e imediatamente lê esse objeto pela linguagem da imagem (fotografia). Isso ativa dois modos cognitivos diferentes no mesmo tema: o motor-visual da construção e o analítico-visual da leitura fotográfica. Referência: <strong>David Kolb · Experiential Learning Cycle</strong> (1984), fase concreta seguida da fase reflexiva.</p>
+
+      <h4>Motivo 2 · Encaixe cultural natural</h4>
+      <p>A cianotipia tradicional usa vegetal como matriz. O eco-print usa planta como pigmento. A fotografia macro do ecossistema construído pelo aluno é a versão contemporânea da mesma linhagem: o objeto natural vira imagem cultural. Ver referências de <strong>Anna Atkins</strong> (Photographs of British Algae, 1843, primeiro livro fotográfico do mundo, feito com cianotipia sobre folhas) e <strong>Instituto Buriti (São Paulo)</strong> que aplica esta abordagem em oficinas escolares desde 2019.</p>
+
+      <h4>Motivo 3 · Impacto visual imediato para o projeto</h4>
+      <p>O terrário com gelo seco e LEDs coloridos gera fotografia de alto valor estético logo no dia 1. Isso serve simultaneamente ao aluno (autoria imediata), ao registro do projeto (case editorial forte para redes e imprensa), e ao Hackathon (material visual que os grupos podem usar depois na apresentação).</p>
+
+      <h3>1.2 Base pedagógica</h3>
+      <h4>BNCC · competências gerais trabalhadas</h4>
+      <ul>
+        <li><strong>Competência 1</strong> · Conhecimento: entender o solo como sistema vivo e a fotografia como linguagem.</li>
+        <li><strong>Competência 2</strong> · Pensamento científico: observação, hipótese sobre o que faz o ecossistema funcionar.</li>
+        <li><strong>Competência 3</strong> · Repertório cultural: fotografia como expressão artística contemporânea.</li>
+        <li><strong>Competência 4</strong> · Comunicação: leitura visual da imagem produzida.</li>
+        <li><strong>Competência 10</strong> · Responsabilidade e cidadania: cuidado com o vivo.</li>
+      </ul>
+      <h4>Habilidades específicas BNCC do Ensino Médio</h4>
+      <ul>
+        <li><strong>EM13CNT301</strong> · analisar situações que envolvem interação com o meio.</li>
+        <li><strong>EM13CNT303</strong> · interpretar textos de divulgação científica.</li>
+        <li><strong>EM13LGG202</strong> · analisar interesses e valores em manifestações artísticas.</li>
+      </ul>
+
+      <h3>1.3 ODS trabalhados nesta oficina</h3>
+      <p>Cada ODS entra por um ângulo específico. Não é decoração, é conteúdo.</p>
+      <table>
+        <thead><tr><th>ODS</th><th>Como aparece nesta oficina</th></tr></thead>
+        <tbody>
+          <tr><td class="high">ODS 2 · Fome zero e agricultura sustentável</td><td>Solo saudável é pré-requisito para agricultura. O terrário é modelo miniatura do que é solo vivo. Facilitador conecta com meta 2.4 (sistemas alimentares resilientes).</td></tr>
+          <tr><td class="high">ODS 6 · Água limpa e saneamento</td><td>Terrário demonstra ciclo fechado da água (evaporação, condensação, infiltração). Facilitador conecta com meta 6.6 (proteger ecossistemas relacionados a água).</td></tr>
+          <tr><td class="high">ODS 12 · Consumo e produção responsáveis</td><td>Uso de materiais reciclados (aquário reutilizado, cascas coletadas) e a ideia de sistema fechado. Meta 12.5 (reduzir resíduos).</td></tr>
+          <tr><td class="high">ODS 15 · Vida terrestre</td><td>O terrário é ecossistema em miniatura com biodiversidade real (musgo, plantas, matéria orgânica). Meta 15.5 (deter perda de biodiversidade).</td></tr>
+          <tr><td class="high">ODS 4 · Educação de qualidade</td><td>Base curricular ativa (BNCC), certificação Guardião da Terra.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warning"><strong>Como o facilitador cita os ODS na oficina:</strong> sem menção direta ao número do ODS. Ele traduz a ideia: "solo saudável é o começo de tudo que a gente come", "no seu terrário, a água nunca se perde, ela circula, igual na natureza".</div>
+
+      <h3>1.4 Fundamentação técnica do terrário</h3>
+      <h4>O que é um ecossistema fechado</h4>
+      <p>Um terrário em recipiente fechado (ou semi-fechado) é uma versão em miniatura de um ecossistema real. As plantas fazem fotossíntese e liberam vapor de água. Esse vapor se condensa nas paredes de vidro e volta para o substrato. A matéria orgânica em decomposição libera nutrientes. Em condições certas, um terrário pode se sustentar por meses ou anos.</p>
+      <p>O primeiro terrário selado documentado foi criado por <strong>David Latimer</strong> em 1960 e continua vivo até hoje, regado apenas uma vez em 1972.</p>
+
+      <h4>Camadas do terrário</h4>
+      <ul>
+        <li><strong>Drenagem</strong> (pedras ou cascalho, 1 a 2 cm): impede que a água se acumule no fundo e apodreça as raízes.</li>
+        <li><strong>Filtro</strong> (carvão ativado, camada fina): filtra impurezas da água que circula.</li>
+        <li><strong>Barreira</strong> (tela de mosquiteiro ou tecido fino, opcional): impede substrato de se misturar com drenagem.</li>
+        <li><strong>Substrato</strong> (terra vegetal, 3 a 5 cm): meio onde as plantas fixam raiz.</li>
+        <li><strong>Plantas e musgo</strong>: cobertura viva.</li>
+        <li><strong>Decoração</strong> (pedras, cascas, galhos): estética e microhabitat.</li>
+      </ul>
+
+      <div class="callout critical"><strong>Segurança · gelo seco.</strong> Gelo seco é dióxido de carbono (CO₂) em estado sólido, a -78,5 °C. Quando entra em contato com o vapor de água do ambiente, sublima diretamente para gás CO₂ e resfria bruscamente o ar em volta, formando neblina visível.<br><br>O gelo seco <strong>NÃO é neve congelada</strong>. <strong>NÃO deve tocar a pele humana</strong> (queimadura por frio em segundos). Sempre manipulado com luva térmica ou de couro grosso, nunca luva cirúrgica fina.</div>
+
+      <h4>Por que a fotografia macro funciona bem aqui?</h4>
+      <p>Macro é fotografia próxima que revela detalhes invisíveis a olho nu. Com câmera em modo macro ou lente própria, gotas de água nas folhas viram esferas cristalinas, texturas do musgo ficam evidentes e a neblina do gelo seco vira véu translúcido com pontos de luz dos LEDs. É a técnica que mais rende visual em minutos. Referência clássica: <strong>Ansel Adams · The Zone System</strong> (1948), fundamento de fotografia macro contemporânea.</p>
+
+      <h3>1.5 Benchmarks · projetos reais que fundamentam esta oficina</h3>
+      <p>Não estamos inventando. Cada elemento tem precedente.</p>
+      <table>
+        <thead><tr><th>Elemento</th><th>Projeto de referência</th><th>Onde</th></tr></thead>
+        <tbody>
+          <tr><td>Terrário em aquário coletivo</td><td>Solve for Tomorrow LATAM 2023 · Instituto Claro</td><td>Escolas públicas do Ceará, resultado documentado.</td></tr>
+          <tr><td>Terrário como ecossistema didático</td><td>Cemaden Educação · Sequência Didática Solos</td><td>Material público em educacao.cemaden.gov.br</td></tr>
+          <tr><td>Fotografia macro em escola</td><td>TIM Faz Ciência · Plano Fotografia Natural</td><td>Plano de aula gratuito, 3.000 escolas.</td></tr>
+          <tr><td>Gelo seco em oficina educativa</td><td>Museu Catavento (SP) · Química Viva</td><td>Referência de segurança usada aqui.</td></tr>
+          <tr><td>Cianotipia / eco-print educacional</td><td>Instituto Buriti (SP) e Arte na Escola</td><td>12 anos de aplicação em ensino médio público.</td></tr>
+          <tr><td>Kit-mini-ecossistema comercial</td><td>Mercado Livre BR</td><td>Kits R$ 45 a R$ 120 como referência de preço.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="section" id="p2">Parte 2 · Preparação prévia do facilitador</h2>
+    <div class="content">
+      <h3>2.1 Semana anterior à cidade (D-7)</h3>
+      <h4>Materiais que a NTICS deve confirmar entregues</h4>
+      <ul>
+        <li>24 aquários (para 3 blocos × 8 grupos = 24 grupos no total)</li>
+        <li>LEDs bateria coloridos (16 unidades, reutilizáveis da cidade anterior)</li>
+        <li>Borrifadores (12 unidades)</li>
+        <li>Papel plotter branco para fundo neutro nas fotos (2 rolos)</li>
+        <li>Substrato, cascalho, musgo (compra local em D-3 pelo apoio local)</li>
+        <li>Carvão ativado (pequeno pote suficiente para todas as cidades)</li>
+      </ul>
+
+      <h4>Materiais que dependem de compra local (D-3 ou D-2)</h4>
+      <ul>
+        <li><strong>Gelo seco: 4 kg</strong>. Comprar em loja de gases industriais. Precisa comprar no dia anterior (D-1) ou no próprio dia bem cedo. Não estoca. Custa entre R$ 15 e R$ 30 o kg.</li>
+        <li>Musgo fresco: se não achar em floricultura, o apoio local coleta em área próxima na semana anterior (matas urbanas, margens de rio, jardins).</li>
+        <li>Pequenas plantas: 1 por grupo, 24 no total. Suculentas ou plantas ornamentais pequenas em vasos de 5 cm. R$ 3 a R$ 5 cada.</li>
+        <li>Cascas, galhos secos e pedras: gratuito, coletados no entorno pelo apoio local no D-1.</li>
+      </ul>
+
+      <h3>2.2 Cinco dias antes (D-5) · comunicação com a escola</h3>
+      <p>Facilitador ou produtor envia mensagem à professora responsável:</p>
+      <div class="callout quote">Boa tarde, professora [NOME]. Segunda-feira nós vamos começar a primeira oficina do Festival AgriCULTURA Sustentável na quadra da escola. O tema é solo, ecossistema e fotografia.<br><br>Se os alunos puderem trazer de casa (é opcional, não obrigatório): musgo, cascas de árvore, pedras pequenas, galhos secos, sementes que encontrarem, folhas secas coloridas. Tudo colhido em quintal ou praça, nada arrancado de árvore viva.<br><br>Vamos montar 24 ecossistemas em miniatura em aquário, com efeito de neblina e luz. Todo material que faltar a gente traz.</div>
+      <p>Este recado é registrado em foto (WhatsApp, e-mail impresso) como comprovação MinC de mobilização escolar.</p>
+
+      <h3>2.3 Dia anterior (D-1) · setup</h3>
+      <ul>
+        <li><strong>Apoio local 1</strong> faz a compra dos materiais locais (plantas, musgo se não veio pronto).</li>
+        <li><strong>Apoio local 2</strong> faz a compra do gelo seco no fim da tarde ou bem cedo no D-0.</li>
+        <li><strong>Facilitador artístico</strong> carrega a câmera, tripé, LEDs e prepara playlist de fotografia (opcional, música baixa para o momento de captação).</li>
+        <li><strong>Facilitador storytelling</strong> revisa o roteiro de apresentação do Desafio Guardiões da Terra e escolhe os 3 cards de desafio que serão apresentados nesta cidade.</li>
+        <li><strong>Facilitador técnico</strong> apoia com montagem prévia de 1 terrário demo (para servir de modelo visível aos alunos no início).</li>
+      </ul>
+
+      <h3>2.4 Manhã do dia (D-0) · setup da quadra da escola</h3>
+      <p>Chegar 1 hora antes do primeiro bloco.</p>
+      <p><strong>Setup do espaço · quadra da escola:</strong></p>
+<pre>                        [ Mesa do facilitador · câmera · projetor ]
+                                    |
+    +-------------------------------+-------------------------------+
+    |                                                               |
+[ Mesa 1 ]      [ Mesa 2 ]      [ Mesa 3 ]      [ Mesa 4 ]         |
+   G1                G2                G3                G4         |
+                                                                    |
+[ Mesa 5 ]      [ Mesa 6 ]      [ Mesa 7 ]      [ Mesa 8 ]         |
+   G5                G6                G7                G8         |
+    |                                                               |
+    +---------------------------------------------------------------+
+                            [ Área fotografia · fundo neutro ]
+                                    [ Tripé · LEDs ]</pre>
+      <ul>
+        <li>8 mesas em U aberto voltadas para o facilitador principal, cada mesa é um grupo (G1 a G8).</li>
+        <li>Cada mesa tem: 1 aquário, kit de materiais, 1 borrifador, ficha de identidade do grupo.</li>
+        <li>Área de fotografia fica no fundo da quadra com papel plotter branco no chão como fundo neutro, tripé montado com câmera, 2 LEDs posicionados.</li>
+        <li>Kit de gelo seco fica na mesa do facilitador em caixa térmica fechada, longe dos alunos.</li>
+      </ul>
+      <p><strong>Setup da sala de fotografia</strong> (para a T2, dentro do bloco): sala próxima à quadra. Cortinas fechadas se possível (não é obrigatório para foto macro, mas ajuda). Uma mesa central com toalha preta ou tecido escuro como fundo. Câmera com tripé. 2 LEDs bateria para luz controlada. Rotação dos grupos entre quadra (montagem) e sala (fotografia) é organizada pelos apoios locais.</p>
+    </div>
+
+    <h2 class="section" id="p3">Parte 3 · Materiais completos com quantidades</h2>
+    <div class="content">
+      <h3>3.1 Materiais por grupo (8 grupos por bloco, 24 grupos no total)</h3>
+      <h4>Para 1 grupo de 10 alunos</h4>
+      <ul>
+        <li>1 aquário pequeno (vidro, 3 a 5 litros, boca larga)</li>
+        <li>1 pote de substrato (300 g de terra vegetal)</li>
+        <li>1 pote pequeno de cascalho (200 g)</li>
+        <li>1 mão de carvão ativado (aproximadamente 30 g)</li>
+        <li>1 pequena porção de musgo fresco (do tamanho de uma mão fechada)</li>
+        <li>1 muda pequena de planta ornamental ou suculenta</li>
+        <li>3 a 5 cascas de árvore secas</li>
+        <li>3 a 5 pedras decorativas</li>
+        <li>2 a 3 galhos finos secos</li>
+        <li>1 borrifador com água</li>
+        <li>1 ficha de identidade do grupo (papel A5 impresso)</li>
+        <li>1 caneta permanente preta</li>
+      </ul>
+
+      <h3>3.2 Materiais compartilhados por bloco (80 alunos)</h3>
+      <ul>
+        <li>2 kg de gelo seco (dividido em porções pelo apoio local no momento da fotografia)</li>
+        <li>4 luvas térmicas ou de couro grosso (para manipular gelo seco · uso exclusivo dos apoios locais)</li>
+        <li>16 LEDs bateria coloridos (2 por grupo durante a fotografia)</li>
+        <li>1 câmera fotográfica DSLR ou mirrorless (do facilitador artístico)</li>
+        <li>1 tripé profissional</li>
+        <li>1 papel plotter branco (2 x 3 m) como fundo neutro</li>
+        <li>1 impressora portátil ou combinado com gráfica próxima para impressão das fotos no fim do bloco (24 fotos A5, 3 blocos = 72 fotos por cidade)</li>
+        <li>1 caixa térmica para armazenar o gelo seco fora do bloco em uso</li>
+        <li>Extintor de CO₂ ou pó químico (obrigatório, presente na quadra)</li>
+        <li>1 kit de primeiros socorros</li>
+      </ul>
+
+      <h3>3.3 Materiais reutilizáveis entre cidades</h3>
+      <ul>
+        <li>Aquários (se não quebrarem no transporte, doamos para a escola só na última cidade)</li>
+        <li>Câmera, tripé, LEDs (equipamento do facilitador)</li>
+        <li>Papel plotter (dobra e vira em cada cidade)</li>
+        <li>Luvas térmicas</li>
+        <li>Fichas de identidade em branco (impressas de uma vez)</li>
+      </ul>
+
+      <h3>3.4 Material que a escola fornece</h3>
+      <ul>
+        <li>Quadra coberta com iluminação natural ou artificial suficiente</li>
+        <li>8 a 12 mesas de 4 lugares</li>
+        <li>30 a 40 cadeiras (para alunos que quiserem sentar; muitos ficam em pé em torno da mesa)</li>
+        <li>Sala próxima para a T2 fotografia</li>
+        <li>Tomadas próximas para carga de câmera e LEDs</li>
+        <li>2 baldes com água para limpeza no fim do bloco</li>
+      </ul>
+
+      <h3>3.5 Custo consolidado por cidade (240 alunos, 3 blocos)</h3>
+      <table>
+        <thead><tr><th>Item</th><th class="num">Qtd</th><th class="num">Unit.</th><th class="num">Total</th></tr></thead>
+        <tbody>
+          <tr><td>Aquários vidro pequeno</td><td class="num">24</td><td class="num">R$ 30</td><td class="num">R$ 720</td></tr>
+          <tr><td>Substrato terra vegetal</td><td class="num">8 kg</td><td class="num">R$ 15/5kg</td><td class="num">R$ 24</td></tr>
+          <tr><td>Cascalho</td><td class="num">4 kg</td><td class="num">R$ 8/kg</td><td class="num">R$ 32</td></tr>
+          <tr><td>Carvão ativado</td><td class="num">1 pote</td><td class="num">R$ 20</td><td class="num">R$ 20</td></tr>
+          <tr><td>Musgo</td><td class="num">5 pacotes</td><td class="num">R$ 20</td><td class="num">R$ 100</td></tr>
+          <tr><td>Plantas mudas</td><td class="num">24</td><td class="num">R$ 4</td><td class="num">R$ 96</td></tr>
+          <tr><td>Cascas/galhos/pedras</td><td class="num">—</td><td class="num">coleta local</td><td class="num">R$ 0</td></tr>
+          <tr><td>Borrifadores (metade reutilizável)</td><td class="num">24</td><td class="num">R$ 8</td><td class="num">R$ 96 (só cid 1)</td></tr>
+          <tr><td>Fichas de identidade</td><td class="num">24</td><td class="num">R$ 0,50</td><td class="num">R$ 12</td></tr>
+          <tr><td class="high">Gelo seco</td><td class="num">6 kg</td><td class="num">R$ 20</td><td class="num">R$ 120</td></tr>
+          <tr><td>LEDs bateria coloridos (reusáveis)</td><td class="num">16</td><td class="num">R$ 20</td><td class="num">R$ 320 (só cid 1)</td></tr>
+          <tr><td>Papel plotter branco</td><td class="num">6 m</td><td class="num">R$ 6/m</td><td class="num">R$ 36 (só cid 1)</td></tr>
+          <tr><td>Impressão fotos A5 coloridas</td><td class="num">72</td><td class="num">R$ 2,50</td><td class="num">R$ 180</td></tr>
+          <tr><td>Luvas térmicas (reusáveis)</td><td class="num">4</td><td class="num">R$ 25</td><td class="num">R$ 100 (só cid 1)</td></tr>
+          <tr class="total"><td colspan="3">Total cidade 1</td><td class="num">R$ 1.856</td></tr>
+          <tr class="total"><td colspan="3">Total cidade 2 a 4 (só consumíveis)</td><td class="num">R$ 764</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="section" id="p4">Parte 4 · Distribuição dos alunos</h2>
+    <div class="content">
+      <h3>4.1 Formação dos grupos</h3>
+      <p>Cada bloco de 80 alunos é dividido em <strong>8 grupos de 10 alunos</strong>.</p>
+
+      <h4>Passo 1 · Sorteio inicial</h4>
+      <p>Assim que os alunos entram na quadra, o facilitador storytelling explica que hoje começa uma jornada de 5 dias. Distribui 80 tickets numerados de 1 a 8 (10 tickets com cada número). Alunos pegam um ticket ao entrar. Vão para a mesa com o número correspondente.</p>
+
+      <h4>Passo 2 · Equilíbrio</h4>
+      <p>Nos primeiros 5 minutos, o facilitador circula rapidamente entre as mesas verificando: se um grupo tiver 10 meninas e outro 10 meninos, faz troca rápida. Meta: grupos mistos por gênero e razoavelmente equilibrados.</p>
+
+      <h4>Passo 3 · Identidade</h4>
+      <p>Cada grupo escolhe um <strong>nome com tema de sustentabilidade agro</strong> (por exemplo: Guardiões do Rio, Semente do Cerrado, Chuva Nova, Terra Viva). O nome vai na ficha de identidade que fica na mesa durante toda a semana.</p>
+
+      <div class="callout warning"><strong>Regra de permanência.</strong> Esses 8 grupos permanecem os mesmos durante os 5 dias. Se algum aluno faltar em qualquer dia, o grupo segue. Se um aluno mudar de bloco (troca de turno da escola), a NTICS acorda com a professora responsável para manter o aluno no mesmo grupo mesmo em outro horário.</div>
+
+      <h3>4.2 Papéis dentro do grupo</h3>
+      <p>O facilitador storytelling sugere que cada grupo escolha internamente:</p>
+      <ul>
+        <li><strong>1 Coordenador</strong> · organiza o que cada um faz.</li>
+        <li><strong>1 Registrador</strong> · anota post-its no mural do desafio ao longo da semana.</li>
+        <li><strong>1 Comunicador</strong> · fala pelo grupo nas apresentações.</li>
+        <li><strong>1 Guardião do material</strong> · cuida do aquário, ficha, produção do grupo durante os 5 dias.</li>
+        <li><strong>Os outros 6</strong> · construtores, todos participam da execução.</li>
+      </ul>
+      <p>Papéis são fluidos, não é hierarquia. Facilitador esclarece: "cada um faz seu turno em cada papel, ninguém fica só coordenador o tempo todo".</p>
+
+      <h3>4.3 Rotação quadra × sala de fotografia</h3>
+      <p>Dentro do bloco de 100 minutos, os grupos rodam:</p>
+      <ul>
+        <li><strong>Primeiros 60 minutos</strong> · construção do terrário na quadra. Todos os 8 grupos trabalham simultaneamente nas mesas.</li>
+        <li><strong>Últimos 40 minutos</strong> · fotografia. Grupos rodam em duplas para a área de fotografia. Enquanto 2 grupos fotografam (aproximadamente 10 minutos por dupla), os outros 6 grupos ficam nas mesas finalizando detalhes, preenchendo ficha de identidade, discutindo o Desafio.</li>
+      </ul>
+      <table>
+        <thead><tr><th>Tempo</th><th>Fotografando</th><th>Nas mesas</th></tr></thead>
+        <tbody>
+          <tr><td>60-70 min</td><td>G1 e G2</td><td>G3 a G8</td></tr>
+          <tr><td>70-80 min</td><td>G3 e G4</td><td>demais</td></tr>
+          <tr><td>80-90 min</td><td>G5 e G6</td><td>demais</td></tr>
+          <tr><td>90-100 min</td><td>G7 e G8</td><td>+ conexão com o Desafio</td></tr>
+        </tbody>
+      </table>
+      <p>Apoios locais controlam a rotação com relógio e chamando os grupos.</p>
+    </div>
+
+    <h2 class="section" id="p5">Parte 5 · Roteiro passo a passo · minuto a minuto</h2>
+    <div class="content">
+      <p><strong>Tempo total por bloco:</strong> 100 minutos (2 aulas de 50 min). O facilitador principal é o <strong>facilitador artístico</strong>. O <strong>facilitador storytelling</strong> apoia na abertura e no fechamento com a apresentação do Desafio. O <strong>facilitador técnico</strong> faz apoio livre e fica de olho na segurança do gelo seco.</p>
+
+      <div class="roles">
+        <div class="role a"><h4>🎨 Artístico</h4><p>Conduz montagem do terrário + opera câmera + ensina técnica de foto macro</p></div>
+        <div class="role s"><h4>📖 Storytelling</h4><p>Apresenta o Desafio Guardiões da Terra + provoca conexão + reflexão coletiva</p></div>
+        <div class="role t"><h4>🔬 Técnico</h4><p>Apoio livre + segurança do gelo seco + suporte técnico</p></div>
+      </div>
+
+      <div class="step">
+        <div class="time-tag">0:00 – 0:05</div>
+        <div class="step-body">
+          <h4>Chegada e sorteio</h4>
+          <p>Facilitador storytelling recebe os alunos na entrada da quadra:</p>
+          <div class="callout quote">Bom dia, gente! Peguem um ticket, é 1 por pessoa. Ele diz em qual mesa vocês vão sentar. Não trocam entre si por enquanto.</div>
+          <p>Alunos pegam ticket e vão para a mesa numerada. Se algum aluno não pega ticket, apoio local completa. Todos sentados nas mesas em 3 minutos.</p>
+          <div class="callout quote">Meu nome é [NOME]. Este é o [NOME facilitador artístico], este é o [NOME facilitador técnico]. Somos os facilitadores desta semana. A partir de hoje até sexta, vocês vão passar por 7 oficinas. E na sexta tem um evento aberto que a gente vai contar mais para vocês. Vocês estão prontos?</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="time-tag">0:05 – 0:10</div>
+        <div class="step-body">
+          <h4>Formação dos grupos e escolha do nome</h4>
+          <div class="callout quote">Cada mesa é um grupo. Vocês são 10. Escolham entre vocês quem vai ser coordenador, registrador, comunicador e guardião do material. Os outros vão construir junto. Isso pode trocar amanhã, tudo bem. Escolham também um nome para o grupo. Tem que ter a ver com sustentabilidade no campo. Sugestão: pensem no rio da cidade, na planta que mais tem aqui, no animal do lugar. Vocês têm 5 minutos.</div>
+          <p>Facilitador artístico circula distribuindo canetas permanentes.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="time-tag">0:10 – 0:15</div>
+        <div class="step-body">
+          <h4>Apresentação da manhã</h4>
+          <p>Facilitador artístico assume:</p>
+          <div class="callout quote">Hoje a gente vai fazer duas coisas. Primeiro, cada grupo constrói um ecossistema em miniatura dentro deste aquário aqui. É como se cada grupo fosse dono de um pedacinho de fazenda. Vocês vão montar as camadas, colocar plantinha, musgo, colocar pedra, casca. Vai virar uma coisa viva. Depois, no fim, vocês vão fotografar o terrário de vocês com uma técnica que a gente vai ensinar aqui. A foto vai ficar impressa para vocês levarem.</div>
+          <p>Facilitador aponta o terrário demo (montado antes do bloco).</p>
+          <div class="callout quote">Aqui está um exemplo pronto. Não precisa ficar exatamente igual. O de vocês vai ser o de vocês.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="time-tag">0:15 – 0:20</div>
+        <div class="step-body">
+          <h4>Instrução das camadas do terrário</h4>
+          <p>Facilitador artístico demonstra na mesa central com um aquário vazio, em pé para todos verem.</p>
+          <div class="callout quote">Camada 1 é o cascalho no fundo. Faz um dedo de altura. Isso é para a água não empoçar.</div>
+          <p>Coloca o cascalho no aquário demo enquanto fala.</p>
+          <div class="callout quote">Camada 2 é um pouquinho de carvão ativado. Isso aqui filtra a água, deixa o terrário durando mais tempo. É só uma pitadinha, tipo assim.</div>
+          <p>Mostra a quantidade com os dedos.</p>
+          <div class="callout quote">Camada 3 é a terra. Aqui vai a terra vegetal, uns 3 dedos de altura. Se tiver folha seca misturada, melhor ainda, é matéria orgânica que vira comida da planta.</div>
+          <p>Coloca substrato.</p>
+          <div class="callout quote">Camada 4 é a mais importante: as plantas. Vocês recebem uma muda pequena. Cavam um buraquinho na terra, colocam a raiz, cobrem de leve. Perto da planta, coloquem o musgo. Musgo é vivo, ele guarda umidade.</div>
+          <p>Planta a muda demo e adiciona musgo.</p>
+          <div class="callout quote">Camada 5 é a decoração. Cascas, pedras, galhos. Isso é o que faz o terrário de cada grupo ser único. Cascas viram tocas para insetos imaginários. Pedras marcam caminhos. Galhos são árvores em miniatura.</div>
+          <p>Adiciona cascas, pedras, galhos.</p>
+          <div class="callout quote">Perguntas antes de começar?</div>
+          <p>Espera 30 segundos. Se ninguém perguntar, prossegue.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="time-tag">0:20 – 0:55</div>
+        <div class="step-body">
+          <h4>Construção do terrário nos grupos (35 minutos)</h4>
+          <div class="callout quote">Ok, agora é com vocês. Cada grupo tem 35 minutos para montar. A gente circula ajudando. Se precisar de alguma coisa, chama.</div>
+          <p>Os 3 facilitadores + 2 apoios locais circulam entre as mesas.</p>
+          <h4>Perguntas provocadoras para o facilitador storytelling usar</h4>
+          <ul>
+            <li>"Por que vocês escolheram essa planta para o centro?"</li>
+            <li>"Se este terrário fosse a fazenda de vocês, o que ele produziria?"</li>
+            <li>"Que animal invisível vive aqui dentro?"</li>
+          </ul>
+          <p>Guardar essas respostas em pequena caderneta ou gravar rapidamente no celular para amarrar com o Desafio depois.</p>
+          <div class="callout success"><strong>Meta ao fim dos 35 min:</strong> 100% dos grupos com terrário completo, planta plantada, musgo posicionado, decoração feita, ficha de identidade preenchida com nome do grupo.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="time-tag">0:55 – 1:00</div>
+        <div class="step-body">
+          <h4>Transição para a fotografia</h4>
+          <p>Facilitador artístico ao centro da quadra:</p>
+          <div class="callout quote">Terminou o tempo da construção! Todos os grupos, vocês estão em boa hora. Agora começa a segunda parte: a fotografia. A gente vai por grupos em ordem. Grupo 1 e grupo 2, tragam o terrário para a área do fundo. Grupos 3 a 8, ficam nas mesas descansando, hidratando, e a gente vai puxar em ordem. Enquanto isso, o [NOME storytelling] vai contar uma coisa para vocês.</div>
+          <p>Apoios locais organizam a fila.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="time-tag">1:00 – 1:35</div>
+        <div class="step-body">
+          <h4>Fotografia macro com gelo seco (rotação por dupla de grupos)</h4>
+          <p>Grupos G1 e G2 vão para a área de fotografia. Facilitador artístico apresenta a técnica:</p>
+          <div class="callout quote">A gente vai usar um efeito. Este pedaço aqui é gelo seco. Não pode encostar, viu? Só o [NOME apoio local] pode pegar, com luva. Quando a gente coloca uma pedrinha de gelo seco dentro do terrário e joga uma borrifadinha de água em cima, vira uma neblina, uma fumaça branca. Fica muito bonito. Junto, a gente coloca duas luzes de LED coloridas dentro do terrário. Aí eu tiro a foto bem de pertinho. Aparece cada gota de água, cada folhinha. Vocês vão ver na tela da câmera.</div>
+          <h4>Passo a passo da fotografia por grupo</h4>
+          <ol>
+            <li><strong>Apoio local</strong> coloca 1 pedra pequena de gelo seco no fundo do terrário do grupo (com luva térmica). O grupo observa a uma distância de 1 metro.</li>
+            <li><strong>Facilitador artístico</strong> posiciona 2 LEDs coloridos dentro do terrário (podem ficar próximos ao gelo seco).</li>
+            <li><strong>Facilitador artístico</strong> borrifa água por cima. Neblina aparece imediatamente.</li>
+            <li><strong>Facilitador artístico</strong> posiciona a câmera no tripé e tira 3 a 5 fotos macro do terrário. Alunos veem cada foto na tela.</li>
+            <li>Grupo escolhe a melhor foto (mostrando qual gostou mais).</li>
+            <li><strong>Facilitador artístico</strong> confirma foto escolhida, salva com nome do grupo.</li>
+            <li>Grupo volta para a mesa. Próximo grupo entra.</li>
+          </ol>
+          <p><strong>Tempo por grupo:</strong> aproximadamente 4 minutos. 8 grupos × 4 min = 32 minutos.</p>
+
+          <p><strong>Enquanto os grupos aguardam vez, o facilitador storytelling faz uma roda no meio da quadra com os grupos ainda sentados</strong> (a partir dos 5 minutos após o início da fotografia):</p>
+          <div class="callout quote">Vocês acabaram de construir uma coisa viva. Um terrário é um ecossistema, um pequeno mundo. Agora, olha só, todo lugar do mundo funciona assim. A fazenda funciona assim. A cidade de vocês funciona assim. Tudo tem que estar equilibrado. Se o solo é fraco, a planta não cresce. Se falta água, seca. Se tem chuva demais, alaga. Vocês sabem que o campo tem esses problemas, né?</div>
+          <p>Espera respostas.</p>
+          <div class="callout quote">Então essa semana toda a gente vai olhar para vários pedaços dessa fazenda imaginária que vocês criaram. E na sexta-feira vai ter um desafio.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="time-tag">1:35 – 1:45</div>
+        <div class="step-body">
+          <h4>Apresentação do Desafio Guardiões da Terra 🎯</h4>
+          <p>Facilitador storytelling reúne todos os grupos em pé no centro da quadra (grupos que já fotografaram voltam para o círculo).</p>
+          <div class="callout quote">O desafio é o seguinte. Cada grupo vai propor uma solução para um problema real do campo aqui na região. Vocês têm até sexta para pensar. Cada oficina que a gente for fazer vai ajudar vocês a construir essa solução. Segunda hoje foi ecossistema. Terça vai ser sobre alimento e mercado. Quarta vai ser sobre clima. Quinta vai ser sobre energia. Sexta vocês apresentam para uma banca aqui na escola, com convidados de fora.</div>
+          <p>Mostra os 3 cards de desafio impressos.</p>
+          <div class="callout quote">Cada grupo escolhe um destes três desafios agora. Vocês têm 2 minutos para decidir. Não pode ter dois grupos com o mesmo desafio (se der certo), mas se der, tudo bem também.</div>
+          <h4>Cards de desafio (exemplo para Dom Pedrito / RS)</h4>
+          <ul>
+            <li><strong>Card A</strong> · "A cidade de Dom Pedrito tem problema com falta de água em anos secos. Como a gente pode ajudar um pequeno produtor a usar menos água?"</li>
+            <li><strong>Card B</strong> · "Muita comida sai da nossa cidade para outros lugares. Como fazer com que quem mora aqui coma mais do que a gente produz aqui mesmo?"</li>
+            <li><strong>Card C</strong> · "Muito resto de comida e de plantação vira lixo. Como transformar esse resto em algo útil na fazenda?"</li>
+          </ul>
+          <p>Grupos escolhem. Registrador de cada grupo anota o desafio na ficha de identidade.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="time-tag">1:45 – 1:50</div>
+        <div class="step-body">
+          <h4>Conexão com o Desafio (mural)</h4>
+          <p>Facilitador storytelling entrega post-its coloridos para cada grupo.</p>
+          <div class="callout quote">Última coisa: cada grupo, olha para o terrário que vocês montaram, olha para o desafio que vocês escolheram. Escreva num post-it: o que essa manhã de terrário e fotografia me deu de ideia para o meu desafio?</div>
+          <p>Cada aluno individualmente escreve 1 post-it. Aluno leva o post-it com ele durante a semana (ou cola no mural do grupo, dependendo do apoio da escola em ter uma parede para o mural).</p>
+          <p>Apoios locais recolhem os post-its e organizam no mural do grupo (parede na quadra ou uma cartolina móvel se a escola não tiver parede).</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="time-tag">1:50 – 1:55</div>
+        <div class="step-body">
+          <h4>Fechamento</h4>
+          <p>Facilitador artístico:</p>
+          <div class="callout quote">Enquanto vocês estavam pensando, a gente rodou as fotos. Cada grupo vai receber a foto impressa amanhã. Ela vai ficar exposta durante a semana e no dia do evento na sexta.</div>
+          <p>Facilitador storytelling:</p>
+          <div class="callout quote">Amanhã 8h aqui de novo. Trazem os mesmos grupos. A gente vai fazer duas coisas: um jogo de mercado e um mapa gigante do que a nossa região produz. Muito obrigado, gente. Foi lindo. Até amanhã.</div>
+          <p>Alunos saem. Facilitadores + apoios locais fazem checklist rápido para o próximo bloco.</p>
+        </div>
+      </div>
+
+      <h3>5.3 Repetição do bloco (blocos 2 e 3)</h3>
+      <p>Bloco 2 e bloco 3 seguem o mesmo roteiro. Apoios locais preparam kit da mesa para o próximo bloco entre 1:55 e 2:15 (setup), enquanto os facilitadores descansam, comem e revisam.</p>
+      <div class="callout warning">Facilitadores devem se manter atentos ao <strong>cansaço no bloco 3</strong>. Se a energia estiver baixa, facilitador storytelling assume mais protagonismo com pergunta direta ("quem quer contar o que fez o grupo escolher esse desafio?") e apoios locais assumem mais parte técnica.</div>
+    </div>
+
+    <h2 class="section" id="p6">Parte 6 · Comprovação MinC</h2>
+    <div class="content">
+      <p>Ao fim do dia, o produtor coleta com os apoios locais:</p>
+      <ol>
+        <li><strong>3 listas de presença</strong> (uma por bloco), assinada pela professora responsável, com nome de cada aluno.</li>
+        <li><strong>Fotos de execução com autorização de imagem</strong> (mínimo 30 fotos): 10 do processo de construção do terrário, 10 do momento da fotografia com gelo seco, 10 dos grupos com o terrário terminado.</li>
+        <li><strong>Fotos-produto</strong> (as 72 fotos macro impressas dos grupos): 24 por bloco × 3 blocos = 72 fotos assinadas na parte de trás com nome do grupo.</li>
+        <li><strong>24 terrários fotografados</strong> (3 blocos × 8 grupos), cada um com etiqueta identificação.</li>
+        <li><strong>Ficha de avaliação</strong> preenchida pela professora responsável (formulário de 10 questões: engajamento dos alunos, adequação ao público, adequação à escola, sugestões).</li>
+        <li><strong>Ata do dia</strong> assinada pelo produtor e pela direção da escola: horário início e fim, número de alunos por bloco, materiais utilizados, imprevistos, avaliação geral.</li>
+      </ol>
+      <p>Todos os documentos escaneados ou fotografados no fim do dia e enviados para a Mayara (MinC · NTICS) no próprio dia.</p>
+    </div>
+
+    <h2 class="section" id="p7">Parte 7 · Adaptações e contingências</h2>
+    <div class="content">
+      <h3>7.1 Se faltar gelo seco na cidade</h3>
+      <ul>
+        <li><strong>Alternativa 1 · fumaça artificial de espetáculos</strong>: máquina de fumaça de aluguel (R$ 80 a R$ 150 o dia, aluguel em locadora de som para festas). Menos preciso mas funciona.</li>
+        <li><strong>Alternativa 2 · vapor de umidificador ultrassônico</strong>: R$ 80 a R$ 150 comprado direto. Efeito menor mas contínuo.</li>
+        <li><strong>Alternativa 3 · sem efeito</strong>: foto macro sem neblina. Perde impacto visual mas mantém o resultado técnico.</li>
+      </ul>
+
+      <h3>7.2 Se a escola não tiver sala de fotografia disponível</h3>
+      <p><strong>Alternativa</strong>: fotografia acontece na própria quadra, em canto sombreado ou com papel plotter formando cortina que crie fundo neutro. Perde controle de luz mas é feita a técnica ativa.</p>
+
+      <h3>7.3 Se um grupo terminar muito antes que os outros</h3>
+      <p><strong>Sugestão</strong>: apoio local convida os alunos a olharem o desafio com mais calma e conversarem em pares sobre soluções iniciais. Sem tarefa extra que compete com outros grupos.</p>
+
+      <h3>7.4 Se algum aluno tiver alergia grave a musgo, terra, insetos</h3>
+      <p><strong>Preparação prévia</strong>: no D-3, produtor pergunta à professora responsável se algum aluno tem alergia. Se sim, aluno participa da construção com luvas e da fotografia normalmente.</p>
+
+      <h3>7.5 Se um aluno se machucar com material</h3>
+      <ul>
+        <li>Cortes leves com casca de árvore ou vidro: kit de primeiros socorros na mesa do facilitador. Escola avisa família se necessário.</li>
+        <li>Contato com gelo seco (queimadura por frio): parar imediatamente, avisar direção, se for grave, encaminhar para atendimento. Este risco é ZERO se as regras forem seguidas.</li>
+      </ul>
+
+      <h3>7.6 Se chover forte</h3>
+      <p>Oficina acontece igualmente na quadra coberta. Não afeta o dia 1.</p>
+    </div>
+
+    <h2 class="section" id="p8">Parte 8 · Checklist final do facilitador</h2>
+    <div class="content">
+      <p>Antes de deixar a escola no fim do dia 1:</p>
+      <ul>
+        <li>☐ 3 blocos completos, sem grupo faltando com terrário incompleto</li>
+        <li>☐ 72 fotos macro tiradas e organizadas por grupo</li>
+        <li>☐ 24 terrários posicionados na área designada pela escola</li>
+        <li>☐ 24 murais de grupos com pelo menos 3 post-its cada</li>
+        <li>☐ Documentos MinC coletados e escaneados</li>
+        <li>☐ Kit de materiais organizado para o bloco de terça</li>
+        <li>☐ Câmera com bateria carregando para amanhã</li>
+        <li>☐ Registro de horário e materiais no diário de campo do produtor</li>
+        <li>☐ Confirmação com a professora responsável sobre o setup de terça (mesas, palavra sobre trazer material se quiser)</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <h3>Referências</h3>
+    <ul>
+      <li>David Kolb · Experiential Learning (1984)</li>
+      <li>Anna Atkins · Photographs of British Algae (1843)</li>
+      <li>Ansel Adams · The Zone System (1948)</li>
+      <li>David Latimer · Bottle Garden (1960)</li>
+      <li>Instituto Claro · Solve for Tomorrow LATAM (2023)</li>
+      <li>Cemaden Educação · Sequência Didática Solos (<a href="https://educacao.cemaden.gov.br">educacao.cemaden.gov.br</a>)</li>
+      <li>TIM Faz Ciência · Plano Fotografia Natural (<a href="https://timfazciencia.com.br">timfazciencia.com.br</a>)</li>
+      <li>Museu Catavento · Química Viva (São Paulo)</li>
+      <li>Instituto Buriti (São Paulo)</li>
+      <li>Arte na Escola · Programa Nacional</li>
+      <li>BNCC · Ensino Médio · Ciências da Natureza + Linguagens (habilidades EM13CNT301, EM13CNT303, EM13LGG202)</li>
+      <li>Agenda 2030 da ONU · Objetivos de Desenvolvimento Sustentável (ODS 2, 4, 6, 12, 15)</li>
+    </ul>
+
+    <footer class="doc">
+      Manual do facilitador · versão 1.0 · piloto para validação de formato. Se aprovado, replicar mesma estrutura para as outras 13 oficinas (T3-T7 do 128 · Oficina 0 Formação de Professores 128 · T1-T7 do 129).
+    </footer>
+
+  </div>
+</body>
+</html>
