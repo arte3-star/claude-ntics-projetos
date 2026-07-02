@@ -100,10 +100,10 @@
   }
   .gantt-grid {
     display: grid;
-    grid-template-columns: 170px repeat(13, minmax(70px, 1fr));
-    gap: 3px;
-    min-width: 1260px;
-    font-size: 0.625rem;
+    grid-template-columns: 180px repeat(9, minmax(90px, 1fr));
+    gap: 4px;
+    min-width: 1100px;
+    font-size: 0.6875rem;
   }
   .gantt-header { font-weight: 700; text-align: center; padding: 6px 3px; background: #e9ecef; border-radius: 3px; color: #495057; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.625rem; }
   .gantt-header.election { background: #ffc9c9; color: #c92a2a; }
@@ -226,52 +226,49 @@
   <div class="container">
 
     <header>
-      <div class="eyebrow">Proposta de estrutura · V5 sem sobreposição entre projetos</div>
+      <div class="eyebrow">Proposta de estrutura · V6 · início em setembro</div>
       <h1>Modelo de semana única por cidade</h1>
-      <div class="sub">Cronograma alternado 128 ↔ 129 · zero sobreposição de semanas · viabiliza equipe compartilhada entre os dois projetos</div>
+      <div class="sub">Cronograma alternado 128 ↔ 129 · início em setembro · sem sobreposição de semanas · viabiliza equipe compartilhada</div>
       <div class="meta-row">
         <div><strong>Duração/cidade</strong>1 semana (5 dias úteis Seg-Sex)</div>
-        <div><strong>Início 128</strong>17/08/2026 (Dom Pedrito)</div>
-        <div><strong>Início 129</strong>24/08/2026 (Tangará da Serra)</div>
-        <div><strong>Feira 129</strong>Fim de semana 31/10 e 01/11 (Shopping Pantanal)</div>
-        <div><strong>Festival 128</strong>Fim de semana 14-15/11 (Curitiba)</div>
+        <div><strong>Início 128</strong>31/08/2026 (Dom Pedrito)</div>
+        <div><strong>Início 129</strong>14/09/2026 (Tangará da Serra)</div>
+        <div><strong>Feira 129</strong>Fim de semana 24-25/10 (Shopping Pantanal, pós-Cuiabá)</div>
+        <div><strong>Festival 128</strong>Fim de semana 31/10-01/11 (Curitiba)</div>
         <div><strong>Equipe/cidade</strong>6 pessoas (compartilhada)</div>
       </div>
     </header>
 
-    <div class="alert election">
-      <strong>⚠ Bloqueio eleitoral:</strong> as semanas de <b>28/09-04/10</b> (1º turno · dom 04/10) e <b>19-25/10</b> (2º turno · dom 25/10) estão bloqueadas. Buffer de 2 semanas. <b>Guarapuava (128)</b> usa a janela entre turnos (05-09/10) e <b>Cuiabá (129)</b> usa 26-30/10 pós-2º turno.
+    <div class="alert">
+      <strong>✅ Eleição não interfere:</strong> conforme decisão dos supervisores CNH, a influência da eleição nas atividades escolares é baixa. As semanas do 1º turno (28/09-04/10) e 2º turno (19-25/10) ficam disponíveis para operação normal. O que interfere são apenas os feriados que caem na semana de operação — e o cronograma abaixo já pula esses.
     </div>
     <div class="alert">
-      <strong>✅ Sem sobreposição entre projetos:</strong> 128 e 129 nunca rodam na mesma semana. Isso viabiliza <b>equipe compartilhada</b> — as mesmas 6 pessoas rodam os dois projetos ao longo de todo o cronograma. Também mantém os feriados <b>07/09</b>, <b>12/10</b> e <b>02/11</b> em semanas de intervalo.
+      <strong>✅ Sem sobreposição entre projetos:</strong> 128 e 129 nunca rodam na mesma semana. Isso viabiliza <b>equipe compartilhada</b> — as mesmas 6 pessoas rodam os dois projetos ao longo de todo o cronograma. Feriados <b>07/09</b>, <b>12/10</b> e <b>02/11</b> caem em semanas de intervalo natural.
     </div>
 
     <section>
-      <div class="section-head"><h2>Calendário eleitoral 2026 · janelas do projeto</h2></div>
+      <div class="section-head"><h2>Feriados a evitar (2026)</h2></div>
       <div class="election-calendar">
+        <div class="ec-box buffer">
+          <div class="ec-date">Seg 07/09</div>
+          <div class="ec-title">Independência</div>
+          <div class="ec-detail">Cai na semana 07-11/09 (só 4 dias úteis). Semana usada como intervalo natural entre Dom Pedrito e Tangará.</div>
+        </div>
+        <div class="ec-box buffer">
+          <div class="ec-date">Seg 12/10</div>
+          <div class="ec-title">NS Aparecida</div>
+          <div class="ec-detail">Cai na semana 12-16/10 (só 4 dias úteis). Semana usada como intervalo entre Guarapuava e Cuiabá.</div>
+        </div>
+        <div class="ec-box buffer">
+          <div class="ec-date">Seg 02/11</div>
+          <div class="ec-title">Finados</div>
+          <div class="ec-detail">Cai na semana 02-06/11 (só 4 dias úteis). Já é semana pós-Festival — não afeta operação.</div>
+        </div>
         <div class="ec-box open">
-          <div class="ec-date">até 26/09</div>
-          <div class="ec-title">Janela aberta pré-eleição</div>
-          <div class="ec-detail">7 semanas úteis para oficinas nas cidades (ago–set). Cabem 3 cidades do 128 e 2 do 129 nessa janela.</div>
+          <div class="ec-date">Dom 15/11</div>
+          <div class="ec-title">Proclamação da República</div>
+          <div class="ec-detail">Domingo. Não afeta semana útil. Cronograma encerra 01/11, então este feriado não impacta.</div>
         </div>
-        <div class="ec-box election-round">
-          <div class="ec-date">28/09 – 04/10</div>
-          <div class="ec-title">🚫 1º turno</div>
-          <div class="ec-detail">Semana bloqueada. Escolas viram seções eleitorais no domingo 04/10.</div>
-        </div>
-        <div class="ec-box election-round">
-          <div class="ec-date">19 – 25/10</div>
-          <div class="ec-title">🚫 2º turno</div>
-          <div class="ec-detail">Semana bloqueada. Escolas viram seções eleitorais no domingo 25/10.</div>
-        </div>
-        <div class="ec-box open">
-          <div class="ec-date">26 – 30/10</div>
-          <div class="ec-title">Janela pós-eleição</div>
-          <div class="ec-detail">Cuiabá (129) usa essa semana. A Feira Shopping Pantanal acontece no fim de semana imediato (31/10-01/11).</div>
-        </div>
-      </div>
-      <div class="highlight-box">
-        <strong>Buffer de 2 semanas confirmado.</strong> A prática de mercado sugere 4 semanas. Ao deslocar Curitiba e Cuiabá para 26-30/10 (pós-2º turno), reduz o risco de as Secretarias negarem por precaução institucional. A janela entre turnos (05-11/10) fica vazia intencionalmente.
       </div>
     </section>
 
@@ -292,12 +289,12 @@
           <tr><td>Turmas/cidade</td><td class="dim">4 turmas × 30 alunos</td><td class="high">6 turmas × 40 alunos</td><td class="dim">12 turmas × 30 alunos</td><td class="high">9 turmas × 40 alunos</td></tr>
           <tr><td>Alunos únicos/cidade</td><td class="dim">250</td><td class="high">240</td><td class="dim">360</td><td class="high">360</td></tr>
           <tr><td>Atendimentos total</td><td class="dim">7.000</td><td class="high">6.720 (-4%)</td><td class="dim">7.560</td><td class="high">7.560 (bate MinC)</td></tr>
-          <tr><td>Início</td><td class="dim">03/08</td><td class="high">17/08 (Dom Pedrito)</td><td class="dim">03/08</td><td class="high">24/08 (Tangará da Serra)</td></tr>
-          <tr><td>Encerramento</td><td class="dim">Curitiba com festival + DOMO em nov</td><td class="high">Oficinas Curitiba 09-13/11 + Festival na praça 14-15/11 (fim de semana)</td><td class="dim">Feira Shopping Pantanal out</td><td class="high">Oficinas Cuiabá 26-30/10 + Feira Shopping Pantanal 31/10-01/11 (fim de semana)</td></tr>
+          <tr><td>Início</td><td class="dim">03/08</td><td class="high">31/08 (Dom Pedrito)</td><td class="dim">03/08</td><td class="high">14/09 (Tangará da Serra)</td></tr>
+          <tr><td>Encerramento</td><td class="dim">Curitiba com festival + DOMO em nov</td><td class="high">Oficinas Curitiba 26-30/10 + Festival na praça 31/10-01/11 (fim de semana)</td><td class="dim">Feira Shopping Pantanal out</td><td class="high">Oficinas Cuiabá 19-23/10 + Feira Shopping Pantanal 24-25/10 (fim de semana)</td></tr>
         </tbody>
       </table>
       <div class="highlight-box">
-        <strong>Ordem alternada 128 ↔ 129:</strong> 128 abre com Dom Pedrito (17/08), passa o bastão para 129 (Tangará 24/08), volta com Toledo (31/08), 129 assume com Água Boa (14/09), 128 fecha o ciclo pré-eleição com Guarapuava (05-09/10 entre turnos), 129 volta pós-2º turno com Cuiabá (26/10 + Feira fim de semana) e 128 fecha tudo com Curitiba (09-13/11 + Festival fim de semana).
+        <strong>Ordem alternada 128 ↔ 129:</strong> 128 abre com Dom Pedrito (31/08), 129 assume com Tangará da Serra (14/09), 128 volta com Toledo (21/09), 129 pega Água Boa (28/09-02/10), 128 avança com Guarapuava (05-09/10), 129 fecha com Cuiabá (19-23/10 + Feira 24-25/10) e 128 encerra tudo com Curitiba (26-30/10 + Festival 31/10-01/11).
       </div>
     </section>
 
@@ -306,135 +303,101 @@
       <div class="gantt">
         <div class="gantt-grid">
           <div></div>
-          <div class="gantt-header">17-21/08</div>
-          <div class="gantt-header">24-28/08</div>
           <div class="gantt-header">31/08-04/09</div>
-          <div class="gantt-header">08-11/09</div>
+          <div class="gantt-header">07-11/09</div>
           <div class="gantt-header">14-18/09</div>
           <div class="gantt-header">21-25/09</div>
-          <div class="gantt-header election">28/09-04/10</div>
+          <div class="gantt-header">28/09-02/10</div>
           <div class="gantt-header">05-09/10</div>
           <div class="gantt-header">12-16/10</div>
-          <div class="gantt-header election">19-25/10</div>
+          <div class="gantt-header">19-23/10</div>
           <div class="gantt-header">26-30/10</div>
-          <div class="gantt-header">02-06/11</div>
-          <div class="gantt-header">09-13/11</div>
 
           <div class="gantt-city"><span class="chip chip-128">128</span> Dom Pedrito/RS</div>
           <div class="gantt-cell on-nh">Semana</div>
-          <div class="gantt-cell gap">intervalo</div>
+          <div class="gantt-cell gap holiday">·<br>(07 feriado)</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap holiday">·</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell blocked">🚫</div>
-          <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap holiday">·</div>
-          <div class="gantt-cell blocked">🚫</div>
-          <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap holiday">·</div>
           <div class="gantt-cell gap">·</div>
 
           <div class="gantt-city"><span class="chip chip-128">128</span> Toledo/PR</div>
           <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap holiday">·</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell on-nh">Semana</div>
-          <div class="gantt-cell gap holiday">·<br>(07 feriado)</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap holiday">·</div>
-          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap holiday">·</div>
           <div class="gantt-cell gap">·</div>
 
           <div class="gantt-city"><span class="chip chip-128">128</span> Guarapuava/PR</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap holiday">·</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell blocked">🚫</div>
-          <div class="gantt-cell on-nh">Semana<br>(entre turnos)</div>
-          <div class="gantt-cell gap holiday">·<br>(12 feriado)</div>
-          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell on-nh">Semana</div>
           <div class="gantt-cell gap holiday">·</div>
+          <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
 
           <div class="gantt-city"><span class="chip chip-128">128</span> Curitiba/PR</div>
           <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap holiday">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap holiday">·</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell blocked">🚫</div>
-          <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap holiday">·</div>
-          <div class="gantt-cell blocked">🚫</div>
-          <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap holiday">·<br>(02 feriado)</div>
-          <div class="gantt-cell on-nh">Semana<br>+ Festival<br>fim de sem</div>
+          <div class="gantt-cell on-nh">Semana<br>+ Festival<br>31/10-01/11</div>
 
           <div class="gantt-city"><span class="chip chip-129">129</span> Tangará da Serra/MT</div>
           <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap holiday">·<br>(07 feriado)</div>
           <div class="gantt-cell on-case">Semana</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap holiday">·<br>(07 feriado)</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap holiday">·</div>
-          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap holiday">·</div>
           <div class="gantt-cell gap">·</div>
 
           <div class="gantt-city"><span class="chip chip-129">129</span> Água Boa/MT</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap holiday">·</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap">·</div>
           <div class="gantt-cell on-case">Semana</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell blocked">🚫</div>
-          <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap holiday">·</div>
-          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap holiday">·</div>
           <div class="gantt-cell gap">·</div>
 
           <div class="gantt-city"><span class="chip chip-129">129</span> Cuiabá/MT</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap holiday">·</div>
           <div class="gantt-cell gap">·</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell blocked">🚫</div>
           <div class="gantt-cell gap">·</div>
-          <div class="gantt-cell gap holiday">·</div>
-          <div class="gantt-cell blocked">🚫</div>
-          <div class="gantt-cell on-case">Semana<br>+ Feira<br>fim de sem</div>
-          <div class="gantt-cell gap holiday">·<br>(02 feriado)</div>
+          <div class="gantt-cell gap">·</div>
+          <div class="gantt-cell gap holiday">·<br>(12 feriado)</div>
+          <div class="gantt-cell on-case">Semana<br>+ Feira<br>24-25/10</div>
           <div class="gantt-cell gap">·</div>
         </div>
         <div class="gantt-legend">
           <span class="li"><span class="sw" style="background:#003DA5"></span>Semana New Holland</span>
           <span class="li"><span class="sw" style="background:#C8102E"></span>Semana Case IH</span>
-          <span class="li"><span class="sw" style="background:repeating-linear-gradient(45deg, #ffc9c9, #ffc9c9 4px, #ff8787 4px, #ff8787 8px)"></span>🚫 Bloqueio eleitoral</span>
-          <span class="li"><span class="sw" style="background:repeating-linear-gradient(45deg, #fff3bf, #fff3bf 4px, #ffe066 4px, #ffe066 8px)"></span>Feriado (intervalo)</span>
-          <span class="li"><span class="sw" style="background:#001A4A"></span>Evento final</span>
+          <span class="li"><span class="sw" style="background:repeating-linear-gradient(45deg, #fff3bf, #fff3bf 4px, #ffe066 4px, #ffe066 8px)"></span>Semana com feriado (intervalo)</span>
         </div>
       </div>
       <div class="highlight-box">
-        <strong>Zero sobreposição:</strong> nenhuma semana tem 128 e 129 rodando ao mesmo tempo. Vantagem principal: a mesma equipe de 6 pessoas pode rodar os 7 movimentos de cidade sem multiplicar contratações. Desvantagem: gaps de até 3 semanas entre cidades do mesmo projeto (avaliar impacto em custo fixo de equipe e produtividade em campo).
+        <strong>Cronograma compacto de 9 semanas:</strong> de 31/08 a 01/11 (Festival Curitiba). Zero sobreposição entre projetos, feriados sempre em semanas de intervalo. A mesma equipe de 6 pessoas roda os 7 movimentos de cidade + 2 eventos finais sem multiplicar contratações e sem gaps grandes (máximo 2 semanas entre movimentos).
       </div>
     </section>
 
@@ -551,11 +514,11 @@
         <tbody>
           <tr><td>1</td><td>Compatibilidade do formato "semana única" com o escopo aprovado no MinC (PRONAC 259965 para o 128) + risco de precisar aditivo</td><td>Mayara</td></tr>
           <tr><td>2</td><td>Redução de 4% no volume do 128 (7.000 → 6.720 atendimentos) é aceitável ou precisa aditivo</td><td>Mayara + Abílio</td></tr>
-          <tr><td>3</td><td>Cid 4 do 128 e Cid 3 do 129 em 26-30/10 (pós-2º turno): risco menor que "entre turnos", mas escolas podem estar em fase de recontagem/limpeza pós-eleição. Confirmar com Sec. de Educação disponibilidade</td><td>Ana + Jeferson</td></tr>
-          <tr><td>4</td><td><b>Antecipação do 128 para 17/08:</b> precisa fechar escola de Dom Pedrito com 3 semanas de antecedência (até 27/07). Prazo bem apertado para o Jeferson</td><td>Jeferson</td></tr>
-          <tr><td>5</td><td><b>Antecipação do 129 para 24/08:</b> precisa fechar escola de Tangará da Serra até 03/08</td><td>Jeferson</td></tr>
-          <tr><td>5b</td><td><b>Feira Shopping Pantanal no fim de semana (31/10-01/11):</b> verificar disponibilidade e contrato do espaço para sáb + dom pós-Cuiabá</td><td>Lucas + Aline</td></tr>
-          <tr><td>5c</td><td><b>Festival Curitiba em fim de semana (14-15/11):</b> praça pública precisa de autorização especial para operação em sáb + dom. Domingo 15/11 é feriado da Proclamação da República — pode ampliar público, mas também exige atenção com equipe/segurança</td><td>Lucas + Ana</td></tr>
+          <tr><td>3</td><td><b>Guarapuava (128) em 05-09/10 e Cuiabá (129) em 19-23/10:</b> semanas próximas às eleições. Segundo os supervisores CNH, impacto é baixo — mas confirmar com Secretaria de Educação antes de fechar</td><td>Ana + Jeferson</td></tr>
+          <tr><td>4</td><td><b>Início do 128 em 31/08:</b> precisa fechar escola de Dom Pedrito com 3 semanas de antecedência (até 10/08)</td><td>Jeferson</td></tr>
+          <tr><td>5</td><td><b>Início do 129 em 14/09:</b> precisa fechar escola de Tangará da Serra até 24/08</td><td>Jeferson</td></tr>
+          <tr><td>5b</td><td><b>Feira Shopping Pantanal no fim de semana (24-25/10):</b> verificar disponibilidade e contrato do espaço para sáb + dom pós-Cuiabá</td><td>Lucas + Aline</td></tr>
+          <tr><td>5c</td><td><b>Festival Curitiba em fim de semana (31/10-01/11):</b> praça pública precisa de autorização para operação em sáb + dom. Sábado 31/10 véspera de Finados — atenção com fluxo</td><td>Lucas + Ana</td></tr>
           <tr><td>6</td><td>Palestra dos professores (128): reencaixar na nova semana ou fazer em momento único nacional</td><td>Lucas + Ana</td></tr>
           <tr><td>7</td><td><b>Equipe compartilhada:</b> 128 e 129 rodam em semanas diferentes, então as mesmas 6 pessoas cobrem os 2 projetos. Precisamos avaliar contrato/vínculo dessa equipe fixa por ~3 meses (17/08 a 15/11) sem ficar ociosa nos gaps</td><td>Abílio</td></tr>
           <tr><td>8</td><td>Confirmar orçamento: 6 pessoas × 5 dias × N cidades vs modelo atual (redução ~66% em diária de campo)</td><td>Abílio</td></tr>
