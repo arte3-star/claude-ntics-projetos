@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="refresh" content="1800">
+<title>Planejamento Redes Sociais — Julho 2026 · NTICS</title>
+<style>
+  :root{
+    --paper:#ffffff; --panel:#f6f8f7; --panel2:#eef2ef; --ink:#15241e; --sub:#5d6f66; --muted:#8a998f;
+    --line:#e5eae6; --line2:#eef2ef; --weekend:#fafbfa;
+    --video:#1a9a63; --video-bg:#e8f6ee; --video-bd:#c9ead6;
+    --carr:#2f7fbf; --carr-bg:#e7f1fa; --carr-bd:#cfe3f4;
+    --art:#8a6f3d; --art-bg:#f5efe3; --art-bd:#e7dcc4;
+    --capta:#e08a1e; --capta-bg:#fdf1e0; --capta-bd:#f2ddba;
+    --corte:#6d4bd6; --corte-bg:#efeaff; --corte-bd:#dcd2ff;
+    --aline:#1a9a63; --marcos:#2f7fbf; --lucas:#e08a1e; --semresp:#d8464f;
+    --alert:#d8464f; --alert-bg:#fcebec;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1200px;margin:0 auto;padding:28px 22px 70px}
+  .top{border-bottom:2px solid var(--ink);padding-bottom:14px}
+  .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--capta);font-weight:800}
+  h1{margin:6px 0 2px;font-size:34px;letter-spacing:-.02em;font-weight:800}
+  h1 span{color:var(--muted);font-weight:500}
+  .sub{color:var(--sub);font-size:14px;max-width:720px}
+  /* tabs */
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:20px 0 22px;position:sticky;top:0;background:var(--paper);padding:8px 0;z-index:5;border-bottom:1px solid var(--line)}
+  .tab{appearance:none;border:1px solid var(--line);background:var(--panel);color:var(--sub);
+    font-size:13.5px;font-weight:700;padding:9px 15px;border-radius:10px;cursor:pointer;transition:.15s}
+  .tab:hover{border-color:var(--muted)}
+  .tab[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .tab:focus-visible{outline:2px solid var(--capta);outline-offset:2px}
+  section[role="tabpanel"]{display:none;animation:fade .2s ease}
+  section[role="tabpanel"].active{display:block}
+  @keyframes fade{from{opacity:.4}to{opacity:1}}
+  @media (prefers-reduced-motion:reduce){section[role="tabpanel"]{animation:none}}
+  h2.st{font-size:19px;margin:6px 0 14px;font-weight:800;display:flex;gap:9px;align-items:center}
+  h3{font-size:14px;margin:20px 0 9px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin:2px 0 16px}
+  .lg{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--sub);font-weight:600}
+  .dot{width:11px;height:11px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.08)}
+  .dot.v{background:var(--video)} .dot.c{background:var(--carr)} .dot.a{background:var(--art)}
+  .dot.p{background:var(--capta)} .dot.o{background:var(--corte)}
+  .dot.al{background:var(--aline)} .dot.ma{background:var(--marcos)} .dot.lu{background:var(--lucas)} .dot.sr{background:var(--semresp)}
+  /* KPIs */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:8px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:14px 15px}
+  .kpi .n{font-size:28px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+  .kpi .l{font-size:12.5px;color:var(--sub);font-weight:600;margin-top:2px}
+  .kpi .s{font-size:11.5px;color:var(--muted);margin-top:4px}
+  /* grid */
+  .gridwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:14px}
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;border:1px solid var(--line);border-radius:14px;padding:6px;background:var(--line2);min-width:900px}
+  .dow{text-align:center;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 0 6px}
+  .cell{background:var(--paper);border-radius:9px;min-height:104px;padding:7px 7px 8px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--line2)}
+  .cell.wknd{background:var(--weekend)} .cell.out{background:#fbfcfb;opacity:.5}
+  .cell .num{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:800}
+  .cell.wknd .num{color:var(--muted)}
+  .cell.alert{border-color:var(--alert);box-shadow:inset 0 0 0 1px var(--alert)}
+  .cam{font-size:14px;line-height:1}
+  .chip{font-size:10px;line-height:1.22;padding:3px 6px;border-radius:6px;font-weight:600;border:1px solid transparent}
+  .chip small{display:block;font-weight:700;font-size:9px;opacity:.72}
+  .c-v{background:var(--video-bg);color:#0f6a43;border-color:var(--video-bd)}
+  .c-c{background:var(--carr-bg);color:#1f5c92;border-color:var(--carr-bd)}
+  .c-a{background:var(--art-bg);color:#6f5827;border-color:var(--art-bd)}
+  .c-p{background:var(--capta-bg);color:#9a5b06;border-color:var(--capta-bd)}
+  .c-o{background:var(--corte-bg);color:#4a2fb0;border-color:var(--corte-bd);border-style:dashed}
+  .c-remap{position:relative}
+  .who{display:inline-block;font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:1px 5px;border-radius:20px;color:#fff;margin-right:4px}
+  .w-al{background:var(--aline)} .w-ma{background:var(--marcos)} .w-lu{background:var(--lucas)} .w-sr{background:var(--semresp)}
+  .e-al{background:var(--video-bg);border-color:var(--video-bd)}
+  .e-ma{background:var(--carr-bg);border-color:var(--carr-bd)}
+  .e-lu{background:var(--capta-bg);border-color:var(--capta-bd)}
+  .e-sr{background:var(--alert-bg);border-color:#f3c9cd}
+  .e-o{background:var(--corte-bg);border-color:var(--corte-bd);border-style:dashed}
+  /* panels / tables */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .panel h3{margin-top:0}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:8px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--sub);font-size:11px;text-transform:uppercase;letter-spacing:.05em;font-weight:800}
+  .date{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .meta{color:var(--muted);font-size:11.5px}
+  .badge{display:inline-block;font-size:10px;font-weight:800;padding:1px 7px;border-radius:20px;background:var(--panel2);color:var(--sub)}
+  .flag{color:var(--capta);font-weight:800}
+  .callout{border-left:3px solid var(--alert);background:var(--alert-bg);padding:11px 14px;border-radius:0 10px 10px 0;font-size:13px;margin:6px 0 16px}
+  ul.clean{margin:6px 0 8px;padding-left:18px} ul.clean li{margin:6px 0;font-size:13px}
+  .pill{display:inline-block;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:3px 10px;font-size:12px;margin:2px 4px 2px 0}
+  footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+  @media(max-width:860px){
+    h1{font-size:27px}
+    .cols{grid-template-columns:1fr}
+    .tabs{position:static}
+  }
+  .hint{display:none;color:var(--muted);font-size:11.5px;margin:0 0 8px}
+  @media(max-width:920px){ .hint{display:block} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="eyebrow">NTICS · Social Media · Planejamento Mensal</div>
+    <h1>Redes Sociais <span>· Julho 2026</span></h1>
+    <p class="sub">Tudo num lugar: retrospectiva de junho, calendário de <b>postagem</b> e calendário de <b>edição</b> (com o editor de cada vídeo), captação em campo e a proposta de pauta. Gerado do ClickUp em 03/07/2026.</p>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-p="geral">Visão geral</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="postagem">📅 Postagem</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="edicao">✂️ Edição</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="captacao">📸 Captação</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="proposta">🎯 Proposta &amp; pendências</button>
+  </div>
+
+  <!-- ===================== VISÃO GERAL ===================== -->
+  <section role="tabpanel" id="geral" class="active">
+    <h2 class="st">Retrospectiva — Junho/2026</h2>
+    <div class="kpis">
+      <div class="kpi"><div class="n">~50</div><div class="l">Peças publicadas</div><div class="s">38 de projetos + 12 institucionais</div></div>
+      <div class="kpi"><div class="n">15</div><div class="l">Vídeos editados</div><div class="s">Aline 9 · Marcos 5 · Lucas 1</div></div>
+      <div class="kpi"><div class="n">8/17</div><div class="l">Projetos que postaram</div><div class="s">Vibra concentrou o volume</div></div>
+      <div class="kpi"><div class="n">20</div><div class="l">Peças · Caminhão ODS Manaus</div><div class="s">Marina 14 · Marcos 6 (133 Vibra)</div></div>
+    </div>
+    <div class="cols">
+      <div class="panel">
+        <h3>Quem fez o quê (junho)</h3>
+        <table>
+          <tr><th>Pessoa</th><th>Papel</th><th>Volume</th></tr>
+          <tr><td><span class="who w-al">Aline</span></td><td>posta + edita</td><td>18 posts · 9 vídeos editados</td></tr>
+          <tr><td><span class="who w-ma">Marcos</span></td><td>edição de vídeo (cases)</td><td>5 vídeos · 6 peças Vibra</td></tr>
+          <tr><td><span class="who" style="background:#8a4fd6">Marina</span></td><td>design de carrossel/estático</td><td>14 peças (Vibra)</td></tr>
+          <tr><td><span class="who w-lu">Lucas</span></td><td>artigos/newsletter + 1 vídeo</td><td>institucional</td></tr>
+        </table>
+      </div>
+      <div class="panel">
+        <h3>Projetos — postaram × silenciosos</h3>
+        <p style="margin:2px 0 8px"><span class="pill">✓ 133 Vibra</span><span class="pill">✓ 127 PIE</span><span class="pill">✓ 74 Global Goals</span><span class="pill">✓ 125 GRU</span><span class="pill">✓ 124 Compagas</span><span class="pill">✓ 116 Áster</span><span class="pill">✓ 117 Teatro</span><span class="pill">✓ 119 PEC</span></p>
+        <p class="meta" style="margin:0 0 6px">Silenciosos em junho:</p>
+        <p style="margin:0"><span class="pill" style="color:#c25">— 115</span><span class="pill" style="color:#c25">— 120</span><span class="pill" style="color:#c25">— 121</span><span class="pill" style="color:#c25">— 122</span><span class="pill" style="color:#c25">— 123</span><span class="pill" style="color:#c25">— 126</span><span class="pill" style="color:#c25">— 128/129</span><span class="pill" style="color:#c25">— 132</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== POSTAGEM ===================== -->
+  <section role="tabpanel" id="postagem">
+    <h2 class="st">📅 Calendário de postagem — o que vai ao ar</h2>
+    <div class="legend">
+      <span class="lg"><span class="dot v"></span>Vídeo</span>
+      <span class="lg"><span class="dot c"></span>Carrossel / estático</span>
+      <span class="lg"><span class="dot a"></span>Artigo / newsletter</span>
+      <span class="lg"><span class="dot o"></span>Corte novo (proposta)</span>
+      <span class="lg"><span class="cam">📸</span>Captação no dia</span>
+    </div>
+    <p class="hint">↔ arraste para o lado para ver o mês inteiro</p>
+    <div class="gridwrap"><div class="grid">
+      <div class="dow">Dom</div><div class="dow">Seg</div><div class="dow">Ter</div><div class="dow">Qua</div><div class="dow">Qui</div><div class="dow">Sex</div><div class="dow">Sáb</div>
+      <!-- W1 -->
+      <div class="cell out"><div class="num">29</div></div>
+      <div class="cell out"><div class="num">30</div></div>
+      <div class="cell"><div class="num">1</div><div class="chip c-c">Case Lapão<small>74 · data fechada</small></div></div>
+      <div class="cell"><div class="num">2</div></div>
+      <div class="cell"><div class="num">3 <span class="cam">📸</span></div><div class="chip c-v">V1 SOTREQ<small>127</small></div><div class="chip c-c">Carrossel Notícias ESG S14</div></div>
+      <div class="cell wknd"><div class="num">4</div><div class="chip c-c">Carrossel Notícias Projetos S15</div></div>
+      <div class="cell wknd"><div class="num">5</div><div class="chip c-a">Artigo ESG S15</div></div>
+      <!-- W2 -->
+      <div class="cell wknd"><div class="num">6</div><div class="chip c-o">Corte · MM Catas Altas<small>132 · proposta</small></div><div class="chip c-a">Newsletter M02</div></div>
+      <div class="cell"><div class="num">7</div><div class="chip c-v">V Case 119 · V pós 120</div><div class="chip c-c">Carrossel Projeto S15 #103</div></div>
+      <div class="cell"><div class="num">8</div><div class="chip c-v">V5 GRU<small>127 · data fechada</small></div></div>
+      <div class="cell"><div class="num">9</div><div class="chip c-v">V Case Pós<small>117</small></div></div>
+      <div class="cell"><div class="num">10 <span class="cam">📸</span></div><div class="chip c-v">MM Catas Altas<small>132</small></div><div class="chip c-c">3 carrosséis (ESG S15/S16 + Proj S16)</div></div>
+      <div class="cell wknd"><div class="num">11</div></div>
+      <div class="cell wknd"><div class="num">12</div><div class="chip c-a">Artigo ESG S16</div></div>
+      <!-- W3 -->
+      <div class="cell"><div class="num">13</div><div class="chip c-v">V Venda 1<small>120</small></div><div class="chip c-a">Artigo M04</div></div>
+      <div class="cell"><div class="num">14</div><div class="chip c-v c-remap">↪ V2 SOTREQ<small>127 · remaneja de 08</small></div><div class="chip c-c">Carrossel Projeto S16 #87</div></div>
+      <div class="cell"><div class="num">15</div><div class="chip c-v c-remap">↪ V Case<small>119 · remaneja de 08</small></div><div class="chip c-a">Newsletter M04</div></div>
+      <div class="cell"><div class="num">16 <span class="cam">📸</span></div><div class="chip c-v">V Case Pós<small>116 · data fechada</small></div><div class="chip c-c">Carrossel Case Pós<small>124 · data fechada</small></div></div>
+      <div class="cell"><div class="num">17 <span class="cam">📸</span></div><div class="chip c-v">V Venda 1 + V Case<small>127</small></div><div class="chip c-c">Carrossel Notícias Projetos S17</div></div>
+      <div class="cell wknd"><div class="num">18</div></div>
+      <div class="cell wknd"><div class="num">19</div><div class="chip c-a">Artigo ESG S17</div><div class="chip c-c">Carrossel ESG S17</div></div>
+      <!-- W4 -->
+      <div class="cell"><div class="num">20</div><div class="chip c-v">V Case 124<small>data fechada</small></div></div>
+      <div class="cell"><div class="num">21 <span class="cam">📸</span></div><div class="chip c-v c-remap">↪ V Venda 1<small>117 · remaneja de 20</small></div><div class="chip c-c">Carrossel Projeto S17 #89</div></div>
+      <div class="cell"><div class="num">22 <span class="cam">📸</span></div><div class="chip c-v c-remap">↪ V Venda 2<small>120 · remaneja de 20</small></div></div>
+      <div class="cell"><div class="num">23</div><div class="chip c-o">Corte · Camargos Abertura MG<small>132 · proposta</small></div></div>
+      <div class="cell"><div class="num">24 <span class="cam">📸</span></div><div class="chip c-v">V Venda 2<small>127</small></div><div class="chip c-c">Carrossel Notícias Projetos S18</div></div>
+      <div class="cell wknd"><div class="num">25</div></div>
+      <div class="cell wknd"><div class="num">26</div><div class="chip c-a">Artigo ESG S18</div><div class="chip c-c">Carrossel ESG S18</div></div>
+      <!-- W5 -->
+      <div class="cell"><div class="num">27</div><div class="chip c-v">V Venda 2<small>117</small></div></div>
+      <div class="cell"><div class="num">28 <span class="cam">📸</span></div><div class="chip c-v">V Venda 1<small>119 · data fechada</small></div><div class="chip c-c">Carrossel Projeto S18 #86</div></div>
+      <div class="cell"><div class="num">29</div><div class="chip c-o">Corte · Camargos Culinária<small>132 · proposta</small></div></div>
+      <div class="cell"><div class="num">30</div><div class="chip c-o">Corte · Santa Rita Durão<small>132 · proposta</small></div></div>
+      <div class="cell"><div class="num">31</div><div class="chip c-o">Corte · GRU Premiação<small>125 · proposta</small></div></div>
+      <div class="cell out"><div class="num">1</div></div>
+      <div class="cell out"><div class="num">2</div></div>
+    </div></div>
+    <p class="meta" style="margin-top:12px">Meta ≥ 1 <b>vídeo</b>/dia útil: atingida combinando os vídeos já agendados + 4 remanejamentos (↪, dos dias 08/20 lotados) + 5 cortes novos. Carrosséis e artigos institucionais aparecem em azul/bege e não contam como vídeo.</p>
+  </section>
+
+  <!-- ===================== EDIÇÃO ===================== -->
+  <section role="tabpanel" id="edicao">
+    <h2 class="st">✂️ Calendário de edição — quem edita cada vídeo</h2>
+    <div class="legend">
+      <span class="lg"><span class="dot al"></span>Aline</span>
+      <span class="lg"><span class="dot ma"></span>Marcos</span>
+      <span class="lg"><span class="dot lu"></span>Lucas</span>
+      <span class="lg"><span class="dot sr"></span>Sem responsável</span>
+      <span class="lg"><span class="dot o"></span>Corte novo (Aline · proposta)</span>
+    </div>
+    <div class="callout"><b>Regra:</b> máx. 1 vídeo/dia por editor. O dia <b>16/07</b> tinha <b>3 edições da Aline</b> — remanejado para <b>15, 16 e 17</b> (mostrado abaixo com ↪).</div>
+    <p class="hint">↔ arraste para o lado para ver o mês inteiro</p>
+    <div class="gridwrap"><div class="grid">
+      <div class="dow">Dom</div><div class="dow">Seg</div><div class="dow">Ter</div><div class="dow">Qua</div><div class="dow">Qui</div><div class="dow">Sex</div><div class="dow">Sáb</div>
+      <!-- W1 -->
+      <div class="cell out"><div class="num">29</div></div>
+      <div class="cell out"><div class="num">30</div></div>
+      <div class="cell"><div class="num">1</div><div class="chip e-al"><span class="who w-al">Aline</span>V1 SOTREQ<small>127</small></div></div>
+      <div class="cell"><div class="num">2</div></div>
+      <div class="cell"><div class="num">3</div><div class="chip e-o"><span class="who w-al">Aline</span>corte MM Catas Altas<small>edita p/ post 06</small></div></div>
+      <div class="cell wknd"><div class="num">4</div></div>
+      <div class="cell wknd"><div class="num">5</div></div>
+      <!-- W2 -->
+      <div class="cell wknd"><div class="num">6</div><div class="chip e-al"><span class="who w-al">Aline</span>V2 SOTREQ<small>127</small></div><div class="chip e-ma"><span class="who w-ma">Marcos</span>V pós Evento<small>120</small></div></div>
+      <div class="cell"><div class="num">7</div><div class="chip e-ma"><span class="who w-ma">Marcos</span>MM Catas Altas<small>132</small></div></div>
+      <div class="cell"><div class="num">8</div><div class="chip e-al"><span class="who w-al">Aline</span>V Venda 1<small>120</small></div></div>
+      <div class="cell"><div class="num">9</div><div class="chip e-lu"><span class="who w-lu">Lucas</span>V Case<small>119</small></div><div class="chip e-sr"><span class="who w-sr">?</span>V Venda 1<small>117 · sem resp.</small></div></div>
+      <div class="cell"><div class="num">10</div></div>
+      <div class="cell wknd"><div class="num">11</div></div>
+      <div class="cell wknd"><div class="num">12</div></div>
+      <!-- W3 -->
+      <div class="cell"><div class="num">13</div><div class="chip e-ma"><span class="who w-ma">Marcos</span>V Case Pós<small>124</small></div></div>
+      <div class="cell"><div class="num">14</div><div class="chip e-al"><span class="who w-al">Aline</span>V Case Pós<small>127</small></div></div>
+      <div class="cell"><div class="num">15</div><div class="chip e-al c-remap"><span class="who w-al">Aline</span>↪ V Venda 1<small>116 · remaneja de 16</small></div></div>
+      <div class="cell alert"><div class="num">16</div><div class="chip e-al"><span class="who w-al">Aline</span>V Venda 1<small>127</small></div></div>
+      <div class="cell"><div class="num">17</div><div class="chip e-al c-remap"><span class="who w-al">Aline</span>↪ V Venda 2<small>120 · remaneja de 16</small></div></div>
+      <div class="cell wknd"><div class="num">18</div></div>
+      <div class="cell wknd"><div class="num">19</div></div>
+      <!-- W4 -->
+      <div class="cell"><div class="num">20</div><div class="chip e-al"><span class="who w-al">Aline</span>V Venda 2<small>127</small></div></div>
+      <div class="cell"><div class="num">21</div><div class="chip e-o"><span class="who w-al">Aline</span>corte Camargos Abertura<small>edita p/ post 23</small></div></div>
+      <div class="cell"><div class="num">22</div><div class="chip e-al"><span class="who w-al">Aline</span>V Venda 2<small>117</small></div></div>
+      <div class="cell"><div class="num">23</div><div class="chip e-al"><span class="who w-al">Aline</span>V Venda 2<small>116</small></div></div>
+      <div class="cell"><div class="num">24</div></div>
+      <div class="cell wknd"><div class="num">25</div></div>
+      <div class="cell wknd"><div class="num">26</div></div>
+      <!-- W5 -->
+      <div class="cell"><div class="num">27</div><div class="chip e-o"><span class="who w-al">Aline</span>corte Camargos Culinária<small>edita p/ post 29</small></div></div>
+      <div class="cell"><div class="num">28</div><div class="chip e-al"><span class="who w-al">Aline</span>V Venda 1<small>124</small></div><div class="chip e-ma"><span class="who w-ma">Marcos</span>MM Camargos<small>132</small></div></div>
+      <div class="cell"><div class="num">29</div><div class="chip e-o"><span class="who w-al">Aline</span>corte Santa Rita Durão<small>edita p/ post 30</small></div></div>
+      <div class="cell"><div class="num">30</div><div class="chip e-o"><span class="who w-al">Aline</span>corte GRU Premiação<small>edita p/ post 31</small></div></div>
+      <div class="cell"><div class="num">31</div></div>
+      <div class="cell out"><div class="num">1</div></div>
+      <div class="cell out"><div class="num">2</div></div>
+    </div></div>
+    <p class="meta" style="margin-top:12px">Carga de edição em julho: <b>Aline</b> ~11 vídeos + 5 cortes · <b>Marcos</b> 4 cases · <b>Lucas</b> 1 · <b>1 vídeo sem responsável</b> (117 V Venda 1, dia 09). Após o remanejamento, nenhum editor passa de 1 vídeo/dia.</p>
+  </section>
+
+  <!-- ===================== CAPTAÇÃO ===================== -->
+  <section role="tabpanel" id="captacao">
+    <h2 class="st">📸 Captação em campo — quando teremos fotógrafo/vídeo</h2>
+    <p class="meta" style="margin-top:-6px">Fonte: tag <b>“captação em campo”</b> no ClickUp. Em julho a captação está concentrada no <b>132 Estação Samarco (MG)</b> — material de sobra para os cortes.</p>
+    <div class="panel" style="margin-top:12px">
+      <table>
+        <tr><th>Data</th><th>Onde / o quê</th><th>Projeto</th><th>Vira corte?</th></tr>
+        <tr><td class="date">03/07</td><td>Catas Altas · Sala Mineira — Beleza (25 vagas)</td><td><span class="badge">132 Samarco</span></td><td>→ Corte 06/07</td></tr>
+        <tr><td class="date">10/07</td><td>Camargos · LV — Abertura MG (Empreendedorismo, 50 vagas)</td><td><span class="badge">132 Samarco</span></td><td>→ Corte 23/07</td></tr>
+        <tr><td class="date">16/07</td><td>GRU · Premiação Comunidades <span class="flag">(confirmar)</span></td><td><span class="badge">125 GRU</span></td><td>→ Corte 31/07</td></tr>
+        <tr><td class="date">17/07</td><td>Camargos · Posto de Saúde — Beleza (25 vagas)</td><td><span class="badge">132 Samarco</span></td><td>—</td></tr>
+        <tr><td class="date">21/07</td><td>Uibaí · Oficina na comunidade <span class="flag">(data a confirmar)</span></td><td><span class="badge">120 Neg. Cultural</span></td><td>—</td></tr>
+        <tr><td class="date">22/07</td><td>Ação de fechamento — Feira do Empreendedor</td><td><span class="badge">120 Neg. Cultural</span></td><td>—</td></tr>
+        <tr><td class="date">24/07</td><td>Camargos · Culinária &nbsp;+&nbsp; E.E. Carmina Mendes (GRU)</td><td><span class="badge">132 + 125</span></td><td>→ Corte 29/07</td></tr>
+        <tr><td class="date">28/07</td><td>Santa Rita Durão · Anexo Integral — Empreendedorismo (20 vagas)</td><td><span class="badge">132 Samarco</span></td><td>→ Corte 30/07</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== PROPOSTA ===================== -->
+  <section role="tabpanel" id="proposta">
+    <h2 class="st">🎯 Proposta de pauta &amp; pendências</h2>
+    <div class="cols">
+      <div class="panel">
+        <h3>🔀 Remanejar sobrecarga (16/07)</h3>
+        <table>
+          <tr><th>Edição (Aline)</th><th>De</th><th>Para</th></tr>
+          <tr><td>Criar V Venda 1 · 127</td><td>16/07</td><td><b>fica 16</b></td></tr>
+          <tr><td>Criar V Venda 1 · 116</td><td>16/07</td><td><b>15/07</b></td></tr>
+          <tr><td>Criar V Venda 2 · 120</td><td>16/07</td><td><b>17/07</b></td></tr>
+        </table>
+      </div>
+      <div class="panel">
+        <h3>♻️ Preencher lacunas sem edição nova</h3>
+        <table>
+          <tr><th>Vídeo (post)</th><th>De → Para</th></tr>
+          <tr><td>V2 SOTREQ · 127</td><td>08 → <b>14/07</b></td></tr>
+          <tr><td>V Case · 119</td><td>08 → <b>15/07</b></td></tr>
+          <tr><td>V Venda 1 · 117</td><td>20 → <b>21/07</b></td></tr>
+          <tr><td>V Venda 2 · 120</td><td>20 → <b>22/07</b></td></tr>
+        </table>
+      </div>
+    </div>
+    <h3>✂️ Cortes novos (Aline · máx. 1/dia) — rascunho para criar no ClickUp</h3>
+    <div class="panel">
+      <table>
+        <tr><th>Post</th><th>Corte (nome)</th><th>Lista</th><th>Edita</th></tr>
+        <tr><td class="date">06/07</td><td>Melhores Momentos Catas Altas</td><td>132 Samarco</td><td>03/07</td></tr>
+        <tr><td class="date">23/07</td><td>Camargos Abertura MG</td><td>132 Samarco</td><td>21/07</td></tr>
+        <tr><td class="date">29/07</td><td>Camargos Culinária</td><td>132 Samarco</td><td>27/07</td></tr>
+        <tr><td class="date">30/07</td><td>Santa Rita Durão</td><td>132 Samarco</td><td>29/07</td></tr>
+        <tr><td class="date">31/07</td><td>GRU Premiação Comunidades</td><td>125 GRU</td><td>30/07</td></tr>
+      </table>
+      <p class="meta">Subtarefas de “Acompanhar redes sociais”, responsável Aline B. · <b>nada criado ainda</b> — aguarda aprovação.</p>
+    </div>
+    <h3>⚠️ Pendências</h3>
+    <ul class="clean">
+      <li><b>1 vídeo sem responsável</b> (117 “Criar Vídeo Venda 1”, dia 09) + posts “Vídeo Venda” sem quem posta — definir responsável.</li>
+      <li><b>Datas inconsistentes no ClickUp</b> (conclusão ≠ entrega) e maioria dos itens de julho ainda em backlog.</li>
+      <li><b>Captação a confirmar:</b> GRU Premiação (16/07) e Uibaí (21/07).</li>
+      <li><b>Designers:</b> só Marina e Aline aparecem em jun/jul — confirmar se há 3ª designer (“Alison”?).</li>
+    </ul>
+  </section>
+
+  <footer>
+    <b>Atualizado em 03/07/2026</b> · a página recarrega sozinha a cada 30 min para pegar a última versão publicada · Gerado do ClickUp (Escritório de Projetos › Projetos Ativos + Cronograma de redes sociais + tag captação em campo) · Modelo: skill <code>planejamento-redes-sociais</code> · Remanejamentos e cortes pendentes de aprovação para escrita no ClickUp.
+  </footer>
+</div>
+<script>
+  const tabs=[...document.querySelectorAll('.tab')];
+  const panels=[...document.querySelectorAll('section[role=tabpanel]')];
+  function sel(id){
+    tabs.forEach(t=>t.setAttribute('aria-selected', t.dataset.p===id));
+    panels.forEach(p=>p.classList.toggle('active', p.id===id));
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>sel(t.dataset.p)));
+</script>
+</body>
+</html>
