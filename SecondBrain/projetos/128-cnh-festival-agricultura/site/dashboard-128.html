@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Festival AgriCULTURA Sustentável · Dashboard 128</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+tailwind.config = {
+  darkMode:"class",
+  theme:{
+    extend:{
+      colors:{
+        surface:"#f8f9ff",
+        "secondary-container":"#fed000",
+        "on-secondary-container":"#6f5900",
+        "surface-dim":"#ccdbf3",
+        "secondary-fixed":"#ffe07f",
+        "secondary-fixed-dim":"#edc200",
+        "error-container":"#ffdad6",
+        "on-error-container":"#93000a",
+        "on-primary":"#ffffff",
+        "danger":"#DC2626",
+        "on-surface":"#0d1c2e",
+        "tertiary-fixed-dim":"#9dcaff",
+        "on-primary-container":"#7ca1e0",
+        "tertiary-container":"#003962",
+        "surface-container-high":"#dce9ff",
+        "warning":"#F59E0B",
+        "tertiary":"#00233f",
+        "surface-tint":"#385f99",
+        "surface-container-highest":"#d5e3fc",
+        "nh-blue-light":"#E8F1F9",
+        "background":"#f8f9ff",
+        "success":"#16A34A",
+        "on-error":"#ffffff",
+        "primary-fixed-dim":"#a9c7ff",
+        "on-surface-variant":"#434750",
+        "outline":"#737781",
+        "surface-bg":"#FAFBFC",
+        "inverse-primary":"#a9c7ff",
+        "inverse-on-surface":"#eaf1ff",
+        "inverse-surface":"#233144",
+        "primary-fixed":"#d6e3ff",
+        "on-tertiary-container":"#60a4eb",
+        "nh-blue-accent":"#4A9BD1",
+        "on-secondary":"#ffffff",
+        "on-tertiary-fixed":"#001d35",
+        "secondary":"#725c00",
+        "tertiary-fixed":"#d1e4ff",
+        "on-primary-fixed":"#001b3d",
+        "surface-variant":"#d5e3fc",
+        "primary-container":"#00366f",
+        "on-secondary-fixed":"#231b00",
+        "surface-container-lowest":"#ffffff",
+        "on-tertiary-fixed-variant":"#00497c",
+        "on-secondary-fixed-variant":"#564500",
+        "primary":"#002148",
+        "outline-variant":"#c3c6d1",
+        "error":"#ba1a1a",
+        "on-background":"#0d1c2e",
+        "surface-bright":"#f8f9ff",
+        "surface-container-low":"#eff4ff",
+        "on-tertiary":"#ffffff",
+        "on-primary-fixed-variant":"#1c4680",
+        "surface-container":"#e6eeff"
+      },
+      spacing:{"gap-md":"1rem","unit":"4px","max-width":"1400px","container-padding":"2.5rem","gap-xs":"0.5rem","gap-lg":"1.5rem","gutter":"2rem"},
+      fontFamily:{
+        "headline-md":["Space Grotesk"],"headline-sm":["Space Grotesk"],"headline-lg":["Space Grotesk"],
+        "display-kpi":["Space Grotesk"],"label-caps":["Inter"],"body-lg":["Inter"],"body-sm":["Inter"],"nav-item":["Inter"]
+      },
+      fontSize:{
+        "headline-md":["28px",{lineHeight:"1.2",letterSpacing:"-0.02em",fontWeight:"600"}],
+        "headline-sm":["20px",{lineHeight:"1.2",fontWeight:"600"}],
+        "headline-lg":["36px",{lineHeight:"1.2",letterSpacing:"-0.02em",fontWeight:"600"}],
+        "display-kpi":["32px",{lineHeight:"1.0",fontWeight:"700"}],
+        "label-caps":["11px",{lineHeight:"1.2",letterSpacing:"0.12em",fontWeight:"700"}],
+        "body-lg":["15px",{lineHeight:"1.55",fontWeight:"400"}],
+        "body-sm":["13px",{lineHeight:"1.4",fontWeight:"400"}],
+        "nav-item":["14px",{lineHeight:"1.2",fontWeight:"500"}]
+      }
+    }
+  }
+};
+</script>
+<style>
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#d5e3fc;border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:#c3c6d1}
+.page{display:none}
+.page.active{display:block;animation:fade .25s ease}
+.subpage{display:none}
+.subpage.active{display:block;animation:fade .2s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.nav-active{background:#fed000;color:#6f5900 !important}
+.nav-active .material-symbols-outlined{font-variation-settings:'FILL' 1}
+.top-active{color:#002148 !important;font-weight:700;border-bottom-color:#fed000 !important}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.02em}
+.chip-blue{background:#E8F1F9;color:#00366f}
+.chip-yellow{background:#fff3b0;color:#6f5900}
+.chip-green{background:#DCFCE7;color:#166534}
+.chip-orange{background:#FEF3C7;color:#92400E}
+.chip-red{background:#FEE2E2;color:#991B1B}
+.chip-gray{background:#F1F5F9;color:#475569}
+.risk-cell{padding:12px;border-radius:10px;font-size:12px;line-height:1.4;border:1px solid #c3c6d1}
+.risk-low{background:#F0FDF4;border-color:#BBF7D0;color:#166534}
+.risk-med{background:#FEF3C7;border-color:#FCD34D;color:#92400E}
+.risk-high{background:#FEE2E2;border-color:#FCA5A5;color:#991B1B}
+.card{background:#ffffff;border:1px solid #c3c6d1;border-radius:12px;padding:24px;box-shadow:0 1px 2px rgba(15,23,42,.05)}
+table.data{width:100%;border-collapse:collapse;font-size:13px}
+table.data th{text-align:left;padding:10px 12px;background:#eff4ff;border-bottom:1px solid #c3c6d1;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#434750}
+table.data td{padding:10px 12px;border-bottom:1px solid #e6eeff;vertical-align:top}
+table.data tr:last-child td{border-bottom:none}
+table.data tr:hover td{background:#f8f9ff}
+.oficina{background:linear-gradient(180deg,#fff 0%,#f8f9ff 100%);border:1px solid #c3c6d1;border-radius:12px;padding:16px;position:relative}
+.oficina-num{position:absolute;top:12px;right:12px;font-family:'Space Grotesk';font-weight:700;font-size:12px;background:#002148;color:#fed000;padding:2px 8px;border-radius:6px}
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:#c3c6d1}
+.tl-item{position:relative;padding-bottom:20px}
+.tl-item::before{content:'';position:absolute;left:-25px;top:5px;width:14px;height:14px;border-radius:50%;background:#385f99;border:3px solid #fff;box-shadow:0 0 0 2px #E8F1F9}
+.tl-item.done::before{background:#16A34A;box-shadow:0 0 0 2px #DCFCE7}
+.tl-item.warn::before{background:#F59E0B;box-shadow:0 0 0 2px #FEF3C7}
+.tl-item.curr::before{background:#fed000;box-shadow:0 0 0 2px rgba(237,194,0,.4)}
+.progress-bar{height:8px;background:#dce9ff;border-radius:4px;overflow:hidden}
+.progress-bar>span{display:block;height:100%;border-radius:4px}
+input[type="search"],select{border:1px solid #c3c6d1;border-radius:8px;padding:8px 12px;font-size:13px;background:#fff;color:#0d1c2e;font-family:inherit}
+input[type="search"]:focus,select:focus{outline:none;border-color:#385f99;box-shadow:0 0 0 3px #E8F1F9}
+.slide-wrap{position:relative;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 12px 32px rgba(15,23,42,.10)}
+.slide-wrap iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+.sheet-wrap{background:#fff;border:1px solid #c3c6d1;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(15,23,42,.06)}
+.sheet-wrap iframe{display:block;width:100%;height:600px;border:0}
+</style>
+</head>
+<body class="bg-surface text-on-surface h-screen flex overflow-hidden font-body-lg text-body-lg">
+
+<!-- ========== SIDEBAR ========== -->
+<nav class="fixed left-0 top-0 h-screen w-72 border-r border-outline-variant bg-surface-container-low flex flex-col py-gap-lg z-20 hidden md:flex">
+  <div class="px-container-padding mb-gap-lg">
+    <div class="flex items-center gap-gap-xs mb-unit">
+      <div class="w-10 h-10 bg-secondary-container rounded flex items-center justify-center shadow-sm">
+        <span class="font-headline-sm text-headline-sm font-bold text-primary">128</span>
+      </div>
+      <h1 class="font-headline-sm text-primary leading-tight">AgriCULTURA<br>Sustentável</h1>
+    </div>
+    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Project Lifecycle</p>
+  </div>
+  <div class="flex-1 px-4 flex flex-col gap-unit overflow-y-auto">
+    <button data-page="mockup" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left">
+      <span class="material-symbols-outlined">slideshow</span><span class="font-nav-item text-nav-item">Mockup inicial</span>
+    </button>
+    <button data-page="playbook" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left">
+      <span class="material-symbols-outlined">menu_book</span><span class="font-nav-item text-nav-item">Playbook</span>
+    </button>
+    <button data-page="tap" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left">
+      <span class="material-symbols-outlined">assignment</span><span class="font-nav-item text-nav-item">Termo de Abertura</span>
+    </button>
+    <button data-page="painel" class="side-item nav-active flex items-center gap-gap-xs px-4 py-2 rounded-lg font-bold transition-all duration-200 text-left">
+      <span class="material-symbols-outlined">dashboard</span><span class="font-nav-item text-nav-item">Painel · o agora</span>
+    </button>
+    <button data-page="orcamento" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left">
+      <span class="material-symbols-outlined">payments</span><span class="font-nav-item text-nav-item">Orçamento</span>
+    </button>
+    <button data-page="decisoes" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left">
+      <span class="material-symbols-outlined">gavel</span><span class="font-nav-item text-nav-item">Decisões</span>
+    </button>
+    <button data-page="itens" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left">
+      <span class="material-symbols-outlined">warning</span><span class="font-nav-item text-nav-item">Itens em aberto</span>
+    </button>
+    <button data-page="proximos" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left">
+      <span class="material-symbols-outlined">rocket_launch</span><span class="font-nav-item text-nav-item">Próximos passos</span>
+    </button>
+  </div>
+  <div class="px-4 mt-auto flex flex-col gap-unit">
+    <a href="https://app.clickup.com/9011929793/v/dc/8cje8p1-76351" target="_blank" class="w-full flex justify-center items-center gap-2 py-2 bg-primary text-on-primary rounded-lg font-nav-item text-nav-item font-medium hover:bg-primary-container transition-colors shadow-sm">
+      <span class="material-symbols-outlined">open_in_new</span>Escopo ClickUp
+    </a>
+    <div class="h-px bg-outline-variant my-2"></div>
+    <a href="https://drive.google.com/drive/folders/1ay0JHTF3rP2WCBZojrbWoKe2vom3mRyc" target="_blank" class="flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg">
+      <span class="material-symbols-outlined">folder</span><span class="font-nav-item text-nav-item">Drive do projeto</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ========== MAIN AREA ========== -->
+<div class="flex-1 flex flex-col md:ml-72 h-screen overflow-hidden bg-background">
+
+<!-- TOP BAR -->
+<header class="flex justify-between items-center w-full px-container-padding py-4 border-b border-outline-variant bg-surface-container-lowest shadow-sm z-10 shrink-0">
+  <div class="hidden md:flex items-center gap-gap-lg">
+    <span class="font-headline-sm text-headline-sm text-primary font-bold">AgriCULTURA Sustentável</span>
+    <div class="h-4 w-px bg-outline-variant"></div>
+    <span class="font-label-caps text-label-caps text-on-surface-variant uppercase bg-surface-container px-3 py-1 rounded-full">PRONAC 259965</span>
+  </div>
+  <div class="hidden lg:flex items-center gap-gap-md" id="top-nav">
+    <a href="#" data-page="mockup" class="top-item font-nav-item text-nav-item text-on-surface-variant hover:text-primary pb-2 border-b-2 border-transparent transition-colors">Mockup</a>
+    <a href="#" data-page="playbook" class="top-item font-nav-item text-nav-item text-on-surface-variant hover:text-primary pb-2 border-b-2 border-transparent transition-colors">Playbook</a>
+    <a href="#" data-page="tap" class="top-item font-nav-item text-nav-item text-on-surface-variant hover:text-primary pb-2 border-b-2 border-transparent transition-colors">TAP</a>
+    <a href="#" data-page="painel" class="top-item top-active font-nav-item text-nav-item text-primary font-bold border-b-2 border-secondary-container pb-2 transition-colors">Painel</a>
+    <a href="#" data-page="orcamento" class="top-item font-nav-item text-nav-item text-on-surface-variant hover:text-primary pb-2 border-b-2 border-transparent transition-colors">Orçamento</a>
+    <a href="#" data-page="proximos" class="top-item font-nav-item text-nav-item text-on-surface-variant hover:text-primary pb-2 border-b-2 border-transparent transition-colors">Próximos passos</a>
+  </div>
+  <div class="flex items-center gap-gap-xs">
+    <button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-nh-blue-light transition-colors">
+      <span class="material-symbols-outlined">notifications</span>
+    </button>
+    <button class="w-10 h-10 rounded-full flex items-center justify-center text-primary bg-surface-container-highest ml-2">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">account_circle</span>
+    </button>
+  </div>
+</header>
+
+<!-- SCROLLABLE CANVAS -->
+<main class="flex-1 overflow-y-auto p-4 md:p-container-padding">
+  <div class="max-w-max-width mx-auto flex flex-col gap-gap-lg">
+
+  <!-- ============ PAGE: MOCKUP INICIAL ============ -->
+  <div class="page" data-page="mockup">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-2">
+      <div>
+        <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">0 · Origem do projeto</p>
+        <h2 class="font-headline-lg text-headline-lg text-primary">Mockup inicial</h2>
+        <p class="text-on-surface-variant mt-1">A apresentação vendida para a CNH · use as setas ou o menu do próprio slide para navegar.</p>
+      </div>
+      <span class="chip chip-blue">Origem · congelado</span>
+    </div>
+    <div class="slide-wrap">
+      <iframe src="https://docs.google.com/presentation/d/1xNuLYBwD6yMaJm4ed32FaagFdSj3x1hpyi9cf02mJQI/embed?start=false&loop=false&delayms=60000" allowfullscreen></iframe>
+    </div>
+    <div class="mt-6 bg-nh-blue-light border-l-4 border-primary rounded-r-lg p-4 text-primary text-body-sm">
+      Este mockup é a <strong>fotografia do start</strong>. Os documentos ao lado (Playbook, TAP, Painel) são a versão viva e correta. Quando algo divergir, sempre confiar no <strong>Painel</strong>.
+    </div>
+  </div>
+
+  <!-- ============ PAGE: PLAYBOOK ============ -->
+  <div class="page" data-page="playbook">
+    <div class="mb-4">
+      <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">1 · Playbook · o método (ESTÁVEL)</p>
+      <h2 class="font-headline-lg text-headline-lg text-primary">O método do projeto</h2>
+      <p class="text-on-surface-variant mt-1">A coluna dorsal — como o projeto é. Muda raramente, só quando o método é revisado.</p>
+    </div>
+
+    <!-- sub-nav -->
+    <div class="flex gap-2 overflow-x-auto pb-2 mb-4 border-b border-outline-variant" data-subnav="playbook">
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-semibold bg-primary text-on-primary" data-sub="1.1">📋 1.1 Cartão de identidade</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="1.2">💡 1.2 Propósito</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="1.3">🧪 1.3 Metodologia</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="1.4">📣 1.4 Comunicação</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="1.5">🤝 1.5 Engajamento</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="1.6">⚖️ 1.6 Governança</button>
+    </div>
+
+    <!-- 1.1 -->
+    <div class="subpage active" data-sub="1.1">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-gap-md mb-gap-md">
+        <div class="card relative overflow-hidden"><div class="absolute top-0 left-0 w-full h-1 bg-secondary-container"></div>
+          <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Verba</p>
+          <h3 class="font-display-kpi text-display-kpi text-primary">R$ 660k</h3>
+          <p class="text-body-sm text-outline">Rouanet · PRONAC 259965</p></div>
+        <div class="card relative overflow-hidden"><div class="absolute top-0 left-0 w-full h-1 bg-primary-fixed-dim"></div>
+          <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Cidades</p>
+          <h3 class="font-display-kpi text-display-kpi text-primary">4</h3>
+          <p class="text-body-sm text-outline">Dom Pedrito · Toledo · Guarapuava · Curitiba</p></div>
+        <div class="card relative overflow-hidden"><div class="absolute top-0 left-0 w-full h-1 bg-nh-blue-accent"></div>
+          <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Alunos diretos</p>
+          <h3 class="font-display-kpi text-display-kpi text-primary">~2.400</h3>
+          <p class="text-body-sm text-outline">3 blocos × 80 × 4 cidades × ~2</p></div>
+        <div class="card relative overflow-hidden"><div class="absolute top-0 left-0 w-full h-1 bg-success"></div>
+          <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Professores</p>
+          <h3 class="font-display-kpi text-display-kpi text-primary">200-400</h3>
+          <p class="text-body-sm text-outline">Ampliação de acesso · 20h BNCC</p></div>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md">
+        <div class="card"><h3 class="font-headline-sm text-headline-sm text-primary mb-3">Identificação</h3>
+          <table class="data">
+            <tr><td class="text-on-surface-variant">Nome oficial</td><td class="font-semibold">Festival AgriCULTURA Sustentável</td></tr>
+            <tr><td class="text-on-surface-variant">Patrocinador</td><td class="font-semibold">CNH · New Holland Agriculture</td></tr>
+            <tr><td class="text-on-surface-variant">Lei</td><td>Rouanet · PRONAC 259965</td></tr>
+            <tr><td class="text-on-surface-variant">Proponente</td><td>Sustentabilidade e Cultura Produções Artísticas Ltda</td></tr>
+            <tr><td class="text-on-surface-variant">Duração</td><td>Setembro a dezembro/2026</td></tr>
+            <tr><td class="text-on-surface-variant">Público-alvo</td><td>Ensino médio · rede pública</td></tr>
+          </table>
+        </div>
+        <div class="card"><h3 class="font-headline-sm text-headline-sm text-primary mb-3">Cronograma-macro</h3>
+          <div class="flex flex-col gap-3">
+            <div class="border-l-4 border-primary bg-nh-blue-light rounded-r-lg p-3">
+              <p class="text-label-caps font-label-caps text-primary uppercase">RS · Semana 1</p>
+              <p class="font-semibold text-primary">Dom Pedrito</p>
+              <p class="text-body-sm text-on-surface-variant">31/08 - 04/09/2026</p>
+            </div>
+            <div class="border-l-4 border-primary bg-nh-blue-light rounded-r-lg p-3">
+              <p class="text-label-caps font-label-caps text-primary uppercase">PR · Semana 2</p>
+              <p class="font-semibold text-primary">Toledo</p>
+              <p class="text-body-sm text-on-surface-variant">21/09 - 25/09/2026</p>
+            </div>
+            <div class="border-l-4 border-primary bg-nh-blue-light rounded-r-lg p-3">
+              <p class="text-label-caps font-label-caps text-primary uppercase">PR · Semana 3</p>
+              <p class="font-semibold text-primary">Guarapuava</p>
+              <p class="text-body-sm text-on-surface-variant">05/10 - 09/10/2026</p>
+            </div>
+            <div class="border-l-4 border-secondary-container bg-secondary-fixed/20 rounded-r-lg p-3">
+              <p class="text-label-caps font-label-caps text-on-secondary-fixed-variant uppercase">PR · Semana 4-5 · Culminância</p>
+              <p class="font-semibold text-primary">Curitiba <span class="chip chip-yellow ml-1">DOMO na praça</span></p>
+              <p class="text-body-sm text-on-surface-variant">26/10 - 01/11/2026</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mt-gap-md">
+        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Formatos MinC (PRONAC 259965)</h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="chip chip-blue">Ampliação de Acesso · Oficina 0 · Formação Professores 20h BNCC</span>
+          <span class="chip chip-blue">Fotografia · T3</span>
+          <span class="chip chip-blue">Contação de História · T7 Hackathon</span>
+          <span class="chip chip-blue">Livre · T1 Terrário</span>
+          <span class="chip chip-blue">Livre · T2 Foto</span>
+          <span class="chip chip-blue">Livre · T5</span>
+          <span class="chip chip-blue">Livre · T6 Biometano</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.2 -->
+    <div class="subpage" data-sub="1.2">
+      <div class="card mb-gap-md border-l-4 border-primary">
+        <p class="text-label-caps font-label-caps text-primary uppercase mb-2">Manifesto</p>
+        <p class="text-body-lg leading-relaxed">O jovem do campo é o <strong>guardião da terra</strong>. Tecnologia agro não substitui a tradição — soma. O Festival AgriCULTURA Sustentável coloca esse jovem como protagonista de uma nova era: onde saberes locais, ciência, arte e sustentabilidade caminham juntos.</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md">
+        <div class="card">
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Propósito da CNH · New Holland</h3>
+          <ul class="list-disc list-inside space-y-1 text-body-sm">
+            <li>Reposicionar a New Holland em <strong>inovação social</strong> (recompra 2027)</li>
+            <li>Engajar concessionárias com entrega acima do esperado</li>
+            <li>Conectar portfólio aos temas (biometano em T6, pulverização com IA em T2)</li>
+            <li>Gerar case e storytelling pelo Hackathon</li>
+            <li>Ancorar em Pacto Global da ONU e ODS 4, 12, 13, 15, 17</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Propósito da NTICS</h3>
+          <ul class="list-disc list-inside space-y-1 text-body-sm">
+            <li>Consolidar o método de <strong>oficinas culturais integradas ao território</strong></li>
+            <li>Ampliar presença no agronegócio brasileiro</li>
+            <li>Testar a plataforma "New Holland Online" como legado escalável</li>
+            <li>Construir case para replicar em outras sub-marcas CNH (Case IH, Capital)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card mt-gap-md">
+        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Valores editoriais</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <span class="chip chip-green mb-2">✓ Sempre dizer</span>
+            <ul class="list-disc list-inside space-y-1 text-body-sm mt-2">
+              <li>Jovens como <strong>guardiões da terra</strong></li>
+              <li>Tecnologia agro <strong>a serviço</strong> da sustentabilidade</li>
+              <li>Nova agricultura: tradição + tecnologia + saberes locais</li>
+              <li>ODS e Pacto Global da ONU como âncora</li>
+            </ul>
+          </div>
+          <div>
+            <span class="chip chip-red mb-2">✕ Nunca dizer</span>
+            <ul class="list-disc list-inside space-y-1 text-body-sm mt-2">
+              <li>"Modernizar o campo" · campo atrasado</li>
+              <li>Opor cidade e campo</li>
+              <li>Tratar o jovem como beneficiário passivo</li>
+              <li>Assistencialismo · "salvar" o campo</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.3 -->
+    <div class="subpage" data-sub="1.3">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-gap-md">
+        <div class="oficina"><span class="oficina-num">T1</span><div class="text-3xl mb-2">🌱</div>
+          <p class="font-semibold text-primary">Terra e Semente</p>
+          <p class="text-body-sm text-on-surface-variant">Terrário biosfera + registro fotográfico. Cada aluno leva sua semente.</p>
+          <span class="chip chip-yellow mt-2">Livre</span></div>
+        <div class="oficina"><span class="oficina-num">T2</span><div class="text-3xl mb-2">📸</div>
+          <p class="font-semibold text-primary">Água e Irrigação Sustentável</p>
+          <p class="text-body-sm text-on-surface-variant">Fotografia em campo · pulverização com IA (portfólio New Holland).</p>
+          <span class="chip chip-blue mt-2">Fotografia MinC</span></div>
+        <div class="oficina"><span class="oficina-num">T3</span><div class="text-3xl mb-2">🍽️</div>
+          <p class="font-semibold text-primary">Alimentos do Campo</p>
+          <p class="text-body-sm text-on-surface-variant">Mercado simulado · mapa afetivo do que chega à mesa.</p>
+          <span class="chip chip-yellow mt-2">Livre</span></div>
+        <div class="oficina"><span class="oficina-num">T4</span><div class="text-3xl mb-2">🌾</div>
+          <p class="font-semibold text-primary">Nova Agricultura</p>
+          <p class="text-body-sm text-on-surface-variant">Ancestralidade + variedades regionais. Mapa sensorial + roda.</p>
+          <span class="chip chip-yellow mt-2">Livre</span></div>
+        <div class="oficina"><span class="oficina-num">T5</span><div class="text-3xl mb-2">☀️</div>
+          <p class="font-semibold text-primary">Clima e o Campo</p>
+          <p class="text-body-sm text-on-surface-variant">Cartografia climática. Painel coletivo por turma.</p>
+          <span class="chip chip-yellow mt-2">Livre</span></div>
+        <div class="oficina"><span class="oficina-num">T6</span><div class="text-3xl mb-2">⚡</div>
+          <p class="font-semibold text-primary">Ciclo do Biometano</p>
+          <p class="text-body-sm text-on-surface-variant">Miniusina · combustível alternativo · trator T6.180 Methane Power.</p>
+          <span class="chip chip-yellow mt-2">Livre</span></div>
+      </div>
+      <div class="card mt-gap-md bg-primary text-on-primary relative overflow-hidden">
+        <div class="absolute top-4 right-4 font-headline-sm text-headline-sm font-bold text-secondary-container">T7</div>
+        <div class="text-4xl mb-2">🏆</div>
+        <h3 class="font-headline-sm text-headline-sm text-on-primary mb-2">Hackathon Guardiões da Terra</h3>
+        <p class="text-body-sm opacity-90 max-w-2xl">Culminância pedagógica por cidade · <strong>8 squads paletes coloridos</strong> · 4 horas · pitch de 3 minutos · banca externa (produtor, concessionária, técnico) · prêmio 3 camadas + camada 0 visita à fábrica New Holland.</p>
+        <span class="chip chip-yellow mt-3 inline-block">Contação de História MinC</span>
+      </div>
+      <div class="card mt-gap-md">
+        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Ciclo de cidade · Cronograma B (semana única encadeada)</h3>
+        <table class="data">
+          <thead><tr><th style="width:110px">Dia</th><th>Atividade</th></tr></thead>
+          <tbody>
+            <tr><td class="font-semibold">Domingo</td><td>Chegada da equipe</td></tr>
+            <tr><td class="font-semibold">Segunda</td><td>Palestra de Professores (noite · 20h BNCC) + Oficinas T1 e T2</td></tr>
+            <tr><td class="font-semibold">Terça</td><td>Oficinas T3 e T4</td></tr>
+            <tr><td class="font-semibold">Quarta</td><td>Oficina T5</td></tr>
+            <tr><td class="font-semibold">Quinta</td><td>Oficina T6 + preparação Hackathon</td></tr>
+            <tr><td><span class="chip chip-yellow">Sexta</span></td><td><strong>Hackathon Guardiões da Terra (T7)</strong> · evento aberto</td></tr>
+            <tr><td class="font-semibold">Sábado</td><td>Retorno</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 1.4 -->
+    <div class="subpage" data-sub="1.4">
+      <div class="card mb-gap-md">
+        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Assinatura pactuada com a CNH (08/06/2026)</h3>
+        <table class="data">
+          <tr><td class="text-on-surface-variant">Marca principal</td><td class="font-semibold">New Holland prioritária · CNH onde fizer sentido · balanço como CNH no fechamento</td></tr>
+          <tr><td class="text-on-surface-variant">Marca do governo</td><td>Provavelmente só selo da Lei (ano eleitoral · confirmar Mayara)</td></tr>
+          <tr><td class="text-on-surface-variant">Pré-release</td><td>~7 dias antes por cidade</td></tr>
+          <tr><td class="text-on-surface-variant">Assessorias</td><td>Duas em conjunto (NTICS + agência CNH · com cópia em tudo)</td></tr>
+          <tr><td class="text-on-surface-variant">Redes sociais</td><td>Como CNH</td></tr>
+        </table>
+      </div>
+      <div class="card mb-gap-md">
+        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Canais e frequência</h3>
+        <table class="data">
+          <thead><tr><th>Canal</th><th>Pré</th><th>Durante</th><th>Pós</th></tr></thead>
+          <tbody>
+            <tr><td class="font-semibold">Instagram</td><td>2×/semana</td><td>1×/dia</td><td>1×/semana</td></tr>
+            <tr><td class="font-semibold">Facebook</td><td>2×/semana</td><td>1×/dia</td><td>1×/semana</td></tr>
+            <tr><td class="font-semibold">LinkedIn</td><td>1×/semana</td><td>3×/semana</td><td>Relatório final</td></tr>
+            <tr><td class="font-semibold">Releases</td><td>Pré (~7d antes)</td><td>Durante eventos-chave</td><td>Pós + case final</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Metas de imprensa por cidade</h3>
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
+          <div class="text-center border border-outline-variant rounded-lg p-3"><p class="text-body-sm text-outline">Tier 1</p><p class="font-display-kpi text-primary" style="font-size:24px">1</p><p class="text-body-sm text-outline">exclusiva</p></div>
+          <div class="text-center border border-outline-variant rounded-lg p-3"><p class="text-body-sm text-outline">Pauta</p><p class="font-display-kpi text-primary" style="font-size:24px">2</p><p class="text-body-sm text-outline">sugeridas</p></div>
+          <div class="text-center border border-outline-variant rounded-lg p-3"><p class="text-body-sm text-outline">Total</p><p class="font-display-kpi text-primary" style="font-size:24px">6-10</p><p class="text-body-sm text-outline">matérias</p></div>
+          <div class="text-center border border-outline-variant rounded-lg p-3"><p class="text-body-sm text-outline">TV</p><p class="font-display-kpi text-primary" style="font-size:24px">1</p><p class="text-body-sm text-outline">aparição</p></div>
+          <div class="text-center border border-outline-variant rounded-lg p-3"><p class="text-body-sm text-outline">Rádio</p><p class="font-display-kpi text-primary" style="font-size:24px">2</p><p class="text-body-sm text-outline">entrevistas</p></div>
+          <div class="text-center border border-outline-variant rounded-lg p-3"><p class="text-body-sm text-outline">Vídeo</p><p class="font-display-kpi text-primary" style="font-size:24px">1</p><p class="text-body-sm text-outline">curto/cidade</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.5 -->
+    <div class="subpage" data-sub="1.5">
+      <div class="card mb-gap-md">
+        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Seis públicos e como mobilizar</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="border border-outline-variant rounded-lg p-4"><div class="text-2xl mb-2">🏛️</div><p class="font-semibold text-primary">Poder público</p><p class="text-body-sm text-on-surface-variant">Secretaria + NRE. Chancela e acesso. Contato institucional NTICS.</p></div>
+          <div class="border border-outline-variant rounded-lg p-4"><div class="text-2xl mb-2">🏫</div><p class="font-semibold text-primary">Escola</p><p class="text-body-sm text-on-surface-variant">Direção e coordenação. Adesão e turmas. Contato direto após indicação.</p></div>
+          <div class="border border-outline-variant rounded-lg p-4"><div class="text-2xl mb-2">👩‍🏫</div><p class="font-semibold text-primary">Professores</p><p class="text-body-sm text-on-surface-variant">Multiplicadores. Palestra segunda noturna + formação 20h.</p></div>
+          <div class="border border-outline-variant rounded-lg p-4"><div class="text-2xl mb-2">🎓</div><p class="font-semibold text-primary">Alunos</p><p class="text-body-sm text-on-surface-variant">Protagonismo. Convite + gamificação + Hackathon.</p></div>
+          <div class="border border-outline-variant rounded-lg p-4"><div class="text-2xl mb-2">🤝</div><p class="font-semibold text-primary">Comunidade</p><p class="text-body-sm text-on-surface-variant">Pertencimento. DOMO aberto em praça pública em Curitiba.</p></div>
+          <div class="border border-outline-variant rounded-lg p-4"><div class="text-2xl mb-2">🚜</div><p class="font-semibold text-primary">Concessionárias</p><p class="text-body-sm text-on-surface-variant">Porta de entrada + protagonismo. Indicação, voluntário, banca.</p></div>
+        </div>
+      </div>
+      <div class="card mb-gap-md">
+        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Trilha institucional F1 → F6</h3>
+        <div class="timeline">
+          <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">F1 · Junho/2026</p><p class="font-semibold">Contato inicial com NRE + Secretaria Estadual</p></div>
+          <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">F2 · Junho/2026</p><p class="font-semibold">Apresentação do projeto para a Secretaria</p></div>
+          <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">F3 · Jun-Jul</p><p class="font-semibold">Indicação de escola pela Secretaria</p><p class="text-body-sm text-on-surface-variant">Concessionária pode indicar antes (caso Guarapuava).</p></div>
+          <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">F4 · Julho</p><p class="font-semibold">Contato direto da NTICS com a escola</p></div>
+          <div class="tl-item warn"><p class="text-label-caps font-label-caps text-warning uppercase">F5 · Até 10/08</p><p class="font-semibold">Fechamento de turmas (~9 turmas × 30/cidade)</p><p class="text-body-sm text-on-surface-variant">Marco crítico para Dom Pedrito.</p></div>
+          <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">F6 · Semana antes de cada cidade</p><p class="font-semibold">Onboarding da equipe executora local</p></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Concessionárias por cidade</h3>
+        <table class="data">
+          <thead><tr><th>Cidade</th><th>Concessionária</th><th>Papel pactuado</th></tr></thead>
+          <tbody>
+            <tr><td class="font-semibold">Dom Pedrito/RS</td><td><span class="chip chip-blue">Comin</span></td><td>Indicação de escola e contatos · NTICS conduz o contato direto</td></tr>
+            <tr><td class="font-semibold">Toledo/PR</td><td><span class="chip chip-blue">Dalaglio</span></td><td>Indicação de escola e contatos · NTICS conduz</td></tr>
+            <tr><td class="font-semibold">Guarapuava/PR</td><td><span class="chip chip-blue">Simex</span> · Mónica Raurich</td><td><span class="chip chip-green">✓</span> Colégio Dom Pedro I indicado (10/06)</td></tr>
+            <tr><td class="font-semibold">Curitiba/PR</td><td><span class="chip chip-gray">Sem aportadora</span></td><td>NTICS conduz com Sec. Estadual + apoio Evelyn (CNH)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 1.6 -->
+    <div class="subpage" data-sub="1.6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md">
+        <div class="card">
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Equipe NTICS</h3>
+          <table class="data">
+            <tr><td class="font-semibold">Lucas Rotta</td><td>Owner e gestor</td></tr>
+            <tr><td class="font-semibold">Ana Carolina</td><td>Orientação estratégica</td></tr>
+            <tr><td class="font-semibold">Bruna Seibel</td><td>Gestão executiva</td></tr>
+            <tr><td class="font-semibold">Abílio Martins</td><td>Aprovação orçamento · TAP</td></tr>
+            <tr><td class="font-semibold">Mayara Ferreira</td><td>MinC</td></tr>
+            <tr><td class="font-semibold">Aline B.</td><td>Redes sociais</td></tr>
+            <tr><td class="font-semibold">Fernando Clark</td><td>Comercial originador</td></tr>
+            <tr><td class="font-semibold">Jefferson</td><td>Engajamento em campo</td></tr>
+          </table>
+        </div>
+        <div class="card">
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-3">CNH · New Holland</h3>
+          <table class="data">
+            <tr><td class="font-semibold">Raquel Montagnoli</td><td>Coordenação geral</td></tr>
+            <tr><td class="font-semibold">Raquel Mozardo</td><td>Comunicação corporativa</td></tr>
+            <tr><td class="font-semibold">Giovana Olicshevis</td><td>Imprensa · releases</td></tr>
+            <tr><td class="font-semibold">Luiza Zarnott</td><td>Brand New Holland</td></tr>
+            <tr><td class="font-semibold">Jayza Fernandes</td><td>Concessionárias</td></tr>
+            <tr><td class="font-semibold">Daniel Carli</td><td>Estratégico</td></tr>
+            <tr><td class="font-semibold">Evelyn</td><td>Curitiba · voluntários</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="card mt-gap-md">
+        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Matriz RACI</h3>
+        <p class="text-body-sm text-outline mb-2">R = Responsável · A = Aprova · C = Consultado · I = Informado</p>
+        <table class="data">
+          <thead><tr><th>Decisão · Entrega</th><th>R</th><th>A</th><th>C</th><th>I</th></tr></thead>
+          <tbody>
+            <tr><td>Peças de comunicação</td><td>Lucas</td><td>CNH (Raquel M.)</td><td>Bruna</td><td>Abílio</td></tr>
+            <tr><td>Cronograma e contrato</td><td>Bruna</td><td>Abílio</td><td>CNH</td><td>Lucas</td></tr>
+            <tr><td>Orçamento</td><td>Lucas</td><td>Abílio</td><td>CNH</td><td>Bruna</td></tr>
+            <tr><td>Tom editorial</td><td>Lucas</td><td>CNH (Raquel Moz.)</td><td>Bruna</td><td>—</td></tr>
+            <tr><td>Entregáveis MinC</td><td>Mayara</td><td>Abílio</td><td>—</td><td>—</td></tr>
+            <tr><td>DOMO (cenografia)</td><td>Bruna</td><td>Abílio</td><td>CNH</td><td>Lucas</td></tr>
+            <tr><td>Atividades das oficinas</td><td>Lucas</td><td>Ana Carolina</td><td>Mayara</td><td>CNH</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card mt-gap-md">
+        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Matriz de riscos</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="risk-cell risk-high"><strong>R1 · Alta · Alto</strong><br>Escolas não fechadas até 10/08 travam o cronograma.</div>
+          <div class="risk-cell risk-high"><strong>R2 · Alta · Alto</strong><br>Plataforma digital sem fornecedor.</div>
+          <div class="risk-cell risk-med"><strong>R3 · Média · Alto</strong><br>Sem interlocutor CNH oficial trava aprovação.</div>
+          <div class="risk-cell risk-med"><strong>R4 · Média · Médio</strong><br>TAP formal não assinado (Abílio).</div>
+          <div class="risk-cell risk-med"><strong>R5 · Média · Médio</strong><br>Compatibilidade MinC (contagem vs PRONAC).</div>
+          <div class="risk-cell risk-med"><strong>R6 · Média · Médio</strong><br>Produtor local não encontrado em alguma cidade.</div>
+          <div class="risk-cell risk-high"><strong>R7 · Média · Alto</strong><br>Ano eleitoral barra praça pública em Curitiba.</div>
+          <div class="risk-cell risk-med"><strong>R8 · Média · Médio</strong><br>Comunicação global CNH atrasa releases.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ PAGE: TAP ============ -->
+  <div class="page" data-page="tap">
+    <div class="mb-4">
+      <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">2 · Termo de Abertura · o start (CONGELADO)</p>
+      <h2 class="font-headline-lg text-headline-lg text-primary">O que foi autorizado no kickoff</h2>
+      <p class="text-on-surface-variant mt-1">Não muda. Mudanças de rota entram em Decisões consolidadas.</p>
+    </div>
+
+    <div class="flex gap-2 overflow-x-auto pb-2 mb-4 border-b border-outline-variant" data-subnav="tap">
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-semibold bg-primary text-on-primary" data-sub="2.1">🎯 2.1 Objetivo</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="2.2">📅 2.2 Marcos</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="2.3">👥 2.3 Stakeholders</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="2.4">📊 2.4 Metas</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="2.5">📜 2.5 Premissas</button>
+    </div>
+
+    <div class="subpage active" data-sub="2.1">
+      <div class="card border-l-4 border-primary mb-gap-md">
+        <p class="text-label-caps font-label-caps text-primary uppercase mb-2">Objetivo</p>
+        <p class="text-body-lg">Levar oficinas culturais que conectem <strong>tradição rural + tecnologia + sustentabilidade</strong> a alunos do ensino médio de 4 cidades do Sul (RS/PR), com o <strong>Festival AgriCULTURA Sustentável</strong> como culminância e o <strong>DOMO em praça pública</strong> em Curitiba como marco público.</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md mb-gap-md">
+        <div class="card">
+          <h3 class="font-headline-sm text-headline-sm text-success mb-3">✓ O que entra</h3>
+          <ul class="list-disc list-inside space-y-1 text-body-sm">
+            <li><strong>7 oficinas culturais</strong> com atividades práticas</li>
+            <li><strong>Palestra de professores</strong> · 20h BNCC · segunda-feira à noite</li>
+            <li><strong>Hackathon Guardiões da Terra</strong> · 8 squads · 4h · pitch 3 min</li>
+            <li><strong>Plataforma "New Holland Online"</strong> · gamificação · certificação</li>
+            <li><strong>Festival + DOMO em praça pública</strong> · 500-1.000 pessoas</li>
+            <li><strong>Cerimônia Guardião da Terra</strong> · prêmio 3 camadas</li>
+            <li>Documentação e mídia · fotógrafo itinerante · relatório ESG</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="font-headline-sm text-headline-sm text-danger mb-3">✕ O que NÃO entra</h3>
+          <ul class="list-disc list-inside space-y-1 text-body-sm">
+            <li>Ensino fundamental (só ensino médio)</li>
+            <li>Palestra de professores no 129 (só no 128)</li>
+            <li>Escola particular como público-alvo</li>
+            <li>Contratação de professores locais</li>
+            <li>Manutenção da plataforma pós-projeto</li>
+          </ul>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-gap-md">
+        <div class="card"><p class="text-label-caps font-label-caps text-outline uppercase">Cidades</p><h3 class="font-display-kpi text-display-kpi text-primary">4</h3></div>
+        <div class="card"><p class="text-label-caps font-label-caps text-outline uppercase">Alunos diretos</p><h3 class="font-display-kpi text-display-kpi text-primary">~2.400</h3></div>
+        <div class="card"><p class="text-label-caps font-label-caps text-outline uppercase">Professores</p><h3 class="font-display-kpi text-display-kpi text-primary">200-400</h3></div>
+        <div class="card"><p class="text-label-caps font-label-caps text-outline uppercase">Festival</p><h3 class="font-display-kpi text-display-kpi text-primary">500-1k</h3></div>
+      </div>
+    </div>
+
+    <div class="subpage" data-sub="2.2">
+      <div class="card">
+        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Marcos macro do projeto</h3>
+        <div class="timeline">
+          <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">M0 · Julho/2026</p><p class="font-semibold">TAP assinado (Abílio)</p></div>
+          <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">M1 · 13-17/07</p><p class="font-semibold">Cronograma B alinhado com CNH e Jefferson</p></div>
+          <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">M2 · 10/07</p><p class="font-semibold">Fornecedores confirmados</p></div>
+          <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">M3 · Agosto/2026</p><p class="font-semibold">Plataforma "New Holland Online" pronta</p></div>
+          <div class="tl-item warn"><p class="text-label-caps font-label-caps text-warning uppercase">M4 · 10/08 · 20/08</p><p class="font-semibold">Escolas confirmadas nas 4 cidades</p><p class="text-body-sm text-on-surface-variant">Dom Pedrito 10/08 (crítico) · demais até 20/08.</p></div>
+          <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">M5 · 20-24/07</p><p class="font-semibold">KV aprovado + peças de comunicação</p></div>
+          <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">M6 · Segunda 31/08</p><p class="font-semibold">Início em campo · Dom Pedrito/RS</p></div>
+          <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">M7 · 31/10 e 01/11</p><p class="font-semibold">Festival + DOMO Curitiba</p></div>
+          <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">M8 · Dez/2026</p><p class="font-semibold">Prestação de contas MinC</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subpage" data-sub="2.3">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md">
+        <div class="card">
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Cliente CNH · New Holland</h3>
+          <ul class="text-body-sm space-y-1"><li><strong>Raquel Montagnoli</strong> — coordenação geral</li><li><strong>Raquel Mozardo</strong> — comunicação corporativa</li><li><strong>Giovana Olicshevis</strong> — imprensa e releases</li><li><strong>Luiza Zarnott</strong> — brand New Holland</li><li><strong>Jayza Fernandes</strong> — concessionárias</li><li><strong>Daniel Carli</strong> — estratégico</li><li><strong>Evelyn</strong> — Curitiba, voluntários</li></ul>
+        </div>
+        <div class="card">
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-3">NTICS</h3>
+          <ul class="text-body-sm space-y-1"><li><strong>Lucas Rotta</strong> — owner de execução</li><li><strong>Ana Carolina Xavier</strong> — diretora</li><li><strong>Bruna Seibel</strong> — gestão executiva</li><li><strong>Abílio Martins</strong> — assinatura TAP e budget</li><li><strong>Mayara Ferreira</strong> — MinC</li><li><strong>Aline B.</strong> — redes sociais</li><li><strong>Fernando Clark</strong> — comercial originador</li><li><strong>Jefferson</strong> — engajamento em campo</li></ul>
+        </div>
+      </div>
+      <div class="card mt-gap-md">
+        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Concessionárias</h3>
+        <table class="data">
+          <thead><tr><th>Cidade</th><th>Concessionária</th><th>Ponto de entrada</th></tr></thead>
+          <tbody>
+            <tr><td class="font-semibold">Dom Pedrito/RS</td><td>Comin</td><td>via CNH</td></tr>
+            <tr><td class="font-semibold">Toledo/PR</td><td>Dalaglio</td><td>via CNH</td></tr>
+            <tr><td class="font-semibold">Guarapuava/PR</td><td>Simex · Mónica Raurich</td><td>direta · já em contato</td></tr>
+            <tr><td class="font-semibold">Curitiba/PR</td><td>—</td><td>via Evelyn / CNH</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="subpage" data-sub="2.4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md">
+        <div class="card">
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Formatos MinC (PRONAC 259965)</h3>
+          <table class="data">
+            <tr><td class="font-semibold">Ampliação de Acesso</td><td>Oficina 0 · Formação 20h × 4 cidades</td></tr>
+            <tr><td class="font-semibold">Fotografia</td><td>T3 · portfolio por turma × 4</td></tr>
+            <tr><td class="font-semibold">Contação de História</td><td>T7 · Hackathon × 4</td></tr>
+            <tr><td class="font-semibold">4 Livres</td><td>T1 · T2 · T5 · T6</td></tr>
+          </table>
+        </div>
+        <div class="card">
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Metas de mídia por cidade</h3>
+          <table class="data">
+            <tr><td>Nota exclusiva Tier 1</td><td class="font-semibold">1</td></tr>
+            <tr><td>Matérias com sug. de pauta</td><td class="font-semibold">2</td></tr>
+            <tr><td>Matérias no total</td><td class="font-semibold">6-10</td></tr>
+            <tr><td>Televisão</td><td class="font-semibold">1</td></tr>
+            <tr><td>Rádio</td><td class="font-semibold">2</td></tr>
+            <tr><td>Vídeo curto</td><td class="font-semibold">1</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="subpage" data-sub="2.5">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md">
+        <div class="card">
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Premissas do start</h3>
+          <ol class="list-decimal list-inside space-y-1 text-body-sm">
+            <li>Verba total autorizada: <strong>R$ 660.000</strong></li>
+            <li>Público-alvo: <strong>ensino médio</strong> rede pública</li>
+            <li>Assinatura primária <strong>New Holland</strong></li>
+            <li><strong>Cronograma B</strong> como principal</li>
+            <li>Equipe NTICS compartilhada com 129</li>
+            <li>Fornecedores fechados até 10/07</li>
+            <li>Escolas fechadas até 10/08 (Dom Pedrito) e 20/08 (demais)</li>
+            <li>Ano eleitoral · backup Fazenda Urbana</li>
+            <li>Plataforma em Lovable</li>
+            <li>Mayara é ponto único MinC</li>
+          </ol>
+        </div>
+        <div class="card">
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Restrições</h3>
+          <ul class="list-disc list-inside space-y-1 text-body-sm">
+            <li>Sem contraparte financeira das concessionárias</li>
+            <li>Comunicação global CNH: releases com 10 dias de margem</li>
+            <li>CNH <strong>não abre Google Drive</strong> · e-mail ou SharePoint</li>
+            <li>Selo do governo em ano eleitoral · confirmar Mayara</li>
+            <li>Verba de Curitiba não migra para outros marcos</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card mt-gap-md">
+        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Autorização</h3>
+        <table class="data">
+          <thead><tr><th>Item</th><th>Aprovador</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Verba R$ 660k</td><td>Abílio Martins</td><td><span class="chip chip-orange">⏳ pendente TAP</span></td></tr>
+            <tr><td>Metodologia</td><td>Ana Xavier</td><td><span class="chip chip-green">✓ 02/07</span></td></tr>
+            <tr><td>Cronograma B</td><td>CNH · Jefferson</td><td><span class="chip chip-orange">⏳ 13-17/07</span></td></tr>
+            <tr><td>Compatibilidade MinC</td><td>Mayara Ferreira</td><td><span class="chip chip-orange">⏳ em análise</span></td></tr>
+            <tr><td>Assinatura NH soberana</td><td>CNH</td><td><span class="chip chip-green">✓ 08/06</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: PAINEL · O AGORA (INICIAL ATIVA) ============ -->
+  <div class="page active" data-page="painel">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-2">
+      <div>
+        <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">3 · Painel · O Agora</p>
+        <h2 class="font-headline-lg text-headline-lg text-primary">Visão geral do projeto</h2>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="flex items-center gap-1 font-body-sm text-body-sm text-success bg-surface-container px-3 py-1.5 rounded-full border border-outline-variant">
+          <span class="w-2 h-2 rounded-full bg-success"></span>Status: Pré-campo · pós-kickoff
+        </span>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-gap-md mb-gap-md">
+      <div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-secondary-container"></div>
+        <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Verba Autorizada</p>
+        <div class="flex items-baseline gap-2 mb-1"><h3 class="font-display-kpi text-display-kpi text-primary">R$ 660k</h3></div>
+        <p class="font-body-sm text-body-sm text-outline flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">receipt_long</span>Rouanet · PRONAC 259965</p>
+      </div>
+      <div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-primary-fixed-dim"></div>
+        <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Cidades planejadas</p>
+        <div class="flex items-baseline gap-2 mb-1"><h3 class="font-display-kpi text-display-kpi text-primary">4</h3><span class="text-body-sm text-warning font-medium">1 confirmada</span></div>
+        <p class="font-body-sm text-body-sm text-outline flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">map</span>Dom Pedrito · Toledo · Guarapuava · Curitiba</p>
+      </div>
+      <div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-nh-blue-accent"></div>
+        <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Alunos Beneficiados</p>
+        <div class="flex items-baseline gap-2 mb-1"><h3 class="font-display-kpi text-display-kpi text-primary">~2.4k</h3></div>
+        <p class="font-body-sm text-body-sm text-outline flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">groups</span>Impacto direto estimado</p>
+      </div>
+    </div>
+
+    <!-- BENTO: PROGRESS + PLATAFORMA -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gap-md mb-gap-md">
+      <div class="lg:col-span-7 bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm">
+        <h3 class="font-headline-sm text-headline-sm text-primary mb-6">Progresso das Frentes</h3>
+        <div class="flex flex-col gap-5">
+          <div><div class="flex justify-between items-center mb-2"><span class="font-body-sm font-semibold">Metodologia e escopo</span><span class="text-body-sm text-outline">100%</span></div><div class="progress-bar"><span class="bg-success" style="width:100%"></span></div></div>
+          <div><div class="flex justify-between items-center mb-2"><span class="font-body-sm font-semibold">Orçamento consolidado</span><span class="text-body-sm text-outline">95%</span></div><div class="progress-bar"><span class="bg-primary" style="width:95%"></span></div></div>
+          <div><div class="flex justify-between items-center mb-2"><span class="font-body-sm font-semibold">Fornecedores</span><span class="text-body-sm text-outline">30%</span></div><div class="progress-bar"><span class="bg-warning" style="width:30%"></span></div></div>
+          <div><div class="flex justify-between items-center mb-2"><span class="font-body-sm font-semibold">Plataforma "New Holland Online"</span><span class="text-body-sm text-outline">10%</span></div><div class="progress-bar"><span class="bg-nh-blue-accent" style="width:10%"></span></div></div>
+          <div><div class="flex justify-between items-center mb-2"><span class="font-body-sm font-semibold">Escolas fechadas</span><span class="text-body-sm text-outline">0%</span></div><div class="progress-bar"><span class="bg-danger" style="width:2%"></span></div></div>
+          <div><div class="flex justify-between items-center mb-2"><span class="font-body-sm font-semibold">Comunicação · KV</span><span class="text-body-sm text-outline">15%</span></div><div class="progress-bar"><span class="bg-nh-blue-accent" style="width:15%"></span></div></div>
+        </div>
+      </div>
+      <div class="lg:col-span-5 bg-primary text-on-primary rounded-xl border border-outline-variant shadow-sm p-6 flex flex-col justify-end min-h-[300px] relative overflow-hidden">
+        <div class="absolute top-0 right-0 opacity-20 text-[200px] leading-none select-none">🚜</div>
+        <span class="chip chip-yellow w-max mb-2 uppercase tracking-wide">Plataforma</span>
+        <h4 class="font-headline-sm text-headline-sm text-on-primary mb-1">New Holland Online</h4>
+        <p class="font-body-sm text-body-sm text-on-primary/80">Área do estudante, gamificação e certificação 20h BNCC. Legado escalável do projeto.</p>
+      </div>
+    </div>
+
+    <!-- BENTO: CRONOGRAMA + RISCOS -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md mb-gap-md">
+      <div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2"><span class="material-symbols-outlined text-nh-blue-accent">calendar_month</span>Cronograma vivo</h3>
+          <button data-goto="proximos" class="font-body-sm text-nh-blue-accent font-medium hover:underline">Ver completo</button>
+        </div>
+        <div class="timeline">
+          <div class="tl-item done"><p class="text-label-caps font-label-caps text-success uppercase mb-1">02/07/2026 · Concluído</p><p class="font-body-lg font-semibold">Metodologia aprovada</p><p class="text-body-sm text-on-surface-variant">Todas as atividades das oficinas fechadas. Cronograma B como principal.</p></div>
+          <div class="tl-item curr"><p class="text-label-caps font-label-caps uppercase mb-1" style="color:#B8860B">05/07/2026 · Em andamento</p><p class="font-body-lg font-semibold">Orçamento consolidado</p><p class="text-body-sm text-on-surface-variant">Enviado para aprovação final do Abílio.</p></div>
+          <div class="tl-item warn"><p class="text-label-caps font-label-caps text-warning uppercase mb-1">10/08/2026 · Marco crítico</p><p class="font-body-lg font-semibold">Confirmação Dom Pedrito</p><p class="text-body-sm text-on-surface-variant">Escola e turmas devem estar fechadas.</p></div>
+          <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase mb-1">31/08/2026</p><p class="font-body-lg font-semibold">Início em campo · Dom Pedrito</p></div>
+        </div>
+      </div>
+      <div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2"><span class="material-symbols-outlined text-danger">warning</span>Itens críticos</h3>
+          <button data-goto="itens" class="font-body-sm text-nh-blue-accent font-medium hover:underline">Ver todos</button>
+        </div>
+        <div class="flex flex-col gap-3">
+          <div class="bg-error-container/30 border border-error-container rounded-lg p-4 flex gap-4 items-start">
+            <div class="mt-0.5 bg-danger text-on-error rounded-md px-2 py-0.5 font-label-caps text-label-caps flex-shrink-0">CRÍTICO</div>
+            <div><h4 class="font-body-sm font-semibold text-on-error-container mb-1">Escolas fechadas até 10/08 em Dom Pedrito</h4><p class="text-body-sm text-on-surface-variant">Sem escola, sem cronograma B. Engajamento ativo necessário.</p></div>
+          </div>
+          <div class="bg-error-container/30 border border-error-container rounded-lg p-4 flex gap-4 items-start">
+            <div class="mt-0.5 bg-danger text-on-error rounded-md px-2 py-0.5 font-label-caps text-label-caps flex-shrink-0">CRÍTICO</div>
+            <div><h4 class="font-body-sm font-semibold text-on-error-container mb-1">Interlocutor único CNH</h4><p class="text-body-sm text-on-surface-variant">Raquel Montagnoli confirmou em 08/06 · seguir cobrando reunião quinzenal.</p></div>
+          </div>
+          <div class="bg-surface-container-highest border border-outline-variant rounded-lg p-4 flex gap-4 items-start">
+            <div class="mt-0.5 bg-warning text-on-secondary-fixed-variant rounded-md px-2 py-0.5 font-label-caps text-label-caps flex-shrink-0">ALTO</div>
+            <div><h4 class="font-body-sm font-semibold mb-1">Fornecedor da plataforma digital</h4><p class="text-body-sm text-on-surface-variant">Cotação Lovable em curso · alternativas em paralelo.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CIDADES / DIÁRIO DE CAMPO -->
+    <div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm mb-gap-md">
+      <h3 class="font-headline-sm text-headline-sm text-primary mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-nh-blue-accent">location_on</span>Cidades · diário de campo</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="border-l-4 border-primary bg-nh-blue-light rounded-r-lg p-4">
+          <p class="text-label-caps font-label-caps text-primary uppercase">RS · Semana 1</p>
+          <p class="font-headline-sm font-bold text-primary">Dom Pedrito</p>
+          <p class="text-body-sm text-on-surface-variant">31/08 - 04/09/2026 · Concessionária: <strong>Comin</strong></p>
+          <p class="text-body-sm mt-2">Escola: <em>a confirmar</em></p>
+          <span class="chip chip-gray mt-2">Pré-campo</span>
+        </div>
+        <div class="border-l-4 border-primary bg-nh-blue-light rounded-r-lg p-4">
+          <p class="text-label-caps font-label-caps text-primary uppercase">PR · Semana 2</p>
+          <p class="font-headline-sm font-bold text-primary">Toledo</p>
+          <p class="text-body-sm text-on-surface-variant">21/09 - 25/09/2026 · Concessionária: <strong>Dalaglio</strong></p>
+          <p class="text-body-sm mt-2">Escola: <em>a confirmar</em></p>
+          <span class="chip chip-gray mt-2">Pré-campo</span>
+        </div>
+        <div class="border-l-4 border-success bg-success/10 rounded-r-lg p-4">
+          <p class="text-label-caps font-label-caps text-success uppercase">PR · Semana 3</p>
+          <p class="font-headline-sm font-bold text-primary">Guarapuava</p>
+          <p class="text-body-sm text-on-surface-variant">05/10 - 09/10/2026 · <strong>Simex</strong> (Mónica Raurich)</p>
+          <p class="text-body-sm mt-2">Escola: <strong>Colégio Dom Pedro I</strong> · indicada 10/06</p>
+          <span class="chip chip-green mt-2">✓ Escola indicada</span>
+        </div>
+        <div class="border-l-4 border-secondary-container bg-secondary-fixed/20 rounded-r-lg p-4">
+          <p class="text-label-caps font-label-caps text-on-secondary-fixed-variant uppercase">PR · Culminância</p>
+          <p class="font-headline-sm font-bold text-primary">Curitiba <span class="chip chip-yellow ml-1">DOMO</span></p>
+          <p class="text-body-sm text-on-surface-variant">26/10 - 01/11/2026 · Apoio: <strong>Evelyn (CNH)</strong></p>
+          <p class="text-body-sm mt-2">Praça: <em>a confirmar</em> · Backup: Fazenda Urbana</p>
+          <span class="chip chip-orange mt-2">Ano eleitoral</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- APROVAÇÕES PENDENTES -->
+    <div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm">
+      <h3 class="font-headline-sm text-headline-sm text-primary mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-nh-blue-accent">check_circle</span>Aprovações pendentes</h3>
+      <table class="data">
+        <thead><tr><th>Item</th><th>Aprovador</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Cronograma B</td><td>Raquel Montagnoli</td><td><span class="chip chip-orange">Agendar 13-17/07</span></td></tr>
+          <tr><td>KV New Holland aplicado</td><td>Luiza Zarnott</td><td><span class="chip chip-gray">Não enviado</span></td></tr>
+          <tr><td>Peças de comunicação</td><td>Raquel Mozardo</td><td><span class="chip chip-gray">Não enviado</span></td></tr>
+          <tr><td>Estrutura de compras (dispensa)</td><td>Mayara Ferreira</td><td><span class="chip chip-orange">Em análise</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: ORÇAMENTO ============ -->
+  <div class="page" data-page="orcamento">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-4">
+      <div>
+        <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">4 · Orçamento consolidado</p>
+        <h2 class="font-headline-lg text-headline-lg text-primary">Previsto × Cotado por categoria</h2>
+        <p class="text-on-surface-variant mt-1">78 linhas item-a-item · 20 categorias · cotação IA (Mercado Livre, Amazon, Cobasi, Booking, Localiza, Elo7, Printi, gráficas locais).</p>
+      </div>
+      <a href="https://docs.google.com/spreadsheets/d/1Kof7ItjMXzDmYlJiO78mXZrHf2Q9Z3orD6dF8i5DF1c/edit?gid=1437045717" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-lg text-body-sm font-medium hover:bg-primary-container transition-colors">
+        <span class="material-symbols-outlined text-[18px]">open_in_new</span>Abrir planilha
+      </a>
+    </div>
+
+    <!-- KPIs de topo -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-gap-md mb-gap-md">
+      <div class="card"><p class="text-label-caps font-label-caps text-outline uppercase">Verba autorizada</p><h3 class="font-display-kpi text-display-kpi text-primary">R$ 660k</h3><p class="text-body-sm text-outline">Rouanet PRONAC</p></div>
+      <div class="card"><p class="text-label-caps font-label-caps text-outline uppercase">Previsto detalhado</p><h3 class="font-display-kpi text-display-kpi text-primary" id="k-previsto">—</h3><p class="text-body-sm text-outline">78 itens</p></div>
+      <div class="card"><p class="text-label-caps font-label-caps text-outline uppercase">Cotado (IA)</p><h3 class="font-display-kpi text-display-kpi text-primary" id="k-cotado">—</h3><p class="text-body-sm text-outline" id="k-cotado-cov">— linhas com cotação</p></div>
+      <div class="card"><p class="text-label-caps font-label-caps text-outline uppercase">% da verba</p><h3 class="font-display-kpi text-display-kpi text-primary" id="k-pct">—</h3><p class="text-body-sm text-outline">Previsto / R$ 660k</p></div>
+    </div>
+
+    <!-- Consolidado por categoria -->
+    <div class="card mb-gap-md">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2"><span class="material-symbols-outlined text-nh-blue-accent">pie_chart</span>Consolidado por categoria</h3>
+        <span class="text-body-sm text-outline" id="cat-count">— categorias</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="data" id="tbl-categorias">
+          <thead><tr><th>Categoria</th><th>Itens</th><th class="text-right">Previsto</th><th class="text-right">Cotado (IA)</th><th class="text-right">Δ</th><th>Distribuição</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Filtros + tabela detalhada -->
+    <div class="card mb-gap-md">
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2 mr-auto"><span class="material-symbols-outlined text-nh-blue-accent">filter_alt</span>Detalhamento item-a-item</h3>
+        <input type="search" id="f-search" placeholder="🔎 Buscar item, fornecedor…" class="w-full md:w-64">
+        <select id="f-categoria"><option value="">Todas categorias</option></select>
+        <select id="f-bloco"><option value="">Todos blocos</option></select>
+        <select id="f-alerta">
+          <option value="">Todos os itens</option>
+          <option value="above">⚠️ Só com cotado acima do previsto</option>
+          <option value="below">✓ Só com cotado abaixo do previsto</option>
+          <option value="uncoted">Sem cotação IA</option>
+        </select>
+        <button id="f-reset" class="px-3 py-2 border border-outline-variant rounded-lg text-body-sm hover:bg-surface-container-highest">Limpar</button>
+      </div>
+      <div class="overflow-x-auto max-h-[600px] overflow-y-auto">
+        <table class="data" id="tbl-itens">
+          <thead class="sticky top-0 z-10 bg-surface-container-low"><tr>
+            <th>Bloco</th><th>Categoria</th><th>Item</th><th class="text-right">Qtd</th><th class="text-right">Prev un</th><th class="text-right">Cot un</th><th class="text-right">Total Prev</th><th class="text-right">Total Cot</th><th>Fornecedor</th><th>Obs</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="text-body-sm text-outline mt-3" id="f-count">Mostrando — itens</p>
+    </div>
+
+    <!-- Embed planilha -->
+    <div class="mb-4">
+      <h3 class="font-headline-sm text-headline-sm text-primary mb-3 flex items-center gap-2"><span class="material-symbols-outlined text-nh-blue-accent">table_view</span>Planilha viva embutida</h3>
+      <p class="text-body-sm text-outline mb-3">A planilha do Google Sheets renderizada aqui dentro. Toda alteração feita na planilha aparece automaticamente neste painel.</p>
+      <div class="sheet-wrap">
+        <iframe src="https://docs.google.com/spreadsheets/d/1Kof7ItjMXzDmYlJiO78mXZrHf2Q9Z3orD6dF8i5DF1c/preview?gid=1437045717" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: DECISÕES ============ -->
+  <div class="page" data-page="decisoes">
+    <div class="mb-4">
+      <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">5 · Decisões consolidadas</p>
+      <h2 class="font-headline-lg text-headline-lg text-primary">O que já ficou decidido</h2>
+      <p class="text-on-surface-variant mt-1">Histórico auditável.</p>
+    </div>
+    <div class="card">
+      <table class="data">
+        <thead><tr><th style="width:110px">Data</th><th>Decisão</th><th>Aprovado por</th></tr></thead>
+        <tbody>
+          <tr><td class="font-semibold">02/07/2026</td><td><strong>Cronograma B</strong> como principal. Cronograma A segue como secundário.</td><td>Ana · Lucas</td></tr>
+          <tr><td class="font-semibold">02/07/2026</td><td>Metodologia com 7 oficinas + Hackathon + palestra segunda à noite antes de cada cidade.</td><td>Ana Xavier</td></tr>
+          <tr><td class="font-semibold">02/07/2026</td><td><strong>Prêmio em 3 camadas + camada 0</strong> visita à fábrica (custo NTICS R$ 0).</td><td>Ana · Lucas</td></tr>
+          <tr><td class="font-semibold">02/07/2026</td><td>Fotógrafo itinerante entrega vídeos curtos por cidade. Rubrica captação vídeo = R$ 0.</td><td>Lucas</td></tr>
+          <tr><td class="font-semibold">02/07/2026</td><td>Pré-produção começa 27/07 com passagem para Raíza ou Jéssica.</td><td>Ana Xavier</td></tr>
+          <tr><td class="font-semibold">08/06/2026</td><td><strong>Assinatura New Holland soberana</strong> em toda peça.</td><td>CNH (Luiza · Raquel M.)</td></tr>
+          <tr><td class="font-semibold">08/06/2026</td><td>Assessorias em conjunto (NTICS + agência CNH · cópia em tudo).</td><td>CNH</td></tr>
+          <tr><td class="font-semibold">28/05/2026</td><td><strong>Público: ensino médio</strong> (15-17 anos) rede pública.</td><td>Lucas · CNH</td></tr>
+          <tr><td class="font-semibold">18/05/2026</td><td>Ordem das cidades: <strong>Dom Pedrito → Toledo → Guarapuava → Curitiba</strong>.</td><td>Lucas · CNH</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: ITENS EM ABERTO ============ -->
+  <div class="page" data-page="itens">
+    <div class="mb-4">
+      <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">6 · Itens em aberto</p>
+      <h2 class="font-headline-lg text-headline-lg text-primary">O que está aberto agora</h2>
+      <p class="text-on-surface-variant mt-1">Só pendências a partir de agora. Sem histórico antigo.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-gap-md">
+      <div class="card border-l-4 border-danger"><span class="chip chip-red mb-2">Crítico</span><h4 class="font-semibold mb-1">Escolas fechadas até 10/08 em Dom Pedrito</h4><p class="text-body-sm text-outline">Sem escola, sem cronograma B. Marco crítico.</p><p class="text-body-sm mt-2"><strong>Owner:</strong> Jefferson · <strong>Prazo:</strong> 10/08</p></div>
+      <div class="card border-l-4 border-danger"><span class="chip chip-red mb-2">Crítico</span><h4 class="font-semibold mb-1">Interlocutor único CNH validado</h4><p class="text-body-sm text-outline">Raquel Montagnoli confirmou em 08/06.</p><p class="text-body-sm mt-2"><strong>Owner:</strong> Lucas</p></div>
+      <div class="card border-l-4 border-warning"><span class="chip chip-orange mb-2">Alto</span><h4 class="font-semibold mb-1">Fornecedor da plataforma</h4><p class="text-body-sm text-outline">Cotação Lovable em curso.</p><p class="text-body-sm mt-2"><strong>Owner:</strong> Bruna · <strong>Prazo:</strong> Julho</p></div>
+      <div class="card border-l-4 border-warning"><span class="chip chip-orange mb-2">Alto</span><h4 class="font-semibold mb-1">Compatibilidade MinC</h4><p class="text-body-sm text-outline">Validar com Mayara antes de comprometer fornecedores.</p><p class="text-body-sm mt-2"><strong>Owner:</strong> Mayara</p></div>
+      <div class="card border-l-4 border-warning"><span class="chip chip-orange mb-2">Alto</span><h4 class="font-semibold mb-1">Praça pública em Curitiba × ano eleitoral</h4><p class="text-body-sm text-outline">Backup Fazenda Urbana.</p><p class="text-body-sm mt-2"><strong>Owner:</strong> Lucas + Evelyn</p></div>
+      <div class="card border-l-4 border-primary"><span class="chip chip-blue mb-2">Médio</span><h4 class="font-semibold mb-1">Selo do governo em ano eleitoral</h4><p class="text-body-sm text-outline">Confirmar com Mayara.</p><p class="text-body-sm mt-2"><strong>Owner:</strong> Mayara</p></div>
+      <div class="card border-l-4 border-primary"><span class="chip chip-blue mb-2">Médio</span><h4 class="font-semibold mb-1">Banca externa do Hackathon</h4><p class="text-body-sm text-outline">4 cidades · produtor + concessionária + técnico.</p><p class="text-body-sm mt-2"><strong>Owner:</strong> Lucas</p></div>
+      <div class="card border-l-4 border-primary"><span class="chip chip-blue mb-2">Médio</span><h4 class="font-semibold mb-1">Passagem para Raíza/Jéssica</h4><p class="text-body-sm text-outline">Pré-produção começa 27/07.</p><p class="text-body-sm mt-2"><strong>Owner:</strong> Lucas + Ana</p></div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: PRÓXIMOS PASSOS ============ -->
+  <div class="page" data-page="proximos">
+    <div class="mb-4">
+      <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">7 · Próximos passos</p>
+      <h2 class="font-headline-lg text-headline-lg text-primary">Execução com datas e metas</h2>
+      <p class="text-on-surface-variant mt-1">Cronograma de execução extraído da reunião com Ana em 02/07/2026.</p>
+    </div>
+
+    <div class="card mb-gap-md"><h3 class="font-headline-sm text-headline-sm text-primary mb-3">📅 Semana atual · 02-05/07 · fechamento</h3>
+      <table class="data"><thead><tr><th>Data</th><th>Entrega</th><th>Dono</th><th>Status</th></tr></thead><tbody>
+        <tr><td>02/07</td><td>Reunião com Ana · orçamento consolidado</td><td>Lucas + Ana</td><td><span class="chip chip-green">✓</span></td></tr>
+        <tr><td>02-05/07</td><td>Metodologia finalizada</td><td>Lucas</td><td><span class="chip chip-green">✓</span></td></tr>
+        <tr><td>02-05/07</td><td>Orçamento detalhado item-a-item</td><td>Lucas</td><td><span class="chip chip-green">✓</span></td></tr>
+        <tr><td>02-05/07</td><td>Cenografia da quadra</td><td>Lucas + Aline</td><td><span class="chip chip-orange">⏳</span></td></tr>
+        <tr><td>02-05/07</td><td>Bater metodologia com contrapartidas MinC</td><td>Lucas + Mayara</td><td><span class="chip chip-orange">⏳</span></td></tr>
+        <tr><td>05/07</td><td>Passar tudo pronto para Abílio</td><td>Lucas → Abílio</td><td><span class="chip chip-orange">⏳</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="card mb-gap-md"><h3 class="font-headline-sm text-headline-sm text-primary mb-3">📅 Semana 06-10/07 · fornecedores</h3>
+      <ul class="list-disc list-inside text-body-sm space-y-1">
+        <li>Definir lista final de fornecedores por bloco</li>
+        <li>Buscar biólogo/técnico via Farmoon (MT) e Instituto Moleque Mateiro</li>
+        <li>Buscar fotógrafo/editor de vídeo curto</li>
+        <li>Buscar produtor (mesmo produtor 128 + 129 em semanas alternadas)</li>
+        <li><strong>Sexta 10/07:</strong> Agenda com produtores marcada</li>
+      </ul>
+    </div>
+
+    <div class="card mb-gap-md"><h3 class="font-headline-sm text-headline-sm text-primary mb-3">📅 Semana 13-17/07 · alinhamentos</h3>
+      <ul class="list-disc list-inside text-body-sm space-y-1">
+        <li><span class="chip chip-red">#1</span> Segunda 13/07: conversar com Jefferson · convencer da mudança para Cronograma B</li>
+        <li><span class="chip chip-red">#2</span> Alinhar CNH (Raquel Montagnoli) · apresentar Cronograma B</li>
+        <li>Fechar contratos com fornecedores confirmados</li>
+        <li>Iniciar plataforma "New Holland Online" (Bruna · 2h/dia)</li>
+        <li>Jefferson começa engajamento nas 3 primeiras cidades</li>
+      </ul>
+    </div>
+
+    <div class="card mb-gap-md"><h3 class="font-headline-sm text-headline-sm text-primary mb-3">📅 Semana 20-24/07 · treinamento</h3>
+      <ul class="list-disc list-inside text-body-sm space-y-1">
+        <li>Hackathon 100% pronto (mecânica + cenografia + banca + premiação)</li>
+        <li>Escolas engajadas em pelo menos 2 cidades</li>
+        <li>KV aprovado → carrossel pré + convite + certificados</li>
+        <li>1º treinamento com toda a equipe contratada</li>
+        <li>Compra de passagens aéreas</li>
+      </ul>
+    </div>
+
+    <div class="card mb-gap-md"><h3 class="font-headline-sm text-headline-sm text-primary mb-3">📅 Semana 27-31/07 · passagem</h3>
+      <ul class="list-disc list-inside text-body-sm space-y-1">
+        <li>Engajamento para Hackathon com órgãos locais</li>
+        <li>Reunião com Ângelo (assessoria de imprensa)</li>
+        <li>Convite oficial à imprensa</li>
+        <li><strong>Projeto passa para Raíza ou Jéssica</strong></li>
+      </ul>
+    </div>
+
+    <div class="card mb-gap-md"><h3 class="font-headline-sm text-headline-sm text-primary mb-3">📅 Agosto · pré-produção</h3>
+      <div class="timeline">
+        <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">1ª semana</p><p class="font-semibold">Pré-produção · checklist + 3ª reunião com equipe</p></div>
+        <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">2ª semana</p><p class="font-semibold">Compra dos materiais das oficinas</p></div>
+        <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">3ª semana</p><p class="font-semibold">Contratação da banca externa dos Hackathons</p></div>
+        <div class="tl-item warn"><p class="text-label-caps font-label-caps text-warning uppercase">Até 10/08</p><p class="font-semibold">Dom Pedrito confirmado (escola + turmas) · CRÍTICO</p></div>
+        <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">Até 20/08</p><p class="font-semibold">Toledo, Guarapuava, Curitiba confirmadas</p></div>
+      </div>
+    </div>
+
+    <div class="card"><h3 class="font-headline-sm text-headline-sm text-primary mb-3">📅 Setembro-Novembro · execução em campo</h3>
+      <div class="timeline">
+        <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">Segunda 31/08</p><p class="font-semibold">Início em campo · Dom Pedrito/RS</p><p class="text-body-sm text-on-surface-variant">Palestra de professores segunda à noite (~100 professores).</p></div>
+        <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">Sexta 04/09</p><p class="font-semibold">Hackathon Guardiões da Terra · Dom Pedrito</p></div>
+        <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">21-25/09</p><p class="font-semibold">Toledo/PR</p></div>
+        <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">05-09/10</p><p class="font-semibold">Guarapuava/PR</p></div>
+        <div class="tl-item"><p class="text-label-caps font-label-caps text-primary uppercase">26-30/10</p><p class="font-semibold">Curitiba/PR (oficinas)</p></div>
+        <div class="tl-item done"><p class="text-label-caps font-label-caps text-success uppercase">31/10 e 01/11</p><p class="font-semibold">Festival + DOMO em praça pública</p><p class="text-body-sm text-on-surface-variant">Público 500-1.000 · cerimônia Guardião da Terra.</p></div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</main>
+</div>
+
+<script>
+// ============= NAVEGAÇÃO =============
+const pages = document.querySelectorAll('.page');
+const sideItems = document.querySelectorAll('.side-item');
+const topItems = document.querySelectorAll('.top-item');
+
+function goto(pageKey){
+  pages.forEach(p => p.classList.toggle('active', p.dataset.page === pageKey));
+  sideItems.forEach(b => b.classList.toggle('nav-active', b.dataset.page === pageKey));
+  topItems.forEach(a => a.classList.toggle('top-active', a.dataset.page === pageKey));
+  document.querySelector('main').scrollTo({top:0, behavior:'smooth'});
+}
+sideItems.forEach(b => b.addEventListener('click', e => { e.preventDefault(); goto(b.dataset.page); }));
+topItems.forEach(a => a.addEventListener('click', e => { e.preventDefault(); goto(a.dataset.page); }));
+document.querySelectorAll('[data-goto]').forEach(el => el.addEventListener('click', e => { e.preventDefault(); goto(el.dataset.goto); }));
+
+// Sub-tabs (Playbook e TAP)
+document.querySelectorAll('[data-subnav]').forEach(nav => {
+  const pageEl = nav.closest('.page');
+  nav.querySelectorAll('.sub-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      nav.querySelectorAll('.sub-tab-btn').forEach(b => {
+        b.classList.remove('bg-primary','text-on-primary','font-semibold');
+        b.classList.add('text-on-surface-variant','font-medium','hover:bg-surface-container-high');
+      });
+      btn.classList.remove('text-on-surface-variant','font-medium','hover:bg-surface-container-high');
+      btn.classList.add('bg-primary','text-on-primary','font-semibold');
+      pageEl.querySelectorAll('.subpage').forEach(sp => sp.classList.toggle('active', sp.dataset.sub === btn.dataset.sub));
+    });
+  });
+});
+
+// ============= ORÇAMENTO =============
+const BUDGET = [
+  {b:"1.1",c:"Equipe",i:"Produtor(a) itinerante",q:4,pu:3000,cu:null,tp:12000,tc:null,f:"Freelance",o:"Mesmo do 129 alternado"},
+  {b:"1.1",c:"Equipe",i:"Biólogo(a)/técnico(a) itinerante",q:4,pu:3000,cu:null,tp:12000,tc:null,f:"Freelance",o:"Perfil cara do campo"},
+  {b:"1.1",c:"Equipe",i:"Fotógrafo(a) + editor vídeo curto",q:4,pu:2000,cu:null,tp:8000,tc:null,f:"Freelance",o:"Entrega vídeos curtos no cachê"},
+  {b:"1.1",c:"Equipe",i:"Storytelling",q:4,pu:2000,cu:null,tp:8000,tc:null,f:"Freelance",o:""},
+  {b:"1.2",c:"Equipe",i:"Monitores locais",q:8,pu:1000,cu:null,tp:8000,tc:null,f:"Contratação local",o:"R$ 200/dia × 5"},
+  {b:"2",c:"Hospedagem",i:"Dom Pedrito/RS quarto duplo",q:4,pu:300,cu:220,tp:1200,tc:880,f:"Central/Maná/La Vivienda",o:"Cidade pequena"},
+  {b:"2",c:"Hospedagem",i:"Toledo/PR quarto duplo",q:4,pu:300,cu:280,tp:1200,tc:1120,f:"Vila Verde/Arca's/Sleep",o:""},
+  {b:"2",c:"Hospedagem",i:"Guarapuava/PR quarto duplo",q:4,pu:300,cu:260,tp:1200,tc:1040,f:"ibis/Grande Hotel",o:""},
+  {b:"2",c:"Hospedagem",i:"Curitiba/PR quarto duplo",q:4,pu:300,cu:310,tp:1200,tc:1240,f:"ibis Styles Centro Cívico",o:"Semana festival"},
+  {b:"3",c:"Alimentação",i:"Verba diária Dom Pedrito",q:4,pu:200,cu:null,tp:800,tc:null,f:"Diária",o:"Café hotel"},
+  {b:"3",c:"Alimentação",i:"Verba diária Toledo",q:4,pu:200,cu:null,tp:800,tc:null,f:"Diária",o:""},
+  {b:"3",c:"Alimentação",i:"Verba diária Guarapuava",q:4,pu:200,cu:null,tp:800,tc:null,f:"Diária",o:""},
+  {b:"3",c:"Alimentação",i:"Verba diária Curitiba",q:4,pu:200,cu:null,tp:800,tc:null,f:"Diária",o:""},
+  {b:"4",c:"Passagem aérea",i:"Curitiba → Bagé (Dom Pedrito)",q:4,pu:1000,cu:700,tp:4000,tc:2800,f:"LATAM/Gol/Azul via POA",o:"Bagé só Azul semanal"},
+  {b:"5",c:"Transporte terrestre",i:"Aluguel carro Curitiba → Toledo",q:1,pu:700,cu:650,tp:700,tc:650,f:"Localiza/Movida",o:"~535 km"},
+  {b:"5",c:"Transporte terrestre",i:"Aluguel carro Curitiba → Guarapuava",q:1,pu:700,cu:650,tp:700,tc:650,f:"Localiza/Movida",o:"~500 km"},
+  {b:"5",c:"Transporte terrestre",i:"Aluguel carro Curitiba local + Festival",q:1,pu:700,cu:650,tp:700,tc:650,f:"Localiza/Movida",o:"Urbano + Festival"},
+  {b:"6.1",c:"Material T1 Terrário",i:"Aquário pequeno de vidro 5L",q:8,pu:25,cu:40,tp:200,tc:320,f:"Amazon/ML/Cobasi",o:"⚠️ 60% acima"},
+  {b:"6.1",c:"Material T1 Terrário",i:"Musgo esfagno 150g",q:5,pu:30,cu:22,tp:150,tc:110,f:"Big Moss/ML",o:"Coletar musgo local"},
+  {b:"6.1",c:"Material T1 Terrário",i:"Gelo seco 2kg",q:1,pu:60,cu:40,tp:60,tc:40,f:"Ar Líquido/White Martins",o:"Sob demanda"},
+  {b:"6.1",c:"Material T1 Terrário",i:"LED pisca-pisca colorido 3m bateria",q:12,pu:17,cu:22,tp:200,tc:264,f:"Amazon/ML",o:""},
+  {b:"6.1",c:"Material T1 Terrário",i:"Borrifador spray 250ml",q:6,pu:8,cu:9,tp:50,tc:54,f:"ML/Amazon",o:""},
+  {b:"6.1",c:"Material T1 Terrário",i:"Substrato para plantas 5L",q:3,pu:13,cu:18,tp:40,tc:54,f:"Leroy/Cobasi",o:""},
+  {b:"6.1",c:"Material T1 Terrário",i:"Sementes mix",q:10,pu:5,cu:6,tp:50,tc:60,f:"Feltrin/Topseed",o:"Regionais"},
+  {b:"6.2",c:"Material T2 Fotografia macro",i:"Tripé para celular ~1m",q:4,pu:100,cu:60,tp:400,tc:240,f:"ML/Worldview",o:"⚠️ 40% abaixo"},
+  {b:"6.2",c:"Material T2 Fotografia macro",i:"Ring light 26cm com tripé de mesa",q:2,pu:75,cu:75,tp:150,tc:150,f:"ML/Zig",o:""},
+  {b:"6.2",c:"Material T2 Fotografia macro",i:"Backdrop tecido preto 1.5x2m",q:1,pu:100,cu:120,tp:100,tc:120,f:"Grupo Aragon",o:""},
+  {b:"6.2",c:"Material T2 Fotografia macro",i:"Impressão fotográfica A4 papel 180g",q:40,pu:2.5,cu:3,tp:100,tc:120,f:"Gráfica Custom/VF",o:""},
+  {b:"6.3",c:"Material T3 Mercado Simulado",i:"Cartas impressas 6x9cm papel 300g",q:100,pu:1,cu:1.2,tp:100,tc:120,f:"Atual Card/Paulista",o:"Design pré-pronto"},
+  {b:"6.3",c:"Material T3 Mercado Simulado",i:"Grãos representativos kit",q:1,pu:80,cu:45,tp:80,tc:45,f:"Mercado/atacado",o:"⚠️ 44% abaixo"},
+  {b:"6.3",c:"Material T3 Mercado Simulado",i:"Papel kraft 60g rolo 1m×5m",q:2,pu:50,cu:45,tp:100,tc:90,f:"ML/Plotag",o:""},
+  {b:"6.3",c:"Material T3 Mercado Simulado",i:"Canetão colorido kit 12 permanente",q:3,pu:15,cu:25,tp:50,tc:80,f:"Kalunga Faber-Castell",o:"⚠️ 67% acima"},
+  {b:"6.4",c:"Material T4 Mapa Sensorial",i:"Caixa MDF compartimentada 30x30cm",q:8,pu:25,cu:85,tp:200,tc:680,f:"Elo7/Le Biscuit",o:"⚠️⚠️ 240% acima"},
+  {b:"6.4",c:"Material T4 Mapa Sensorial",i:"Potes vidro conserva 100ml",q:40,pu:2,cu:3.5,tp:80,tc:140,f:"ML/Cia dos Potes",o:"Reciclados da escola"},
+  {b:"6.4",c:"Material T4 Mapa Sensorial",i:"Envelope papel 8x8cm",q:40,pu:1,cu:1.2,tp:40,tc:48,f:"Casa do Papel/ML",o:""},
+  {b:"6.4",c:"Material T4 Mapa Sensorial",i:"Etiquetas manuscritas adesivo",q:100,pu:0.8,cu:0.5,tp:80,tc:50,f:"SG Print/ilabel",o:""},
+  {b:"6.4",c:"Material T4 Mapa Sensorial",i:"Ingredientes locais (kit)",q:1,pu:150,cu:null,tp:150,tc:null,f:"Feira livre/mercado",o:"Compra local"},
+  {b:"6.5",c:"Material T5 Cartografia Climática",i:"Mapa impresso A2 papel offset 150g",q:8,pu:25,cu:18,tp:200,tc:144,f:"MR2/Padrão Color",o:"Base preparada antes"},
+  {b:"6.5",c:"Material T5 Cartografia Climática",i:"Canetão colorido kit 12",q:3,pu:27,cu:25,tp:80,tc:75,f:"Papelaria",o:"Reutilizar"},
+  {b:"6.5",c:"Material T5 Cartografia Climática",i:"Adesivos com ícones clima 3cm",q:200,pu:0.75,cu:0.9,tp:150,tc:180,f:"Printi/Afixgraf",o:""},
+  {b:"6.5",c:"Material T5 Cartografia Climática",i:"Fichas INMET/Cemaden A4 colorido",q:30,pu:3,cu:3,tp:80,tc:80,f:"Impressão local",o:""},
+  {b:"6.6",c:"Material T6 Miniusina biometano",i:"Garrafas PET 2L",q:8,pu:0,cu:0,tp:0,tc:0,f:"Escola",o:"Coleta antes"},
+  {b:"6.6",c:"Material T6 Miniusina biometano",i:"Mangueira silicone 1/4pol 30cm",q:8,pu:16,cu:12,tp:130,tc:96,f:"ML/Império Mangueiras",o:""},
+  {b:"6.6",c:"Material T6 Miniusina biometano",i:"Bexiga látex 7 polegadas",q:40,pu:1.2,cu:1.5,tp:50,tc:60,f:"São Roque/Art Látex",o:"Reserva"},
+  {b:"6.6",c:"Material T6 Miniusina biometano",i:"Fita crepe/silver tape",q:4,pu:7.5,cu:25,tp:30,tc:100,f:"ML/3M/Adere",o:"⚠️ 233% acima"},
+  {b:"6.6",c:"Material T6 Miniusina biometano",i:"Fichas Lean Canvas em branco A3",q:30,pu:2.7,cu:5,tp:80,tc:200,f:"Gráfica rápida",o:"⚠️ 85% acima"},
+  {b:"6.7",c:"Material T7 Hackathon",i:"Palete Euro 80x120cm usado",q:8,pu:30,cu:45,tp:250,tc:360,f:"Decor SP/Pallet SP",o:"Cessão gratuita local"},
+  {b:"6.7",c:"Material T7 Hackathon",i:"Tinta acrílica externa 900ml",q:4,pu:60,cu:50,tp:250,tc:200,f:"Leroy Suvinil/Luxens",o:""},
+  {b:"6.7",c:"Material T7 Hackathon",i:"Bandeirolas tecido 5m coloridas",q:8,pu:20,cu:25,tp:150,tc:200,f:"Felix Fantasias",o:"Reutilizar"},
+  {b:"6.7",c:"Material T7 Hackathon",i:"Aluguel caixa amplificada + 2 mics",q:1,pu:300,cu:280,tp:300,tc:280,f:"42 Locações",o:"Priorizar escola"},
+  {b:"6.7",c:"Material T7 Hackathon",i:"Cartolina colorida 66x50cm",q:40,pu:2,cu:2.5,tp:80,tc:100,f:"Kalunga",o:""},
+  {b:"6.7",c:"Material T7 Hackathon",i:"Prancheta acrílica A4",q:30,pu:8,cu:25,tp:250,tc:750,f:"Trident/Acrílico Store",o:"⚠️ 213% acima"},
+  {b:"6.7",c:"Material T7 Hackathon",i:"Box de materiais por squad",q:8,pu:50,cu:null,tp:400,tc:null,f:"Papelaria",o:""},
+  {b:"6.7",c:"Material T7 Hackathon",i:"Impressão fichas de escopo A4",q:80,pu:1,cu:null,tp:80,tc:null,f:"Gráfica rápida",o:""},
+  {b:"6.8",c:"Cenografia geral quadra",i:"Banner lona 3m×2m com fio",q:1,pu:200,cu:180,tp:200,tc:180,f:"Los Copiadores",o:"Reutilizável"},
+  {b:"6.8",c:"Cenografia geral quadra",i:"Sinalização placas PS 30x40cm",q:5,pu:30,cu:35,tp:150,tc:175,f:"Sinalplast",o:"Reutilizar"},
+  {b:"6.8",c:"Cenografia geral quadra",i:"Decoração da quadra (kit)",q:1,pu:150,cu:null,tp:150,tc:null,f:"Casa de festas",o:""},
+  {b:"6.8",c:"Cenografia geral quadra",i:"Rollup 85x200cm retrátil",q:2,pu:50,cu:220,tp:100,tc:440,f:"Printi/Fixcom/Ultra-V",o:"⚠️⚠️ 340% acima"},
+  {b:"7",c:"Prêmio Hackathon",i:"Visita à fábrica New Holland",q:4,pu:0,cu:0,tp:0,tc:0,f:"CNH",o:"Custo NTICS = 0"},
+  {b:"7",c:"Prêmio Hackathon",i:"Troféu acrílico 25cm personalizado",q:4,pu:150,cu:95,tp:150,tc:95,f:"Elo7",o:"⚠️ 37% abaixo (bom)"},
+  {b:"7",c:"Prêmio Hackathon",i:"Placa MDF/acrílico gravada 30x20cm",q:4,pu:110,cu:85,tp:110,tc:85,f:"Elo7",o:"Sala vencedora"},
+  {b:"7",c:"Prêmio Hackathon",i:"Pin metálico personalizado",q:120,pu:4,cu:5.5,tp:120,tc:165,f:"A7 Brindes/Sucesso",o:""},
+  {b:"7",c:"Prêmio Hackathon",i:"Adesivo personalizado",q:120,pu:1,cu:1.2,tp:30,tc:36,f:"Printi/360imprimir",o:""},
+  {b:"7",c:"Prêmio Hackathon",i:"Potinho de germinação + semente",q:120,pu:3,cu:5,tp:90,tc:150,f:"Elo7 mudinhas",o:"⚠️ 67% acima"},
+  {b:"7",c:"Prêmio Hackathon",i:"Certificado especial impresso",q:120,pu:0.8,cu:1,tp:24,tc:30,f:"Gráfica rápida",o:""},
+  {b:"8",c:"Evento na praça Curitiba",i:"DOMO imersivo (aluguel + AV)",q:1,pu:12000,cu:15000,tp:12000,tc:15000,f:"STAR DOMES/SPADA",o:"⚠️ 25% acima"},
+  {b:"8",c:"Evento na praça Curitiba",i:"Aluguel palco 6x4m coberto + treliça",q:1,pu:6000,cu:6000,tp:6000,tc:6000,f:"Tendas Compostela",o:""},
+  {b:"8",c:"Evento na praça Curitiba",i:"Gradil galvanizado 2m × 30 módulos",q:30,pu:2500,cu:2500,tp:2500,tc:2500,f:"Tendas Compostela",o:""},
+  {b:"8",c:"Evento na praça Curitiba",i:"Tenda 3x3m com pé direito 2.5m",q:4,pu:1250,cu:500,tp:5000,tc:2000,f:"Sotendas",o:"⚠️ 60% abaixo"},
+  {b:"8",c:"Evento na praça Curitiba",i:"Gerador 30 KVA silenciado",q:2,pu:1250,cu:900,tp:2500,tc:1800,f:"Cotanet/Gerapar",o:""},
+  {b:"8",c:"Evento na praça Curitiba",i:"Cenografia da praça",q:1,pu:4000,cu:4000,tp:4000,tc:4000,f:"Gráfica Curitiba/Octarte",o:""},
+  {b:"9",c:"Cobertura fotográfica",i:"Diária fotógrafo Dom Pedrito",q:1,pu:800,cu:1500,tp:800,tc:1500,f:"Freelans/GetNinjas",o:"⚠️ 88% acima"},
+  {b:"9",c:"Cobertura fotográfica",i:"Diária fotógrafo Toledo",q:1,pu:800,cu:1500,tp:800,tc:1500,f:"Freelans",o:""},
+  {b:"9",c:"Cobertura fotográfica",i:"Diária fotógrafo Guarapuava",q:1,pu:800,cu:1500,tp:800,tc:1500,f:"Freelans",o:""},
+  {b:"9",c:"Cobertura fotográfica",i:"Diária fotógrafo Curitiba",q:1,pu:800,cu:1500,tp:800,tc:1500,f:"Freelans",o:""},
+  {b:"9",c:"Cobertura fotográfica",i:"Diária fotógrafo Festival + DOMO",q:2,pu:800,cu:1500,tp:1600,tc:3000,f:"Freelans",o:"2 diárias"},
+  {b:"9",c:"Cobertura fotográfica",i:"Ajuste/impressão extra",q:1,pu:200,cu:null,tp:200,tc:null,f:"Gráfica rápida",o:""},
+  {b:"10",c:"Assessoria de imprensa",i:"Pacote pré + durante + pós",q:1,pu:3000,cu:3500,tp:3000,tc:3500,f:"MGA Press/Press UP",o:"Referência R$3.800-4.750"},
+  {b:"11",c:"Captação vídeo",i:"Integrado ao bloco 1",q:1,pu:0,cu:0,tp:0,tc:0,f:"—",o:"Custo NTICS = 0"},
+  {b:"12",c:"Design materiais visuais",i:"KV + carrossel + convite + certificados",q:1,pu:2000,cu:3000,tp:2000,tc:3000,f:"Workana/99freelas/TAGX",o:"⚠️ 50% acima"},
+  {b:"13",c:"Contingência",i:"Reserva ~3%",q:1,pu:3900,cu:null,tp:3900,tc:null,f:"—",o:"Não previstas"},
+];
+
+const fmtBR = n => n===null||n===undefined ? "—" : "R$ " + Math.round(n).toLocaleString('pt-BR');
+const fmtBRk = n => n>=1000 ? "R$ " + (n/1000).toFixed(0) + "k" : fmtBR(n);
+
+// KPIs de topo
+const totalPrev = BUDGET.reduce((s,x)=>s+(x.tp||0),0);
+const totalCot = BUDGET.reduce((s,x)=>s+(x.tc||0),0);
+const withCot = BUDGET.filter(x=>x.tc!==null).length;
+document.getElementById('k-previsto').textContent = fmtBRk(totalPrev);
+document.getElementById('k-cotado').textContent = fmtBRk(totalCot);
+document.getElementById('k-cotado-cov').textContent = `${withCot}/${BUDGET.length} linhas com cotação`;
+document.getElementById('k-pct').textContent = ((totalPrev/660000)*100).toFixed(0) + '%';
+
+// Consolidado por categoria
+const byCat = {};
+BUDGET.forEach(x => {
+  if(!byCat[x.c]) byCat[x.c] = {itens:0, prev:0, cot:0, hasCot:false};
+  byCat[x.c].itens++;
+  byCat[x.c].prev += x.tp || 0;
+  byCat[x.c].cot += x.tc || 0;
+  if(x.tc!==null) byCat[x.c].hasCot = true;
+});
+const cats = Object.entries(byCat).sort((a,b)=>b[1].prev - a[1].prev);
+document.getElementById('cat-count').textContent = `${cats.length} categorias`;
+const maxPrev = Math.max(...cats.map(([,v])=>v.prev));
+const tbodyCats = document.querySelector('#tbl-categorias tbody');
+cats.forEach(([cat, v]) => {
+  const delta = v.hasCot ? v.cot - v.prev : null;
+  const dPct = v.hasCot && v.prev ? (delta/v.prev*100) : null;
+  let deltaChip = '<span class="chip chip-gray">—</span>';
+  if(dPct !== null){
+    if(dPct > 10) deltaChip = `<span class="chip chip-red">▲ ${dPct.toFixed(0)}%</span>`;
+    else if(dPct < -10) deltaChip = `<span class="chip chip-green">▼ ${Math.abs(dPct).toFixed(0)}%</span>`;
+    else deltaChip = `<span class="chip chip-blue">≈ ${dPct.toFixed(0)}%</span>`;
+  }
+  const pctBar = (v.prev / maxPrev) * 100;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="font-semibold">${cat}</td><td>${v.itens}</td><td class="text-right font-semibold">${fmtBR(v.prev)}</td><td class="text-right">${v.hasCot ? fmtBR(v.cot) : '—'}</td><td class="text-right">${deltaChip}</td><td style="width:200px"><div class="progress-bar"><span class="bg-primary" style="width:${pctBar}%"></span></div></td>`;
+  tr.style.cursor = 'pointer';
+  tr.addEventListener('click', () => {
+    document.getElementById('f-categoria').value = cat;
+    renderItens();
+  });
+  tbodyCats.appendChild(tr);
+});
+
+// Filtros
+const selCat = document.getElementById('f-categoria');
+const selBloco = document.getElementById('f-bloco');
+[...new Set(BUDGET.map(x=>x.c))].forEach(c => {
+  const opt = document.createElement('option'); opt.value = c; opt.textContent = c; selCat.appendChild(opt);
+});
+[...new Set(BUDGET.map(x=>x.b))].sort().forEach(b => {
+  const opt = document.createElement('option'); opt.value = b; opt.textContent = 'Bloco ' + b; selBloco.appendChild(opt);
+});
+
+function renderItens(){
+  const search = document.getElementById('f-search').value.toLowerCase();
+  const cat = selCat.value;
+  const bloco = selBloco.value;
+  const alerta = document.getElementById('f-alerta').value;
+  const filtered = BUDGET.filter(x => {
+    if(cat && x.c !== cat) return false;
+    if(bloco && x.b !== bloco) return false;
+    if(alerta === 'uncoted' && x.tc !== null) return false;
+    if(alerta === 'above' && (x.tc === null || x.tc <= x.tp)) return false;
+    if(alerta === 'below' && (x.tc === null || x.tc >= x.tp)) return false;
+    if(search){
+      const hay = (x.i + ' ' + x.f + ' ' + x.o + ' ' + x.c).toLowerCase();
+      if(!hay.includes(search)) return false;
+    }
+    return true;
+  });
+  const tbody = document.querySelector('#tbl-itens tbody');
+  tbody.innerHTML = '';
+  filtered.forEach(x => {
+    let alertBadge = '';
+    if(x.tc !== null && x.tp > 0){
+      const d = (x.tc - x.tp) / x.tp * 100;
+      if(d > 30) alertBadge = ' <span class="chip chip-red">▲</span>';
+      else if(d < -30) alertBadge = ' <span class="chip chip-green">▼</span>';
+    }
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><span class="chip chip-blue">${x.b}</span></td><td>${x.c}</td><td class="font-semibold">${x.i}${alertBadge}</td><td class="text-right">${x.q}</td><td class="text-right">${x.pu ? 'R$ '+x.pu : '—'}</td><td class="text-right">${x.cu ? 'R$ '+x.cu : '—'}</td><td class="text-right font-semibold">${x.tp ? fmtBR(x.tp) : '—'}</td><td class="text-right">${x.tc !== null ? fmtBR(x.tc) : '—'}</td><td class="text-body-sm">${x.f}</td><td class="text-body-sm text-outline">${x.o}</td>`;
+    tbody.appendChild(tr);
+  });
+  document.getElementById('f-count').textContent = `Mostrando ${filtered.length} de ${BUDGET.length} itens · Previsto ${fmtBR(filtered.reduce((s,x)=>s+(x.tp||0),0))} · Cotado ${fmtBR(filtered.reduce((s,x)=>s+(x.tc||0),0))}`;
+}
+['f-search','f-categoria','f-bloco','f-alerta'].forEach(id => document.getElementById(id).addEventListener('input', renderItens));
+document.getElementById('f-reset').addEventListener('click', () => {
+  document.getElementById('f-search').value = ''; selCat.value = ''; selBloco.value = ''; document.getElementById('f-alerta').value = '';
+  renderItens();
+});
+renderItens();
+</script>
+</body>
+</html>
