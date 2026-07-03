@@ -53,7 +53,8 @@
   .kpi .l{font-size:12.5px;color:var(--sub);font-weight:600;margin-top:2px}
   .kpi .s{font-size:11.5px;color:var(--muted);margin-top:4px}
   /* grid */
-  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;border:1px solid var(--line);border-radius:14px;padding:6px;background:var(--line2)}
+  .gridwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:14px}
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;border:1px solid var(--line);border-radius:14px;padding:6px;background:var(--line2);min-width:900px}
   .dow{text-align:center;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 0 6px}
   .cell{background:var(--paper);border-radius:9px;min-height:104px;padding:7px 7px 8px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--line2)}
   .cell.wknd{background:var(--weekend)} .cell.out{background:#fbfcfb;opacity:.5}
@@ -93,11 +94,11 @@
   footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
   @media(max-width:860px){
     h1{font-size:27px}
-    .grid{grid-template-columns:1fr;gap:5px;background:var(--paper);border:0;padding:0}
-    .dow{display:none}
-    .cell{min-height:auto;border:1px solid var(--line)} .cell.out{display:none}
     .cols{grid-template-columns:1fr}
+    .tabs{position:static}
   }
+  .hint{display:none;color:var(--muted);font-size:11.5px;margin:0 0 8px}
+  @media(max-width:920px){ .hint{display:block} }
 </style>
 </head>
 <body>
@@ -155,7 +156,8 @@
       <span class="lg"><span class="dot o"></span>Corte novo (proposta)</span>
       <span class="lg"><span class="cam">📸</span>Captação no dia</span>
     </div>
-    <div class="grid">
+    <p class="hint">↔ arraste para o lado para ver o mês inteiro</p>
+    <div class="gridwrap"><div class="grid">
       <div class="dow">Dom</div><div class="dow">Seg</div><div class="dow">Ter</div><div class="dow">Qua</div><div class="dow">Qui</div><div class="dow">Sex</div><div class="dow">Sáb</div>
       <!-- W1 -->
       <div class="cell out"><div class="num">29</div></div>
@@ -197,7 +199,7 @@
       <div class="cell"><div class="num">31</div><div class="chip c-o">Corte · GRU Premiação<small>125 · proposta</small></div></div>
       <div class="cell out"><div class="num">1</div></div>
       <div class="cell out"><div class="num">2</div></div>
-    </div>
+    </div></div>
     <p class="meta" style="margin-top:12px">Meta ≥ 1 <b>vídeo</b>/dia útil: atingida combinando os vídeos já agendados + 4 remanejamentos (↪, dos dias 08/20 lotados) + 5 cortes novos. Carrosséis e artigos institucionais aparecem em azul/bege e não contam como vídeo.</p>
   </section>
 
@@ -212,7 +214,8 @@
       <span class="lg"><span class="dot o"></span>Corte novo (Aline · proposta)</span>
     </div>
     <div class="callout"><b>Regra:</b> máx. 1 vídeo/dia por editor. O dia <b>16/07</b> tinha <b>3 edições da Aline</b> — remanejado para <b>15, 16 e 17</b> (mostrado abaixo com ↪).</div>
-    <div class="grid">
+    <p class="hint">↔ arraste para o lado para ver o mês inteiro</p>
+    <div class="gridwrap"><div class="grid">
       <div class="dow">Dom</div><div class="dow">Seg</div><div class="dow">Ter</div><div class="dow">Qua</div><div class="dow">Qui</div><div class="dow">Sex</div><div class="dow">Sáb</div>
       <!-- W1 -->
       <div class="cell out"><div class="num">29</div></div>
@@ -254,7 +257,7 @@
       <div class="cell"><div class="num">31</div></div>
       <div class="cell out"><div class="num">1</div></div>
       <div class="cell out"><div class="num">2</div></div>
-    </div>
+    </div></div>
     <p class="meta" style="margin-top:12px">Carga de edição em julho: <b>Aline</b> ~11 vídeos + 5 cortes · <b>Marcos</b> 4 cases · <b>Lucas</b> 1 · <b>1 vídeo sem responsável</b> (117 V Venda 1, dia 09). Após o remanejamento, nenhum editor passa de 1 vídeo/dia.</p>
   </section>
 
