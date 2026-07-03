@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redes Sociais — Planejamento Julho 2026 · NTICS</title>
+<style>
+  :root{
+    --bg:#0d1b17; --panel:#12241e; --panel2:#16302704; --line:#1f3d33;
+    --ink:#eaf3ef; --sub:#9db9ad; --muted:#6f8a7e;
+    --green:#38c172; --blue:#4aa3ff; --amber:#f5b342; --red:#ef5b6b; --purple:#b58cff; --teal:#2dd4bf;
+    --card:#13271f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 20px 80px}
+  header.hero{background:linear-gradient(135deg,#123128,#0d1b17);border-bottom:1px solid var(--line);padding:34px 0 26px;margin-bottom:26px}
+  .hero .wrap{padding-bottom:0}
+  .eyebrow{color:var(--teal);font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase}
+  h1{margin:8px 0 6px;font-size:30px;letter-spacing:-.02em}
+  .lede{color:var(--sub);font-size:15px;max-width:760px}
+  .gen{color:var(--muted);font-size:12.5px;margin-top:14px}
+  h2.section-title{font-size:19px;margin:38px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px}
+  h3{font-size:15px;margin:22px 0 10px;color:var(--ink)}
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px}
+  .kpi .n{font-size:30px;font-weight:800;letter-spacing:-.02em}
+  .kpi .l{font-size:12.5px;color:var(--sub);margin-top:2px;font-weight:600}
+  .kpi .s{font-size:11.5px;color:var(--muted);margin-top:5px}
+  .kpi.green .n{color:var(--green)} .kpi.blue .n{color:var(--blue)} .kpi.amber .n{color:var(--amber)}
+  .kpi.red .n{color:var(--red)} .kpi.purple .n{color:var(--purple)} .kpi.teal .n{color:var(--teal)}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 18px 6px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 16px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--sub);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .tag{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px;border:1px solid transparent;white-space:nowrap}
+  .t-post{background:rgba(74,163,255,.12);color:var(--blue);border-color:rgba(74,163,255,.3)}
+  .t-video{background:rgba(56,193,114,.12);color:var(--green);border-color:rgba(56,193,114,.3)}
+  .t-edit{background:rgba(245,179,66,.12);color:var(--amber);border-color:rgba(245,179,66,.3)}
+  .t-inst{background:rgba(181,140,255,.12);color:var(--purple);border-color:rgba(181,140,255,.3)}
+  .t-fix{background:rgba(239,91,107,.13);color:var(--red);border-color:rgba(239,91,107,.35)}
+  .cal{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:8px 0 4px}
+  .cal .h{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;text-align:center;font-weight:700}
+  .day{background:var(--card);border:1px solid var(--line);border-radius:10px;min-height:74px;padding:7px 8px}
+  .day .d{font-size:12px;color:var(--sub);font-weight:700;margin-bottom:5px}
+  .day.gap{border-color:rgba(239,91,107,.4);background:rgba(239,91,107,.05)}
+  .day.cov{border-color:rgba(56,193,114,.35)}
+  .day .ev{font-size:10.5px;padding:2px 5px;border-radius:6px;margin-bottom:3px;display:block;line-height:1.25}
+  .ev.v{background:rgba(56,193,114,.14);color:#a8ecc4}
+  .ev.p{background:rgba(74,163,255,.14);color:#bcdcff}
+  .ev.prop{background:rgba(245,179,66,.16);color:#fadfa8;border:1px dashed rgba(245,179,66,.5)}
+  .note{color:var(--muted);font-size:12.5px}
+  ul.clean{margin:6px 0 16px;padding-left:18px} ul.clean li{margin:5px 0;font-size:13.5px}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:3px 11px;font-size:12px;color:var(--sub);margin:2px 4px 2px 0}
+  .callout{border-left:3px solid var(--amber);background:rgba(245,179,66,.06);padding:12px 15px;border-radius:0 10px 10px 0;margin:14px 0;font-size:13.5px}
+  .callout.red{border-left-color:var(--red);background:rgba(239,91,107,.06)}
+  footer{margin-top:46px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.two{grid-template-columns:1fr}.cal{grid-template-columns:1fr;}.cal .h{display:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">NTICS · Social Media · Planejamento Mensal</div>
+    <h1>Redes Sociais — Julho 2026</h1>
+    <p class="lede">Retrospectiva de junho, pipeline de julho por projeto e pessoa, e proposta de pauta com pelo menos 1 vídeo por dia útil — completando as lacunas com cortes/melhores momentos editados pela Aline.</p>
+    <div class="gen">Relatório gerado em 03/07/2026 · Dados extraídos do ClickUp — Space "Escritório de Projetos", pasta "🟢 Projetos Ativos NTICS" (17 listas + 🗓️ Cronograma de redes sociais NTICS) · Tags: redes sociais, edição de vídeos, institucional, data fechada cliente</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- KPIs -->
+  <h2 class="section-title">📊 Visão geral</h2>
+  <div class="card-grid">
+    <div class="kpi green"><div class="n">~50</div><div class="l">Peças publicadas em junho</div><div class="s">38 de projetos + 12 institucionais</div></div>
+    <div class="kpi amber"><div class="n">15</div><div class="l">Vídeos editados em junho</div><div class="s">Aline 9 · Marcos 5 · Lucas 1</div></div>
+    <div class="kpi blue"><div class="n">8</div><div class="l">Projetos que postaram</div><div class="s">de 17 ativos</div></div>
+    <div class="kpi teal"><div class="n">~21</div><div class="l">Posts previstos em julho</div><div class="s">9 sem responsável definido</div></div>
+    <div class="kpi red"><div class="n">14</div><div class="l">Dias úteis de julho sem vídeo</div><div class="s">meta: ≥1 vídeo/dia útil</div></div>
+    <div class="kpi purple"><div class="n">10</div><div class="l">Cortes propostos p/ Aline</div><div class="s">máx. 1 edição/dia</div></div>
+  </div>
+
+  <!-- JUNHO -->
+  <h2 class="section-title">⏮️ Retrospectiva — Junho/2026</h2>
+  <div class="two">
+    <div class="panel">
+      <h3 style="margin-top:4px">Vídeos editados por pessoa</h3>
+      <table>
+        <tr><th>Pessoa</th><th class="num">Vídeos</th><th>Papel</th></tr>
+        <tr><td>Aline B.</td><td class="num">9</td><td class="note">edita + posta</td></tr>
+        <tr><td>Marcos Queiroz</td><td class="num">5</td><td class="note">edição de vídeo (cases)</td></tr>
+        <tr><td>Lucas Rotta</td><td class="num">1</td><td class="note">vídeo PEC Guatapará</td></tr>
+        <tr><td><b>Total</b></td><td class="num"><b>15</b></td><td></td></tr>
+      </table>
+      <p class="note">Aline concentrou a maior parte da edição em junho — ponto de atenção para a distribuição de carga.</p>
+    </div>
+    <div class="panel">
+      <h3 style="margin-top:4px">Publicações por frente</h3>
+      <table>
+        <tr><th>Frente</th><th class="num">Posts</th><th>Destaque</th></tr>
+        <tr><td>133 Ecoarte/Vibra (Caminhão ODS Manaus)</td><td class="num">20</td><td class="note">Marina 14 · Marcos 6</td></tr>
+        <tr><td>Demais projetos (Aline)</td><td class="num">18</td><td class="note">74, 116, 117, 119, 124, 125, 127</td></tr>
+        <tr><td>Institucional (Cronograma)</td><td class="num">12</td><td class="note">carrosséis ESG + artigos/newsletter</td></tr>
+        <tr><td><b>Total</b></td><td class="num"><b>~50</b></td><td></td></tr>
+      </table>
+      <p class="note">O grande volume de junho veio da campanha do Caminhão ODS em Manaus (Vibra).</p>
+    </div>
+  </div>
+
+  <h3>Projetos ativos — postaram × silenciosos em junho</h3>
+  <p>
+    <span class="pill" style="color:#a8ecc4">✓ 133 Vibra</span>
+    <span class="pill" style="color:#a8ecc4">✓ 127 PIE (GRU/SOTREQ)</span>
+    <span class="pill" style="color:#a8ecc4">✓ 74 Global Goals</span>
+    <span class="pill" style="color:#a8ecc4">✓ 125 Gastronomia GRU</span>
+    <span class="pill" style="color:#a8ecc4">✓ 124 Gastronomia Compagas</span>
+    <span class="pill" style="color:#a8ecc4">✓ 116 Cultura Robótica</span>
+    <span class="pill" style="color:#a8ecc4">✓ 117 Teatro Robótica</span>
+    <span class="pill" style="color:#a8ecc4">✓ 119 PEC</span>
+  </p>
+  <p>
+    <span class="pill" style="color:#e79aa3">— 115</span>
+    <span class="pill" style="color:#e79aa3">— 120 Negócio Cultural (só planejou julho)</span>
+    <span class="pill" style="color:#e79aa3">— 121</span>
+    <span class="pill" style="color:#e79aa3">— 122 Repsol</span>
+    <span class="pill" style="color:#e79aa3">— 123 Circo</span>
+    <span class="pill" style="color:#e79aa3">— 126 Ecoarte (em kickoff)</span>
+    <span class="pill" style="color:#e79aa3">— 128 / 129 CNH</span>
+    <span class="pill" style="color:#e79aa3">— 132 Samarco (material em backlog p/ julho)</span>
+  </p>
+
+  <!-- JULHO CALENDAR -->
+  <h2 class="section-title">📅 Julho/2026 — cobertura de vídeo por dia útil</h2>
+  <p class="note">Verde = já tem post de vídeo agendado · Vermelho = lacuna · Amarelo tracejado = corte proposto (Aline). Fins de semana omitidos.</p>
+  <div class="cal">
+    <div class="h">Seg</div><div class="h">Ter</div><div class="h">Qua</div><div class="h">Qui</div><div class="h">Sex</div>
+    <!-- week 1 -->
+    <div class="day"><div class="d">—</div></div>
+    <div class="day"><div class="d">—</div></div>
+    <div class="day gap"><div class="d">1</div><span class="ev">passado</span></div>
+    <div class="day gap"><div class="d">2</div><span class="ev">passado</span></div>
+    <div class="day gap"><div class="d">3 · hoje</div></div>
+    <!-- week 2 -->
+    <div class="day cov"><div class="d">6</div><span class="ev v">Vídeo 5 GRU (127)</span></div>
+    <div class="day cov"><div class="d">7</div><span class="ev v">Vídeo Case Pós (117)</span></div>
+    <div class="day cov"><div class="d">8</div><span class="ev v">MM Catas Altas (132)</span></div>
+    <div class="day cov"><div class="d">9</div><span class="ev v">Vídeo 2 SOTREQ (127)</span></div>
+    <div class="day gap"><div class="d">10</div><span class="ev prop">+ Corte MM Samarco</span></div>
+    <!-- week 3 -->
+    <div class="day gap"><div class="d">13</div><span class="ev prop">+ Corte GRU bastidores</span></div>
+    <div class="day cov"><div class="d">14</div><span class="ev v">Vídeo Case Pós (116)</span></div>
+    <div class="day cov"><div class="d">15</div><span class="ev v">Vídeo Case Pós (127)</span></div>
+    <div class="day gap"><div class="d">16</div><span class="ev prop">+ Corte 116 Áster</span></div>
+    <div class="day cov"><div class="d">17</div><span class="ev v">Vídeo Venda 1 (117)</span></div>
+    <!-- week 4 -->
+    <div class="day gap"><div class="d">20</div><span class="ev p">carga edição Aline 2×</span></div>
+    <div class="day gap"><div class="d">21</div><span class="ev prop">+ Corte 124 Compagas</span></div>
+    <div class="day cov"><div class="d">22</div><span class="ev v">Vídeo Venda 2 (127)</span></div>
+    <div class="day gap"><div class="d">23</div><span class="ev prop">+ Corte 119 PEC</span></div>
+    <div class="day cov"><div class="d">24</div><span class="ev v">Vídeo Venda 2 (117)</span></div>
+    <!-- week 5 -->
+    <div class="day gap"><div class="d">27</div><span class="ev prop">+ Corte 120 Neg. Cultural</span></div>
+    <div class="day gap"><div class="d">28</div><span class="ev prop">+ Corte MM Camargos (132)</span></div>
+    <div class="day gap"><div class="d">29</div><span class="ev prop">+ Corte SOTREQ (127)</span></div>
+    <div class="day gap"><div class="d">30</div><span class="ev prop">+ Corte 116 Áster #2</span></div>
+    <div class="day gap"><div class="d">31</div><span class="ev prop">+ Corte 74 Global Goals</span></div>
+  </div>
+  <p class="note">Dias com post de vídeo já agendado: <b>6, 7, 8, 9, 14, 15, 17, 22, 24</b> (9 dias úteis). Lacunas cobertas pela proposta de cortes: <b>10, 13, 16, 21, 23, 27, 28, 29, 30, 31</b> (10 dias). Dia 20 fica só com pendência de carga da Aline (ver abaixo).</p>
+
+  <!-- PIPELINE PIVOT -->
+  <h2 class="section-title">🎬 Pipeline de julho por pessoa</h2>
+  <div class="two">
+    <div class="panel">
+      <h3 style="margin-top:4px">Edição planejada (antes da proposta)</h3>
+      <table>
+        <tr><th>Pessoa</th><th class="num">Edições jul</th><th>Obs.</th></tr>
+        <tr><td>Aline B.</td><td class="num">9</td><td class="note">+ 10 cortes propostos</td></tr>
+        <tr><td>Marcos Queiroz</td><td class="num">4</td><td class="note">cases maiores (132, 124, 120)</td></tr>
+        <tr><td>Lucas Rotta</td><td class="num">1</td><td class="note">Vídeo Case PEC</td></tr>
+        <tr><td>Sem responsável</td><td class="num">1</td><td class="t-fix">117 Vídeo Venda 1</td></tr>
+      </table>
+    </div>
+    <div class="panel">
+      <h3 style="margin-top:4px">Posts previstos (por status de data)</h3>
+      <table>
+        <tr><th>Situação</th><th class="num">Qtd</th><th>Ação</th></tr>
+        <tr><td><span class="tag t-post">data fechada cliente</span></td><td class="num">~7</td><td class="note">fixos — não mover</td></tr>
+        <tr><td>Sem data fechada</td><td class="num">~14</td><td class="note">flexíveis p/ preencher grade</td></tr>
+        <tr><td><span class="tag t-fix">sem responsável</span></td><td class="num">9</td><td class="note">atribuir (maioria "Vídeo Venda NTICS")</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- PROPOSTA ALINE -->
+  <h2 class="section-title">✂️ Proposta — cortes/melhores momentos (Aline · máx. 1/dia)</h2>
+  <div class="callout red">
+    <b>Achado importante:</b> a agenda de edição da Aline já tem <b>dias com 2 vídeos</b> antes de qualquer corte novo: <b>14/07</b> (Criar Vídeo Venda 116 + Criar Vídeo Venda 127) e <b>20/07</b> (Criar Vídeo Venda 117 + Criar Vídeo Venda 116). Recomenda-se redistribuir um de cada par antes de adicionar cortes.
+  </div>
+  <p>Projetos em finalização (evento já ocorreu, material disponível) rendem cortes além do vídeo-case maior que o Marcos edita. Abaixo, o <b>rascunho pronto para criação no ClickUp</b> — <b>nada foi criado ainda</b>, aguarda sua aprovação. Cada corte respeita 1 edição/dia da Aline (edição no dia útil livre anterior ao post).</p>
+  <div class="panel">
+    <table>
+      <tr><th>Post (dia)</th><th>Projeto / lista</th><th>Subtarefa sugerida</th><th>Edita (Aline)</th><th>Tarefa-pai</th></tr>
+      <tr><td>Sex 10/07</td><td>132 Estação Samarco</td><td>Editar corte — Melhores Momentos Catas Altas</td><td>09/07</td><td>Acompanhar redes sociais</td></tr>
+      <tr><td>Seg 13/07</td><td>127 PIE (GRU/SOTREQ)</td><td>Editar corte — Bastidores GRU</td><td>10/07</td><td>Acompanhar redes sociais</td></tr>
+      <tr><td>Qui 16/07</td><td>116 Cultura Robótica (Áster)</td><td>Editar corte — Melhores momentos Áster</td><td>15/07</td><td>Acompanhar redes sociais</td></tr>
+      <tr><td>Ter 21/07</td><td>124 Gastronomia (Compagas)</td><td>Editar corte — Melhores momentos Compagas</td><td>17/07</td><td>Acompanhar redes sociais</td></tr>
+      <tr><td>Qui 23/07</td><td>119 PEC (Sylvamo)</td><td>Editar corte — Melhores momentos PEC</td><td>22/07</td><td>Acompanhar redes sociais</td></tr>
+      <tr><td>Seg 27/07</td><td>120 Negócio Cultural</td><td>Editar corte — Melhores momentos Porto/Itapoá</td><td>24/07</td><td>Acompanhar redes sociais</td></tr>
+      <tr><td>Ter 28/07</td><td>132 Estação Samarco</td><td>Editar corte — Melhores Momentos Camargos</td><td>27/07</td><td>Acompanhar redes sociais</td></tr>
+      <tr><td>Qua 29/07</td><td>127 PIE (SOTREQ)</td><td>Editar corte — Bastidores SOTREQ</td><td>28/07</td><td>Acompanhar redes sociais</td></tr>
+      <tr><td>Qui 30/07</td><td>116 Cultura Robótica (Áster)</td><td>Editar corte — Áster #2</td><td>29/07</td><td>Acompanhar redes sociais</td></tr>
+      <tr><td>Sex 31/07</td><td>74 Global Goals Educa</td><td>Editar corte — Melhores momentos Global Goals</td><td>30/07</td><td>Acompanhar redes sociais</td></tr>
+    </table>
+    <p class="note">Todas atribuídas a <b>Aline B.</b> · 1 edição por dia · datas de edição escolhidas em dias úteis livres da agenda dela.</p>
+  </div>
+
+  <!-- PENDENCIAS -->
+  <h2 class="section-title">⚠️ Pendências / a confirmar</h2>
+  <ul class="clean">
+    <li><b>9 posts sem responsável</b> em julho (maioria "Postar Vídeo Venda NTICS" nos projetos 117, 120, 127) — definir quem posta.</li>
+    <li><b>Agenda da Aline sobrecarregada</b> nos dias 14/07 e 20/07 (2 edições cada) — redistribuir antes de aceitar os cortes.</li>
+    <li><b>Datas inconsistentes no ClickUp:</b> várias tarefas concluídas com "data de conclusão" muito anterior/posterior à "data de entrega" — os números de junho usam a data de conclusão real.</li>
+    <li><b>Quase tudo em backlog:</b> os posts de julho estão majoritariamente sem status avançado — confirmar o que tem data fechada com cliente (tag) vs. flexível.</li>
+    <li><b>Designers:</b> em jun/jul aparecem Marina Chagas (design) e Aline; não encontrei "Alison" nem uma 3ª designer nas tarefas do período — confirmar se participam.</li>
+  </ul>
+
+  <footer>
+    Relatório gerado em 03/07/2026 · Dados extraídos do ClickUp (Escritório de Projetos › Projetos Ativos NTICS + 🗓️ Cronograma de redes sociais NTICS) · Modelo: skill <code>planejamento-redes-sociais</code> · Proposta de cortes pendente de aprovação para criação no ClickUp.
+  </footer>
+</div>
+</body>
+</html>
