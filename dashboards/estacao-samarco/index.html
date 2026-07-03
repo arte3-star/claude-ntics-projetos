@@ -1,0 +1,3834 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel do Projeto · Estação Samarco</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;background:#f7f9fb;color:#191c1e;margin:0;overflow-x:hidden}
+  h1,h2,h3,h4,.font-display{font-family:'Montserrat',sans-serif}
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle}
+  .topo-bg{background-color:#f7f9fb;background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23002a4c' fill-opacity='0.025' fill-rule='evenodd'/%3E%3C/svg%3E")}
+  .glass{background:rgba(255,255,255,0.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.45);border-top:1px solid rgba(255,255,255,0.7);border-left:1px solid rgba(255,255,255,0.7);box-shadow:0 8px 32px rgba(0,42,76,0.07)}
+  .energy{background:linear-gradient(135deg,#4BC1EB,#00E5FF)}
+  .blob-1{position:fixed;width:500px;height:500px;background:rgba(75,193,235,0.10);filter:blur(90px);border-radius:50%;top:-100px;left:-80px;z-index:0;pointer-events:none}
+  .blob-2{position:fixed;width:600px;height:600px;background:rgba(0,229,255,0.07);filter:blur(110px);border-radius:50%;bottom:-200px;right:-100px;z-index:0;pointer-events:none}
+  .nav-shell{position:sticky;top:0;z-index:50;background:rgba(247,249,251,0.75);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,0.4);box-shadow:0 2px 20px rgba(0,42,76,0.06)}
+  .nav-inner{max-width:1280px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:70px}
+  .tab-bar{display:flex;align-items:center;gap:2px}
+  .tab-btn{padding:8px 18px;border-radius:10px;font-size:0.85rem;font-weight:600;color:#42474f;cursor:pointer;border:none;background:transparent;font-family:'Inter',sans-serif;transition:all .2s;position:relative;display:flex;align-items:center;gap:5px}
+  .tab-btn:hover{color:#002a4c;background:rgba(0,42,76,0.06)}
+  .tab-btn.active{color:#002a4c;font-weight:700;background:rgba(75,193,235,0.12)}
+  .tab-btn.active::after{content:'';position:absolute;bottom:0;left:14px;right:14px;height:2px;background:linear-gradient(90deg,#4BC1EB,#00E5FF);border-radius:2px 2px 0 0}
+  .tab-content{display:none}.tab-content.active{display:block}
+  .chip{display:inline-flex;align-items:center;gap:4px;font-size:0.62rem;font-weight:700;padding:3px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:0.06em;font-family:'Inter',sans-serif}
+  ::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:#f7f9fb}::-webkit-scrollbar-thumb{background:#4BC1EB;border-radius:3px}
+  .loc-card{background:rgba(255,255,255,0.6);border-radius:18px;padding:20px;border:1px solid rgba(0,42,76,0.07);transition:box-shadow .2s,transform .2s}
+  .loc-card:hover{box-shadow:0 8px 28px rgba(0,42,76,0.13);transform:translateY(-2px)}
+  .mini-bar{height:6px;border-radius:3px;background:rgba(0,42,76,0.07);overflow:hidden}
+  .mini-fill{height:100%;border-radius:3px;transition:width 1s cubic-bezier(.22,1,.36,1)}
+  .mockup-flag{position:fixed;bottom:14px;left:14px;z-index:120;background:#002a4c;color:#fff;font-size:0.66rem;font-weight:700;padding:6px 12px;border-radius:999px;font-family:Inter,sans-serif;box-shadow:0 6px 20px rgba(0,42,76,0.3);opacity:.9}
+  input.search{width:100%;border:2px solid #e0e3e5;border-radius:14px;padding:13px 18px 13px 44px;font-size:0.95rem;font-family:Inter,sans-serif;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='%236b7281' stroke-width='2' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E") no-repeat 14px center;outline:none;transition:border-color .2s}
+  input.search:focus{border-color:#4BC1EB}
+  .fchip{cursor:pointer;font-size:0.72rem;font-weight:600;padding:5px 13px;border-radius:999px;font-family:Inter,sans-serif;transition:all .15s;border:1.5px solid;display:inline-flex;align-items:center;gap:5px}
+  table.people{width:100%;border-collapse:collapse;font-family:Inter,sans-serif}
+  table.people th{background:#002a4c;color:rgba(255,255,255,0.55);font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:12px 14px;text-align:left}
+  table.people td{padding:12px 14px;border-bottom:1px solid rgba(0,42,76,0.05);font-size:0.82rem}
+  .wa-btn{display:inline-flex;align-items:center;gap:5px;background:rgba(37,211,102,0.12);color:#1a8a48;border:1px solid rgba(37,211,102,0.3);border-radius:8px;padding:5px 11px;font-size:0.72rem;font-weight:700;text-decoration:none;font-family:Inter,sans-serif}
+</style>
+</head>
+<body class="topo-bg">
+<div class="blob-1"></div><div class="blob-2"></div>
+
+<div id="pwd-screen" style="position:fixed;inset:0;z-index:200;background:linear-gradient(160deg,#ffffff 0%,#e8f4fb 40%,#c8e6f7 70%,#b7d4f0 100%);display:flex;align-items:center;justify-content:center">
+  <div style="background:rgba(255,255,255,0.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.6);border-radius:28px;box-shadow:0 40px 80px rgba(0,42,76,0.16);padding:52px 44px;width:100%;max-width:400px;margin:20px;text-align:center">
+    <img src="https://ntics.com.br/estacao-samarco/logo-estacao.svg" onerror="this.style.display='none';document.getElementById('lfb').style.display='block'" style="height:60px;margin:0 auto 6px;display:block">
+    <div id="lfb" style="display:none;font-family:Montserrat,sans-serif;font-weight:800;font-size:1.4rem;color:#002a4c;margin-bottom:6px">Estação Samarco</div>
+    <p style="color:#42474f;font-size:0.78rem;margin:4px 0 30px;font-family:Inter,sans-serif">Painel de Acompanhamento · Acesso restrito</p>
+    <input id="pwd" type="password" placeholder="Senha de acesso" style="width:100%;border:2px solid #e0e3e5;border-radius:14px;padding:14px 20px;font-size:0.95rem;text-align:center;font-family:Inter,sans-serif;background:#f7f9fb;outline:none">
+    <p id="pwd-err" style="color:#ba1a1a;font-size:0.75rem;margin:8px 0 4px;display:none;font-family:Inter,sans-serif">Senha incorreta.</p>
+    <button onclick="auth()" style="width:100%;background:#002a4c;color:#fff;border:none;border-radius:14px;padding:15px;font-family:Montserrat,sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;margin-top:12px">Acessar painel</button>
+    <p style="color:#737780;font-size:0.65rem;margin-top:20px;font-family:Inter,sans-serif">🔒 NTICS Projetos &amp; Samarco · 2026</p>
+  </div>
+</div>
+
+<div id="dash" style="min-height:100vh;position:relative;z-index:1;display:none">
+  <div class="nav-shell"><div class="nav-inner">
+    <div style="display:flex;align-items:center;gap:14px;flex-shrink:0">
+      <img src="https://ntics.com.br/estacao-samarco/logo-estacao.svg" onerror="this.style.display='none';document.getElementById('nlf').style.display='flex'" style="height:40px">
+      <div id="nlf" style="display:none;flex-direction:column">
+        <span style="font-family:Montserrat;font-size:1rem;font-weight:800;color:#002a4c;line-height:1.1">Estação Samarco</span>
+        <span style="font-size:0.56rem;font-weight:700;letter-spacing:0.14em;color:#4BC1EB;text-transform:uppercase">Painel do Projeto</span>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <button class="tab-btn active" id="b-geral" onclick="showTab('geral')"><span class="material-symbols-outlined" style="font-size:16px">insights</span>Visão Geral</button>
+      <button class="tab-btn" id="b-part" onclick="showTab('part')"><span class="material-symbols-outlined" style="font-size:16px">groups</span>Participação</button>
+      <button class="tab-btn" id="b-plat" onclick="showTab('plat')"><span class="material-symbols-outlined" style="font-size:16px">smartphone</span>Plataforma</button>
+      <button class="tab-btn" id="b-diario" onclick="showTab('diario')"><span class="material-symbols-outlined" style="font-size:16px">photo_library</span>Diário de Campo</button>
+      <button class="tab-btn" id="b-busca" onclick="showTab('busca')"><span class="material-symbols-outlined" style="font-size:16px">person_search</span>Buscar pessoa</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+      <span style="display:flex;align-items:center;gap:6px;font-size:0.7rem;font-weight:600;color:#006782">
+        <span style="width:7px;height:7px;border-radius:50%;background:#27ae60;display:inline-block"></span><span id="live-ts">carregando…</span>
+      </span>
+      <button onclick="loadData()" style="display:flex;align-items:center;gap:5px;background:rgba(0,42,76,0.05);border:1px solid rgba(0,42,76,0.1);border-radius:10px;padding:7px 13px;font-size:0.78rem;font-weight:600;color:#002a4c;cursor:pointer;font-family:Inter,sans-serif"><span class="material-symbols-outlined" style="font-size:15px">refresh</span>Atualizar</button>
+    </div>
+  </div></div>
+
+  <main style="max-width:1280px;margin:0 auto;padding:30px 40px 70px;position:relative;z-index:1">
+
+    <!-- ══════════ VISÃO GERAL ══════════ -->
+    <div id="tab-geral" class="tab-content active">
+      <div style="margin-bottom:22px">
+        <h1 style="font-size:2.3rem;font-weight:800;color:#002a4c;margin:0 0 4px">Visão Geral</h1>
+        <p style="font-size:0.95rem;color:#42474f;margin:0">Da inscrição ao certificado — o caminho real das participantes. <b id="hero-uf-lbl">Minas Gerais · Catas Altas</b></p>
+      </div>
+
+      <!-- INDICADORES DE EXECUÇÃO -->
+      <div style="margin-bottom:22px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <span class="material-symbols-outlined" style="color:#1b5fa8">checklist</span>
+          <h3 style="font-size:1.1rem;font-weight:800;color:#002a4c;margin:0">Indicadores de Execução</h3>
+          <span style="font-size:0.72rem;color:#737780">o que já foi realizado em campo</span>
+        </div>
+        <div id="exec-tiles" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px"></div>
+        <div id="exec-parcerias" style="margin-top:14px"></div>
+      </div>
+
+      <!-- FUNIL HERO -->
+      <div class="glass" style="border-radius:22px;padding:30px 28px;margin-bottom:20px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+          <h3 style="font-size:1.1rem;font-weight:700;color:#002a4c;margin:0">Funil de participação</h3>
+          <span style="font-size:0.72rem;color:#737780">cada etapa mostra quantas seguiram adiante</span>
+        </div>
+        <div id="funnel" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px"></div>
+      </div>
+
+      <!-- CARTÕES RESUMO -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px" id="kpi-row"></div>
+
+      <!-- GRÁFICOS -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px">
+        <div class="glass" style="border-radius:20px;padding:26px">
+          <h3 style="font-size:1rem;font-weight:700;color:#002a4c;margin:0 0 16px">Interesse por trilha</h3>
+          <div style="display:flex;align-items:center;gap:20px">
+            <div style="width:170px;flex-shrink:0"><canvas id="c-trilha"></canvas></div>
+            <div id="leg-trilha" style="flex:1;display:flex;flex-direction:column;gap:10px"></div>
+          </div>
+        </div>
+        <div class="glass" style="border-radius:20px;padding:26px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <h3 style="font-size:1rem;font-weight:700;color:#002a4c;margin:0">Formação digital · plataforma</h3>
+            <button onclick="showTab('plat')" style="background:none;border:none;color:#4BC1EB;font-size:0.78rem;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;display:flex;align-items:center;gap:3px">ver detalhes<span class="material-symbols-outlined" style="font-size:15px">arrow_forward</span></button>
+          </div>
+          <div id="vg-plat"></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <div class="glass" style="border-radius:18px;padding:22px"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">Faixa etária</h4><canvas id="c-idade" style="max-height:190px"></canvas></div>
+        <div class="glass" style="border-radius:18px;padding:22px"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">Raça / cor</h4><canvas id="c-raca" style="max-height:190px"></canvas></div>
+        <div class="glass" style="border-radius:18px;padding:22px"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">Escolaridade</h4><canvas id="c-escol" style="max-height:190px"></canvas></div>
+      </div>
+
+      <!-- Perfil socioeconômico -->
+      <div style="margin:34px 0 14px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <div>
+          <h2 style="font-size:1.5rem;font-weight:800;color:#002a4c;margin:0 0 4px">Perfil socioeconômico</h2>
+          <p style="font-size:0.88rem;color:#42474f;margin:0">Respostas coletadas no formulário de confirmação presencial.</p>
+        </div>
+        <span class="chip" style="background:rgba(66,116,89,0.12);color:#2d5040">base: <span id="socio-base">—</span> pessoas</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px">
+        <div class="glass" style="border-radius:16px;padding:20px"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">Situação profissional</h4><canvas id="s-sitprof" style="max-height:210px"></canvas></div>
+        <div class="glass" style="border-radius:16px;padding:20px"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">Faixa de renda familiar</h4><canvas id="s-renda" style="max-height:210px"></canvas></div>
+        <div class="glass" style="border-radius:16px;padding:20px"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">Possui atividade que gera renda?</h4><canvas id="s-temrenda" style="max-height:210px"></canvas></div>
+        <div class="glass" style="border-radius:16px;padding:20px"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">Interesse em aprofundamento</h4><canvas id="s-aprof" style="max-height:210px"></canvas></div>
+        <div class="glass" style="border-radius:16px;padding:20px"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">Interesse em continuar no projeto</h4><canvas id="s-continuar" style="max-height:210px"></canvas></div>
+        <div class="glass" style="border-radius:16px;padding:20px;grid-column:span 2"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">Possui negócio próprio</h4><canvas id="s-negocio" style="max-height:210px"></canvas></div>
+        <div class="glass" style="border-radius:16px;padding:20px;grid-column:span 2"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">Situação do negócio / atividade</h4><canvas id="s-negsit" style="max-height:210px"></canvas></div>
+        <div class="glass" style="border-radius:16px;padding:20px"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">Formalização do negócio</h4><canvas id="s-formal" style="max-height:210px"></canvas></div>
+        <div class="glass" style="border-radius:16px;padding:20px;grid-column:span 2"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">Tipo de apoio desejado <span style="font-weight:500;color:#737780;font-size:0.72rem">(múltipla escolha)</span></h4><canvas id="s-apoio" style="max-height:210px"></canvas></div>
+        <div class="glass" style="border-radius:16px;padding:20px"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">% da renda vinda do negócio</h4><canvas id="s-perc" style="max-height:210px"></canvas></div>
+        <div class="glass" style="border-radius:16px;padding:20px"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">Estado civil</h4><canvas id="s-civil" style="max-height:210px"></canvas></div>
+        <div class="glass" style="border-radius:16px;padding:20px"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">Já participou de projetos antes</h4><canvas id="s-japart" style="max-height:210px"></canvas></div>
+        <div class="glass" style="border-radius:16px;padding:20px"><h4 style="font-size:0.85rem;font-weight:700;color:#002a4c;margin:0 0 12px">Dependentes</h4><canvas id="s-dep" style="max-height:210px"></canvas></div>
+      </div>
+    </div>
+
+    <!-- ══════════ PARTICIPAÇÃO ══════════ -->
+    <div id="tab-part" class="tab-content">
+      <div style="margin-bottom:22px">
+        <h1 style="font-size:2.3rem;font-weight:800;color:#002a4c;margin:0 0 4px">Participação por localidade</h1>
+        <p style="font-size:0.95rem;color:#42474f;margin:0">Cada cidade/comunidade: quantas se inscreveram, quantas realmente participaram de cada trilha e quantas foram certificadas.</p>
+      </div>
+      <div id="part-body"></div>
+    </div>
+
+    <!-- ══════════ PLATAFORMA ══════════ -->
+    <div id="tab-plat" class="tab-content">
+      <div style="margin-bottom:22px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px">
+        <div>
+          <h1 style="font-size:2.3rem;font-weight:800;color:#002a4c;margin:0 0 4px">Formação digital</h1>
+          <p style="font-size:0.95rem;color:#42474f;margin:0">Andamento das alunas no app de microaprendizagem — login por CPF, 9 módulos, XP e conquistas.</p>
+        </div>
+        <a href="https://estacao-samarco.lovable.app" target="_blank" style="display:flex;align-items:center;gap:5px;font-size:0.8rem;font-weight:600;color:#4BC1EB;text-decoration:none;font-family:Inter,sans-serif"><span class="material-symbols-outlined" style="font-size:16px">open_in_new</span>estacao-samarco.lovable.app</a>
+      </div>
+      <div id="plat-body"></div>
+    </div>
+
+    <!-- ══════════ DIÁRIO DE CAMPO ══════════ -->
+    <div id="tab-diario" class="tab-content">
+      <div style="margin-bottom:22px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px">
+        <div>
+          <h1 style="font-size:2.3rem;font-weight:800;color:#002a4c;margin:0 0 4px">Diário de Campo</h1>
+          <p style="font-size:0.95rem;color:#42474f;margin:0">Registros diários da equipe de produção — presenças, equipe presente e fotos de cada encontro.</p>
+        </div>
+        <div id="diario-resumo" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+      </div>
+      <div id="diario-body"></div>
+    </div>
+
+    <!-- ══════════ BUSCA ══════════ -->
+    <div id="tab-busca" class="tab-content">
+      <div style="margin-bottom:20px">
+        <h1 style="font-size:2.3rem;font-weight:800;color:#002a4c;margin:0 0 4px">Buscar pessoa</h1>
+        <p style="font-size:0.95rem;color:#42474f;margin:0">Encontre uma participante para entrar em contato ou conferir sua situação. <span style="color:#b36a0e;font-weight:600">No painel real, o contato aparece completo (aqui está mascarado).</span></p>
+      </div>
+      <div class="glass" style="border-radius:18px;padding:20px;margin-bottom:16px">
+        <input class="search" id="q" placeholder="Digite o nome da participante..." oninput="renderBusca()">
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px" id="busca-filters"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span id="busca-count" style="font-size:0.82rem;font-weight:700;color:#427459;font-family:Montserrat"></span>
+      </div>
+      <div class="glass" style="border-radius:18px;overflow:hidden">
+        <div style="overflow-x:auto"><table class="people" id="people-tbl"></table></div>
+      </div>
+    </div>
+
+  </main>
+  <footer style="background:rgba(242,244,246,0.6);border-top:1px solid rgba(0,42,76,0.07);padding:18px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;position:relative;z-index:1">
+    <span style="font-family:Montserrat;font-weight:800;color:#002a4c;font-size:0.9rem">Estação Samarco</span>
+    <p style="font-size:0.72rem;color:#42474f;margin:0">Realização: NTICS Projetos &amp; Samarco · Fonte: aba “Dados Consolidados”</p>
+  </footer>
+</div>
+
+<div id="lightbox" onclick="this.style.display='none'" style="display:none;position:fixed;inset:0;z-index:300;background:rgba(0,20,40,0.92);align-items:center;justify-content:center;cursor:zoom-out;padding:20px">
+  <img id="lightbox-img" alt="" style="max-width:92vw;max-height:92vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,0.5)">
+</div>
+
+<script>
+const SENHA='samarco2026';
+const APPS_URL='https://script.google.com/macros/s/AKfycbxDRC5dHMGsi-D9JDKGrXzd92z8pJdNAFVKhAJhBgcVW7lBujM0vyaMBZNQldVfmvyl/exec';
+const SB_URL='https://pfxdspimzxlxjwomvmxt.supabase.co/rest/v1/rpc/painel_andamento';
+const SB_KEY='sb_publishable_mYQhT3vQQwc6347crKxRBg_nVDQmw4m';
+const DC_URL='https://cnarvculrqfzjqhpyyqq.supabase.co/rest/v1/rpc/diario_campo';
+const DC_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNuYXJ2Y3VscnFmempxaHB5eXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNzc2NjcsImV4cCI6MjA5MDY1MzY2N30.c3u8MtJAYSlBYuPI7Koyc7NcKUTxweGAzL99ElZl0Yw';
+const DC_PROJ='estao_samarco_1781425848145';
+const FALLBACK_DATA = {
+"atualizado": "2026-06-27T12:00:00",
+"fonte": "Dados Consolidados",
+"registros": [
+{
+"id": 1,
+"nome": "Letícia A. M.",
+"wpp": "(31) 9····-0739",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 2,
+"nome": "Isabela A. F.",
+"wpp": "(31) 9····-7625",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio incompleto",
+"civil": "Solteiro(a)",
+"dep": "nao",
+"faixa": "18 a 24 anos",
+"sitprof": "Empregado(a) com carteira assinada",
+"renda": "De 1 a 2 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Talvez",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Ainda é apenas uma ideia",
+"continuar": "Sim",
+"apoio": [
+"Ainda não sei"
+]
+},
+{
+"id": 3,
+"nome": "Lilian S. A.",
+"wpp": "(31) 9····-5235",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "nao",
+"faixa": "18 a 24 anos",
+"sitprof": "Empregado(a) com carteira assinada",
+"renda": "De 2 a 3 salários mínimos",
+"negocio": "Não tenho e não pretendo empreender no momento",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Talvez",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Organizar as finanças",
+"Definir preço",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 4,
+"nome": "Micaelly S.",
+"wpp": "(31) 9····-8742",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "nao",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 5,
+"nome": "Thiago H. D.",
+"wpp": "(31) 9····-9034",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "homem",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-2",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 6,
+"nome": "Maine V. M.",
+"wpp": "(31) 9····-9208",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "prefiro-nao-declarar",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 7,
+"nome": "Elisa M. S.",
+"wpp": "(31) 9····-7614",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Médio completo",
+"civil": "",
+"dep": "sim-2",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 8,
+"nome": "Thais D. P.",
+"wpp": "(31) 9····-6622",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Desistiu",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 9,
+"nome": "Denize L. A.",
+"wpp": "(31) 9····-5348",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 1,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "sim-3+",
+"faixa": "35 a 44 anos",
+"sitprof": "Desempregado(a)",
+"renda": "Até 1 salário mínimo",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Estou em processo de formalização",
+"percrenda": "0%, ainda não gera renda",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Está em fase inicial",
+"continuar": "Sim",
+"apoio": [
+"Formalizar o negócio",
+"Participar de feiras ou eventos de venda",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 10,
+"nome": "Mariene A. D.",
+"wpp": "(31) 9····-2653",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "sim-2",
+"faixa": "25 a 34 anos",
+"sitprof": "Autônomo(a) / por conta própria",
+"renda": "Prefiro não responder",
+"negocio": "Sim, trabalho por conta própria, mas não considero um negócio estruturado",
+"formal": "Não, é informal",
+"percrenda": "Prefiro não responder",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Sim, como atividade principal",
+"negsit": "Está em fase inicial",
+"continuar": "Sim",
+"apoio": [
+"Aprender a vender melhor",
+"Definir preço",
+"Formalizar o negócio"
+]
+},
+{
+"id": 11,
+"nome": "Alana R. F.",
+"wpp": "(31) 9····-6194",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Superior incompleto",
+"civil": "Casado(a)/União estável",
+"dep": "sim-2",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 12,
+"nome": "Natália D. S.",
+"wpp": "(31) 9····-5107",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "nao",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 13,
+"nome": "Lidiane L. D.",
+"wpp": "(31) 9····-9284",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Não é de Catas Altas",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "branca",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-2",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 14,
+"nome": "Selma P. D.",
+"wpp": "(31) 9····-7194",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 1,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Superior incompleto",
+"civil": "Casado(a)/União estável",
+"dep": "sim-3+",
+"faixa": "45 a 59 anos",
+"sitprof": "Outro",
+"renda": "De 3 a 5 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Organizar as finanças",
+"Criar ou melhorar produto/serviço",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 15,
+"nome": "Ashley Y. B.",
+"wpp": "(31) 9····-2764",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "inicial",
+"interesse": "Somente Inicial",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "",
+"civil": "Solteiro(a)",
+"dep": "nao",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 16,
+"nome": "Fabiana M. B.",
+"wpp": "(31) 9····-8438",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "nao",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 17,
+"nome": "Carollina A. V.",
+"wpp": "(31) 9····-1140",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "branca",
+"escol": "Superior incompleto",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "25 a 34 anos",
+"sitprof": "Autônomo(a) / por conta própria",
+"renda": "De 2 a 3 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Sim, MEI",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Sim, como complemento de renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Receber mentoria"
+]
+},
+{
+"id": 18,
+"nome": "Miriam F. C.",
+"wpp": "(31) 9····-6275",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 5,
+"cert": true,
+"genero": "mulher",
+"raca": "branca",
+"escol": "Superior completo",
+"civil": "Divorciado(a)/Separado(a)",
+"dep": "sim-1",
+"faixa": "35 a 44 anos",
+"sitprof": "Desempregado(a)",
+"renda": "Até 1 salário mínimo",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não, é informal",
+"percrenda": "Até 50% da minha renda",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Sim, como complemento de renda",
+"negsit": "Ainda é apenas uma ideia",
+"continuar": "Sim",
+"apoio": [
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 19,
+"nome": "Natalia D. O.",
+"wpp": "(31) 9····-2217",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "branca",
+"escol": "Superior completo",
+"civil": "Divorciado(a)/Separado(a)",
+"dep": "sim-2",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 20,
+"nome": "Dayene C. S.",
+"wpp": "(31) 9····-2033",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio incompleto",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "25 a 34 anos",
+"sitprof": "Empregado(a) com carteira assinada",
+"renda": "De 1 a 2 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Ainda é apenas uma ideia",
+"continuar": "Sim",
+"apoio": [
+"Aprender a vender melhor",
+"Criar ou melhorar produto/serviço",
+"Receber mentoria"
+]
+},
+{
+"id": 21,
+"nome": "Bruna S. D.",
+"wpp": "(31) 9····-5911",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Fundamental incompleto",
+"civil": "Solteiro(a)",
+"dep": "sim-2",
+"faixa": "25 a 34 anos",
+"sitprof": "Desempregado(a)",
+"renda": "Até 1 salário mínimo",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 22,
+"nome": "Vanessa A. D.",
+"wpp": "(31) 9····-5319",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-3+",
+"faixa": "35 a 44 anos",
+"sitprof": "Empreendedor(a) com negócio próprio",
+"renda": "De 2 a 3 salários mínimos",
+"negocio": "Sim, tenho negócio formalizado",
+"formal": "Sim, ME ou outro tipo de empresa",
+"percrenda": "Até 50% da minha renda",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Sim, como complemento de renda",
+"negsit": "Já está funcionando há algum tempo",
+"continuar": "Sim",
+"apoio": [
+"Divulgar melhor produto ou serviço",
+"Criar ou melhorar produto/serviço",
+"Receber mentoria"
+]
+},
+{
+"id": 23,
+"nome": "Jaqueline A. D.",
+"wpp": "(31) 9····-7561",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-2",
+"faixa": "25 a 34 anos",
+"sitprof": "Empregado(a) com carteira assinada",
+"renda": "Até 1 salário mínimo",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Talvez",
+"apoio": [
+"Divulgar melhor produto ou serviço",
+"Definir preço",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 24,
+"nome": "Leia G. R.",
+"wpp": "(31) 9····-9199",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Recusou",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "prefiro-nao-declarar",
+"raca": "preta",
+"escol": "Médio completo",
+"civil": "",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 25,
+"nome": "Leillane M. R.",
+"wpp": "(31) 9····-6102",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 1,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Superior incompleto",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "25 a 34 anos",
+"sitprof": "Produtor(a) ou prestador(a) de serviço informal",
+"renda": "Prefiro não responder",
+"negocio": "Sim, trabalho por conta própria, mas não considero um negócio estruturado",
+"formal": "Não, é informal",
+"percrenda": "0%, ainda não gera renda",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Sim, como complemento de renda",
+"negsit": "Está em fase inicial",
+"continuar": "Sim",
+"apoio": [
+"Organizar as finanças",
+"Criar ou melhorar produto/serviço",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 26,
+"nome": "Angelina F. E.",
+"wpp": "(31) 9····-2282",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "sim-2",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 27,
+"nome": "Cláudia G. D.",
+"wpp": "(31) 9····-7513",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 1,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Superior completo",
+"civil": "",
+"dep": "sim-2",
+"faixa": "35 a 44 anos",
+"sitprof": "Outro",
+"renda": "Mais de 5 salários mínimos",
+"negocio": "Não tenho e não pretendo empreender no momento",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Divulgar melhor produto ou serviço",
+"Receber mentoria",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 28,
+"nome": "Marilane D. N.",
+"wpp": "(31) 9····-9995",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Superior completo",
+"civil": "Solteiro(a)",
+"dep": "",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 29,
+"nome": "Ana A. A.",
+"wpp": "(31) 9····-7625",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "branca",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "nao",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 30,
+"nome": "Kellen F. D.",
+"wpp": "(31) 9····-5064",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 1,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-2",
+"faixa": "35 a 44 anos",
+"sitprof": "Do lar",
+"renda": "De 2 a 3 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Não tenho interesse em continuidade"
+]
+},
+{
+"id": 31,
+"nome": "Felipe F. G.",
+"wpp": "(31) 9····-2862",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "homem",
+"raca": "parda",
+"escol": "Superior completo",
+"civil": "Solteiro(a)",
+"dep": "nao",
+"faixa": "35 a 44 anos",
+"sitprof": "Empregado(a) com carteira assinada",
+"renda": "Mais de 5 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "0%, ainda não gera renda",
+"aprof": "Talvez",
+"japart": "Não",
+"temrenda": "Sim, como atividade principal",
+"negsit": "Ainda é apenas uma ideia",
+"continuar": "Sim",
+"apoio": [
+"Organizar as finanças",
+"Receber mentoria",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 32,
+"nome": "Denize L. A.",
+"wpp": "(31) 9····-5348",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "beleza",
+"dias": 1,
+"cert": false,
+"genero": "",
+"raca": "",
+"escol": "",
+"civil": "",
+"dep": "",
+"faixa": "35 a 44 anos",
+"sitprof": "Desempregado(a)",
+"renda": "Até 1 salário mínimo",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Estou em processo de formalização",
+"percrenda": "0%, ainda não gera renda",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Está em fase inicial",
+"continuar": "Sim",
+"apoio": [
+"Formalizar o negócio",
+"Participar de feiras ou eventos de venda",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 33,
+"nome": "Carla C. R.",
+"wpp": "(31) 9····-6173",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 34,
+"nome": "Eliene B. F.",
+"wpp": "(31) 9····-9070",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Superior incompleto",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 35,
+"nome": "Albeneir M.",
+"wpp": "(31) 9····-8764",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "homem",
+"raca": "preta",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "nao",
+"faixa": "35 a 44 anos",
+"sitprof": "Aposentado(a) / pensionista",
+"renda": "Até 1 salário mínimo",
+"negocio": "Não tenho e não pretendo empreender no momento",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Não, e não tenho interesse no momento",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Ainda não sei"
+]
+},
+{
+"id": 36,
+"nome": "Marilene D. C.",
+"wpp": "(31) 9····-4692",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 5,
+"cert": true,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "nao",
+"faixa": "45 a 59 anos",
+"sitprof": "Desempregado(a)",
+"renda": "De 1 a 2 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Ainda é apenas uma ideia",
+"continuar": "Sim",
+"apoio": [
+"Divulgar melhor produto ou serviço",
+"Conhecer possibilidades de geração de renda",
+"Outro"
+]
+},
+{
+"id": 37,
+"nome": "Laysa G. A.",
+"wpp": "(31) 9····-8683",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 5,
+"cert": true,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Superior incompleto",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "35 a 44 anos",
+"sitprof": "Autônomo(a) / por conta própria",
+"renda": "De 1 a 2 salários mínimos",
+"negocio": "Sim, tenho negócio ou atividade informal",
+"formal": "Sim, MEI",
+"percrenda": "Prefiro não responder",
+"aprof": "Talvez",
+"japart": "Não",
+"temrenda": "Sim, como complemento de renda",
+"negsit": "Já está funcionando há algum tempo",
+"continuar": "Sim",
+"apoio": [
+"Organizar as finanças",
+"Participar de feiras ou eventos de venda",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 38,
+"nome": "Raphaella G. B.",
+"wpp": "(31) 9····-4765",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Desistiu",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 39,
+"nome": "Angela A. D.",
+"wpp": "(31) 9····-2145",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 5,
+"cert": true,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "nao",
+"faixa": "45 a 59 anos",
+"sitprof": "Do lar",
+"renda": "Até 1 salário mínimo",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Definir preço",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 40,
+"nome": "Aline D. F.",
+"wpp": "(31) 9····-5192",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Superior incompleto",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "25 a 34 anos",
+"sitprof": "Empregado(a) com carteira assinada",
+"renda": "De 2 a 3 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "0%, ainda não gera renda",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Ainda é apenas uma ideia",
+"continuar": "Sim",
+"apoio": [
+"Aprender a vender melhor",
+"Organizar as finanças",
+"Participar de feiras ou eventos de venda"
+]
+},
+{
+"id": 41,
+"nome": "Erica A. M.",
+"wpp": "(31) 9····-5325",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Recusou",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-3+",
+"faixa": "35 a 44 anos",
+"sitprof": "Outro",
+"renda": "De 1 a 2 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Organizar as finanças",
+"Criar ou melhorar produto/serviço",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 42,
+"nome": "Gizelle O.",
+"wpp": "(31) 9····-5516",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "sim-2",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 43,
+"nome": "Lourdes I. S.",
+"wpp": "(31) 9····-9901",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Duplicada",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Superior completo",
+"civil": "",
+"dep": "",
+"faixa": "45 a 59 anos",
+"sitprof": "Empregado(a) sem carteira assinada",
+"renda": "Até 1 salário mínimo",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Talvez",
+"japart": "Sim",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 44,
+"nome": "Luana A. L.",
+"wpp": "(31) 9····-2001",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Superior completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 45,
+"nome": "Gabriela A. D.",
+"wpp": "(31) 9····-4200",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "indigena",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-2",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 46,
+"nome": "Priscila S. C.",
+"wpp": "(31) 9····-6387",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio incompleto",
+"civil": "",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 47,
+"nome": "Kamila F. B.",
+"wpp": "(31) 9····-0960",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-2",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 48,
+"nome": "Heloisa F. D.",
+"wpp": "(21) 9····-0049",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Superior completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-2",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 49,
+"nome": "Ludimili A. G.",
+"wpp": "(31) 9····-6713",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Superior completo",
+"civil": "Casado(a)/União estável",
+"dep": "nao",
+"faixa": "35 a 44 anos",
+"sitprof": "Empregado(a) sem carteira assinada",
+"renda": "De 3 a 5 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Sim, MEI",
+"percrenda": "0%, ainda não gera renda",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Ainda é apenas uma ideia",
+"continuar": "Sim",
+"apoio": [
+"Aprender a vender melhor",
+"Divulgar melhor produto ou serviço",
+"Organizar as finanças"
+]
+},
+{
+"id": 50,
+"nome": "Aparecida D. C.",
+"wpp": "(31) 9····-8393",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Superior completo",
+"civil": "Casado(a)/União estável",
+"dep": "nao",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 51,
+"nome": "Kimberli A. S.",
+"wpp": "(31) 9····-2114",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Superior completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 52,
+"nome": "Jhovana C. F.",
+"wpp": "(31) 9····-5649",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "nao",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 53,
+"nome": "Leticia N. O.",
+"wpp": "(31) 9····-7308",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-3+",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 54,
+"nome": "Geralda C. I.",
+"wpp": "(31) 9····-7771",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "",
+"dep": "sim-1",
+"faixa": "45 a 59 anos",
+"sitprof": "Outro",
+"renda": "De 1 a 2 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Organizar as finanças",
+"Criar ou melhorar produto/serviço",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 55,
+"nome": "Lívia M. D.",
+"wpp": "(31) 9····-7131",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "inicial",
+"interesse": "Somente Inicial",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "nao",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 56,
+"nome": "Maria J. R.",
+"wpp": "(31) 9····-9970",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Superior completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 57,
+"nome": "Mayza C. B.",
+"wpp": "(31) 9····-4197",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio incompleto",
+"civil": "Solteiro(a)",
+"dep": "nao",
+"faixa": "Menos de 18 anos",
+"sitprof": "Estudante",
+"renda": "De 1 a 2 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Talvez",
+"apoio": [
+"Criar ou melhorar produto/serviço",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 58,
+"nome": "Ana A. M.",
+"wpp": "(31) 9····-9839",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 5,
+"cert": true,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Divorciado(a)/Separado(a)",
+"dep": "nao",
+"faixa": "25 a 34 anos",
+"sitprof": "Empregado(a) com carteira assinada",
+"renda": "De 1 a 2 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Ainda não sei"
+]
+},
+{
+"id": 59,
+"nome": "Ana C. E.",
+"wpp": "(31) 9····-3134",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 1,
+"cert": false,
+"genero": "mulher",
+"raca": "branca",
+"escol": "Superior completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "45 a 59 anos",
+"sitprof": "Empregado(a) sem carteira assinada",
+"renda": "De 3 a 5 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Sim, como atividade principal",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Definir preço",
+"Formalizar o negócio",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 60,
+"nome": "Gabriela V. A.",
+"wpp": "(31) 9····-3455",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "branca",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "sim-1",
+"faixa": "18 a 24 anos",
+"sitprof": "Empregado(a) com carteira assinada",
+"renda": "De 1 a 2 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não, é informal",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Ainda é apenas uma ideia",
+"continuar": "Sim",
+"apoio": [
+"Aprender a vender melhor",
+"Divulgar melhor produto ou serviço",
+"Organizar as finanças"
+]
+},
+{
+"id": 61,
+"nome": "Laudiceia P. R.",
+"wpp": "(31) 9····-3631",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 4,
+"cert": true,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Fundamental incompleto",
+"civil": "Casado(a)/União estável",
+"dep": "sim-3+",
+"faixa": "35 a 44 anos",
+"sitprof": "Empregado(a) sem carteira assinada",
+"renda": "De 2 a 3 salários mínimos",
+"negocio": "Sim, trabalho por conta própria, mas não considero um negócio estruturado",
+"formal": "Sim, MEI",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Sim, como atividade principal",
+"negsit": "Está em fase inicial",
+"continuar": "Sim",
+"apoio": [
+"Divulgar melhor produto ou serviço",
+"Criar ou melhorar produto/serviço",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 62,
+"nome": "Maria A. M.",
+"wpp": "(31) 9····-3124",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 5,
+"cert": true,
+"genero": "mulher",
+"raca": "",
+"escol": "",
+"civil": "",
+"dep": "",
+"faixa": "45 a 59 anos",
+"sitprof": "Empregado(a) sem carteira assinada",
+"renda": "Até 1 salário mínimo",
+"negocio": "Sim, trabalho por conta própria, mas não considero um negócio estruturado",
+"formal": "Sim, MEI",
+"percrenda": "Prefiro não responder",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Está em fase inicial",
+"continuar": "Sim",
+"apoio": [
+"Criar ou melhorar produto/serviço"
+]
+},
+{
+"id": 63,
+"nome": "Maria A. D.",
+"wpp": "(31) 9····-2016",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "beleza",
+"interesse": "Culinária",
+"dias": 5,
+"cert": true,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "nao",
+"faixa": "60 anos ou mais",
+"sitprof": "Aposentado(a) / pensionista",
+"renda": "De 1 a 2 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Organizar as finanças",
+"Definir preço",
+"Criar ou melhorar produto/serviço"
+]
+},
+{
+"id": 64,
+"nome": "Dayane A. S.",
+"wpp": "(31) 9····-2618",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-2",
+"faixa": "35 a 44 anos",
+"sitprof": "Empreendedor(a) com negócio próprio",
+"renda": "Prefiro não responder",
+"negocio": "Sim, tenho negócio formalizado",
+"formal": "Sim, ME ou outro tipo de empresa",
+"percrenda": "Até 50% da minha renda",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Sim, como atividade principal",
+"negsit": "Já está funcionando há algum tempo",
+"continuar": "Sim",
+"apoio": [
+"Divulgar melhor produto ou serviço",
+"Organizar as finanças",
+"Receber mentoria"
+]
+},
+{
+"id": 65,
+"nome": "Geralda D. G.",
+"wpp": "(31) 9····-2112",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 66,
+"nome": "Lucimar M. D.",
+"wpp": "(31) 9····-8265",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 5,
+"cert": true,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Superior completo",
+"civil": "Casado(a)/União estável",
+"dep": "nao",
+"faixa": "45 a 59 anos",
+"sitprof": "Aposentado(a) / pensionista",
+"renda": "De 3 a 5 salários mínimos",
+"negocio": "Sim, tenho negócio ou atividade informal",
+"formal": "Não, é informal",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Sim, como complemento de renda",
+"negsit": "Está em fase inicial",
+"continuar": "Sim",
+"apoio": [
+"Aprender a vender melhor",
+"Participar de feiras ou eventos de venda",
+"Receber mentoria"
+]
+},
+{
+"id": 67,
+"nome": "Larissa S. D.",
+"wpp": "(31) 9····-6272",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "branca",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 68,
+"nome": "Beatriz S. D.",
+"wpp": "(31) 9····-4812",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "nao",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 69,
+"nome": "Maria A. D.",
+"wpp": "(31) 9····-0633",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 1,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Fundamental incompleto",
+"civil": "Casado(a)/União estável",
+"dep": "nao",
+"faixa": "45 a 59 anos",
+"sitprof": "Autônomo(a) / por conta própria",
+"renda": "Prefiro não responder",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Sim, MEI",
+"percrenda": "Prefiro não responder",
+"aprof": "Talvez",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Aprender a vender melhor",
+"Definir preço",
+"Ainda não sei"
+]
+},
+{
+"id": 70,
+"nome": "Vania L. A.",
+"wpp": "(31) 9····-7292",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 5,
+"cert": true,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-3+",
+"faixa": "45 a 59 anos",
+"sitprof": "Desempregado(a)",
+"renda": "Até 1 salário mínimo",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Ainda é apenas uma ideia",
+"continuar": "Sim",
+"apoio": [
+"Organizar as finanças",
+"Criar ou melhorar produto/serviço",
+"Receber mentoria"
+]
+},
+{
+"id": 71,
+"nome": "Andrea A. D.",
+"wpp": "(31) 9····-5116",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "branca",
+"escol": "Fundamental incompleto",
+"civil": "Solteiro(a)",
+"dep": "",
+"faixa": "45 a 59 anos",
+"sitprof": "Empregado(a) com carteira assinada",
+"renda": "Até 1 salário mínimo",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Divulgar melhor produto ou serviço",
+"Formalizar o negócio",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 72,
+"nome": "Fernanda C. L.",
+"wpp": "(31) 9····-7947",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "branca",
+"escol": "Superior completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "35 a 44 anos",
+"sitprof": "Empregado(a) com carteira assinada",
+"renda": "Mais de 5 salários mínimos",
+"negocio": "Sim, tenho negócio formalizado",
+"formal": "Sim, MEI",
+"percrenda": "0%, ainda não gera renda",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Sim, como atividade principal",
+"negsit": "Está em fase inicial",
+"continuar": "Sim",
+"apoio": [
+"Organizar as finanças",
+"Definir preço",
+"Receber mentoria"
+]
+},
+{
+"id": 73,
+"nome": "Maria D. F.",
+"wpp": "(31) 9····-1483",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 5,
+"cert": true,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-1",
+"faixa": "45 a 59 anos",
+"sitprof": "Empregado(a) com carteira assinada",
+"renda": "De 3 a 5 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Aprender a vender melhor",
+"Definir preço",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 74,
+"nome": "Karolaine P. L.",
+"wpp": "(31) 9····-3899",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "amarela",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "nao",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 75,
+"nome": "Amanda D. B.",
+"wpp": "(31) 9····-9240",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Superior completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-2",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 76,
+"nome": "Letícia R. P.",
+"wpp": "(31) 9····-8558",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 5,
+"cert": true,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Superior completo",
+"civil": "Solteiro(a)",
+"dep": "nao",
+"faixa": "25 a 34 anos",
+"sitprof": "Empregado(a) com carteira assinada",
+"renda": "De 1 a 2 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Aprender a vender melhor",
+"Divulgar melhor produto ou serviço",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 77,
+"nome": "Tais A. D.",
+"wpp": "(31) 9····-4993",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Faltou ao evento",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio incompleto",
+"civil": "Solteiro(a)",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 78,
+"nome": "Amanda A. V.",
+"wpp": "(31) 9····-3163",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "inicial",
+"interesse": "Beleza",
+"dias": 1,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Superior completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-2",
+"faixa": "35 a 44 anos",
+"sitprof": "Do lar",
+"renda": "Prefiro não responder",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Formalizar o negócio",
+"Receber mentoria",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 79,
+"nome": "Marcos A. D.",
+"wpp": "(31) 9····-7467",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "beleza",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "homem",
+"raca": "parda",
+"escol": "Superior completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-3+",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 80,
+"nome": "Jéssica L. S.",
+"wpp": "(31) 9····-9536",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Matriculado",
+"presInicial": true,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "",
+"raca": "",
+"escol": "",
+"civil": "",
+"dep": "",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 81,
+"nome": "Robson E. D.",
+"wpp": "(84) 9····-2848",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "Lista de espera",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "",
+"raca": "",
+"escol": "",
+"civil": "",
+"dep": "",
+"faixa": "35 a 44 anos",
+"sitprof": "Autônomo(a) / por conta própria",
+"renda": "De 2 a 3 salários mínimos",
+"negocio": "Sim, tenho negócio formalizado",
+"formal": "Sim, MEI",
+"percrenda": "É minha principal fonte de renda",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Sim, como atividade principal",
+"negsit": "Já está funcionando há algum tempo",
+"continuar": "Sim",
+"apoio": [
+"Aprender a vender melhor",
+"Divulgar melhor produto ou serviço",
+"Criar ou melhorar produto/serviço"
+]
+},
+{
+"id": 82,
+"nome": "Gabriela V. A.",
+"wpp": "(31) 9····-3455",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "",
+"presInicial": false,
+"trilha": "",
+"interesse": "—",
+"dias": 0,
+"cert": false,
+"genero": "",
+"raca": "",
+"escol": "",
+"civil": "",
+"dep": "",
+"faixa": "18 a 24 anos",
+"sitprof": "Empregado(a) com carteira assinada",
+"renda": "De 1 a 2 salários mínimos",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não, é informal",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Ainda é apenas uma ideia",
+"continuar": "Sim",
+"apoio": [
+"Aprender a vender melhor",
+"Divulgar melhor produto ou serviço",
+"Organizar as finanças"
+]
+},
+{
+"id": 83,
+"nome": "Lucimar M. D.",
+"wpp": "(31) 9····-8265",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "",
+"presInicial": false,
+"trilha": "",
+"interesse": "—",
+"dias": 5,
+"cert": true,
+"genero": "",
+"raca": "",
+"escol": "",
+"civil": "",
+"dep": "",
+"faixa": "45 a 59 anos",
+"sitprof": "Aposentado(a) / pensionista",
+"renda": "De 3 a 5 salários mínimos",
+"negocio": "Sim, tenho negócio ou atividade informal",
+"formal": "Não, é informal",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Sim, como complemento de renda",
+"negsit": "Está em fase inicial",
+"continuar": "Sim",
+"apoio": [
+"Aprender a vender melhor",
+"Participar de feiras ou eventos de venda",
+"Receber mentoria"
+]
+},
+{
+"id": 84,
+"nome": "Andrea A. D.",
+"wpp": "(31) 9····-5116",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "",
+"presInicial": false,
+"trilha": "",
+"interesse": "—",
+"dias": 0,
+"cert": false,
+"genero": "",
+"raca": "",
+"escol": "",
+"civil": "",
+"dep": "",
+"faixa": "45 a 59 anos",
+"sitprof": "Empregado(a) com carteira assinada",
+"renda": "Até 1 salário mínimo",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Sim",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Divulgar melhor produto ou serviço",
+"Formalizar o negócio",
+"Conhecer possibilidades de geração de renda"
+]
+},
+{
+"id": 85,
+"nome": "Raphaella G. M.",
+"wpp": "(31) 9····-9192",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 5,
+"cert": true,
+"genero": "",
+"raca": "",
+"escol": "",
+"civil": "",
+"dep": "",
+"faixa": "35 a 44 anos",
+"sitprof": "Autônomo(a) / por conta própria",
+"renda": "Prefiro não responder",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Não se aplica",
+"percrenda": "Não se aplica",
+"aprof": "Sim",
+"japart": "Não",
+"temrenda": "Sim, como complemento de renda",
+"negsit": "Não se aplica",
+"continuar": "Talvez",
+"apoio": [
+"Organizar as finanças",
+"Definir preço",
+"Formalizar o negócio"
+]
+},
+{
+"id": 86,
+"nome": "Miriam M. D.",
+"wpp": "(31) 9····-7466",
+"cidade": "Camargos",
+"uf": "MG",
+"status": "",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "",
+"raca": "",
+"escol": "",
+"civil": "",
+"dep": "",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 87,
+"nome": "Camila T. T.",
+"wpp": "(31) 9····-0407",
+"cidade": "Camargos",
+"uf": "MG",
+"status": "",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "",
+"raca": "",
+"escol": "",
+"civil": "",
+"dep": "",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 88,
+"nome": "Eliane C. C.",
+"wpp": "(31) 9····-0077",
+"cidade": "Camargos",
+"uf": "MG",
+"status": "",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "",
+"raca": "",
+"escol": "",
+"civil": "",
+"dep": "",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 89,
+"nome": "Beatriz S. D.",
+"wpp": "(31) 9····-4812",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "",
+"raca": "",
+"escol": "",
+"civil": "",
+"dep": "",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 90,
+"nome": "Maria A. D.",
+"wpp": "(31) 9····-0633",
+"cidade": "Catas Altas",
+"uf": "MG",
+"status": "",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 1,
+"cert": false,
+"genero": "",
+"raca": "",
+"escol": "",
+"civil": "",
+"dep": "",
+"faixa": "45 a 59 anos",
+"sitprof": "Autônomo(a) / por conta própria",
+"renda": "Prefiro não responder",
+"negocio": "Não tenho, mas quero empreender",
+"formal": "Sim, MEI",
+"percrenda": "Prefiro não responder",
+"aprof": "Talvez",
+"japart": "Não",
+"temrenda": "Não, mas tenho interesse em gerar renda",
+"negsit": "Não se aplica",
+"continuar": "Sim",
+"apoio": [
+"Aprender a vender melhor",
+"Definir preço",
+"Ainda não sei"
+]
+},
+{
+"id": 91,
+"nome": "Isabela R. D.",
+"wpp": "(31) 9····-3333",
+"cidade": "Camargos",
+"uf": "MG",
+"status": "",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "branca",
+"escol": "Médio completo",
+"civil": "Casado(a)/União estável",
+"dep": "sim-3+",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 92,
+"nome": "Claudionara P. B.",
+"wpp": "(31) 9····-0906",
+"cidade": "Camargos",
+"uf": "MG",
+"status": "",
+"presInicial": false,
+"trilha": "beleza",
+"interesse": "Beleza",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "branca",
+"escol": "Médio completo",
+"civil": "Viúvo(a)",
+"dep": "nao",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 93,
+"nome": "Tatiane D. C.",
+"wpp": "(31) 9····-9569",
+"cidade": "Camargos",
+"uf": "MG",
+"status": "",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Superior completo",
+"civil": "Divorciado(a)/Separado(a)",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 94,
+"nome": "Lorena S. C.",
+"wpp": "(31) 9····-8560",
+"cidade": "Camargos",
+"uf": "MG",
+"status": "",
+"presInicial": false,
+"trilha": "inicial",
+"interesse": "Somente Inicial",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "preta",
+"escol": "Médio completo",
+"civil": "Solteiro(a)",
+"dep": "sim-2",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+},
+{
+"id": 95,
+"nome": "Maelrelle T. C.",
+"wpp": "(31) 9····-4480",
+"cidade": "Camargos",
+"uf": "MG",
+"status": "",
+"presInicial": false,
+"trilha": "culinaria",
+"interesse": "Culinária",
+"dias": 0,
+"cert": false,
+"genero": "mulher",
+"raca": "parda",
+"escol": "Médio incompleto",
+"civil": "Solteiro(a)",
+"dep": "sim-1",
+"faixa": "",
+"sitprof": "",
+"renda": "",
+"negocio": "",
+"formal": "",
+"percrenda": "",
+"aprof": "",
+"japart": "",
+"temrenda": "",
+"negsit": "",
+"continuar": "",
+"apoio": []
+}
+]
+};
+let DATA = FALLBACK_DATA;
+let R = DATA.registros;
+
+/* ── Andamento na plataforma digital (Lovable/Supabase, snapshot 01/jul) ── */
+let PLAT = {
+  cadastradas: 99,
+  modulos: 9,
+  porLocal: [
+    {cidade:'Catas Altas', trilha:'beleza',    alunas:50, ativas:1},
+    {cidade:'Catas Altas', trilha:'culinaria', alunas:40, ativas:2},
+    {cidade:'Catas Altas', trilha:'',          alunas:3,  ativas:0},
+    {cidade:'Camargos',    trilha:'',          alunas:6,  ativas:0},
+  ],
+  ativas: [
+    {nome:'Marilene C. V.', cidade:'Catas Altas', trilha:'culinaria', modulos:9, xp:1500, streak:2, ultimo:'27/06'},
+    {nome:'Ana A. M.',      cidade:'Catas Altas', trilha:'culinaria', modulos:9, xp:1435, streak:3, ultimo:'29/06'},
+    {nome:'Aline F. A.',    cidade:'Catas Altas', trilha:'beleza',    modulos:9, xp:900,  streak:5, ultimo:'01/07'},
+  ],
+};
+
+/* ── Diário de campo (app "NTICS em Campo" / Supabase) ── */
+const DIARIO_FALLBACK = [{"fim": null, "men": 0, "obs": "27 mulheres e 2 homens ", "ativ": "Tilha Incial de Empreendedorismo", "data": "18/06/2026", "drive": "https://drive.google.com/drive/folders/1W8-nX9cg2G5JhKisbiXIILhDDkFRX5b7", "fotos": ["https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/7bb63d50-ce79-4b1c-83cb-94890e0a93fb/2752ca85-2d38-425c-8f9d-47492ea03b06.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/7bb63d50-ce79-4b1c-83cb-94890e0a93fb/a0bc1d57-1723-434d-8e3a-d3e6df6a1287.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/7bb63d50-ce79-4b1c-83cb-94890e0a93fb/dce755e4-c353-40d4-8121-1976e57c2852.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/7bb63d50-ce79-4b1c-83cb-94890e0a93fb/18be5bd9-0bdd-4a2e-95d2-9bd11774dc15.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/7bb63d50-ce79-4b1c-83cb-94890e0a93fb/6918bf2e-7316-4d1b-8250-5e6cad96718c.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/7bb63d50-ce79-4b1c-83cb-94890e0a93fb/c597c7c0-23f9-41b5-b837-9a3e15fb77c4.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/7bb63d50-ce79-4b1c-83cb-94890e0a93fb/e9dfff32-d414-4ee1-9939-8f4cb5200859.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/7bb63d50-ce79-4b1c-83cb-94890e0a93fb/de5f8454-a237-45f7-b2f3-ec488747061d.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/7bb63d50-ce79-4b1c-83cb-94890e0a93fb/4294c14a-d4ac-423f-8f4c-c72b5a4a32a8.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/7bb63d50-ce79-4b1c-83cb-94890e0a93fb/93a052b9-12c0-4df5-8f77-422e29b62f02.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/7bb63d50-ce79-4b1c-83cb-94890e0a93fb/b99ed10f-e83a-401e-b6ea-d808d90f35cf.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/7bb63d50-ce79-4b1c-83cb-94890e0a93fb/79bce2fc-84bc-4679-89b3-d8ecf627a154.jpeg"], "local": "Sala Mineira", "novos": 29, "profs": 0, "women": 0, "alunos": 29, "cidade": "Catas Altas/MG", "inicio": null, "repetidos": false, "ntics_team": [], "sponsor_team": []}, {"fim": "22:00", "men": 0, "obs": "As linhas da lista de presença estão claras e algumas pessoas não enxergam bem então o número na frente do último nome não corresponde a quantidade de participantes", "ativ": "Trilha de Culinária", "data": "22/06/2026", "drive": "https://drive.google.com/drive/folders/1m9yfup0ClKfYK14c2jlJRaQmz88x5j6O", "fotos": ["https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/1c68ca57-6db9-4f30-9fd0-e502725270a7/72b83c12-02c7-4751-82dc-8504c4c309b3.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/1c68ca57-6db9-4f30-9fd0-e502725270a7/be74839f-6db1-4ce9-b43d-ec1b7dff0b93.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/1c68ca57-6db9-4f30-9fd0-e502725270a7/d3297daa-f169-4681-bab3-83ca8da0b12e.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/1c68ca57-6db9-4f30-9fd0-e502725270a7/ba88060b-e98e-4737-bd6f-b5a087e499ff.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/1c68ca57-6db9-4f30-9fd0-e502725270a7/80bfb03b-1176-4c0b-af04-cdf1267c0c60.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/1c68ca57-6db9-4f30-9fd0-e502725270a7/5712f07e-c5dd-4eda-b90e-f3db7fbdfec0.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/1c68ca57-6db9-4f30-9fd0-e502725270a7/b53288e9-d586-422b-9508-8be77f59b692.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/1c68ca57-6db9-4f30-9fd0-e502725270a7/685fba8c-6fe0-416f-956b-5936db88ce3d.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/1c68ca57-6db9-4f30-9fd0-e502725270a7/43b020c5-02fb-4e1c-a4cc-71073f471d55.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/1c68ca57-6db9-4f30-9fd0-e502725270a7/227b330b-13ca-4603-ad25-1cee8ad66bdd.jpeg"], "local": "Sala Mineira", "novos": 3, "profs": 1, "women": 14, "alunos": 14, "cidade": "Catas Altas/MG", "inicio": "17:30", "repetidos": false, "ntics_team": [], "sponsor_team": [{"name": "Cintia Delamore", "role": ""}, {"name": "Ana", "role": ""}]}, {"fim": "22:00", "men": 0, "obs": "", "ativ": "Trilha de Culinária", "data": "23/06/2026", "drive": "https://drive.google.com/drive/folders/1HwHuYbkjcVouV-51bS2WTxDgoPMIDJKL", "fotos": ["https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/34f457cc-cd4c-4b2f-87b8-e9e5dc762197/b38a32fa-6e90-4610-8f41-65d2b4fb4d46.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/34f457cc-cd4c-4b2f-87b8-e9e5dc762197/72dfd8ff-fb0d-4786-825d-6c6aa1cfa0ae.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/34f457cc-cd4c-4b2f-87b8-e9e5dc762197/d8b024aa-bc90-43d0-bbbe-1a8675d66710.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/34f457cc-cd4c-4b2f-87b8-e9e5dc762197/40230cb0-567d-4c9b-89f8-25a4619d653e.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/34f457cc-cd4c-4b2f-87b8-e9e5dc762197/eecfae9a-9fc5-41cc-ab11-ecdf077baae7.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/34f457cc-cd4c-4b2f-87b8-e9e5dc762197/c3277b59-9231-4909-9ed6-58881d078239.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/34f457cc-cd4c-4b2f-87b8-e9e5dc762197/9457b3ee-3d97-423f-bb03-2e00bd8621be.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/34f457cc-cd4c-4b2f-87b8-e9e5dc762197/9d475b52-4f2b-47ff-b4f7-2e4a92d65cda.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/34f457cc-cd4c-4b2f-87b8-e9e5dc762197/a20d05e8-c945-4bab-809e-10aa65ac3570.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/34f457cc-cd4c-4b2f-87b8-e9e5dc762197/33658725-72db-41ff-b91f-e621518c9b58.jpeg"], "local": "Sala mineira", "novos": 0, "profs": 1, "women": 15, "alunos": 15, "cidade": "Catas Altas/MG", "inicio": "17:30", "repetidos": true, "ntics_team": [], "sponsor_team": []}, {"fim": "22:00", "men": 0, "obs": "", "ativ": "Trilha de Culinária", "data": "24/06/2026", "drive": "https://drive.google.com/drive/folders/1eUIMnfbX3QYRX21aB1vam3cr-oeQdVb7", "fotos": ["https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/42b7c00f-2f66-47fd-b2d6-dbe670ca762f/720d66dc-a14c-4ad6-9df3-29fec62e44a2.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/42b7c00f-2f66-47fd-b2d6-dbe670ca762f/5c73370b-4b03-4147-8001-2979f96581e6.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/42b7c00f-2f66-47fd-b2d6-dbe670ca762f/944829a7-0157-4c19-a047-6b48e1148cdd.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/42b7c00f-2f66-47fd-b2d6-dbe670ca762f/f239fac0-29eb-4f61-afcf-e6d076da8036.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/42b7c00f-2f66-47fd-b2d6-dbe670ca762f/d682b4d6-2147-4577-91f3-c063017ea468.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/42b7c00f-2f66-47fd-b2d6-dbe670ca762f/6efbc0af-7fd8-4a21-9c06-19e22ab67a4e.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/42b7c00f-2f66-47fd-b2d6-dbe670ca762f/6bb4d2d6-404e-4131-a372-373c743edaf7.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/42b7c00f-2f66-47fd-b2d6-dbe670ca762f/598c12de-f73d-41c1-a6b7-53961a73cd95.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/42b7c00f-2f66-47fd-b2d6-dbe670ca762f/313c07c6-0537-420a-8ec8-a047b81e5d17.jpeg"], "local": "Sala Mineira", "novos": 0, "profs": 1, "women": 15, "alunos": 15, "cidade": "Catas Altas/MG", "inicio": "17:30", "repetidos": true, "ntics_team": [], "sponsor_team": []}, {"fim": "22:00", "men": 0, "obs": "", "ativ": "Trilha de Culinária", "data": "25/06/2026", "drive": "https://drive.google.com/drive/folders/1874GJ0sw7kefqqGmlPL3gqDpAg6MJ3FU", "fotos": ["https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/191e2d12-8054-421d-91f5-d32565425dac.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/fb019c42-25c6-458f-90ca-e025cf3d0235.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/bf7594d0-fd07-41d7-8948-a3deb1fdef88.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/596e5453-1f47-4135-b2c3-86ffdf140c03.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/d02ef10e-7a83-4a42-adf0-4bfefc958b9d.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/5353708c-01be-4e67-bb18-01afd7629114.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/13a93703-ec33-4c44-b114-021b58f17d4d.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/671cce9c-09ba-4e93-86a0-5d6d83f71b57.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/a70ce315-f150-4f51-8ca2-30bb605cde06.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/ebfca881-59c2-4510-97b3-c58d0d4f91bf.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/1219517a-e9f4-49b3-85fc-30d06647b5d5.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/0ae72068-0ec1-42c7-8e54-2add25c7df15.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/0d5203c4-f9c7-41a9-8877-646efda097fe.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/e5d54947-9d95-43f4-bce9-40b5892da11f.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/85b98228-b0c2-45ab-88a2-036694026a00.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/e97166b0-3d8c-4796-8633-b0b657059a75.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/b79b2aed-33e7-471d-9d95-3ee020730c90.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/b85a5c4f-474d-4000-97cd-7c8a8830278a/859b22e5-bbd6-4afd-9b60-cc56898a29aa.jpeg"], "local": "Sala Mineira", "novos": 0, "profs": 1, "women": 15, "alunos": 15, "cidade": "Catas Altas/MG", "inicio": "17:30", "repetidos": true, "ntics_team": [], "sponsor_team": []}, {"fim": "22:00", "men": 0, "obs": "", "ativ": "Trilha de Culinária", "data": "26/06/2026", "drive": "https://drive.google.com/drive/folders/1bQz6o_gAtDstnF2G1nqKElT7rF9eCQ5m", "fotos": ["https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/a34d85c6-5693-40b2-94cf-282fe7890678/40799d2c-5cfe-47de-a367-88185b08fe07.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/a34d85c6-5693-40b2-94cf-282fe7890678/21128e87-fd1d-4d9b-bfff-f3e04cea5cb1.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/a34d85c6-5693-40b2-94cf-282fe7890678/260d5e09-fd28-4f4b-893e-e1ca67f75533.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/a34d85c6-5693-40b2-94cf-282fe7890678/e9127655-7dff-4c13-827a-56f73f2eeb68.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/a34d85c6-5693-40b2-94cf-282fe7890678/1177f72b-60bf-405e-b158-3285d32c2af9.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/a34d85c6-5693-40b2-94cf-282fe7890678/32c4f705-0cd1-4ae5-a0f9-7bf33f194166.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/a34d85c6-5693-40b2-94cf-282fe7890678/e48b5234-f015-4798-a596-0e70dec166e5.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/a34d85c6-5693-40b2-94cf-282fe7890678/df2b60d4-53fe-4cd6-a568-b98d8db018f5.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/a34d85c6-5693-40b2-94cf-282fe7890678/f7e0beed-80dd-4592-8c45-80d4317019da.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/a34d85c6-5693-40b2-94cf-282fe7890678/81f6eeb7-ec94-4620-91b9-e00b7304096f.jpeg"], "local": "Sala Mineira", "novos": 0, "profs": 0, "women": 15, "alunos": 15, "cidade": "Catas Altas/MG", "inicio": "17:30", "repetidos": true, "ntics_team": [], "sponsor_team": [{"name": "Cintia Delamore", "role": ""}, {"name": "Ana Carolina Viegas", "role": ""}]}, {"fim": "22:00", "men": 0, "obs": "", "ativ": "Trilha de Beleza", "data": "29/06/2026", "drive": "https://drive.google.com/drive/folders/1w53iatL28dL6_STyPVEShu-M3WB8OtKO", "fotos": ["https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/e7e159fc-df9a-4e38-8926-7ee9a3ffbdbe/2b5ca72a-d176-4113-bbc7-16bcef1f7e7d.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/e7e159fc-df9a-4e38-8926-7ee9a3ffbdbe/d8e8d085-309b-4f06-9025-1cdbe560a14a.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/e7e159fc-df9a-4e38-8926-7ee9a3ffbdbe/e20f5ac7-f8b8-469b-8a18-6d95468c1fcd.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/e7e159fc-df9a-4e38-8926-7ee9a3ffbdbe/1070b704-ce25-4454-8d6b-0e936d89e203.jpeg"], "local": "Sala Mineira", "novos": 9, "profs": 1, "women": 11, "alunos": 11, "cidade": "Catas Altas/MG", "inicio": "17:30", "repetidos": false, "ntics_team": [], "sponsor_team": []}, {"fim": "22:00", "men": 0, "obs": "", "ativ": "Trilha de Beleza", "data": "30/06/2026", "drive": "https://drive.google.com/drive/folders/1OSoo2mRxVzpahhnL3XwOMQU5GicqCnj1", "fotos": ["https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/539c80b1-5455-4d96-b3aa-60e6156c6c77/9e0d383a-4195-460a-9cbc-46c600fb6092.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/539c80b1-5455-4d96-b3aa-60e6156c6c77/d30d11d6-9240-4ec3-a5cc-ce2d2d570dba.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/539c80b1-5455-4d96-b3aa-60e6156c6c77/e5397646-60ed-40f4-b06e-ceb2331a482d.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/539c80b1-5455-4d96-b3aa-60e6156c6c77/000daec8-c85b-4f40-ba40-6506522752b4.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/539c80b1-5455-4d96-b3aa-60e6156c6c77/0df7e759-6cbe-4b71-a9c8-ca6c8ed984d9.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/539c80b1-5455-4d96-b3aa-60e6156c6c77/891bfa0d-6096-4e19-96f0-3e7853adb8e5.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/539c80b1-5455-4d96-b3aa-60e6156c6c77/504a8675-510e-44d3-ad04-29124c27f3c1.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/539c80b1-5455-4d96-b3aa-60e6156c6c77/497c8870-63d1-4225-83cb-247842ce0c45.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/539c80b1-5455-4d96-b3aa-60e6156c6c77/9dbd4ccb-7b68-4930-b4d5-ffac8fde2362.jpeg", "https://cnarvculrqfzjqhpyyqq.supabase.co/storage/v1/object/public/diary-photos/estao_samarco_1781425848145/539c80b1-5455-4d96-b3aa-60e6156c6c77/412f1304-83a3-4f58-b7a7-2acd6c9f5a5b.jpeg"], "local": "Sala Mineira", "novos": 3, "profs": 0, "women": 13, "alunos": 13, "cidade": "Catas Altas/MG", "inicio": "17:30", "repetidos": false, "ntics_team": [], "sponsor_team": [{"name": "Cintia Delamore", "role": ""}]}];
+let DIARIO = DIARIO_FALLBACK;
+
+/* ── Indicadores de Execução: config fixa (horas/oficinas por trilha + parcerias) ── */
+const EXEC_CFG = {
+  horas:    { inicial:4, culinaria:24, beleza:24 },   // horas presenciais por turma
+  oficinas: { inicial:1, culinaria:5,  beleza:5  },   // nº de encontros por turma
+  parcerias: [
+    {t:'Produção / coordenação em campo', n:2, fixo:true},
+    {t:'Professora de Empreendedorismo',  n:1, fixo:true},
+    {t:'Professora de Culinária',         n:1, fixo:true},
+    {t:'Professora de Beleza',            n:1, fixo:true},
+    {t:'Fotógrafo',                       n:1, fixo:true},
+    {t:'Eletricista',                     n:1, fixo:true},
+    {t:'Transporte de material',          n:1, fixo:true},
+    {t:'Fornecedor de insumos — Culinária', n:1, fixo:true},
+    {t:'Fornecedor de insumos — Beleza',    n:1, fixo:true},
+    {t:'Faxineira',                       n:1, fixo:false},
+  ],
+};
+
+/* ── config de localidades planejadas (para mostrar o rollout completo) ── */
+const LOCS = {
+  MG: ['Catas Altas','Camargos','Santa Rita Durão','Paracatu de Baixo','Novo Bento Rodrigues','Brumal','Antônio Pereira','Mariana Sede'],
+  ES: ['Benevente','Nova Jerusalém','Ubu','Parati','Recanto do Sol','Belo Horizonte','Mãe-Bá','Meaípe','Condados'],
+};
+const TCOL = { culinaria:'#e68e3c', beleza:'#c43f62', inicial:'#4BC1EB', '':'#c8d9ea' };
+const norm = s => String(s||'').toLowerCase().trim().replace(/\s+/g,' ');
+
+/* ── Cronograma geral (planilha Plano de Ação) — [início, fim] por comunidade/módulo ── */
+const CRONO = {
+  'catas altas':          {emp:['16/jun','16/jun'], cul:['22/jun','26/jun'], bel:['29/jun','03/jul']},
+  'camargos':             {emp:['10/jul','10/jul'], cul:['20/jul','24/jul'], bel:['13/jul','17/jul']},
+  'santa rita':           {emp:['28/jul','28/jul'], cul:['03/ago','07/ago'], bel:['10/ago','14/ago']},
+  'paracatu':             {emp:['18/ago','18/ago'], bel:['24/ago','28/ago']},
+  'novo bento rodrigues': {emp:['09/set','09/set'], cul:['14/set','18/set'], bel:['21/set','25/set']},
+  'brumal':               {emp:['28/set','28/set'], bel:['05/out','09/out']},
+  'antonio pereira':      {emp:['14/out','14/out'], cul:['19/out','23/out'], bel:['26/out','30/out']},
+  'mariana':              {emp:['12/nov','12/nov'], cul:['16/nov','20/nov'], bel:['23/nov','27/nov']},
+  'benevente':            {emp:['28/jul','28/jul'], cul:['03/ago','07/ago']},
+  'nova jerusalem':       {bel:['10/ago','14/ago']},
+  'ubu':                  {emp:['18/ago','18/ago'], cul:['24/ago','28/ago']},
+  'parati':               {bel:['31/ago','04/set']},
+  'recanto do sol':       {emp:['09/set','09/set'], bel:['21/set','25/set']},
+  'belo horizonte':       {cul:['14/set','18/set']},
+  'mae-ba':               {emp:['28/set','28/set'], cul:['05/out','09/out'], bel:['13/out','17/out']},
+  'meaipe':               {emp:['21/out','21/out'], cul:['26/out','30/out']},
+  'condados':             {bel:['03/nov','07/nov']},
+};
+const _MES={jan:0,fev:1,mar:2,abr:3,mai:4,jun:5,jul:6,ago:7,set:8,out:9,nov:10,dez:11};
+function _parseData(s){ const m=String(s||'').replace('.','').split('/'); if(m.length<2)return null;
+  const d=parseInt(m[0],10), mes=_MES[(m[1]||'').slice(0,3).toLowerCase()];
+  return (isNaN(d)||mes==null)?null:new Date(2026,mes,d); }
+function _hoje(){ const n=new Date(); return new Date(n.getFullYear(),n.getMonth(),n.getDate()); }
+function _normLoc(nome){ return String(nome||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')
+  .replace(/de baixo|durao|sede/g,'').replace(/[^a-z\s-]/g,'').replace(/\s+/g,' ').trim(); }
+function cronoLoc(nome){ const k=_normLoc(nome); if(CRONO[k])return CRONO[k];
+  const f=Object.keys(CRONO).find(c=>k&&(k.indexOf(c)>=0||c.indexOf(k)>=0)); return f?CRONO[f]:null; }
+const _TR2CR={inicial:'emp',culinaria:'cul',beleza:'bel'};
+function statusTrilha(nome,trilha){ const c=cronoLoc(nome); if(!c)return null;
+  const par=c[_TR2CR[trilha]]; if(!par)return null;
+  const di=_parseData(par[0]), df=_parseData(par[1]), h=_hoje(); if(!di||!df)return null;
+  return { st:(h>df?'finalizada':(h>=di?'andamento':'proxima')), i:par[0], f:par[1] }; }
+function diasOcorridos(trilha,cidade){ const s=statusTrilha(cidade,trilha); if(!s)return 5;
+  if(trilha==='inicial')return 1; if(s.st==='finalizada')return 5; if(s.st==='proxima')return 0;
+  const di=_parseData(s.i), h=_hoje(); return Math.max(1,Math.min(5,Math.floor((h-di)/86400000)+1)); }
+function stBadge(s){ if(!s)return '';
+  const cfg={finalizada:['#2d5040','rgba(66,116,89,0.16)','✓ finalizada'],
+             andamento:['#006782','rgba(75,193,235,0.2)','● em andamento'],
+             proxima:['#b36a0e','rgba(230,142,60,0.14)','▸ '+s.i]};
+  const c=cfg[s.st];
+  return `<span style="font-size:0.56rem;font-weight:700;padding:2px 7px;border-radius:999px;background:${c[1]};color:${c[0]};white-space:nowrap">${c[2]}${s.st==='andamento'?' · até '+s.f:''}</span>`; }
+
+/* ── métricas por localidade ── */
+/* ── Presença REAL vinda do diário de campo (app NTICS em Campo) ── */
+function _ativTrilha(a){ a=(a||'').toLowerCase();
+  return a.indexOf('culin')>=0?'culinaria':(a.indexOf('belez')>=0?'beleza':((a.indexOf('inicial')>=0||a.indexOf('empreend')>=0)?'inicial':'')); }
+function _cidBase(c){ return norm(String(c||'').replace(/\s*\/\s*(mg|es)\s*$/i,'')); }
+function diarioTrilha(nome, trilha){
+  const k=_cidBase(nome);
+  const ent=(DIARIO||[]).filter(e=>_ativTrilha(e.ativ)===trilha &&
+    (_cidBase(e.cidade)===k || (k && _cidBase(e.cidade).indexOf(k)>=0) || (_cidBase(e.cidade) && k.indexOf(_cidBase(e.cidade))>=0)));
+  if(!ent.length) return null;
+  return { presentes: Math.max.apply(null, ent.map(e=>e.alunos||0)), sessoes: ent.length };
+}
+function diarioTotal(trilha){ // soma dos picos por cidade
+  const m={}; (DIARIO||[]).forEach(e=>{ if(_ativTrilha(e.ativ)===trilha){ const c=_cidBase(e.cidade); m[c]=Math.max(m[c]||0, e.alunos||0); } });
+  return Object.values(m).reduce((a,b)=>a+b,0);
+}
+
+function locMetrics(nome){
+  const rs = R.filter(r => norm(r.cidade) === norm(nome));
+  const di=diarioTrilha(nome,'inicial'), dc=diarioTrilha(nome,'culinaria'), db=diarioTrilha(nome,'beleza');
+  return {
+    insc: rs.length,
+    inicial: di ? di.presentes : rs.filter(r=>r.presInicial).length,
+    inicialApp: !!di,
+    matric: rs.filter(r=>r.status==='Matriculado').length,
+    culinPres: dc ? dc.presentes : rs.filter(r=>r.trilha==='culinaria' && r.dias>0).length,
+    culinApp: !!dc,
+    belezaPres: db ? db.presentes : rs.filter(r=>r.trilha==='beleza' && r.dias>0).length,
+    belezaApp: !!db,
+    cert: rs.filter(r=>r.cert).length,
+    intCulin: rs.filter(r=>r.trilha==='culinaria').length,
+    intBeleza: rs.filter(r=>r.trilha==='beleza').length,
+  };
+}
+function globalMetrics(){
+  const inicialApp=diarioTotal('inicial'), especApp=diarioTotal('culinaria')+diarioTotal('beleza');
+  return {
+    insc:R.length,
+    inicial: inicialApp || R.filter(r=>r.presInicial).length,
+    especPres: especApp || R.filter(r=>r.dias>0).length,
+    cert:R.filter(r=>r.cert).length,
+  };
+}
+
+/* ══════════ TABS ══════════ */
+function showTab(n){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+n).classList.add('active');
+  document.getElementById('b-'+n).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(n==='geral') requestAnimationFrame(renderGeralCharts);
+}
+
+/* ══════════ VISÃO GERAL ══════════ */
+function renderFunnel(){
+  const m=globalMetrics();
+  const stages=[
+    {lbl:'Inscritas',       v:m.insc,    ic:'how_to_reg', c:'#4BC1EB', sub:'no site'},
+    {lbl:'Trilha Inicial',  v:m.inicial, ic:'footprint',  c:'#1b5fa8', sub:'presentes (campo)'},
+    {lbl:'Especialização',  v:m.especPres,ic:'event_available',c:'#e68e3c', sub:'frequentaram'},
+    {lbl:'Certificadas',    v:m.cert,    ic:'workspace_premium', c:'#427459', sub:'concluíram'},
+  ];
+  const base=m.insc||1;
+  document.getElementById('funnel').innerHTML = stages.map((s,i)=>{
+    const pct=Math.round(s.v/base*100);
+    const dropTxt = i>0 ? `${pct}% das inscritas` : '100% da base';
+    return `<div style="text-align:center;position:relative">
+      ${i<stages.length-1?`<div style="position:absolute;right:-8px;top:34px;color:#c8d9ea;font-size:1.2rem;z-index:2">›</div>`:''}
+      <div style="width:60px;height:60px;border-radius:16px;background:${s.c}18;display:flex;align-items:center;justify-content:center;margin:0 auto 10px">
+        <span class="material-symbols-outlined" style="font-size:30px;color:${s.c}">${s.ic}</span>
+      </div>
+      <div style="font-family:Montserrat;font-weight:800;font-size:2rem;color:#002a4c;line-height:1">${s.v}</div>
+      <div style="font-size:0.82rem;font-weight:700;color:#002a4c;margin-top:3px">${s.lbl}</div>
+      <div style="font-size:0.66rem;color:#737780">${s.sub}</div>
+      <div class="mini-bar" style="margin:9px 6px 0"><div class="mini-fill" style="width:${Math.max(pct,3)}%;background:${s.c}"></div></div>
+      <div style="font-size:0.64rem;color:${s.c};font-weight:700;margin-top:4px">${dropTxt}</div>
+    </div>`;
+  }).join('');
+}
+function renderKPIs(){
+  const m=globalMetrics();
+  const taxaInicial=m.insc?Math.round(m.inicial/m.insc*100):0;
+  const taxaCert=m.especPres?Math.round(m.cert/m.especPres*100):0;
+  const noShow=Math.max(0,m.insc-m.inicial);
+  const kpis=[
+    {lbl:'Total inscritas',v:m.insc,sub:'2 localidades ativas',c:'#002a4c',ic:'groups'},
+    {lbl:'Comparecimento à Inicial',v:taxaInicial+'%',sub:`${m.inicial} de ${m.insc} foram`,c:'#1b5fa8',ic:'trending_up'},
+    {lbl:'Não compareceram',v:noShow,sub:'inscreveram e não vieram',c:'#e68e3c',ic:'person_off'},
+    {lbl:'Conclusão / certificado',v:taxaCert+'%',sub:`${m.cert} certificadas`,c:'#427459',ic:'workspace_premium'},
+  ];
+  document.getElementById('kpi-row').innerHTML=kpis.map(k=>`
+    <div class="glass" style="border-radius:18px;padding:22px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;right:0;width:64px;height:64px;background:${k.c}12;border-radius:0 0 0 100%"></div>
+      <div style="padding:9px;background:rgba(255,255,255,0.65);border-radius:11px;display:inline-flex;margin-bottom:12px">
+        <span class="material-symbols-outlined" style="font-size:24px;color:${k.c}">${k.ic}</span></div>
+      <p style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:#42474f;margin:0 0 3px">${k.lbl}</p>
+      <div style="font-family:Montserrat;font-weight:800;font-size:2.3rem;color:#002a4c;line-height:1">${k.v}</div>
+      <div style="font-size:0.68rem;color:#42474f;margin-top:4px">${k.sub}</div>
+    </div>`).join('');
+}
+let CH={};
+function donut(id,entries,legId,fmt){
+  if(CH[id])CH[id].destroy();
+  const labels=entries.map(e=>e[0]),data=entries.map(e=>e[1]),cols=entries.map(e=>e[2]);
+  const tot=data.reduce((a,b)=>a+b,0);
+  CH[id]=new Chart(document.getElementById(id),{type:'doughnut',
+    data:{labels,datasets:[{data,backgroundColor:cols,borderWidth:4,borderColor:'rgba(255,255,255,0.85)',hoverOffset:8}]},
+    options:{cutout:'70%',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.label}: ${c.raw} (${tot?Math.round(c.raw/tot*100):0}%)`}}}}});
+  if(legId){document.getElementById(legId).innerHTML=entries.map(e=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+      <div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:3px;background:${e[2]};flex-shrink:0"></span>
+      <span style="font-size:0.8rem;color:#191c1e">${e[0]}</span></div>
+      <span style="font-family:Montserrat;font-weight:800;font-size:0.9rem;color:#002a4c">${e[1]} <span style="color:#737780;font-weight:600;font-size:0.68rem">(${tot?Math.round(e[1]/tot*100):0}%)</span></span>
+    </div>`).join('');}
+}
+function bar(id,entries,horizontal){
+  if(CH[id])CH[id].destroy();
+  CH[id]=new Chart(document.getElementById(id),{type:'bar',
+    data:{labels:entries.map(e=>e[0]),datasets:[{data:entries.map(e=>e[1]),backgroundColor:entries.map(e=>e[2]||'#4BC1EB'),borderRadius:6}]},
+    options:{indexAxis:horizontal?'y':'x',plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(0,42,76,0.04)'},ticks:{font:{family:'Inter',size:10}}},y:{grid:{display:false},ticks:{font:{family:'Inter',size:10}}}}}});
+}
+function countBy(field,map){
+  const c={};R.forEach(r=>{const v=r[field]||'';if(v)c[v]=(c[v]||0)+1;});
+  return Object.entries(c).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[ (map&&map[k])||k, v, null]);
+}
+function renderExec(){
+  const setC = t => new Set(R.filter(r=> t==='inicial' ? r.presInicial : (r.trilha===t && r.dias>0)).map(r=>r.cidade)).size;
+  const t={inicial:setC('inicial'),culinaria:setC('culinaria'),beleza:setC('beleza')};
+  const turmas=t.inicial+t.culinaria+t.beleza;
+  const oficinas=t.inicial*EXEC_CFG.oficinas.inicial+t.culinaria*EXEC_CFG.oficinas.culinaria+t.beleza*EXEC_CFG.oficinas.beleza;
+  const horas=t.inicial*EXEC_CFG.horas.inicial+t.culinaria*EXEC_CFG.horas.culinaria+t.beleza*EXEC_CFG.horas.beleza;
+  const inscritos=R.length, concl=R.filter(r=>r.cert).length;
+  const pct=inscritos?Math.round(concl/inscritos*100):0;
+  const cur=R.filter(r=>r.dias>0);
+  // frequência = presença relativa aos dias que JÁ ocorreram de cada turma (cronograma)
+  const freq=cur.length?Math.round(cur.reduce((a,r)=>{const o=diasOcorridos(r.trilha,r.cidade)||5; return a+Math.min(1,r.dias/o);},0)/cur.length*100):0;
+  const locAtivas=new Set(R.filter(r=>r.presInicial||r.dias>0).map(r=>r.cidade)).size;
+  const parc=EXEC_CFG.parcerias.reduce((a,p)=>a+p.n,0);
+  const tiles=[
+    {lbl:'Turmas realizadas',v:turmas,sub:`Emp ${t.inicial} · Cul ${t.culinaria} · Bel ${t.beleza}`,c:'#1b5fa8',ic:'diversity_3'},
+    {lbl:'Oficinas realizadas',v:oficinas,sub:'encontros presenciais',c:'#6d5ba4',ic:'event'},
+    {lbl:'Horas de formação',v:horas+'h',sub:'ministradas até agora',c:'#e68e3c',ic:'schedule'},
+    {lbl:'Inscritos',v:inscritos,sub:locAtivas+' localidade(s) em campo',c:'#002a4c',ic:'how_to_reg'},
+    {lbl:'Concluintes',v:concl,sub:pct+'% dos inscritos',c:'#427459',ic:'workspace_premium'},
+    {lbl:'Frequência média',v:freq+'%',sub:'nas trilhas cursadas',c:'#4BC1EB',ic:'fact_check'},
+    {lbl:'Parcerias locais',v:parc,sub:'mobilizadas / localidade',c:'#c43f62',ic:'handshake'},
+  ];
+  const te=document.getElementById('exec-tiles'); if(!te) return;
+  te.innerHTML=tiles.map(k=>`
+    <div class="glass" style="border-radius:16px;padding:18px 20px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;right:0;width:52px;height:52px;background:${k.c}12;border-radius:0 0 0 100%"></div>
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+        <span class="material-symbols-outlined" style="font-size:19px;color:${k.c}">${k.ic}</span>
+        <p style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#42474f;margin:0">${k.lbl}</p>
+      </div>
+      <div style="font-family:Montserrat;font-weight:800;font-size:1.9rem;color:#002a4c;line-height:1">${k.v}</div>
+      <div style="font-size:0.66rem;color:#42474f;margin-top:3px">${k.sub}</div>
+    </div>`).join('');
+  const chips=EXEC_CFG.parcerias.map(p=>`<span style="display:inline-flex;align-items:center;gap:5px;background:${p.fixo?'rgba(0,42,76,0.05)':'rgba(230,142,60,0.12)'};border:1px solid ${p.fixo?'rgba(0,42,76,0.1)':'rgba(230,142,60,0.3)'};border-radius:999px;padding:4px 11px;font-size:0.72rem;color:#191c1e;font-family:Inter,sans-serif">${p.t}${p.n>1?' ('+p.n+')':''}${p.fixo?'':' <b style="color:#b36a0e;font-weight:700;font-size:0.6rem">varia/localidade</b>'}</span>`).join('');
+  document.getElementById('exec-parcerias').innerHTML=`
+    <div class="glass" style="border-radius:16px;padding:16px 20px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <span class="material-symbols-outlined" style="font-size:18px;color:#c43f62">handshake</span>
+        <h4 style="font-size:0.82rem;font-weight:700;color:#002a4c;margin:0">Estrutura mobilizada por localidade (${parc} parceiros)</h4>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px">${chips}</div>
+    </div>`;
+}
+
+function renderGeralCharts(){
+  renderExec();
+  const tr=[['Beleza',R.filter(r=>r.trilha==='beleza').length,'#c43f62'],
+            ['Culinária',R.filter(r=>r.trilha==='culinaria').length,'#e68e3c'],
+            ['Só Inicial',R.filter(r=>r.trilha==='inicial').length,'#4BC1EB']].filter(e=>e[1]);
+  donut('c-trilha',tr,'leg-trilha');
+  bar('c-idade',countBy('faixa'),false);
+  bar('c-raca',countBy('raca',{parda:'Parda',preta:'Preta',branca:'Branca',indigena:'Indígena',amarela:'Amarela','prefiro-nao-declarar':'Não declara'}),true);
+  bar('c-escol',countBy('escol'),true);
+  renderSocio();
+}
+
+/* ── Perfil socioeconômico (base = quem preencheu a confirmação) ── */
+const SOCIO_PAL=['#002a4c','#1b5fa8','#4BC1EB','#6d5ba4','#c43f62','#e68e3c','#427459','#9aa0a8','#b36a0e','#00E5FF'];
+function socioEnt(field){
+  const c={};R.forEach(r=>{const v=r[field];if(v)c[v]=(c[v]||0)+1;});
+  return Object.entries(c).sort((a,b)=>b[1]-a[1]).map((e,i)=>[e[0],e[1],SOCIO_PAL[i%SOCIO_PAL.length]]);
+}
+function socioDonut(id,ent){
+  if(CH[id])CH[id].destroy();
+  const el=document.getElementById(id); if(!el) return;
+  const tot=ent.reduce((a,b)=>a+b[1],0);
+  CH[id]=new Chart(el,{type:'doughnut',
+    data:{labels:ent.map(e=>e[0]),datasets:[{data:ent.map(e=>e[1]),backgroundColor:ent.map(e=>e[2]),borderWidth:3,borderColor:'rgba(255,255,255,0.85)',hoverOffset:6}]},
+    options:{cutout:'58%',plugins:{legend:{position:'bottom',labels:{font:{family:'Inter',size:9},padding:7,usePointStyle:true,boxWidth:7}},tooltip:{callbacks:{label:c=>` ${c.label}: ${c.raw} (${tot?Math.round(c.raw/tot*100):0}%)`}}}}});
+}
+function renderSocio(){
+  const base=R.filter(r=>r.sitprof).length;
+  const el=document.getElementById('socio-base'); if(el) el.textContent=base;
+  bar('s-sitprof',socioEnt('sitprof'),true);
+  bar('s-renda',socioEnt('renda'),true);
+  bar('s-temrenda',socioEnt('temrenda'),true);
+  socioDonut('s-aprof',socioEnt('aprof'));
+  socioDonut('s-continuar',socioEnt('continuar'));
+  bar('s-negsit',socioEnt('negsit'),true);
+  bar('s-negocio',socioEnt('negocio'),true);
+  socioDonut('s-formal',socioEnt('formal'));
+  bar('s-perc',socioEnt('percrenda'),true);
+  socioDonut('s-civil',socioEnt('civil'));
+  socioDonut('s-japart',socioEnt('japart'));
+  bar('s-dep',socioEnt('dep').map(e=>[({nao:'Sem dep.','sim-1':'1','sim-2':'2','sim-3+':'3+'}[e[0]]||e[0]),e[1],e[2]]),false);
+  // Tipo de apoio (múltipla escolha)
+  const ca={};R.forEach(r=>(r.apoio||[]).forEach(a=>{if(a)ca[a]=(ca[a]||0)+1;}));
+  const apo=Object.entries(ca).sort((a,b)=>b[1]-a[1]).slice(0,8).map((e,i)=>[e[0],e[1],SOCIO_PAL[i%SOCIO_PAL.length]]);
+  bar('s-apoio',apo,true);
+}
+
+/* ══════════ PARTICIPAÇÃO ══════════ */
+function locCard(nome){
+  const m=locMetrics(nome);
+  const ativa=m.insc>0;
+  const taxa=m.insc?Math.round(m.inicial/m.insc*100):0;
+  const line=(lbl,val,tot,cor,ic,st)=>{
+    const pct=tot?Math.round(val/tot*100):0;
+    return `<div style="margin-bottom:9px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;gap:6px">
+        <span style="font-size:0.74rem;color:#42474f;display:flex;align-items:center;gap:5px;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:15px;color:${cor}">${ic}</span>${lbl}</span>
+        <span style="display:flex;align-items:center;gap:6px">${stBadge(st)}<span style="font-family:Montserrat;font-weight:800;font-size:0.82rem;color:#002a4c">${val}</span></span>
+      </div>
+      <div class="mini-bar"><div class="mini-fill" style="width:${Math.max(pct,ativa&&val?4:0)}%;background:${cor}"></div></div>
+    </div>`;
+  };
+  return `<div class="loc-card" style="${ativa?'':'opacity:.62'}">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+      <div><div style="font-weight:800;font-size:1.05rem;color:#002a4c">${nome}</div>
+      <div style="font-size:0.68rem;color:#737780">${ativa?'em andamento':'aguardando início'}</div></div>
+      ${ativa?`<span class="chip" style="background:rgba(66,116,89,0.12);color:#2d5040">${taxa}% comp.</span>`:`<span class="chip" style="background:rgba(200,217,234,0.35);color:#6b7281">—</span>`}
+    </div>
+    ${line('Inscritas',m.insc,m.insc,'#002a4c','how_to_reg')}
+    ${line('Trilha Inicial',m.inicial,m.insc,'#1b5fa8','footprint', statusTrilha(nome,'inicial'))}
+    ${line('Culinária (presença)',m.culinPres,m.intCulin||m.insc,'#e68e3c','restaurant', statusTrilha(nome,'culinaria'))}
+    ${line('Beleza (presença)',m.belezaPres,m.intBeleza||m.insc,'#c43f62','content_cut', statusTrilha(nome,'beleza'))}
+    <div style="margin-top:12px;padding-top:12px;border-top:1px dashed rgba(0,42,76,0.12);display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:0.72rem;color:#42474f;display:flex;align-items:center;gap:5px"><span class="material-symbols-outlined" style="font-size:16px;color:#427459">workspace_premium</span>Certificadas</span>
+      <span style="font-family:Montserrat;font-weight:800;font-size:1.15rem;color:#427459">${m.cert}</span>
+    </div>
+  </div>`;
+}
+function stateBlock(uf,titulo,cor){
+  const locs=LOCS[uf];
+  const tot=locs.reduce((a,n)=>{const m=locMetrics(n);a.insc+=m.insc;a.inicial+=m.inicial;a.cert+=m.cert;return a;},{insc:0,inicial:0,cert:0});
+  const ativas=locs.filter(n=>locMetrics(n).insc>0).length;
+  return `<div style="margin-bottom:34px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+      <span style="width:38px;height:38px;border-radius:11px;background:${cor}18;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="color:${cor}">${uf==='MG'?'terrain':'waves'}</span></span>
+      <div><h2 style="font-size:1.4rem;font-weight:800;color:#002a4c;margin:0">${titulo}</h2>
+      <span style="font-size:0.75rem;color:#42474f">${locs.length} localidades · ${ativas} ativa(s) · ${tot.insc} inscritas · ${tot.cert} certificadas</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">${locs.map(locCard).join('')}</div>
+  </div>`;
+}
+function renderPart(){
+  document.getElementById('part-body').innerHTML =
+    stateBlock('MG','Minas Gerais','#1b5fa8') + stateBlock('ES','Espírito Santo','#427459');
+}
+
+/* ══════════ BUSCA ══════════ */
+let BF={cidade:new Set(),trilha:new Set(),status:new Set()};
+const STATUS_COL={'Matriculado':'#427459','Lista de espera':'#6d5ba4','Faltou ao evento':'#e68e3c','Desistiu':'#dc2626','Recusou':'#c43f62','Não é de Catas Altas':'#9aa0a8','Duplicada':'#c8d9ea'};
+function buscaFilters(){
+  const dims=[['cidade','Cidade'],['trilha','Trilha']];
+  const lblT={culinaria:'Culinária',beleza:'Beleza',inicial:'Inicial','':'—'};
+  document.getElementById('busca-filters').innerHTML=dims.map(([dim,label])=>{
+    const vals=[...new Set(R.map(r=>r[dim]).filter(Boolean))];
+    return `<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-right:10px">
+      <span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;color:#737780;letter-spacing:0.06em">${label}:</span>
+      ${vals.map(v=>{const on=BF[dim].has(v);const lab=dim==='trilha'?(lblT[v]||v):v;
+        return `<span class="fchip" onclick="toggleBF('${dim}','${v.replace(/'/g,"\\'")}')" style="border-color:${on?'#4BC1EB':'#e0e3e5'};background:${on?'rgba(75,193,235,0.14)':'#fff'};color:#191c1e">${lab}</span>`;}).join('')}
+    </div>`;
+  }).join('');
+}
+function toggleBF(dim,val){BF[dim].has(val)?BF[dim].delete(val):BF[dim].add(val);buscaFilters();renderBusca();}
+function renderBusca(){
+  const q=norm(document.getElementById('q').value);
+  let list=R.filter(r=>{
+    if(q && !norm(r.nome).includes(q)) return false;
+    for(const dim in BF){if(BF[dim].size && !BF[dim].has(r[dim])) return false;}
+    return true;
+  });
+  document.getElementById('busca-count').textContent=`${list.length} pessoa(s)`;
+  const trLbl={culinaria:'Culinária',beleza:'Beleza',inicial:'Inicial','':'—'};
+  const trC={culinaria:'#e68e3c',beleza:'#c43f62',inicial:'#4BC1EB','':'#9aa0a8'};
+  document.getElementById('people-tbl').innerHTML=`
+    <thead><tr><th>Nome</th><th>Cidade</th><th>Trilha</th><th>Inicial</th><th>Dias</th><th>Cert.</th><th>Contato</th></tr></thead>
+    <tbody>${list.slice(0,200).map(r=>`
+      <tr>
+        <td style="font-weight:700;color:#002a4c">${r.nome}</td>
+        <td>${r.cidade}</td>
+        <td><span style="display:inline-flex;align-items:center;gap:5px;font-size:0.72rem;font-weight:700;color:${trC[r.trilha]}"><span style="width:8px;height:8px;border-radius:50%;background:${trC[r.trilha]}"></span>${trLbl[r.trilha]}</span></td>
+        <td>${r.presInicial?'<span style="color:#427459;font-weight:700">✓</span>':'<span style="color:#c8d9ea">—</span>'}</td>
+        <td style="font-family:Montserrat;font-weight:700;color:${r.dias?'#002a4c':'#c8d9ea'}">${r.dias||'0'}/5</td>
+        <td>${r.cert?'<span class="material-symbols-outlined" style="color:#427459;font-size:20px" title="Certificada">workspace_premium</span>':'<span style="color:#c8d9ea">—</span>'}</td>
+        <td><a class="wa-btn" title="No painel real abre a conversa"><span class="material-symbols-outlined" style="font-size:15px">chat</span>${r.wpp}</a></td>
+      </tr>`).join('')}</tbody>`;
+}
+
+/* ══════════ PLATAFORMA ══════════ */
+const TLBL={culinaria:'Culinária',beleza:'Beleza','':'sem trilha'};
+const TC={culinaria:'#e68e3c',beleza:'#c43f62','':'#9aa0a8'};
+function vgPlat(){
+  const at=PLAT.ativas.length, conc=PLAT.ativas.filter(a=>a.modulos>=PLAT.modulos).length;
+  const adesao=Math.round(at/PLAT.cadastradas*100);
+  const rows=[
+    ['Cadastradas no app',PLAT.cadastradas,PLAT.cadastradas,'#002a4c','how_to_reg'],
+    ['Já acessaram',at,PLAT.cadastradas,'#4BC1EB','login'],
+    ['Concluíram os 9 módulos',conc,PLAT.cadastradas,'#427459','workspace_premium'],
+  ];
+  document.getElementById('vg-plat').innerHTML=`
+    <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:14px">
+      <span style="font-family:Montserrat;font-weight:800;font-size:2.4rem;color:#4BC1EB;line-height:1">${adesao}%</span>
+      <span style="font-size:0.78rem;color:#42474f">de adesão digital<br><span style="color:#737780;font-size:0.7rem">${at} de ${PLAT.cadastradas} alunas acessaram o app</span></span>
+    </div>
+    ${rows.map(r=>{const pct=Math.round(r[1]/r[2]*100);return `<div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
+        <span style="font-size:0.76rem;color:#42474f;display:flex;align-items:center;gap:5px"><span class="material-symbols-outlined" style="font-size:15px;color:${r[3]}">${r[4]}</span>${r[0]}</span>
+        <span style="font-family:Montserrat;font-weight:800;font-size:0.85rem;color:#002a4c">${r[1]}</span>
+      </div>
+      <div class="mini-bar"><div class="mini-fill" style="width:${Math.max(pct,3)}%;background:${r[3]}"></div></div>
+    </div>`;}).join('')}`;
+}
+function renderPlat(){
+  const at=PLAT.ativas.length, conc=PLAT.ativas.filter(a=>a.modulos>=PLAT.modulos).length;
+  const adesao=Math.round(at/PLAT.cadastradas*100);
+  const funnel=[
+    {lbl:'Cadastradas no app',v:PLAT.cadastradas,c:'#002a4c',ic:'how_to_reg',sub:'importadas da inscrição'},
+    {lbl:'Acessaram',v:at,c:'#4BC1EB',ic:'login',sub:'fizeram login (CPF)'},
+    {lbl:'Concluíram',v:conc,c:'#427459',ic:'workspace_premium',sub:'os 9 módulos'},
+  ];
+  const base=PLAT.cadastradas||1;
+  const kpis=[
+    {lbl:'Cadastradas no app',v:PLAT.cadastradas,sub:'99 importadas',c:'#002a4c',ic:'smartphone'},
+    {lbl:'Adesão digital',v:adesao+'%',sub:`${at} acessaram`,c:'#4BC1EB',ic:'ads_click'},
+    {lbl:'Concluíram a formação',v:conc,sub:'9/9 módulos',c:'#427459',ic:'workspace_premium'},
+    {lbl:'XP máximo',v:Math.max(...PLAT.ativas.map(a=>a.xp)),sub:'engajamento gamificado',c:'#e68e3c',ic:'bolt'},
+  ];
+  const funBar=`<div class="glass" style="border-radius:22px;padding:28px;margin-bottom:18px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <h3 style="font-size:1.1rem;font-weight:700;color:#002a4c;margin:0">Adesão à plataforma</h3>
+      <span style="font-size:0.72rem;color:#b36a0e;font-weight:600">⚠ adesão inicial baixa — oportunidade de mobilização</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">${funnel.map((s,i)=>{const pct=Math.round(s.v/base*100);return `<div style="text-align:center;position:relative">
+      ${i<2?`<div style="position:absolute;right:-9px;top:34px;color:#c8d9ea;font-size:1.2rem">›</div>`:''}
+      <div style="width:58px;height:58px;border-radius:15px;background:${s.c}18;display:flex;align-items:center;justify-content:center;margin:0 auto 9px"><span class="material-symbols-outlined" style="font-size:29px;color:${s.c}">${s.ic}</span></div>
+      <div style="font-family:Montserrat;font-weight:800;font-size:2rem;color:#002a4c;line-height:1">${s.v}</div>
+      <div style="font-size:0.82rem;font-weight:700;color:#002a4c;margin-top:3px">${s.lbl}</div>
+      <div style="font-size:0.66rem;color:#737780">${s.sub}</div>
+      <div class="mini-bar" style="margin:9px 12px 0"><div class="mini-fill" style="width:${Math.max(pct,3)}%;background:${s.c}"></div></div>
+      <div style="font-size:0.64rem;color:${s.c};font-weight:700;margin-top:4px">${pct}% dos cadastros</div>
+    </div>`;}).join('')}</div></div>`;
+  const kpiRow=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px">${kpis.map(k=>`
+    <div class="glass" style="border-radius:18px;padding:22px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;right:0;width:60px;height:60px;background:${k.c}12;border-radius:0 0 0 100%"></div>
+      <div style="padding:9px;background:rgba(255,255,255,0.65);border-radius:11px;display:inline-flex;margin-bottom:12px"><span class="material-symbols-outlined" style="font-size:23px;color:${k.c}">${k.ic}</span></div>
+      <p style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:#42474f;margin:0 0 3px">${k.lbl}</p>
+      <div style="font-family:Montserrat;font-weight:800;font-size:2.1rem;color:#002a4c;line-height:1">${k.v}</div>
+      <div style="font-size:0.68rem;color:#42474f;margin-top:4px">${k.sub}</div>
+    </div>`).join('')}</div>`;
+  // por localidade/trilha
+  const locRows=PLAT.porLocal.map(l=>{const pct=l.alunas?Math.round(l.ativas/l.alunas*100):0;return `
+    <tr>
+      <td style="font-weight:700;color:#002a4c">${l.cidade}</td>
+      <td><span style="display:inline-flex;align-items:center;gap:5px;font-size:0.74rem;font-weight:700;color:${TC[l.trilha]}"><span style="width:8px;height:8px;border-radius:50%;background:${TC[l.trilha]}"></span>${TLBL[l.trilha]}</span></td>
+      <td style="font-family:Montserrat;font-weight:700;color:#002a4c">${l.alunas}</td>
+      <td style="font-family:Montserrat;font-weight:700;color:${l.ativas?'#427459':'#c8d9ea'}">${l.ativas}</td>
+      <td style="min-width:120px"><div class="mini-bar"><div class="mini-fill" style="width:${Math.max(pct,l.ativas?4:0)}%;background:#4BC1EB"></div></div><span style="font-size:0.64rem;color:#737780">${pct}% ativas</span></td>
+    </tr>`;}).join('');
+  const locTable=`<div class="glass" style="border-radius:18px;overflow:hidden;margin-bottom:18px">
+    <div style="padding:20px 22px 12px"><h3 style="font-size:1rem;font-weight:700;color:#002a4c;margin:0">Cadastro no app por localidade e trilha</h3></div>
+    <div style="overflow-x:auto"><table class="people">
+      <thead><tr><th>Cidade</th><th>Trilha</th><th>Cadastradas</th><th>Ativas</th><th>Adesão</th></tr></thead>
+      <tbody>${locRows}</tbody></table></div></div>`;
+  // ranking ativas
+  const rk=PLAT.ativas.slice().sort((a,b)=>b.xp-a.xp).map((a,i)=>`
+    <tr>
+      <td style="font-family:Montserrat;font-weight:800;color:#4BC1EB">${i+1}º</td>
+      <td style="font-weight:700;color:#002a4c">${a.nome}</td>
+      <td>${a.cidade}</td>
+      <td><span style="display:inline-flex;align-items:center;gap:5px;font-size:0.74rem;font-weight:700;color:${TC[a.trilha]}"><span style="width:8px;height:8px;border-radius:50%;background:${TC[a.trilha]}"></span>${TLBL[a.trilha]}</span></td>
+      <td style="min-width:110px"><div class="mini-bar"><div class="mini-fill" style="width:${a.modulos/PLAT.modulos*100}%;background:#427459"></div></div><span style="font-size:0.64rem;color:#737780">${a.modulos}/${PLAT.modulos} módulos</span></td>
+      <td style="font-family:Montserrat;font-weight:800;color:#e68e3c">${a.xp}<span style="font-size:0.6rem;color:#737780;font-weight:600"> XP</span></td>
+      <td><span class="chip" style="background:rgba(230,142,60,0.14);color:#b36a0e">🔥 ${a.streak}d</span></td>
+      <td style="color:#42474f">${a.ultimo}</td>
+    </tr>`).join('');
+  const rkTable=`<div class="glass" style="border-radius:18px;overflow:hidden">
+    <div style="padding:20px 22px 12px"><h3 style="font-size:1rem;font-weight:700;color:#002a4c;margin:0">Alunas ativas no app</h3>
+    <span style="font-size:0.74rem;color:#737780">quem está de fato usando a formação digital</span></div>
+    <div style="overflow-x:auto"><table class="people">
+      <thead><tr><th>#</th><th>Nome</th><th>Cidade</th><th>Trilha</th><th>Progresso</th><th>XP</th><th>Sequência</th><th>Último acesso</th></tr></thead>
+      <tbody>${rk}</tbody></table></div></div>`;
+  document.getElementById('plat-body').innerHTML=funBar+kpiRow+locTable+rkTable;
+}
+
+/* ══════════ DIÁRIO DE CAMPO ══════════ */
+function openLB(src){ document.getElementById('lightbox-img').src=src; document.getElementById('lightbox').style.display='flex'; }
+function renderDiario(){
+  const pd=s=>{const p=String(s||'').split('/'); return p.length>=2?new Date(+(p[2]||2026),(+p[1])-1,+p[0]):new Date(0);};
+  const d=(DIARIO||[]).slice().sort((a,b)=>pd(a.data)-pd(b.data));
+  const totFotos=d.reduce((a,e)=>a+((e.fotos||[]).length),0);
+  const totPres=d.reduce((a,e)=>a+(e.alunos||0),0);
+  const res=document.getElementById('diario-resumo');
+  if(res) res.innerHTML=[['event',d.length,'dias registrados'],['groups',totPres,'presenças somadas'],['photo_camera',totFotos,'fotos']]
+    .map(x=>`<span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.6);border:1px solid rgba(0,42,76,0.08);border-radius:12px;padding:8px 14px"><span class="material-symbols-outlined" style="font-size:18px;color:#1b5fa8">${x[0]}</span><b style="font-family:Montserrat;font-weight:800;color:#002a4c">${x[1]}</b> <span style="font-size:0.72rem;color:#42474f">${x[2]}</span></span>`).join('');
+  const trC=e=>{const s=(e.ativ||'').toLowerCase(); return s.indexOf('culin')>=0?'#e68e3c':(s.indexOf('belez')>=0?'#c43f62':'#4BC1EB');};
+  const body=document.getElementById('diario-body');
+  if(!body) return;
+  if(!d.length){ body.innerHTML='<div class="glass" style="border-radius:16px;padding:24px;color:#737780">Nenhum registro de diário de campo ainda.</div>'; return; }
+  const stat=(lbl,val)=>(val||val===0)&&val!==''?`<div style="text-align:center;min-width:62px"><div style="font-family:Montserrat;font-weight:800;font-size:1.4rem;color:#002a4c;line-height:1">${val}</div><div style="font-size:0.58rem;color:#42474f;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px">${lbl}</div></div>`:'';
+  const names=arr=>(arr||[]).map(m=>(m&&m.name)?m.name:m).filter(Boolean);
+  body.innerHTML=d.map(e=>{
+    const c=trC(e);
+    const ntics=names(e.ntics_team), spons=names(e.sponsor_team);
+    const fotos=(e.fotos||[]).map(u=>`<img src="${u}" loading="lazy" onclick="openLB('${u}')" style="width:100%;height:96px;object-fit:cover;border-radius:8px;cursor:zoom-in;background:#e5eff7;border:1px solid rgba(0,42,76,0.06)">`).join('');
+    return `<div class="glass" style="border-radius:18px;padding:22px;margin-bottom:16px;border-left:4px solid ${c}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:14px">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span style="font-family:Montserrat;font-weight:800;font-size:1.25rem;color:#002a4c">${e.data}</span>
+            <span style="background:${c}18;color:${c};font-size:0.7rem;font-weight:700;padding:3px 11px;border-radius:999px">${e.ativ||'—'}</span>
+          </div>
+          <div style="font-size:0.78rem;color:#42474f;margin-top:4px"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:-2px">place</span> ${e.local||'—'}${e.inicio?` · ${e.inicio}${e.fim?'–'+e.fim:''}`:''}</div>
+        </div>
+        ${e.drive?`<a href="${e.drive}" target="_blank" style="font-size:0.72rem;font-weight:600;color:#4BC1EB;text-decoration:none;display:flex;align-items:center;gap:4px"><span class="material-symbols-outlined" style="font-size:15px">folder_open</span>pasta no Drive</a>`:''}
+      </div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center;padding:12px 0;border-top:1px solid rgba(0,42,76,0.06);border-bottom:1px solid rgba(0,42,76,0.06);margin-bottom:12px">
+        ${stat('Presentes',e.alunos)}${stat('Mulheres',e.women)}${stat('Homens',e.men)}${stat('Novas',e.novos)}${stat('Profs.',e.profs)}
+        ${e.repetidos?`<span class="chip" style="background:rgba(109,91,164,0.12);color:#6d5ba4">turma recorrente</span>`:''}
+      </div>
+      ${(ntics.length||spons.length)?`<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px">
+        ${ntics.map(n=>`<span style="font-size:0.68rem;background:rgba(0,42,76,0.06);border-radius:999px;padding:3px 10px">${n} · <b style="color:#737780;font-weight:600">NTICS</b></span>`).join('')}
+        ${spons.map(n=>`<span style="font-size:0.68rem;background:rgba(75,193,235,0.12);border-radius:999px;padding:3px 10px">${n} · <b style="color:#006782;font-weight:600">Samarco</b></span>`).join('')}
+      </div>`:''}
+      ${e.obs?`<div style="font-size:0.76rem;color:#42474f;background:rgba(0,42,76,0.03);border-radius:10px;padding:10px 12px;margin-bottom:12px;line-height:1.4">“${e.obs}”</div>`:''}
+      ${fotos?`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px">${fotos}</div>`:'<div style="font-size:0.72rem;color:#9aa0a8">Sem fotos neste registro.</div>'}
+    </div>`;
+  }).join('');
+}
+
+/* ══════════ RENDER + AUTH + FETCH ══════════ */
+function renderAll(){renderFunnel();renderKPIs();renderGeralCharts();vgPlat();renderPart();renderPlat();renderDiario();buscaFilters();renderBusca();}
+
+function auth(){
+  if(document.getElementById('pwd').value===SENHA){
+    document.getElementById('pwd-screen').style.display='none';
+    document.getElementById('dash').style.display='block';
+    renderAll();
+    loadData();
+    setInterval(loadData, 5*60*1000);
+  } else {
+    document.getElementById('pwd-err').style.display='block';
+    const i=document.getElementById('pwd'); i.value=''; i.focus();
+  }
+}
+
+async function loadData(){
+  const badge=document.getElementById('live-ts');
+  try{
+    const [aRes,pRes,dRes]=await Promise.allSettled([
+      fetch(APPS_URL+'?pwd='+encodeURIComponent(SENHA)+'&t='+Date.now()).then(r=>r.json()),
+      fetch(SB_URL,{method:'POST',headers:{'apikey':SB_KEY,'Content-Type':'application/json'},body:'{}'}).then(r=>r.json()),
+      fetch(DC_URL,{method:'POST',headers:{'apikey':DC_KEY,'Authorization':'Bearer '+DC_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_projeto:DC_PROJ})}).then(r=>r.json())
+    ]);
+    if(aRes.status==='fulfilled' && aRes.value && Array.isArray(aRes.value.registros) && aRes.value.registros.length && aRes.value.registros[0].dias!==undefined){
+      DATA=aRes.value; R=DATA.registros;
+      if(badge) badge.textContent='ao vivo · '+new Date().toLocaleString('pt-BR',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+    } else if(badge){ badge.textContent='prévia (dados de exemplo)'; }
+    if(pRes.status==='fulfilled' && pRes.value && typeof pRes.value.cadastradas!=='undefined'){ PLAT=pRes.value; }
+    if(dRes.status==='fulfilled' && Array.isArray(dRes.value)){ DIARIO=dRes.value; }
+  }catch(e){ console.warn('load falhou',e); if(badge) badge.textContent='prévia (offline)'; }
+  renderAll();
+}
+document.getElementById('pwd').addEventListener('keydown',e=>e.key==='Enter'&&auth());
+</script>
+</body>
+</html>
