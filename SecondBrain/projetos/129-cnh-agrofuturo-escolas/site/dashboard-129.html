@@ -1444,11 +1444,23 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#C8102E;box-sh
 
   <!-- ============ PAGE: ORÇAMENTO ============ -->
   <div class="page" data-page="orcamento">
+    <div class="mb-4">
+      <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">4 · Orçamento & Fornecedores</p>
+      <h2 class="font-headline-lg text-headline-lg text-primary">Como o R$ 600k captado vai virar projeto</h2>
+      <p class="text-on-surface-variant mt-1">Consolidado por categoria + item-a-item na sub-aba 4.1 · Fornecedores críticos para o pré-campo na 4.2.</p>
+    </div>
+
+    <div class="flex gap-2 overflow-x-auto pb-2 mb-4 border-b border-outline-variant" data-subnav="orcamento">
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-semibold bg-primary text-on-primary" data-sub="4.1">💰 4.1 Orçamento</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="4.2">🏢 4.2 Fornecedores</button>
+    </div>
+
+    <!-- ========== 4.1 ORÇAMENTO ========== -->
+    <div class="subpage active" data-sub="4.1">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-4">
       <div>
-        <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">4 · Orçamento consolidado</p>
-        <h2 class="font-headline-lg text-headline-lg text-primary">Previsto × Cotado por categoria</h2>
-        <p class="text-on-surface-variant mt-1">76 linhas item-a-item · 20 categorias · cotação IA + fornecedores cadastrados NTICS.</p>
+        <h3 class="font-headline-sm text-headline-sm text-primary">Previsto × Cotado por categoria</h3>
+        <p class="text-body-sm text-outline mt-1">76 linhas item-a-item · 20 categorias · cotação IA + fornecedores cadastrados NTICS.</p>
       </div>
       <a href="https://docs.google.com/spreadsheets/d/11lXDXLoiw4VgB79zAk8JKuKsB19mpQnx86B5fQTNhbQ/edit" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-lg text-body-sm font-medium hover:bg-primary-container transition-colors">
         <span class="material-symbols-outlined text-[18px]">open_in_new</span>Abrir planilha
@@ -1507,6 +1519,63 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#C8102E;box-sh
         <iframe src="https://docs.google.com/spreadsheets/d/11lXDXLoiw4VgB79zAk8JKuKsB19mpQnx86B5fQTNhbQ/preview" allowfullscreen></iframe>
       </div>
     </div>
+    </div>
+    <!-- /4.1 -->
+
+    <!-- ========== 4.2 FORNECEDORES ========== -->
+    <div class="subpage" data-sub="4.2">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-4">
+        <div>
+          <h3 class="font-headline-sm text-headline-sm text-primary">Fornecedores críticos para o pré-campo</h3>
+          <p class="text-body-sm text-outline mt-1">~18 nomes que precisam de contratação NTICS agora (equipe, Feira Shopping Pantanal, plataforma Replique, assessoria) + 3 kits de compra local pelo produtor de cada cidade MT.</p>
+        </div>
+        <span class="chip chip-yellow">Julho 2026 · foco em ligar</span>
+      </div>
+
+      <!-- BLOCO A · Estratégia em 2 frentes -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md mb-gap-md">
+        <div class="card border-l-4 border-primary">
+          <div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-primary">business_center</span><h4 class="font-semibold text-primary">Contratação centralizada · NTICS</h4></div>
+          <p class="text-body-sm">Tudo que é <strong>itinerante ou de evento</strong>: equipe (produtor, biólogo/técnico, fotógrafo/light painting, storyteller), Feira Shopping Pantanal (espaço, palco, som, estandes, cenografia), plataforma "AgroFuturo Digital" da Replique, KV/design e assessoria de imprensa. Um contrato NTICS para as 3 cidades MT.</p>
+        </div>
+        <div class="card border-l-4 border-secondary-container">
+          <div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined" style="color:#6f5900">storefront</span><h4 class="font-semibold" style="color:#6f5900">Compra local pelo produtor</h4></div>
+          <p class="text-body-sm">Materiais soltos das 7 oficinas (sementes MT, papelão, cana/milho representativos, papel machê, revistas para colagem, papelaria em geral). O produtor local de cada cidade compra no comércio da cidade, exige NF, prazo de <strong>2 semanas antes da chegada</strong> da equipe.</p>
+        </div>
+      </div>
+
+      <!-- BLOCO D · Filtros -->
+      <div class="card mb-gap-md">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2 mr-auto"><span class="material-symbols-outlined text-ch-red-accent">filter_alt</span>Fornecedores centralizados</h3>
+          <input type="search" id="s-search" placeholder="🔎 Buscar fornecedor…" class="w-full md:w-64">
+          <select id="s-cat"><option value="">Todas categorias</option></select>
+          <select id="s-status">
+            <option value="">Todos status</option>
+            <option value="a-contatar">⏳ A contatar</option>
+            <option value="cotado">📞 Cotado</option>
+            <option value="contratado">✓ Contratado</option>
+          </select>
+          <button id="s-reset" class="px-3 py-2 border border-outline-variant rounded-lg text-body-sm hover:bg-surface-container-highest">Limpar</button>
+        </div>
+        <div id="grid-suppliers" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        <p class="text-body-sm text-outline mt-3" id="s-count">Mostrando — fornecedores</p>
+      </div>
+
+      <!-- BLOCO C · Compra local por cidade -->
+      <div class="card">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2"><span class="material-symbols-outlined" style="color:#6f5900">location_on</span>Kit de compra local · por cidade</h3>
+          <span class="text-body-sm text-outline" id="kits-total">Total de itens locais: —</span>
+        </div>
+        <div class="bg-ch-red-light border-l-4 border-primary rounded-r-lg p-4 mb-4 text-body-sm text-primary">
+          <strong>Regras para o produtor local:</strong> exigir <strong>NF sempre</strong> · priorizar comércio da cidade · reaproveitar entre cidades quando fizer sentido (fotografias, cavaletes, kraft) · comprar até <strong>2 semanas antes</strong> da chegada da equipe · reembolso NTICS via Bruna com NF anexada.
+        </div>
+        <div id="grid-kits" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+      </div>
+    </div>
+    <!-- /4.2 -->
+
   </div>
 
   <!-- ============ PAGE: DECISÕES ============ -->
@@ -2086,6 +2155,158 @@ document.getElementById('bench-reset').addEventListener('click', () => {
   benchCat.value = ''; benchOf.value = ''; renderBenchmarks();
 });
 renderBenchmarks();
+
+// ============= FORNECEDORES (4.2) =============
+const SUPPLIERS = [
+  // Equipe itinerante (bloco 1.1)
+  {cat:"Equipe itinerante", nome:"Produtor(a) itinerante", cidade:"Itinerante · 3 semanas MT", uf:"—", just:"Um único produtor cobre as 3 cidades MT em semanas alternadas com o 128. Mesmo profissional dos dois projetos: aproveita curva de aprendizado e reduz negociação. Base em Cuiabá com deslocamento por carro.", tel:"", servico:"R$ 3.000/semana × 3 = R$ 9k", status:"a-contatar"},
+  {cat:"Equipe itinerante", nome:"Farmoon (MT)", cidade:"Cuiabá", uf:"MT", just:"Ana Xavier confirmou 02/07: 'seria perfeito' para o 129. Base técnica agroecológica em MT · domina etanol + agro 4.0 · perfil que precisamos para as oficinas O4 (usina etanol) e O2 (drone real cedido).", tel:"", servico:"Biólogo(a)/técnico(a) itinerante · R$ 3.000/semana × 3 = R$ 9k", status:"a-contatar"},
+  {cat:"Equipe itinerante", nome:"Instituto Moleque Mateiro", cidade:"Rio de Janeiro", uf:"RJ", just:"Segunda âncora técnica confirmada pela Ana em 02/07. Backup do Farmoon se por algum motivo não rolar. Referência nacional em educação ambiental com jovens.", tel:"", servico:"Alternativa Farmoon · biólogo/técnico", status:"a-contatar"},
+  {cat:"Equipe itinerante", nome:"Marcelo Cardoso Filmes / DGLG Imagem", cidade:"MT", uf:"MT", just:"Fotógrafo + editor de vídeo curto + light painting (necessário na O3 · Fotografia MinC). Preferência local MT para reduzir custo de deslocamento e agilizar entrega dos vídeos curtos por cidade (rubrica captação vídeo = R$ 0).", tel:"", servico:"R$ 2.000/semana × 3 = R$ 6k", status:"a-contatar"},
+  {cat:"Equipe itinerante", nome:"Storyteller", cidade:"Itinerante · 3 semanas", uf:"—", just:"Apoio narrativo nas oficinas e no Desafio AgroFuturo (O7 · culminância). Formato Contação de História conta como formato MinC.", tel:"", servico:"R$ 2.000/semana × 3 = R$ 6k", status:"a-contatar"},
+
+  // Apoio local (bloco 1.2)
+  {cat:"Apoio local por cidade", nome:"Apoios locais Tangará da Serra", cidade:"Tangará da Serra", uf:"MT", just:"3 apoios da rede local (professores, licenciandos, monitores da escola) para turmas de 120. Concessionária Max Case pode indicar. Também compram os materiais das oficinas na cidade.", tel:"", servico:"3 × R$ 1.000/semana = R$ 3k", status:"a-contatar"},
+  {cat:"Apoio local por cidade", nome:"Apoios locais Água Boa", cidade:"Água Boa", uf:"MT", just:"3 apoios da rede local. Cidade pequena, contratação via secretaria de educação municipal ou UNEMAT campus Água Boa. Produtor local aqui também apoia a logística de deslocamento (720 km por carro).", tel:"", servico:"3 × R$ 1.000/semana = R$ 3k", status:"a-contatar"},
+  {cat:"Apoio local por cidade", nome:"Apoios locais Cuiabá", cidade:"Cuiabá", uf:"MT", just:"3 apoios · semana inclui Feira Shopping Pantanal (5 dias) que exige mais gente. Concessionária Agritex (Fazenda Conectada) já é ponte. Produtor local apoia também a Feira.", tel:"", servico:"3 × R$ 1.000/semana = R$ 3k", status:"a-contatar"},
+
+  // Feira Shopping Pantanal (bloco 8)
+  {cat:"Feira Shopping Pantanal Cuiabá", nome:"Shopping Pantanal (via Rabobank)", cidade:"Cuiabá", uf:"MT", just:"Espaço do estacionamento por 5 dias para a Feira de Encerramento (09-13/11). Contato via Rabobank (parceiro anterior). Negociar contrapartida cultural para reduzir o custo do aluguel (cotação IA veio 25% acima).", tel:"", servico:"Aluguel do espaço · 5 dias · R$ 10k", status:"a-contatar"},
+  {cat:"Feira Shopping Pantanal Cuiabá", nome:"Metta Stage · J.Q. Vargas · Loc Tok", cidade:"Cuiabá", uf:"MT", just:"Três referências locais em MT para palco 8×5m coberto + som + iluminação por 5 dias. J.Q. Vargas também fornece microfones para o Desafio AgroFuturo (O7). Loc Tok para TV/projetor.", tel:"", servico:"Palco + som + iluminação · 5 dias · R$ 8k-12k", status:"a-contatar"},
+  {cat:"Feira Shopping Pantanal Cuiabá", nome:"Tendas do Colombo MT", cidade:"Cuiabá", uf:"MT", just:"Estandes das tendas (4-6 unidades × 5 dias) para os parceiros na Feira. Fornecedor local em Cuiabá. Cotação IA em linha com o previsto (R$ 1.100/tenda).", tel:"", servico:"5 estandes · 5 dias · R$ 5,5k", status:"a-contatar"},
+  {cat:"Feira Shopping Pantanal Cuiabá", nome:"Grafstock · Centrografica", cidade:"Cuiabá", uf:"MT", just:"Cenografia da Feira (backdrop + arte + decoração agro 4.0) com identidade Case IH. Duas referências gráficas locais que já executam material para Case IH.", tel:"", servico:"Cenografia · R$ 5k", status:"a-contatar"},
+  {cat:"Feira Shopping Pantanal Cuiabá", nome:"Produtora local + coord NTICS", cidade:"Cuiabá", uf:"MT", just:"Curadoria dos parceiros da Feira (institutos, escolas, empresas de agro 4.0 locais). Combinação produtora local (contato de campo) + coordenação NTICS (padrão editorial).", tel:"", servico:"Curadoria · R$ 4k", status:"a-contatar"},
+
+  // Plataforma + design (bloco 12)
+  {cat:"Plataforma + design", nome:"Replique", cidade:"Remoto", uf:"—", just:"Fornecedor confirmado da plataforma \"AgroFuturo Digital\": área do estudante · gamificação · certificação. Case IH branding. Ana Xavier alinhou como padrão dos dois projetos CNH. Marco crítico item aberto R2.", tel:"", servico:"Plataforma AgroFuturo Digital · valor a fechar em julho", status:"cotado"},
+  {cat:"Plataforma + design", nome:"Ideias Quânticas", cidade:"—", uf:"—", just:"Designer de referência para KV Case IH + carrossel + convite + certificados + material da Feira. Cotação IA veio 50% acima do previsto (R$ 3k vs R$ 2k) · ampliar escopo ou renegociar.", tel:"", servico:"KV Case IH + peças · R$ 2k-3k", status:"a-contatar"},
+
+  // Assessoria + cobertura (blocos 9, 10)
+  {cat:"Assessoria + cobertura", nome:"Orantes.C Assessoria", cidade:"—", uf:"—", just:"Assessoria de imprensa pré + durante + pós do projeto (3 Desafios AgroFuturo + Feira Shopping Pantanal + exposição itinerante). Referência da Bruna. Cotação em linha com o previsto (R$ 3-3,5k).", tel:"", servico:"Assessoria de imprensa · R$ 3,5k", status:"a-contatar"},
+  {cat:"Assessoria + cobertura", nome:"Fotógrafo Feira Shopping Pantanal", cidade:"Cuiabá", uf:"MT", just:"3 de 5 diárias na Feira em Cuiabá. Se o fotógrafo itinerante (Marcelo Cardoso Filmes / DGLG) já resolver, essa rubrica cai. Cotação Centro-Oeste sai 20-30% abaixo do Sudeste.", tel:"", servico:"3 diárias · R$ 1,2k cada = R$ 3,6k", status:"a-contatar"},
+
+  // Desafio AgroFuturo (bloco 6.7)
+  {cat:"Desafio AgroFuturo", nome:"JFY Marcenaria", cidade:"—", uf:"—", just:"Cenografia agro 4.0 do Desafio AgroFuturo (O7). Marcenaria pode executar a estrutura que Ana Xavier está desenhando (item aberto R4: NÃO paletes, referência inovação/fábrica). Aguardar mockup da Ana antes de contratar.", tel:"", servico:"Cenografia inovação/agro 4.0 · R$ 500 (bruto)", status:"a-contatar"},
+];
+
+const CIDADES_KITS = [
+  {cidade:"Tangará da Serra", uf:"MT", data:"14-18/09", concessionaria:"Max Case"},
+  {cidade:"Água Boa", uf:"MT", data:"28/09 - 02/10", concessionaria:"—"},
+  {cidade:"Cuiabá", uf:"MT", data:"02-06/11 · Feira 09-13/11", concessionaria:"Agritex"},
+];
+
+// Itens de compra local (extraídos do BUDGET pelas obs/fornecedor)
+const LOCAL_HINTS_OBS = ["coletar", "coleta", "compra local", "regionais", "reciclados", "cessão gratuita", "feira", "impressão local", "sob demanda", "reutilizar", "papelaria", "celular do aluno", "doação"];
+const LOCAL_HINTS_FORN = ["escola", "feira livre", "mercado/atacado", "papelaria", "coleta local", "agropecuária", "supermercado", "atacado", "doação"];
+const LOCAL_ITEMS = BUDGET.filter(x => {
+  const obs = (x.o || '').toLowerCase();
+  const forn = (x.f || '').toLowerCase();
+  if (LOCAL_HINTS_OBS.some(h => obs.includes(h))) return true;
+  if (LOCAL_HINTS_FORN.some(h => forn.includes(h))) return true;
+  return false;
+});
+
+const gridSup = document.getElementById('grid-suppliers');
+const selSupCat = document.getElementById('s-cat');
+const selSupStat = document.getElementById('s-status');
+const inpSupSearch = document.getElementById('s-search');
+const supCount = document.getElementById('s-count');
+[...new Set(SUPPLIERS.map(s => s.cat))].forEach(c => {
+  const opt = document.createElement('option'); opt.value = c; opt.textContent = c; selSupCat.appendChild(opt);
+});
+
+const CAT_ICON = {
+  "Equipe itinerante":"groups",
+  "Apoio local por cidade":"location_on",
+  "Feira Shopping Pantanal Cuiabá":"storefront",
+  "Plataforma + design":"devices",
+  "Assessoria + cobertura":"campaign",
+  "Desafio AgroFuturo":"emoji_events",
+};
+
+function statusPill(st){
+  if(st === 'contratado') return '<span class="chip chip-green">✓ Contratado</span>';
+  if(st === 'cotado') return '<span class="chip chip-blue">📞 Cotado</span>';
+  return '<span class="chip chip-orange">⏳ A contatar</span>';
+}
+
+function renderSuppliers(){
+  const search = inpSupSearch.value.toLowerCase().trim();
+  const cat = selSupCat.value;
+  const st = selSupStat.value;
+  const filtered = SUPPLIERS.filter(s => {
+    if(cat && s.cat !== cat) return false;
+    if(st && s.status !== st) return false;
+    if(search){
+      const hay = (s.nome + ' ' + s.cidade + ' ' + s.just + ' ' + s.servico + ' ' + s.cat).toLowerCase();
+      if(!hay.includes(search)) return false;
+    }
+    return true;
+  });
+  gridSup.innerHTML = '';
+  filtered.forEach(s => {
+    const icon = CAT_ICON[s.cat] || 'business';
+    const searchUrl = 'https://www.google.com/search?q=' + encodeURIComponent(s.nome + ' ' + s.cidade + ' telefone contato');
+    const telHtml = s.tel && s.tel.trim() ? `<a href="tel:${s.tel.replace(/\s+/g,'')}" class="font-semibold text-primary">${s.tel}</a>` : '<span class="text-outline">⏳ a buscar</span>';
+    const div = document.createElement('div');
+    div.className = 'card flex flex-col gap-2';
+    div.style.padding = '18px';
+    div.innerHTML = `
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-ch-red-light flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary" style="font-size:18px">${icon}</span></div>
+          <div>
+            <p class="font-semibold text-primary leading-tight">${s.nome}</p>
+            <p class="text-body-sm text-outline">${s.cidade}${s.uf && s.uf !== '—' ? ' · '+s.uf : ''}</p>
+          </div>
+        </div>
+        ${statusPill(s.status)}
+      </div>
+      <p class="text-body-sm" style="min-height:60px">${s.just}</p>
+      <div class="border-t border-outline-variant pt-2 mt-1">
+        <p class="text-body-sm text-outline"><span class="material-symbols-outlined text-[14px] align-middle">receipt_long</span> ${s.servico}</p>
+        <div class="flex items-center justify-between mt-2 gap-2">
+          <div class="flex items-center gap-1 text-body-sm"><span class="material-symbols-outlined text-[16px]">call</span>${telHtml}</div>
+          <a href="${searchUrl}" target="_blank" class="text-body-sm text-primary font-medium hover:underline flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">search</span>buscar contato</a>
+        </div>
+      </div>
+    `;
+    gridSup.appendChild(div);
+  });
+  supCount.textContent = `Mostrando ${filtered.length} de ${SUPPLIERS.length} fornecedores`;
+}
+inpSupSearch.addEventListener('input', renderSuppliers);
+selSupCat.addEventListener('change', renderSuppliers);
+selSupStat.addEventListener('change', renderSuppliers);
+document.getElementById('s-reset').addEventListener('click', () => {
+  inpSupSearch.value = ''; selSupCat.value = ''; selSupStat.value = ''; renderSuppliers();
+});
+renderSuppliers();
+
+// Render kits de compra local por cidade
+const gridKits = document.getElementById('grid-kits');
+const perCityItems = LOCAL_ITEMS;
+const totalLocalPerCity = perCityItems.reduce((s,x) => s + (x.tp||0), 0) / 3;
+const grandTotalLocal = perCityItems.reduce((s,x) => s + (x.tp||0), 0);
+document.getElementById('kits-total').textContent = `${perCityItems.length} tipos de item · ~${fmtBR(totalLocalPerCity)} por cidade · ${fmtBR(grandTotalLocal)} nas 3 cidades`;
+
+CIDADES_KITS.forEach(c => {
+  const div = document.createElement('div');
+  div.className = 'border border-outline-variant rounded-lg overflow-hidden';
+  const rows = perCityItems.slice(0,12).map(x => `<tr><td class="text-body-sm">${x.i}</td><td class="text-body-sm text-outline">${x.o || x.f}</td></tr>`).join('');
+  div.innerHTML = `
+    <div class="bg-primary text-on-primary p-4">
+      <p class="font-label-caps text-label-caps uppercase" style="color:#fed000">${c.uf} · ${c.data}</p>
+      <p class="font-headline-sm text-headline-sm font-bold">${c.cidade}</p>
+      <p class="text-body-sm opacity-90 mt-1">Concessionária: <strong>${c.concessionaria}</strong> · Verba local ~<strong>${fmtBR(totalLocalPerCity)}</strong> · ${perCityItems.length} itens</p>
+    </div>
+    <div class="p-4">
+      <p class="text-body-sm text-outline mb-2">Compra pelo produtor local até <strong>${c.data.split(' -')[0].split(' ·')[0]}</strong> (2 semanas antes):</p>
+      <table class="data">${rows}</table>
+    </div>
+  `;
+  gridKits.appendChild(div);
+});
 </script>
 </body>
 </html>
