@@ -135,6 +135,51 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#385f99;box-sh
 .slide-wrap iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
 .sheet-wrap{background:#fff;border:1px solid #c3c6d1;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(15,23,42,.06)}
 .sheet-wrap iframe{display:block;width:100%;height:600px;border:0}
+/* Aprofundamento 1.3 Metodologia */
+.anchor-nav{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:#eff4ff;border:1px solid #c3c6d1;border-radius:12px;margin-bottom:20px;position:sticky;top:0;z-index:5}
+.anchor-chip{padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;background:#fff;color:#00366f;border:1px solid #c3c6d1;cursor:pointer;transition:all .15s ease;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.anchor-chip:hover{background:#002148;color:#fed000;border-color:#002148;text-decoration:none}
+.of-card{background:#fff;border:1px solid #c3c6d1;border-radius:14px;overflow:hidden;transition:box-shadow .2s ease}
+.of-card:hover{box-shadow:0 6px 20px rgba(15,23,42,.08)}
+.of-head{padding:16px 18px;cursor:pointer;display:flex;align-items:flex-start;gap:14px;user-select:none;background:linear-gradient(180deg,#fff 0%,#f8f9ff 100%)}
+.of-head:hover{background:#eff4ff}
+.of-emoji{font-size:32px;line-height:1;flex-shrink:0}
+.of-title{flex:1;min-width:0}
+.of-num{display:inline-block;font-family:'Space Grotesk';font-weight:700;font-size:11px;background:#002148;color:#fed000;padding:2px 8px;border-radius:6px;margin-right:8px;vertical-align:middle}
+.of-name{font-family:'Space Grotesk';font-weight:600;color:#002148;font-size:16px;display:inline}
+.of-sub{font-size:12px;color:#475569;margin-top:4px}
+.of-caret{font-size:20px;color:#475569;transition:transform .2s ease;flex-shrink:0}
+.of-card.open .of-caret{transform:rotate(180deg)}
+.of-body{display:none;padding:0 18px 18px 18px;border-top:1px solid #e6eeff}
+.of-card.open .of-body{display:block;animation:fade .2s ease}
+.layer{padding:12px 0;border-bottom:1px dashed #e6eeff}
+.layer:last-child{border-bottom:0}
+.layer-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:#4A9BD1;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.layer-content{font-size:13px;color:#0d1c2e;line-height:1.55}
+.hack-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-radius:12px;overflow:hidden;margin:16px 0}
+.hack-block{padding:16px;color:#fff;min-height:180px;display:flex;flex-direction:column}
+.hack-block h4{color:#fff;font-family:'Space Grotesk';font-weight:700;font-size:16px;margin:0 0 6px}
+.hack-block .h-time{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.85;margin-bottom:6px}
+.hack-block ul{font-size:12px;padding-left:16px;margin:0;line-height:1.55}
+.hack-1{background:linear-gradient(135deg,#00366f,#005186)}
+.hack-2{background:linear-gradient(135deg,#005186,#0064A6)}
+.hack-3{background:linear-gradient(135deg,#0064A6,#4A9BD1)}
+.hack-4{background:linear-gradient(135deg,#B8860B,#fed000);color:#00366f}
+.hack-4 h4,.hack-4 .h-time{color:#00366f}
+.env-card{background:#fff;border:1px solid #c3c6d1;border-radius:14px;padding:20px;position:relative;overflow:hidden;min-height:220px}
+.env-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#002148,#fed000)}
+.env-icon{font-size:38px;line-height:1;margin-bottom:12px}
+.env-title{font-family:'Space Grotesk';font-weight:600;color:#002148;font-size:17px;margin-bottom:6px}
+.env-desc{font-size:13px;color:#475569;line-height:1.55}
+.principle{background:#fff;border:1px solid #c3c6d1;border-radius:12px;padding:16px}
+.principle-num{font-family:'Space Grotesk';font-weight:700;font-size:28px;color:#fed000;line-height:1;margin-bottom:6px}
+.principle-name{font-family:'Space Grotesk';font-weight:600;color:#002148;font-size:14px;margin-bottom:4px}
+.principle-desc{font-size:12px;color:#475569;line-height:1.5}
+.bench-card{background:#fff;border:1px solid #c3c6d1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.bench-cat{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4A9BD1}
+.bench-name{font-family:'Space Grotesk';font-weight:600;color:#002148;font-size:14px}
+.bench-desc{font-size:12px;color:#475569;line-height:1.5}
+.bench-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:999px;background:#E8F1F9;color:#00366f;margin-top:auto;width:max-content}
 </style>
 </head>
 <body class="bg-surface text-on-surface h-screen flex overflow-hidden font-body-lg text-body-lg">
@@ -258,6 +303,7 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#385f99;box-sh
       <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="1.4">📣 1.4 Comunicação</button>
       <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="1.5">🤝 1.5 Engajamento</button>
       <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="1.6">⚖️ 1.6 Governança</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="1.7">🔬 1.7 Benchmarks</button>
     </div>
 
     <!-- 1.1 -->
@@ -384,54 +430,483 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#385f99;box-sh
 
     <!-- 1.3 -->
     <div class="subpage" data-sub="1.3">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-gap-md">
-        <div class="oficina"><span class="oficina-num">T1</span><div class="text-3xl mb-2">🌱</div>
-          <p class="font-semibold text-primary">Terra e Semente</p>
-          <p class="text-body-sm text-on-surface-variant">Terrário biosfera + registro fotográfico. Cada aluno leva sua semente.</p>
-          <span class="chip chip-yellow mt-2">Livre</span></div>
-        <div class="oficina"><span class="oficina-num">T2</span><div class="text-3xl mb-2">📸</div>
-          <p class="font-semibold text-primary">Água e Irrigação Sustentável</p>
-          <p class="text-body-sm text-on-surface-variant">Fotografia em campo · pulverização com IA (portfólio New Holland).</p>
-          <span class="chip chip-blue mt-2">Fotografia MinC</span></div>
-        <div class="oficina"><span class="oficina-num">T3</span><div class="text-3xl mb-2">🍽️</div>
-          <p class="font-semibold text-primary">Alimentos do Campo</p>
-          <p class="text-body-sm text-on-surface-variant">Mercado simulado · mapa afetivo do que chega à mesa.</p>
-          <span class="chip chip-yellow mt-2">Livre</span></div>
-        <div class="oficina"><span class="oficina-num">T4</span><div class="text-3xl mb-2">🌾</div>
-          <p class="font-semibold text-primary">Nova Agricultura</p>
-          <p class="text-body-sm text-on-surface-variant">Ancestralidade + variedades regionais. Mapa sensorial + roda.</p>
-          <span class="chip chip-yellow mt-2">Livre</span></div>
-        <div class="oficina"><span class="oficina-num">T5</span><div class="text-3xl mb-2">☀️</div>
-          <p class="font-semibold text-primary">Clima e o Campo</p>
-          <p class="text-body-sm text-on-surface-variant">Cartografia climática. Painel coletivo por turma.</p>
-          <span class="chip chip-yellow mt-2">Livre</span></div>
-        <div class="oficina"><span class="oficina-num">T6</span><div class="text-3xl mb-2">⚡</div>
-          <p class="font-semibold text-primary">Ciclo do Biometano</p>
-          <p class="text-body-sm text-on-surface-variant">Miniusina · combustível alternativo · trator T6.180 Methane Power.</p>
-          <span class="chip chip-yellow mt-2">Livre</span></div>
-      </div>
-      <div class="card mt-gap-md bg-primary text-on-primary relative overflow-hidden">
-        <div class="absolute top-4 right-4 font-headline-sm text-headline-sm font-bold text-secondary-container">T7</div>
-        <div class="text-4xl mb-2">🏆</div>
-        <h3 class="font-headline-sm text-headline-sm text-on-primary mb-2">Hackathon Guardiões da Terra</h3>
-        <p class="text-body-sm opacity-90 max-w-2xl">Culminância pedagógica por cidade · <strong>8 squads paletes coloridos</strong> · 4 horas · pitch de 3 minutos · banca externa (produtor, concessionária, técnico) · prêmio 3 camadas + camada 0 visita à fábrica New Holland.</p>
-        <span class="chip chip-yellow mt-3 inline-block">Contação de História MinC</span>
-      </div>
-      <div class="card mt-gap-md">
-        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Ciclo de cidade · Cronograma B (semana única encadeada)</h3>
-        <table class="data">
-          <thead><tr><th style="width:110px">Dia</th><th>Atividade</th></tr></thead>
-          <tbody>
-            <tr><td class="font-semibold">Domingo</td><td>Chegada da equipe</td></tr>
-            <tr><td class="font-semibold">Segunda</td><td>Palestra de Professores (noite · 20h BNCC) + Oficinas T1 e T2</td></tr>
-            <tr><td class="font-semibold">Terça</td><td>Oficinas T3 e T4</td></tr>
-            <tr><td class="font-semibold">Quarta</td><td>Oficina T5</td></tr>
-            <tr><td class="font-semibold">Quinta</td><td>Oficina T6 + preparação Hackathon</td></tr>
-            <tr><td><span class="chip chip-yellow">Sexta</span></td><td><strong>Hackathon Guardiões da Terra (T7)</strong> · evento aberto</td></tr>
-            <tr><td class="font-semibold">Sábado</td><td>Retorno</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <!-- anchor nav -->
+      <nav class="anchor-nav">
+        <a href="#m-framework" class="anchor-chip">🧭 Framework</a>
+        <a href="#m-oficinas" class="anchor-chip">🎨 7 oficinas</a>
+        <a href="#m-palestra" class="anchor-chip">👩‍🏫 Palestra Professores</a>
+        <a href="#m-hackathon" class="anchor-chip">🏆 Hackathon</a>
+        <a href="#m-praca" class="anchor-chip">🎪 Evento Praça</a>
+        <a href="#m-legado" class="anchor-chip">♻️ Legado</a>
+      </nav>
+
+      <!-- ==== FRAMEWORK ==== -->
+      <section id="m-framework" style="scroll-margin-top:120px">
+        <div class="mb-4">
+          <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">Framework pedagógico</p>
+          <h3 class="font-headline-sm text-headline-sm text-primary">5 princípios · 4 vertentes · 5 momentos</h3>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-gap-md mb-gap-md">
+          <div class="principle"><div class="principle-num">1</div><div class="principle-name">Vivência ativa</div><div class="principle-desc">O jovem aprende fazendo. Educador provoca, nunca palestra.</div></div>
+          <div class="principle"><div class="principle-num">2</div><div class="principle-name">Celular guardado</div><div class="principle-desc">Durante a atividade. Registro coordenado pelo instrutor artístico.</div></div>
+          <div class="principle"><div class="principle-num">3</div><div class="principle-name">Benchmark inspira</div><div class="principle-desc">Cada oficina tem um âncora consolidado. O produto é do jovem.</div></div>
+          <div class="principle"><div class="principle-num">4</div><div class="principle-name">Território é sala</div><div class="principle-desc">A paisagem agrícola local vira matéria-prima da obra.</div></div>
+          <div class="principle"><div class="principle-num">5</div><div class="principle-name">Cultura + ciência + arte</div><div class="principle-desc">As três linguagens no mesmo plano, sem hierarquia.</div></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md mb-gap-md">
+          <div class="card">
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-3">4 vertentes teóricas</h4>
+            <ul class="text-body-sm space-y-2">
+              <li><strong>Aprendizagem baseada em projetos (ABP).</strong> Aluno constrói solução real ao longo da semana.</li>
+              <li><strong>Design Thinking educacional.</strong> Empatia → ideação → prototipagem → teste (culmina no Hackathon).</li>
+              <li><strong>Storytelling.</strong> Narrativa do Guardião da Terra amarra as oficinas ao pitch.</li>
+              <li><strong>Cultura como linguagem.</strong> Artes Plásticas, Fotografia e Contação são a via do conteúdo agro.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-3">5 momentos de cada oficina</h4>
+            <table class="data">
+              <thead><tr><th>Momento</th><th>Tempo</th><th>O que acontece</th></tr></thead>
+              <tbody>
+                <tr><td class="bold">1. Aquecimento</td><td>15 min</td><td>Pergunta ou situação real do campo abre o tema.</td></tr>
+                <tr><td class="bold">2. Atividade</td><td>50 min</td><td>Mão na massa. Aluno cria o produto.</td></tr>
+                <tr><td class="bold">3. Sistematização</td><td>20 min</td><td>Grupo apresenta, turma conecta ao ODS + Desafio.</td></tr>
+                <tr><td class="bold">4. Produto</td><td>10 min</td><td>Registro material do que foi feito.</td></tr>
+                <tr><td class="bold">5. Apresentação</td><td>5 min</td><td>Post-it no mural do squad para o Hackathon.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card mb-gap-md">
+          <h4 class="font-headline-sm text-headline-sm text-primary mb-3">Estrutura macro por cidade (Cronograma B)</h4>
+          <table class="data">
+            <thead><tr><th style="width:120px">Dia</th><th>Oficinas</th><th>Papel narrativo</th></tr></thead>
+            <tbody>
+              <tr><td class="bold">Segunda</td><td>T1 Terra e Semente + T2 Ciclo da Água</td><td>Lente ecossistêmica + apresentação do Desafio</td></tr>
+              <tr><td class="bold">Segunda noite</td><td><span class="chip chip-blue">Palestra de Professores 3h</span></td><td>Legado docente + orientação metodológica</td></tr>
+              <tr><td class="bold">Terça</td><td>T3 Alimentos + T4 Nova Agricultura</td><td>Lente econômica e territorial</td></tr>
+              <tr><td class="bold">Quarta</td><td>T5 Clima e o Campo</td><td>Lente ambiental e de risco</td></tr>
+              <tr><td class="bold">Quinta</td><td>T6 Ciclo do Metano + prep Hackathon</td><td>Lente tecnológica e prep final</td></tr>
+              <tr><td class="bold"><span class="chip chip-yellow">Sexta</span></td><td><strong>T7 Contação + Hackathon Guardiões da Terra</strong></td><td>Ápice narrativo · evento aberto</td></tr>
+            </tbody>
+          </table>
+          <p class="text-body-sm text-outline mt-3">3 turmas por dia × 90 alunos por turma (3 salas de 30) = 270 alunos únicos/cidade × 4 cidades = <strong>1.080 alunos totais</strong>.</p>
+        </div>
+      </section>
+
+      <!-- ==== 7 OFICINAS ==== -->
+      <section id="m-oficinas" style="scroll-margin-top:120px" class="mt-8">
+        <div class="mb-4">
+          <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">As 7 oficinas</p>
+          <h3 class="font-headline-sm text-headline-sm text-primary">Clique em cada card para expandir as 8 camadas</h3>
+          <p class="text-body-sm text-outline mt-1">Tema + MinC + ODS · Objetivo · BNCC · Roteiro 5 momentos · Papel dos 3 instrutores · Materiais + frugal · Produto · Benchmark âncora.</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-3">
+
+          <!-- T1 -->
+          <div class="of-card" data-of="t1">
+            <div class="of-head">
+              <div class="of-emoji">🌱</div>
+              <div class="of-title">
+                <span class="of-num">T1</span><span class="of-name">Terra e Semente</span>
+                <div class="of-sub"><span class="chip chip-yellow">Artes Plásticas</span> · Segunda · ODS 2, 12, 15 · Terrário coletivo em aquário</div>
+              </div>
+              <div class="of-caret">▾</div>
+            </div>
+            <div class="of-body">
+              <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante compreende o solo como organismo vivo e reconhece práticas que o conservam. Sai apto a explicar por que solo saudável é condição para agricultura sustentável.</div></div>
+              <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 1 (ecossistemas), 4 (expressão artística), 10 (responsabilidade ambiental).</div></div>
+              <div class="layer"><div class="layer-label">⏱️ Roteiro 5 momentos (100 min)</div><div class="layer-content"><strong>Aquecimento (15').</strong> "O que o solo tem em comum com um teatro?" + fotos de solos degradados vs. saudáveis. <strong>Atividade (50').</strong> Subgrupos de 10 montam terrário em aquário: drenagem, carvão, substrato, musgo, plantas, decoração. Storyteller apresenta o Desafio Guardiões da Terra. <strong>Sistematização (20').</strong> Fotografia com gelo seco + LEDs + borrifador. Fotografia macro pelo instrutor. <strong>Produto (10').</strong> Grupo nomeia terrário e escreve frase no cartão-identidade. <strong>Apresentação (5').</strong> Post-it no mural: "que aspecto do meu ecossistema vai para o Desafio?".</div></div>
+              <div class="layer"><div class="layer-label">👥 Papel dos 3 instrutores</div><div class="layer-content"><strong>Artístico:</strong> conduz montagem, opera câmera, ensina composição. <strong>Técnico:</strong> apoia com informação sobre solo local. <strong>Storyteller:</strong> apresenta o Desafio e provoca a conexão.</div></div>
+              <div class="layer"><div class="layer-label">📦 Materiais + alternativa frugal</div><div class="layer-content">Padrão: 6-9 aquários (5-12L), 2kg gelo seco, 12 LEDs, 6 borrifadores, substrato, musgo, sementes, 2 câmeras. <strong>Frugal (Opção B):</strong> caixa de papelão com perfil transversal do solo + argila colorida por horizonte. Custo cai de R$ 45-77 para R$ 25-45/grupo.</div></div>
+              <div class="layer"><div class="layer-label">🎁 Produto tangível</div><div class="layer-content">Terrário coletivo (fica como instalação viva na escola) + foto impressa + post-it no mural do squad.</div></div>
+              <div class="layer"><div class="layer-label">🔬 Benchmark âncora</div><div class="layer-content"><strong>"Ecossistema na Garrafa"</strong> · Instituto Claro + Cemaden Educação (Brasil). Versão em aquário coletivo aproxima do paludário/terrário de aquarismo escolar.</div></div>
+            </div>
+          </div>
+
+          <!-- T2 -->
+          <div class="of-card" data-of="t2">
+            <div class="of-head">
+              <div class="of-emoji">📸</div>
+              <div class="of-title">
+                <span class="of-num">T2</span><span class="of-name">Ciclo da Água e Irrigação Sustentável</span>
+                <div class="of-sub"><span class="chip chip-blue">Fotografia MinC</span> · Segunda · ODS 6, 12, 15 · Fotografia macro do terrário</div>
+              </div>
+              <div class="of-caret">▾</div>
+            </div>
+            <div class="of-body">
+              <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante entende o ciclo da água e as técnicas que reduzem desperdício. Desenvolve leitura visual do território.</div></div>
+              <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 2 (pensamento científico), 4 (leitura de imagem).</div></div>
+              <div class="layer"><div class="layer-label">⏱️ Roteiro 5 momentos (100 min, integrado com T1, sala separada)</div><div class="layer-content"><strong>Aquecimento (15').</strong> 3 conceitos: enquadramento, luz, foco + fotos-referência. <strong>Atividade (50').</strong> Subgrupos rotacionam com câmera. Tripé, regra dos terços, luz natural, foco no detalhe do terrário construído. Cada subgrupo produz 3-5 imagens. <strong>Sistematização (20').</strong> Contatos na tela. Escolha da melhor foto por subgrupo. <strong>Produto (10').</strong> Impressão A4 imediata. <strong>Apresentação (5').</strong> Post-it: "que uso eficiente de água vai para o Desafio?".</div></div>
+              <div class="layer"><div class="layer-label">👥 Papel dos 3 instrutores</div><div class="layer-content"><strong>Artístico:</strong> conduz fotografia macro, opera câmera, ensina composição. <strong>Técnico:</strong> apoia com informação sobre ciclo hidrológico e mata ciliar. <strong>Storyteller:</strong> provoca conexão entre a foto e a solução do squad.</div></div>
+              <div class="layer"><div class="layer-label">📦 Materiais + alternativa frugal</div><div class="layer-content">Padrão: 2-4 câmeras ou smartphones em tripé, iluminação de apoio, backdrop, borrifadores, impressora A4 rápida. <strong>Frugal (Opção B, Cianotipia):</strong> solução fotossensível + folhas + exposição solar 5-15 min + revelação em água. Cada aluno leva quadrado 20x20cm. Custo R$ 240-360/turma.</div></div>
+              <div class="layer"><div class="layer-label">🎁 Produto tangível</div><div class="layer-content">Ensaio fotográfico curto de 3-5 imagens autorais por subgrupo + série impressa da melhor.</div></div>
+              <div class="layer"><div class="layer-label">🔬 Benchmark âncora</div><div class="layer-content"><strong>Cianotipia educacional</strong> aplicada em escolas do SESC e do CCBB (fornecedor: O Retratista, R$ 156/kit 100ml). Para light painting como premium: Educa SC (Porto União).</div></div>
+            </div>
+          </div>
+
+          <!-- T3 -->
+          <div class="of-card" data-of="t3">
+            <div class="of-head">
+              <div class="of-emoji">🍽️</div>
+              <div class="of-title">
+                <span class="of-num">T3</span><span class="of-name">Alimentos do Campo e da Cidade</span>
+                <div class="of-sub"><span class="chip chip-yellow">Livre</span> · Terça manhã · ODS 2, 3, 12 · Mercado Simulado</div>
+              </div>
+              <div class="of-caret">▾</div>
+            </div>
+            <div class="of-body">
+              <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante mapeia a jornada do alimento do campo à mesa e reconhece a concentração de valor na cadeia.</div></div>
+              <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 7 (argumentação), 10 (consumo consciente).</div></div>
+              <div class="layer"><div class="layer-label">⏱️ Roteiro 5 momentos (75 min)</div><div class="layer-content"><strong>Aquecimento (15').</strong> Quadra vira mercado: mesa 1 produtor, mesa 2 atravessador, mesa 3 consumidor. 5 cadeias: soja, milho, cana, tomate, trigo. <strong>Atividade (35').</strong> Alunos recebem papel + cartões-moeda. Rodada 1 negociação normal. Rodada 2 com evento climático surpresa (praga, seca) que altera custos. <strong>Sistematização (15').</strong> Debate: onde o valor se concentra? Cartolinas "o preço do alimento é assim porque...". <strong>Produto (7').</strong> Mapa coletivo da cadeia em papel kraft. <strong>Apresentação (3').</strong> Post-it: "que gargalo da minha cidade minha solução resolve?".</div></div>
+              <div class="layer"><div class="layer-label">👥 Papel dos 3 instrutores</div><div class="layer-content"><strong>Storyteller:</strong> conduz simulação, provoca reflexão. <strong>Técnico:</strong> apoia com dados IBGE/Conab da cadeia local. <strong>Artístico:</strong> registro visual + produção do mapa kraft.</div></div>
+              <div class="layer"><div class="layer-label">📦 Materiais + alternativa frugal</div><div class="layer-content">Padrão: cards plastificados (60 unidades reusáveis), fichas-moeda, cartolinas, papel kraft, embalagens reais, grãos representativos. <strong>Frugal (Opção A, Jogo de Cards):</strong> só cards impressos organizados na mesa. Custo cai para R$ 30-120/turma.</div></div>
+              <div class="layer"><div class="layer-label">🎁 Produto tangível</div><div class="layer-content">Mapa colaborativo da cadeia produtiva do alimento local + cartolinas com análise de valor.</div></div>
+              <div class="layer"><div class="layer-label">🔬 Benchmark âncora</div><div class="layer-content"><strong>"A Grande Sacola"</strong> · Sebrae Jovem Aprendiz + <strong>Junior Achievement Brasil "Miniempresa"</strong>. Fallback: "Do Campo e da Floresta para a Nossa Mesa" (Educar Sempre).</div></div>
+            </div>
+          </div>
+
+          <!-- T4 -->
+          <div class="of-card" data-of="t4">
+            <div class="of-head">
+              <div class="of-emoji">🌾</div>
+              <div class="of-title">
+                <span class="of-num">T4</span><span class="of-name">Nova Agricultura e Sabores Locais</span>
+                <div class="of-sub"><span class="chip chip-yellow">Livre</span> · Terça tarde · ODS 2, 8, 11 · Mapa Sensorial em Caixa</div>
+              </div>
+              <div class="of-caret">▾</div>
+            </div>
+            <div class="of-body">
+              <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante reconhece a cultura do campo como patrimônio e a inovação como aliada, não substituta. Constrói identidade agrícola da própria cidade.</div></div>
+              <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 6 (projeto de vida no território), 10 (identidade cultural).</div></div>
+              <div class="layer"><div class="layer-label">⏱️ Roteiro 5 momentos (60 min)</div><div class="layer-content"><strong>Aquecimento (10').</strong> Caixa on-base: caixa de papelão em formato de mapa vazio. "Que produto da sua cidade poderia ser conhecido nacionalmente?". <strong>Atividade (30').</strong> Subgrupos aportam elementos sensoriais do território: semente, tempero, fruta seca, terra local, folha, som gravado, foto. Cada aluno cola em posição relativa e escreve etiqueta. <strong>Sistematização (10').</strong> Leituras em voz alta. Storyteller consolida cartaz "5 elementos que fazem a agricultura desta cidade única". <strong>Produto (7').</strong> Caixa sensorial coletiva pronta, fotografada. <strong>Apresentação (3').</strong> Post-it: "sua solução celebra ou fortalece algum desses elementos?".</div></div>
+              <div class="layer"><div class="layer-label">👥 Papel dos 3 instrutores</div><div class="layer-content"><strong>Storyteller:</strong> conduz coleta e leitura das falas. <strong>Técnico:</strong> informa cultivares regionais e denominações de origem. <strong>Artístico:</strong> disposição visual + registro fotográfico.</div></div>
+              <div class="layer"><div class="layer-label">📦 Materiais + alternativa frugal</div><div class="layer-content">Padrão: caixa compartimentada (reusável), potes pequenos, saches, etiquetas, ingredientes coletados no mercado/feira/produtor. <strong>Frugal (Opção B, Zine):</strong> página de zine A4 com colagem "agricultura do meu avô × agricultura do futuro". Custo cai para R$ 60-120/turma.</div></div>
+              <div class="layer"><div class="layer-label">🎁 Produto tangível</div><div class="layer-content">Caixa sensorial coletiva (acervo pedagógico) + registro fotográfico + cartaz dos "5 elementos únicos".</div></div>
+              <div class="layer"><div class="layer-label">🔬 Benchmark âncora</div><div class="layer-content"><strong>Cartografia social sensorial</strong> · Cemaden Educação e Rede Ecovida. Aplicação em educação do campo: UFPR e UNIFESP.</div></div>
+            </div>
+          </div>
+
+          <!-- T5 -->
+          <div class="of-card" data-of="t5">
+            <div class="of-head">
+              <div class="of-emoji">☀️</div>
+              <div class="of-title">
+                <span class="of-num">T5</span><span class="of-name">Clima e o Campo</span>
+                <div class="of-sub"><span class="chip chip-yellow">Livre</span> · Quarta · ODS 2, 13, 15 · Cartografia Climática</div>
+              </div>
+              <div class="of-caret">▾</div>
+            </div>
+            <div class="of-body">
+              <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante compreende o impacto do clima na produção e estratégias de resiliência. Fundamenta a solução do Hackathon com dado real.</div></div>
+              <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 2 (pensamento científico), 7 (argumentação com dados).</div></div>
+              <div class="layer"><div class="layer-label">⏱️ Roteiro 5 momentos (100 min)</div><div class="layer-content"><strong>Aquecimento (15').</strong> Instrutor técnico traz dados reais impressos: pluviosidade dos últimos 5 anos (INMET), temperaturas médias, alertas do Cemaden. <strong>Atividade (50').</strong> Subgrupos de 5 recebem um risco climático (seca, geada, chuva excessiva, praga, erosão) + cartolina com mapa do município. Mapeiam áreas vulneráveis, entendem por quê, propõem adaptação. <strong>Sistematização (20').</strong> Cada subgrupo apresenta em 3 min. Storyteller provoca: "quem sofre mais? como o pequeno se adapta?". <strong>Produto (10').</strong> 4 mapas expostos lado a lado formando "atlas climático da escola". <strong>Apresentação (5').</strong> Post-it: "que dado do clima local minha solução usa?".</div></div>
+              <div class="layer"><div class="layer-label">👥 Papel dos 3 instrutores</div><div class="layer-content"><strong>Técnico:</strong> conduz leitura de dados, faz perguntas provocadoras. <strong>Storyteller:</strong> apoia com perguntas de sentido. <strong>Artístico:</strong> produção visual do mapa + registro da exposição.</div></div>
+              <div class="layer"><div class="layer-label">📦 Materiais + alternativa frugal</div><div class="layer-content">Padrão: cartolinas/A3 (16 folhas), mapa impresso do município (OpenStreetMap gratuito), canetões, adesivos com ícones climáticos, fichas INMET/Cemaden pré-selecionadas. <strong>Frugal (Opção A, Estação Meteorológica):</strong> instrumento simples em PET (pluviômetro, catavento, termômetro artesanal). Custo cai para R$ 30-90/turma.</div></div>
+              <div class="layer"><div class="layer-label">🎁 Produto tangível</div><div class="layer-content">Contribuição para o "atlas climático da escola" (corredor) + proposta de adaptação por subgrupo.</div></div>
+              <div class="layer"><div class="layer-label">🔬 Benchmark âncora</div><div class="layer-content"><strong>Cartografia Social</strong> do Cemaden Educação + <strong>"Nós no Clima da Mudança"</strong> (MEC/CNIJMA 2024).</div></div>
+            </div>
+          </div>
+
+          <!-- T6 -->
+          <div class="of-card" data-of="t6">
+            <div class="of-head">
+              <div class="of-emoji">⚡</div>
+              <div class="of-title">
+                <span class="of-num">T6</span><span class="of-name">Ciclo do Metano</span>
+                <div class="of-sub"><span class="chip chip-yellow">Livre</span> · Quinta · ODS 7, 12, 13 · Miniusina + visita técnica simulada</div>
+              </div>
+              <div class="of-caret">▾</div>
+            </div>
+            <div class="of-body">
+              <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante compreende como resíduos orgânicos viram energia e reduzem emissões. Passa a pensar em circularidade na solução do Hackathon.</div></div>
+              <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 1 (digestão anaeróbia), 6 (visão de futuro).</div></div>
+              <div class="layer"><div class="layer-label">⏱️ Roteiro 5 momentos (75 min) + prep Hackathon (50 min)</div><div class="layer-content"><strong>Aquecimento (15').</strong> Técnico apresenta miniusina já montada: garrafão 5L + resíduo + mangueira + balão inflando. <strong>Atividade (35').</strong> Subgrupos como engenheiros contratados circulam pela miniusina com roteiro de visita técnica. Demonstração controlada com GPL (não do biodigestor). <strong>Sistematização (15').</strong> Cada subgrupo apresenta em 2 min conclusões. <strong>Produto (7').</strong> Ficha preenchida + primeiro rascunho de Lean Canvas do Hackathon. <strong>Apresentação (3').</strong> Post-it: "que resíduo da minha cidade vira recurso na solução?". <strong>Prep Hackathon (50').</strong> Storyteller reúne cada squad, Lean Canvas em A3 (5 campos), consolidação dos post-its de T1-T6, ensaio de pitch 3 min.</div></div>
+              <div class="layer"><div class="layer-label">👥 Papel dos 3 instrutores</div><div class="layer-content"><strong>Técnico:</strong> monta e opera a miniusina, ensina digestão anaeróbia. <strong>Storyteller:</strong> narrativa da fazenda circular + condução da prep Hackathon. <strong>Artístico:</strong> registro com foto e vídeo curto.</div></div>
+              <div class="layer"><div class="layer-label">📦 Materiais + alternativa frugal</div><div class="layer-content">Padrão: kit biodigestor (garrafão 5-20L, mangueira, balão, vedante, resíduo orgânico coletado), fichas de visita técnica, capacete de papel. <strong>Frugal (Opção B, Infográfico):</strong> linha do tempo em kraft de 3m com etapas do ciclo, ilustrada por subgrupos. Custo cai para R$ 60-120/turma.</div></div>
+              <div class="layer"><div class="layer-label">🎁 Produto tangível</div><div class="layer-content">Miniusina em funcionamento (bexiga inflando por semanas) + Lean Canvas do Hackathon rascunhado.</div></div>
+              <div class="layer"><div class="layer-label">🔬 Benchmark âncora</div><div class="layer-content"><strong>"TESLA · Biodigestor com Aguapés"</strong> · Centro de Ensino Sabino Barros (Penalva/MA), premiado no Solve for Tomorrow LATAM (Samsung).</div></div>
+            </div>
+          </div>
+
+          <!-- T7 -->
+          <div class="of-card" data-of="t7" style="border-color:#fed000;background:linear-gradient(180deg,#fff 0%,#fff3b0 200%)">
+            <div class="of-head">
+              <div class="of-emoji">🏆</div>
+              <div class="of-title">
+                <span class="of-num" style="background:#fed000;color:#00366f">T7</span><span class="of-name">Cidadania e Sustentabilidade + Hackathon Guardiões da Terra</span>
+                <div class="of-sub"><span class="chip chip-blue">Contação de Histórias MinC</span> · Sexta · ODS 4, 11, 17 · Evento aberto · 4h</div>
+              </div>
+              <div class="of-caret">▾</div>
+            </div>
+            <div class="of-body">
+              <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante integra os aprendizados de T1-T6 em proposta concreta. Defende publicamente a solução para banca externa e comunidade.</div></div>
+              <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 4 (comunicação), 6 (projeto de vida), 7 (defesa de proposta), 10 (protagonismo cidadão).</div></div>
+              <div class="layer"><div class="layer-label">⏱️ Roteiro</div><div class="layer-content">A oficina T7 é a manhã inteira de sexta em formato de evento aberto. <strong>30 min de contação inicial pelo storyteller</strong> (produto MinC oficial de Contação de Histórias) + <strong>Hackathon 4h</strong> com 12 elementos operacionais (ver bloco Hackathon abaixo) + <strong>Cerimônia Guardião da Terra</strong> com certificados.</div></div>
+              <div class="layer"><div class="layer-label">👥 Papel dos 3 instrutores</div><div class="layer-content"><strong>Storyteller:</strong> contação + mestre de cerimônia + mentor. <strong>Técnico:</strong> banca com viés técnico. <strong>Artístico:</strong> cobertura fotográfica + exposição rápida + vídeo curto de fechamento.</div></div>
+              <div class="layer"><div class="layer-label">🎁 Produto tangível</div><div class="layer-content">Pitch de 3 min por squad + Lean Canvas exposto como pôster + certificado Guardião da Terra impresso para os 270 alunos da cidade.</div></div>
+              <div class="layer"><div class="layer-label">🔬 Benchmark âncora</div><div class="layer-content"><strong>UFPR Hackathon 2024</strong> com ensino médio (6 startups em 10h) + <strong>Junior Achievement Brasil "Miniempresa"</strong>. Contação inicial: <strong>Instituto Ciranda "Caixa de Histórias"</strong>.</div></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==== PALESTRA PROFESSORES ==== -->
+      <section id="m-palestra" style="scroll-margin-top:120px" class="mt-8">
+        <div class="mb-4">
+          <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">Palestra de Professores</p>
+          <h3 class="font-headline-sm text-headline-sm text-primary">Ampliação de Acesso · 20h BNCC · ~400 professores</h3>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md mb-gap-md">
+          <div class="card">
+            <div class="chip chip-blue mb-2">Segunda à noite · presencial</div>
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-2">3h presencial</h4>
+            <ul class="text-body-sm space-y-1">
+              <li>Recepção + café (15')</li>
+              <li>Abertura · NTICS + CNH + Rouanet (10')</li>
+              <li>Contexto do projeto Festival (15')</li>
+              <li>Metodologia das 7 oficinas + Hackathon (25')</li>
+              <li>Bases pedagógicas · BNCC + ODS + Design Thinking (20')</li>
+              <li>Intervalo (15')</li>
+              <li>Sustentabilidade no campo · fundamentação técnica (40')</li>
+              <li>Legado na escola (25')</li>
+              <li>Plataforma "New Holland Online" · cadastro ao vivo (15')</li>
+              <li>Encerramento · certificado 3h (5')</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="chip chip-yellow mb-2">Plataforma · EAD</div>
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-2">17h EAD modular</h4>
+            <table class="data">
+              <tbody>
+                <tr><td class="bold">M1 · 3h</td><td>Solo, semente e ecossistema (T1)</td></tr>
+                <tr><td class="bold">M2 · 3h</td><td>Ciclo da água e uso eficiente (T2)</td></tr>
+                <tr><td class="bold">M3 · 2h</td><td>Cadeia produtiva e valor (T3)</td></tr>
+                <tr><td class="bold">M4 · 2h</td><td>Nova agricultura e território (T4)</td></tr>
+                <tr><td class="bold">M5 · 2h</td><td>Clima e resiliência agrícola (T5)</td></tr>
+                <tr><td class="bold">M6 · 2h</td><td>Energia limpa no campo (T6)</td></tr>
+                <tr><td class="bold">M7 · 2h</td><td>Cidadania + método Hackathon (T7)</td></tr>
+                <tr><td class="bold">Produção final · 1h</td><td>Plano de aula validado por quiz</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4 class="font-headline-sm text-headline-sm text-primary mb-3">Sinais de sucesso por cidade</h4>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="text-center border border-outline-variant rounded-lg p-3"><p class="font-display-kpi text-primary" style="font-size:24px">90%</p><p class="text-body-sm text-outline">presença dos convidados</p></div>
+            <div class="text-center border border-outline-variant rounded-lg p-3"><p class="font-display-kpi text-primary" style="font-size:24px">4+</p><p class="text-body-sm text-outline">nota média (escala 1-5)</p></div>
+            <div class="text-center border border-outline-variant rounded-lg p-3"><p class="font-display-kpi text-primary" style="font-size:24px">3+</p><p class="text-body-sm text-outline">disciplinas engajadas no legado</p></div>
+            <div class="text-center border border-outline-variant rounded-lg p-3"><p class="font-display-kpi text-primary" style="font-size:24px">~100</p><p class="text-body-sm text-outline">professores × 4 cidades = ~400</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==== HACKATHON ==== -->
+      <section id="m-hackathon" style="scroll-margin-top:120px" class="mt-8">
+        <div class="mb-4">
+          <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">Hackathon Guardiões da Terra</p>
+          <h3 class="font-headline-sm text-headline-sm text-primary">Sexta-feira · 4 horas · 12 elementos operacionais</h3>
+          <p class="text-body-sm text-outline mt-1">Formato desenhado pela Ana em 02/07/2026. Culminância de 5 dias de amadurecimento; cada oficina alimenta o pitch final.</p>
+        </div>
+
+        <div class="hack-timeline">
+          <div class="hack-block hack-1">
+            <div class="h-time">0-60 min</div>
+            <h4>1ª hora · Identidade</h4>
+            <ul>
+              <li>10' explicação do desafio</li>
+              <li>10' nome do squad</li>
+              <li>30' grito de guerra com <strong>5 palavras obrigatórias</strong> (agricultura, sustentável, geração, faça a sua parte, guardião)</li>
+              <li>Definir capitão + secretário</li>
+              <li>Apresentação · nota inicial</li>
+            </ul>
+          </div>
+          <div class="hack-block hack-2">
+            <div class="h-time">60-120 min</div>
+            <h4>2ª hora · Escopo</h4>
+            <ul>
+              <li>Monitor central explica escopo de projeto</li>
+              <li>Squads elaboram usando <strong>prancheta + caneta</strong></li>
+              <li>Entregam ao monitor</li>
+              <li>Recebem feedback</li>
+              <li>Refinam a proposta</li>
+            </ul>
+          </div>
+          <div class="hack-block hack-3">
+            <div class="h-time">120-180 min</div>
+            <h4>3ª hora · Produção</h4>
+            <ul>
+              <li>Cada squad recebe <strong>box com 1-2 computadores com Claude</strong></li>
+              <li>Cartolinas + material para teatro + maquete + mockup</li>
+              <li>Formato livre: pitch, teatro, maquete, mockup digital, cloud</li>
+              <li>Profissionais itinerantes circulam</li>
+            </ul>
+          </div>
+          <div class="hack-block hack-4">
+            <div class="h-time">180-240 min</div>
+            <h4>4ª hora · Pitch</h4>
+            <ul>
+              <li>Apresentação de 3 min por squad</li>
+              <li><strong>Imprensa mandatória</strong> na apresentação</li>
+              <li>Banca externa: 2 min de perguntas</li>
+              <li>Deliberação + Cerimônia Guardião</li>
+              <li>Prêmio em <strong>3 camadas + camada 0</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md">
+          <div class="card">
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-3">🎨 Cenografia</h4>
+            <ul class="text-body-sm space-y-2">
+              <li><strong>8 esquadrões de paletes coloridos</strong> · um por squad · cor identifica o grupo</li>
+              <li>Paletes ficam de <strong>cenografia na cidade</strong> após o evento (doação a espaço público)</li>
+              <li>Bandeirolas com as cores dos squads + música o tempo inteiro</li>
+              <li><strong>Círculo central com 8 monitores</strong> (professores locais)</li>
+              <li><strong>TV com placar em tempo real</strong> por squad, cor, etapa, nota</li>
+              <li>Fotógrafo, técnico e storyteller circulando pelos squads</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-3">🏅 Prêmio em 3 camadas + camada 0</h4>
+            <ul class="text-body-sm space-y-2">
+              <li><strong>Camada 0 (todo aluno):</strong> certificado Guardião da Terra impresso com moldura + acesso à plataforma "New Holland Online"</li>
+              <li><strong>Camada 1 (squad vencedor):</strong> troféu simbólico + destaque em vídeo</li>
+              <li><strong>Camada 2:</strong> kit "Guardião da Terra" personalizado (30 alunos)</li>
+              <li><strong>Camada 3:</strong> <strong>visita à fábrica New Holland em Curitiba</strong> · custo NTICS R$ 0 (CNH viabiliza como contrapartida)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mt-gap-md">
+          <h4 class="font-headline-sm text-headline-sm text-primary mb-3">👥 Banca externa</h4>
+          <p class="text-body-sm mb-3">3 a 4 convidados por cidade, curados pelo produtor com 2 semanas de antecedência:</p>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+            <div class="border border-outline-variant rounded-lg p-3"><div class="text-2xl mb-1">🌱</div><p class="font-semibold text-primary text-body-sm">Extensionista rural</p><p class="text-body-sm text-outline">EMATER local</p></div>
+            <div class="border border-outline-variant rounded-lg p-3"><div class="text-2xl mb-1">🏛️</div><p class="font-semibold text-primary text-body-sm">Prefeitura</p><p class="text-body-sm text-outline">Sec. Agricultura ou Educação</p></div>
+            <div class="border border-outline-variant rounded-lg p-3"><div class="text-2xl mb-1">🚜</div><p class="font-semibold text-primary text-body-sm">Concessionária CNH</p><p class="text-body-sm text-outline">Comin · Dalaglio · Simex</p></div>
+            <div class="border border-outline-variant rounded-lg p-3"><div class="text-2xl mb-1">👨‍🌾</div><p class="font-semibold text-primary text-body-sm">Produtor jovem</p><p class="text-body-sm text-outline">Empreendedor da cidade</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==== EVENTO PRAÇA ==== -->
+      <section id="m-praca" style="scroll-margin-top:120px" class="mt-8">
+        <div class="mb-4">
+          <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">Evento na Praça Curitiba · culminância nacional</p>
+          <h3 class="font-headline-sm text-headline-sm text-primary">31/10 (sáb) e 01/11 (dom) · 4 ambientes + Concurso + Cerimônia</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-gap-md mb-gap-md">
+          <div class="env-card">
+            <div class="env-icon">🎤</div>
+            <div class="env-title">Palco</div>
+            <div class="env-desc">Programação cultural curada <strong>2 meses antes</strong> (ago/2026). Contação, música regional, mediação com biólogo, depoimentos de squads vencedores das 4 cidades. Cerimonialista do próprio time. Sem venda no palco.</div>
+          </div>
+          <div class="env-card">
+            <div class="env-icon">⛺</div>
+            <div class="env-title">Tendas com institutos</div>
+            <div class="env-desc">Cada tenda com instituto local, tecnológico ou associação (estilo Caminhão ODS). Curadoria com Evelyn/CNH · 2 meses antes. Sugestões: Cemaden Educação, SENAR, Farmoon, UFPR, extensionistas. Sem venda.</div>
+          </div>
+          <div class="env-card">
+            <div class="env-icon">🎬</div>
+            <div class="env-title">DOMO imersivo</div>
+            <div class="env-desc">STAR DOMES/SPADA (~R$ 15k/dia) · vídeo cultural MinC (sem logos) + abertura New Holland enviada pela CNH. Ciclos de 15 min ao longo do dia. Backup ano eleitoral: Fazenda Urbana.</div>
+          </div>
+          <div class="env-card">
+            <div class="env-icon">🖼️</div>
+            <div class="env-title">Exposição</div>
+            <div class="env-desc">Terrários físicos das 4 cidades com acrílico + mural das fotos dos alunos da T2 + fotos do Concurso Nacional (se ativado). Público estimado: 500-1.000 pessoas.</div>
+          </div>
+        </div>
+
+        <!-- Concurso Fotografia -->
+        <div class="card mb-gap-md" style="border-left:4px solid #fed000">
+          <div class="flex-between mb-3">
+            <div>
+              <span class="chip chip-yellow">Nova frente · aprovada 02/07</span>
+              <h4 class="font-headline-sm text-headline-sm text-primary mt-2 mb-1">📷 Concurso Nacional de Fotografia (opcional)</h4>
+              <p class="text-body-sm text-outline">Tema: <em>"Agricultura sustentável no meu território"</em></p>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md">
+            <div>
+              <h5 class="text-body-sm font-semibold text-primary mb-2">Mecânica</h5>
+              <ul class="text-body-sm space-y-1">
+                <li>Aberto a fotógrafos amadores e profissionais do Brasil inteiro</li>
+                <li>Envio online (até 3 fotos por autor · legenda descritiva)</li>
+                <li>Curadoria por júri (fotógrafo profissional + NTICS + CNH opcional)</li>
+                <li>Critérios: técnica 30% · narrativa 30% · aderência 20% · originalidade 20%</li>
+                <li>Direitos autorais mantidos pelo autor · uso NTICS/CNH por 12 meses com crédito</li>
+              </ul>
+            </div>
+            <div>
+              <h5 class="text-body-sm font-semibold text-primary mb-2">Cronograma</h5>
+              <table class="data">
+                <tbody>
+                  <tr><td class="bold">01/09/2026</td><td>Abertura das inscrições</td></tr>
+                  <tr><td class="bold">Set/2026</td><td>Divulgação intensiva</td></tr>
+                  <tr><td class="bold">01/10/2026</td><td>Fechamento das inscrições</td></tr>
+                  <tr><td class="bold">05-15/10</td><td>Curadoria · ~20 finalistas</td></tr>
+                  <tr><td class="bold">31/10-01/11</td><td>Exposição no DOMO/mural</td></tr>
+                  <tr><td class="bold">01/11</td><td>Anúncio dos 3 destaques na Cerimônia</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="mt-3 pt-3 border-t border-outline-variant">
+            <p class="text-body-sm"><strong>Custo estimado:</strong> R$ 9,5k a R$ 12k (prêmios + impressão + divulgação + curadoria) · fonte: rubrica de comunicação. <strong>Decisão go/no-go:</strong> Lucas + Ana até 15/07/2026.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4 class="font-headline-sm text-headline-sm text-primary mb-3">🏵️ Cerimônia Guardião da Terra</h4>
+          <ul class="text-body-sm space-y-1">
+            <li><strong>Entrega dos 1.080 certificados</strong> (Dom Pedrito, Toledo, Guarapuava, Curitiba). Primeiras 3 cidades recebem na sexta local; Curitiba no domingo 01/11 no palco.</li>
+            <li><strong>Reconhecimento dos 4 squads vencedores</strong> (um por cidade) com vídeo curto no palco.</li>
+            <li><strong>Anúncio da visita à fábrica New Holland</strong> (camada 3 do prêmio).</li>
+            <li>Foto oficial coletiva com pais, direção, prefeitura, imprensa e patrocinador.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ==== LEGADO ==== -->
+      <section id="m-legado" style="scroll-margin-top:120px" class="mt-8">
+        <div class="mb-4">
+          <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">Legado pós-projeto</p>
+          <h3 class="font-headline-sm text-headline-sm text-primary">O que fica em cada escola depois do Festival</h3>
+        </div>
+
+        <div class="card">
+          <table class="data">
+            <thead><tr><th>Legado</th><th>Cuidador na escola</th><th>Duração esperada</th></tr></thead>
+            <tbody>
+              <tr><td><span class="chip chip-yellow">T1</span> Terrários vivos</td><td>Professor de ciências · kit de manutenção</td><td>Semanas a meses</td></tr>
+              <tr><td><span class="chip chip-blue">T2</span> Ensaios fotográficos</td><td>Professor de artes · varal armado</td><td>Exposição permanente</td></tr>
+              <tr><td><span class="chip chip-yellow">T3</span> Mapa colaborativo da cadeia</td><td>Professor de geografia</td><td>Exposição permanente</td></tr>
+              <tr><td><span class="chip chip-yellow">T4</span> Caixa sensorial</td><td>Professor de artes ou biologia</td><td>Ativo pedagógico reusável</td></tr>
+              <tr><td><span class="chip chip-yellow">T5</span> Atlas climático da escola</td><td>Professor de geografia · corredor</td><td>Atualizável em anos seguintes</td></tr>
+              <tr><td><span class="chip chip-yellow">T6</span> Miniusina biodigestor</td><td>Professor de química ou ciências · manual fica</td><td>Semanas de produção de gás</td></tr>
+              <tr><td><span class="chip chip-blue">T7</span> Paletes coloridos</td><td>Direção · doação a espaço público local</td><td>Cenografia comunitária permanente</td></tr>
+              <tr><td>🏵️ Certificados Guardião da Terra</td><td>Direção · registro digital pela NTICS</td><td>Vitalício</td></tr>
+              <tr><td>💻 Plataforma "New Holland Online"</td><td>Professor + aluno · cadastro individual</td><td>Continuidade online por meses</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout mt-gap-md" style="border-left:4px solid #002148;background:#eff4ff;padding:16px 20px;border-radius:0 10px 10px 0;color:#00366f;font-size:14px">
+          <strong>Certificado Guardião da Terra.</strong> Carrega referência à BNCC (competências trabalhadas) + carimbo "produto cultural aprovado pelo Ministério da Cultura via Lei Rouanet PRONAC 259965", dando lastro simbólico para uso do aluno em processo seletivo.
+        </div>
+      </section>
+
     </div>
 
     <!-- 1.4 -->
@@ -567,6 +1042,49 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#385f99;box-sh
           <div class="risk-cell risk-med"><strong>R8 · Média · Médio</strong><br>Comunicação global CNH atrasa releases.</div>
         </div>
       </div>
+    </div>
+
+    <!-- 1.7 BENCHMARKS -->
+    <div class="subpage" data-sub="1.7">
+      <div class="mb-4">
+        <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">1.7 · Benchmarks</p>
+        <h3 class="font-headline-sm text-headline-sm text-primary">39 cases mundiais em 8 categorias · o que inspira o método</h3>
+        <p class="text-body-sm text-outline mt-1">Fonte: <code>brief/benchmark-projetos-referencia.html</code> e <code>brief/benchmark-atividades.md</code>. Cada oficina T1-T7 tem seu âncora citado inline em <strong>1.3 Metodologia</strong>. Aqui ficam as referências transversais que moldam o método.</p>
+      </div>
+
+      <!-- Filtros -->
+      <div class="card mb-gap-md">
+        <div class="flex items-center gap-3 flex-wrap">
+          <span class="text-label-caps font-label-caps text-outline uppercase mr-2">Filtrar por:</span>
+          <select id="bench-cat-filter" class="text-body-sm">
+            <option value="">Todas categorias</option>
+            <option value="1">1 · Educação ambiental frugal</option>
+            <option value="2">2 · Maker e ciência frugal (STEAM)</option>
+            <option value="3">3 · Prêmios e feiras de jovens</option>
+            <option value="4">4 · Clima, ciência cidadã, cidadania</option>
+            <option value="5">5 · Arte-educação de baixo custo</option>
+            <option value="6">6 · Empreendedorismo e hackathon</option>
+            <option value="7">7 · Inovação social mundial</option>
+            <option value="8">8 · Agro e juventude rural</option>
+          </select>
+          <select id="bench-of-filter" class="text-body-sm">
+            <option value="">Todas oficinas</option>
+            <option value="T1">T1 · Terra e Semente</option>
+            <option value="T2">T2 · Ciclo da Água</option>
+            <option value="T3">T3 · Alimentos</option>
+            <option value="T4">T4 · Nova Agricultura</option>
+            <option value="T5">T5 · Clima</option>
+            <option value="T6">T6 · Biometano</option>
+            <option value="T7">T7 · Hackathon</option>
+            <option value="Framework">Método geral</option>
+            <option value="Praça">Evento Praça</option>
+          </select>
+          <button id="bench-reset" class="px-3 py-2 border border-outline-variant rounded-lg text-body-sm hover:bg-surface-container-highest">Limpar</button>
+          <span class="text-body-sm text-outline ml-auto" id="bench-count">— cases</span>
+        </div>
+      </div>
+
+      <div id="bench-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gap-md"></div>
     </div>
 
   </div>
@@ -1431,6 +1949,109 @@ document.getElementById('btn-refresh').addEventListener('click', e => refresh(e.
 
 // Auto-refresh a cada 5 minutos
 setInterval(() => refresh(false), 5 * 60 * 1000);
+
+// ============= ACCORDION DAS OFICINAS =============
+document.querySelectorAll('.of-head').forEach(head => {
+  head.addEventListener('click', () => {
+    const card = head.closest('.of-card');
+    card.classList.toggle('open');
+  });
+});
+
+// Abrir T1 por padrão
+const firstOf = document.querySelector('.of-card[data-of="t1"]');
+if (firstOf) firstOf.classList.add('open');
+
+// ============= SMOOTH SCROLL nos anchor-chip =============
+document.querySelectorAll('.anchor-chip').forEach(chip => {
+  chip.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = chip.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+
+// ============= BENCHMARKS 1.7 =============
+const BENCHMARKS = [
+  // Cat 1 · Educação ambiental e agro de baixo custo
+  {cat:1, catName:"Educação ambiental frugal", name:"Orto in Condotta", org:"Slow Food · Itália", desc:"Horta orgânica na escola com avós-jardineiros. 500+ escolas desde 2004. Modelo de legado comunitário.", of:["Framework","T1"]},
+  {cat:1, catName:"Educação ambiental frugal", name:"Hortas Pedagógicas FAO/FNDE", org:"ONU/Brasil", desc:"16 mil hortas em 16 países. Modelo de 6 componentes.", of:["T1","T4"]},
+  {cat:1, catName:"Educação ambiental frugal", name:"Biodigestor em PET", org:"Escolas Cidadãs Integrais · Brasil", desc:"Biogás e biofertilizante em escala escolar.", of:["T6"]},
+  {cat:1, catName:"Educação ambiental frugal", name:"Composteira de PET", org:"UFPA · Brasil", desc:"Ciclo da matéria orgânica em semanas de observação.", of:["T1","T6"]},
+  {cat:1, catName:"Educação ambiental frugal", name:"Green School", org:"Bali · Indonésia", desc:"Escola em bambu · 80% energia solar · integração natureza-currículo.", of:["Framework","T1"]},
+  {cat:1, catName:"Educação ambiental frugal", name:"Pluviômetro PET · Cemaden Educação", org:"Brasil", desc:"Ciência cidadã com coleta de dados climáticos reais.", of:["T5"]},
+  // Cat 2 · Maker e ciência frugal (STEAM)
+  {cat:2, catName:"Maker · STEAM frugal", name:"Foldscope", org:"Stanford · EUA (Manu Prakash)", desc:"Microscópio de origami por menos de US$ 1. 50 mil distribuídos em 135 países.", of:["Framework","T5"]},
+  {cat:2, catName:"Maker · STEAM frugal", name:"CS Unplugged", org:"Nova Zelândia", desc:"Computação desplugada sem computador. Tradução PT disponível.", of:["Framework","T6"]},
+  {cat:2, catName:"Maker · STEAM frugal", name:"Nanossatélite 3D", org:"FEBRACE · Brasil", desc:"Detector de incêndios por R$ 1.150 vs R$ 6 mil comercial.", of:["Framework"]},
+  {cat:2, catName:"Maker · STEAM frugal", name:"Sensores agro DIY", org:"FEBRACE · MOSTRATEC · Brasil", desc:"Umidade + temperatura com eletrônica aberta.", of:["T2","T5"]},
+  {cat:2, catName:"Maker · STEAM frugal", name:"Foldscope em escolas", org:"México", desc:"900 operadores treinados como microcosmo explorers.", of:["Framework"]},
+  // Cat 3 · Prêmios e feiras de jovens
+  {cat:3, catName:"Prêmios e feiras de jovens", name:"Samsung Solve for Tomorrow", org:"Brasil/global", desc:"185 mil alunos · 42 mil professores · 8 mil escolas. Ex: 'BabaçuTech' (MA). Base do TESLA Biodigestor.", of:["T6","T7"]},
+  {cat:3, catName:"Prêmios e feiras de jovens", name:"FEBRACE", org:"USP · Brasil (desde 2003)", desc:"Centenas de projetos. Formato trio + professor + pôster.", of:["T7"]},
+  {cat:3, catName:"Prêmios e feiras de jovens", name:"MOSTRATEC", org:"Fundação Liberato · RS", desc:"774 projetos na edição 2025. Maior da América Latina.", of:["T7"]},
+  {cat:3, catName:"Prêmios e feiras de jovens", name:"Google Science Fair", org:"Global · 13-18 anos", desc:"'Boa pergunta é a barreira, não equipamento'. Extinção recente mas legado forte.", of:["T7"]},
+  {cat:3, catName:"Prêmios e feiras de jovens", name:"Regeneron ISEF", org:"Global · EUA", desc:"Maior feira pré-universitária do mundo.", of:["T7"]},
+  // Cat 4 · Clima, ciência cidadã e cidadania
+  {cat:4, catName:"Clima e cidadania", name:"Rádio na Escola", org:"UFMG · Brasil", desc:"Educomunicação · 'Ritmos da Ciência'.", of:["T7"]},
+  {cat:4, catName:"Clima e cidadania", name:"Ciência Cidadã · Cemaden", org:"Brasil", desc:"Coleta de dados ambientais + ação comunitária.", of:["T5","Framework"]},
+  {cat:4, catName:"Clima e cidadania", name:"Cartografia social na escola", org:"Brasil", desc:"Mapa participativo em papel kraft. Referência do T4 e T5.", of:["T4","T5"]},
+  {cat:4, catName:"Clima e cidadania", name:"Teatro do Oprimido", org:"Augusto Boal · Brasil", desc:"Espect-ator · conflito social em cena. Aplicável ao Concurso Fotografia.", of:["Praça","T7"]},
+  {cat:4, catName:"Clima e cidadania", name:"Earthshot Prize", org:"Global", desc:"5 metas do planeta · reconhece soluções jovens.", of:["T7"]},
+  // Cat 5 · Arte-educação de baixo custo
+  {cat:5, catName:"Arte-educação frugal", name:"Cianotipia", org:"Século XIX · internacional", desc:"Sais de ferro + sol = imagem azul. Fornecedor Brasil: O Retratista.", of:["T2"]},
+  {cat:5, catName:"Arte-educação frugal", name:"Eco-print (India Flint)", org:"Internacional", desc:"Transferência botânica sem químicos agressivos.", of:["T1"]},
+  {cat:5, catName:"Arte-educação frugal", name:"Zines", org:"Consolidada", desc:"Revista artesanal com grampos ou espiral. Aplicável a T4 fallback.", of:["T4","T3"]},
+  {cat:5, catName:"Arte-educação frugal", name:"Impressão botânica · Museu Goeldi", org:"Brasil", desc:"Tintura vegetal sobre tecido em contexto museológico.", of:["T1","T2"]},
+  {cat:5, catName:"Arte-educação frugal", name:"Instituto Buriti", org:"SP · Brasil", desc:"Arte-educação com plantas em escolas públicas.", of:["T1"]},
+  // Cat 6 · Empreendedorismo e hackathon
+  {cat:6, catName:"Empreendedorismo · hackathon", name:"Junior Achievement 'Miniempresa'", org:"Brasil", desc:"Validada em EM. Modelo do formato Hackathon adaptado.", of:["T7","T3"]},
+  {cat:6, catName:"Empreendedorismo · hackathon", name:"UFPR Hackathon 2024", org:"Brasil", desc:"6 startups validadas em 10h com alunos EM.", of:["T7"]},
+  {cat:6, catName:"Empreendedorismo · hackathon", name:"Fundação Estudar", org:"Brasil", desc:"Hackathon de jovens · napratica.org.br.", of:["T7"]},
+  {cat:6, catName:"Empreendedorismo · hackathon", name:"Design for Change", org:"Global", desc:"Metodologia colaborativa Sentir-Imaginar-Fazer-Compartilhar.", of:["Framework","T7"]},
+  {cat:6, catName:"Empreendedorismo · hackathon", name:"Sebrae 'A Grande Sacola'", org:"Brasil", desc:"Simulação de cadeia produtiva. Base do Mercado Simulado da T3.", of:["T3"]},
+  // Cat 7 · Inovação social mundial
+  {cat:7, catName:"Inovação social mundial", name:"Escuela Nueva", org:"Colômbia", desc:"Educação rural ativa · multi-série.", of:["Framework"]},
+  {cat:7, catName:"Inovação social mundial", name:"Hole-in-the-Wall", org:"Índia · Surásia", desc:"Aprendizagem auto-organizada.", of:["Framework"]},
+  {cat:7, catName:"Inovação social mundial", name:"Instituto Ciranda 'Caixa de Histórias'", org:"Brasil", desc:"Contação com materialidade. Base do T7 abertura.", of:["T7"]},
+  {cat:7, catName:"Inovação social mundial", name:"Contação de Histórias na Natureza", org:"SCTODODIA · SC · Brasil", desc:"Narrativa oral em contexto ambiental.", of:["T7"]},
+  // Cat 8 · Agro e juventude rural
+  {cat:8, catName:"Agro e juventude rural", name:"SENAR", org:"Brasil", desc:"Treinamento técnico · 20+ mil operadores de colhedora.", of:["Framework","T6"]},
+  {cat:8, catName:"Agro e juventude rural", name:"4-H", org:"EUA", desc:"Head-Heart-Hands-Health · juventude rural desde 1902.", of:["Framework"]},
+  {cat:8, catName:"Agro e juventude rural", name:"FFA (Future Farmers of America)", org:"EUA", desc:"Ensino médio agrícola integrado.", of:["Framework"]},
+  {cat:8, catName:"Agro e juventude rural", name:"Plaksha University smart farm", org:"Índia", desc:"900 operadores treinados. Fazenda inteligente.", of:["Framework","T2"]},
+];
+
+const benchGrid = document.getElementById('bench-grid');
+const benchCat = document.getElementById('bench-cat-filter');
+const benchOf = document.getElementById('bench-of-filter');
+const benchCount = document.getElementById('bench-count');
+
+function renderBenchmarks(){
+  const cat = benchCat.value;
+  const of = benchOf.value;
+  const filtered = BENCHMARKS.filter(b => {
+    if (cat && String(b.cat) !== cat) return false;
+    if (of && !b.of.includes(of)) return false;
+    return true;
+  });
+  benchGrid.innerHTML = '';
+  filtered.forEach(b => {
+    const div = document.createElement('div');
+    div.className = 'bench-card';
+    const ofTags = b.of.map(o => `<span class="bench-tag">${o}</span>`).join(' ');
+    div.innerHTML = `<div class="bench-cat">Cat ${b.cat} · ${b.catName}</div><div class="bench-name">${b.name}</div><div class="text-body-sm text-outline" style="font-style:italic">${b.org}</div><div class="bench-desc">${b.desc}</div><div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:auto;padding-top:8px">${ofTags}</div>`;
+    benchGrid.appendChild(div);
+  });
+  benchCount.textContent = `${filtered.length} de ${BENCHMARKS.length} cases`;
+}
+benchCat.addEventListener('change', renderBenchmarks);
+benchOf.addEventListener('change', renderBenchmarks);
+document.getElementById('bench-reset').addEventListener('click', () => {
+  benchCat.value = ''; benchOf.value = ''; renderBenchmarks();
+});
+renderBenchmarks();
 </script>
 </body>
 </html>
