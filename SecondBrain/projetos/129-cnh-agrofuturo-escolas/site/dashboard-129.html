@@ -135,6 +135,51 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#C8102E;box-sh
 .slide-wrap iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
 .sheet-wrap{background:#fff;border:1px solid #d9c0c0;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(36,16,16,.06)}
 .sheet-wrap iframe{display:block;width:100%;height:600px;border:0}
+/* Aprofundamento 1.3 Metodologia · paleta Case IH */
+.anchor-nav{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:#FCE8E8;border:1px solid #d9c0c0;border-radius:12px;margin-bottom:20px;position:sticky;top:0;z-index:5}
+.anchor-chip{padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;background:#fff;color:#8B0022;border:1px solid #d9c0c0;cursor:pointer;transition:all .15s ease;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.anchor-chip:hover{background:#C8102E;color:#F0B323;border-color:#C8102E;text-decoration:none}
+.of-card{background:#fff;border:1px solid #d9c0c0;border-radius:14px;overflow:hidden;transition:box-shadow .2s ease}
+.of-card:hover{box-shadow:0 6px 20px rgba(200,16,46,.10)}
+.of-head{padding:16px 18px;cursor:pointer;display:flex;align-items:flex-start;gap:14px;user-select:none;background:linear-gradient(180deg,#fff 0%,#FCE8E8 100%)}
+.of-head:hover{background:#f5dede}
+.of-emoji{font-size:32px;line-height:1;flex-shrink:0}
+.of-title{flex:1;min-width:0}
+.of-num{display:inline-block;font-family:'Space Grotesk';font-weight:700;font-size:11px;background:#C8102E;color:#F0B323;padding:2px 8px;border-radius:6px;margin-right:8px;vertical-align:middle}
+.of-name{font-family:'Space Grotesk';font-weight:600;color:#8B0022;font-size:16px;display:inline}
+.of-sub{font-size:12px;color:#5A2828;margin-top:4px}
+.of-caret{font-size:20px;color:#5A2828;transition:transform .2s ease;flex-shrink:0}
+.of-card.open .of-caret{transform:rotate(180deg)}
+.of-body{display:none;padding:0 18px 18px 18px;border-top:1px solid #f5dede}
+.of-card.open .of-body{display:block;animation:fade .2s ease}
+.layer{padding:12px 0;border-bottom:1px dashed #f5dede}
+.layer:last-child{border-bottom:0}
+.layer-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:#F0B323;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.layer-content{font-size:13px;color:#241010;line-height:1.55}
+.hack-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-radius:12px;overflow:hidden;margin:16px 0}
+.hack-block{padding:16px;color:#fff;min-height:180px;display:flex;flex-direction:column}
+.hack-block h4{color:#fff;font-family:'Space Grotesk';font-weight:700;font-size:16px;margin:0 0 6px}
+.hack-block .h-time{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.85;margin-bottom:6px}
+.hack-block ul{font-size:12px;padding-left:16px;margin:0;line-height:1.55}
+.hack-1{background:linear-gradient(135deg,#5A0015,#8B0022)}
+.hack-2{background:linear-gradient(135deg,#8B0022,#C8102E)}
+.hack-3{background:linear-gradient(135deg,#C8102E,#E63946)}
+.hack-4{background:linear-gradient(135deg,#B8860B,#F0B323);color:#5A0015}
+.hack-4 h4,.hack-4 .h-time{color:#5A0015}
+.env-card{background:#fff;border:1px solid #d9c0c0;border-radius:14px;padding:20px;position:relative;overflow:hidden;min-height:220px}
+.env-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#C8102E,#F0B323)}
+.env-icon{font-size:38px;line-height:1;margin-bottom:12px}
+.env-title{font-family:'Space Grotesk';font-weight:600;color:#8B0022;font-size:17px;margin-bottom:6px}
+.env-desc{font-size:13px;color:#5A2828;line-height:1.55}
+.principle{background:#fff;border:1px solid #d9c0c0;border-radius:12px;padding:16px}
+.principle-num{font-family:'Space Grotesk';font-weight:700;font-size:28px;color:#F0B323;line-height:1;margin-bottom:6px}
+.principle-name{font-family:'Space Grotesk';font-weight:600;color:#8B0022;font-size:14px;margin-bottom:4px}
+.principle-desc{font-size:12px;color:#5A2828;line-height:1.5}
+.bench-card{background:#fff;border:1px solid #d9c0c0;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.bench-cat{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F0B323}
+.bench-name{font-family:'Space Grotesk';font-weight:600;color:#8B0022;font-size:14px}
+.bench-desc{font-size:12px;color:#5A2828;line-height:1.5}
+.bench-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:999px;background:#FCE8E8;color:#8B0022;margin-top:auto;width:max-content}
 </style>
 </head>
 <body class="bg-surface text-on-surface h-screen flex overflow-hidden font-body-lg text-body-lg">
@@ -257,6 +302,7 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#C8102E;box-sh
       <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="1.4">📣 1.4 Comunicação</button>
       <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="1.5">🤝 1.5 Engajamento</button>
       <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="1.6">⚖️ 1.6 Governança</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="1.7">🔬 1.7 Benchmarks</button>
     </div>
 
     <!-- 1.1 -->
@@ -391,67 +437,481 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#C8102E;box-sh
 
     <!-- 1.3 -->
     <div class="subpage" data-sub="1.3">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-gap-md">
-        <div class="oficina"><span class="oficina-num">O1</span><div class="text-3xl mb-2">🍽️</div>
-          <p class="font-semibold text-primary">Do Campo à Mesa</p>
-          <p class="text-body-sm text-on-surface-variant">Curadoria: quais alimentos do MT chegam à minha mesa? Atlas visual com kraft, colagens e cartografia afetiva.</p>
-          <span class="chip chip-yellow mt-2">Livre</span></div>
-        <div class="oficina"><span class="oficina-num">O2</span><div class="text-3xl mb-2">🚁</div>
-          <p class="font-semibold text-primary">Tecnologia no Campo</p>
-          <p class="text-body-sm text-on-surface-variant"><strong>Drone real cedido</strong> pela concessionária. Voo demonstrativo + mapeamento da escola + maquete territorial.</p>
-          <span class="chip chip-yellow mt-2">Livre · drone R$ 0</span></div>
-        <div class="oficina"><span class="oficina-num">O3</span><div class="text-3xl mb-2">💧</div>
-          <p class="font-semibold text-primary">Água: Fonte de Vida</p>
-          <p class="text-body-sm text-on-surface-variant"><strong>Fotografia macro + light painting</strong>: água + irrigação + luz. Obras entram na Exposição Itinerante.</p>
-          <span class="chip chip-red mt-2">Fotografia MinC</span></div>
-        <div class="oficina"><span class="oficina-num">O4</span><div class="text-3xl mb-2">⚡</div>
-          <p class="font-semibold text-primary">Energia no Agro</p>
-          <p class="text-body-sm text-on-surface-variant">Ciclo do etanol · da cana à energia · maquete de usina + painel de fluxo.</p>
-          <span class="chip chip-gray mt-2">Contrapartida</span></div>
-        <div class="oficina"><span class="oficina-num">O5</span><div class="text-3xl mb-2">☀️</div>
-          <p class="font-semibold text-primary">Agro e Clima</p>
-          <p class="text-body-sm text-on-surface-variant">Jogo de cartas de dilemas climáticos + mini-documentário produzido pelos alunos.</p>
-          <span class="chip chip-yellow mt-2">Livre</span></div>
-        <div class="oficina"><span class="oficina-num">O6</span><div class="text-3xl mb-2">🎨</div>
-          <p class="font-semibold text-primary">Cidadania e Sustentabilidade</p>
-          <p class="text-body-sm text-on-surface-variant"><strong>Painel coletivo</strong> com técnicas mistas + saberes locais. Obras entram na Exposição Itinerante.</p>
-          <span class="chip chip-yellow mt-2">Livre · AP</span></div>
-      </div>
-      <div class="card mt-gap-md bg-primary text-on-primary relative overflow-hidden">
-        <div class="absolute top-4 right-4 font-headline-sm text-headline-sm font-bold text-secondary-container">O7</div>
-        <div class="text-4xl mb-2">🚀</div>
-        <h3 class="font-headline-sm text-headline-sm text-on-primary mb-2">Desafio AgroFuturo</h3>
-        <p class="text-body-sm opacity-90 max-w-2xl"><strong>NÃO paletes</strong> — Ana está desenhando cenografia agro 4.0. Formato pitch startup + manifesto do jovem inventor · 3 min de pitch + 5 min banca externa (produtor, concessionária, técnico) · prêmio 3 camadas + camada 0 visita à Fazenda Conectada Agritex.</p>
-        <div class="mt-3 flex gap-2 flex-wrap">
-          <span class="chip chip-yellow">Cenografia em desenho</span>
-          <span class="chip chip-yellow">3ª conversa com Ana: 03/07</span>
+      <!-- anchor nav -->
+      <nav class="anchor-nav">
+        <a href="#m-framework" class="anchor-chip">🧭 Framework</a>
+        <a href="#m-oficinas" class="anchor-chip">🎨 7 oficinas</a>
+        <a href="#m-plataforma" class="anchor-chip">💻 Plataforma EAD</a>
+        <a href="#m-desafio" class="anchor-chip">🚀 Desafio AgroFuturo</a>
+        <a href="#m-feira" class="anchor-chip">🎪 Feira Pantanal</a>
+        <a href="#m-legado" class="anchor-chip">♻️ Legado</a>
+      </nav>
+
+      <!-- ==== FRAMEWORK ==== -->
+      <section id="m-framework" style="scroll-margin-top:120px">
+        <div class="mb-4">
+          <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">Framework pedagógico</p>
+          <h3 class="font-headline-sm text-headline-sm text-primary">5 princípios · 4 vertentes · 5 momentos</h3>
         </div>
-      </div>
-      <div class="card mt-gap-md">
-        <h3 class="font-headline-sm text-headline-sm text-primary mb-3">Ciclo de cidade · Cronograma B</h3>
-        <table class="data">
-          <thead><tr><th style="width:110px">Dia</th><th>Atividade</th></tr></thead>
-          <tbody>
-            <tr><td class="font-semibold">Domingo</td><td>Chegada da equipe</td></tr>
-            <tr><td class="font-semibold">Segunda</td><td>Oficinas O1 e O2 (drone real)</td></tr>
-            <tr><td class="font-semibold">Terça</td><td>Oficinas O3 e O4</td></tr>
-            <tr><td class="font-semibold">Quarta</td><td>Oficina O5</td></tr>
-            <tr><td class="font-semibold">Quinta</td><td>Oficina O6 + preparação Desafio</td></tr>
-            <tr><td><span class="chip chip-yellow">Sexta</span></td><td><strong>Desafio AgroFuturo (O7)</strong> · evento aberto</td></tr>
-            <tr><td class="font-semibold">Sábado</td><td>Retorno</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md mt-gap-md">
+
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-gap-md mb-gap-md">
+          <div class="principle"><div class="principle-num">1</div><div class="principle-name">Vivência ativa</div><div class="principle-desc">O jovem aprende inventando. Educador provoca, nunca palestra.</div></div>
+          <div class="principle"><div class="principle-num">2</div><div class="principle-name">Celular guardado</div><div class="principle-desc">Volta na T5 (mini-doc) e T3 (fotografia) sob coordenação.</div></div>
+          <div class="principle"><div class="principle-num">3</div><div class="principle-name">Benchmark inspira</div><div class="principle-desc">Cemaden, SENAR, Farmoon, Solve for Tomorrow. Produto é do jovem.</div></div>
+          <div class="principle"><div class="principle-num">4</div><div class="principle-name">Território é sala</div><div class="principle-desc">Cerrado, safra e savana do MT como matéria-prima.</div></div>
+          <div class="principle"><div class="principle-num">5</div><div class="principle-name">Cultura + ciência + arte</div><div class="principle-desc">Fotografia + Artes Plásticas + 5 Livres no mesmo plano.</div></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md mb-gap-md">
+          <div class="card">
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-3">4 vertentes teóricas</h4>
+            <ul class="text-body-sm space-y-2">
+              <li><strong>Aprendizagem baseada em projetos (ABP).</strong> Aluno constrói solução para o Desafio AgroFuturo.</li>
+              <li><strong>Design Thinking educacional.</strong> Empatia → ideação → prototipagem → teste (culmina no Desafio).</li>
+              <li><strong>Storytelling.</strong> Narrativa do "Inventor AgroFuturo" amarra oficinas ao pitch.</li>
+              <li><strong>Cultura como linguagem.</strong> Fotografia + Artes Plásticas + 5 Livres são a via do conteúdo agro 4.0.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-3">5 momentos de cada oficina</h4>
+            <table class="data">
+              <thead><tr><th>Momento</th><th>Tempo</th><th>O que acontece</th></tr></thead>
+              <tbody>
+                <tr><td class="bold">1. Aquecimento</td><td>15 min</td><td>Pergunta ou situação real do campo abre o tema.</td></tr>
+                <tr><td class="bold">2. Atividade</td><td>50 min</td><td>Mão na massa. Aluno cria o produto.</td></tr>
+                <tr><td class="bold">3. Sistematização</td><td>20 min</td><td>Grupo apresenta, turma conecta ao ODS + Desafio.</td></tr>
+                <tr><td class="bold">4. Produto</td><td>10 min</td><td>Registro material do que foi feito.</td></tr>
+                <tr><td class="bold">5. Apresentação</td><td>5 min</td><td>Post-it no mural do squad para o Desafio AgroFuturo.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card mb-gap-md">
+          <h4 class="font-headline-sm text-headline-sm text-primary mb-3">Estrutura macro por cidade (Cronograma B)</h4>
+          <table class="data">
+            <thead><tr><th style="width:120px">Dia</th><th>Oficinas</th><th>Papel narrativo</th></tr></thead>
+            <tbody>
+              <tr><td class="bold">Segunda</td><td>T1 Do Campo à Mesa + T2 Tecnologia no Campo (drones)</td><td>Lente cadeia produtiva + agro 4.0</td></tr>
+              <tr><td class="bold">Terça</td><td>T3 Água (Fotografia) + T4 Energia (Etanol)</td><td>Lentes recursos e biocombustível</td></tr>
+              <tr><td class="bold">Quarta</td><td>T5 Agro e Clima (Jogo + mini-doc)</td><td>Lente climática e adaptação</td></tr>
+              <tr><td class="bold">Quinta</td><td>T6 Cidadania (Artes Plásticas) + prep Desafio</td><td>Lente cidadã + prep final</td></tr>
+              <tr><td class="bold"><span class="chip chip-yellow">Sexta</span></td><td><strong>T7 Desafio AgroFuturo · hackathon</strong></td><td>Ápice narrativo · evento aberto</td></tr>
+            </tbody>
+          </table>
+          <p class="text-body-sm text-outline mt-3">3 turmas por dia × 120 alunos por turma (4 salas de 30) = 360 alunos únicos/cidade × 3 cidades = <strong>1.080 alunos totais</strong> = 7.560 atendimentos.</p>
+          <p class="text-body-sm text-outline mt-1"><strong>Sem palestra formativa de professores presencial</strong> · formação docente na plataforma "AgroFuturo Digital" (17h EAD).</p>
+        </div>
+
         <div class="card">
-          <h3 class="font-headline-sm text-headline-sm text-primary mb-2">Plataforma "AgroFuturo Digital"</h3>
-          <p class="text-body-sm">Desenvolvida pela <strong>Replique</strong>. Certificação, trilhas, gamificação · área do estudante, do professor e do gestor. Pronta antes de 14/09.</p>
+          <h4 class="font-headline-sm text-headline-sm text-primary mb-3">Cronograma-macro do 129</h4>
+          <table class="data">
+            <thead><tr><th>Cidade · UF</th><th>Semana</th><th>Data</th><th>Logística</th></tr></thead>
+            <tbody>
+              <tr><td class="bold">Tangará da Serra · MT</td><td>1</td><td>14 a 18/09</td><td>Avião até Cuiabá + carro</td></tr>
+              <tr><td class="bold">Água Boa · MT</td><td>2</td><td>28/09 a 02/10</td><td><strong>Carro · 720 km</strong> (decisão 02/07)</td></tr>
+              <tr><td class="bold">Cuiabá (oficinas) · MT</td><td>3</td><td>02 a 06/11</td><td>Base Cuiabá</td></tr>
+              <tr><td class="bold"><span class="chip chip-yellow">Feira Shopping Pantanal</span></td><td>4</td><td><strong>09 a 13/11 · 5 dias</strong></td><td>Culminância cultural</td></tr>
+              <tr><td class="bold">Exposição itinerante</td><td>5+</td><td>14/11 a 14/12 (30 dias)</td><td>Obras da T3 + T6</td></tr>
+            </tbody>
+          </table>
         </div>
+      </section>
+
+      <!-- ==== 7 OFICINAS ==== -->
+      <section id="m-oficinas" style="scroll-margin-top:120px" class="mt-8">
+        <div class="mb-4">
+          <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">As 7 oficinas</p>
+          <h3 class="font-headline-sm text-headline-sm text-primary">Clique em cada card para expandir as 8 camadas</h3>
+          <p class="text-body-sm text-outline mt-1">Tema + MinC + ODS · Objetivo · BNCC · Roteiro 5 momentos · Papel dos 3 instrutores · Materiais + frugal · Produto · Benchmark âncora.</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-3">
+
+          <!-- T1 -->
+          <div class="of-card" data-of="t1">
+            <div class="of-head">
+              <div class="of-emoji">🍽️</div>
+              <div class="of-title">
+                <span class="of-num">T1</span><span class="of-name">Do Campo à Mesa</span>
+                <div class="of-sub"><span class="chip chip-yellow">Livre</span> · Segunda · ODS 2, 8, 12 · Atlas visual do agro do MT</div>
+              </div>
+              <div class="of-caret">▾</div>
+            </div>
+            <div class="of-body">
+              <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante mapeia a jornada do alimento do MT do plantio à mesa e reconhece a fronteira agrícola brasileira como referência global.</div></div>
+              <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 7 (argumentação sobre cadeia), 10 (consumo consciente).</div></div>
+              <div class="layer"><div class="layer-label">⏱️ Roteiro 5 momentos (100 min)</div><div class="layer-content"><strong>Aquecimento (15').</strong> "Que alimento do MT vai parar em quantos estados?" + fotos de soja embarcando em Rondonópolis. <strong>Atividade (50').</strong> Subgrupos de 8 recebem kraft de 3m + ícones (produtor, indústria, transporte, varejo, exportação). Constroem <strong>atlas visual do agro do MT</strong> com colagem + desenho + etiquetas manuscritas. <strong>Sistematização (20').</strong> Apresenta em 3 min. Debate: onde MT lucra? Onde perde valor? <strong>Produto (10').</strong> Atlas visual coletivo (3m × 1,5m) fotografado. <strong>Apresentação (5').</strong> Post-it: "que gargalo da cadeia do meu município minha solução resolve?".</div></div>
+              <div class="layer"><div class="layer-label">👥 Papel dos 3 instrutores</div><div class="layer-content"><strong>Storyteller:</strong> conduz colagem, provoca reflexão. <strong>Técnico:</strong> apoia com dados IBGE/Conab do MT (soja, milho, gado). <strong>Artístico:</strong> composição visual + registro fotográfico.</div></div>
+              <div class="layer"><div class="layer-label">📦 Materiais + alternativa frugal</div><div class="layer-content">Padrão: papel kraft 3m (15 rolos), fotos impressas do agro do MT, etiquetas, canetões, cola bastão, ícones adesivos. <strong>Frugal (Opção B, Zine coletivo):</strong> painel A3 individual + zine coletivo. Custo cai de R$ 80-150 para R$ 60-90/turma.</div></div>
+              <div class="layer"><div class="layer-label">🎁 Produto tangível</div><div class="layer-content">Atlas visual do agro do MT (permanente na escola) + registro fotográfico.</div></div>
+              <div class="layer"><div class="layer-label">🔬 Benchmark âncora</div><div class="layer-content"><strong>Cartografia participativa</strong> · Cemaden Educação e FEAC (Campinas) + <strong>"Bovinos, do Pasto ao Prato"</strong> (Escola Games). Referência de conteúdo: SENAR.</div></div>
+            </div>
+          </div>
+
+          <!-- T2 -->
+          <div class="of-card" data-of="t2">
+            <div class="of-head">
+              <div class="of-emoji">🚁</div>
+              <div class="of-title">
+                <span class="of-num">T2</span><span class="of-name">Tecnologia no Campo · drones e sensores</span>
+                <div class="of-sub"><span class="chip chip-yellow">Livre · drone R$ 0</span> · Segunda · ODS 9 · Maquete de lavoura + voo real cedido pela concessionária</div>
+              </div>
+              <div class="of-caret">▾</div>
+            </div>
+            <div class="of-body">
+              <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante reconhece o agro 4.0 como oportunidade profissional e o drone como ferramenta de precisão. Desenvolve pensamento algorítmico aplicado ao campo.</div></div>
+              <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 2 (pensamento científico), 6 (projeto de vida).</div></div>
+              <div class="layer"><div class="layer-label">⏱️ Roteiro 5 momentos (100 min)</div><div class="layer-content"><strong>Aquecimento (15').</strong> "Se você tivesse um drone, o que veria da sua cidade que ninguém vê?" + fotos aéreas de fazendas do MT + comparação NDVI. <strong>Atividade (50').</strong> Subgrupos de 6 constroem <strong>maquete de lavoura + rota de drone</strong>: papel machê, isopor, terra, sementes. Zonas de manejo (seca, praga, saudável). Rota de sobrevoo com fio ou linha. <strong>Sistematização (20').</strong> Se concessionária cede drone real (Max Case, Agritex, rede Case IH), <strong>voo demonstrativo 15 min</strong>. Se não, prints de imagens aéreas. <strong>Produto (10').</strong> Maquete (fica na escola) + relatório de voo. <strong>Apresentação (5').</strong> Post-it: "que zona de manejo minha solução ajuda a ver?".</div></div>
+              <div class="layer"><div class="layer-label">👥 Papel dos 3 instrutores</div><div class="layer-content"><strong>Técnico:</strong> conduz maquete + explica agricultura de precisão + opera relação com concessionária cedente. <strong>Storyteller:</strong> narrativa "jovem inventor do agro". <strong>Artístico:</strong> registro (foto + vídeo curto) para a Feira Pantanal.</div></div>
+              <div class="layer"><div class="layer-label">📦 Materiais + alternativa frugal</div><div class="layer-content">Padrão: isopor (15 placas), papel machê, terra, sementes (soja, milho, cana), fios coloridos, canudos, fotos de drones agrícolas, ficha explicativa. <strong>Drone real: custo NTICS R$ 0</strong> (contrapartida da concessionária). <strong>Frugal (Opção B, Programação Desplugada):</strong> grade de lavoura A3 com comandos escritos (AVANCE 3, VIRE DIREITA, FOTO). Aluno vira "drone físico". Custo cai para R$ 30-50/turma.</div></div>
+              <div class="layer"><div class="layer-label">🎁 Produto tangível</div><div class="layer-content">Maquete de lavoura + rota de drone (fica na escola) + relatório de voo preenchido.</div></div>
+              <div class="layer"><div class="layer-label">🔬 Benchmark âncora</div><div class="layer-content"><strong>SENAR-PR</strong> usa maquetes em treinamentos de agricultura de precisão + <strong>Governo do PR</strong> investiu R$ 850k em drones para colégios agrícolas 2025. Programação desplugada: <strong>CS Unplugged</strong> (Nova Zelândia).</div></div>
+            </div>
+          </div>
+
+          <!-- T3 -->
+          <div class="of-card" data-of="t3">
+            <div class="of-head">
+              <div class="of-emoji">💧</div>
+              <div class="of-title">
+                <span class="of-num">T3</span><span class="of-name">Água · Fonte de Vida e Produção</span>
+                <div class="of-sub"><span class="chip chip-red">Fotografia MinC</span> · Terça · ODS 6, 12, 13 · Fotografia macro + light painting</div>
+              </div>
+              <div class="of-caret">▾</div>
+            </div>
+            <div class="of-body">
+              <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante entende o ciclo da água no agro do MT e desenvolve olhar fotográfico autoral aplicado ao território.</div></div>
+              <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 2 (pensamento científico), 4 (leitura de imagem).</div></div>
+              <div class="layer"><div class="layer-label">⏱️ Roteiro 5 momentos (100 min, sala separada)</div><div class="layer-content"><strong>Aquecimento (15').</strong> Instrutor artístico apresenta 3 técnicas: macro, light painting, longa exposição. <strong>Atividade (50').</strong> Dois blocos combinados. <strong>(a) Fotografia macro</strong> (25'): gotas, folhas molhadas, superfícies aquosas com foco extremo. <strong>(b) Light painting</strong> (25'): sala escurecida, subgrupos "desenham" no ar com LEDs coloridos representando o ciclo da água (evaporação, nuvem, chuva, rio, raiz) em fotos de longa exposição 15-30s. <strong>Sistematização (20').</strong> Contatos na tela + escolha da melhor foto. <strong>Produto (10').</strong> Impressão A3 imediata. <strong>Apresentação (5').</strong> Post-it: "que uso eficiente de água vai para a minha solução?".</div></div>
+              <div class="layer"><div class="layer-label">👥 Papel dos 3 instrutores</div><div class="layer-content"><strong>Artístico:</strong> conduz as duas técnicas fotográficas, opera câmera, ensina composição. <strong>Técnico:</strong> apoia com informação sobre ciclo hidrológico do MT e pulverização de precisão. <strong>Storyteller:</strong> provoca conexão visual entre foto e solução.</div></div>
+              <div class="layer"><div class="layer-label">📦 Materiais + alternativa frugal</div><div class="layer-content">Padrão: 2-4 câmeras DSLR ou celulares em modo manual + tripés, LEDs coloridos a bateria (6-8), blackout leve, impressora A3 rápida. <strong>Frugal (Opção B, Cianotipia):</strong> solução fotossensível + folhas + sol 5-15 min. Cada aluno leva quadrado 20x20cm. Custo R$ 240-360/turma. Fornecedor: O Retratista (R$ 156/kit).</div></div>
+              <div class="layer"><div class="layer-label">🎁 Produto tangível</div><div class="layer-content">Ensaio fotográfico autoral (3-5 imagens · uma macro + uma light painting) que compõe a <strong>exposição itinerante de 30 dias no Shopping Pantanal</strong>.</div></div>
+              <div class="layer"><div class="layer-label">🔬 Benchmark âncora</div><div class="layer-content"><strong>Light painting educacional</strong> aplicado por Educa SC (Porto União) + <strong>Mídias Inovadoras</strong>. Cianotipia como fallback: <strong>CCBB</strong> e <strong>SESC</strong>.</div></div>
+            </div>
+          </div>
+
+          <!-- T4 -->
+          <div class="of-card" data-of="t4">
+            <div class="of-head">
+              <div class="of-emoji">⚡</div>
+              <div class="of-title">
+                <span class="of-num">T4</span><span class="of-name">Energia no Agro · etanol e biocombustíveis</span>
+                <div class="of-sub"><span class="chip chip-yellow">Livre</span> · Terça · ODS 7, 12, 13 · Maquete de usina + fermentação real</div>
+              </div>
+              <div class="of-caret">▾</div>
+            </div>
+            <div class="of-body">
+              <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante compreende como resíduos e cultivos viram energia limpa. Passa a pensar em circularidade no Desafio.</div></div>
+              <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 1 (fermentação), 6 (visão de futuro).</div></div>
+              <div class="layer"><div class="layer-label">⏱️ Roteiro 5 momentos (100 min, em paralelo à T3)</div><div class="layer-content"><strong>Aquecimento (15').</strong> Instrutor técnico monta previamente maquete-piloto: recepção da cana → moagem → fermentação com balão → destilação → armazenamento. <strong>Atividade (50').</strong> Subgrupos de 8 constroem <strong>maquete da usina em papelão + PET</strong>: 5 etapas + fluxo entre elas. Se possível, fermentação real em pequeno frasco (caldo de cana + fermento) começa e continua nos dias seguintes. <strong>Sistematização (20').</strong> Apresenta em 3 min como engenheiros. Quanto CO2 se evita? <strong>Produto (10').</strong> Maquete (fica) + ficha de observação. <strong>Apresentação (5').</strong> Post-it: "que resíduo agrícola vira energia na minha solução?".</div></div>
+              <div class="layer"><div class="layer-label">👥 Papel dos 3 instrutores</div><div class="layer-content"><strong>Técnico:</strong> monta maquete-piloto, ensina fermentação anaeróbia. <strong>Storyteller:</strong> narrativa da fazenda circular. <strong>Artístico:</strong> registro para material da Feira.</div></div>
+              <div class="layer"><div class="layer-label">📦 Materiais + alternativa frugal</div><div class="layer-content">Padrão: caixas de papelão, garrafas PET, mangueiras, tampinhas, tinta, cola quente, cana ou milho representativos, ícones. Opcional (fermentação real): caldo de cana 1L + fermento + frasco + balão. <strong>Frugal (Opção B, Linha do Tempo):</strong> 20 cartões de eventos históricos do etanol brasileiro (Proálcool 1975 → Flex Fuel 2003 → Cerrado). Custo cai para R$ 30-75/turma.</div></div>
+              <div class="layer"><div class="layer-label">🎁 Produto tangível</div><div class="layer-content">Maquete da usina de etanol (fica na escola) + ficha de fermentação real (se aplicável).</div></div>
+              <div class="layer"><div class="layer-label">🔬 Benchmark âncora</div><div class="layer-content"><strong>"Fermentação do caldo de cana"</strong> · Scielo (52 CBQ/ABQ 2012) · UFPA · Instituto Santa Teresinha PA. Referência de conteúdo: <strong>UNICA</strong> + <strong>Embrapa Agroenergia</strong>.</div></div>
+            </div>
+          </div>
+
+          <!-- T5 -->
+          <div class="of-card" data-of="t5">
+            <div class="of-head">
+              <div class="of-emoji">☀️</div>
+              <div class="of-title">
+                <span class="of-num">T5</span><span class="of-name">Agro e Clima · O futuro está em jogo</span>
+                <div class="of-sub"><span class="chip chip-yellow">Livre</span> · Quarta · ODS 13, 15 · Jogo de cartas + mini-documentário 60s</div>
+              </div>
+              <div class="of-caret">▾</div>
+            </div>
+            <div class="of-body">
+              <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante compreende o impacto do clima na produção do MT e as estratégias de resiliência.</div></div>
+              <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 2 (pensamento científico), 7 (argumentação com dados).</div></div>
+              <div class="layer"><div class="layer-label">⏱️ Roteiro 5 momentos (100 min)</div><div class="layer-content"><strong>Aquecimento (15').</strong> Instrutor técnico traz dados reais (INMET/Cemaden) + mapa de risco de seca do MT. "Qual foi o pior ano da lavoura aqui?". <strong>Atividade (50').</strong> <strong>Jogo de cartas Agro vs Clima</strong> (baralho laminado): subgrupos (5) recebem carta de evento (seca, geada, calor extremo) e jogam resposta (irrigação por gotejamento, seguro paramétrico, cultivar tolerante). 3 rodadas. <strong>Sistematização (20').</strong> <strong>Mini-documentário falado de 60s</strong> por subgrupo · celular em roda de gravação. Storyteller apoia. <strong>Produto (10').</strong> Áudios compilados = trilha da exposição itinerante. <strong>Apresentação (5').</strong> Post-it: "que dado do clima do meu município minha solução usa?".</div></div>
+              <div class="layer"><div class="layer-label">👥 Papel dos 3 instrutores</div><div class="layer-content"><strong>Técnico:</strong> conduz jogo, faz perguntas provocadoras. <strong>Storyteller:</strong> conduz gravação. <strong>Artístico:</strong> direção sonora + registro visual.</div></div>
+              <div class="layer"><div class="layer-label">📦 Materiais + alternativa frugal</div><div class="layer-content">Padrão: baralho impresso Agro vs Clima (15 conjuntos, laminados, reusáveis), celulares dos alunos (coordenado), fichas de placar, mapa de risco climático do MT impresso. <strong>Frugal (Opção A, Cartografia Climática):</strong> mapa de risco em cartolina com dados INMET/Cemaden pré-selecionados. Custo cai para R$ 45-90/turma.</div></div>
+              <div class="layer"><div class="layer-label">🎁 Produto tangível</div><div class="layer-content">Áudios dos mini-documentários compilados (trilha da exposição itinerante) + resultados do jogo.</div></div>
+              <div class="layer"><div class="layer-label">🔬 Benchmark âncora</div><div class="layer-content"><strong>Cemaden Educação</strong> cartografia social + material <strong>"Nós no Clima da Mudança"</strong> (MEC/CNIJMA 2024). Mini-documentário: <strong>Projeto Ondas</strong> (UFMG/Fiocruz).</div></div>
+            </div>
+          </div>
+
+          <!-- T6 -->
+          <div class="of-card" data-of="t6">
+            <div class="of-head">
+              <div class="of-emoji">🎨</div>
+              <div class="of-title">
+                <span class="of-num">T6</span><span class="of-name">Cidadania e Sustentabilidade no Campo</span>
+                <div class="of-sub"><span class="chip chip-red">Artes Plásticas MinC</span> · Quinta · ODS 4, 8, 12 · Painel coletivo "Quem cuida do campo"</div>
+              </div>
+              <div class="of-caret">▾</div>
+            </div>
+            <div class="of-body">
+              <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante assume o protagonismo como agente do campo do futuro. A produção artística registra a resposta a "quem cuida do campo?".</div></div>
+              <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 4 (expressão artística), 10 (identidade cultural), 6 (projeto de vida).</div></div>
+              <div class="layer"><div class="layer-label">⏱️ Roteiro 5 momentos (100 min) + prep Desafio (50 min)</div><div class="layer-content"><strong>Aquecimento (15').</strong> Provocação central: <strong>"Quem cuida do campo?"</strong> + fotos de agricultores familiares, indígenas, quilombolas, jovens rurais, mulheres do MT. <strong>Atividade (50').</strong> <strong>Painel coletivo em papel kraft de 3m</strong> por subgrupo (15). Tintas acrílicas + colagens + escrita manuscrita. Rostos, mãos, símbolos, mensagens. <strong>Sistematização (20').</strong> Apresenta em 2 min. Storyteller provoca: "quem é o guardião invisível do agro?". <strong>Produto (10').</strong> Painéis expostos formando parede de 45m + registro fotográfico. <strong>Apresentação (5').</strong> Post-it: "que valor humano vai para minha solução?". <strong>Prep Desafio (50').</strong> Storyteller reúne cada squad, mural com todos os post-its T1-T6, distribui Lean Canvas A3 (5 campos), cartaz/protótipo começa a nascer, ensaio de pitch 3 min.</div></div>
+              <div class="layer"><div class="layer-label">👥 Papel dos 3 instrutores</div><div class="layer-content"><strong>Artístico:</strong> conduz o painel · técnicas, direção estética. <strong>Storyteller:</strong> provoca leitura das obras + conduz prep Desafio. <strong>Técnico:</strong> apoia com informação sobre sucessão rural.</div></div>
+              <div class="layer"><div class="layer-label">📦 Materiais + alternativa frugal</div><div class="layer-content">Padrão: papel kraft 3m (15 rolos), tintas acrílicas (4 cores × 15), pincéis (30), fotos de agricultores do MT curadas, revistas, cola bastão, canetões, Lean Canvas A3 impresso. <strong>Frugal (Opção B, Zine):</strong> zine A4 coletivo com colagem. Custo cai para R$ 60-120/turma.</div></div>
+              <div class="layer"><div class="layer-label">🎁 Produto tangível</div><div class="layer-content">Painel coletivo "Quem cuida do campo" (obra MinC · Artes Plásticas · integra a <strong>exposição itinerante de 30 dias no Shopping Pantanal</strong>) + Lean Canvas rascunhado.</div></div>
+              <div class="layer"><div class="layer-label">🔬 Benchmark âncora</div><div class="layer-content"><strong>Cartografia participativa</strong> do Cemaden + <strong>Instituto Buriti</strong> (SP) para arte-educação + <strong>Green School</strong> (Bali) para integração natureza-cultura.</div></div>
+            </div>
+          </div>
+
+          <!-- T7 -->
+          <div class="of-card" data-of="t7" style="border-color:#F0B323;background:linear-gradient(180deg,#fff 0%,#FCE8E8 200%)">
+            <div class="of-head">
+              <div class="of-emoji">🚀</div>
+              <div class="of-title">
+                <span class="of-num" style="background:#F0B323;color:#5A0015">T7</span><span class="of-name">Desafio AgroFuturo · hackathon estilo startup</span>
+                <div class="of-sub"><span class="chip chip-yellow">Livre</span> · Sexta · ODS 4, 9, 17 · Evento aberto · 4h · <strong>NÃO paletes</strong> (cenografia agro 4.0)</div>
+              </div>
+              <div class="of-caret">▾</div>
+            </div>
+            <div class="of-body">
+              <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante integra os aprendizados de T1-T6 em proposta de inovação. Defende publicamente a solução para banca externa e comunidade.</div></div>
+              <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 4 (comunicação), 6 (projeto de vida), 7 (defesa de proposta), 10 (protagonismo cidadão).</div></div>
+              <div class="layer"><div class="layer-label">⏱️ Roteiro</div><div class="layer-content">A T7 é a manhã inteira da sexta em formato de evento aberto. <strong>30 min de abertura</strong> (apresentação do Desafio + banca + regras) + <strong>Desafio AgroFuturo 4h</strong> com 12 elementos operacionais (ver bloco Desafio abaixo) + <strong>Cerimônia Inventor AgroFuturo</strong> com certificados.</div></div>
+              <div class="layer"><div class="layer-label">👥 Papel dos 3 instrutores</div><div class="layer-content"><strong>Storyteller:</strong> abertura + mestre de cerimônia + mentor. <strong>Técnico:</strong> banca com viés técnico. <strong>Artístico:</strong> cobertura fotográfica + exposição rápida + vídeo curto.</div></div>
+              <div class="layer"><div class="layer-label">🎁 Produto tangível</div><div class="layer-content">Pitch de 3 min por squad + Lean Canvas exposto como pôster + certificado Inventor AgroFuturo impresso para os 360 alunos da cidade.</div></div>
+              <div class="layer"><div class="layer-label">🔬 Benchmark âncora</div><div class="layer-content"><strong>UFPR Hackathon 2024</strong> com ensino médio (6 startups em 10h) + <strong>Junior Achievement Brasil "Miniempresa"</strong> + <strong>Fundação Estudar</strong>.</div></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==== PLATAFORMA AGROFUTURO DIGITAL ==== -->
+      <section id="m-plataforma" style="scroll-margin-top:120px" class="mt-8">
+        <div class="mb-4">
+          <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">Plataforma "AgroFuturo Digital"</p>
+          <h3 class="font-headline-sm text-headline-sm text-primary">Formação docente EAD 17h + trilha gamificada do aluno · <strong>sem palestra presencial</strong></h3>
+          <p class="text-body-sm text-outline mt-1">Powered by Replique. Diferente do 128, o 129 concentra formação de professores só em EAD.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md">
+          <div class="card">
+            <div class="chip chip-red mb-2">17h EAD · docente</div>
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-2">Grade modular do professor</h4>
+            <table class="data">
+              <tbody>
+                <tr><td class="bold">M1 · 3h</td><td>Cadeia produtiva do agro do MT (T1)</td></tr>
+                <tr><td class="bold">M2 · 3h</td><td>Agricultura 4.0 · drones e sensores (T2)</td></tr>
+                <tr><td class="bold">M3 · 2h</td><td>Ciclo da água no Cerrado (T3)</td></tr>
+                <tr><td class="bold">M4 · 2h</td><td>Etanol e biocombustíveis (T4)</td></tr>
+                <tr><td class="bold">M5 · 2h</td><td>Clima e resiliência agrícola (T5)</td></tr>
+                <tr><td class="bold">M6 · 2h</td><td>Cidadania e sucessão rural (T6)</td></tr>
+                <tr><td class="bold">M7 · 2h</td><td>Método Desafio AgroFuturo (T7)</td></tr>
+                <tr><td class="bold">Produção · 1h</td><td>Plano de aula validado por quiz</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <div class="chip chip-yellow mb-2">Trilha gamificada · aluno</div>
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-2">Badges do estudante</h4>
+            <ul class="text-body-sm space-y-1">
+              <li><strong>🗺️ Explorador de Território</strong> · T1 concluída</li>
+              <li><strong>🚁 Inventor Agro</strong> · T2 concluída</li>
+              <li><strong>💧 Guardião da Água</strong> · T3 concluída</li>
+              <li><strong>⚡ Semeador de Energia</strong> · T4 concluída</li>
+              <li><strong>☀️ Leitor do Clima</strong> · T5 concluída</li>
+              <li><strong>🎨 Semeador Cultural</strong> · T6 concluída</li>
+              <li><strong>🚀 Inventor AgroFuturo</strong> · T7 concluída</li>
+            </ul>
+            <p class="text-body-sm text-outline mt-3">Ranking por escola. Continuidade assíncrona pós-cidade. Certificação BNCC.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==== DESAFIO AGROFUTURO ==== -->
+      <section id="m-desafio" style="scroll-margin-top:120px" class="mt-8">
+        <div class="mb-4">
+          <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">Desafio AgroFuturo · hackathon estilo startup</p>
+          <h3 class="font-headline-sm text-headline-sm text-primary">Sexta-feira · 4 horas · 12 elementos operacionais</h3>
+          <p class="text-body-sm text-outline mt-1">Espelha os 12 elementos do Hackathon Guardiões da Terra do 128, com duas mudanças: <strong>cenografia agro 4.0 (não paletes)</strong> e tema <strong>"Inovação e agro 4.0"</strong>.</p>
+        </div>
+
+        <div class="hack-timeline">
+          <div class="hack-block hack-1">
+            <div class="h-time">0-60 min</div>
+            <h4>1ª hora · Identidade</h4>
+            <ul>
+              <li>10' explicação do Desafio</li>
+              <li>10' nome do squad</li>
+              <li>30' grito de guerra com <strong>5 palavras obrigatórias</strong> (agrofuturo, inovação, geração, faça a sua parte, inventor)</li>
+              <li>Definir capitão + secretário</li>
+              <li>Apresentação · nota inicial</li>
+            </ul>
+          </div>
+          <div class="hack-block hack-2">
+            <div class="h-time">60-120 min</div>
+            <h4>2ª hora · Escopo</h4>
+            <ul>
+              <li>Monitor central explica escopo de projeto</li>
+              <li>Squads elaboram usando <strong>prancheta + caneta</strong></li>
+              <li>Entregam ao monitor</li>
+              <li>Recebem feedback</li>
+              <li>Refinam a proposta</li>
+            </ul>
+          </div>
+          <div class="hack-block hack-3">
+            <div class="h-time">120-180 min</div>
+            <h4>3ª hora · Produção</h4>
+            <ul>
+              <li>Cada squad recebe <strong>box com 1-2 computadores com Claude</strong></li>
+              <li>Cartolinas + material para maquete + mockup + teatro</li>
+              <li>Formato livre: pitch, maquete, mockup digital, cloud</li>
+              <li>Profissionais itinerantes circulam</li>
+            </ul>
+          </div>
+          <div class="hack-block hack-4">
+            <div class="h-time">180-240 min</div>
+            <h4>4ª hora · Pitch</h4>
+            <ul>
+              <li>Apresentação de 3 min por squad</li>
+              <li><strong>Imprensa mandatória</strong> na apresentação</li>
+              <li>Banca externa: 2 min de perguntas</li>
+              <li>Cerimônia Inventor AgroFuturo</li>
+              <li>Prêmio em <strong>3 camadas + camada 0</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md">
+          <div class="card">
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-3">🎨 Cenografia agro 4.0 (em desenho pela Ana)</h4>
+            <ul class="text-body-sm space-y-2">
+              <li><strong>NÃO paletes</strong> (símbolo do 128) · cenografia agro 4.0 diferenciada</li>
+              <li>Referência a sensores, drones, tecnologia, laboratório de inovação</li>
+              <li>Ana está desenhando · definição final em julho/2026</li>
+              <li>Bandeirolas com cores dos squads + música o tempo inteiro</li>
+              <li><strong>Círculo central com 8-12 monitores</strong> (professores locais)</li>
+              <li><strong>TV com placar em tempo real</strong> por squad, cor, etapa, nota</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-3">🏅 Prêmio em 3 camadas + camada 0</h4>
+            <ul class="text-body-sm space-y-2">
+              <li><strong>Camada 0 (todo aluno):</strong> certificado Inventor AgroFuturo + acesso à plataforma "AgroFuturo Digital"</li>
+              <li><strong>Camada 1 (squad vencedor):</strong> troféu simbólico + destaque em vídeo</li>
+              <li><strong>Camada 2:</strong> kit "Inventor AgroFuturo" personalizado (30 alunos)</li>
+              <li><strong>Camada 3:</strong> <strong>visita à fábrica CNH</strong> · custo NTICS R$ 0 (CNH viabiliza como contrapartida)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mt-gap-md">
+          <h4 class="font-headline-sm text-headline-sm text-primary mb-3">👥 Banca externa</h4>
+          <p class="text-body-sm mb-3">3 a 4 convidados por cidade, curados pelo produtor com 2 semanas de antecedência:</p>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+            <div class="border border-outline-variant rounded-lg p-3"><div class="text-2xl mb-1">🌱</div><p class="font-semibold text-primary text-body-sm">Extensionista rural</p><p class="text-body-sm text-outline">EMPAER-MT</p></div>
+            <div class="border border-outline-variant rounded-lg p-3"><div class="text-2xl mb-1">🏛️</div><p class="font-semibold text-primary text-body-sm">Prefeitura</p><p class="text-body-sm text-outline">Sec. Agricultura ou Educação</p></div>
+            <div class="border border-outline-variant rounded-lg p-3"><div class="text-2xl mb-1">🚜</div><p class="font-semibold text-primary text-body-sm">Concessionária Case IH</p><p class="text-body-sm text-outline">Max Case · Agritex · rede Case IH</p></div>
+            <div class="border border-outline-variant rounded-lg p-3"><div class="text-2xl mb-1">🌱</div><p class="font-semibold text-primary text-body-sm">Farmoon MT</p><p class="text-body-sm text-outline">ou empreendedor jovem do agro</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==== FEIRA SHOPPING PANTANAL ==== -->
+      <section id="m-feira" style="scroll-margin-top:120px" class="mt-8">
+        <div class="mb-4">
+          <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">Feira Shopping Pantanal · culminância cultural</p>
+          <h3 class="font-headline-sm text-headline-sm text-primary">09 a 13/11 (5 dias) + Exposição itinerante 14/11 a 14/12 (30 dias)</h3>
+          <p class="text-body-sm text-outline mt-1">Ana pediu foco primeiro no 128 · estruturação detalhada da Feira em agosto/2026. Público estimado: 20-40k na Feira + 60-120k na exposição.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gap-md mb-gap-md">
+          <div class="env-card">
+            <div class="env-icon">🎤</div>
+            <div class="env-title">Palco cultural</div>
+            <div class="env-desc">Programação diária curada 2 meses antes (ago/2026). Contação, performances agro-culturais, mediação com biólogo/técnico, depoimentos dos 3 squads vencedores. Cerimonialista do próprio time.</div>
+          </div>
+          <div class="env-card">
+            <div class="env-icon">🎨</div>
+            <div class="env-title">Oficinas abertas</div>
+            <div class="env-desc">Recriação simplificada das 7 oficinas para o público do shopping (versão de 15 min de cada). Rotativo pelos 5 dias.</div>
+          </div>
+          <div class="env-card">
+            <div class="env-icon">🚁</div>
+            <div class="env-title">Tenda tecnológica agro 4.0</div>
+            <div class="env-desc">Demonstração de drone (Max Case, Agritex, rede Case IH), maquete interativa, painéis explicativos. Coordenação com concessionárias.</div>
+          </div>
+          <div class="env-card">
+            <div class="env-icon">🖼️</div>
+            <div class="env-title">Exposição das obras</div>
+            <div class="env-desc">Fotografias autorais da T3 + painéis coletivos da T6 + maquetes de T2 (drone) e T4 (etanol) + trilha sonora T5 (mini-docs). Setup permanente pelos 5 dias.</div>
+          </div>
+          <div class="env-card">
+            <div class="env-icon">🏵️</div>
+            <div class="env-title">Cerimônia Inventor AgroFuturo</div>
+            <div class="env-desc">Encontro nacional dos 3 squads vencedores (Tangará, Água Boa, Cuiabá). Anúncio da visita à fábrica CNH (camada 3). Foto oficial.</div>
+          </div>
+          <div class="env-card" style="background:linear-gradient(180deg,#fff 0%,#FCE8E8 100%)">
+            <div class="env-icon">💻</div>
+            <div class="env-title">Galeria virtual (novo · 02/07)</div>
+            <div class="env-desc">Ana: "Não pode ficar só em Cuiabá; o Brasil precisa ver". Página web com todas as obras digitalizadas + trilha sonora + vídeos dos 3 Desafios + depoimentos. Acesso livre.</div>
+          </div>
+        </div>
+
+        <div class="card mb-gap-md" style="border-left:4px solid #F0B323">
+          <h4 class="font-headline-sm text-headline-sm text-primary mb-3">📅 Exposição itinerante · 30 dias no shopping</h4>
+          <p class="text-body-sm mb-3">Após a Feira (14/11 a 14/12), as obras seguem no shopping em corredor de circulação alta:</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <ul class="text-body-sm space-y-1">
+              <li>Fotografias autorais da T3 (macro + light painting)</li>
+              <li>Painéis coletivos da T6 "Quem cuida do campo"</li>
+              <li>Maquetes da T2 (drone) e T4 (etanol)</li>
+              <li>Trilha sonora dos mini-documentários da T5</li>
+            </ul>
+            <ul class="text-body-sm space-y-1">
+              <li>Coordenação com curadoria + parceria comercial</li>
+              <li>Manutenção diária + guarda das obras</li>
+              <li>Contagem de público via contato com o shopping</li>
+              <li>Livro de visitas físico + digital</li>
+            </ul>
+          </div>
+        </div>
+
         <div class="card">
-          <h3 class="font-headline-sm text-headline-sm text-primary mb-2">Feira Shopping Pantanal (Cuiabá)</h3>
-          <p class="text-body-sm">09-13/11 · 5 dias. Culminância cultural. <strong>Exposição itinerante</strong> depois: 14/11 a 14/12 (30 dias) com obras de O3 e O6.</p>
+          <h4 class="font-headline-sm text-headline-sm text-primary mb-3">🌐 Galeria virtual da exposição</h4>
+          <p class="text-body-sm mb-3">Requisito aprovado por Ana em 02/07/2026:</p>
+          <ul class="text-body-sm space-y-1">
+            <li>Página web em <code>agrofuturo.ntics.com.br/exposicao-2026</code> (ou equivalente)</li>
+            <li>Todas as obras T3 + T6 digitalizadas em alta resolução, com legenda + crédito + cidade + escola</li>
+            <li>Trilha sonora dos mini-documentários da T5 navegável por cidade</li>
+            <li>Vídeos curtos dos 3 Desafios AgroFuturo + depoimentos dos vencedores</li>
+            <li>Setup pedagógico (guia do professor) para uso em outras escolas do MT e do Brasil</li>
+            <li>Sem paywall. Régua MinC visível.</li>
+          </ul>
+          <p class="text-body-sm text-outline mt-3"><strong>Custo estimado:</strong> R$ 6-10k (design + desenvolvimento + curadoria da digitalização + hospedagem 12 meses).</p>
         </div>
-      </div>
+      </section>
+
+      <!-- ==== LEGADO ==== -->
+      <section id="m-legado" style="scroll-margin-top:120px" class="mt-8">
+        <div class="mb-4">
+          <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">Legado pós-projeto</p>
+          <h3 class="font-headline-sm text-headline-sm text-primary">O que fica em cada escola depois do Agrofuturo</h3>
+        </div>
+
+        <div class="card">
+          <table class="data">
+            <thead><tr><th>Legado</th><th>Cuidador na escola</th><th>Duração esperada</th></tr></thead>
+            <tbody>
+              <tr><td><span class="chip chip-yellow">T1</span> Atlas visual do agro do MT</td><td>Professor de geografia · sala/biblioteca</td><td>Exposição permanente</td></tr>
+              <tr><td><span class="chip chip-yellow">T2</span> Maquete de lavoura + rota de drone</td><td>Professor de ciências ou biologia</td><td>Acervo pedagógico permanente</td></tr>
+              <tr><td><span class="chip chip-red">T3</span> Ensaios fotográficos</td><td>Professor de artes · varal + galeria virtual</td><td>Exposição permanente</td></tr>
+              <tr><td><span class="chip chip-yellow">T4</span> Maquete da usina de etanol</td><td>Professor de química · manual fica</td><td>Acervo + fermentação real por semanas</td></tr>
+              <tr><td><span class="chip chip-yellow">T5</span> Baralho Agro vs Clima</td><td>Professor de geografia ou biologia</td><td>Ativo pedagógico permanente</td></tr>
+              <tr><td><span class="chip chip-red">T6</span> Painel coletivo "Quem cuida do campo"</td><td>Professor de artes · parede grande</td><td>Exposição permanente</td></tr>
+              <tr><td>🏵️ Certificados Inventor AgroFuturo</td><td>Direção · registro digital pela NTICS</td><td>Vitalício</td></tr>
+              <tr><td>💻 Acesso à plataforma "AgroFuturo Digital"</td><td>Professor + aluno · cadastro individual</td><td>Continuidade online por meses</td></tr>
+              <tr><td>🌐 Galeria virtual da exposição</td><td>NTICS · subdomínio + link na plataforma</td><td>Vitalício</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout mt-gap-md" style="border-left:4px solid #C8102E;background:#FCE8E8;padding:16px 20px;border-radius:0 10px 10px 0;color:#8B0022;font-size:14px">
+          <strong>Certificado Inventor AgroFuturo.</strong> Carrega referência à BNCC (competências trabalhadas) + carimbo "produto cultural aprovado pelo Ministério da Cultura via Lei Rouanet PRONAC (a confirmar)", dando lastro simbólico para uso do aluno em processo seletivo.
+        </div>
+      </section>
+
     </div>
 
     <!-- 1.4 -->
@@ -583,6 +1043,48 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#C8102E;box-sh
           <div class="risk-cell risk-med"><strong>R8 · Média · Médio</strong><br>Compatibilidade MinC (contagem cultural).</div>
         </div>
       </div>
+    </div>
+
+    <!-- 1.7 BENCHMARKS -->
+    <div class="subpage" data-sub="1.7">
+      <div class="mb-4">
+        <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">1.7 · Benchmarks</p>
+        <h3 class="font-headline-sm text-headline-sm text-primary">Cases que inspiram o método do 129</h3>
+        <p class="text-body-sm text-outline mt-1">Fonte: <code>brief/benchmark-atividades.md</code>. Cada oficina T1-T7 tem seu âncora citado inline em <strong>1.3 Metodologia</strong>. Aqui ficam as referências transversais que moldam o método do 129.</p>
+      </div>
+
+      <div class="card mb-gap-md">
+        <div class="flex items-center gap-3 flex-wrap">
+          <span class="text-label-caps font-label-caps text-outline uppercase mr-2">Filtrar por:</span>
+          <select id="bench-cat-filter" class="text-body-sm">
+            <option value="">Todas categorias</option>
+            <option value="1">1 · Educação ambiental frugal</option>
+            <option value="2">2 · Maker e ciência frugal (STEAM)</option>
+            <option value="3">3 · Prêmios e feiras de jovens</option>
+            <option value="4">4 · Clima, ciência cidadã, cidadania</option>
+            <option value="5">5 · Arte-educação de baixo custo</option>
+            <option value="6">6 · Empreendedorismo e hackathon</option>
+            <option value="7">7 · Inovação social mundial</option>
+            <option value="8">8 · Agro e juventude rural</option>
+          </select>
+          <select id="bench-of-filter" class="text-body-sm">
+            <option value="">Todas oficinas</option>
+            <option value="T1">T1 · Do Campo à Mesa</option>
+            <option value="T2">T2 · Drones/Tecnologia</option>
+            <option value="T3">T3 · Água (Fotografia)</option>
+            <option value="T4">T4 · Etanol</option>
+            <option value="T5">T5 · Clima</option>
+            <option value="T6">T6 · Cidadania (AP)</option>
+            <option value="T7">T7 · Desafio AgroFuturo</option>
+            <option value="Framework">Método geral</option>
+            <option value="Feira">Feira Pantanal</option>
+          </select>
+          <button id="bench-reset" class="px-3 py-2 border border-outline-variant rounded-lg text-body-sm hover:bg-surface-container-highest">Limpar</button>
+          <span class="text-body-sm text-outline ml-auto" id="bench-count">— cases</span>
+        </div>
+      </div>
+
+      <div id="bench-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gap-md"></div>
     </div>
 
   </div>
@@ -1488,6 +1990,102 @@ async function refresh(shiftKey){
 document.getElementById('btn-refresh').addEventListener('click', e => refresh(e.shiftKey));
 
 setInterval(() => refresh(false), 5 * 60 * 1000);
+
+// ============= ACCORDION DAS OFICINAS =============
+document.querySelectorAll('.of-head').forEach(head => {
+  head.addEventListener('click', () => {
+    const card = head.closest('.of-card');
+    card.classList.toggle('open');
+  });
+});
+const firstOf = document.querySelector('.of-card[data-of="t1"]');
+if (firstOf) firstOf.classList.add('open');
+
+// ============= SMOOTH SCROLL nos anchor-chip =============
+document.querySelectorAll('.anchor-chip').forEach(chip => {
+  chip.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = chip.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+
+// ============= BENCHMARKS 1.7 =============
+const BENCHMARKS = [
+  {cat:1, catName:"Educação ambiental frugal", name:"Orto in Condotta", org:"Slow Food · Itália", desc:"Horta orgânica na escola com avós-jardineiros. 500+ escolas desde 2004.", of:["Framework","T1"]},
+  {cat:1, catName:"Educação ambiental frugal", name:"Hortas Pedagógicas FAO/FNDE", org:"ONU/Brasil", desc:"16 mil hortas em 16 países. Modelo de 6 componentes.", of:["T1","T4"]},
+  {cat:1, catName:"Educação ambiental frugal", name:"Biodigestor em PET", org:"Escolas Cidadãs Integrais · Brasil", desc:"Biogás e biofertilizante em escala escolar. Aplicável à T4 do 129.", of:["T4"]},
+  {cat:1, catName:"Educação ambiental frugal", name:"Composteira de PET", org:"UFPA · Brasil", desc:"Ciclo da matéria orgânica em semanas de observação.", of:["T1","T4"]},
+  {cat:1, catName:"Educação ambiental frugal", name:"Green School", org:"Bali · Indonésia", desc:"Escola em bambu · 80% energia solar · integração natureza-currículo.", of:["Framework","T6"]},
+  {cat:1, catName:"Educação ambiental frugal", name:"Pluviômetro PET · Cemaden Educação", org:"Brasil", desc:"Ciência cidadã com coleta de dados climáticos reais.", of:["T5"]},
+  {cat:2, catName:"Maker · STEAM frugal", name:"Foldscope", org:"Stanford · EUA (Manu Prakash)", desc:"Microscópio de origami por menos de US$ 1. Aplicável a T3 e T5.", of:["Framework","T5","T3"]},
+  {cat:2, catName:"Maker · STEAM frugal", name:"CS Unplugged", org:"Nova Zelândia", desc:"Computação desplugada sem computador. Base do fallback da T2 do 129.", of:["Framework","T2"]},
+  {cat:2, catName:"Maker · STEAM frugal", name:"Nanossatélite 3D", org:"FEBRACE · Brasil", desc:"Detector de incêndios por R$ 1.150 vs R$ 6 mil comercial.", of:["Framework","T2"]},
+  {cat:2, catName:"Maker · STEAM frugal", name:"Sensores agro DIY", org:"FEBRACE · MOSTRATEC · Brasil", desc:"Umidade + temperatura com eletrônica aberta.", of:["T2","T5"]},
+  {cat:2, catName:"Maker · STEAM frugal", name:"Programação Desplugada em EM", org:"CIEB · Brasil", desc:"Materiais adaptados para EM. Alimenta o fallback da T2.", of:["T2"]},
+  {cat:3, catName:"Prêmios e feiras de jovens", name:"Samsung Solve for Tomorrow", org:"Brasil/global", desc:"185 mil alunos · 42 mil professores · 8 mil escolas.", of:["T6","T7"]},
+  {cat:3, catName:"Prêmios e feiras de jovens", name:"FEBRACE", org:"USP · Brasil (desde 2003)", desc:"Centenas de projetos. Formato trio + professor + pôster.", of:["T7"]},
+  {cat:3, catName:"Prêmios e feiras de jovens", name:"MOSTRATEC", org:"Fundação Liberato · RS", desc:"774 projetos na edição 2025. Maior da América Latina.", of:["T7"]},
+  {cat:3, catName:"Prêmios e feiras de jovens", name:"Google Science Fair", org:"Global · 13-18 anos", desc:"'Boa pergunta é a barreira, não equipamento'.", of:["T7"]},
+  {cat:3, catName:"Prêmios e feiras de jovens", name:"Regeneron ISEF", org:"Global · EUA", desc:"Maior feira pré-universitária do mundo.", of:["T7"]},
+  {cat:4, catName:"Clima e cidadania", name:"Rádio na Escola · Projeto Ondas", org:"UFMG/Fiocruz · Brasil", desc:"Base do mini-documentário falado da T5 do 129.", of:["T5","T7"]},
+  {cat:4, catName:"Clima e cidadania", name:"Ciência Cidadã · Cemaden", org:"Brasil", desc:"Coleta de dados ambientais + ação comunitária.", of:["T5","Framework"]},
+  {cat:4, catName:"Clima e cidadania", name:"Cartografia participativa", org:"Cemaden Educação · FEAC · Brasil", desc:"Mapa participativo em kraft. Base da T1 e T6 do 129.", of:["T1","T6"]},
+  {cat:4, catName:"Clima e cidadania", name:"Teatro do Oprimido", org:"Augusto Boal · Brasil", desc:"Espect-ator · conflito social em cena.", of:["Feira","T7"]},
+  {cat:4, catName:"Clima e cidadania", name:"Nós no Clima da Mudança", org:"MEC/CNIJMA 2024 · Brasil", desc:"Material didático de clima. Base do fallback da T5.", of:["T5"]},
+  {cat:5, catName:"Arte-educação frugal", name:"Cianotipia", org:"O Retratista · Lab Clube · Brasil", desc:"Sais de ferro + sol = imagem azul. Fallback da T3 do 129.", of:["T3"]},
+  {cat:5, catName:"Arte-educação frugal", name:"Light painting educacional", org:"Educa SC (Porto União) · Brasil", desc:"Base da T3 do 129: fotografia macro + light painting.", of:["T3"]},
+  {cat:5, catName:"Arte-educação frugal", name:"Instituto Buriti", org:"SP · Brasil", desc:"Arte-educação em escolas públicas. Base da T6 (painel coletivo).", of:["T6"]},
+  {cat:5, catName:"Arte-educação frugal", name:"Zines coletivos", org:"Consolidada", desc:"Revista artesanal com grampos ou espiral. Fallback da T1 e T6.", of:["T1","T6"]},
+  {cat:5, catName:"Arte-educação frugal", name:"Mídias Inovadoras", org:"Brasil", desc:"Cabine de light painting adaptada para escola.", of:["T3"]},
+  {cat:6, catName:"Empreendedorismo · hackathon", name:"UFPR Hackathon 2024", org:"Brasil", desc:"6 startups validadas em 10h com alunos EM. Base do Desafio AgroFuturo.", of:["T7"]},
+  {cat:6, catName:"Empreendedorismo · hackathon", name:"Junior Achievement 'Miniempresa'", org:"Brasil", desc:"Validada em EM. Formato empreendedor do Desafio.", of:["T7","T1"]},
+  {cat:6, catName:"Empreendedorismo · hackathon", name:"Fundação Estudar", org:"Brasil", desc:"Hackathon de jovens · napratica.org.br.", of:["T7"]},
+  {cat:6, catName:"Empreendedorismo · hackathon", name:"Design for Change", org:"Global", desc:"Metodologia colaborativa Sentir-Imaginar-Fazer-Compartilhar.", of:["Framework","T7"]},
+  {cat:6, catName:"Empreendedorismo · hackathon", name:"Sebrae 'A Grande Sacola'", org:"Brasil", desc:"Simulação de cadeia produtiva. Alternativa para T1 do 129.", of:["T1"]},
+  {cat:7, catName:"Inovação social mundial", name:"Escuela Nueva", org:"Colômbia", desc:"Educação rural ativa · multi-série.", of:["Framework"]},
+  {cat:7, catName:"Inovação social mundial", name:"Hole-in-the-Wall", org:"Índia · Surásia", desc:"Aprendizagem auto-organizada.", of:["Framework"]},
+  {cat:7, catName:"Inovação social mundial", name:"Instituto Ciranda 'Caixa de Histórias'", org:"Brasil", desc:"Contação com materialidade.", of:["T6","T7"]},
+  {cat:8, catName:"Agro e juventude rural", name:"SENAR", org:"Brasil", desc:"Treinamento técnico · 20+ mil operadores de colhedora.", of:["Framework","T1","T4"]},
+  {cat:8, catName:"Agro e juventude rural", name:"SENAR-PR maquete de lavoura", org:"Brasil", desc:"Base direta da T2 do 129 · agricultura de precisão em maquete.", of:["T2"]},
+  {cat:8, catName:"Agro e juventude rural", name:"Governo do PR · drones em colégios", org:"Brasil (2025)", desc:"R$ 850 mil investidos em drones para colégios agrícolas.", of:["T2"]},
+  {cat:8, catName:"Agro e juventude rural", name:"UNICA · Embrapa Agroenergia", org:"Brasil", desc:"Material didático gratuito sobre etanol. Base da T4 do 129.", of:["T4"]},
+  {cat:8, catName:"Agro e juventude rural", name:"Farmoon (MT)", org:"Brasil · Mato Grosso", desc:"Referência de educação ambiental em MT. Ana: 'seria perfeito' para o 129.", of:["Framework","T5","T6"]},
+  {cat:8, catName:"Agro e juventude rural", name:"4-H", org:"EUA", desc:"Head-Heart-Hands-Health · juventude rural desde 1902.", of:["Framework"]},
+  {cat:8, catName:"Agro e juventude rural", name:"FFA (Future Farmers of America)", org:"EUA", desc:"Ensino médio agrícola integrado.", of:["Framework"]},
+  {cat:8, catName:"Agro e juventude rural", name:"Plaksha University smart farm", org:"Índia", desc:"900 operadores treinados. Fazenda inteligente.", of:["Framework","T2"]},
+];
+
+const benchGrid = document.getElementById('bench-grid');
+const benchCat = document.getElementById('bench-cat-filter');
+const benchOf = document.getElementById('bench-of-filter');
+const benchCount = document.getElementById('bench-count');
+
+function renderBenchmarks(){
+  const cat = benchCat.value;
+  const of = benchOf.value;
+  const filtered = BENCHMARKS.filter(b => {
+    if (cat && String(b.cat) !== cat) return false;
+    if (of && !b.of.includes(of)) return false;
+    return true;
+  });
+  benchGrid.innerHTML = '';
+  filtered.forEach(b => {
+    const div = document.createElement('div');
+    div.className = 'bench-card';
+    const ofTags = b.of.map(o => `<span class="bench-tag">${o}</span>`).join(' ');
+    div.innerHTML = `<div class="bench-cat">Cat ${b.cat} · ${b.catName}</div><div class="bench-name">${b.name}</div><div class="text-body-sm text-outline" style="font-style:italic">${b.org}</div><div class="bench-desc">${b.desc}</div><div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:auto;padding-top:8px">${ofTags}</div>`;
+    benchGrid.appendChild(div);
+  });
+  benchCount.textContent = `${filtered.length} de ${BENCHMARKS.length} cases`;
+}
+benchCat.addEventListener('change', renderBenchmarks);
+benchOf.addEventListener('change', renderBenchmarks);
+document.getElementById('bench-reset').addEventListener('click', () => {
+  benchCat.value = ''; benchOf.value = ''; renderBenchmarks();
+});
+renderBenchmarks();
 </script>
 </body>
 </html>
