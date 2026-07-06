@@ -206,6 +206,10 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#385f99;box-sh
     <a href="#" data-page="proximos" class="top-item font-nav-item text-nav-item text-on-surface-variant hover:text-primary pb-2 border-b-2 border-transparent transition-colors">Próximos passos</a>
   </div>
   <div class="flex items-center gap-gap-xs">
+    <button id="btn-refresh" title="Atualizar dados (Shift+click para reload total)" class="flex items-center gap-2 px-3 py-2 bg-primary text-on-primary rounded-full text-body-sm font-medium hover:bg-primary-container transition-colors">
+      <span class="material-symbols-outlined text-[18px]" id="refresh-icon">refresh</span>
+      <span class="hidden md:inline">Atualizado <span id="last-update">agora</span></span>
+    </button>
     <button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-nh-blue-light transition-colors">
       <span class="material-symbols-outlined">notifications</span>
     </button>
@@ -214,6 +218,7 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#385f99;box-sh
     </button>
   </div>
 </header>
+<style>@keyframes spin{to{transform:rotate(360deg)}}.animate-spin{animation:spin 1s linear infinite}</style>
 
 <!-- SCROLLABLE CANVAS -->
 <main class="flex-1 overflow-y-auto p-4 md:p-container-padding">
@@ -1282,6 +1287,150 @@ document.getElementById('f-reset').addEventListener('click', () => {
   renderItens();
 });
 renderItens();
+
+// ============= ATUALIZAÇÃO DINÂMICA =============
+// URL do CSV público da planilha (opcional). Para ativar:
+// 1. Google Sheets > Arquivo > Compartilhar > Publicar na Web
+// 2. Selecionar aba "Aba 1" (gid 1437045717), formato "CSV"
+// 3. Copiar URL e colar aqui:
+const CSV_URL = '';  // ex: 'https://docs.google.com/spreadsheets/d/e/2PACX-XXXX/pub?gid=1437045717&single=true&output=csv'
+
+function updateTimestamp(){
+  const now = new Date();
+  const el = document.getElementById('last-update');
+  if(el) el.textContent = 'às ' + now.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+}
+updateTimestamp();
+
+function parseCSV(text){
+  const rows = [];
+  let cur = [], field = '', inQ = false;
+  for(let i = 0; i < text.length; i++){
+    const c = text[i];
+    if(inQ){
+      if(c === '"' && text[i+1] === '"'){ field += '"'; i++; }
+      else if(c === '"'){ inQ = false; }
+      else field += c;
+    } else {
+      if(c === '"') inQ = true;
+      else if(c === ','){ cur.push(field); field = ''; }
+      else if(c === '\n'){ cur.push(field); rows.push(cur); cur = []; field = ''; }
+      else if(c === '\r'){ /* skip */ }
+      else field += c;
+    }
+  }
+  if(field !== '' || cur.length) { cur.push(field); rows.push(cur); }
+  return rows;
+}
+
+function csvToBudget(rows){
+  const numOr = (s, d=null) => {
+    if(!s) return d;
+    const n = parseFloat(String(s).replace(/[^\d.,-]/g, '').replace(',','.'));
+    return isNaN(n) ? d : n;
+  };
+  const out = [];
+  for(let i = 1; i < rows.length; i++){
+    const r = rows[i];
+    if(!r || r.length < 5 || !r[0]) continue;
+    if(String(r[0]).toUpperCase().includes('TOTAL')) continue;
+    out.push({
+      b: r[0]||'', c: r[1]||'', i: r[2]||'',
+      q: numOr(r[3], 0), pu: numOr(r[5]), cu: numOr(r[6]),
+      tp: numOr(r[7], 0), tc: numOr(r[8]),
+      f: r[9]||'', o: r[10]||''
+    });
+  }
+  return out.filter(x => x.i);
+}
+
+function rerenderBudget(){
+  const totalPrev = BUDGET.reduce((s,x)=>s+(x.tp||0),0);
+  const totalCot = BUDGET.reduce((s,x)=>s+(x.tc||0),0);
+  const withCot = BUDGET.filter(x=>x.tc!==null).length;
+  document.getElementById('k-previsto').textContent = fmtBRk(totalPrev);
+  document.getElementById('k-cotado').textContent = fmtBRk(totalCot);
+  document.getElementById('k-cotado-cov').textContent = `${withCot}/${BUDGET.length} linhas com cotação`;
+  document.getElementById('k-pct').textContent = ((totalPrev/660000)*100).toFixed(0) + '%';
+
+  const byCat = {};
+  BUDGET.forEach(x => {
+    if(!byCat[x.c]) byCat[x.c] = {itens:0, prev:0, cot:0, hasCot:false};
+    byCat[x.c].itens++;
+    byCat[x.c].prev += x.tp || 0;
+    byCat[x.c].cot += x.tc || 0;
+    if(x.tc!==null) byCat[x.c].hasCot = true;
+  });
+  const catsNow = Object.entries(byCat).sort((a,b)=>b[1].prev - a[1].prev);
+  document.getElementById('cat-count').textContent = `${catsNow.length} categorias`;
+  const mx = Math.max(...catsNow.map(([,v])=>v.prev));
+  const tbodyCats2 = document.querySelector('#tbl-categorias tbody');
+  tbodyCats2.innerHTML = '';
+  catsNow.forEach(([cat, v]) => {
+    const dPct = v.hasCot && v.prev ? ((v.cot - v.prev)/v.prev*100) : null;
+    let deltaChip = '<span class="chip chip-gray">—</span>';
+    if(dPct !== null){
+      if(dPct > 10) deltaChip = `<span class="chip chip-red">▲ ${dPct.toFixed(0)}%</span>`;
+      else if(dPct < -10) deltaChip = `<span class="chip chip-green">▼ ${Math.abs(dPct).toFixed(0)}%</span>`;
+      else deltaChip = `<span class="chip chip-blue">≈ ${dPct.toFixed(0)}%</span>`;
+    }
+    const pctBar = (v.prev / mx) * 100;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="font-semibold">${cat}</td><td>${v.itens}</td><td class="text-right font-semibold">${fmtBR(v.prev)}</td><td class="text-right">${v.hasCot ? fmtBR(v.cot) : '—'}</td><td class="text-right">${deltaChip}</td><td style="width:200px"><div class="progress-bar"><span class="bg-primary" style="width:${pctBar}%"></span></div></td>`;
+    tr.style.cursor = 'pointer';
+    tr.addEventListener('click', () => { document.getElementById('f-categoria').value = cat; renderItens(); });
+    tbodyCats2.appendChild(tr);
+  });
+
+  // Rebuild category options
+  const currentCat = selCat.value;
+  selCat.innerHTML = '<option value="">Todas categorias</option>';
+  [...new Set(BUDGET.map(x=>x.c))].forEach(c => {
+    const opt = document.createElement('option'); opt.value = c; opt.textContent = c; selCat.appendChild(opt);
+  });
+  selCat.value = currentCat;
+  renderItens();
+}
+
+async function refresh(shiftKey){
+  if(shiftKey){ window.location.reload(); return; }
+  const icon = document.getElementById('refresh-icon');
+  icon.classList.add('animate-spin');
+
+  // 1. Reload todos os iframes com cache-bust
+  document.querySelectorAll('iframe').forEach(f => {
+    try{
+      const url = new URL(f.src);
+      url.searchParams.set('_t', Date.now());
+      f.src = url.toString();
+    } catch(e){}
+  });
+
+  // 2. Fetch CSV público se configurado
+  if(CSV_URL){
+    try{
+      const resp = await fetch(CSV_URL + (CSV_URL.includes('?')?'&':'?') + '_t=' + Date.now(), {cache:'no-store'});
+      if(resp.ok){
+        const csv = await resp.text();
+        const rows = parseCSV(csv);
+        const novo = csvToBudget(rows);
+        if(novo.length > 0){
+          BUDGET.length = 0;
+          BUDGET.push(...novo);
+          rerenderBudget();
+          console.log(`[refresh] CSV atualizado: ${novo.length} linhas`);
+        }
+      }
+    } catch(e){ console.warn('[refresh] CSV público não disponível:', e.message); }
+  }
+
+  updateTimestamp();
+  setTimeout(() => icon.classList.remove('animate-spin'), 900);
+}
+document.getElementById('btn-refresh').addEventListener('click', e => refresh(e.shiftKey));
+
+// Auto-refresh a cada 5 minutos
+setInterval(() => refresh(false), 5 * 60 * 1000);
 </script>
 </body>
 </html>
