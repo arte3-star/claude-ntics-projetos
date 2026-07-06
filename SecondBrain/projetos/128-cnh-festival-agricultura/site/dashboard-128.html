@@ -199,6 +199,12 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#385f99;box-sh
     <button data-page="mockup" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left">
       <span class="material-symbols-outlined">slideshow</span><span class="font-nav-item text-nav-item">Mockup inicial</span>
     </button>
+    <button data-page="pos-kickoff" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left">
+      <span class="material-symbols-outlined">forum</span><span class="font-nav-item text-nav-item">Pós-kickoff</span>
+    </button>
+    <button data-page="cronograma" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left">
+      <span class="material-symbols-outlined">stacked_bar_chart</span><span class="font-nav-item text-nav-item">Cronograma Gantt</span>
+    </button>
     <button data-page="playbook" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left">
       <span class="material-symbols-outlined">menu_book</span><span class="font-nav-item text-nav-item">Playbook</span>
     </button>
@@ -244,6 +250,8 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#385f99;box-sh
   </div>
   <div class="hidden lg:flex items-center gap-gap-md" id="top-nav">
     <a href="#" data-page="mockup" class="top-item font-nav-item text-nav-item text-on-surface-variant hover:text-primary pb-2 border-b-2 border-transparent transition-colors">Mockup</a>
+    <a href="#" data-page="pos-kickoff" class="top-item font-nav-item text-nav-item text-on-surface-variant hover:text-primary pb-2 border-b-2 border-transparent transition-colors">Pós-kickoff</a>
+    <a href="#" data-page="cronograma" class="top-item font-nav-item text-nav-item text-on-surface-variant hover:text-primary pb-2 border-b-2 border-transparent transition-colors">Gantt</a>
     <a href="#" data-page="playbook" class="top-item font-nav-item text-nav-item text-on-surface-variant hover:text-primary pb-2 border-b-2 border-transparent transition-colors">Playbook</a>
     <a href="#" data-page="tap" class="top-item font-nav-item text-nav-item text-on-surface-variant hover:text-primary pb-2 border-b-2 border-transparent transition-colors">TAP</a>
     <a href="#" data-page="painel" class="top-item top-active font-nav-item text-nav-item text-primary font-bold border-b-2 border-secondary-container pb-2 transition-colors">Painel</a>
@@ -284,6 +292,105 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#385f99;box-sh
     </div>
     <div class="mt-6 bg-nh-blue-light border-l-4 border-primary rounded-r-lg p-4 text-primary text-body-sm">
       Este mockup é a <strong>fotografia do start</strong>. Os documentos ao lado (Playbook, TAP, Painel) são a versão viva e correta. Quando algo divergir, sempre confiar no <strong>Painel</strong>.
+    </div>
+  </div>
+
+  <!-- ============ PAGE: PÓS-KICKOFF ============ -->
+  <div class="page" data-page="pos-kickoff">
+    <div class="mb-4">
+      <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">0.5 · Pós-kickoff CNH · Reunião 22/05/2026</p>
+      <h2 class="font-headline-lg text-headline-lg text-primary">Itens em aberto do kickoff</h2>
+      <p class="text-on-surface-variant mt-1">Diagnóstico da reunião de kickoff (22/05) filtrado para o 128. Itens marcados <span class="chip chip-blue">AMBOS</span> aparecem também no dashboard do 129. Fonte: <a href="https://arte3-star.github.io/claude-ntics-projetos/dashboards/cnh-128-129-pos-kickoff/" target="_blank" class="underline">documento consolidado</a>.</p>
+    </div>
+
+    <div class="flex gap-2 overflow-x-auto pb-2 mb-4 border-b border-outline-variant" data-subnav="pos-kickoff">
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-semibold bg-primary text-on-primary" data-sub="pk.1">🎨 Entregas MinC</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="pk.2">🔴 Decisões NTICS</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="pk.3">🔵 Aguardando CNH</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="pk.4">🟣 Validações NTICS</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="pk.5">🟡 Sugestões Raquel</button>
+    </div>
+
+    <div class="subpage active" data-sub="pk.1">
+      <div class="bg-nh-blue-light border-l-4 border-primary rounded-r-lg p-4 text-body-sm mb-4"><strong>4 produtos culturais MinC do 128</strong> aprovados no Rouanet que precisam de definição de formato. Owner padrão: <strong>Lucas + Ana</strong>. Validação MinC: <strong>Mayara</strong>.</div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-gap-md">
+        <div class="card" style="border-left:4px solid #F0B323"><div class="flex justify-between items-start mb-3"><div class="flex gap-2"><span class="chip chip-blue">128</span><span class="chip chip-yellow">MinC</span></div><span class="chip chip-red">Não previsto</span></div><h4 class="font-headline-sm mb-2">Palestra "Arte e Sustentabilidade" para professores (ampliação de acesso)</h4><p class="text-body-sm text-on-surface-variant">Aprovada como ampliação de acesso, dirigida a professores. <strong>Não está prevista no plano de execução atual.</strong> Confirmar se entra no escopo ou exigirá reavaliação com Mayara.</p><p class="text-body-sm text-outline mt-3"><strong>Público:</strong> 100 profs × 4 cidades = 400 · <strong>Owner:</strong> Lucas + Mayara</p></div>
+        <div class="card" style="border-left:4px solid #F0B323"><div class="flex justify-between items-start mb-3"><div class="flex gap-2"><span class="chip chip-blue">128</span><span class="chip chip-yellow">MinC</span></div><span class="chip chip-orange">Definir formato</span></div><h4 class="font-headline-sm mb-2">Oficina de Fotografia "Do Campo ao Olhar Artístico"</h4><p class="text-body-sm text-on-surface-variant">Produto MinC. Definição de formato, conteúdo e amarração com sustentabilidade agrícola pendente.</p><p class="text-body-sm text-outline mt-3"><strong>Faixa:</strong> 13-17 anos · <strong>Owner:</strong> Lucas + Ana</p></div>
+        <div class="card" style="border-left:4px solid #F0B323"><div class="flex justify-between items-start mb-3"><div class="flex gap-2"><span class="chip chip-blue">128</span><span class="chip chip-yellow">MinC</span></div><span class="chip chip-orange">Definir formato</span></div><h4 class="font-headline-sm mb-2">Oficina de Artes Plásticas "Águas e Expressão"</h4><p class="text-body-sm text-on-surface-variant">Produto MinC. Formato, conteúdo, materiais e amarração com água/pulverização seletiva pendentes.</p><p class="text-body-sm text-outline mt-3"><strong>Faixa:</strong> 7-14 anos · <strong>Owner:</strong> Lucas + Ana</p></div>
+        <div class="card" style="border-left:4px solid #F0B323"><div class="flex justify-between items-start mb-3"><div class="flex gap-2"><span class="chip chip-blue">128</span><span class="chip chip-yellow">MinC</span></div><span class="chip chip-orange">Definir formato</span></div><h4 class="font-headline-sm mb-2">Oficina de Contação de Histórias "Vozes da Terra"</h4><p class="text-body-sm text-on-surface-variant">Produto MinC. Definição de roteiro, contadores e amarração com narrativa do agro sustentável pendente.</p><p class="text-body-sm text-outline mt-3"><strong>Faixa:</strong> 7-14 anos · <strong>Owner:</strong> Lucas + Ana</p></div>
+      </div>
+    </div>
+
+    <div class="subpage" data-sub="pk.2">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-gap-md">
+        <div class="card" style="border-left:4px solid #DC2626"><div class="flex justify-between items-start mb-3"><span class="chip chip-blue">AMBOS</span><span class="chip chip-red">Crítico</span></div><h4 class="font-headline-sm mb-2">Rebalancear escopo das oficinas entre 128 e 129</h4><p class="text-body-sm text-on-surface-variant">Raquel sinalizou que um projeto parece entregar mais que o outro. Revisar as 7 oficinas dos dois para que fiquem próximas em volume/tipo, atrelando às ferramentas reais CNH (drone, pulverização seletiva, telemetria, automação).</p><p class="text-body-sm text-outline mt-3"><strong>Owner:</strong> Lucas + Ana · <strong>Prazo:</strong> até reunião com Comunicação CNH</p></div>
+        <div class="card" style="border-left:4px solid #DC2626"><div class="flex justify-between items-start mb-3"><span class="chip chip-blue">128</span><span class="chip chip-red">Deadline junho</span></div><h4 class="font-headline-sm mb-2">Local do evento final em Curitiba</h4><p class="text-body-sm text-on-surface-variant">Primeira sugestão NTICS: <strong>Fazenda Urbana</strong> (parceria CNH, Parque dos Tropeiros). Alternativas: praça pública via Secretaria (~40 projetos negados em ano eleitoral); outra cidade do PR.</p><p class="text-body-sm text-outline mt-3"><strong>Owner:</strong> Lucas + Raquel · <strong>Deadline:</strong> final de junho/2026</p></div>
+        <div class="card" style="border-left:4px solid #F59E0B"><div class="flex justify-between items-start mb-3"><span class="chip chip-blue">128</span><span class="chip chip-orange">Alta</span></div><h4 class="font-headline-sm mb-2">Hackathon no 128 (proposta da Raquel)</h4><p class="text-body-sm text-on-surface-variant">Raquel lembrou que pediu Hackathon nos dois, mas no escopo vendido do 128 ele não aparece. Validar viabilidade orçamentária (verba apertada R$ 600 mil) e encaixe MinC.</p><p class="text-body-sm text-outline mt-3"><strong>Owner:</strong> Lucas + Abílio · <strong>Prazo:</strong> reunião Comunicação CNH</p></div>
+        <div class="card" style="border-left:4px solid #F59E0B"><div class="flex justify-between items-start mb-3"><span class="chip chip-blue">128</span><span class="chip chip-orange">Alta</span></div><h4 class="font-headline-sm mb-2">Formato dos logos das concessionárias nas peças (128)</h4><p class="text-body-sm text-on-surface-variant">Banner unificado com as 4 concessionárias na régua (Agritex, Comim, Cimex, Aglio), <strong>ou</strong> separado por cidade com tudo agrupado em Curitiba.</p><p class="text-body-sm text-outline mt-3"><strong>Owner:</strong> NTICS + Brand CNH</p></div>
+        <div class="card" style="border-left:4px solid #F59E0B"><div class="flex justify-between items-start mb-3"><span class="chip chip-blue">AMBOS</span><span class="chip chip-orange">Alta</span></div><h4 class="font-headline-sm mb-2">Formato da apresentação combinada NH + Case</h4><p class="text-body-sm text-on-surface-variant">Raquel quer NH e Case entrelaçados no mesmo deck para público interno CNH. Formato sugerido: por tema, "NH faz assim / Case faz assim" lado a lado.</p><p class="text-body-sm text-outline mt-3"><strong>Owner:</strong> Lucas · <strong>Prazo:</strong> reunião Comunicação CNH</p></div>
+        <div class="card" style="border-left:4px solid #0284C7"><div class="flex justify-between items-start mb-3"><span class="chip chip-blue">AMBOS</span><span class="chip chip-gray">A discutir</span></div><h4 class="font-headline-sm mb-2">O que vai nas tendas da feira (eventos finais)</h4><p class="text-body-sm text-on-surface-variant">Tendas podem receber parceiros externos CNH ou ficar para produtos das oficinas NTICS. Decisão caso a caso. <strong>Restrição MinC:</strong> parceiro não pode vender na tenda.</p><p class="text-body-sm text-outline mt-3"><strong>Owner:</strong> NTICS · conforme cada tenda for sendo desenhada</p></div>
+      </div>
+    </div>
+
+    <div class="subpage" data-sub="pk.3">
+      <div class="bg-nh-blue-light border-l-4 border-primary rounded-r-lg p-4 text-body-sm mb-4">Coisas que a <strong>Raquel Montagnoli (CNH)</strong> deve entregar ou destravar para o 128 seguir. Cobrar na reunião quinzenal.</div>
+      <div class="card">
+        <table class="data">
+          <tr><td><span class="chip chip-blue">AMBOS</span></td><td class="font-semibold">Catálogo de produtos CNH</td><td class="text-body-sm text-on-surface-variant">Conectar oficinas com tecnologia real do portfólio.</td></tr>
+          <tr><td><span class="chip chip-blue">AMBOS</span></td><td class="font-semibold">Relatório de sustentabilidade CNH</td><td class="text-body-sm text-on-surface-variant">Global, em inglês. Único CNH com destaques por marca.</td></tr>
+          <tr><td><span class="chip chip-blue">AMBOS</span></td><td class="font-semibold">Revista institucional CNH</td><td class="text-body-sm text-on-surface-variant">Material de referência editorial.</td></tr>
+          <tr><td><span class="chip chip-blue">AMBOS</span></td><td class="font-semibold">Materiais do projeto Siembra (Argentina)</td><td class="text-body-sm text-on-surface-variant">Programa educacional dos dealers CNH. Referência forte incl. visita à concessionária.</td></tr>
+          <tr><td><span class="chip chip-blue">AMBOS</span></td><td class="font-semibold">Concurso de redação do voluntariado</td><td class="text-body-sm text-on-surface-variant">CNH rodando agora nas escolas, tema agricultura sustentável.</td></tr>
+          <tr><td><span class="chip chip-blue">128</span></td><td class="font-semibold">Indicação de escolas em Dom Pedrito, Toledo e Guarapuava</td><td class="text-body-sm text-on-surface-variant">Via concessionárias locais (Agritex, Comim, Cimex, Aglio).</td></tr>
+          <tr><td><span class="chip chip-blue">AMBOS</span></td><td class="font-semibold">Agenda da reunião com Comunicação / Brand CNH</td><td class="text-body-sm text-on-surface-variant">Raquel marca. Time: Brand NH, Brand Case, Corporativo, Raquel Mozardo, Comunicação Interna.</td></tr>
+          <tr><td><span class="chip chip-blue">AMBOS</span></td><td class="font-semibold">Aprovação de máquinas/tratores nos eventos</td><td class="text-body-sm text-on-surface-variant">Em Curitiba a fábrica ajuda. Nas demais, depende da concessionária.</td></tr>
+          <tr><td><span class="chip chip-blue">128</span></td><td class="font-semibold">Conversa com Evelyn sobre voluntariado em Curitiba</td><td class="text-body-sm text-on-surface-variant">Evelyn coordena programa via WhatsApp.</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="subpage" data-sub="pk.4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-gap-md">
+        <div class="card" style="border-left:4px solid #7048e8"><div class="flex justify-between items-start mb-3"><span class="chip chip-blue">128</span><span class="chip chip-red">Trava KV</span></div><h4 class="font-headline-sm mb-2">Ana Carolina: limites de uso da marca New Holland no KV</h4><p class="text-body-sm text-on-surface-variant">Até onde a NTICS pode aproximar o visual da marca NH sem infringir lei de marca. Parecer destrava finalização do KV.</p></div>
+        <div class="card" style="border-left:4px solid #7048e8"><div class="flex justify-between items-start mb-3"><span class="chip chip-blue">128</span><span class="chip chip-orange">Antes da produção</span></div><h4 class="font-headline-sm mb-2">Mayara Ferreira: validação MinC do vídeo do domo</h4><p class="text-body-sm text-on-surface-variant">Confirmar se o vídeo de imersão de 15-20 min pode mostrar logos do patrocinador nas máquinas.</p></div>
+        <div class="card" style="border-left:4px solid #7048e8"><div class="flex justify-between items-start mb-3"><span class="chip chip-blue">128</span><span class="chip chip-orange">Alta</span></div><h4 class="font-headline-sm mb-2">Lucas + Abílio: viabilidade orçamentária do Hackathon no 128</h4><p class="text-body-sm text-on-surface-variant">Cabe na verba R$ 600 mil aprovada? Cabe no formato aprovado no MinC sem retificação?</p></div>
+        <div class="card" style="border-left:4px solid #DC2626"><div class="flex justify-between items-start mb-3"><span class="chip chip-blue">AMBOS</span><span class="chip chip-red">Obrigatório</span></div><h4 class="font-headline-sm mb-2">Treinamento editorial do instrutor antes da execução</h4><p class="text-body-sm text-on-surface-variant">Reunião obrigatória NTICS + instrutor (e Raquel quando possível) para alinhar narrativa. <strong>Risco real:</strong> caso PEC, peça teatral mencionou desmatamento sem alinhamento e gerou movimento da comunidade para expulsar o patrocinador.</p></div>
+      </div>
+    </div>
+
+    <div class="subpage" data-sub="pk.5">
+      <div class="bg-secondary-fixed/40 border-l-4 border-secondary-container rounded-r-lg p-4 text-body-sm mb-4"><strong>Sugestões da Raquel são sugestões</strong> — pedidos em reunião a avaliar, não decisões fechadas.</div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-gap-md">
+        <div class="card" style="border-left:4px solid #F0B323"><div class="flex justify-between items-start mb-3"><span class="chip chip-blue">AMBOS</span><span class="chip chip-yellow">Sugestão</span></div><h4 class="font-headline-sm mb-2">Storytelling internacional (selo ONU, ODS, ESG, Pacto Global)</h4><p class="text-body-sm text-on-surface-variant">Dani citou caso em que parceiro social rendeu publicação em site de agência da ONU sobre projeto CNH. Raquel quer formato parecido. Propor selo, narrativa e caminho de distribuição.</p><p class="text-body-sm text-outline mt-3"><strong>Owner sugerido:</strong> Lucas + Marketing NTICS</p></div>
+        <div class="card" style="border-left:4px solid #F0B323"><div class="flex justify-between items-start mb-3"><span class="chip chip-blue">AMBOS</span><span class="chip chip-yellow">Sugestão</span></div><h4 class="font-headline-sm mb-2">Visita de vencedores do Hackathon à concessionária local (modelo Siembra)</h4><p class="text-body-sm text-on-surface-variant">Dealer recebe vencedores na loja modelo. No 128, se confirmarmos Hackathon, aplicar nas 4 concessionárias.</p><p class="text-body-sm text-outline mt-3"><strong>Owner sugerido:</strong> Lucas · depende da decisão sobre Hackathon 128</p></div>
+        <div class="card" style="border-left:4px solid #F0B323"><div class="flex justify-between items-start mb-3"><span class="chip chip-blue">AMBOS</span><span class="chip chip-yellow">Sugestão</span></div><h4 class="font-headline-sm mb-2">Reunião extra de conteúdo educacional com a Raquel</h4><p class="text-body-sm text-on-surface-variant">Distinta da reunião com Comunicação. Foco exclusivo em refinar narrativa técnica das oficinas, alinhar com portfólio CNH e revisar materiais editoriais.</p><p class="text-body-sm text-outline mt-3"><strong>Owner:</strong> Lucas + Ana + Raquel</p></div>
+        <div class="card" style="border-left:4px solid #F0B323"><div class="flex justify-between items-start mb-3"><span class="chip chip-blue">AMBOS</span><span class="chip chip-yellow">Sugestão</span></div><h4 class="font-headline-sm mb-2">Live do Dealer Standard mencionando o projeto</h4><p class="text-body-sm text-on-surface-variant">Raquel vai promover live com concessionários sobre tema social e quer abordar o projeto antes da execução. Data ainda não fechada.</p><p class="text-body-sm text-outline mt-3"><strong>Owner:</strong> Raquel define data · <strong>NTICS:</strong> KV, mockups e vídeo prontos</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE: CRONOGRAMA GANTT ============ -->
+  <div class="page" data-page="cronograma">
+    <div class="mb-4">
+      <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">0.7 · Cronograma Gantt · Julho → Dezembro 2026</p>
+      <h2 class="font-headline-lg text-headline-lg text-primary">Cronograma alternado 128 × 129</h2>
+      <p class="text-on-surface-variant mt-1">Cronograma B (semana única encadeada). As raias do <strong>128 (azul)</strong> estão em destaque; o 129 (vermelho) aparece em cinza para contexto. Escala: 1 coluna = 1 semana.</p>
+    </div>
+
+    <div class="card" style="overflow-x:auto">
+      <div id="gantt-root" style="min-width:1000px"></div>
+      <div class="flex gap-4 mt-6 flex-wrap" style="font-size:12px">
+        <span class="flex items-center gap-2"><span style="display:inline-block;width:14px;height:14px;background:#4A9BD1;border-radius:3px"></span>Preparação 128</span>
+        <span class="flex items-center gap-2"><span style="display:inline-block;width:14px;height:14px;background:#0064A6;border-radius:3px"></span>Cidade 128</span>
+        <span class="flex items-center gap-2"><span style="display:inline-block;width:14px;height:14px;background:#FFD100;border-radius:3px"></span>Festival + DOMO 128</span>
+        <span class="flex items-center gap-2"><span style="display:inline-block;width:14px;height:14px;background:#CBD5E1;border-radius:3px"></span>Contexto 129 (referência)</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-gap-md mt-gap-md">
+      <div class="card"><h4 class="font-headline-sm text-primary mb-2">🔴 Marcos críticos 128</h4><ul class="text-body-sm text-on-surface-variant space-y-1"><li><strong>10/08:</strong> Dom Pedrito confirmado</li><li><strong>20/08:</strong> Toledo, Guarapuava, Curitiba</li><li><strong>31/08:</strong> Início em campo</li><li><strong>31/10 · 01/11:</strong> Festival + DOMO</li></ul></div>
+      <div class="card"><h4 class="font-headline-sm text-primary mb-2">🟡 Preparação (julho)</h4><ul class="text-body-sm text-on-surface-variant space-y-1"><li><strong>05/07:</strong> Orçamento p/ Abílio</li><li><strong>10/07:</strong> Fornecedores confirmados</li><li><strong>13-17/07:</strong> Alinhamento CNH</li><li><strong>27/07:</strong> Passagem p/ Raíza/Jéssica</li></ul></div>
+      <div class="card"><h4 class="font-headline-sm text-primary mb-2">🚀 Encerramento</h4><ul class="text-body-sm text-on-surface-variant space-y-1"><li><strong>Ago/26:</strong> pré-produção · escolas</li><li><strong>Set-Nov/26:</strong> execução</li><li><strong>Nov-Dez/26:</strong> relatório ESG + vídeo case</li><li><strong>Dez/26:</strong> prestação de contas MinC</li></ul></div>
     </div>
   </div>
 
@@ -2017,6 +2124,90 @@ document.getElementById('btn-refresh').addEventListener('click', e => refresh(e.
 
 // Auto-refresh a cada 5 minutos
 setInterval(() => refresh(false), 5 * 60 * 1000);
+
+// ============= CRONOGRAMA GANTT =============
+const GANTT_START = new Date(2026, 6, 6);
+const GANTT_WEEKS = 26;
+const GANTT_ITEMS = [
+  {p:'128', row:'Preparação · Fornecedores',      label:'Fornecedores + orçamento p/ Abílio',   start:'2026-07-06', end:'2026-07-10', kind:'prep128'},
+  {p:'128', row:'Preparação · Alinhamentos',      label:'Cronograma B com CNH + Jefferson',      start:'2026-07-13', end:'2026-07-17', kind:'prep128'},
+  {p:'128', row:'Preparação · Comunicação',       label:'KV + carrossel + convite',              start:'2026-07-20', end:'2026-07-24', kind:'prep128'},
+  {p:'128', row:'Preparação · Passagem',          label:'Passagem p/ Raíza/Jéssica',             start:'2026-07-27', end:'2026-07-31', kind:'prep128'},
+  {p:'128', row:'Pré-produção agosto',            label:'Checklist + treinamento + materiais',   start:'2026-08-03', end:'2026-08-28', kind:'prep128'},
+  {p:'128', row:'Dom Pedrito/RS',                 label:'Sem. 1 · palestra + oficinas + Hackathon 04/09', start:'2026-08-31', end:'2026-09-04', kind:'city128'},
+  {p:'128', row:'Toledo/PR',                      label:'Sem. 2 · palestra + oficinas + Hackathon 25/09', start:'2026-09-21', end:'2026-09-25', kind:'city128'},
+  {p:'128', row:'Guarapuava/PR',                  label:'Sem. 3 · palestra + oficinas + Hackathon 09/10', start:'2026-10-05', end:'2026-10-09', kind:'city128'},
+  {p:'128', row:'Curitiba/PR (oficinas)',         label:'Sem. 4 · oficinas + palestra 26/10 + Hackathon 30/10', start:'2026-10-26', end:'2026-10-30', kind:'city128'},
+  {p:'128', row:'Festival + DOMO Curitiba',       label:'Praça pública · cerimônia Guardião da Terra', start:'2026-10-31', end:'2026-11-01', kind:'event128'},
+  {p:'128', row:'Encerramento MinC',              label:'Vídeo case + relatório ESG + prestação de contas', start:'2026-11-16', end:'2026-12-14', kind:'prep128'},
+  {p:'129', row:'129 · Tangará da Serra/MT',      label:'129 sem. 1', start:'2026-09-14', end:'2026-09-18', kind:'ref129'},
+  {p:'129', row:'129 · Água Boa/MT',              label:'129 sem. 2 (carro 720km)', start:'2026-09-28', end:'2026-10-02', kind:'ref129'},
+  {p:'129', row:'129 · Cuiabá/MT',                label:'129 sem. 3 (oficinas)', start:'2026-11-02', end:'2026-11-06', kind:'ref129'},
+  {p:'129', row:'129 · Feira Shopping Pantanal',  label:'129 Feira 5 dias', start:'2026-11-09', end:'2026-11-13', kind:'ref129'},
+  {p:'129', row:'129 · Exposição itinerante',     label:'129 Exposição 30 dias', start:'2026-11-14', end:'2026-12-14', kind:'ref129'},
+];
+function weekIdx(d){ return Math.floor((new Date(d) - GANTT_START)/86400000/7); }
+function renderGantt(){
+  const root = document.getElementById('gantt-root');
+  if(!root) return;
+  const monthsSpan = [
+    {label:'Jul/26', weeks:4}, {label:'Ago/26', weeks:5}, {label:'Set/26', weeks:4},
+    {label:'Out/26', weeks:5}, {label:'Nov/26', weeks:4}, {label:'Dez/26', weeks:4},
+  ];
+  const KIND = {
+    prep128:{bg:'#4A9BD1', color:'#fff'},
+    city128:{bg:'#0064A6', color:'#fff'},
+    event128:{bg:'#FFD100', color:'#00366F'},
+    ref129:{bg:'#CBD5E1', color:'#334155'}
+  };
+  const rows = [];
+  const seen = new Map();
+  GANTT_ITEMS.forEach(it => {
+    if(!seen.has(it.row)){ seen.set(it.row, rows.length); rows.push({name:it.row, items:[]}); }
+    rows[seen.get(it.row)].items.push(it);
+  });
+  const gridTpl = `grid-template-columns:220px repeat(${GANTT_WEEKS},minmax(28px,1fr));`;
+  let html = '';
+  html += `<div style="display:grid;${gridTpl}gap:1px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#94A3B8;margin-bottom:2px"><div></div>`;
+  monthsSpan.forEach((m,i) => {
+    html += `<div style="grid-column:span ${m.weeks};text-align:center;background:${i%2?'#E8F1F9':'#EEF2F6'};padding:6px;border-radius:4px 4px 0 0">${m.label}</div>`;
+  });
+  html += `</div>`;
+  html += `<div style="display:grid;${gridTpl}gap:1px;font-size:9px;color:#94A3B8;margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:#00366F">Semana →</div>`;
+  for(let i = 0; i < GANTT_WEEKS; i++){
+    const d = new Date(GANTT_START.getTime() + i*7*86400000);
+    const day = d.getDate().toString().padStart(2,'0');
+    html += `<div style="text-align:center;padding:2px 0;background:#FAFBFC;border-right:1px solid #EEF2F6">${day}/${(d.getMonth()+1).toString().padStart(2,'0')}</div>`;
+  }
+  html += `</div>`;
+  rows.forEach(r => {
+    const first = r.items[0];
+    const isRef = first.kind === 'ref129';
+    html += `<div style="display:grid;${gridTpl}gap:1px;align-items:center;padding:0;background:#fff;border-bottom:1px solid #F1F5F9;min-height:38px;${isRef?'opacity:0.5;':''}">`;
+    html += `<div style="padding:8px 10px;font-size:12px;${isRef?'color:#64748B;font-style:italic':'font-weight:600;color:#00366F'};border-right:2px solid #E5E7EB;background:#fff">${r.name}</div>`;
+    let currentCol = 0;
+    const sortedItems = [...r.items].sort((a,b) => weekIdx(a.start) - weekIdx(b.start));
+    sortedItems.forEach(it => {
+      const s = weekIdx(it.start);
+      const e = weekIdx(it.end);
+      if(s < 0 || s >= GANTT_WEEKS){ return; }
+      const eClamped = Math.min(GANTT_WEEKS - 1, e);
+      const span = Math.max(1, eClamped - s + 1);
+      for(let i = currentCol; i < s; i++){
+        html += `<div style="height:38px;background:${i%2?'#FAFBFC':'transparent'};border-right:1px solid #F1F5F9"></div>`;
+      }
+      const k = KIND[it.kind];
+      html += `<div style="grid-column:span ${span};padding:6px 4px;display:flex;align-items:center"><div style="background:${k.bg};color:${k.color};border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 1px 3px rgba(0,0,0,.15);width:100%" title="${it.label}">${it.label}</div></div>`;
+      currentCol = s + span;
+    });
+    for(let i = currentCol; i < GANTT_WEEKS; i++){
+      html += `<div style="height:38px;background:${i%2?'#FAFBFC':'transparent'};border-right:1px solid #F1F5F9"></div>`;
+    }
+    html += `</div>`;
+  });
+  root.innerHTML = html;
+}
+setTimeout(renderGantt, 100);
 
 // ============= ACCORDION DAS OFICINAS =============
 document.querySelectorAll('.of-head').forEach(head => {
