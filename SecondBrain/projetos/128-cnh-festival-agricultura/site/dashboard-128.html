@@ -992,7 +992,6 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#385f99;box-sh
           <table class="data">
             <tr><td class="font-semibold">Lucas Rotta</td><td>Owner e gestor</td></tr>
             <tr><td class="font-semibold">Ana Carolina</td><td>Orientação estratégica</td></tr>
-            <tr><td class="font-semibold">Bruna Seibel</td><td>Gestão executiva</td></tr>
             <tr><td class="font-semibold">Abílio Martins</td><td>Aprovação orçamento · TAP</td></tr>
             <tr><td class="font-semibold">Mayara Ferreira</td><td>MinC</td></tr>
             <tr><td class="font-semibold">Aline B.</td><td>Redes sociais</td></tr>
@@ -1398,11 +1397,23 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#385f99;box-sh
 
   <!-- ============ PAGE: ORÇAMENTO ============ -->
   <div class="page" data-page="orcamento">
+    <div class="mb-4">
+      <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">4 · Orçamento & Fornecedores</p>
+      <h2 class="font-headline-lg text-headline-lg text-primary">Como o R$ 660k vai virar projeto</h2>
+      <p class="text-on-surface-variant mt-1">Consolidado por categoria + item-a-item na sub-aba 4.1 · Fornecedores críticos para o pré-campo na 4.2.</p>
+    </div>
+
+    <div class="flex gap-2 overflow-x-auto pb-2 mb-4 border-b border-outline-variant" data-subnav="orcamento">
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-semibold bg-primary text-on-primary" data-sub="4.1">💰 4.1 Orçamento</button>
+      <button class="sub-tab-btn px-4 py-2 rounded-lg text-body-sm font-medium text-on-surface-variant hover:bg-surface-container-high" data-sub="4.2">🏢 4.2 Fornecedores</button>
+    </div>
+
+    <!-- ========== 4.1 ORÇAMENTO ========== -->
+    <div class="subpage active" data-sub="4.1">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-4">
       <div>
-        <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">4 · Orçamento consolidado</p>
-        <h2 class="font-headline-lg text-headline-lg text-primary">Previsto × Cotado por categoria</h2>
-        <p class="text-on-surface-variant mt-1">78 linhas item-a-item · 20 categorias · cotação IA (Mercado Livre, Amazon, Cobasi, Booking, Localiza, Elo7, Printi, gráficas locais).</p>
+        <h3 class="font-headline-sm text-headline-sm text-primary">Previsto × Cotado por categoria</h3>
+        <p class="text-body-sm text-outline mt-1">78 linhas item-a-item · 20 categorias · cotação IA (Mercado Livre, Amazon, Cobasi, Booking, Localiza, Elo7, Printi, gráficas locais).</p>
       </div>
       <a href="https://docs.google.com/spreadsheets/d/1Kof7ItjMXzDmYlJiO78mXZrHf2Q9Z3orD6dF8i5DF1c/edit?gid=1437045717" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-lg text-body-sm font-medium hover:bg-primary-container transition-colors">
         <span class="material-symbols-outlined text-[18px]">open_in_new</span>Abrir planilha
@@ -1465,6 +1476,63 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#385f99;box-sh
         <iframe src="https://docs.google.com/spreadsheets/d/1Kof7ItjMXzDmYlJiO78mXZrHf2Q9Z3orD6dF8i5DF1c/preview?gid=1437045717" allowfullscreen></iframe>
       </div>
     </div>
+    </div>
+    <!-- /4.1 -->
+
+    <!-- ========== 4.2 FORNECEDORES ========== -->
+    <div class="subpage" data-sub="4.2">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-4">
+        <div>
+          <h3 class="font-headline-sm text-headline-sm text-primary">Fornecedores críticos para o pré-campo</h3>
+          <p class="text-body-sm text-outline mt-1">~15 nomes que precisam de contratação NTICS agora (equipe, evento praça, plataforma, assessoria) + 4 kits de compra local pelo produtor de cada cidade.</p>
+        </div>
+        <span class="chip chip-yellow">Julho 2026 · foco em ligar</span>
+      </div>
+
+      <!-- BLOCO A · Estratégia em 2 frentes -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-gap-md mb-gap-md">
+        <div class="card border-l-4 border-primary">
+          <div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-primary">business_center</span><h4 class="font-semibold text-primary">Contratação centralizada · NTICS</h4></div>
+          <p class="text-body-sm">Tudo que é <strong>itinerante ou de evento</strong>: equipe (produtor, biólogo/técnico, fotógrafo, storyteller), estrutura do evento na praça (DOMO, palco, tenda, gerador), plataforma "New Holland Online", KV/design e assessoria de imprensa. Um contrato NTICS para as 4 cidades.</p>
+        </div>
+        <div class="card border-l-4 border-secondary-container">
+          <div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined" style="color:#6f5900">storefront</span><h4 class="font-semibold" style="color:#6f5900">Compra local pelo produtor</h4></div>
+          <p class="text-body-sm">Materiais soltos das 7 oficinas (musgo, substrato, sementes, ingredientes da feira, garrafas PET, paletes, impressão local). O produtor local de cada cidade compra no comércio da cidade, exige NF, prazo de <strong>2 semanas antes da chegada</strong> da equipe.</p>
+        </div>
+      </div>
+
+      <!-- BLOCO D · Filtros -->
+      <div class="card mb-gap-md">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2 mr-auto"><span class="material-symbols-outlined text-nh-blue-accent">filter_alt</span>Fornecedores centralizados</h3>
+          <input type="search" id="s-search" placeholder="🔎 Buscar fornecedor…" class="w-full md:w-64">
+          <select id="s-cat"><option value="">Todas categorias</option></select>
+          <select id="s-status">
+            <option value="">Todos status</option>
+            <option value="a-contatar">⏳ A contatar</option>
+            <option value="cotado">📞 Cotado</option>
+            <option value="contratado">✓ Contratado</option>
+          </select>
+          <button id="s-reset" class="px-3 py-2 border border-outline-variant rounded-lg text-body-sm hover:bg-surface-container-highest">Limpar</button>
+        </div>
+        <div id="grid-suppliers" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        <p class="text-body-sm text-outline mt-3" id="s-count">Mostrando — fornecedores</p>
+      </div>
+
+      <!-- BLOCO C · Compra local por cidade -->
+      <div class="card">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2"><span class="material-symbols-outlined" style="color:#6f5900">location_on</span>Kit de compra local · por cidade</h3>
+          <span class="text-body-sm text-outline" id="kits-total">Total de itens locais: —</span>
+        </div>
+        <div class="bg-nh-blue-light border-l-4 border-primary rounded-r-lg p-4 mb-4 text-body-sm">
+          <strong>Regras para o produtor local:</strong> exigir <strong>NF sempre</strong> · priorizar comércio da cidade · reaproveitar em cidades seguintes quando fizer sentido (fotografias, paletes, kraft) · comprar até <strong>2 semanas antes</strong> da chegada da equipe · reembolso NTICS via Bruna com NF anexada.
+        </div>
+        <div id="grid-kits" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      </div>
+    </div>
+    <!-- /4.2 -->
+
   </div>
 
   <!-- ============ PAGE: DECISÕES ============ -->
@@ -2052,6 +2120,157 @@ document.getElementById('bench-reset').addEventListener('click', () => {
   benchCat.value = ''; benchOf.value = ''; renderBenchmarks();
 });
 renderBenchmarks();
+
+// ============= FORNECEDORES (4.2) =============
+const SUPPLIERS = [
+  // Equipe itinerante (bloco 1.1)
+  {cat:"Equipe itinerante", nome:"Produtor(a) itinerante", cidade:"Itinerante · 4 semanas", uf:"—", just:"Um único produtor cobre 4 cidades em semanas alternadas com o 129. Perfil que já roda cronogramas de oficina em rede pública. Mesmo produtor sugerido: alternado com o projeto 129.", tel:"", servico:"R$ 3.000/semana × 4 = R$ 12k", status:"a-contatar"},
+  {cat:"Equipe itinerante", nome:"Farmoon (MT)", cidade:"Cuiabá", uf:"MT", just:"Ana Xavier confirmou 02/07: 'seria perfeito'. Base técnica agroecológica com equipe própria de biólogos e técnicos de campo. Pode entrar como biólogo/técnico itinerante ou fornecer perfil.", tel:"", servico:"Biólogo(a)/técnico(a) itinerante · R$ 3.000/semana × 4 = R$ 12k", status:"a-contatar"},
+  {cat:"Equipe itinerante", nome:"Instituto Moleque Mateiro", cidade:"Rio de Janeiro", uf:"RJ", just:"Segunda âncora técnica confirmada pela Ana em 02/07. Referência em educação ambiental com crianças e jovens. Pode fornecer o perfil 'cara do campo' para o técnico itinerante ou indicar um profissional.", tel:"", servico:"Alternativa ao Farmoon · biólogo/técnico", status:"a-contatar"},
+  {cat:"Equipe itinerante", nome:"Fotógrafo(a) + editor vídeo curto", cidade:"Itinerante · 4 semanas", uf:"—", just:"Perfil híbrido: fotografia + edição de vídeo curto para redes. Entrega vídeos curtos por cidade dentro do cachê semanal (rubrica captação vídeo = R$ 0). Prioridade buscar em julho.", tel:"", servico:"R$ 2.000/semana × 4 = R$ 8k", status:"a-contatar"},
+  {cat:"Equipe itinerante", nome:"Storyteller", cidade:"Itinerante · 4 semanas", uf:"—", just:"Contação de história MinC no Hackathon (T7 · culminância) e apoio narrativo nas oficinas. Formato Contação de História conta como um dos 4 formatos MinC do PRONAC.", tel:"", servico:"R$ 2.000/semana × 4 = R$ 8k", status:"a-contatar"},
+
+  // Apoio local (bloco 1.2)
+  {cat:"Apoio local por cidade", nome:"Monitores locais Dom Pedrito", cidade:"Dom Pedrito", uf:"RS", just:"2 monitores da rede local (professores, estudantes de licenciatura ou monitores escolares). Contratação local reduz custo de deslocamento. Também compram materiais das oficinas na cidade.", tel:"", servico:"2 × R$ 1.000/semana = R$ 2k", status:"a-contatar"},
+  {cat:"Apoio local por cidade", nome:"Monitores locais Toledo", cidade:"Toledo", uf:"PR", just:"2 monitores da rede local. Concessionária Dalaglio pode indicar. Produtor local também compra material das oficinas.", tel:"", servico:"2 × R$ 1.000/semana = R$ 2k", status:"a-contatar"},
+  {cat:"Apoio local por cidade", nome:"Monitores locais Guarapuava", cidade:"Guarapuava", uf:"PR", just:"2 monitores. Mónica Raurich (Simex) já é ponte com Colégio Dom Pedro I · pode indicar monitores da escola. Produtor local compra materiais.", tel:"", servico:"2 × R$ 1.000/semana = R$ 2k", status:"a-contatar"},
+  {cat:"Apoio local por cidade", nome:"Monitores locais Curitiba", cidade:"Curitiba", uf:"PR", just:"2 monitores · semana do Festival exige mais gente. Evelyn (CNH) organiza voluntários para o DOMO em paralelo. Produtor local aqui também apoia o evento na praça.", tel:"", servico:"2 × R$ 1.000/semana = R$ 2k", status:"a-contatar"},
+
+  // Evento na praça Curitiba (bloco 8)
+  {cat:"Evento na praça Curitiba", nome:"STAR DOMES · SPADA", cidade:"São Paulo · Curitiba", uf:"SP/PR", just:"Duas referências nacionais em DOMO imersivo com projeção 360°. STAR DOMES tem estrutura completa (aluguel + AV + operador). SPADA é opção secundária. Marco crítico do evento culminante · 31/10 e 01/11.", tel:"", servico:"DOMO imersivo (aluguel + audiovisual + operador) · R$ 12k-15k", status:"a-contatar"},
+  {cat:"Evento na praça Curitiba", nome:"Tendas Compostela", cidade:"Curitiba", uf:"PR", just:"Fornecedor local em Curitiba para palco 6×4m coberto + treliça + iluminação e gradil galvanizado 2m × 30 módulos. Cotação fechada em R$ 6k (palco) + R$ 2,5k (gradil).", tel:"", servico:"Palco 6×4m + treliça + iluminação + gradil (30 módulos)", status:"a-contatar"},
+  {cat:"Evento na praça Curitiba", nome:"Sotendas", cidade:"Curitiba", uf:"PR", just:"Tenda 3×3m com pé direito 2,5m · 4 tendas para o evento. Cotação IA veio 60% abaixo do previsto (R$ 500/un). Ajustar previsão orçamentária.", tel:"", servico:"Tenda 3×3m × 4 · R$ 500/un = R$ 2k", status:"a-contatar"},
+  {cat:"Evento na praça Curitiba", nome:"Cotanet · Gerapar", cidade:"Curitiba", uf:"PR", just:"Duas opções locais para gerador 30 KVA silenciado. Necessário 2 unidades para o dia do evento (DOMO + palco). Cotação boa: R$ 900/un.", tel:"", servico:"Gerador 30 KVA silenciado × 2 · R$ 1,8k", status:"a-contatar"},
+  {cat:"Evento na praça Curitiba", nome:"Gráfica Curitiba · Octarte · CIA5", cidade:"Curitiba", uf:"PR", just:"Cenografia da praça: backdrop 6×3m + adesivagem + placas + decoração. Três referências locais em Curitiba. Cotação IA em linha com previsto (R$ 4k).", tel:"", servico:"Cenografia da praça · R$ 4k", status:"a-contatar"},
+
+  // Plataforma + design (bloco 12)
+  {cat:"Plataforma + design", nome:"Lovable", cidade:"Remoto", uf:"—", just:"Padrão NTICS para plataforma gamificada (mesmo stack do 132/Estação Samarco). Área do estudante, professor e gestor · gamificação · certificação 20h BNCC. Marca 'New Holland Online'. Cotação em curso (item aberto R2).", tel:"", servico:"Plataforma \"New Holland Online\" · valor a fechar em julho", status:"cotado"},
+  {cat:"Plataforma + design", nome:"Workana · 99freelas · TAGX", cidade:"Remoto", uf:"—", just:"Três marketplaces de designer freelance para pacote KV + carrossel + convite + certificados + material. Cotação IA veio 50% acima (R$ 3k vs R$ 2k previsto) · ampliar escopo ou reduzir peças.", tel:"", servico:"KV + carrossel + convite + certificados · R$ 2k-3k", status:"a-contatar"},
+
+  // Assessoria + cobertura (blocos 9, 10)
+  {cat:"Assessoria + cobertura", nome:"MGA Press · Press UP", cidade:"—", uf:"—", just:"Pacote pré + durante + pós para os 4 Hackathons + Festival Curitiba. Nova Friburgo referência R$ 3.800-4.750 · freelance R$ 1.500-4.000. Enviar releases com 10 dias de margem para ciclo global CNH.", tel:"", servico:"Assessoria pré + durante + pós · R$ 3k-3,5k", status:"a-contatar"},
+  {cat:"Assessoria + cobertura", nome:"Fotógrafo Hackathon por cidade", cidade:"Local em cada cidade", uf:"—", just:"5 diárias (4 Hackathons + Festival Curitiba com 2 diárias). Cotação IA subiu 88% (R$ 1,5k/diária vs R$ 800 previsto). Se o fotógrafo itinerante já resolver, essa rubrica cai.", tel:"", servico:"5 diárias · R$ 1,5k cada = R$ 7,5k", status:"a-contatar"},
+];
+
+const CIDADES_KITS = [
+  {cidade:"Dom Pedrito", uf:"RS", data:"31/08 - 04/09"},
+  {cidade:"Toledo", uf:"PR", data:"21/09 - 25/09"},
+  {cidade:"Guarapuava", uf:"PR", data:"05/10 - 09/10"},
+  {cidade:"Curitiba", uf:"PR", data:"26/10 - 01/11"},
+];
+
+// Itens de compra local (extraídos do BUDGET pelas obs/fornecedor de referência)
+const LOCAL_HINTS_OBS = ["coletar", "coleta", "compra local", "regionais", "reciclados", "cessão gratuita", "feira", "impressão local", "sob demanda", "reutilizar"];
+const LOCAL_HINTS_FORN = ["escola", "feira livre", "mercado/atacado", "papelaria + reaproveitamento", "papelaria"];
+const LOCAL_ITEMS = BUDGET.filter(x => {
+  const obs = (x.o || '').toLowerCase();
+  const forn = (x.f || '').toLowerCase();
+  if (LOCAL_HINTS_OBS.some(h => obs.includes(h))) return true;
+  if (LOCAL_HINTS_FORN.some(h => forn.includes(h))) return true;
+  return false;
+});
+
+// Render fornecedores
+const gridSup = document.getElementById('grid-suppliers');
+const selSupCat = document.getElementById('s-cat');
+const selSupStat = document.getElementById('s-status');
+const inpSupSearch = document.getElementById('s-search');
+const supCount = document.getElementById('s-count');
+[...new Set(SUPPLIERS.map(s => s.cat))].forEach(c => {
+  const opt = document.createElement('option'); opt.value = c; opt.textContent = c; selSupCat.appendChild(opt);
+});
+
+const CAT_ICON = {
+  "Equipe itinerante":"groups",
+  "Apoio local por cidade":"location_on",
+  "Evento na praça Curitiba":"celebration",
+  "Plataforma + design":"devices",
+  "Assessoria + cobertura":"campaign",
+};
+
+function statusPill(st){
+  if(st === 'contratado') return '<span class="chip chip-green">✓ Contratado</span>';
+  if(st === 'cotado') return '<span class="chip chip-blue">📞 Cotado</span>';
+  return '<span class="chip chip-orange">⏳ A contatar</span>';
+}
+
+function renderSuppliers(){
+  const search = inpSupSearch.value.toLowerCase().trim();
+  const cat = selSupCat.value;
+  const st = selSupStat.value;
+  const filtered = SUPPLIERS.filter(s => {
+    if(cat && s.cat !== cat) return false;
+    if(st && s.status !== st) return false;
+    if(search){
+      const hay = (s.nome + ' ' + s.cidade + ' ' + s.just + ' ' + s.servico + ' ' + s.cat).toLowerCase();
+      if(!hay.includes(search)) return false;
+    }
+    return true;
+  });
+  gridSup.innerHTML = '';
+  filtered.forEach(s => {
+    const icon = CAT_ICON[s.cat] || 'business';
+    const searchUrl = 'https://www.google.com/search?q=' + encodeURIComponent(s.nome + ' ' + s.cidade + ' telefone contato');
+    const telHtml = s.tel && s.tel.trim() ? `<a href="tel:${s.tel.replace(/\s+/g,'')}" class="font-semibold text-primary">${s.tel}</a>` : '<span class="text-outline">⏳ a buscar</span>';
+    const div = document.createElement('div');
+    div.className = 'card flex flex-col gap-2';
+    div.style.padding = '18px';
+    div.innerHTML = `
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-nh-blue-light flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary" style="font-size:18px">${icon}</span></div>
+          <div>
+            <p class="font-semibold text-primary leading-tight">${s.nome}</p>
+            <p class="text-body-sm text-outline">${s.cidade}${s.uf && s.uf !== '—' ? ' · '+s.uf : ''}</p>
+          </div>
+        </div>
+        ${statusPill(s.status)}
+      </div>
+      <p class="text-body-sm" style="min-height:60px">${s.just}</p>
+      <div class="border-t border-outline-variant pt-2 mt-1">
+        <p class="text-body-sm text-outline"><span class="material-symbols-outlined text-[14px] align-middle">receipt_long</span> ${s.servico}</p>
+        <div class="flex items-center justify-between mt-2 gap-2">
+          <div class="flex items-center gap-1 text-body-sm"><span class="material-symbols-outlined text-[16px]">call</span>${telHtml}</div>
+          <a href="${searchUrl}" target="_blank" class="text-body-sm text-primary font-medium hover:underline flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">search</span>buscar contato</a>
+        </div>
+      </div>
+    `;
+    gridSup.appendChild(div);
+  });
+  supCount.textContent = `Mostrando ${filtered.length} de ${SUPPLIERS.length} fornecedores`;
+}
+inpSupSearch.addEventListener('input', renderSuppliers);
+selSupCat.addEventListener('change', renderSuppliers);
+selSupStat.addEventListener('change', renderSuppliers);
+document.getElementById('s-reset').addEventListener('click', () => {
+  inpSupSearch.value = ''; selSupCat.value = ''; selSupStat.value = ''; renderSuppliers();
+});
+renderSuppliers();
+
+// Render kits de compra local por cidade
+const gridKits = document.getElementById('grid-kits');
+const perCityItems = LOCAL_ITEMS; // mesmos itens em todas as cidades (× 4 no total do orçamento)
+const totalLocalPerCity = perCityItems.reduce((s,x) => s + (x.tp||0), 0) / 4;
+const grandTotalLocal = perCityItems.reduce((s,x) => s + (x.tp||0), 0);
+document.getElementById('kits-total').textContent = `${perCityItems.length} tipos de item · ~${fmtBR(totalLocalPerCity)} por cidade · ${fmtBR(grandTotalLocal)} nas 4 cidades`;
+
+CIDADES_KITS.forEach(c => {
+  const div = document.createElement('div');
+  div.className = 'border border-outline-variant rounded-lg overflow-hidden';
+  const rows = perCityItems.slice(0,12).map(x => `<tr><td class="text-body-sm">${x.i}</td><td class="text-body-sm text-outline">${x.o || x.f}</td></tr>`).join('');
+  div.innerHTML = `
+    <div class="bg-primary text-on-primary p-4">
+      <p class="font-label-caps text-label-caps uppercase" style="color:#fed000">${c.uf} · ${c.data}</p>
+      <p class="font-headline-sm text-headline-sm font-bold">${c.cidade}</p>
+      <p class="text-body-sm opacity-90 mt-1">Verba local aprovada: <strong>${fmtBR(totalLocalPerCity)}</strong> · ${perCityItems.length} itens</p>
+    </div>
+    <div class="p-4">
+      <p class="text-body-sm text-outline mb-2">Compra pelo produtor local até <strong>${c.data.split(' -')[0]}</strong> (2 semanas antes):</p>
+      <table class="data">${rows}</table>
+    </div>
+  `;
+  gridKits.appendChild(div);
+});
 </script>
 </body>
 </html>
