@@ -277,34 +277,32 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#C8102E;box-sh
 <main class="flex-1 overflow-y-auto p-4 md:p-container-padding">
   <div class="max-w-max-width mx-auto flex flex-col gap-gap-lg">
 
-    <!-- ========== BRAND LOCKUP ========== -->
+    <!-- ========== BRAND LOCKUP (discreto) ========== -->
     <style>
-      .brand-lockup{background:#fff;border:1px solid #d9c0c0;border-radius:14px;padding:20px 28px;display:grid;grid-template-columns:1fr auto 1.4fr;gap:32px;align-items:center;box-shadow:0 1px 3px rgba(36,16,16,.04)}
-      .brand-lockup .col{display:flex;flex-direction:column;gap:8px}
-      .brand-lockup .col.right{align-items:flex-end}
-      .brand-lockup .col.center{align-items:center;border-left:1px solid #d9c0c0;border-right:1px solid #d9c0c0;padding:0 32px}
-      .brand-lockup .eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#94A3B8;line-height:1}
+      .brand-lockup{background:transparent;padding:4px 4px 0;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+      .brand-lockup .col{display:flex;align-items:center;gap:10px;opacity:.65;transition:opacity .2s}
+      .brand-lockup:hover .col{opacity:.95}
+      .brand-lockup .col.center{opacity:.82}
+      .brand-lockup:hover .col.center{opacity:1}
+      .brand-lockup .lbl{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#94A3B8;line-height:1}
       .brand-lockup img{display:block;max-width:100%;height:auto;object-fit:contain}
-      .brand-lockup .logo-projeto{height:60px}
-      .brand-lockup .logo-patron{height:48px}
-      .brand-lockup .logo-realiza{height:26px;opacity:.92}
+      .brand-lockup .logo-projeto{height:36px}
+      .brand-lockup .logo-patron{height:24px}
+      .brand-lockup .logo-realiza{height:16px}
       @media (max-width:900px){
-        .brand-lockup{grid-template-columns:1fr;text-align:center;padding:20px}
-        .brand-lockup .col{align-items:center !important}
-        .brand-lockup .col.center{border-left:none;border-right:none;border-top:1px solid #d9c0c0;border-bottom:1px solid #d9c0c0;padding:16px 0}
+        .brand-lockup{justify-content:center;gap:16px}
       }
     </style>
     <div class="brand-lockup">
       <div class="col">
-        <span class="eyebrow">Uma realização de</span>
+        <span class="lbl">Realização</span>
         <img class="logo-realiza" src="../brand/logo/realizacao/ntics-colorido.png" alt="NTICS Projetos">
       </div>
       <div class="col center">
-        <span class="eyebrow">Projeto 129</span>
         <img class="logo-projeto" src="../brand/logo/projeto/-Camada-@2x.png" alt="Agrofuturo nas Escolas">
       </div>
-      <div class="col right">
-        <span class="eyebrow">Patrocínio soberano</span>
+      <div class="col">
+        <span class="lbl">Patrocínio</span>
         <img class="logo-patron" src="../brand/logo/patrocinador/Case_IH_Variant_Flat_COLOR_RGB_TransparentBackground.png" alt="Case IH Agriculture">
       </div>
     </div>
@@ -810,6 +808,11 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#C8102E;box-sh
               <div class="of-caret">▾</div>
             </div>
             <div class="of-body">
+              <div class="layer"><div class="layer-label">📖 Contexto conceitual</div><div class="layer-content"><p>O Mato Grosso é o maior produtor de soja do país e um dos maiores do mundo. Mas o que o adolescente cuiabano, tangaraense ou aguabonense come no almoço nem sempre é aquilo que cresce ao redor da cidade. A fronteira agrícola do MT produz commodities de exportação — soja, milho, algodão, carne — que atravessam corredores logísticos até portos do Norte e do Sul. E voltam em outra forma: óleo, ração, biscoito, farinha.</p><p>Ao mesmo tempo, o Cerrado tem sabores que a fronteira agrícola foi apagando: pequi, buriti, jatobá, baru, cagaita, mangaba. E a mesa cuiabana clássica traz peixe (pintado, dourado, pacu), farinha de mandioca e arroz de carreteiro. Esta oficina reconstrói a cadeia: como o alimento sai da fronteira e volta ao prato, quem lucra em cada elo, e o que fica na comunidade em termos de valor, resíduo e cultura.</p></div></div>
+              <div class="layer"><div class="layer-label">💡 Por que este tema importa</div><div class="layer-content"><ul><li>MT é ponta da fronteira agrícola global. O jovem precisa entender essa economia porque provavelmente vai trabalhar nela.</li><li>Discussão da <strong>segurança alimentar em contexto de agroexportação</strong>: o que produzimos versus o que comemos.</li><li>Valoriza saberes do Cerrado que estão desaparecendo (pequi, baru, buriti).</li><li>ODS 2 (fome zero), 12 (produção e consumo).</li></ul></div></div>
+              <div class="layer"><div class="layer-label">🔑 Conceitos-chave</div><div class="layer-content"><ul><li><strong>Sistemas agroalimentares</strong> do MT: cadeia da soja, do milho, da carne.</li><li><strong>Rota da soja</strong>: do plantio ao FOB, corredor Norte (Miritituba) e corredor Sul (Santos, Paranaguá).</li><li><strong>Sabores do Cerrado</strong>: pequi, buriti, jatobá, baru, cagaita, mangaba.</li><li><strong>Culinária pantaneira</strong>: pintado, dourado, pacu, farinha de mandioca, arroz de carreteiro.</li><li><strong>Segurança alimentar</strong> versus <strong>soberania alimentar</strong>: dois conceitos irmãos e distintos.</li><li><strong>Km 0 no Cerrado</strong>: quintais, feiras de produtor, roças de subsistência.</li></ul></div></div>
+              <div class="layer"><div class="layer-label">💬 Perguntas norteadoras</div><div class="layer-content"><ul><li>Qual foi o seu almoço? De onde vieram os ingredientes?</li><li>Quanta soja do seu estado vira comida no seu prato?</li><li>O que o Cerrado dava de comer antes da fronteira agrícola?</li><li>E se a estrada quebrasse por 30 dias, o que a gente comeria?</li><li>Qual sabor do Cerrado sua família ainda usa?</li></ul></div></div>
+              <div class="layer"><div class="layer-label">🗺️ Adaptações por cidade</div><div class="layer-content"><ul><li><strong>Tangará da Serra/MT</strong>: algodão, pecuária, cana-de-açúcar; usinas de etanol em expansão.</li><li><strong>Água Boa/MT</strong>: fronteira soja + gado, região do Vale do Araguaia; cadeia da carne.</li><li><strong>Cuiabá/MT</strong>: capital, ponto de mesclagem entre Cerrado e Pantanal; sabores urbanos e influência boliviana no norte.</li></ul></div></div>
               <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante mapeia a jornada do alimento do MT do plantio à mesa e reconhece a fronteira agrícola brasileira como referência global.</div></div>
               <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 7 (argumentação sobre cadeia), 10 (consumo consciente).</div></div>
               <div class="layer"><div class="layer-label">⏱️ Roteiro 5 momentos (100 min)</div><div class="layer-content"><strong>Aquecimento (15').</strong> "Que alimento do MT vai parar em quantos estados?" + fotos de soja embarcando em Rondonópolis. <strong>Atividade (50').</strong> Subgrupos de 8 recebem kraft de 3m + ícones (produtor, indústria, transporte, varejo, exportação). Constroem <strong>atlas visual do agro do MT</strong> com colagem + desenho + etiquetas manuscritas. <strong>Sistematização (20').</strong> Apresenta em 3 min. Debate: onde MT lucra? Onde perde valor? <strong>Produto (10').</strong> Atlas visual coletivo (3m × 1,5m) fotografado. <strong>Apresentação (5').</strong> Post-it: "que gargalo da cadeia do meu município minha solução resolve?".</div></div>
@@ -831,6 +834,11 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#C8102E;box-sh
               <div class="of-caret">▾</div>
             </div>
             <div class="of-body">
+              <div class="layer"><div class="layer-label">📖 Contexto conceitual</div><div class="layer-content"><p>O drone é o símbolo do agro 4.0. Não é ficção nem promessa futura, é ferramenta cotidiana de produtor no Mato Grosso. Fazendas de cinco mil hectares usam drones para mapear pragas, pulverizar seletivamente, monitorar rebanho, contar plantas e diagnosticar deficiência nutricional. O piloto de drone agrícola virou profissão regulamentada pela ANAC e demanda formação técnica específica.</p><p>Agro 4.0 é o conjunto de tecnologias que colocam sensores, dados e algoritmos no campo: drones, satélites, IoT (Internet das Coisas), IA, big data. A promessa é fazer mais com menos: menos água, menos agrotóxico, menos combustível, menos emissão. E gerar dados que retroalimentam a decisão. Esta oficina traz o drone real cedido pela concessionária, faz voo demonstrativo na quadra, e desafia o aluno a construir uma maquete territorial da fazenda com rotas simuladas de drone.</p></div></div>
+              <div class="layer"><div class="layer-label">💡 Por que este tema importa</div><div class="layer-content"><ul><li>Aproxima tecnologia agrícola do jovem MT, que pode virar operador ou piloto de drone.</li><li>Discute precisão versus impacto ambiental: tecnologia pode aumentar produtividade e reduzir dano ao mesmo tempo.</li><li>Cadeia de valor do agtech: da Solinftec ao produtor, passando por concessionária.</li><li>ODS 9 (indústria e inovação), 12 (consumo responsável).</li><li>Custo NTICS zero: drone cedido pela concessionária.</li></ul></div></div>
+              <div class="layer"><div class="layer-label">🔑 Conceitos-chave</div><div class="layer-content"><ul><li><strong>Sensoriamento remoto</strong>: NDVI (Índice de Vegetação por Diferença Normalizada), biomassa, umidade.</li><li><strong>Piloto de drone agrícola</strong>: regulamentação ANAC, RBAC-E 94, certificação.</li><li><strong>IoT no agro</strong>: sensores de solo, colares GPS em gado, estações meteorológicas conectadas.</li><li><strong>Agricultura de precisão</strong>: aplicação variável de insumos com base em mapa georreferenciado.</li><li><strong>Big data agrícola</strong>: 1 hectare pode gerar 250 GB de dados por safra.</li><li><strong>Startups do agtech MT</strong>: Aegro, Solinftec, TarvosTech, Agrosmart.</li></ul></div></div>
+              <div class="layer"><div class="layer-label">💬 Perguntas norteadoras</div><div class="layer-content"><ul><li>Um drone pode substituir o produtor?</li><li>Qual é a diferença entre tecnologia que ajuda e tecnologia que domina?</li><li>Se eu fosse piloto de drone, o que precisaria estudar?</li><li>Quem é dono dos dados que o drone coleta na sua fazenda?</li><li>O drone reduz uso de agrotóxico ou apenas espalha melhor?</li></ul></div></div>
+              <div class="layer"><div class="layer-label">🗺️ Adaptações por cidade</div><div class="layer-content"><ul><li><strong>Tangará da Serra/MT</strong>: algodão pulverizado com drone; empresas como Max Case e cooperativas locais.</li><li><strong>Água Boa/MT</strong>: pastagem monitorada por drone e satélite; concessionária Agritex e Fazenda Conectada como referência local.</li><li><strong>Cuiabá/MT</strong>: capital do agtech no MT, sede de startups e universidades (UFMT, IFMT).</li></ul></div></div>
               <div class="layer"><div class="layer-label">🎯 Objetivo pedagógico</div><div class="layer-content">O estudante reconhece o agro 4.0 como oportunidade profissional e o drone como ferramenta de precisão. Desenvolve pensamento algorítmico aplicado ao campo.</div></div>
               <div class="layer"><div class="layer-label">📚 BNCC</div><div class="layer-content">Competência 2 (pensamento científico), 6 (projeto de vida).</div></div>
               <div class="layer"><div class="layer-label">⏱️ Roteiro 5 momentos (100 min)</div><div class="layer-content"><strong>Aquecimento (15').</strong> "Se você tivesse um drone, o que veria da sua cidade que ninguém vê?" + fotos aéreas de fazendas do MT + comparação NDVI. <strong>Atividade (50').</strong> Subgrupos de 6 constroem <strong>maquete de lavoura + rota de drone</strong>: papel machê, isopor, terra, sementes. Zonas de manejo (seca, praga, saudável). Rota de sobrevoo com fio ou linha. <strong>Sistematização (20').</strong> Se concessionária cede drone real (Max Case, Agritex, rede Case IH), <strong>voo demonstrativo 15 min</strong>. Se não, prints de imagens aéreas. <strong>Produto (10').</strong> Maquete (fica na escola) + relatório de voo. <strong>Apresentação (5').</strong> Post-it: "que zona de manejo minha solução ajuda a ver?".</div></div>
