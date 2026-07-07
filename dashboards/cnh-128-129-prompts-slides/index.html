@@ -51,10 +51,7 @@ main{max-width:1200px;margin:0 auto;padding:32px}
 .project-view[data-project="129"] .copy-btn:hover{background:var(--ch-red-dark)}
 .copy-btn.copied{background:#16a34a}
 .slide-body{padding:0 24px 24px}
-.slide-body .changes{background:#fefce8;border-left:3px solid var(--nh-yellow);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;margin:16px 0;color:#713f12}
-.project-view[data-project="129"] .slide-body .changes{background:#fef2f2;border-left-color:var(--ch-amber);color:#7c2d12}
-.slide-body .changes strong{font-weight:700}
-.slide-body pre{background:#0f172a;color:#e2e8f0;padding:20px;border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;max-height:500px;overflow-y:auto}
+.slide-body pre{background:#0f172a;color:#e2e8f0;padding:20px;border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;max-height:500px;overflow-y:auto;margin-top:16px}
 .slide-body pre::-webkit-scrollbar{width:8px}
 .slide-body pre::-webkit-scrollbar-thumb{background:#334155;border-radius:4px}
 footer{max-width:1200px;margin:0 auto;padding:24px 32px 48px;color:var(--muted);font-size:12px;text-align:center}
@@ -76,7 +73,7 @@ footer{max-width:1200px;margin:0 auto;padding:24px 32px 48px;color:var(--muted);
   <div class="header-inner">
     <div class="eyebrow">Prompts para geração de imagem · ChatGPT</div>
     <h1>Slides atualizados · Projetos 128 + 129 · CNH</h1>
-    <p class="subtitle">10 prompts prontos para colar no ChatGPT (image generation). Cada um recria um slide da apresentação com as decisões novas: Cronograma B, prêmio 3 camadas + camada 0, cenografia agro 4.0, Feira Shopping Pantanal, rodízio 3 turmas × 2h/dia, Hackathon/Desafio como evento de impacto.</p>
+    <p class="subtitle">10 prompts enxutos com só o texto que a imagem precisa ter + a identidade visual do patrocinador. Sem descrição de layout — o ChatGPT compõe como achar melhor.</p>
   </div>
 </header>
 
@@ -92,321 +89,231 @@ footer{max-width:1200px;margin:0 auto;padding:24px 32px 48px;color:var(--muted);
   <!-- ================= 128 · NEW HOLLAND ================= -->
   <div class="project-view active" data-project="128">
     <div class="intro">
-      <strong>Contexto do 128:</strong> Festival AgriCULTURA Sustentável · patrocínio New Holland Agriculture (CNH) · 4 cidades no Sul (Dom Pedrito/RS, Toledo/PR, Guarapuava/PR, Curitiba/PR) · verba R$ 660 mil · PRONAC 259965. Paleta oficial: azul New Holland (#0064A6, escuro #00366F) + amarelo (#FFD100). Público: ensino médio.
+      <strong>Identidade visual · 128 · New Holland Agriculture:</strong><br>
+      Paleta: azul #0064A6 (principal), azul escuro #00366F, amarelo #FFD100 (acento).<br>
+      Tipografia: sans-serif geométrica moderna.<br>
+      Logo New Holland Agriculture soberano · realização NTICS Projetos · régua Lei Rouanet nas peças oficiais.
     </div>
 
-    <!-- Slide 128.1: Cronograma -->
+    <!-- Slide 128.1 -->
     <div class="slide-card">
       <div class="slide-head">
         <div class="slide-num">1</div>
         <div class="slide-title">
-          <div class="kicker">Slide de cronograma</div>
-          <h3>Cronograma ajustado · Cronograma B (semana única encadeada)</h3>
-          <div class="desc">Substitui o cronograma A de 3 semanas/cidade que estava na versão vendida.</div>
+          <div class="kicker">Slide 1</div>
+          <h3>Cronograma ajustado</h3>
+          <div class="desc">Cronograma B (semana única encadeada) substituindo o A (3 semanas/cidade)</div>
         </div>
         <button class="copy-btn" data-slide="s128-1"><span>📋</span>Copiar prompt</button>
       </div>
       <div class="slide-body">
-        <div class="changes"><strong>O que mudou:</strong> A proposta passou de 3 semanas por cidade para <strong>uma semana encadeada por cidade</strong>. Ordem: Dom Pedrito → Toledo → Guarapuava → Curitiba. Curitiba encerra com Festival + DOMO em praça pública nos dias 31/10 e 01/11. Semanas alternadas com o 129 (Case IH) em MT.</div>
-        <pre id="s128-1">Slide horizontal 16:9 para apresentação corporativa do "Festival AgriCULTURA Sustentável" (patrocínio New Holland Agriculture · grupo CNH · Lei Rouanet PRONAC 259965).
+        <pre id="s128-1">Slide 16:9 para apresentação do "Festival AgriCULTURA Sustentável" · patrocínio New Holland Agriculture (CNH).
 
-TEMA: cronograma de execução do projeto entre setembro e novembro de 2026 em 4 cidades do Sul do Brasil, no modelo "semana única encadeada por cidade" (uma cidade por vez, sequencialmente, uma pausa de duas semanas entre elas).
+Identidade visual: azul New Holland #0064A6, azul escuro #00366F, amarelo #FFD100 como acento. Fundo branco. Tipografia sans-serif geométrica moderna. Logo New Holland Agriculture soberano. Realização: NTICS Projetos. Régua Lei Rouanet.
 
-PALETA:
-- fundo branco off-white (#FDFDFD)
-- azul New Holland como cor principal: #0064A6 e #00366F
-- amarelo New Holland como acento pontual: #FFD100
-- cinza médio para elementos secundários: #64748B
-- NÃO usar verde, NÃO usar vermelho
+Textos que devem aparecer no slide:
 
-TIPOGRAFIA: sans-serif geométrica moderna (tipo Inter ou Space Grotesk), pesos 600-700 para títulos, 400-500 para texto.
+Título: CRONOGRAMA · 4 CIDADES ENCADEADAS
+Subtítulo: setembro a novembro de 2026 · uma semana em cada cidade
 
-LAYOUT:
-- Título grande no topo, centralizado ou alinhado à esquerda: "CRONOGRAMA · 4 CIDADES ENCADEADAS"
-- Subtítulo em cinza: "Setembro a novembro de 2026 · uma semana em cada cidade"
-- Timeline horizontal ocupando o centro do slide, com 4 marcadores grandes em azul #0064A6, um para cada cidade, ligados por uma linha fina azul:
-  1. DOM PEDRITO/RS · semana de 31/08 a 04/09
-  2. TOLEDO/PR · semana de 21/09 a 25/09
-  3. GUARAPUAVA/PR · semana de 05/10 a 09/10
-  4. CURITIBA/PR · semana de 26/10 a 30/10
-- Cada marcador tem um ícone outline: trator estilizado, planta germinando, sol nascendo etc, e um chip fino com o texto "Palestra profs · seg noite · Hackathon · sex".
-- Depois do quarto marcador, um destaque especial em amarelo #FFD100 com ícone de domo geodésico: "FESTIVAL + DOMO · praça pública em Curitiba · 31/10 e 01/11".
-- Entre os marcadores, pequenas indicações em cinza claro: "semana 129 Case IH" para deixar visível que os cronogramas dos dois projetos são alternados.
+Cidades e datas:
+• DOM PEDRITO/RS · 31/08 a 04/09
+• TOLEDO/PR · 21/09 a 25/09
+• GUARAPUAVA/PR · 05/10 a 09/10
+• CURITIBA/PR · 26/10 a 30/10
 
-RODAPÉ: logo "New Holland Agriculture" soberano à esquerda, "Realização: NTICS Projetos" pequeno à direita, régua discreta "Lei Rouanet · Ministério da Cultura" na base.
+Destaque final:
+FESTIVAL + DOMO em praça pública · Curitiba · 31/10 e 01/11
 
-ESTILO: design corporativo moderno, muito espaço em branco, ilustração vetorial minimalista, sem fotos, sem gradientes berrantes. Impressão de organização, engenharia, agrotecnologia limpa.</pre>
+Cada cidade encadeia: segunda com palestra de professores à noite, sexta com Hackathon Guardiões da Terra.
+
+Semanas alternadas com o 129 (Case IH · MT).</pre>
       </div>
     </div>
 
-    <!-- Slide 128.2: Oficinas -->
+    <!-- Slide 128.2 -->
     <div class="slide-card">
       <div class="slide-head">
         <div class="slide-num">2</div>
         <div class="slide-title">
-          <div class="kicker">Slide das 7 oficinas</div>
-          <h3>7 oficinas culturais · nova proposta</h3>
-          <div class="desc">Substitui o slide antigo de oficinas com os temas atualizados e formatos MinC corretos.</div>
+          <div class="kicker">Slide 2</div>
+          <h3>7 oficinas · nova proposta</h3>
+          <div class="desc">Metodologia revisada com Ana Xavier (02/07)</div>
         </div>
         <button class="copy-btn" data-slide="s128-2"><span>📋</span>Copiar prompt</button>
       </div>
       <div class="slide-body">
-        <div class="changes"><strong>O que mudou:</strong> Oficinas revisadas com Ana Xavier em 02/07 — T1 Terrário biosfera, T2 Fotografia (macro em campo), T3 Alimentos do campo (mercado simulado), T4 Nova Agricultura (mapa sensorial), T5 Clima (cartografia climática), T6 Biometano (miniusina), T7 <strong>Hackathon Guardiões da Terra</strong> como culminância (8 squads paletes coloridos · 4 horas · pitch 3 min).</div>
-        <pre id="s128-2">Slide horizontal 16:9 para apresentação corporativa do "Festival AgriCULTURA Sustentável" (New Holland · CNH).
+        <pre id="s128-2">Slide 16:9 para apresentação do "Festival AgriCULTURA Sustentável" · patrocínio New Holland Agriculture (CNH).
 
-TEMA: 7 oficinas culturais que compõem a metodologia do projeto. Uma oficina por dia da semana, com T7 como culminância pedagógica.
+Identidade visual: azul New Holland #0064A6, azul escuro #00366F, amarelo #FFD100 como acento. Fundo branco. Tipografia sans-serif geométrica moderna. Logo New Holland Agriculture soberano. Realização: NTICS Projetos.
 
-PALETA:
-- fundo branco off-white
-- azul New Holland #0064A6 e #00366F como cores base
-- amarelo #FFD100 como acento e destaque específico para o Hackathon T7
-- ícones em outline azul, sem cores fora da paleta
+Textos que devem aparecer no slide:
 
-TIPOGRAFIA: sans-serif geométrica (Inter ou Space Grotesk).
-
-LAYOUT: grid de 7 cards em duas linhas — 4 cards em cima, 3 embaixo, sendo o último (T7) o maior e em destaque com fundo azul escuro #00366F e texto em amarelo, marcando que é a culminância. Cada card mostra:
-- Um número redondo (T1, T2, T3...) em amarelo #FFD100 canto superior direito
-- Um ícone temático outline azul
-- Título curto
-- 1 linha descritiva
-- Um chip pequeno de formato MinC quando cabível ("Fotografia MinC", "Contação de História MinC")
-
-CONTEÚDO dos 7 cards:
+Título: METODOLOGIA · 7 OFICINAS CULTURAIS · UMA POR DIA · HACKATHON NA SEXTA
 
 T1 · Terra e Semente
-Ícone: broto/semente germinando em terra
-Descrição: "Terrário biosfera + registro fotográfico. Cada aluno leva sua semente."
-Formato: Livre
+Terrário biosfera. Cada aluno leva sua semente.
 
 T2 · Água e Irrigação Sustentável
-Ícone: gota d'água + drone
-Descrição: "Fotografia em campo · pulverização com IA (portfólio New Holland)."
-Formato: Fotografia MinC (destaque discreto)
+Fotografia em campo + pulverização com IA (portfólio New Holland).
+Formato: Fotografia MinC
 
 T3 · Alimentos do Campo
-Ícone: prato + espiga
-Descrição: "Mercado simulado · mapa afetivo do que chega à mesa."
-Formato: Livre
+Mercado simulado. Mapa afetivo do que chega à mesa.
 
 T4 · Nova Agricultura
-Ícone: mão + semente + mapa
-Descrição: "Ancestralidade + variedades regionais. Mapa sensorial + roda de conversa."
-Formato: Livre
+Ancestralidade + variedades regionais. Mapa sensorial + roda de conversa.
 
 T5 · Clima e o Campo
-Ícone: sol/nuvem + folha
-Descrição: "Cartografia climática. Painel coletivo por turma."
-Formato: Livre
+Cartografia climática. Painel coletivo por turma.
 
 T6 · Ciclo do Biometano
-Ícone: molécula/gás + trator
-Descrição: "Miniusina · combustível alternativo · trator T6.180 Methane Power."
-Formato: Livre
+Miniusina em sala. Combustível alternativo. Trator T6.180 Methane Power.
 
-T7 · Hackathon Guardiões da Terra (card grande, destaque)
-Ícone: troféu + paletes coloridos
-Descrição: "Culminância pedagógica por cidade. 8 squads paletes coloridos, 4 horas de trabalho, pitch de 3 minutos, banca externa (produtor, concessionária, técnico). Prêmio 3 camadas + camada 0 visita à fábrica New Holland."
-Formato: Contação de História MinC
-
-TÍTULO GERAL do slide (topo): "METODOLOGIA · 7 OFICINAS · UMA POR DIA · HACKATHON NA SEXTA"
-
-RODAPÉ: logo New Holland Agriculture soberano à esquerda, "Realização: NTICS Projetos" à direita.
-
-ESTILO: design de apresentação corporativa moderna, arejada, ilustração vetorial minimalista. Nenhuma fotografia. Espaço em branco generoso.</pre>
+T7 · HACKATHON GUARDIÕES DA TERRA (destaque · culminância)
+Sexta em cada cidade. 8 squads paletes coloridos · 4 horas · pitch de 3 minutos · banca externa (produtor, concessionária, técnico).
+Prêmio 3 camadas + camada 0 visita à fábrica New Holland.
+Formato: Contação de História MinC</pre>
       </div>
     </div>
 
-    <!-- Slide 128.3: Engajamento -->
+    <!-- Slide 128.3 -->
     <div class="slide-card">
       <div class="slide-head">
         <div class="slide-num">3</div>
         <div class="slide-title">
-          <div class="kicker">Slide de engajamento por cidade</div>
-          <h3>Engajamento · como chegar às escolas em cada cidade</h3>
-          <div class="desc">Ajuste dos slides que falam da mobilização por cidade.</div>
+          <div class="kicker">Slide 3</div>
+          <h3>Engajamento por cidade</h3>
+          <div class="desc">Como abrimos porta em cada cidade + status</div>
         </div>
         <button class="copy-btn" data-slide="s128-3"><span>📋</span>Copiar prompt</button>
       </div>
       <div class="slide-body">
-        <div class="changes"><strong>O que mudou:</strong> A NTICS conduz o contato com a Secretaria — a concessionária é porta de entrada, não interlocutora formal. Guarapuava já tem escola indicada (Colégio Dom Pedro I via Simex). Curitiba não tem concessionária aportadora (Evelyn/CNH é a ponte). Trilha F1→F6 com deadlines críticos.</div>
-        <pre id="s128-3">Slide horizontal 16:9 para apresentação corporativa "Festival AgriCULTURA Sustentável" (New Holland · CNH).
+        <pre id="s128-3">Slide 16:9 para apresentação do "Festival AgriCULTURA Sustentável" · patrocínio New Holland Agriculture (CNH).
 
-TEMA: mapa do engajamento nas 4 cidades. Como a NTICS abre porta em cada uma, quem é a concessionária local aportadora e qual o status.
+Identidade visual: azul New Holland #0064A6, azul escuro #00366F, amarelo #FFD100 como acento. Fundo branco. Tipografia sans-serif geométrica. Logo New Holland Agriculture soberano.
 
-PALETA: azul New Holland #0064A6 principal, azul escuro #00366F para títulos, amarelo #FFD100 como acento, cinza médio #64748B para infos secundárias. Fundo branco off-white.
+Textos que devem aparecer no slide:
 
-TIPOGRAFIA: Inter ou Space Grotesk.
+Título: ENGAJAMENTO · 4 CIDADES · A NTICS ABRE PORTA COM A SECRETARIA · CONCESSIONÁRIA É INDICAÇÃO LOCAL
 
-LAYOUT: coluna esquerda com um mapa estilizado do Sul do Brasil (silhueta simplificada de RS + PR em outline azul), com 4 pins marcando as cidades. Coluna direita com 4 cards em pilha, um para cada cidade, mostrando concessionária, status e escola.
-
-CONTEÚDO:
-
-Card 1 · DOM PEDRITO/RS
+DOM PEDRITO/RS
 Concessionária: COMIN
-Status: Pré-campo · aguardando indicação de escola
-Chip: "Semana de 31/08"
+Status: pré-campo, aguardando indicação de escola
+Semana de 31/08
 
-Card 2 · TOLEDO/PR
+TOLEDO/PR
 Concessionária: DALAGLIO
-Status: Pré-campo · aguardando indicação
-Chip: "Semana de 21/09"
+Status: pré-campo, aguardando indicação
+Semana de 21/09
 
-Card 3 · GUARAPUAVA/PR (destaque verde de "confirmada")
+GUARAPUAVA/PR
 Concessionária: SIMEX (Mónica Raurich)
-Status: ✓ Escola indicada · Colégio Dom Pedro I
-Chip: "Semana de 05/10"
+Status: ✓ ESCOLA INDICADA · Colégio Dom Pedro I
+Semana de 05/10
 
-Card 4 · CURITIBA/PR (destaque amarelo de "culminância")
-Concessionária: sem aportadora local · articulação com Evelyn (CNH)
-Status: Cidade do Festival + DOMO em praça pública
-Chip: "Semana de 26/10 + Festival 31/10 e 01/11"
+CURITIBA/PR (culminância)
+Sem concessionária aportadora · articulação com Evelyn (CNH)
+Semana de 26/10 + Festival + DOMO nos dias 31/10 e 01/11
 
-Abaixo dos cards, uma barra fina horizontal com 6 marcadores mostrando a trilha institucional em ordem:
-F1 SEDUC · F2 apresentação · F3 indicação escola · F4 contato direto NTICS · F5 fechamento turmas (até 10/08) · F6 onboarding equipe
-
-TÍTULO: "ENGAJAMENTO · 4 CIDADES · A NTICS ABRE A PORTA COM A SECRETARIA · A CONCESSIONÁRIA É A INDICAÇÃO LOCAL"
-
-RODAPÉ: logo New Holland Agriculture soberano, "Realização: NTICS Projetos".
-
-ESTILO: mapa estilizado em outline (não realista, não fotográfico), design corporativo limpo, ilustração vetorial, muito espaço em branco.</pre>
+Trilha institucional F1 a F6:
+F1 Secretaria Estadual · F2 apresentação · F3 indicação escola pela concessionária · F4 contato direto da NTICS com escola · F5 fechamento de turmas até 10/08 · F6 onboarding da equipe executora local.</pre>
       </div>
     </div>
 
-    <!-- Slide 128.4: Dia-a-dia NOVO -->
+    <!-- Slide 128.4 -->
     <div class="slide-card">
       <div class="slide-head">
         <div class="slide-num">4</div>
         <div class="slide-title">
-          <div class="kicker">Slide NOVO · dia-a-dia da semana</div>
-          <h3>Como funciona o dia · 3 turmas × 2h · a atividade cresce</h3>
-          <div class="desc">Slide novo que não existia. Mostra visualmente o rodízio dos alunos e a progressão da semana.</div>
+          <div class="kicker">Slide 4 · NOVO</div>
+          <h3>Como funciona o dia · 3 turmas × 2h</h3>
+          <div class="desc">Rodízio das 3 turmas e progressão até o Hackathon</div>
         </div>
         <button class="copy-btn" data-slide="s128-4"><span>📋</span>Copiar prompt</button>
       </div>
       <div class="slide-body">
-        <div class="changes"><strong>O que mudou:</strong> Explicita que <strong>3 turmas de ~30 alunos passam pela mesma oficina no dia</strong> (rodízio de 2h por turma = 6h de atividade por dia). Cada dia é uma oficina temática, e a semana inteira encadeia para o Hackathon na sexta.</div>
-        <pre id="s128-4">Slide horizontal 16:9 para apresentação corporativa "Festival AgriCULTURA Sustentável" (New Holland · CNH).
+        <pre id="s128-4">Slide 16:9 para apresentação do "Festival AgriCULTURA Sustentável" · patrocínio New Holland Agriculture (CNH).
 
-TEMA: como o dia funciona dentro da semana. Cada dia da semana tem uma oficina temática. As 3 turmas do bloco passam pela oficina em rodízio de 2 horas cada, totalizando 6 horas de atividade por dia com o mesmo instrutor e materiais. A profundidade cresce ao longo da semana até o Hackathon na sexta.
+Identidade visual: azul New Holland #0064A6, azul escuro #00366F, amarelo #FFD100 como acento na sexta (Hackathon). Fundo branco. Tipografia sans-serif geométrica. Logo New Holland Agriculture soberano.
 
-PALETA: azul New Holland #0064A6, azul escuro #00366F, amarelo #FFD100 como acento e destaque na sexta. Fundo branco off-white. Cinza médio para elementos secundários.
+Textos que devem aparecer no slide:
 
-TIPOGRAFIA: Inter ou Space Grotesk, tabular numbers para horários.
+Título: COMO FUNCIONA O DIA · A ATIVIDADE CRESCE AO LONGO DA SEMANA
 
-LAYOUT: dividido em duas partes.
+Rodízio das turmas dentro do mesmo dia:
+TURMA A · 08h00 a 10h00 · ~30 alunos
+TURMA B · 10h30 a 12h30 · ~30 alunos
+TURMA C · 14h00 a 16h00 · ~30 alunos
 
-Parte de cima (30% do slide): três cards horizontais mostrando o rodízio das turmas dentro de um dia típico:
-- Card 1: TURMA A · 08h00-10h00
-- Card 2: TURMA B · 10h30-12h30
-- Card 3: TURMA C · 14h00-16h00
-Cada card com ícone de grupo de alunos + "~30 alunos" abaixo. Uma seta fina ligando um card ao próximo. Título dessa parte: "3 TURMAS · 2 HORAS CADA · MESMA OFICINA NO DIA".
+3 turmas · 2 horas cada · rodízio na mesma oficina do dia.
 
-Parte de baixo (70% do slide): tabela/timeline horizontal com 5 dias da semana como colunas (SEG, TER, QUA, QUI, SEX), cada uma com:
-- Nome curto da oficina
-- Ícone da oficina
-- 2 pontos principais bem curtos
-- Uma barra vertical fina cuja altura cresce a cada dia (simbolizando progressão da profundidade)
-- A coluna de SEX (Hackathon) em destaque amarelo #FFD100 e maior
+Dias da semana (a atividade cresce a cada dia):
 
-CONTEÚDO das 5 colunas:
+SEGUNDA · T1 Terra e Semente + T2 Água
+Aluno leva sua semente
+Palestra de professores 20h BNCC à noite
 
-SEG · T1 Terra e Semente + T2 Água
-Ícone: broto + gota
-Pontos:
-- Ancoragem: aluno leva sua semente
-- Palestra Prof. 20h BNCC à noite
+TERÇA · T3 Alimentos + T4 Nova Agricultura
+Mercado simulado
+Mapa sensorial regional
 
-TER · T3 Alimentos + T4 Nova Agricultura
-Ícone: prato + roda de conversa
-Pontos:
-- Mercado simulado
-- Mapa sensorial regional
+QUARTA · T5 Clima
+Cartografia climática
+Painel coletivo da turma
 
-QUA · T5 Clima
-Ícone: sol/nuvem
-Pontos:
-- Cartografia climática
-- Painel coletivo da turma
+QUINTA · T6 Biometano
+Miniusina em sala
+Preparação do Hackathon
 
-QUI · T6 Biometano
-Ícone: molécula/gás
-Pontos:
-- Miniusina em sala
-- Preparação do Hackathon
-
-SEX · T7 HACKATHON GUARDIÕES DA TERRA (destaque amarelo, coluna maior)
-Ícone: troféu + paletes coloridos
-Pontos:
-- 8 squads paletes coloridos, 4h
-- Pitch 3 min · banca externa · Prêmio 3 camadas + camada 0
-
-TÍTULO GERAL do slide (topo): "COMO FUNCIONA O DIA · A ATIVIDADE CRESCE ATÉ O HACKATHON"
-
-RODAPÉ: logo New Holland Agriculture soberano, "Realização: NTICS Projetos".
-
-ESTILO: design de apresentação corporativa moderna, tabular, arejada, ilustração vetorial. Sensação de progressão visual (barra crescente). Nenhuma foto.</pre>
+SEXTA · T7 HACKATHON GUARDIÕES DA TERRA (destaque)
+8 squads paletes coloridos · 4 horas
+Pitch de 3 minutos · banca externa
+Prêmio 3 camadas + camada 0 (visita à fábrica New Holland)</pre>
       </div>
     </div>
 
-    <!-- Slide 128.5: Evento final -->
+    <!-- Slide 128.5 -->
     <div class="slide-card">
       <div class="slide-head">
         <div class="slide-num">5</div>
         <div class="slide-title">
-          <div class="kicker">Slide do evento final</div>
-          <h3>Hackathon + Festival + DOMO Curitiba · evento de impacto</h3>
-          <div class="desc">Mostra o Hackathon como evento de impacto envolvendo toda a comunidade escolar + mídia.</div>
+          <div class="kicker">Slide 5</div>
+          <h3>Evento final · impacto público</h3>
+          <div class="desc">Hackathon + Festival + DOMO Curitiba (não é fechado escolar)</div>
         </div>
         <button class="copy-btn" data-slide="s128-5"><span>📋</span>Copiar prompt</button>
       </div>
       <div class="slide-body">
-        <div class="changes"><strong>O que mudou:</strong> O Hackathon deixou de ser só a culminância da turma para ser <strong>evento de impacto</strong> que envolve escola inteira, professores, diretoria, secretaria e pais, com cobertura de mídia (TV, rádio, imprensa). Em Curitiba, o Festival + DOMO em praça pública amplifica o impacto para 500-1.000 pessoas. Prêmio 3 camadas + camada 0 (visita à fábrica New Holland).</div>
-        <pre id="s128-5">Slide horizontal 16:9 para apresentação corporativa "Festival AgriCULTURA Sustentável" (New Holland · CNH).
+        <pre id="s128-5">Slide 16:9 para apresentação do "Festival AgriCULTURA Sustentável" · patrocínio New Holland Agriculture (CNH).
 
-TEMA: o evento final do projeto tem duas dimensões que se somam: (1) o Hackathon Guardiões da Terra na sexta-feira em cada cidade, evento aberto que reúne escola inteira + professores + diretoria + secretaria + pais + imprensa; (2) em Curitiba, o Festival + DOMO em praça pública transforma tudo em ato público com 500 a 1000 pessoas.
+Identidade visual: azul New Holland #0064A6, azul escuro #00366F, amarelo #FFD100 em bastante destaque (festividade). Fundo branco. Tipografia sans-serif geométrica. Logo New Holland Agriculture soberano. Régua Lei Rouanet · PRONAC 259965.
 
-Não é um evento fechado escolar. É um evento de IMPACTO com visibilidade de mídia (TV, rádio, jornal), pautado em buscar soluções para a agricultura sustentável.
+Textos que devem aparecer no slide:
 
-PALETA: azul New Holland #0064A6, azul escuro #00366F, amarelo #FFD100 em bastante destaque (é o slide da grande festa). Fundo branco off-white. Um tom quente pontual (#FFB800) para simbolizar celebração pode aparecer no destaque do DOMO.
+Título: HACKATHON GUARDIÕES DA TERRA + FESTIVAL EM CURITIBA · EVENTO DE IMPACTO PÚBLICO
+Subtítulo: toda sexta em cada cidade + evento público em praça em Curitiba
 
-TIPOGRAFIA: Inter ou Space Grotesk. Título grande, impactante.
+HACKATHON POR CIDADE (Guardiões da Terra):
+8 squads paletes coloridos · 4 horas · pitch de 3 minutos
+Banca externa: produtor, concessionária, técnico
+Aberto a: alunos, professores, diretoria, secretaria, pais, imprensa
+Cobertura: TV, rádio, jornal, redes sociais
+Prêmio 3 camadas + camada 0 · visita à fábrica New Holland
 
-LAYOUT: dividido verticalmente em três faixas empilhadas.
+FESTIVAL + DOMO CURITIBA (destaque):
+Praça pública · 31/10 (sáb) e 01/11 (dom)
+Público esperado: 500 a 1000 pessoas
+DOMO imersivo + palco + tendas de oficina aberta
+Cerimônia Guardião da Terra: entrega de kits e certificados
+Backup: Fazenda Urbana em ano eleitoral
 
-FAIXA 1 (topo, ~15%): título grande e impactante.
-"HACKATHON GUARDIÕES DA TERRA + FESTIVAL EM CURITIBA · IMPACTO PÚBLICO"
-Subtítulo em cinza: "Toda sexta em cada cidade, e um evento público na praça em Curitiba"
-
-FAIXA 2 (meio, ~55%): dois blocos lado a lado.
-
-Bloco esquerdo · HACKATHON POR CIDADE (Hackathon com H maiúsculo):
-- Ícone grande: 8 paletes coloridos organizados como squads em forma de círculo
-- Elementos em texto:
-  · 8 SQUADS · 4 HORAS · PITCH DE 3 MIN
-  · Banca externa: produtor, concessionária, técnico
-  · Aberto a: alunos, professores, diretoria, secretaria, pais, imprensa
-  · Cobertura: TV, rádio, jornal, redes sociais
-- Chip amarelo destacado: "PRÊMIO 3 CAMADAS + CAMADA 0 · VISITA À FÁBRICA NEW HOLLAND"
-
-Bloco direito · FESTIVAL + DOMO CURITIBA (destaque amarelo forte):
-- Ícone grande: domo geodésico ao lado de tenda de festa em praça
-- Elementos em texto:
-  · Praça pública · 31/10 (sáb) e 01/11 (dom)
-  · Público esperado: 500 a 1000 pessoas
-  · DOMO imersivo + palco + tendas de oficina aberta
-  · Cerimônia GUARDIÃO DA TERRA (entrega de kits e certificados)
-- Chip azul: "Backup: Fazenda Urbana em ano eleitoral"
-
-FAIXA 3 (base, ~30%): "MEDIÇÃO DE IMPACTO" · uma linha horizontal de 5 KPIs em cards mini:
-1. ~2.400 alunos beneficiados
-2. 200 a 400 professores formados (20h BNCC)
-3. 500 a 1.000 público direto em Curitiba
-4. 100.000+ público de mídia estimado
-5. 4 cidades · 4 Hackathons
-
-RODAPÉ: logo New Holland Agriculture soberano à esquerda, régua "Lei Rouanet · Ministério da Cultura · PRONAC 259965", "Realização: NTICS Projetos" à direita.
-
-ESTILO: design corporativo com ENERGIA. Ilustração vetorial. Amarelo em destaque marca festividade sem sair da identidade. Sem fotografias. Sensação de "grande evento público de agricultura sustentável". Espaço em branco preservado.</pre>
+Medição de impacto:
+~2.400 alunos beneficiados
+200 a 400 professores formados (20h BNCC)
+500 a 1.000 público direto em Curitiba
+100.000+ público de mídia estimado
+4 cidades · 4 Hackathons</pre>
       </div>
     </div>
   </div>
@@ -414,317 +321,241 @@ ESTILO: design corporativo com ENERGIA. Ilustração vetorial. Amarelo em destaq
   <!-- ================= 129 · CASE IH ================= -->
   <div class="project-view" data-project="129">
     <div class="intro">
-      <strong>Contexto do 129:</strong> Agrofuturo Cultural nas Escolas · patrocínio CNH · sub-marca Case IH Agriculture · 3 cidades no Mato Grosso (Tangará da Serra, Água Boa, Cuiabá) · verba captada R$ 600 mil (60% do aprovado R$ 999.702). Paleta oficial: <strong>vermelho vinho Case IH (#C8102E) + preto</strong>. Raquel proibiu azul (associa NH) e verde (concorrente John Deere). Público: ensino médio. Culminância: Feira Shopping Pantanal em Cuiabá (5 dias) + Exposição itinerante 30 dias.
+      <strong>Identidade visual · 129 · Case IH Agriculture:</strong><br>
+      Paleta: vermelho vinho #C8102E (principal), preto #0F0F0F, âmbar #F0B323 (acento).<br>
+      <strong>Proibido:</strong> azul (associa New Holland) e verde (associa John Deere).<br>
+      Tipografia: sans-serif geométrica moderna.<br>
+      Logo Case IH Agriculture soberano · realização NTICS Projetos · régua Lei Rouanet nas peças oficiais.<br>
+      <strong>Importante:</strong> sem máquinas ou tratores nas peças de evento final (Lei Rouanet · exposição de produto). Drone real aparece só na oficina O2 (ferramenta pedagógica).
     </div>
 
-    <!-- Slide 129.1: Cronograma -->
+    <!-- Slide 129.1 -->
     <div class="slide-card">
       <div class="slide-head">
         <div class="slide-num">1</div>
         <div class="slide-title">
-          <div class="kicker">Slide de cronograma</div>
-          <h3>Cronograma ajustado · 3 cidades MT + Feira + Exposição</h3>
-          <div class="desc">Substitui o cronograma antigo. Agora inclui Feira Shopping Pantanal e Exposição itinerante 30 dias.</div>
+          <div class="kicker">Slide 1</div>
+          <h3>Cronograma ajustado</h3>
+          <div class="desc">3 cidades MT + Feira Shopping Pantanal + Exposição itinerante 30 dias</div>
         </div>
         <button class="copy-btn" data-slide="s129-1"><span>📋</span>Copiar prompt</button>
       </div>
       <div class="slide-body">
-        <div class="changes"><strong>O que mudou:</strong> Cronograma B (semana única) alternado com 128. Água Boa a 720 km de Cuiabá é feita de carro (decisão 02/07). Feira Shopping Pantanal em Cuiabá 09-13/11 (5 dias) como culminância cultural. Depois, <strong>exposição itinerante de 30 dias</strong> no shopping (novidade).</div>
-        <pre id="s129-1">Slide horizontal 16:9 para apresentação corporativa "Agrofuturo Cultural nas Escolas" (patrocínio Case IH Agriculture · grupo CNH · Lei Rouanet).
+        <pre id="s129-1">Slide 16:9 para apresentação do "Agrofuturo Cultural nas Escolas" · patrocínio Case IH Agriculture (CNH).
 
-TEMA: cronograma do projeto entre setembro e dezembro de 2026 em 3 cidades de Mato Grosso, no modelo semana única encadeada, culminando em uma Feira Shopping Pantanal em Cuiabá (5 dias) e uma exposição itinerante de 30 dias.
+Identidade visual: vermelho vinho Case IH #C8102E, preto #0F0F0F, âmbar #F0B323 como acento. Fundo branco. Sem azul, sem verde. Tipografia sans-serif geométrica moderna. Logo Case IH Agriculture soberano. Realização: NTICS Projetos. Régua Lei Rouanet.
 
-PALETA (regra rígida da CNH · Raquel Mozardo):
-- fundo branco off-white (#FDFDFD)
-- vermelho vinho Case IH #C8102E como cor principal
-- preto #0F0F0F como estrutura e títulos
-- âmbar #F0B323 como acento pontual
-- roxo profundo #6B21A8 SÓ na exposição itinerante (marcador de "legado")
-- PROIBIDO: azul (associa New Holland), verde (associa John Deere)
+Textos que devem aparecer no slide:
 
-TIPOGRAFIA: sans-serif geométrica moderna (Inter ou Space Grotesk).
+Título: CRONOGRAMA · 3 CIDADES EM MATO GROSSO · FEIRA + EXPOSIÇÃO
+Subtítulo: setembro a dezembro de 2026 · semana única encadeada
 
-LAYOUT:
-- Título no topo: "CRONOGRAMA · 3 CIDADES EM MATO GROSSO · FEIRA E EXPOSIÇÃO"
-- Subtítulo em cinza: "Setembro a dezembro de 2026"
-- Timeline horizontal com 5 marcadores encadeados:
-  1. TANGARÁ DA SERRA/MT · semana de 14/09 a 18/09 (chegada por Cuiabá + carro 240 km)
-  2. ÁGUA BOA/MT · semana de 28/09 a 02/10 (destaque com ícone de carro e chip "720 km · carro")
-  3. CUIABÁ/MT · semana de 02/11 a 06/11 (oficinas)
-  4. FEIRA SHOPPING PANTANAL · 09/11 a 13/11 (5 dias · destaque âmbar #F0B323 · ícone de vitrine/shopping)
-  5. EXPOSIÇÃO ITINERANTE · 14/11 a 14/12 (30 dias · destaque roxo #6B21A8 · ícone de quadros pendurados)
-- Cada marcador com ícone outline vermelho.
-- Entre os marcadores, indicações discretas em cinza claro "semana 128 New Holland" para deixar visível o cronograma alternado com o 128.
+Cidades e datas:
+• TANGARÁ DA SERRA/MT · 14/09 a 18/09 (chegada por Cuiabá + carro 240 km)
+• ÁGUA BOA/MT · 28/09 a 02/10 (carro 720 km · destaque)
+• CUIABÁ/MT · 02/11 a 06/11 (oficinas)
 
-RODAPÉ: logo Case IH Agriculture soberano à esquerda em vermelho, "Realização: NTICS Projetos" à direita, régua "Lei Rouanet · Ministério da Cultura" na base.
+Culminâncias:
+FEIRA SHOPPING PANTANAL · Cuiabá · 09/11 a 13/11 (5 dias)
+EXPOSIÇÃO ITINERANTE · 14/11 a 14/12 (30 dias no shopping)
 
-ESTILO: design corporativo moderno, agrotech, ilustração vetorial minimalista. Muito espaço em branco. Sensação de sequência, ritmo, encadeamento até a culminância no shopping.</pre>
+Semanas alternadas com o 128 (New Holland · Sul).</pre>
       </div>
     </div>
 
-    <!-- Slide 129.2: Oficinas -->
+    <!-- Slide 129.2 -->
     <div class="slide-card">
       <div class="slide-head">
         <div class="slide-num">2</div>
         <div class="slide-title">
-          <div class="kicker">Slide das 7 oficinas</div>
-          <h3>7 oficinas culturais · agro 4.0 · Desafio AgroFuturo</h3>
-          <div class="desc">Nova proposta com Desafio AgroFuturo (não paletes) como culminância.</div>
+          <div class="kicker">Slide 2</div>
+          <h3>7 oficinas · agro 4.0 · Desafio AgroFuturo</h3>
+          <div class="desc">Metodologia com Desafio (não paletes) como culminância</div>
         </div>
         <button class="copy-btn" data-slide="s129-2"><span>📋</span>Copiar prompt</button>
       </div>
       <div class="slide-body">
-        <div class="changes"><strong>O que mudou:</strong> O antigo "Hackathon" virou <strong>Desafio AgroFuturo</strong> com cenografia agro 4.0 (não paletes · Ana está desenhando). O2 usa <strong>drone real cedido pela concessionária</strong> (custo NTICS R$ 0). O3 fotografia macro + light painting cujas obras vão para a Exposição Itinerante.</div>
-        <pre id="s129-2">Slide horizontal 16:9 para apresentação corporativa "Agrofuturo Cultural nas Escolas" (Case IH · CNH).
+        <pre id="s129-2">Slide 16:9 para apresentação do "Agrofuturo Cultural nas Escolas" · patrocínio Case IH Agriculture (CNH).
 
-TEMA: 7 oficinas culturais que compõem a metodologia do 129. O7 (Desafio AgroFuturo) é a culminância, com cenografia inovação/agro 4.0 (não paletes de madeira).
+Identidade visual: vermelho vinho Case IH #C8102E, preto #0F0F0F, âmbar #F0B323 como acento e destaque no O7. Fundo branco. Sem azul, sem verde. Tipografia sans-serif geométrica. Logo Case IH Agriculture soberano.
 
-PALETA: vermelho vinho Case IH #C8102E e preto #0F0F0F como base. Âmbar #F0B323 como acento e destaque no O7. Fundo branco off-white. PROIBIDO azul e verde.
+Textos que devem aparecer no slide:
 
-TIPOGRAFIA: Inter ou Space Grotesk.
-
-LAYOUT: grid de 7 cards em duas linhas — 4 em cima, 3 embaixo, sendo O7 o maior e em destaque com fundo preto #0F0F0F e texto em âmbar #F0B323. Cada card tem número (O1, O2...) em âmbar canto superior direito, ícone outline vermelho, título, 1 linha descritiva e chip de formato MinC quando cabível.
-
-CONTEÚDO dos 7 cards:
+Título: METODOLOGIA · 7 OFICINAS · CULMINA NO DESAFIO AGROFUTURO
 
 O1 · Do Campo à Mesa
-Ícone: prato + espiga MT
-Descrição: "Curadoria dos alimentos do MT que chegam à minha mesa. Atlas visual em kraft."
-Formato: Livre
+Curadoria dos alimentos do MT que chegam à minha mesa. Atlas visual em kraft.
 
 O2 · Tecnologia no Campo
-Ícone: DRONE (destaque forte)
-Descrição: "Drone real cedido pela concessionária. Voo demonstrativo + mapeamento da escola."
-Chip: "Drone real R$ 0 · custo NTICS"
+Drone real cedido pela concessionária. Voo demonstrativo + mapeamento da escola.
+Custo NTICS = R$ 0
 
 O3 · Água: Fonte de Vida
-Ícone: gota + luz de fotografia
-Descrição: "Fotografia macro + light painting. Obras entram na Exposição Itinerante."
-Formato: Fotografia MinC (chip)
+Fotografia macro + light painting. Obras entram na Exposição Itinerante.
+Formato: Fotografia MinC
 
 O4 · Energia no Agro
-Ícone: molécula de etanol + cana
-Descrição: "Ciclo do etanol. Maquete de usina + painel de fluxo."
-Formato: Contrapartida
+Ciclo do etanol. Maquete de usina + painel de fluxo.
 
 O5 · Agro e Clima
-Ícone: sol + carta de baralho
-Descrição: "Jogo de cartas de dilemas climáticos + mini-documentário produzido pelos alunos."
-Formato: Livre
+Jogo de cartas de dilemas climáticos + mini-documentário produzido pelos alunos.
 
 O6 · Cidadania e Sustentabilidade
-Ícone: pincel + coração
-Descrição: "Painel coletivo em técnicas mistas. Obras entram na Exposição Itinerante."
-Formato: Livre AP
+Painel coletivo em técnicas mistas. Obras entram na Exposição Itinerante.
+Formato: Artes Plásticas Livre
 
-O7 · DESAFIO AGROFUTURO (card grande, fundo preto, texto âmbar)
-Ícone: troféu + circuito/foguete (cenografia agro 4.0, sem paletes de madeira)
-Descrição: "Pitch startup + manifesto do jovem inventor. 3 min de pitch + 5 min banca. Banca externa: produtor, concessionária, técnico. Prêmio 3 camadas + camada 0 visita à Fazenda Conectada Agritex (Água Boa)."
-Chip âmbar: "CENOGRAFIA AGRO 4.0 · NÃO PALETES"
-
-TÍTULO GERAL do slide (topo): "METODOLOGIA · 7 OFICINAS · CULMINA NO DESAFIO AGROFUTURO"
-
-RODAPÉ: logo Case IH Agriculture soberano à esquerda, "Realização: NTICS Projetos" à direita.
-
-ESTILO: design corporativo, agrotech de vanguarda, ilustração vetorial minimalista. Sem fotografia. Sensação de "agro 4.0 · inovação · Case IH como referência de tecnologia de ponta".</pre>
+O7 · DESAFIO AGROFUTURO (destaque · culminância)
+Sexta em cada cidade. Cenografia agro 4.0 (não paletes).
+Pitch startup 3 minutos + manifesto do jovem inventor.
+Banca externa: produtor, concessionária, técnico.
+Prêmio 3 camadas + camada 0 · visita à Fazenda Conectada Agritex (Água Boa).</pre>
       </div>
     </div>
 
-    <!-- Slide 129.3: Engajamento -->
+    <!-- Slide 129.3 -->
     <div class="slide-card">
       <div class="slide-head">
         <div class="slide-num">3</div>
         <div class="slide-title">
-          <div class="kicker">Slide de engajamento por cidade</div>
-          <h3>Engajamento · Mato Grosso + Farmoon + concessionárias</h3>
-          <div class="desc">Ajuste dos slides de engajamento nas 3 cidades MT.</div>
+          <div class="kicker">Slide 3</div>
+          <h3>Engajamento · 3 cidades MT</h3>
+          <div class="desc">Concessionárias + Farmoon + Secretaria Estadual</div>
         </div>
         <button class="copy-btn" data-slide="s129-3"><span>📋</span>Copiar prompt</button>
       </div>
       <div class="slide-body">
-        <div class="changes"><strong>O que mudou:</strong> Farmoon MT como fornecedor técnico chave (Ana: "seria perfeito"). Instituto Moleque Mateiro como alternativa. Concessionárias Max Case (Tangará), Agritex (Água Boa · Fazenda Conectada como prêmio), Case IH rede (Cuiabá). NTICS conduz Secretaria, concessionária é porta de entrada.</div>
-        <pre id="s129-3">Slide horizontal 16:9 para apresentação corporativa "Agrofuturo Cultural nas Escolas" (Case IH · CNH).
+        <pre id="s129-3">Slide 16:9 para apresentação do "Agrofuturo Cultural nas Escolas" · patrocínio Case IH Agriculture (CNH).
 
-TEMA: engajamento nas 3 cidades de Mato Grosso. Como abrimos as escolas, quem são as concessionárias Case IH aportadoras e como conectamos com fornecedores técnicos locais (Farmoon MT).
+Identidade visual: vermelho vinho Case IH #C8102E, preto #0F0F0F, âmbar #F0B323 como acento. Fundo branco. Sem azul, sem verde. Tipografia sans-serif geométrica. Logo Case IH Agriculture soberano.
 
-PALETA: vermelho vinho Case IH #C8102E, preto #0F0F0F, âmbar #F0B323 como acento. Fundo branco off-white. Sem azul, sem verde.
+Textos que devem aparecer no slide:
 
-TIPOGRAFIA: Inter ou Space Grotesk.
+Título: ENGAJAMENTO · MATO GROSSO · CONCESSIONÁRIAS + FARMOON + SECRETARIA ESTADUAL
 
-LAYOUT: coluna esquerda com um mapa estilizado do Mato Grosso em outline vermelho, com 3 pins marcando as cidades. Uma linha pontilhada mostra o trajeto Cuiabá → Tangará (240 km, ícone de carro) e Cuiabá → Água Boa (720 km, ícone de carro em destaque). Coluna direita com 3 cards em pilha por cidade.
-
-CONTEÚDO:
-
-Card 1 · TANGARÁ DA SERRA/MT
+TANGARÁ DA SERRA/MT
 Concessionária: MAX CASE
-Papel: indicação de escola + DRONE REAL para O2
-Chip: "Semana de 14/09"
+Papel: indicação de escola + drone real para a oficina O2
+Semana de 14/09
 
-Card 2 · ÁGUA BOA/MT (destaque)
+ÁGUA BOA/MT (destaque)
 Concessionária: AGRITEX (Gerson)
-Papel: indicação + drone real + FAZENDA CONECTADA como prêmio do Desafio AgroFuturo
-Chip vermelho vinho: "Semana de 28/09 · CARRO 720 KM"
+Papel: indicação + drone real + Fazenda Conectada como prêmio do Desafio AgroFuturo
+Semana de 28/09 · CARRO 720 KM desde Cuiabá
 
-Card 3 · CUIABÁ/MT
+CUIABÁ/MT
 Concessionária: Rede Case IH
 Papel: indicação + drone real + apoio Feira Shopping Pantanal
-Chip âmbar: "Semana de 02/11 + Feira 09-13/11 (base logística)"
+Semana de 02/11 + Feira 09-13/11 (base logística)
 
-Bloco extra abaixo dos 3 cards, faixa horizontal em âmbar #F0B323:
-"FORNECEDORES TÉCNICOS MT"
-- FARMOON (biólogo/técnico agro 4.0)
-- INSTITUTO MOLEQUE MATEIRO (alternativa)
-- Produtor local compartilhado com o 128 em semanas alternadas
+Fornecedores técnicos MT:
+FARMOON (biólogo/técnico agro 4.0)
+Instituto Moleque Mateiro (alternativa)
+Produtor local compartilhado com o 128 em semanas alternadas
 
-TÍTULO: "ENGAJAMENTO · MATO GROSSO · CONCESSIONÁRIAS + FARMOON + SECRETARIA ESTADUAL"
-
-RODAPÉ: logo Case IH Agriculture soberano, "Realização: NTICS Projetos".
-
-ESTILO: mapa MT estilizado outline vermelho (silhueta simplificada, não realista). Design corporativo limpo, ilustração vetorial. Sensação de território, fronteira agrícola do Brasil, agrotecnologia.</pre>
+A NTICS conduz o contato direto com a Secretaria Estadual. A concessionária é porta de entrada, não interlocutora formal.</pre>
       </div>
     </div>
 
-    <!-- Slide 129.4: Dia-a-dia NOVO -->
+    <!-- Slide 129.4 -->
     <div class="slide-card">
       <div class="slide-head">
         <div class="slide-num">4</div>
         <div class="slide-title">
-          <div class="kicker">Slide NOVO · dia-a-dia da semana</div>
-          <h3>Como funciona o dia · 3 turmas × 2h · até o Desafio AgroFuturo</h3>
-          <div class="desc">Slide novo. Rodízio de 3 turmas + progressão da semana até o Desafio.</div>
+          <div class="kicker">Slide 4 · NOVO</div>
+          <h3>Como funciona o dia · 3 turmas × 2h</h3>
+          <div class="desc">Rodízio das turmas + progressão até o Desafio AgroFuturo</div>
         </div>
         <button class="copy-btn" data-slide="s129-4"><span>📋</span>Copiar prompt</button>
       </div>
       <div class="slide-body">
-        <div class="changes"><strong>O que mudou:</strong> Explicita o rodízio de <strong>3 turmas × 2h por dia</strong> (6h de oficina/dia com o mesmo instrutor). Cada dia uma oficina, com profundidade crescente até o Desafio AgroFuturo na sexta.</div>
-        <pre id="s129-4">Slide horizontal 16:9 para apresentação corporativa "Agrofuturo Cultural nas Escolas" (Case IH · CNH).
+        <pre id="s129-4">Slide 16:9 para apresentação do "Agrofuturo Cultural nas Escolas" · patrocínio Case IH Agriculture (CNH).
 
-TEMA: como o dia funciona dentro da semana. Cada dia é uma oficina temática. As 3 turmas do bloco passam pela oficina em rodízio de 2h cada, totalizando 6h de atividade por dia. A profundidade cresce ao longo da semana até o Desafio AgroFuturo na sexta.
+Identidade visual: vermelho vinho Case IH #C8102E, preto #0F0F0F, âmbar #F0B323 como destaque na sexta (Desafio). Fundo branco. Sem azul, sem verde. Tipografia sans-serif geométrica. Logo Case IH Agriculture soberano.
 
-PALETA: vermelho vinho Case IH #C8102E, preto #0F0F0F, âmbar #F0B323 como destaque na sexta. Fundo branco off-white. Sem azul, sem verde.
+Textos que devem aparecer no slide:
 
-TIPOGRAFIA: Inter ou Space Grotesk.
+Título: COMO FUNCIONA O DIA · A ATIVIDADE CRESCE ATÉ O DESAFIO AGROFUTURO
 
-LAYOUT: dividido em duas partes.
+Rodízio das turmas dentro do mesmo dia:
+TURMA A · 08h00 a 10h00 · ~30 alunos
+TURMA B · 10h30 a 12h30 · ~30 alunos
+TURMA C · 14h00 a 16h00 · ~30 alunos
 
-Parte de cima (30% do slide): três cards horizontais mostrando rodízio das turmas:
-- Card 1: TURMA A · 08h00-10h00 · ~30 alunos
-- Card 2: TURMA B · 10h30-12h30 · ~30 alunos
-- Card 3: TURMA C · 14h00-16h00 · ~30 alunos
-Seta fina ligando um card ao próximo. Ícone de grupo em cada card.
-Título dessa parte: "3 TURMAS · 2 HORAS CADA · RODÍZIO NA MESMA OFICINA".
+3 turmas · 2 horas cada · rodízio na mesma oficina do dia.
 
-Parte de baixo (70%): tabela/timeline horizontal com 5 dias como colunas (SEG, TER, QUA, QUI, SEX). Cada coluna mostra oficina do dia + ícone + 2 pontos principais + barra vertical fina crescente que simboliza profundidade acumulando. Coluna SEX (Desafio AgroFuturo) em destaque âmbar #F0B323 e maior.
+Dias da semana (a atividade cresce a cada dia):
 
-CONTEÚDO das 5 colunas:
+SEGUNDA · O1 Do Campo à Mesa + O2 Tecnologia (drone real)
+Curadoria dos alimentos MT
+Voo do drone real cedido pela concessionária
 
-SEG · O1 Campo à Mesa + O2 Tecnologia (drone real)
-Ícone: prato + drone
-Pontos:
-- Curadoria dos alimentos MT
-- Voo do drone real cedido pela concessionária
+TERÇA · O3 Água (fotografia) + O4 Energia (etanol)
+Fotografia macro + light painting
+Maquete da usina de etanol
 
-TER · O3 Água (fotografia) + O4 Energia (etanol)
-Ícone: gota + molécula
-Pontos:
-- Fotografia macro + light painting
-- Maquete da usina de etanol
+QUARTA · O5 Agro e Clima
+Jogo de cartas de dilemas climáticos
+Roteiro do mini-documentário
 
-QUA · O5 Clima
-Ícone: sol + cartas
-Pontos:
-- Jogo de cartas de dilemas climáticos
-- Roteiro do mini-documentário
+QUINTA · O6 Cidadania (painel coletivo AP)
+Painel coletivo em kraft
+Curadoria para a Exposição Itinerante
 
-QUI · O6 Cidadania (painel coletivo)
-Ícone: pincel + coração
-Pontos:
-- Painel coletivo em kraft
-- Curadoria para a Exposição Itinerante
-
-SEX · O7 DESAFIO AGROFUTURO (destaque âmbar, coluna maior)
-Ícone: troféu + circuito
-Pontos:
-- Pitch startup 3 min + manifesto do inventor
-- Banca externa · prêmio 3 camadas + camada 0 Fazenda Conectada Agritex
-
-TÍTULO GERAL do slide (topo): "COMO FUNCIONA O DIA · A ATIVIDADE CRESCE ATÉ O DESAFIO AGROFUTURO"
-
-RODAPÉ: logo Case IH Agriculture soberano, "Realização: NTICS Projetos".
-
-ESTILO: design corporativo moderno, tabular, sensação de progressão visual. Ilustração vetorial. Sem fotografia.</pre>
+SEXTA · O7 DESAFIO AGROFUTURO (destaque)
+Cenografia agro 4.0 (não paletes)
+Pitch startup 3 minutos + manifesto do inventor
+Banca externa · prêmio 3 camadas + camada 0 (Fazenda Conectada Agritex)</pre>
       </div>
     </div>
 
-    <!-- Slide 129.5: Evento final -->
+    <!-- Slide 129.5 -->
     <div class="slide-card">
       <div class="slide-head">
         <div class="slide-num">5</div>
         <div class="slide-title">
-          <div class="kicker">Slide do evento final</div>
-          <h3>Desafio + Feira Shopping Pantanal + Exposição · impacto público</h3>
-          <div class="desc">Desafio AgroFuturo + Feira Pantanal (5 dias) + Exposição Itinerante (30 dias) como evento de impacto público.</div>
+          <div class="kicker">Slide 5</div>
+          <h3>Evento final · 3 camadas de impacto</h3>
+          <div class="desc">Desafio + Feira Shopping Pantanal + Exposição itinerante</div>
         </div>
         <button class="copy-btn" data-slide="s129-5"><span>📋</span>Copiar prompt</button>
       </div>
       <div class="slide-body">
-        <div class="changes"><strong>O que mudou:</strong> Não é evento fechado. É evento de impacto público. Desafio AgroFuturo em cada cidade (aberto: escola + secretaria + pais + mídia) · Feira Shopping Pantanal 5 dias em Cuiabá (culminância cultural, 5.000+ pessoas) · Exposição itinerante 30 dias no shopping (30.000+ pessoas de mídia espontânea).</div>
-        <pre id="s129-5">Slide horizontal 16:9 para apresentação corporativa "Agrofuturo Cultural nas Escolas" (Case IH · CNH).
+        <pre id="s129-5">Slide 16:9 para apresentação do "Agrofuturo Cultural nas Escolas" · patrocínio Case IH Agriculture (CNH).
 
-TEMA: o evento final do 129 tem três dimensões complementares: (1) Desafio AgroFuturo na sexta em cada cidade, evento aberto que envolve escola inteira + professores + diretoria + secretaria + pais + imprensa; (2) Feira Shopping Pantanal em Cuiabá, 5 dias como culminância cultural; (3) Exposição Itinerante de 30 dias no shopping.
+Identidade visual: vermelho vinho Case IH #C8102E, preto #0F0F0F, âmbar #F0B323 na Feira, roxo profundo #6B21A8 na Exposição. Fundo branco. Sem azul, sem verde. Tipografia sans-serif geométrica. Logo Case IH Agriculture soberano. Régua Lei Rouanet. Sem máquinas ou tratores nas peças de evento final.
 
-Não é evento fechado escolar. É evento de IMPACTO PÚBLICO com visibilidade de mídia (TV, rádio, jornal), pautado em buscar soluções para o agro 4.0.
+Textos que devem aparecer no slide:
 
-PALETA: vermelho vinho Case IH #C8102E, preto #0F0F0F, âmbar #F0B323 na Feira, roxo profundo #6B21A8 na Exposição. Fundo branco off-white. Sem azul, sem verde.
+Título: DESAFIO AGROFUTURO + FEIRA SHOPPING PANTANAL + EXPOSIÇÃO · 3 CAMADAS DE IMPACTO PÚBLICO
+Subtítulo: toda sexta em cada cidade + 5 dias na Feira + 30 dias de exposição no shopping
 
-TIPOGRAFIA: Inter ou Space Grotesk. Título grande e impactante.
+DESAFIO POR CIDADE:
+Sexta em cada cidade · cenografia agro 4.0
+Pitch startup 3 minutos + manifesto do jovem inventor
+Banca externa: produtor, concessionária, técnico
+Aberto a: escola inteira, professores, diretoria, secretaria, pais, imprensa
+Cobertura: TV, rádio, jornal, redes sociais
+Prêmio 3 camadas + camada 0 · Fazenda Conectada Agritex
 
-LAYOUT: dividido verticalmente em três faixas.
+FEIRA SHOPPING PANTANAL (destaque):
+Cuiabá · 09/11 a 13/11 · 5 dias
+Curadoria com parceiros · palco + estandes + oficinas abertas
+Público esperado: 5.000+ pessoas
+Referência: NTICS × CNH Cuiabá anterior (2 meses de exposição)
 
-FAIXA 1 (topo, ~15%): título grande.
-"DESAFIO AGROFUTURO + FEIRA SHOPPING PANTANAL + EXPOSIÇÃO · 3 CAMADAS DE IMPACTO"
-Subtítulo em cinza: "Todo sexta em cada cidade + 5 dias na Feira + 30 dias de exposição no shopping"
+EXPOSIÇÃO ITINERANTE (destaque):
+14/11 a 14/12 · 30 dias no shopping
+Obras da O3 (fotografia macro + light painting)
+Obras da O6 (painel coletivo AP)
+Público esperado: 30.000+ passantes
+Galeria virtual da exposição também
 
-FAIXA 2 (meio, ~60%): três blocos lado a lado.
-
-Bloco esquerdo · DESAFIO POR CIDADE (base):
-- Ícone grande: troféu com circuito/foguete no fundo (cenografia agro 4.0)
-- Elementos em texto:
-  · Sexta em cada cidade
-  · Pitch startup 3 min + manifesto do inventor
-  · Banca externa: produtor, concessionária, técnico
-  · Aberto a: escola inteira, professores, diretoria, secretaria, pais, imprensa
-  · Cobertura: TV, rádio, jornal, redes sociais
-- Chip vermelho vinho: "PRÊMIO 3 CAMADAS + CAMADA 0 · FAZENDA CONECTADA AGRITEX"
-
-Bloco central · FEIRA SHOPPING PANTANAL (âmbar, destaque):
-- Ícone grande: vitrine de shopping + palco
-- Elementos em texto:
-  · Cuiabá · 09/11 a 13/11 · 5 DIAS
-  · Curadoria com parceiros
-  · Palco + estandes + oficinas abertas
-  · Público esperado: 5.000+
-- Chip: "Referência: NTICS × CNH Cuiabá anterior · 2 meses de exposição"
-
-Bloco direito · EXPOSIÇÃO ITINERANTE (roxo, destaque):
-- Ícone grande: galeria com quadros pendurados
-- Elementos em texto:
-  · 14/11 a 14/12 · 30 DIAS no shopping
-  · Obras da O3 (fotografia macro + light painting)
-  · Obras da O6 (painel coletivo AP)
-  · Público esperado: 30.000+ passantes
-- Chip: "GALERIA VIRTUAL da exposição também (pedido da Ana)"
-
-FAIXA 3 (base, ~25%): "MEDIÇÃO DE IMPACTO" · linha horizontal de 5 KPIs mini:
-1. 1.080 alunos beneficiados
-2. 7.560 atendimentos
-3. 5.000+ público direto na Feira
-4. 30.000+ público direto na Exposição
-5. 100.000+ público de mídia estimado
-
-RODAPÉ: logo Case IH Agriculture soberano à esquerda, régua "Lei Rouanet · Ministério da Cultura", "Realização: NTICS Projetos" à direita.
-
-ESTILO: design corporativo com ENERGIA. Ilustração vetorial. Vermelho vinho + âmbar + roxo em harmonia. Sem fotografias. Sensação de "3 camadas de impacto público que se somam".</pre>
+Medição de impacto:
+1.080 alunos beneficiados
+7.560 atendimentos
+5.000+ público direto na Feira
+30.000+ público direto na Exposição
+100.000+ público de mídia estimado</pre>
       </div>
     </div>
   </div>
