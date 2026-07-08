@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cronograma · 129 · Agrofuturo Cultural nas Escolas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ch-red:#C8102E;
+  --ch-red-dark:#7C0000;
+  --ch-red-mid:#A00A22;
+  --ch-amber:#F0B323;
+  --ch-amber-soft:#FFE0A0;
+  --ch-purple:#6B21A8;
+  --ink:#0F172A;
+  --muted:#64748B;
+  --line:#E2E8F0;
+  --bg:#FAFBFC;
+  --header-band:#3A1414;
+  --row-alt:#FDF4F4;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  padding:32px 16px;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{
+  max-width:1400px;
+  margin:0 auto;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 10px 40px rgba(15,23,42,.08);
+  overflow:hidden;
+}
+
+.top{
+  padding:32px 40px 20px;
+  border-bottom:2px solid var(--line);
+  position:relative;
+  overflow:hidden;
+}
+.top::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:6px;
+  background:linear-gradient(90deg,var(--ch-red-dark) 0%, var(--ch-red) 100%);
+}
+.top-flex{display:flex;align-items:center;gap:20px}
+.badge-icon{
+  width:64px;height:64px;flex-shrink:0;
+  border-radius:12px;
+  background:var(--ch-red-dark);
+  color:var(--ch-amber);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk';font-weight:800;font-size:26px;
+  box-shadow:0 4px 12px rgba(124,0,0,.25);
+}
+.title-block{flex:1}
+.title-block h1{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:34px;
+  letter-spacing:-0.02em;
+  color:var(--ch-red-dark);
+  line-height:1.1;
+  margin-bottom:6px;
+}
+.title-block h1 .accent{color:var(--ch-red)}
+.title-block .subtitle{
+  font-size:15px;
+  color:var(--muted);
+  font-weight:500;
+}
+.title-block .subtitle strong{color:var(--ch-red);font-weight:700}
+
+.gantt{padding:24px 40px 12px}
+.grid-wrap{
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+  background:#fff;
+}
+.grid{
+  display:grid;
+  grid-template-columns:220px repeat(14, minmax(50px, 1fr));
+  font-size:12px;
+}
+
+.hdr-month{
+  background:var(--header-band);
+  color:#fff;
+  font-family:'Space Grotesk';
+  font-weight:700;
+  text-align:center;
+  padding:10px 4px 6px;
+  font-size:12px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  border-right:1px solid rgba(255,255,255,.15);
+}
+.hdr-month.first-col{background:var(--ch-red-dark);text-align:left;padding-left:16px;font-size:11px;letter-spacing:.1em}
+
+.hdr-week{
+  background:var(--ch-red-dark);
+  color:#fff;
+  text-align:center;
+  padding:8px 4px;
+  font-family:'Space Grotesk';
+  font-weight:600;
+  font-size:11px;
+  border-right:1px solid rgba(255,255,255,.15);
+}
+.hdr-week.first-col{text-align:left;padding-left:16px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.hdr-week .wk{display:block;font-size:12px;font-weight:700;margin-bottom:2px}
+.hdr-week .dt{display:block;font-size:9px;opacity:.75;font-weight:400;font-family:'Inter'}
+
+.row{
+  display:grid;
+  grid-template-columns:220px repeat(14, minmax(50px, 1fr));
+  border-bottom:1px solid var(--line);
+  min-height:76px;
+  align-items:center;
+}
+.row:last-child{border-bottom:none}
+.row:nth-child(even) .cell{background:var(--row-alt)}
+
+.cell{
+  border-right:1px solid var(--line);
+  height:100%;
+  position:relative;
+  background:#fff;
+}
+.cell.first-col{
+  border-right:2px solid var(--ch-red);
+  padding:10px 16px;
+  background:#fff !important;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.cell.first-col .cidade-icon{
+  width:36px;height:36px;
+  border-radius:10px;
+  background:var(--ch-red);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.cell.first-col .info{flex:1;min-width:0}
+.cell.first-col .info .nome{
+  font-family:'Space Grotesk';
+  font-weight:700;
+  font-size:13.5px;
+  color:var(--ch-red-dark);
+  line-height:1.2;
+  margin-bottom:3px;
+}
+.cell.first-col .info .data{
+  font-size:11px;
+  color:var(--ch-red);
+  font-weight:600;
+}
+.cell.first-col .info .obs{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.bar{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  height:44px;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 10px;
+  color:#fff;
+  font-weight:600;
+  font-size:11px;
+  gap:4px;
+  z-index:2;
+}
+.bar.city{
+  background:linear-gradient(180deg,var(--ch-red) 0%, var(--ch-red-mid) 100%);
+  box-shadow:0 2px 8px rgba(200,16,46,.35);
+}
+.bar.feira{
+  background:linear-gradient(180deg,var(--ch-amber) 0%, #DAA020 100%);
+  box-shadow:0 3px 10px rgba(240,179,35,.5);
+  color:var(--ch-red-dark);
+  border:1.5px solid var(--ch-red-dark);
+  height:52px;
+}
+.bar.expo{
+  background:linear-gradient(180deg,var(--ch-purple) 0%, #4C1D95 100%);
+  box-shadow:0 2px 8px rgba(107,33,168,.4);
+  height:44px;
+}
+.bar-icon{
+  width:24px;height:24px;
+  border-radius:6px;
+  background:rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;
+}
+.bar.city .bar-icon.fri{background:var(--ch-amber);color:var(--ch-red-dark)}
+.bar.feira .bar-icon{background:rgba(124,0,0,.15);color:var(--ch-red-dark)}
+.bar-mid{font-family:'Space Grotesk';font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+
+.legenda{
+  padding:20px 40px 32px;
+  border-top:1px solid var(--line);
+  display:flex;
+  flex-wrap:wrap;
+  gap:24px;
+  align-items:center;
+  font-size:12px;
+  color:var(--muted);
+  background:#F8FAFC;
+}
+.leg-item{display:flex;align-items:center;gap:10px}
+.leg-swatch{
+  width:32px;height:20px;border-radius:4px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.leg-swatch.oficinas{background:linear-gradient(180deg,var(--ch-red) 0%,var(--ch-red-mid) 100%);box-shadow:0 1px 3px rgba(200,16,46,.35)}
+.leg-swatch.fri{background:var(--ch-amber);color:var(--ch-red-dark);font-size:14px;width:24px;height:24px;border-radius:6px;font-weight:700}
+.leg-swatch.feira{background:var(--ch-amber);border:1.5px solid var(--ch-red-dark);width:24px;height:24px;border-radius:6px;font-size:14px}
+.leg-swatch.expo{background:var(--ch-purple);color:#fff;font-size:14px;width:24px;height:24px;border-radius:6px}
+.leg-text{font-weight:500}
+.leg-text strong{display:block;color:var(--ink);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.leg-item.note{margin-left:auto;font-size:11px}
+.leg-item.note .leg-swatch{background:transparent;color:var(--muted)}
+
+.gantt-scroll{overflow-x:auto}
+@media (max-width:1200px){
+  .grid,.row{grid-template-columns:180px repeat(14, minmax(46px, 1fr))}
+  .title-block h1{font-size:26px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="top-flex">
+      <div class="badge-icon">129</div>
+      <div class="title-block">
+        <h1><span class="accent">CRONOGRAMA</span> · 3 CIDADES EM MATO GROSSO · FEIRA + EXPOSIÇÃO</h1>
+        <div class="subtitle"><strong>setembro a dezembro de 2026</strong> · uma semana em cada cidade · semanas alternadas com o 128 (New Holland · Sul)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gantt">
+    <div class="grid-wrap">
+      <div class="gantt-scroll">
+
+        <!-- Header meses -->
+        <div class="grid">
+          <div class="hdr-month first-col">Mês · Semana</div>
+          <div class="hdr-month" style="grid-column:span 3">SETEMBRO</div>
+          <div class="hdr-month" style="grid-column:span 4">OUTUBRO</div>
+          <div class="hdr-month" style="grid-column:span 4">NOVEMBRO</div>
+          <div class="hdr-month" style="grid-column:span 3">DEZEMBRO</div>
+        </div>
+
+        <!-- Header semanas -->
+        <div class="grid">
+          <div class="hdr-week first-col">Semana / Período</div>
+          <div class="hdr-week"><span class="wk">S2</span><span class="dt">07–13</span></div>
+          <div class="hdr-week"><span class="wk">S3</span><span class="dt">14–20</span></div>
+          <div class="hdr-week"><span class="wk">S4</span><span class="dt">21–27</span></div>
+          <div class="hdr-week"><span class="wk">S1</span><span class="dt">28/09–04</span></div>
+          <div class="hdr-week"><span class="wk">S2</span><span class="dt">05–11</span></div>
+          <div class="hdr-week"><span class="wk">S3</span><span class="dt">12–18</span></div>
+          <div class="hdr-week"><span class="wk">S4</span><span class="dt">19–25</span></div>
+          <div class="hdr-week"><span class="wk">S1</span><span class="dt">26/10–01/11</span></div>
+          <div class="hdr-week"><span class="wk">S2</span><span class="dt">02–08</span></div>
+          <div class="hdr-week"><span class="wk">S3</span><span class="dt">09–15</span></div>
+          <div class="hdr-week"><span class="wk">S4</span><span class="dt">16–22</span></div>
+          <div class="hdr-week"><span class="wk">S1</span><span class="dt">23–29</span></div>
+          <div class="hdr-week"><span class="wk">S2</span><span class="dt">30/11–06</span></div>
+          <div class="hdr-week"><span class="wk">S3</span><span class="dt">07–13</span></div>
+        </div>
+
+        <!-- Row: Tangará da Serra -->
+        <div class="row">
+          <div class="cell first-col">
+            <div class="cidade-icon">🌾</div>
+            <div class="info">
+              <div class="nome">TANGARÁ DA SERRA/MT</div>
+              <div class="data">14/09 a 18/09</div>
+              <div class="obs">Chegada por Cuiabá + carro 240 km</div>
+            </div>
+          </div>
+          <div class="cell"></div>
+          <!-- S3 setembro (14-20) recebe barra -->
+          <div class="cell" style="position:relative">
+            <div class="bar city" style="left:6%;right:-6%">
+              <span class="bar-icon">📚</span>
+              <span class="bar-mid">SEMANA</span>
+              <span class="bar-icon fri">🏆</span>
+            </div>
+          </div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+        </div>
+
+        <!-- Row: Água Boa -->
+        <div class="row">
+          <div class="cell first-col">
+            <div class="cidade-icon">🚗</div>
+            <div class="info">
+              <div class="nome">ÁGUA BOA/MT</div>
+              <div class="data">28/09 a 02/10</div>
+              <div class="obs">Carro 720 km · Concessionária AGRITEX</div>
+            </div>
+          </div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <!-- S1 outubro (28/09-04/10) recebe barra -->
+          <div class="cell" style="position:relative">
+            <div class="bar city" style="left:6%;right:-6%">
+              <span class="bar-icon">📚</span>
+              <span class="bar-mid">SEMANA</span>
+              <span class="bar-icon fri">🏆</span>
+            </div>
+          </div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+        </div>
+
+        <!-- Row: Cuiabá -->
+        <div class="row">
+          <div class="cell first-col">
+            <div class="cidade-icon">🏙️</div>
+            <div class="info">
+              <div class="nome">CUIABÁ/MT</div>
+              <div class="data">02/11 a 06/11 (oficinas)</div>
+              <div class="obs">Base logística · Rede Case IH</div>
+            </div>
+          </div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <!-- S2 novembro (02-08) recebe barra -->
+          <div class="cell" style="position:relative">
+            <div class="bar city" style="left:6%;right:-6%">
+              <span class="bar-icon">📚</span>
+              <span class="bar-mid">SEMANA</span>
+              <span class="bar-icon fri">🏆</span>
+            </div>
+          </div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+        </div>
+
+        <!-- Row: Feira Shopping Pantanal -->
+        <div class="row">
+          <div class="cell first-col">
+            <div class="cidade-icon">🎪</div>
+            <div class="info">
+              <div class="nome">FEIRA SHOPPING PANTANAL</div>
+              <div class="data">09/11 a 13/11 · 5 dias</div>
+              <div class="obs">Cuiabá/MT · culminância cultural</div>
+            </div>
+          </div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <!-- S3 novembro (09-15) recebe barra Feira -->
+          <div class="cell" style="position:relative">
+            <div class="bar feira" style="left:6%;right:-6%">
+              <span class="bar-icon">⭐</span>
+              <span class="bar-mid">FEIRA · 5 DIAS</span>
+              <span class="bar-icon">⭐</span>
+            </div>
+          </div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+        </div>
+
+        <!-- Row: Exposição Itinerante -->
+        <div class="row">
+          <div class="cell first-col">
+            <div class="cidade-icon">🖼️</div>
+            <div class="info">
+              <div class="nome">EXPOSIÇÃO ITINERANTE</div>
+              <div class="data">14/11 a 14/12 · 30 dias</div>
+              <div class="obs">Shopping Pantanal · obras O3 + O6</div>
+            </div>
+          </div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <!-- Começa na segunda metade da S3 novembro (14/11 = sábado, mostrar na S3 mesmo com offset) -->
+          <div class="cell" style="position:relative">
+            <div class="bar expo" style="left:60%;right:-6%">
+              <span class="bar-icon">🎨</span>
+            </div>
+          </div>
+          <div class="cell" style="position:relative">
+            <div class="bar expo" style="left:-6%;right:-6%">
+              <span class="bar-icon">🎨</span>
+              <span class="bar-mid">30 DIAS · GALERIA VIVA</span>
+              <span class="bar-icon">🎨</span>
+            </div>
+          </div>
+          <div class="cell" style="position:relative">
+            <div class="bar expo" style="left:-6%;right:-6%">
+            </div>
+          </div>
+          <div class="cell" style="position:relative">
+            <div class="bar expo" style="left:-6%;right:-6%">
+            </div>
+          </div>
+          <div class="cell" style="position:relative">
+            <div class="bar expo" style="left:-6%;right:60%">
+              <span class="bar-icon">🎨</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="legenda">
+    <div class="leg-item">
+      <div class="leg-swatch oficinas"></div>
+      <div class="leg-text"><strong>Oficinas na escola</strong>1 semana por cidade</div>
+    </div>
+    <div class="leg-item">
+      <div class="leg-swatch fri">🏆</div>
+      <div class="leg-text"><strong>Sexta</strong>Desafio AgroFuturo · pitch startup</div>
+    </div>
+    <div class="leg-item">
+      <div class="leg-swatch feira">⭐</div>
+      <div class="leg-text"><strong>Feira Shopping Pantanal</strong>Cuiabá · 5 dias · culminância cultural</div>
+    </div>
+    <div class="leg-item">
+      <div class="leg-swatch expo">🎨</div>
+      <div class="leg-text"><strong>Exposição itinerante</strong>30 dias no shopping · obras O3 + O6</div>
+    </div>
+    <div class="leg-item note">
+      <div class="leg-swatch">📅</div>
+      <div class="leg-text">Datas confirmadas após fechamento das escolas com a Secretaria de Educação de MT.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

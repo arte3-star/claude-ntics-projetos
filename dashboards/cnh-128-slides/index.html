@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deck · 128 · Festival AgriCULTURA Sustentável</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#0064A6;
+  --blue-dark:#00366F;
+  --blue-mid:#003D7A;
+  --blue-light:#E8F1F9;
+  --yellow:#FFD100;
+  --yellow-soft:#FFF3B0;
+  --ink:#0F172A;
+  --muted:#64748B;
+  --line:#E2E8F0;
+  --bg:#F1F5F9;
+  --row-alt:#F8FAFC;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.deck{padding:24px 16px 100px}
+.slide{
+  aspect-ratio:16/9;
+  max-width:1280px;
+  margin:0 auto 24px;
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 8px 32px rgba(15,23,42,.08);
+  overflow:hidden;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+}
+.slide::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:6px;
+  background:linear-gradient(90deg,var(--blue-dark) 0%,var(--blue) 100%);
+  z-index:5;
+}
+
+/* Header padrão */
+.s-head{
+  padding:22px 44px 12px;
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  border-bottom:1px solid var(--line);
+  flex-shrink:0;
+}
+.s-badge{
+  width:52px;height:52px;flex-shrink:0;
+  border-radius:11px;
+  background:var(--blue-dark);
+  color:var(--yellow);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk';font-weight:800;font-size:22px;
+  box-shadow:0 3px 10px rgba(0,54,111,.25);
+}
+.s-head .titles{flex:1}
+.s-head h1{
+  font-family:'Space Grotesk';font-weight:700;
+  font-size:28px;letter-spacing:-0.02em;
+  color:var(--blue-dark);line-height:1.1;margin-bottom:4px;
+}
+.s-head h1 .a{color:var(--blue)}
+.s-head .sub{font-size:13.5px;color:var(--muted);font-weight:500}
+.s-head .sub b{color:var(--blue);font-weight:700}
+.s-num{
+  font-family:'Space Grotesk';font-weight:700;
+  color:var(--blue);font-size:14px;
+  background:var(--blue-light);padding:6px 12px;border-radius:8px;
+  flex-shrink:0;letter-spacing:.05em;
+}
+
+/* Body */
+.s-body{flex:1;padding:20px 44px;overflow:hidden;position:relative}
+
+/* Footer */
+.s-foot{
+  padding:12px 44px;
+  border-top:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:10.5px;
+  color:var(--muted);
+  background:#FAFBFC;
+  flex-shrink:0;
+}
+.s-foot .brand{font-family:'Space Grotesk';font-weight:700;color:var(--blue-dark);font-size:12px;letter-spacing:.05em}
+.s-foot .brand b{color:var(--yellow);background:var(--blue-dark);padding:2px 8px;border-radius:4px}
+
+/* Chip */
+.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:10.5px;font-weight:600;letter-spacing:.02em}
+.chip-blue{background:var(--blue-light);color:var(--blue-dark)}
+.chip-yellow{background:var(--yellow-soft);color:#6b5b00}
+.chip-green{background:#DCFCE7;color:#166534}
+.chip-gray{background:#F1F5F9;color:#475569}
+
+/* ============ SLIDE 1 · CRONOGRAMA (GANTT COMPACTO) ============ */
+.gantt-grid{
+  display:grid;
+  grid-template-columns:180px repeat(11,1fr);
+  font-size:10px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  overflow:hidden;
+}
+.gantt-grid > div{border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.gm{background:var(--blue-dark);color:#fff;text-align:center;padding:8px 4px;font-family:'Space Grotesk';font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.gm.first{text-align:left;padding-left:12px;font-size:9.5px}
+.gw{background:var(--blue-mid);color:#fff;text-align:center;padding:6px 3px;font-family:'Space Grotesk';font-weight:600;font-size:10px}
+.gw .n{display:block;font-size:11px;font-weight:700}
+.gw .d{display:block;font-size:8.5px;opacity:.75;font-weight:400;font-family:'Inter'}
+.gw.first{text-align:left;padding-left:12px;font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+.gc{position:relative;height:60px;background:#fff}
+.gc.alt{background:var(--row-alt)}
+.g-city{padding:8px 12px;display:flex;align-items:center;gap:8px;background:#fff !important;border-right:2px solid var(--blue) !important}
+.g-city .icon{width:28px;height:28px;border-radius:7px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px}
+.g-city .info{flex:1;min-width:0}
+.g-city .nm{font-family:'Space Grotesk';font-weight:700;font-size:11px;color:var(--blue-dark);line-height:1.15}
+.g-city .dt{font-size:9.5px;color:var(--blue);font-weight:600;margin-top:1px}
+.g-city .ob{font-size:8.5px;color:var(--muted);margin-top:1px}
+.bar{
+  position:absolute;top:50%;transform:translateY(-50%);
+  height:34px;
+  background:linear-gradient(180deg,var(--blue) 0%,var(--blue-mid) 100%);
+  border-radius:6px;
+  box-shadow:0 2px 6px rgba(0,100,166,.35);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 8px;color:#fff;font-size:9.5px;gap:3px;z-index:2;
+}
+.bar-icon{width:20px;height:20px;border-radius:5px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:11px}
+.bar-icon.fri{background:var(--yellow);color:var(--blue-dark)}
+.bar-mid{font-family:'Space Grotesk';font-weight:700;font-size:9px;text-transform:uppercase;letter-spacing:.05em}
+.festival{
+  position:absolute;top:50%;transform:translateY(-50%);
+  height:44px;background:var(--yellow);border-radius:8px;
+  box-shadow:0 3px 10px rgba(255,209,0,.5);
+  border:1.5px solid var(--blue-dark);
+  display:flex;align-items:center;gap:6px;padding:0 10px;
+  color:var(--blue-dark);font-family:'Space Grotesk';font-weight:700;z-index:3;
+}
+.festival .star{font-size:16px}
+.festival .txt{font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;line-height:1.1}
+.festival .txt .dt{font-size:10.5px;font-weight:800;display:block}
+.gantt-legend{display:flex;gap:16px;font-size:9.5px;color:var(--muted);margin-top:12px;flex-wrap:wrap;align-items:center}
+.gantt-legend .sw{width:26px;height:14px;border-radius:3px}
+.gantt-legend .sw.oficinas{background:linear-gradient(180deg,var(--blue) 0%,var(--blue-mid) 100%)}
+.gantt-legend .sw.fest{background:var(--yellow);border:1px solid var(--blue-dark)}
+.gantt-legend .it{display:flex;align-items:center;gap:6px}
+
+/* ============ SLIDE 2 · OFICINAS ============ */
+.of-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;height:100%}
+.of-card{
+  background:#fff;border:1px solid var(--line);border-radius:10px;
+  padding:14px;position:relative;display:flex;flex-direction:column;
+  transition:.2s;
+}
+.of-card .num{
+  position:absolute;top:10px;right:10px;
+  font-family:'Space Grotesk';font-weight:700;font-size:11px;
+  background:var(--blue-dark);color:var(--yellow);
+  padding:3px 8px;border-radius:5px;letter-spacing:.05em;
+}
+.of-card .emoji{font-size:28px;margin-bottom:6px}
+.of-card .title{font-family:'Space Grotesk';font-weight:700;font-size:13px;color:var(--blue-dark);line-height:1.2;margin-bottom:4px;padding-right:36px}
+.of-card .desc{font-size:11px;color:var(--muted);line-height:1.4;flex:1}
+.of-card .fmt{margin-top:8px}
+.of-hackathon{
+  grid-column:span 4;
+  background:linear-gradient(135deg,var(--blue-dark) 0%,var(--blue) 100%);
+  color:#fff;border:none;padding:16px 20px;
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:20px;
+}
+.of-hackathon .num{background:var(--yellow);color:var(--blue-dark);position:static;font-size:14px;padding:5px 12px}
+.of-hackathon .emoji{font-size:36px;margin:0}
+.of-hackathon .title{color:#fff;font-size:18px;margin-bottom:4px;padding:0}
+.of-hackathon .desc{color:rgba(255,255,255,.9);font-size:12px;line-height:1.45}
+.of-hackathon .side{display:flex;flex-direction:column;gap:6px;align-items:flex-end;text-align:right}
+.of-hackathon .side b{color:var(--yellow);font-family:'Space Grotesk';font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.of-hackathon .side span{font-size:10.5px;color:rgba(255,255,255,.85)}
+
+/* ============ SLIDE 3 · ENGAJAMENTO ============ */
+.eng-wrap{display:grid;grid-template-columns:280px 1fr;gap:20px;height:100%}
+.eng-map{
+  background:var(--blue-light);border-radius:10px;
+  display:flex;flex-direction:column;padding:16px;position:relative;
+}
+.eng-map h4{font-family:'Space Grotesk';font-weight:700;color:var(--blue-dark);font-size:12px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.eng-map .map-svg{flex:1;display:flex;align-items:center;justify-content:center;padding:8px}
+.eng-map svg{width:100%;height:auto;max-height:220px}
+.eng-map .pins{margin-top:6px;font-size:10px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+.eng-map .pins span{display:flex;align-items:center;gap:6px}
+.eng-map .pins .dot{width:8px;height:8px;border-radius:50%}
+.eng-cards{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px}
+.eng-c{
+  background:#fff;border:1px solid var(--line);border-left:4px solid var(--blue);
+  border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;
+}
+.eng-c.done{border-left-color:#16A34A}
+.eng-c.fest{border-left-color:var(--yellow);background:linear-gradient(180deg,#fff 0%,var(--yellow-soft) 100%)}
+.eng-c .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.eng-c .cn{font-family:'Space Grotesk';font-weight:700;font-size:13px;color:var(--blue-dark)}
+.eng-c .cd{font-size:10.5px;color:var(--blue);font-weight:600;margin-top:2px}
+.eng-c .conc{font-size:11px;color:var(--ink);margin-top:6px}
+.eng-c .conc b{color:var(--blue-dark)}
+.eng-c .st{font-size:10.5px;color:var(--muted);margin-top:6px;flex:1}
+.eng-trilha{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+.eng-trilha h5{font-family:'Space Grotesk';font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+.eng-trilha .steps{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.eng-trilha .step{flex:1;text-align:center;font-size:9.5px;color:var(--ink);position:relative}
+.eng-trilha .step .n{display:inline-flex;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-family:'Space Grotesk';font-weight:700;font-size:10px;align-items:center;justify-content:center;margin-bottom:3px}
+.eng-trilha .step.crit .n{background:#F59E0B}
+.eng-trilha .step + .step::before{content:'→';position:absolute;left:-8px;top:6px;color:var(--line)}
+.eng-trilha .step .lbl{font-weight:600;color:var(--blue-dark);display:block}
+.eng-trilha .step .txt{font-size:9px;color:var(--muted)}
+
+/* ============ SLIDE 4 · DIA A DIA ============ */
+.day-wrap{display:flex;flex-direction:column;gap:12px;height:100%}
+.day-turmas{
+  display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:10px;align-items:center;
+  padding:10px 14px;background:var(--blue-light);border-radius:10px;
+}
+.day-turmas .lbl{
+  font-family:'Space Grotesk';font-weight:700;font-size:11px;
+  color:var(--blue-dark);text-transform:uppercase;letter-spacing:.06em;
+  line-height:1.1;padding-right:12px;border-right:2px solid var(--blue);
+}
+.day-turmas .lbl small{display:block;font-size:9px;color:var(--muted);font-weight:500;margin-top:3px;letter-spacing:0}
+.day-turma{
+  background:#fff;border:1px solid var(--line);border-radius:8px;
+  padding:8px 10px;text-align:center;
+}
+.day-turma .h{font-family:'Space Grotesk';font-weight:700;color:var(--blue);font-size:14px;letter-spacing:.02em}
+.day-turma .t{font-size:9.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:1px}
+.day-turma .a{font-size:9.5px;color:var(--blue-dark);margin-top:2px;font-weight:600}
+.day-grid{
+  flex:1;
+  display:grid;grid-template-columns:repeat(5,1fr);gap:8px;
+  align-items:stretch;
+}
+.day-col{
+  background:#fff;border:1px solid var(--line);border-radius:10px;
+  padding:12px 12px 10px;display:flex;flex-direction:column;position:relative;
+  overflow:hidden;
+}
+.day-col .d{
+  font-family:'Space Grotesk';font-weight:700;font-size:14px;
+  color:var(--blue-dark);letter-spacing:.05em;
+}
+.day-col .o{font-size:10.5px;color:var(--blue);font-weight:600;margin-top:2px}
+.day-col .em{font-size:26px;margin:6px 0}
+.day-col .p{font-size:10px;color:var(--ink);line-height:1.35;flex:1}
+.day-col .p ul{list-style:none;padding:0}
+.day-col .p li{padding-left:10px;position:relative;margin-bottom:3px}
+.day-col .p li::before{content:'•';position:absolute;left:0;color:var(--blue);font-weight:700}
+.day-col .bar-grow{
+  position:absolute;bottom:0;left:0;right:0;height:4px;background:var(--blue);
+}
+.day-col:nth-child(1) .bar-grow{width:20%}
+.day-col:nth-child(2) .bar-grow{width:40%}
+.day-col:nth-child(3) .bar-grow{width:60%}
+.day-col:nth-child(4) .bar-grow{width:80%}
+.day-col:nth-child(5) .bar-grow{width:100%;background:var(--yellow);height:6px}
+.day-col.sex{
+  background:linear-gradient(180deg,#fff 0%,var(--yellow-soft) 100%);
+  border-color:var(--yellow);border-width:2px;
+}
+.day-col.sex .d{color:var(--blue-dark)}
+.day-col.sex .o{color:var(--blue-dark);font-weight:700}
+.day-col.sex .em{font-size:34px}
+.day-col.sex .p li::before{color:var(--blue-dark)}
+
+/* ============ SLIDE 5 · EVENTO FINAL ============ */
+.ev-wrap{display:flex;flex-direction:column;gap:14px;height:100%}
+.ev-top{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1}
+.ev-block{
+  border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;position:relative;overflow:hidden;
+}
+.ev-block .ttl{font-family:'Space Grotesk';font-weight:700;font-size:16px;letter-spacing:-0.01em;line-height:1.15;margin-bottom:4px}
+.ev-block .st{font-size:11px;font-weight:600;margin-bottom:12px;text-transform:uppercase;letter-spacing:.06em;opacity:.8}
+.ev-block .txt{font-size:11.5px;line-height:1.5}
+.ev-block .txt b{font-weight:700}
+.ev-block ul{list-style:none;padding:0;margin:8px 0}
+.ev-block ul li{padding-left:16px;position:relative;font-size:11px;margin-bottom:4px;line-height:1.4}
+.ev-block ul li::before{content:'▸';position:absolute;left:0;font-weight:700}
+.ev-block .prize{
+  margin-top:auto;padding:10px 12px;border-radius:8px;
+  font-family:'Space Grotesk';font-weight:700;font-size:11px;letter-spacing:.03em;
+  text-align:center;line-height:1.3;
+}
+.ev-hack{
+  background:linear-gradient(135deg,#fff 0%,var(--blue-light) 100%);
+  border:1px solid var(--blue-light);color:var(--ink);
+}
+.ev-hack .ttl{color:var(--blue-dark)}
+.ev-hack .st{color:var(--blue)}
+.ev-hack ul li::before{color:var(--blue)}
+.ev-hack .prize{background:var(--yellow);color:var(--blue-dark)}
+.ev-fest{
+  background:linear-gradient(135deg,var(--blue-dark) 0%,var(--blue) 100%);
+  color:#fff;
+}
+.ev-fest .ttl{color:#fff}
+.ev-fest .st{color:var(--yellow)}
+.ev-fest ul li::before{color:var(--yellow)}
+.ev-fest .prize{background:var(--yellow);color:var(--blue-dark)}
+.ev-kpis{
+  background:#fff;border:1px solid var(--line);border-radius:10px;
+  padding:12px 20px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;
+  align-items:center;
+}
+.ev-kpis h5{
+  grid-column:span 5;font-family:'Space Grotesk';font-size:10px;
+  text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:2px;
+}
+.ev-kpi{text-align:center;border-right:1px solid var(--line);padding:0 8px}
+.ev-kpi:last-child{border-right:none}
+.ev-kpi .v{font-family:'Space Grotesk';font-weight:800;color:var(--blue-dark);font-size:20px;letter-spacing:-0.02em;line-height:1}
+.ev-kpi .l{font-size:9.5px;color:var(--muted);margin-top:3px;line-height:1.2;text-transform:uppercase;font-weight:600;letter-spacing:.03em}
+
+/* NAV FLOATING */
+.deck-nav{
+  position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
+  background:var(--blue-dark);color:#fff;border-radius:999px;
+  display:flex;align-items:center;gap:10px;padding:8px 12px;
+  box-shadow:0 10px 40px rgba(15,23,42,.25);z-index:100;
+  font-family:'Inter',sans-serif;
+}
+.deck-nav button{
+  background:transparent;border:none;color:#fff;
+  width:36px;height:36px;border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;transition:.15s;
+}
+.deck-nav button:hover{background:rgba(255,255,255,.15)}
+.deck-nav .counter{
+  font-family:'Space Grotesk';font-weight:700;font-size:13px;
+  padding:0 10px;letter-spacing:.05em;
+}
+.deck-nav .print{background:var(--yellow);color:var(--blue-dark);margin-left:6px}
+.deck-nav .print:hover{background:#F0C500}
+
+/* PRINT */
+@media print{
+  body{background:#fff;padding:0}
+  .deck{padding:0}
+  .deck-nav{display:none}
+  .slide{
+    box-shadow:none;border-radius:0;margin:0 !important;
+    page-break-after:always;
+    width:297mm;height:167mm;max-width:none !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- ============ SLIDE 1 · CRONOGRAMA ============ -->
+  <section class="slide" id="s1">
+    <div class="s-head">
+      <div class="s-badge">128</div>
+      <div class="titles">
+        <h1><span class="a">CRONOGRAMA</span> · 4 CIDADES ENCADEADAS</h1>
+        <div class="sub"><b>setembro a novembro de 2026</b> · uma semana em cada cidade · semanas alternadas com o 129 (Case IH · MT)</div>
+      </div>
+      <div class="s-num">SLIDE 1 / 5</div>
+    </div>
+    <div class="s-body">
+      <div class="gantt-grid">
+        <div class="gm first">Mês</div>
+        <div class="gm" style="grid-column:span 1">AGO</div>
+        <div class="gm" style="grid-column:span 4">SETEMBRO</div>
+        <div class="gm" style="grid-column:span 5">OUTUBRO</div>
+        <div class="gm" style="grid-column:span 1">NOV</div>
+
+        <div class="gw first">Semana</div>
+        <div class="gw"><span class="n">S5</span><span class="d">31/08</span></div>
+        <div class="gw"><span class="n">S1</span><span class="d">01–06</span></div>
+        <div class="gw"><span class="n">S2</span><span class="d">07–13</span></div>
+        <div class="gw"><span class="n">S3</span><span class="d">14–20</span></div>
+        <div class="gw"><span class="n">S4</span><span class="d">21–27</span></div>
+        <div class="gw"><span class="n">S1</span><span class="d">28/09–04</span></div>
+        <div class="gw"><span class="n">S2</span><span class="d">05–11</span></div>
+        <div class="gw"><span class="n">S3</span><span class="d">12–18</span></div>
+        <div class="gw"><span class="n">S4</span><span class="d">19–25</span></div>
+        <div class="gw"><span class="n">S5</span><span class="d">26/10–01/11</span></div>
+        <div class="gw"><span class="n">S1</span><span class="d">02–08</span></div>
+
+        <!-- Dom Pedrito -->
+        <div class="gc g-city">
+          <div class="icon">🌾</div>
+          <div class="info">
+            <div class="nm">DOM PEDRITO/RS</div>
+            <div class="dt">31/08 a 04/09</div>
+            <div class="ob">COMIN</div>
+          </div>
+        </div>
+        <div class="gc"><div class="bar" style="left:6%;right:-6%"><span class="bar-icon">🌙</span><span class="bar-mid">SEMANA</span><span class="bar-icon fri">🏆</span></div></div>
+        <div class="gc"></div><div class="gc alt"></div><div class="gc"></div><div class="gc alt"></div>
+        <div class="gc"></div><div class="gc alt"></div><div class="gc"></div><div class="gc alt"></div><div class="gc"></div><div class="gc alt"></div>
+
+        <!-- Toledo -->
+        <div class="gc g-city">
+          <div class="icon">🚜</div>
+          <div class="info">
+            <div class="nm">TOLEDO/PR</div>
+            <div class="dt">21/09 a 25/09</div>
+            <div class="ob">DALAGLIO</div>
+          </div>
+        </div>
+        <div class="gc alt"></div><div class="gc"></div><div class="gc alt"></div><div class="gc"></div>
+        <div class="gc alt"><div class="bar" style="left:6%;right:-6%"><span class="bar-icon">🌙</span><span class="bar-mid">SEMANA</span><span class="bar-icon fri">🏆</span></div></div>
+        <div class="gc"></div><div class="gc alt"></div><div class="gc"></div><div class="gc alt"></div><div class="gc"></div><div class="gc alt"></div>
+
+        <!-- Guarapuava -->
+        <div class="gc g-city">
+          <div class="icon">🌲</div>
+          <div class="info">
+            <div class="nm">GUARAPUAVA/PR</div>
+            <div class="dt">05/10 a 09/10</div>
+            <div class="ob">SIMEX · escola indicada</div>
+          </div>
+        </div>
+        <div class="gc"></div><div class="gc alt"></div><div class="gc"></div><div class="gc alt"></div><div class="gc"></div><div class="gc alt"></div>
+        <div class="gc"><div class="bar" style="left:6%;right:-6%"><span class="bar-icon">🌙</span><span class="bar-mid">SEMANA</span><span class="bar-icon fri">🏆</span></div></div>
+        <div class="gc alt"></div><div class="gc"></div><div class="gc alt"></div><div class="gc"></div>
+
+        <!-- Curitiba + Festival -->
+        <div class="gc g-city">
+          <div class="icon">🏛️</div>
+          <div class="info">
+            <div class="nm">CURITIBA/PR</div>
+            <div class="dt">26/10 a 30/10 · Festival 31/10-01/11</div>
+            <div class="ob">Culminância · praça pública</div>
+          </div>
+        </div>
+        <div class="gc alt"></div><div class="gc"></div><div class="gc alt"></div><div class="gc"></div><div class="gc alt"></div>
+        <div class="gc"></div><div class="gc alt"></div><div class="gc"></div><div class="gc alt"></div>
+        <div class="gc">
+          <div class="bar" style="left:3%;right:52%"><span class="bar-icon">🌙</span><span class="bar-icon fri">🏆</span></div>
+          <div class="festival" style="left:52%;right:-4%"><span class="star">⭐</span><span class="txt">FESTIVAL + DOMO<span class="dt">31/10 · 01/11</span></span></div>
+        </div>
+        <div class="gc alt"></div>
+      </div>
+
+      <div class="gantt-legend">
+        <div class="it"><span class="sw oficinas"></span>Oficinas na escola (1 semana/cidade)</div>
+        <div class="it">🌙 Palestra Professores · SEG à noite</div>
+        <div class="it">🏆 Hackathon Guardiões da Terra · SEX</div>
+        <div class="it"><span class="sw fest"></span>Festival + DOMO praça pública · SÁB e DOM</div>
+      </div>
+    </div>
+    <div class="s-foot">
+      <div class="brand"><b>128</b> · Festival AgriCULTURA Sustentável</div>
+      <div>Rouanet · PRONAC 259965 · Realização NTICS Projetos</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 2 · OFICINAS ============ -->
+  <section class="slide" id="s2">
+    <div class="s-head">
+      <div class="s-badge">128</div>
+      <div class="titles">
+        <h1><span class="a">METODOLOGIA</span> · 7 OFICINAS · UMA POR DIA · HACKATHON NA SEXTA</h1>
+        <div class="sub">A profundidade cresce ao longo da semana · <b>T7 é a culminância pedagógica</b> em cada cidade</div>
+      </div>
+      <div class="s-num">SLIDE 2 / 5</div>
+    </div>
+    <div class="s-body">
+      <div class="of-grid">
+
+        <div class="of-card">
+          <span class="num">T1</span>
+          <span class="emoji">🌱</span>
+          <div class="title">Terra e Semente</div>
+          <div class="desc">Terrário biosfera + registro fotográfico. Cada aluno leva sua semente.</div>
+          <div class="fmt"><span class="chip chip-yellow">Livre</span></div>
+        </div>
+
+        <div class="of-card">
+          <span class="num">T2</span>
+          <span class="emoji">📸</span>
+          <div class="title">Água e Irrigação Sustentável</div>
+          <div class="desc">Fotografia em campo · pulverização com IA (portfólio New Holland).</div>
+          <div class="fmt"><span class="chip chip-blue">Fotografia MinC</span></div>
+        </div>
+
+        <div class="of-card">
+          <span class="num">T3</span>
+          <span class="emoji">🍽️</span>
+          <div class="title">Alimentos do Campo</div>
+          <div class="desc">Mercado simulado · mapa afetivo do que chega à mesa.</div>
+          <div class="fmt"><span class="chip chip-yellow">Livre</span></div>
+        </div>
+
+        <div class="of-card">
+          <span class="num">T4</span>
+          <span class="emoji">🌾</span>
+          <div class="title">Nova Agricultura</div>
+          <div class="desc">Ancestralidade + variedades regionais. Mapa sensorial + roda de conversa.</div>
+          <div class="fmt"><span class="chip chip-yellow">Livre</span></div>
+        </div>
+
+        <div class="of-card">
+          <span class="num">T5</span>
+          <span class="emoji">☀️</span>
+          <div class="title">Clima e o Campo</div>
+          <div class="desc">Cartografia climática. Painel coletivo por turma.</div>
+          <div class="fmt"><span class="chip chip-yellow">Livre</span></div>
+        </div>
+
+        <div class="of-card">
+          <span class="num">T6</span>
+          <span class="emoji">⚡</span>
+          <div class="title">Ciclo do Biometano</div>
+          <div class="desc">Miniusina em sala · combustível alternativo · trator T6.180 Methane Power.</div>
+          <div class="fmt"><span class="chip chip-yellow">Livre</span></div>
+        </div>
+
+        <div class="of-card of-hackathon">
+          <span class="num">T7</span>
+          <span class="emoji">🏆</span>
+          <div>
+            <div class="title">HACKATHON GUARDIÕES DA TERRA</div>
+            <div class="desc">Sexta em cada cidade · 8 squads paletes coloridos · 4 horas · pitch de 3 minutos · banca externa (produtor, concessionária, técnico) · aberto ao público.</div>
+          </div>
+          <div class="side">
+            <b>Prêmio 3 camadas + camada 0</b>
+            <span>Troféu · placa · kit</span>
+            <span>Visita à fábrica New Holland</span>
+            <span class="chip chip-yellow" style="margin-top:4px">Contação MinC</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="s-foot">
+      <div class="brand"><b>128</b> · Festival AgriCULTURA Sustentável</div>
+      <div>Rouanet · PRONAC 259965 · Realização NTICS Projetos</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 3 · ENGAJAMENTO ============ -->
+  <section class="slide" id="s3">
+    <div class="s-head">
+      <div class="s-badge">128</div>
+      <div class="titles">
+        <h1><span class="a">ENGAJAMENTO</span> · 4 CIDADES · SECRETARIA + CONCESSIONÁRIA</h1>
+        <div class="sub">A <b>NTICS abre porta com a Secretaria Estadual</b> · a concessionária é indicação local</div>
+      </div>
+      <div class="s-num">SLIDE 3 / 5</div>
+    </div>
+    <div class="s-body">
+      <div class="eng-wrap">
+
+        <div class="eng-map">
+          <h4>🗺️ Sul do Brasil · 4 cidades</h4>
+          <div class="map-svg">
+            <svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg">
+              <!-- silhueta simplificada RS + PR -->
+              <path d="M60 40 L200 30 L230 60 L240 100 L220 130 L160 130 L155 165 L100 175 L60 155 L40 120 L45 80 Z" fill="#E8F1F9" stroke="#0064A6" stroke-width="1.5"/>
+              <path d="M60 155 L100 175 L155 165 L150 200 L80 205 L50 185 Z" fill="#D6E5F2" stroke="#0064A6" stroke-width="1.5"/>
+              <!-- pin Dom Pedrito -->
+              <circle cx="75" cy="190" r="6" fill="#0064A6"/>
+              <circle cx="75" cy="190" r="2" fill="#FFD100"/>
+              <text x="75" y="205" font-family="Inter" font-size="8" font-weight="600" fill="#00366F" text-anchor="middle">Dom Pedrito</text>
+              <!-- pin Toledo -->
+              <circle cx="105" cy="130" r="6" fill="#0064A6"/>
+              <circle cx="105" cy="130" r="2" fill="#FFD100"/>
+              <text x="90" y="145" font-family="Inter" font-size="8" font-weight="600" fill="#00366F" text-anchor="middle">Toledo</text>
+              <!-- pin Guarapuava -->
+              <circle cx="155" cy="110" r="6" fill="#16A34A"/>
+              <circle cx="155" cy="110" r="2" fill="#FFD100"/>
+              <text x="155" y="98" font-family="Inter" font-size="8" font-weight="600" fill="#166534" text-anchor="middle">Guarapuava ✓</text>
+              <!-- pin Curitiba -->
+              <circle cx="200" cy="115" r="9" fill="#FFD100" stroke="#00366F" stroke-width="1.5"/>
+              <text x="200" y="118" font-family="Space Grotesk" font-size="10" font-weight="700" fill="#00366F" text-anchor="middle">⭐</text>
+              <text x="200" y="138" font-family="Inter" font-size="8" font-weight="700" fill="#00366F" text-anchor="middle">Curitiba · Festival</text>
+            </svg>
+          </div>
+          <div class="pins">
+            <span><span class="dot" style="background:#0064A6"></span>Pré-campo</span>
+            <span><span class="dot" style="background:#16A34A"></span>Escola indicada</span>
+            <span><span class="dot" style="background:#FFD100;border:1px solid #00366F"></span>Culminância festival</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="eng-cards">
+            <div class="eng-c">
+              <div class="top">
+                <div>
+                  <div class="cn">DOM PEDRITO/RS</div>
+                  <div class="cd">31/08 a 04/09</div>
+                </div>
+                <span class="chip chip-gray">Pré-campo</span>
+              </div>
+              <div class="conc">Concessionária: <b>COMIN</b></div>
+              <div class="st">Aguardando indicação da Secretaria</div>
+            </div>
+
+            <div class="eng-c">
+              <div class="top">
+                <div>
+                  <div class="cn">TOLEDO/PR</div>
+                  <div class="cd">21/09 a 25/09</div>
+                </div>
+                <span class="chip chip-gray">Pré-campo</span>
+              </div>
+              <div class="conc">Concessionária: <b>DALAGLIO</b></div>
+              <div class="st">Aguardando indicação da Secretaria</div>
+            </div>
+
+            <div class="eng-c done">
+              <div class="top">
+                <div>
+                  <div class="cn">GUARAPUAVA/PR</div>
+                  <div class="cd">05/10 a 09/10</div>
+                </div>
+                <span class="chip chip-green">✓ Confirmada</span>
+              </div>
+              <div class="conc">Concessionária: <b>SIMEX</b> (Mónica Raurich)</div>
+              <div class="st">Colégio Dom Pedro I · indicada 10/06</div>
+            </div>
+
+            <div class="eng-c fest">
+              <div class="top">
+                <div>
+                  <div class="cn">CURITIBA/PR</div>
+                  <div class="cd">26/10 + Festival 31/10-01/11</div>
+                </div>
+                <span class="chip chip-yellow">Culminância</span>
+              </div>
+              <div class="conc">Sem concessionária aportadora · <b>ponte Evelyn (CNH)</b></div>
+              <div class="st">Festival + DOMO em praça pública · 500-1.000 pessoas</div>
+            </div>
+          </div>
+
+          <div class="eng-trilha">
+            <h5>Trilha institucional · F1 → F6</h5>
+            <div class="steps">
+              <div class="step"><span class="n">1</span><span class="lbl">SEDUC</span><span class="txt">contato inicial</span></div>
+              <div class="step"><span class="n">2</span><span class="lbl">Apresentação</span><span class="txt">à Secretaria</span></div>
+              <div class="step"><span class="n">3</span><span class="lbl">Indicação</span><span class="txt">de escola</span></div>
+              <div class="step"><span class="n">4</span><span class="lbl">Contato NTICS</span><span class="txt">direto na escola</span></div>
+              <div class="step crit"><span class="n">5</span><span class="lbl">Fechamento</span><span class="txt">turmas até 10/08</span></div>
+              <div class="step"><span class="n">6</span><span class="lbl">Onboarding</span><span class="txt">equipe local</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="s-foot">
+      <div class="brand"><b>128</b> · Festival AgriCULTURA Sustentável</div>
+      <div>Rouanet · PRONAC 259965 · Realização NTICS Projetos</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 4 · DIA A DIA ============ -->
+  <section class="slide" id="s4">
+    <div class="s-head">
+      <div class="s-badge">128</div>
+      <div class="titles">
+        <h1><span class="a">COMO FUNCIONA O DIA</span> · 3 TURMAS × 2H · A ATIVIDADE CRESCE</h1>
+        <div class="sub">Cada dia = uma oficina · <b>3 turmas passam pela mesma oficina em rodízio de 2h</b> · sexta é a culminância</div>
+      </div>
+      <div class="s-num">SLIDE 4 / 5</div>
+    </div>
+    <div class="s-body">
+      <div class="day-wrap">
+
+        <div class="day-turmas">
+          <div class="lbl">3 turmas<small>rodízio de 2h · ~30 alunos cada</small></div>
+          <div class="day-turma"><div class="h">08:00 · 10:00</div><div class="t">Turma A</div><div class="a">~30 alunos</div></div>
+          <div class="day-turma"><div class="h">10:30 · 12:30</div><div class="t">Turma B</div><div class="a">~30 alunos</div></div>
+          <div class="day-turma"><div class="h">14:00 · 16:00</div><div class="t">Turma C</div><div class="a">~30 alunos</div></div>
+        </div>
+
+        <div class="day-grid">
+          <div class="day-col">
+            <div class="d">SEGUNDA</div>
+            <div class="o">T1 Terra + T2 Água</div>
+            <div class="em">🌱📸</div>
+            <div class="p">
+              <ul>
+                <li>Aluno leva sua semente</li>
+                <li>Fotografia em campo</li>
+                <li><b>Palestra Profs 20h à noite</b></li>
+              </ul>
+            </div>
+            <div class="bar-grow"></div>
+          </div>
+
+          <div class="day-col">
+            <div class="d">TERÇA</div>
+            <div class="o">T3 Alimentos + T4 Nova Agri.</div>
+            <div class="em">🍽️🌾</div>
+            <div class="p">
+              <ul>
+                <li>Mercado simulado</li>
+                <li>Mapa sensorial regional</li>
+                <li>Roda de conversa</li>
+              </ul>
+            </div>
+            <div class="bar-grow"></div>
+          </div>
+
+          <div class="day-col">
+            <div class="d">QUARTA</div>
+            <div class="o">T5 Clima</div>
+            <div class="em">☀️</div>
+            <div class="p">
+              <ul>
+                <li>Cartografia climática</li>
+                <li>Painel coletivo da turma</li>
+                <li>Início da síntese</li>
+              </ul>
+            </div>
+            <div class="bar-grow"></div>
+          </div>
+
+          <div class="day-col">
+            <div class="d">QUINTA</div>
+            <div class="o">T6 Biometano</div>
+            <div class="em">⚡</div>
+            <div class="p">
+              <ul>
+                <li>Miniusina em sala</li>
+                <li>Ciclo do metano</li>
+                <li><b>Prep. do Hackathon</b></li>
+              </ul>
+            </div>
+            <div class="bar-grow"></div>
+          </div>
+
+          <div class="day-col sex">
+            <div class="d">SEXTA</div>
+            <div class="o">T7 HACKATHON GUARDIÕES DA TERRA</div>
+            <div class="em">🏆</div>
+            <div class="p">
+              <ul>
+                <li><b>8 squads paletes · 4h · pitch 3min</b></li>
+                <li>Banca externa · evento aberto</li>
+                <li>Prêmio 3 camadas + camada 0</li>
+              </ul>
+            </div>
+            <div class="bar-grow"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="s-foot">
+      <div class="brand"><b>128</b> · Festival AgriCULTURA Sustentável</div>
+      <div>Rouanet · PRONAC 259965 · Realização NTICS Projetos</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 5 · EVENTO FINAL ============ -->
+  <section class="slide" id="s5">
+    <div class="s-head">
+      <div class="s-badge">128</div>
+      <div class="titles">
+        <h1><span class="a">HACKATHON + FESTIVAL EM CURITIBA</span> · EVENTO DE IMPACTO PÚBLICO</h1>
+        <div class="sub">Não é evento fechado escolar · <b>envolve escola inteira, secretaria, pais e imprensa</b> · cobertura de TV, rádio e jornal</div>
+      </div>
+      <div class="s-num">SLIDE 5 / 5</div>
+    </div>
+    <div class="s-body">
+      <div class="ev-wrap">
+        <div class="ev-top">
+
+          <div class="ev-block ev-hack">
+            <div class="ttl">🏆 HACKATHON GUARDIÕES DA TERRA</div>
+            <div class="st">Sexta em cada cidade · evento aberto</div>
+            <div class="txt">
+              <b>8 squads paletes coloridos · 4 horas · pitch de 3 minutos.</b><br>
+              Banca externa: produtor, concessionária, técnico.
+              <ul>
+                <li>Aberto: alunos, professores, diretoria, secretaria, pais</li>
+                <li>Cobertura: TV, rádio, jornal, redes sociais</li>
+                <li>Cerimônia Guardião da Terra · entrega de kits</li>
+              </ul>
+            </div>
+            <div class="prize">PRÊMIO 3 CAMADAS + CAMADA 0<br>Visita à fábrica New Holland</div>
+          </div>
+
+          <div class="ev-block ev-fest">
+            <div class="ttl">⭐ FESTIVAL + DOMO EM CURITIBA</div>
+            <div class="st">Praça pública · 31/10 (sáb) e 01/11 (dom)</div>
+            <div class="txt">
+              <b>DOMO imersivo + palco + tendas de oficina aberta.</b><br>
+              Público esperado: <b>500 a 1.000 pessoas.</b>
+              <ul>
+                <li>Vídeo de imersão 15-20 min no DOMO</li>
+                <li>Curadoria com parceiros locais</li>
+                <li>Backup: Fazenda Urbana em ano eleitoral</li>
+              </ul>
+            </div>
+            <div class="prize">CERIMÔNIA GUARDIÃO DA TERRA<br>Entrega pública dos prêmios</div>
+          </div>
+
+        </div>
+
+        <div class="ev-kpis">
+          <h5>Medição de impacto</h5>
+          <div class="ev-kpi"><div class="v">~2.400</div><div class="l">Alunos beneficiados</div></div>
+          <div class="ev-kpi"><div class="v">200-400</div><div class="l">Profs formados · 20h BNCC</div></div>
+          <div class="ev-kpi"><div class="v">500-1k</div><div class="l">Público direto Curitiba</div></div>
+          <div class="ev-kpi"><div class="v">100k+</div><div class="l">Público de mídia</div></div>
+          <div class="ev-kpi"><div class="v">4</div><div class="l">Cidades · 4 Hackathons</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="s-foot">
+      <div class="brand"><b>128</b> · Festival AgriCULTURA Sustentável</div>
+      <div>Rouanet · PRONAC 259965 · Realização NTICS Projetos</div>
+    </div>
+  </section>
+
+</div>
+
+<!-- NAV FLUTUANTE -->
+<div class="deck-nav">
+  <button id="prev" title="Anterior (←)">←</button>
+  <span class="counter" id="counter">1 / 5</span>
+  <button id="next" title="Próximo (→)">→</button>
+  <button class="print" id="print" title="Imprimir · PDF">🖨️</button>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let cur = 0;
+const counter = document.getElementById('counter');
+
+function goto(i){
+  cur = Math.max(0, Math.min(slides.length-1, i));
+  slides[cur].scrollIntoView({behavior:'smooth', block:'center'});
+  counter.textContent = `${cur+1} / ${slides.length}`;
+}
+
+document.getElementById('prev').addEventListener('click', () => goto(cur-1));
+document.getElementById('next').addEventListener('click', () => goto(cur+1));
+document.getElementById('print').addEventListener('click', () => window.print());
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'ArrowLeft') goto(cur-1);
+  if(e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goto(cur+1); }
+});
+
+// Detectar slide visível ao rolar
+const io = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      cur = [...slides].indexOf(entry.target);
+      counter.textContent = `${cur+1} / ${slides.length}`;
+    }
+  });
+}, {threshold:0.5});
+slides.forEach(s => io.observe(s));
+</script>
+</body>
+</html>
