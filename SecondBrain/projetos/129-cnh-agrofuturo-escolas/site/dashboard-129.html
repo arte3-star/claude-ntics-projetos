@@ -199,6 +199,20 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#C8102E;box-sh
 .doc-wrap code{background:#f1f5f3;padding:1px 5px;border-radius:4px;font-size:12px;}
 .doc-wrap hr{border:0;border-top:1px solid #e6ece9;margin:22px 0;}
 </style>
+<style>
+.doc-summary{background:#f6f9f7;border-left:4px solid #1f9d6b;padding:12px 16px;border-radius:0 10px 10px 0;margin-bottom:16px;font-size:14px;line-height:1.6;}
+.doc-summary h1{font-size:20px;margin:0 0 8px;color:#16211d;border:0;padding:0;}
+.doc-summary blockquote{border:0;background:transparent;margin:0 0 8px;padding:0;font-style:italic;color:#2f3d37;}
+.doc-summary>*:last-child{margin-bottom:0;}
+details.acc{border:1px solid #e0e6e3;border-radius:10px;margin:8px 0;background:#fff;overflow:hidden;}
+details.acc>summary{cursor:pointer;padding:12px 16px;font-weight:700;font-size:15px;color:#16211d;background:#f6f8f7;list-style:none;user-select:none;display:flex;align-items:center;gap:8px;}
+details.acc>summary::-webkit-details-marker{display:none;}
+details.acc>summary::before{content:"\25B8";color:#7a8a83;font-size:12px;transition:transform .15s;}
+details.acc[open]>summary::before{content:"\25BE";}
+details.acc[open]>summary{border-bottom:1px solid #eef2f0;}
+.acc-body{padding:6px 16px 14px;}
+.acc-body>*:first-child{margin-top:6px;}
+</style>
 </head>
 <body class="bg-surface text-on-surface h-screen flex overflow-hidden font-body-lg text-body-lg">
 
@@ -2034,8 +2048,7 @@ input[type="search"]:focus,select:focus{outline:none;border-color:#C8102E;box-sh
       <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">2 · Metodologia · narrativa</p>
       <h2 class="font-headline-lg text-headline-lg text-primary">Storytelling do projeto</h2>
     </div>
-    <div class="card doc-wrap"><h1>Storytelling · Agrofuturo Cultural nas Escolas (129 / Case IH)</h1>
-<h2>Versão curta (pitch)</h2>
+    <div class="card doc-wrap"><div class="doc-summary"><h1>Storytelling · Agrofuturo Cultural nas Escolas (129 / Case IH)</h1></div><details class="acc" open><summary>Versão curta (pitch)</summary><div class="acc-body">
 <p>Em Mato Grosso, coração do agronegócio brasileiro, a maioria dos jovens ainda vê o campo como coisa do
 passado. O Agrofuturo Cultural nas Escolas chega para virar essa chave. Por uma semana, a quadra da escola
 vira uma liga: times por sala, placar ao vivo, e a promessa de que ali eles vão pilotar tecnologia, resolver
@@ -2051,7 +2064,7 @@ campeã leva os tablets, e um sorteio decide quem conhece a concessionária ou a
 Cuiabá, com uma Feira de Tecnologia, Arte e Cultura no Shopping Pantanal e a exposição das obras. Realização
 NTICS Projetos, patrocínio Case IH. O Agrofuturo prova que a juventude de Mato Grosso é a nova cara do campo:
 inventora, protagonista, agro 4.0.</p>
-<h2>Versão longa (a semana, dia a dia)</h2>
+</div></details><details class="acc"><summary>Versão longa (a semana, dia a dia)</summary><div class="acc-body">
 <h3>A semana e o impacto que cresce</h3>
 <p>Quando o Agrofuturo chega a uma cidade de Mato Grosso, não chega como mais um projeto: chega como um
 acontecimento. A quadra da escola, que na segunda ainda é só quadra, vai se transformando dia após dia numa
@@ -2098,7 +2111,7 @@ campeã sobe ao palco. Levam quatro tablets, sorteados entre eles, e um sorteio 
 concessionária ou a fábrica. Quando as luzes se apagam, fica a certeza: aquela juventude é a nova cara do
 agro de Mato Grosso.</p>
 <p>O projeto ainda ganha um encerramento maior em Cuiabá, com a Feira de Tecnologia, Arte e Cultura no Shopping
-Pantanal e a exposição das obras dos estudantes, aberta à comunidade.</p></div>
+Pantanal e a exposição das obras dos estudantes, aberta à comunidade.</p></div></details></div>
   </div>
 
   <div class="page" data-page="metodologia">
@@ -2106,7 +2119,7 @@ Pantanal e a exposição das obras dos estudantes, aberta à comunidade.</p></di
       <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">2 · Metodologia · manual executável</p>
       <h2 class="font-headline-lg text-headline-lg text-primary">Metodologia detalhada · 8 blocos por oficina</h2>
     </div>
-    <div class="card doc-wrap"><blockquote>
+    <div class="card doc-wrap"><div class="doc-summary"><blockquote>
 <p><strong>A narrativa que a metodologia coloca de pé.</strong> Em Mato Grosso, coração do agronegócio, a maioria dos jovens ainda vê o campo como coisa do passado. Por uma semana, a quadra da escola vira uma liga: times por sala, placar ao vivo e a promessa de pilotar tecnologia, resolver problemas e inventar o futuro do agro. Cada dia traz uma oficina dinâmica e mão na massa: decifram enigmas de tecnologia, pintam o ciclo da água com luz, enfrentam o clima num jogo de cartas e transformam resíduo em energia. Na sexta vem o Desafio AgroFuturo, o hackathon: cada sala vira uma startup e tem poucas horas para criar e defender uma solução diante de uma banca. A sala campeã leva a premiação, e o projeto encerra em Cuiabá com uma Feira de Tecnologia, Arte e Cultura. O Agrofuturo prova que a juventude de Mato Grosso é a nova cara do campo: inventora, protagonista, agro 4.0.</p>
 </blockquote>
 <h1>Metodologia Detalhada · Agrofuturo Cultural nas Escolas (129 / Case IH)</h1>
@@ -2119,8 +2132,7 @@ estudar antes)</strong> · <strong>3) Para aprofundar (textos de referência par
 <strong>8) Pontuação da Liga</strong>. Sem citar marca/produto do patrocinador dentro da atividade. Sem máquinas/tratores.
 Sem travessão em material publicado; siglas expandidas na 1ª vez.</p>
 </blockquote>
-<hr />
-<h2>0. O sistema: a Liga e as 12 equipes</h2>
+<hr /></div><details class="acc" open><summary>0. O sistema: a Liga e as 12 equipes</summary><div class="acc-body">
 <p>O projeto inteiro é uma <strong>Liga</strong>: as salas viram equipes fixas que competem a semana toda e acumulam pontos
 até o <strong>Desafio AgroFuturo (hackathon)</strong> na sexta. Cada oficina pontua em <strong>três eixos</strong>:</p>
 <ul>
@@ -2273,7 +2285,7 @@ cabe melhor.</p>
 </ul>
 <hr />
 <hr />
-<h2>O1 / T3 · Feira Viva · a cadeia produtiva [COMPARTILHADA]</h2>
+</div></details><details class="acc"><summary>O1 / T3 · Feira Viva · a cadeia produtiva [COMPARTILHADA]</summary><div class="acc-body">
 <blockquote>
 <p><strong>Atividade compartilhada.</strong> Este é o MESMO texto que roda no 129 (Mato Grosso · O1) e no 128 (Sul · Rio
 Grande do Sul e Paraná · T3). Muda só a cidade e os exemplos locais. Formato de simulação econômica em 6
@@ -2497,7 +2509,7 @@ E3, para o aluno sentir os dois lados do preço).</p>
   positivo.</li>
 </ul>
 <hr />
-<h2>O2 · Laboratório de Inovação do Campo</h2>
+</div></details><details class="acc"><summary>O2 · Laboratório de Inovação do Campo</summary><div class="acc-body">
 <blockquote>
 <p><strong>Atividade específica do 129 (agro 4.0).</strong> É aqui que a Liga treina, sem perceber, o raciocínio do
 <strong>Desafio AgroFuturo</strong> da sexta: olhar um problema real do campo, conhecer a tecnologia que já existe e
@@ -2768,7 +2780,7 @@ Lei Rouanet) e orientar o convidado a falar de tecnologia, não de modelo comerc
   original (a combinação "problema + ideia + tecnologia" que faz todo mundo entender na hora).</li>
 </ul>
 <hr />
-<h2>O3 · Água · Fotografia (Light Painting) [MinC · Fotografia]</h2>
+</div></details><details class="acc"><summary>O3 · Água · Fotografia (Light Painting) [MinC · Fotografia]</summary><div class="acc-body">
 <blockquote>
 <p><strong>Formato cultural MinC · Fotografia.</strong> Roda <strong>em paralelo com a O4 (Usina de Bioenergia)</strong>: a sala escura
 recebe <strong>1 subgrupo por vez</strong> (90 min por subgrupo) enquanto o restante da turma faz a Usina na quadra. Cada
@@ -2928,7 +2940,7 @@ a Fotografia, os demais squads estão na quadra fazendo a <strong>O4 · Usina de
 </ul>
 <hr />
 <hr />
-<h2>O4 / T6 · Usina de Bioenergia [COMPARTILHADA]</h2>
+</div></details><details class="acc"><summary>O4 / T6 · Usina de Bioenergia [COMPARTILHADA]</summary><div class="acc-body">
 <blockquote>
 <p><strong>Compartilhada.</strong> Este é o mesmo texto no 129 (Oficina 4) e no 128 (Tema 6). A atividade é <strong>regionalmente
 neutra</strong>: serve para qualquer cidade sem trocar uma linha. No 129, ela roda <strong>em paralelo com a Oficina 3
@@ -3138,7 +3150,7 @@ segundo plano).</strong>
 </ul>
 <hr />
 <hr />
-<h2>O5 · Safra sob Pressão · o jogo do clima [COMPARTILHADA com o 128 · T5]</h2>
+</div></details><details class="acc"><summary>O5 · Safra sob Pressão · o jogo do clima [COMPARTILHADA com o 128 · T5]</summary><div class="acc-body">
 <blockquote>
 <p><strong>Piloto de formato.</strong> Esta é a atividade completa no formato que vai valer para todas. É também o exemplo
 que o Lucas pediu: o <strong>jogo de baralho com o briefing de todas as cartas</strong>.</p>
@@ -3334,7 +3346,7 @@ Repetir para P1, P2, P3 e P4.</p>
 </ul>
 <hr />
 <hr />
-<h2>O6 · Cidadania · Painel Manifesto [MinC · Artes Plásticas]</h2>
+</div></details><details class="acc"><summary>O6 · Cidadania · Painel Manifesto [MinC · Artes Plásticas]</summary><div class="acc-body">
 <blockquote>
 <p><strong>Formato cultural MinC · Artes Plásticas.</strong> Duas camadas na mesma oficina: <strong>individual</strong> (cada aluno cria
 uma peça pequena, um "azulejo" manifesto) e <strong>coletiva</strong> (a turma monta um <strong>painel grande em mosaico</strong>).
@@ -3480,7 +3492,7 @@ mesa; etiquetas de crédito à mão. Os squads sentam em suas mesas.</p>
   peças numa mensagem só).</li>
 </ul>
 <hr />
-<h2>O7 / T7 · Hackathon · a grande final [COMPARTILHADA]</h2>
+</div></details><details class="acc"><summary>O7 / T7 · Hackathon · a grande final [COMPARTILHADA]</summary><div class="acc-body">
 <blockquote>
 <p><strong>Atividade compartilhada.</strong> Este é o MESMO texto no 128 (Festival AgriCULTURA Sustentável · "Hackathon Guardiões da Terra")
 e no 129 (Agrofuturo Cultural nas Escolas · "Desafio AgroFuturo"). Muda só o <strong>tema</strong>, a <strong>cenografia</strong> e, no 128,
@@ -3756,10 +3768,10 @@ plataforma.</p>
 </blockquote>
 <hr />
 <hr />
-<h2>Status e pendências</h2>
+</div></details><details class="acc"><summary>Status e pendências</summary><div class="acc-body">
 <p>Documento <strong>completo</strong> (Oficina 0 + O1 a O7), aguardando validação. Todas as dúvidas e decisões em aberto estão
 compiladas em <a href="brief/perguntas-em-aberto-metodologia.md">brief/perguntas-em-aberto-metodologia.md</a>. Lista de
-material em <a href="lista-de-material-129.md">lista-de-material-129.md</a>.</p></div>
+material em <a href="lista-de-material-129.md">lista-de-material-129.md</a>.</p></div></details></div>
   </div>
 
   <div class="page" data-page="pontuacao">
@@ -3767,8 +3779,7 @@ material em <a href="lista-de-material-129.md">lista-de-material-129.md</a>.</p>
       <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">2 · Metodologia · a Liga</p>
       <h2 class="font-headline-lg text-headline-lg text-primary">Pontuação, tempo e subgrupos</h2>
     </div>
-    <div class="card doc-wrap"><h1>Sistema da Liga · subgrupos, tempo e pontuação</h1>
-<h2>1. Divisão da sala em subgrupos (unidade = sala de 30)</h2>
+    <div class="card doc-wrap"><div class="doc-summary"><h1>Sistema da Liga · subgrupos, tempo e pontuação</h1></div><details class="acc" open><summary>1. Divisão da sala em subgrupos (unidade = sala de 30)</summary><div class="acc-body">
 <p>A <strong>sala de 30 é a equipe da Liga</strong> (Terraforge, Bionix, etc.). Dentro de cada atividade ela se divide em
 <strong>subgrupos</strong>, e a <strong>pontuação dos subgrupos soma na sala</strong>. A divisão varia por atividade:</p>
 <table>
@@ -3836,7 +3847,7 @@ material em <a href="lista-de-material-129.md">lista-de-material-129.md</a>.</p>
 <p>Regra prática: quando a atividade pede "grupos", o padrão é <strong>subgrupos de 5 a 10</strong>. A nota da atividade é
 da <strong>sala</strong> (média ou soma normalizada dos subgrupos, ver seção 3), nunca de um subgrupo isolado.</p>
 </blockquote>
-<h2>2. Grade de tempo · o bloco de 100 min (2 aulas)</h2>
+</div></details><details class="acc"><summary>2. Grade de tempo · o bloco de 100 min (2 aulas)</summary><div class="acc-body">
 <p><strong>Regra (decisão Lucas, 16/07):</strong> o bloco de aula é de <strong>100 minutos</strong> e <strong>não pode variar</strong>. Nos dias de
 <strong>dois temas</strong>, os dois <strong>dividem os 100 minutos</strong> (um com mais, outro com menos, conforme a demanda), com um
 <strong>divisor claro</strong> de quando um termina e o outro começa. Nos dias de <strong>um tema</strong>, a atividade usa o bloco.</p>
@@ -3924,7 +3935,7 @@ raciocínio mais pesadas (Laboratório e Painel/Safra) ficam com tempo cheio.</p
 e Chef do Campo ~45 min</strong> (o Chef é a versão pareada/curta, já que divide o bloco). Faz sentido: na Feira
 Viva a sala vive a cadeia, e no Chef ela cria um produto para essa mesma cadeia.</p>
 </blockquote>
-<h2>3. Balanço de pontuação (semana até o hackathon)</h2>
+</div></details><details class="acc"><summary>3. Balanço de pontuação (semana até o hackathon)</summary><div class="acc-body">
 <p><strong>Problema que isso resolve:</strong> algumas atividades têm vários momentos que pontuam (a Safra tem 5 rodadas, a
 Feira Viva tem rodadas, o Laboratório tem estações + ideação). Se cada momento somasse solto, essas
 atividades valeriam muito mais que um terrário (um momento só) e a Liga ficaria desequilibrada.</p>
@@ -3979,13 +3990,13 @@ momentos internos tenha. Os momentos internos definem <strong>onde</strong> de 0
 <blockquote>
 <p><strong>Validado (Lucas, 16/07):</strong> hackathon em <strong>45%</strong> (30 pontos), semana em 55% (36 pontos), total 66.</p>
 </blockquote>
-<h2>4. Pendências deste modelo</h2>
+</div></details><details class="acc"><summary>4. Pendências deste modelo</summary><div class="acc-body">
 <ul>
 <li>[x] Swap da segunda do 129 (Laboratório ↔ Safra) · <strong>aplicado</strong>.</li>
 <li>[x] Teto de pontos e peso do hackathon (45%) · <strong>validado</strong>.</li>
 <li>[ ] Afinar os roteiros (bloco 6 "Como se joga") de cada atividade para os tempos reais desta grade · em
   andamento (as atividades pareadas ganham uma "versão pareada" curta; as de tema único mantêm o bloco cheio).</li>
-</ul></div>
+</ul></div></details></div>
   </div>
 
   <div class="page" data-page="materiais">
@@ -3993,11 +4004,10 @@ momentos internos tenha. Os momentos internos definem <strong>onde</strong> de 0
       <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">3 · Produção</p>
       <h2 class="font-headline-lg text-headline-lg text-primary">Materiais e briefings</h2>
     </div>
-    <div class="card doc-wrap"><h1>Lista de Material · Agrofuturo Cultural nas Escolas (129 / Case IH)</h1>
+    <div class="card doc-wrap"><div class="doc-summary"><h1>Lista de Material · Agrofuturo Cultural nas Escolas (129 / Case IH)</h1>
 <blockquote>
 <p><strong>O que é este documento.</strong> Levantamento de tudo o que precisa ser produzido, comprado ou alugado, lido a partir do bloco "5. Materiais" de cada atividade da metodologia. <strong>Ainda sem preços.</strong> Serve de base para o orçamento. Sem travessão, siglas expandidas na 1ª vez.</p>
-</blockquote>
-<h2>Parâmetros de dimensionamento (129)</h2>
+</blockquote></div><details class="acc" open><summary>Parâmetros de dimensionamento (129)</summary><div class="acc-body">
 <ul>
 <li><strong>3 cidades (Mato Grosso):</strong> Tangará da Serra, Água Boa e Cuiabá.</li>
 <li><strong>360 alunos por cidade · 1.080 alunos no total</strong> (7.560 atendimentos).</li>
@@ -4071,7 +4081,7 @@ momentos internos tenha. Os momentos internos definem <strong>onde</strong> de 0
 <p><strong>Nota de dimensionamento dos kits (RESOLVIDO).</strong> São <strong>12 kits/baralhos simultâneos</strong> no 129 (um por equipe). Os kits reutilizáveis giram entre turmas e dias, então o número produzido é o de <strong>equipes simultâneas</strong> (12), não de salas totais.</p>
 </blockquote>
 <hr />
-<h2>A) Comunicação visual e ambientação</h2>
+</div></details><details class="acc"><summary>A) Comunicação visual e ambientação</summary><div class="acc-body">
 <table>
 <thead>
 <tr>
@@ -4127,7 +4137,7 @@ momentos internos tenha. Os momentos internos definem <strong>onde</strong> de 0
 </tbody>
 </table>
 <hr />
-<h2>B) Mobiliário e estrutura (aluguel local por cidade)</h2>
+</div></details><details class="acc"><summary>B) Mobiliário e estrutura (aluguel local por cidade)</summary><div class="acc-body">
 <blockquote>
 <p><strong>Lógica de mesas e cadeiras (RESOLVIDO).</strong> <strong>Unidade base: 1 sala de 30 alunos = 8 mesas + 30 cadeiras</strong> (mesa de 4 lugares, todos sentados; 8 mesas = 32 lugares, folga de 2). O <strong>total por cidade escala pelo nº de salas que rodam juntas no mesmo slot: [confirmar nº de salas simultâneas por slot]</strong> com a produção. <strong>No hackathon (sexta), todas as salas da cidade competem ao mesmo tempo:</strong> nº de mesas = (30 × nº de salas da cidade) ÷ 4 e nº de cadeiras = 30 × nº de salas da cidade. No 129 (até 12 salas = 360 alunos) isso dá <strong>90 mesas + 360 cadeiras</strong> (pode ser escalonado em turnos se o espaço não comportar · registrar como observação de produção). Aluguel local por cidade; a toalha na cor da equipe cobre a mesa daquela equipe.</p>
 </blockquote>
@@ -4173,7 +4183,7 @@ momentos internos tenha. Os momentos internos definem <strong>onde</strong> de 0
 </tbody>
 </table>
 <hr />
-<h2>C) Materiais das atividades (por oficina)</h2>
+</div></details><details class="acc"><summary>C) Materiais das atividades (por oficina)</summary><div class="acc-body">
 <blockquote>
 <p>Percorre cada atividade na ordem do manual. <strong>Itens que precisam de produção gráfica (arte/briefing)</strong> vêm marcados <strong>[GRÁFICA]</strong>.</p>
 </blockquote>
@@ -4252,7 +4262,7 @@ momentos internos tenha. Os momentos internos definem <strong>onde</strong> de 0
 - Cronômetro grande, apito, microfone, fichas de placar · reutilizável.
 - <strong>Mesa de premiação:</strong> 4 tablets + urna do sorteio + certificados (ver seção D).</p>
 <hr />
-<h2>D) Premiação</h2>
+</div></details><details class="acc"><summary>D) Premiação</summary><div class="acc-body">
 <ul>
 <li><strong>Tablets:</strong> <strong>modelo padrão simples e barato</strong> (não precisa ser caro) · 4 por sala campeã × 3 cidades = <strong>12 tablets</strong> · <strong>RESOLVIDO</strong> · ressalva: <strong>quantidade/modelo podem ser reduzidos conforme o custo total do projeto.</strong></li>
 <li><strong>Certificados:</strong> todos os alunos (1.080) · <strong>[GRÁFICA]</strong> / plataforma.</li>
@@ -4260,12 +4270,12 @@ momentos internos tenha. Os momentos internos definem <strong>onde</strong> de 0
 <li><strong>Urna do sorteio</strong> (4 tablets sorteados entre os 30 da sala campeã).</li>
 </ul>
 <hr />
-<h2>E) Equipe (só ponteiro)</h2>
+</div></details><details class="acc"><summary>E) Equipe (só ponteiro)</summary><div class="acc-body">
 <ul>
 <li>Pesquisa e composição das equipes regionais em <strong><code>brief/equipes-regionais-pesquisa.md</code></strong>. Não detalhado aqui. Papéis em campo: mestre do desafio, mediador técnico, fotógrafo (o 129 não tem contador de histórias).</li>
 </ul>
 <hr />
-<h2>Itens que precisam de decisão antes do orçamento</h2>
+</div></details><details class="acc"><summary>Itens que precisam de decisão antes do orçamento</summary><div class="acc-body">
 <h3>Resolvidos (decisão do cliente)</h3>
 <ul>
 <li><strong>Bandeirão de tecido no lugar da bandeira de mão:</strong> RESOLVIDO. 12 bandeirões (um por equipe), 2 m × 1 m, logo/identidade da equipe ao centro, na cor da equipe. Reutilizáveis, viajam. Não haverá bandeira de mão por aluno.</li>
@@ -4287,7 +4297,7 @@ momentos internos tenha. Os momentos internos definem <strong>onde</strong> de 0
 <li><strong>Baralhos e cartas · gráfica vs laminação padrão:</strong> cotar os <strong>dois caminhos</strong> (produção em gráfica e laminação padrão) para o orçamento comparar. Vale para Feira Viva (cards e cartas de evento), matriz energética, Safra sob Pressão, problemáticas do hackathon e pistas, fichas de problema do drone/ideação.</li>
 <li><strong>Backdrop:</strong> 1 reutilizável que viaja entre as cidades <strong>ou</strong> 1 por cidade.</li>
 <li><strong>Cenografia do hackathon 129:</strong> definir o recorte de inovação (sem palete) com a Ana.</li>
-</ol></div>
+</ol></div></details></div>
   </div>
 
   <div class="page" data-page="equipe">
@@ -4295,13 +4305,12 @@ momentos internos tenha. Os momentos internos definem <strong>onde</strong> de 0
       <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">3 · Produção</p>
       <h2 class="font-headline-lg text-headline-lg text-primary">Equipe regional</h2>
     </div>
-    <div class="card doc-wrap"><h1>Equipes/organizações para conduzir as atividades · perfil empreendedor</h1>
+    <div class="card doc-wrap"><div class="doc-summary"><h1>Equipes/organizações para conduzir as atividades · perfil empreendedor</h1>
 <blockquote>
 <p>Perfil buscado: <strong>empreendedorismo + sustentabilidade + inovação</strong>, com <strong>traquejo comprovado de sala com
 adolescente</strong> (hands-on, não expositivo e não "brincadeira"). Prioridade para hubs que viajam e
 universidades locais (cortam deslocamento). Nenhum contato inventado; onde não há telefone/e-mail, está dito.</p>
-</blockquote>
-<h2>Frente 1 · Mato Grosso (base Cuiabá → Tangará da Serra e Água Boa)</h2>
+</blockquote></div><details class="acc" open><summary>Frente 1 · Mato Grosso (base Cuiabá → Tangará da Serra e Água Boa)</summary><div class="acc-body">
 <table>
 <thead>
 <tr>
@@ -4344,7 +4353,7 @@ universidades locais (cortam deslocamento). Nenhum contato inventado; onde não 
 </tbody>
 </table>
 <p><strong>Interior MT (Tangará, Água Boa):</strong> oferta direta rala → contratar de Cuiabá + deslocamento.</p>
-<h2>Frente 2 · Paraná (base Curitiba → Guarapuava e Toledo)</h2>
+</div></details><details class="acc"><summary>Frente 2 · Paraná (base Curitiba → Guarapuava e Toledo)</summary><div class="acc-body">
 <table>
 <thead>
 <tr>
@@ -4388,7 +4397,7 @@ universidades locais (cortam deslocamento). Nenhum contato inventado; onde não 
 </table>
 <p><em>(Menção: Escola Quíron, dupla de Curitiba que ensinava empreendedorismo a alunos de ensino médio da rede
 pública, é exatamente o perfil, mas é piloto antigo de crowdfunding, status atual incerto.)</em></p>
-<h2>Frente 3 · RS fronteira (Dom Pedrito / Bagé / Pelotas)</h2>
+</div></details><details class="acc"><summary>Frente 3 · RS fronteira (Dom Pedrito / Bagé / Pelotas)</summary><div class="acc-body">
 <table>
 <thead>
 <tr>
@@ -4424,7 +4433,7 @@ pública, é exatamente o perfil, mas é piloto antigo de crowdfunding, status a
 </tbody>
 </table>
 <p><em>(Backups distantes: UFPel Incubadora Conectar, Pelotas ~200 km; Impact Hub Porto Alegre, público adulto.)</em></p>
-<h2>Recomendação</h2>
+</div></details><details class="acc"><summary>Recomendação</summary><div class="acc-body">
 <ul>
 <li><strong>Se o critério nº 1 é traquejo com adolescente:</strong> os nomes mais seguros são <strong>Junior Achievement</strong> (nas três
   frentes, metodologia validada de empreendedorismo com ensino médio, viaja) e <strong>Sebrae · Despertar</strong> (feito
@@ -4442,12 +4451,12 @@ pública, é exatamente o perfil, mas é piloto antigo de crowdfunding, status a
 pública (socioemocional em escala), <strong>não</strong> um fornecedor que envia facilitadores para uma semana intensiva.
 Serve como referência metodológica, não como equipe de campo.</p>
 </blockquote>
-<h2>Pendências</h2>
+</div></details><details class="acc"><summary>Pendências</summary><div class="acc-body">
 <ul>
 <li>[ ] Abrir contato institucional com <strong>JA (MT, PR)</strong> e <strong>Sebrae (Despertar MT e RS)</strong> e confirmar agenda set-out/2026.</li>
 <li>[ ] Sondar <strong>Unipampa Dom Pedrito/Bagé</strong> (o encaixe mais forte no RS) pela Pró-Reitoria de Inovação.</li>
 <li>[ ] Definir se a sustentabilidade vem como módulo encomendado ao JA/Sebrae ou via parceiro de conteúdo (hub).</li>
-</ul></div>
+</ul></div></details></div>
   </div>
 
   <div class="page" data-page="perguntas">
@@ -4455,8 +4464,7 @@ Serve como referência metodológica, não como equipe de campo.</p>
       <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">4 · Gestão</p>
       <h2 class="font-headline-lg text-headline-lg text-primary">Perguntas em aberto</h2>
     </div>
-    <div class="card doc-wrap"><h1>Perguntas em aberto · metodologia detalhada + material (128 e 129)</h1>
-<h2>✅ Decisões já respondidas (Lucas · 16/07)</h2>
+    <div class="card doc-wrap"><div class="doc-summary"><h1>Perguntas em aberto · metodologia detalhada + material (128 e 129)</h1></div><details class="acc" open><summary>✅ Decisões já respondidas (Lucas · 16/07)</summary><div class="acc-body">
 <p><strong>Estruturais:</strong> (1) unidade = <strong>sala de 30 dividida em subgrupos</strong> que variam por atividade; pontuação do
 subgrupo soma na sala. (2) bloco de <strong>100 min fixo</strong>; dias de dois temas <strong>dividem os 100 min</strong> (divisor
 claro). (3) pontuação: <strong>teto de 6 por atividade</strong>, semana 36 (60%) + hackathon 24 (40%). Tudo detalhado em
@@ -4480,7 +4488,7 @@ nas listas de material.</p>
 <p><strong>Ainda em aberto (não respondidos):</strong> Chef do Campo 90 ou 45 min; nº de alunos simultâneos por slot (define
 nº de mesas); alerta da segunda do 129 (trocar Laboratório com Safra?); confirmar teto 60 / hackathon 40%.</p>
 <hr />
-<h2>Respostas do Lucas (2026-07-16) · o que já foi decidido e aplicado</h2>
+</div></details><details class="acc"><summary>Respostas do Lucas (2026-07-16) · o que já foi decidido e aplicado</summary><div class="acc-body">
 <ul>
 <li><strong>[I.1 subgrupos] APLICADO.</strong> Dentro da oficina, a sala se divide em <strong>subgrupos de 9 a 10 alunos</strong> (3 por
   sala) quando a atividade pede; eu escolho o agrupamento por oficina. (Seção 0 dos manuais.)</li>
@@ -4506,7 +4514,7 @@ nº de mesas); alerta da segunda do 129 (trocar Laboratório com Safra?); confir
 <p>Os itens das seções II (por atividade) e III (materiais) abaixo seguem <strong>em aberto</strong> para você responder.</p>
 </blockquote>
 <hr />
-<h2>I. Decisões estruturais (valem para as duas metodologias)</h2>
+</div></details><details class="acc"><summary>I. Decisões estruturais (valem para as duas metodologias)</summary><div class="acc-body">
 <ol>
 <li><strong>[decidir · a mais importante] Como as equipes se organizam DENTRO de cada slot de oficina.</strong> A Liga tem
    as salas como equipes fixas (equipe = sala de 30, é ela que pontua a semana). Mas num slot de oficina uma
@@ -4529,7 +4537,7 @@ nº de mesas); alerta da segunda do 129 (trocar Laboratório com Safra?); confir
    (129) e 16 tablets (128)</strong>. Não existia no orçamento antigo (era troféu/kit). Preciso de uma <strong>faixa de
    tablet</strong> (modelo/tamanho/preço-alvo) para cotar.</li>
 </ol>
-<h2>II. Por atividade</h2>
+</div></details><details class="acc"><summary>II. Por atividade</summary><div class="acc-body">
 <h3>Feira Viva (O1 / T3)</h3>
 <ul>
 <li><strong>[decidir]</strong> Medir "menor desperdício": valor fixo por perda (ex.: cada carga perdida = -2 no medidor de
@@ -4580,7 +4588,7 @@ nº de mesas); alerta da segunda do 129 (trocar Laboratório com Safra?); confir
   nas 4 cidades (RS/PR), ou a névoa vira opcional/alternativa (umidificador)?</li>
 <li><strong>[decidir]</strong> <strong>Laser</strong>: deixei "laser OU LED" com preferência LED. Corto o laser de vez (só LED)?</li>
 </ul>
-<h2>III. Materiais e produção (pré-orçamento)</h2>
+</div></details><details class="acc"><summary>III. Materiais e produção (pré-orçamento)</summary><div class="acc-body">
 <blockquote>
 <p>Consolidado das listas de material (<code>lista-de-material-128.md</code> e <code>lista-de-material-129.md</code>). Estes itens
 precisam de decisão antes de eu fechar o orçamento.</p>
@@ -4614,7 +4622,7 @@ precisam de decisão antes de eu fechar o orçamento.</p>
 - <strong>Contação de Histórias</strong> (abertura do hackathon): contratação de contador local por cidade.
 - <strong>DOMO + Festival na praça (Curitiba):</strong> aluguel de estrutura, tendas, palco, som (rubrica grande do 128).
 - <strong>Palestra de professores (segunda à noite):</strong> sala/projeção e material a definir · a metodologia não traz
-  bloco de materiais para ela (registrado como decisão, não inventei itens).</p></div>
+  bloco de materiais para ela (registrado como decisão, não inventei itens).</p></div></details></div>
   </div>
 
   <div class="page" data-page="proximos">
