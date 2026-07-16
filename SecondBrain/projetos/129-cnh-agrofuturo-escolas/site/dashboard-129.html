@@ -213,6 +213,27 @@ details.acc[open]>summary{border-bottom:1px solid #eef2f0;}
 .acc-body{padding:6px 16px 14px;}
 .acc-body>*:first-child{margin-top:6px;}
 </style>
+<style>
+.mtd-summary{border-left:4px solid #C8102E;}
+.mtd-lead{font-size:13px;color:#5c6b64;margin:0 0 10px;}
+.mtd-story{font-style:italic;color:#2f3d37;background:#fff;border:1px solid #e6ece9;border-radius:8px;padding:12px 14px;margin:0 0 14px;line-height:1.6;}
+.jn-title,.mtd-oftitle{font-weight:700;color:#C8102E;font-size:15px;margin:6px 0 8px;}
+.jn-row{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin-bottom:12px;}
+.jn-step{flex:1;min-width:120px;background:#fff;border:1px solid #e0e6e3;border-radius:10px;padding:10px 12px;}
+.jn-n{width:22px;height:22px;border-radius:50%;background:#C8102E;color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;}
+.jn-t{font-weight:700;font-size:13px;color:#16211d;line-height:1.25;}
+.jn-s{font-size:11.5px;color:#5c6b64;margin-top:3px;}
+.jn-arrow{display:flex;align-items:center;color:#b7c2bc;font-size:20px;}
+.mtd-score{font-size:13px;background:#fff;border:1px solid #e6ece9;border-radius:8px;padding:10px 14px;margin:0;}
+.mtd-oftitle{margin-top:16px;border-top:1px solid #e6ece9;padding-top:14px;}
+details.acc-inner{border:1px dashed #C8102E55;border-radius:8px;margin:10px 0 4px;background:#fbfcfb;}
+details.acc-inner>summary{cursor:pointer;padding:9px 13px;font-weight:600;font-size:13px;color:#C8102E;list-style:none;display:flex;gap:8px;align-items:center;}
+details.acc-inner>summary::-webkit-details-marker{display:none;}
+details.acc-inner>summary::before{content:"\25B8";font-size:11px;color:#C8102E;}
+details.acc-inner[open]>summary::before{content:"\25BE";}
+.acc-body .acc-body{padding-left:2px;padding-right:2px;}
+@media (max-width:640px){.jn-arrow{display:none;} .jn-step{min-width:45%;}}
+</style>
 </head>
 <body class="bg-surface text-on-surface h-screen flex overflow-hidden font-body-lg text-body-lg">
 
@@ -232,9 +253,7 @@ details.acc[open]>summary{border-bottom:1px solid #eef2f0;}
     <button data-page="mockup" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left"><span class="material-symbols-outlined">slideshow</span><span class="font-nav-item text-nav-item">Mockup inicial</span></button>
     <button data-page="playbook" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left"><span class="material-symbols-outlined">menu_book</span><span class="font-nav-item text-nav-item">Playbook</span></button>
     <p class="px-4 pt-3 pb-1 font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Metodologia</p>
-    <button data-page="storytelling" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left"><span class="material-symbols-outlined">auto_stories</span><span class="font-nav-item text-nav-item">Storytelling</span></button>
-    <button data-page="metodologia" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left"><span class="material-symbols-outlined">school</span><span class="font-nav-item text-nav-item">Metodologia detalhada</span></button>
-    <button data-page="pontuacao" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left"><span class="material-symbols-outlined">leaderboard</span><span class="font-nav-item text-nav-item">Pontuação e grade</span></button>
+    <button data-page="metodologia" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left"><span class="material-symbols-outlined">school</span><span class="font-nav-item text-nav-item">Metodologia</span></button>
     <p class="px-4 pt-3 pb-1 font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Produção</p>
     <button data-page="materiais" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left"><span class="material-symbols-outlined">inventory_2</span><span class="font-nav-item text-nav-item">Materiais</span></button>
     <button data-page="equipe" class="side-item flex items-center gap-gap-xs px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left"><span class="material-symbols-outlined">groups</span><span class="font-nav-item text-nav-item">Equipe regional</span></button>
@@ -2043,97 +2062,18 @@ details.acc[open]>summary{border-bottom:1px solid #eef2f0;}
 
   <!-- ============ PAGE: PRÓXIMOS PASSOS ============ -->
   
-  <div class="page" data-page="storytelling">
-    <div class="mb-4">
-      <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">2 · Metodologia · narrativa</p>
-      <h2 class="font-headline-lg text-headline-lg text-primary">Storytelling do projeto</h2>
-    </div>
-    <div class="card doc-wrap"><div class="doc-summary"><h1>Storytelling · Agrofuturo Cultural nas Escolas (129 / Case IH)</h1></div><details class="acc" open><summary>Versão curta (pitch)</summary><div class="acc-body">
-<p>Em Mato Grosso, coração do agronegócio brasileiro, a maioria dos jovens ainda vê o campo como coisa do
-passado. O Agrofuturo Cultural nas Escolas chega para virar essa chave. Por uma semana, a quadra da escola
-vira uma liga: times por sala, placar ao vivo, e a promessa de que ali eles vão pilotar tecnologia, resolver
-problemas e inventar o futuro do agro.</p>
-<p>Cada dia, uma oficina dinâmica. Viram um laboratório de inovação: decifram enigmas de tecnologia, leem a
-imagem de um drone e inventam a própria solução para um problema do campo. Pintam o ciclo da água com luz
-numa sala escura. Enfrentam o clima num jogo de cartas. Transformam resíduo em energia. Assumem a cadeia que
-leva o alimento ao prato. Nada é aula parada: é competição, é mão na massa, é protagonismo, e o placar
-cresce a semana toda.</p>
-<p>Sexta é o Desafio AgroFuturo, o hackathon. Cada sala vira uma startup e tem poucas horas para criar e
-defender uma solução de inovação diante de uma banca, entre pistas, encenações e a defesa final. A sala
-campeã leva os tablets, e um sorteio decide quem conhece a concessionária ou a fábrica. O projeto encerra em
-Cuiabá, com uma Feira de Tecnologia, Arte e Cultura no Shopping Pantanal e a exposição das obras. Realização
-NTICS Projetos, patrocínio Case IH. O Agrofuturo prova que a juventude de Mato Grosso é a nova cara do campo:
-inventora, protagonista, agro 4.0.</p>
-</div></details><details class="acc"><summary>Versão longa (a semana, dia a dia)</summary><div class="acc-body">
-<h3>A semana e o impacto que cresce</h3>
-<p>Quando o Agrofuturo chega a uma cidade de Mato Grosso, não chega como mais um projeto: chega como um
-acontecimento. A quadra da escola, que na segunda ainda é só quadra, vai se transformando dia após dia numa
-arena viva, com placar, bandeirolas e a energia de quem descobriu que vai ser protagonista. A lógica é de
-uma liga: os estudantes do ensino médio formam times por sala, e cada oficina da semana vale ponto. Nada se
-perde. O que aprendem na segunda os fortalece na terça, o que somam na terça pesa na quarta, e o placar sobe
-a cada dia diante dos olhos de todos.</p>
-<p>Esse é o segredo do engajamento: o impacto não acontece num único momento, ele se acumula. A cada dia o
-desafio fica maior, a competição mais quente e o repertório mais fundo. Quando chega a sexta, os times já
-não são um amontoado de alunos: são squads com nome, grito de guerra e uma bagagem inteira construída na
-mão. É essa bagagem que eles despejam no Desafio AgroFuturo, o hackathon que fecha a semana. O aluno que
-entrou na segunda achando o campo coisa do passado sai na sexta se enxergando como inventor do agro do
-futuro.</p>
-<h3>Segunda-feira · o começo de tudo</h3>
-<p>A semana abre com a apresentação do projeto e a criação da identidade: cada sala escolhe nome, cor e
-bandeira, e a liga começa. Logo os times entram na Feira Viva, onde a quadra vira a cadeia produtiva e cada
-grupo assume um papel, da produção ao consumo, negociando para o alimento chegar ao prato sem desperdício.
-Na sequência, o Laboratório de Inovação do Campo: passam por estações que revelam a tecnologia real do agro,
-mapeiam a rota de um drone, decifram um enigma de fazenda conectada e veem sensores em ação. No fim, o
-desafio de verdade: cada grupo recebe um problema do campo e inventa uma tecnologia para resolver. O campo,
-de repente, é o lugar mais tecnológico que já viram.</p>
-<h3>Terça-feira · arte e energia</h3>
-<p>A terça mistura sensibilidade e ciência. Numa sala escura, os times criam o ciclo da água com luz, na
-técnica de light painting, e cada squad leva uma imagem autoral que vai virar exposição. Na quadra, montam
-uma usina de bioenergia: uma reação enche um balão de gás na frente deles e, sobre ela, inventam a usina do
-futuro, com soluções que ninguém pediu mas que fazem sentido. Ciência que se vê, se toca e se disputa.</p>
-<h3>Quarta-feira · o clima entra em jogo</h3>
-<p>No meio da semana, o desafio é o maior risco do agro: o clima. Cada mesa vira uma fazenda e enfrenta um jogo
-de cartas coletivo. Chegam problemáticas, e os times escolhem as cartas que respondem, decidindo como se
-proteger da seca, da geada, da chuva demais. É estratégia, é reflexão em grupo, é o placar subindo a cada
-resposta certa.</p>
-<h3>Quinta-feira · a virada</h3>
-<p>A quinta tem duas partes. Primeiro, o Painel Manifesto: cada aluno cria a sua peça e a sala monta uma obra
-coletiva sobre quem cuida do campo, que vai para a exposição. Depois, os últimos trinta minutos mudam o
-tom: é a preparação para o Desafio AgroFuturo. Os squads recebem a provocação do dia seguinte e vão para
-casa com a cabeça fervendo. A tensão boa toma conta da escola.</p>
-<h3>Sexta-feira · o Desafio AgroFuturo</h3>
-<p>A sexta é o clímax. A quadra amanhece como uma arena de hackathon, aberta à comunidade, com banca, imprensa
-e patrocinador. Cada sala vira uma startup. A cada rodada chega uma problemática real do campo, com pistas
-que vão caindo de dez em dez minutos, e os times constroem a solução, ora em discurso, ora em encenação,
-sempre contra o relógio e valendo ponto. No fim, uma problemática final: trinta minutos para preparar e
-defender a grande solução diante de todos. O placar da semana inteira se soma ao do hackathon, e a sala
-campeã sobe ao palco. Levam quatro tablets, sorteados entre eles, e um sorteio decide quem vai conhecer a
-concessionária ou a fábrica. Quando as luzes se apagam, fica a certeza: aquela juventude é a nova cara do
-agro de Mato Grosso.</p>
-<p>O projeto ainda ganha um encerramento maior em Cuiabá, com a Feira de Tecnologia, Arte e Cultura no Shopping
-Pantanal e a exposição das obras dos estudantes, aberta à comunidade.</p></div></details></div>
-  </div>
-
   <div class="page" data-page="metodologia">
     <div class="mb-4">
-      <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">2 · Metodologia · manual executável</p>
-      <h2 class="font-headline-lg text-headline-lg text-primary">Metodologia detalhada · 8 blocos por oficina</h2>
+      <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">2 · Metodologia</p>
+      <h2 class="font-headline-lg text-headline-lg text-primary">Metodologia do projeto</h2>
     </div>
-    <div class="card doc-wrap"><div class="doc-summary"><blockquote>
-<p><strong>A narrativa que a metodologia coloca de pé.</strong> Em Mato Grosso, coração do agronegócio, a maioria dos jovens ainda vê o campo como coisa do passado. Por uma semana, a quadra da escola vira uma liga: times por sala, placar ao vivo e a promessa de pilotar tecnologia, resolver problemas e inventar o futuro do agro. Cada dia traz uma oficina dinâmica e mão na massa: decifram enigmas de tecnologia, pintam o ciclo da água com luz, enfrentam o clima num jogo de cartas e transformam resíduo em energia. Na sexta vem o Desafio AgroFuturo, o hackathon: cada sala vira uma startup e tem poucas horas para criar e defender uma solução diante de uma banca. A sala campeã leva a premiação, e o projeto encerra em Cuiabá com uma Feira de Tecnologia, Arte e Cultura. O Agrofuturo prova que a juventude de Mato Grosso é a nova cara do campo: inventora, protagonista, agro 4.0.</p>
-</blockquote>
-<h1>Metodologia Detalhada · Agrofuturo Cultural nas Escolas (129 / Case IH)</h1>
-<blockquote>
-<p><strong>Como usar este documento.</strong> Cada atividade abaixo é auto-suficiente: um educador que nunca viu o projeto
-consegue estudar e conduzir. A ordem de cada bloco é sempre a mesma:
-<strong>1) Introdução educativa (o script que o educador fala)</strong> · <strong>2) Base técnica (texto maior, para o educador
-estudar antes)</strong> · <strong>3) Para aprofundar (textos de referência para estudo)</strong> · <strong>4) Ligação com os ODS</strong> ·
-<strong>5) Materiais (briefing e texto de cada peça)</strong> · <strong>6) Como se joga (passo a passo)</strong> · <strong>7) Regras</strong> ·
-<strong>8) Pontuação da Liga</strong>. Sem citar marca/produto do patrocinador dentro da atividade. Sem máquinas/tratores.
-Sem travessão em material publicado; siglas expandidas na 1ª vez.</p>
-</blockquote>
-<hr /></div><details class="acc" open><summary>0. O sistema: a Liga e as 12 equipes</summary><div class="acc-body">
-<p>O projeto inteiro é uma <strong>Liga</strong>: as salas viram equipes fixas que competem a semana toda e acumulam pontos
+    <div class="card doc-wrap"><div class="doc-summary mtd-summary"><div class="mtd-hero">
+<p class="mtd-lead">A metodologia em uma olhada: primeiro a história e o desenho do jogo, depois cada oficina com um resumo. Clique numa oficina para abrir a metodologia completa.</p>
+<blockquote class="mtd-story">Em Mato Grosso, a maioria dos jovens ainda vê o campo como coisa do passado. Por uma semana, a quadra da escola vira uma liga: cada sala é um time, com placar ao vivo. A cada dia, uma oficina dinâmica (tecnologia, água, energia, clima, cidadania), tudo pontua e o placar cresce. Na sexta, o Desafio AgroFuturo: cada sala vira uma startup e defende uma solução de inovação. A sala campeã leva os tablets e um sorteio decide quem conhece a fábrica ou a concessionária.</blockquote>
+<div class="jn-title">Como funciona o jogo</div>
+<div class="jn-row"><div class="jn-step"><div class="jn-n">1</div><div class="jn-t">Cada sala vira um TIME</div><div class="jn-s">identidade na Oficina 0 · Liga</div></div><div class="jn-arrow">&#8594;</div><div class="jn-step"><div class="jn-n">2</div><div class="jn-t">O time de 30 se divide</div><div class="jn-s">em subgrupos, em algumas oficinas</div></div><div class="jn-arrow">&#8594;</div><div class="jn-step"><div class="jn-n">3</div><div class="jn-t">Os subgrupos pontuam</div><div class="jn-s">e a nota vai para a SALA</div></div><div class="jn-arrow">&#8594;</div><div class="jn-step"><div class="jn-n">4</div><div class="jn-t">O placar cresce</div><div class="jn-s">a semana toda, no split-flap</div></div><div class="jn-arrow">&#8594;</div><div class="jn-step"><div class="jn-n">5</div><div class="jn-t">Sexta: Desafio AgroFuturo</div><div class="jn-s">a sala vira um squad · a final</div></div></div>
+<p class="mtd-score"><strong>Pontuação:</strong> cada oficina vale até <b>6 pontos</b> (Desafio 0-3 · Conhecimento 0-2 · Colaboração 0-1). A semana vale <b>36 (55%)</b> e o Desafio AgroFuturo vale <b>30 (45%)</b>, total 66. A sala campeã leva <b>4 tablets</b> (sorteio entre os 30) e um sorteio de visita.</p>
+</div></div><details class="acc"><summary>0. O sistema: a Liga e as 12 equipes</summary><div class="acc-body"><p>O projeto inteiro é uma <strong>Liga</strong>: as salas viram equipes fixas que competem a semana toda e acumulam pontos
 até o <strong>Desafio AgroFuturo (hackathon)</strong> na sexta. Cada oficina pontua em <strong>três eixos</strong>:</p>
 <ul>
 <li><strong>Desafio</strong> · a qualidade e a coerência da entrega da equipe naquela atividade.</li>
@@ -2284,14 +2224,233 @@ cabe melhor.</p>
   família), como pré-requisito para qualquer foto/obra ir para exposição ou galeria.</li>
 </ul>
 <hr />
-<hr />
-</div></details><details class="acc"><summary>O1 / T3 · Feira Viva · a cadeia produtiva [COMPARTILHADA]</summary><div class="acc-body">
+<hr /></div></details><details class="acc"><summary>Pontuação, tempo e subgrupos</summary><div class="acc-body"><h1>Sistema da Liga · subgrupos, tempo e pontuação</h1>
+<h2>1. Divisão da sala em subgrupos (unidade = sala de 30)</h2>
+<p>A <strong>sala de 30 é a equipe da Liga</strong> (Terraforge, Bionix, etc.). Dentro de cada atividade ela se divide em
+<strong>subgrupos</strong>, e a <strong>pontuação dos subgrupos soma na sala</strong>. A divisão varia por atividade:</p>
+<table>
+<thead>
+<tr>
+<th>Atividade</th>
+<th>Divisão da sala de 30</th>
+<th>Por quê</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O1 / T3 · Feira Viva</td>
+<td><strong>6 subgrupos de 5</strong> (um por elo) · 1 cadeia por sala</td>
+<td>são 6 elos; cada subgrupo assume um</td>
+</tr>
+<tr>
+<td>O2 · Laboratório de Inovação</td>
+<td><strong>3 subgrupos de 10</strong> no rodízio de estações · depois <strong>6 grupos de 5</strong> na Ideação</td>
+<td>estações comportam ~10; a ideação pede grupos pequenos</td>
+</tr>
+<tr>
+<td>O3 · Água / Light Painting</td>
+<td><strong>subgrupos de 6 a 7</strong> revezando na sala escura</td>
+<td>a sala escura recebe 1 subgrupo por vez</td>
+</tr>
+<tr>
+<td>O4 / T6 · Usina de Bioenergia</td>
+<td><strong>5 subgrupos de 6</strong> (cada um monta uma garrafa e uma "usina do futuro")</td>
+<td>experimento por subgrupo</td>
+</tr>
+<tr>
+<td>O5 / T5 · Safra sob Pressão</td>
+<td><strong>5 a 6 mesas-fazenda</strong> (subgrupos de 5 a 6)</td>
+<td>cada mesa é uma fazenda</td>
+</tr>
+<tr>
+<td>O6 · Painel Manifesto</td>
+<td><strong>individual</strong> (peça de cada aluno) + <strong>sala inteira</strong> (mosaico)</td>
+<td>é obra individual e coletiva</td>
+</tr>
+<tr>
+<td>T1 · Terrário</td>
+<td><strong>5 a 6 subgrupos</strong> (um terrário cada)</td>
+<td>um pote por subgrupo</td>
+</tr>
+<tr>
+<td>T2 · Fotografia macro</td>
+<td><strong>subgrupos de 6</strong> (revezam na câmera)</td>
+<td>poucas câmeras</td>
+</tr>
+<tr>
+<td>T4 · Chef do Campo</td>
+<td><strong>5 a 6 subgrupos</strong> (um produto cada)</td>
+<td>um produto por subgrupo</td>
+</tr>
+<tr>
+<td>O7 / T7 · Hackathon</td>
+<td><strong>a sala inteira = 1 squad</strong> (com papéis internos)</td>
+<td>é a grande final, a sala compete unida</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
+<p>Regra prática: quando a atividade pede "grupos", o padrão é <strong>subgrupos de 5 a 10</strong>. A nota da atividade é
+da <strong>sala</strong> (média ou soma normalizada dos subgrupos, ver seção 3), nunca de um subgrupo isolado.</p>
+</blockquote>
+<h2>2. Grade de tempo · o bloco de 100 min (2 aulas)</h2>
+<p><strong>Regra (decisão Lucas, 16/07):</strong> o bloco de aula é de <strong>100 minutos</strong> e <strong>não pode variar</strong>. Nos dias de
+<strong>dois temas</strong>, os dois <strong>dividem os 100 minutos</strong> (um com mais, outro com menos, conforme a demanda), com um
+<strong>divisor claro</strong> de quando um termina e o outro começa. Nos dias de <strong>um tema</strong>, a atividade usa o bloco.</p>
+<h3>129 (Mato Grosso)</h3>
+<table>
+<thead>
+<tr>
+<th>Dia</th>
+<th>Bloco de 100 min</th>
+<th>Divisão</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Segunda</td>
+<td><strong>Oficina 0 (15) + O1 Feira Viva + O5 Safra sob Pressão</strong></td>
+<td>15 + ~50 (Feira) + ~35 (Safra pareada)</td>
+</tr>
+<tr>
+<td>Terça</td>
+<td><strong>O3 Light Painting + O4 Usina</strong> · rodam <strong>em paralelo</strong> (revezamento), não em sequência</td>
+<td>os dois ocupam os 100 min ao mesmo tempo</td>
+</tr>
+<tr>
+<td>Quarta</td>
+<td><strong>O2 Laboratório de Inovação</strong> (tema único)</td>
+<td>~90 no bloco</td>
+</tr>
+<tr>
+<td>Quinta</td>
+<td><strong>O6 Painel Manifesto</strong> + prep do Desafio</td>
+<td>~70 + 30 de prep</td>
+</tr>
+<tr>
+<td>Sexta</td>
+<td><strong>O7 Desafio AgroFuturo</strong> (hackathon)</td>
+<td>evento</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Swap aplicado (Lucas, 16/07):</strong> o Laboratório de Inovação saiu da segunda para a <strong>quarta</strong> (tema único,
+bloco inteiro), e a <strong>Safra</strong> desceu para a segunda pareada com a Feira Viva. Assim as duas atividades de
+raciocínio mais pesadas (Laboratório e Painel/Safra) ficam com tempo cheio.</p>
+</blockquote>
+<h3>128 (Sul · RS/PR)</h3>
+<table>
+<thead>
+<tr>
+<th>Dia</th>
+<th>Bloco de 100 min</th>
+<th>Divisão</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Segunda</td>
+<td><strong>Oficina 0 (15) + T1 Terrário + T2 Fotografia</strong> · integrados (monta e fotografa o que montou)</td>
+<td>15 + ~50 + ~35</td>
+</tr>
+<tr>
+<td>Terça</td>
+<td><strong>T3 Feira Viva + T4 Chef do Campo</strong> · encadeados (vive a cadeia, depois cria um produto pra ela)</td>
+<td>~55 + ~45</td>
+</tr>
+<tr>
+<td>Quarta</td>
+<td><strong>T5 Safra sob Pressão</strong> (tema único)</td>
+<td>~90 no bloco</td>
+</tr>
+<tr>
+<td>Quinta</td>
+<td><strong>T6 Usina de Bioenergia</strong> + prep do Hackathon</td>
+<td>~70 + 30 de prep</td>
+</tr>
+<tr>
+<td>Sexta</td>
+<td><strong>T7 Hackathon Guardiões da Terra</strong> (abre com Contação)</td>
+<td>evento</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Terça do 128 (Feira Viva + Chef do Campo):</strong> as duas são encadeadas nos 100 min, com <strong>Feira Viva ~55 min
+e Chef do Campo ~45 min</strong> (o Chef é a versão pareada/curta, já que divide o bloco). Faz sentido: na Feira
+Viva a sala vive a cadeia, e no Chef ela cria um produto para essa mesma cadeia.</p>
+</blockquote>
+<h2>3. Balanço de pontuação (semana até o hackathon)</h2>
+<p><strong>Problema que isso resolve:</strong> algumas atividades têm vários momentos que pontuam (a Safra tem 5 rodadas, a
+Feira Viva tem rodadas, o Laboratório tem estações + ideação). Se cada momento somasse solto, essas
+atividades valeriam muito mais que um terrário (um momento só) e a Liga ficaria desequilibrada.</p>
+<p><strong>Regra de ouro:</strong> <strong>cada atividade contribui no máximo 6 pontos</strong> para a Liga da sala, não importa quantos
+momentos internos tenha. Os momentos internos definem <strong>onde</strong> de 0 a 6 a sala cai, mas <strong>não somam além de
+6</strong>. Os 6 pontos saem sempre dos 3 eixos:</p>
+<ul>
+<li><strong>Desafio 0 a 3</strong> · qualidade e coerência da entrega. Em atividades de vários momentos, é a <strong>média
+  normalizada</strong> do desempenho (ex.: na Safra, a média dos acertos das 5 rodadas vira um 0 a 3), nunca a soma
+  bruta.</li>
+<li><strong>Conhecimento 0 a 2</strong> · a sala mostrou que entendeu o tema.</li>
+<li><strong>Colaboração 0 a 1</strong> · trabalharam como equipe.</li>
+</ul>
+<h3>Quanto vale cada parte</h3>
+<table>
+<thead>
+<tr>
+<th>Parte</th>
+<th>Pontos máximos</th>
+<th>% do total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6 oficinas da semana (O1 a O6 · 6 × 6)</td>
+<td><strong>36</strong></td>
+<td>55%</td>
+</tr>
+<tr>
+<td>Hackathon (O7)</td>
+<td><strong>30</strong></td>
+<td>45%</td>
+</tr>
+<tr>
+<td><strong>Total do projeto</strong></td>
+<td><strong>66</strong></td>
+<td>100%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Como o hackathon chega a 30</strong> (a culminância vale mais, mas não anula a semana · decisão Lucas: 45%):
+- 4 problemáticas × 3 pontos = 12
+- Problemática final (a grande entrega) = 18
+- Total = 30</p>
+<p><strong>Por que esse equilíbrio funciona:</strong>
+- Nenhuma oficina isolada decide o jogo (cada uma vale ~10% do máximo da semana), então a sala que vai mal
+  em uma atividade não está fora.
+- A semana toda (60%) recompensa consistência e mantém todas as salas no páreo até sexta.
+- O hackathon (40%) é decisivo: uma sala mediana na semana pode virar o jogo com um grande hackathon, e uma
+  sala que arrasou a semana precisa não desabar na final. É tensão boa até o último minuto.
+- O placar split-flap mostra os pontos acumulando sobre esse teto de 60, fácil de ler.</p>
+<blockquote>
+<p><strong>Validado (Lucas, 16/07):</strong> hackathon em <strong>45%</strong> (30 pontos), semana em 55% (36 pontos), total 66.</p>
+</blockquote>
+<h2>4. Pendências deste modelo</h2>
+<ul>
+<li>[x] Swap da segunda do 129 (Laboratório ↔ Safra) · <strong>aplicado</strong>.</li>
+<li>[x] Teto de pontos e peso do hackathon (45%) · <strong>validado</strong>.</li>
+<li>[ ] Afinar os roteiros (bloco 6 "Como se joga") de cada atividade para os tempos reais desta grade · em
+  andamento (as atividades pareadas ganham uma "versão pareada" curta; as de tema único mantêm o bloco cheio).</li>
+</ul></div></details><h3 class="mtd-oftitle">As oficinas</h3><details class="acc" open><summary>O1 / T3 · Feira Viva · a cadeia produtiva [COMPARTILHADA]</summary><div class="acc-body"><blockquote>
 <p><strong>Atividade compartilhada.</strong> Este é o MESMO texto que roda no 129 (Mato Grosso · O1) e no 128 (Sul · Rio
 Grande do Sul e Paraná · T3). Muda só a cidade e os exemplos locais. Formato de simulação econômica em 6
 elos, no padrão da Liga: cada squad assume um papel, negocia de verdade e defende o resultado.</p>
 </blockquote>
-<h3>1. Introdução educativa (o script que o educador fala)</h3>
+<p><strong>O que é:</strong> Uma simulação da cadeia produtiva do alimento, do campo ao prato: cada squad vira um elo (produção, transporte, indústria, mercado, consumo, reaproveitamento) e negocia de verdade.
+<strong>Principais entregas:</strong> A cadeia inteira "sobrevive" com o valor bem distribuído e pouco desperdício; fichas de negociação assinadas e o balanço final de moeda e de produto entregue ao consumo.
+<strong>Como é:</strong> Seis estações em círculo, cartas de evento que mudam o cenário a cada rodada e negociação com moeda simulada; versão pareada de ~50 min (segunda, divide os 100 min com a Safra sob Pressão).
+<strong>Materiais:</strong> 6 cards de elo, fichas de negociação, moeda simulada, cartões-produto (soja, leite, hortaliça), medidor de saúde, baralho de 8 cartas de evento e placar da Liga.</p><details class="acc-inner"><summary>Ver metodologia completa (regras, roteiro, pontuação)</summary><div class="acc-body"><h3>1. Introdução educativa (o script que o educador fala)</h3>
 <blockquote>
 <p>"Todo alimento que chega no prato de vocês fez uma viagem. O arroz, o feijão, o leite, a alface, o tomate:
 nenhum nasce na prateleira do mercado. Antes de chegar, ele passou por muita gente. Alguém plantou ou criou,
@@ -2508,14 +2667,15 @@ E3, para o aluno sentir os dois lados do preço).</p>
 <li>Bônus (+1) para a cadeia que, na <strong>rodada final</strong>, chegar a <strong>desperdício zero</strong> com todos os elos no
   positivo.</li>
 </ul>
-<hr />
-</div></details><details class="acc"><summary>O2 · Laboratório de Inovação do Campo</summary><div class="acc-body">
-<blockquote>
+<hr /></div></details></div></details><details class="acc"><summary>O2 · Laboratório de Inovação do Campo</summary><div class="acc-body"><blockquote>
 <p><strong>Atividade específica do 129 (agro 4.0).</strong> É aqui que a Liga treina, sem perceber, o raciocínio do
 <strong>Desafio AgroFuturo</strong> da sexta: olhar um problema real do campo, conhecer a tecnologia que já existe e
 <strong>propor uma solução inovadora</strong>. Não é uma oficina de "brincar com gadget": o gadget é isca para a ideia.</p>
 </blockquote>
-<h3>1. Introdução educativa (o script que o educador fala)</h3>
+<p><strong>O que é:</strong> Uma oficina de inovação (agro 4.0): a turma descobre tecnologias reais do campo (sensores, drone, satélite/GPS, telemetria, estação meteorológica) e depois inventa uma solução para um problema real da fazenda.
+<strong>Principais entregas:</strong> Uma solução tecnológica desenhada na cartolina, batizada e defendida num mini-pitch, ancorada em pelo menos uma tecnologia real vista no dia.
+<strong>Como é:</strong> Três estações em rodízio (Missão do Drone, Enigma/escape room, Vitrine de Tecnologia) e depois o Desafio de Ideação com a sala reunida como uma equipe só; bloco de ~90 min.
+<strong>Materiais:</strong> Mapa aéreo do drone, caixa-enigma com cadeado de 4 dígitos, cartões de pista, sensores e dados reais da Vitrine, fichas de "problema do campo" e cartolina de invenção.</p><details class="acc-inner"><summary>Ver metodologia completa (regras, roteiro, pontuação)</summary><div class="acc-body"><h3>1. Introdução educativa (o script que o educador fala)</h3>
 <blockquote>
 <p>"Quando alguém fala em campo, muita gente ainda imagina só enxada e sol quente. Mas o campo hoje é um dos
 lugares que mais usa tecnologia no mundo: tem sensor medindo a sede da planta, satélite fotografando a
@@ -2779,14 +2939,15 @@ Lei Rouanet) e orientar o convidado a falar de tecnologia, não de modelo comerc
 <li><strong>Bônus (+1)</strong> para a equipe cuja solução amarrar o problema a uma tecnologia real de forma clara e
   original (a combinação "problema + ideia + tecnologia" que faz todo mundo entender na hora).</li>
 </ul>
-<hr />
-</div></details><details class="acc"><summary>O3 · Água · Fotografia (Light Painting) [MinC · Fotografia]</summary><div class="acc-body">
-<blockquote>
+<hr /></div></details></div></details><details class="acc"><summary>O3 · Água · Fotografia (Light Painting) [MinC · Fotografia]</summary><div class="acc-body"><blockquote>
 <p><strong>Formato cultural MinC · Fotografia.</strong> Roda <strong>em paralelo com a O4 (Usina de Bioenergia)</strong>: a sala escura
 recebe <strong>1 subgrupo por vez</strong> (90 min por subgrupo) enquanto o restante da turma faz a Usina na quadra. Cada
 squad entrega <strong>uma foto autoral</strong> que vira produto cultural (exposição itinerante + galeria virtual).</p>
 </blockquote>
-<h3>1. Introdução educativa (o script que o educador fala)</h3>
+<p><strong>O que é:</strong> Uma oficina de fotografia de longa exposição (light painting): cada squad "desenha o ciclo da água com luz" numa sala escura e produz uma foto autoral.
+<strong>Principais entregas:</strong> Uma foto autoral por squad, creditada (equipe + autores + cidade), que vira produto cultural para a exposição itinerante e a galeria virtual.
+<strong>Como é:</strong> Planejamento da coreografia de luz na claridade, ensaio a seco e captura no escuro com câmera no tripé; ~90 min por subgrupo, em paralelo com a O4 (revezamento) na terça.
+<strong>Materiais:</strong> Sala com blackout, celulares/câmeras em modo manual + tripés, bastões e fitas de LED coloridos, cartolina "roteiro de luz", tela para curadoria e etiquetas de crédito.</p><details class="acc-inner"><summary>Ver metodologia completa (regras, roteiro, pontuação)</summary><div class="acc-body"><h3>1. Introdução educativa (o script que o educador fala)</h3>
 <blockquote>
 <p>"A água é invisível de tanto que a gente vê. Ela sobe do rio como vapor, vira nuvem, cai como chuva, corre
 pela terra e chega na raiz da planta que alimenta a gente. Esse caminho tem nome: <strong>ciclo da água</strong>. E no
@@ -2939,15 +3100,16 @@ a Fotografia, os demais squads estão na quadra fazendo a <strong>O4 · Usina de
   e raiz, todos visíveis) com uma imagem limpa.</li>
 </ul>
 <hr />
-<hr />
-</div></details><details class="acc"><summary>O4 / T6 · Usina de Bioenergia [COMPARTILHADA]</summary><div class="acc-body">
-<blockquote>
+<hr /></div></details></div></details><details class="acc"><summary>O4 / T6 · Usina de Bioenergia [COMPARTILHADA]</summary><div class="acc-body"><blockquote>
 <p><strong>Compartilhada.</strong> Este é o mesmo texto no 129 (Oficina 4) e no 128 (Tema 6). A atividade é <strong>regionalmente
 neutra</strong>: serve para qualquer cidade sem trocar uma linha. No 129, ela roda <strong>em paralelo com a Oficina 3
 (Água / Fotografia · light painting)</strong>, com as equipes se revezando entre as duas estações (ver o bloco 6).
 <strong>Objetivo de Desenvolvimento Sustentável central: ODS 7 · Energia Limpa e Acessível.</strong> Duração: 90 minutos.</p>
 </blockquote>
-<h3>1. Introdução educativa (o script que o educador fala)</h3>
+<p><strong>O que é:</strong> Uma oficina de energia renovável: cada squad vira uma usina, vê a fermentação gerar gás ao vivo e inventa a "usina do futuro" do campo.
+<strong>Principais entregas:</strong> A "usina do futuro" batizada e montada sobre a base, com a matriz de fontes escolhida e defesa de 90 segundos; o balão inflado pela fermentação como prova do conceito.
+<strong>Como é:</strong> Experimento de fermentação (fermento + açúcar + água morna enchendo um balão), ordenar as 5 etapas da usina, baralho da matriz energética e invenção livre; ~90 min, em paralelo com o Light Painting na terça.
+<strong>Materiais:</strong> Kit de fermentação (garrafa PET, balão, fermento, açúcar), 5 placas de etapa, usina-base fixa, peças de melhoria, baralho de 6 cartas da matriz energética e cartolina "painel da usina".</p><details class="acc-inner"><summary>Ver metodologia completa (regras, roteiro, pontuação)</summary><div class="acc-body"><h3>1. Introdução educativa (o script que o educador fala)</h3>
 <blockquote>
 <p>"Toda vez que a gente acende uma luz, carrega o celular ou uma fazenda coloca a produção para funcionar,
 alguém teve que gerar energia. A pergunta é: <strong>de onde vem essa energia?</strong> Ela pode vir de coisas que se
@@ -3149,13 +3311,14 @@ segundo plano).</strong>
   fontes renováveis complementares.</li>
 </ul>
 <hr />
-<hr />
-</div></details><details class="acc"><summary>O5 · Safra sob Pressão · o jogo do clima [COMPARTILHADA com o 128 · T5]</summary><div class="acc-body">
-<blockquote>
+<hr /></div></details></div></details><details class="acc"><summary>O5 · Safra sob Pressão · o jogo do clima [COMPARTILHADA com o 128 · T5]</summary><div class="acc-body"><blockquote>
 <p><strong>Piloto de formato.</strong> Esta é a atividade completa no formato que vai valer para todas. É também o exemplo
 que o Lucas pediu: o <strong>jogo de baralho com o briefing de todas as cartas</strong>.</p>
 </blockquote>
-<h3>1. Introdução educativa (o script que o educador fala)</h3>
+<p><strong>O que é:</strong> Um jogo de cartas em que cada equipe é uma fazenda que enfrenta eventos de clima extremo e monta a melhor resposta de adaptação climática.
+<strong>Principais entregas:</strong> A cada problemática, uma jogada coerente de 5 cartas (impacto + alimento em risco + escolha resiliente + adaptação + previsão), defendida em voz alta.
+<strong>Como é:</strong> Rodadas cronometradas em que o "mestre do clima" lança uma problemática, a equipe monta a resposta com o baralho e defende; versão pareada de ~35 min (segunda, divide os 100 min com a Feira Viva).
+<strong>Materiais:</strong> Baralho "Safra sob Pressão" (6 naipes, ~48 cartas) por equipe, baralho-mestre de problemáticas, cartolina "mesa-fazenda", telão/projetor e fichas de placar.</p><details class="acc-inner"><summary>Ver metodologia completa (regras, roteiro, pontuação)</summary><div class="acc-body"><h3>1. Introdução educativa (o script que o educador fala)</h3>
 <blockquote>
 <p>"O clima é o maior risco do agro. Uma seca, uma geada ou uma chuva demais na hora errada podem acabar com
 uma safra inteira, e ninguém controla o tempo. Mas dá para se <strong>preparar</strong>: escolher o que plantar, cuidar
@@ -3345,15 +3508,16 @@ Repetir para P1, P2, P3 e P4.</p>
   adaptação + previsão) na rodada final.</li>
 </ul>
 <hr />
-<hr />
-</div></details><details class="acc"><summary>O6 · Cidadania · Painel Manifesto [MinC · Artes Plásticas]</summary><div class="acc-body">
-<blockquote>
+<hr /></div></details></div></details><details class="acc"><summary>O6 · Cidadania · Painel Manifesto [MinC · Artes Plásticas]</summary><div class="acc-body"><blockquote>
 <p><strong>Formato cultural MinC · Artes Plásticas.</strong> Duas camadas na mesma oficina: <strong>individual</strong> (cada aluno cria
 uma peça pequena, um "azulejo" manifesto) e <strong>coletiva</strong> (a turma monta um <strong>painel grande em mosaico</strong>).
 Precedida de um <strong>debate rápido de posicionamento</strong>. Gera obra para a <strong>exposição itinerante</strong>: painéis
 modulares que viajam + peças individuais creditadas (autor + cidade). 90 min.</p>
 </blockquote>
-<h3>1. Introdução educativa (o script que o educador fala)</h3>
+<p><strong>O que é:</strong> Uma oficina de artes plásticas em mosaico: cada aluno cria um "azulejo" manifesto sobre quem cuida do campo e a turma monta um painel coletivo.
+<strong>Principais entregas:</strong> Uma peça individual creditada (autor + cidade) por aluno e um painel coletivo em mosaico com intervenção central, que viaja modular para a exposição itinerante.
+<strong>Como é:</strong> Debate rápido de posicionamento sobre dilemas do campo, criação da peça individual (imagem + frase), montagem do mosaico e intervenção central da turma; ~70 min (quinta) + 30 min de preparação do hackathon.
+<strong>Materiais:</strong> Peças A5 (papel ou EVA), tinta/canetão/material de colagem, painel-base (kraft ou placas de MDF modulares), material para a intervenção central e etiquetas de crédito.</p><details class="acc-inner"><summary>Ver metodologia completa (regras, roteiro, pontuação)</summary><div class="acc-body"><h3>1. Introdução educativa (o script que o educador fala)</h3>
 <blockquote>
 <p>"Quem cuida do campo? A resposta é mais gente do que parece: o produtor, mas também quem cuida da água, quem
 protege a floresta, quem pesquisa, quem transporta, quem cozinha o que chega na mesa, e vocês, que vão herdar
@@ -3491,9 +3655,7 @@ mesa; etiquetas de crédito à mão. Os squads sentam em suas mesas.</p>
 <li>Bônus (+1) para o squad cuja intervenção central der <strong>unidade</strong> ao painel (uma ideia que costura todas as
   peças numa mensagem só).</li>
 </ul>
-<hr />
-</div></details><details class="acc"><summary>O7 / T7 · Hackathon · a grande final [COMPARTILHADA]</summary><div class="acc-body">
-<blockquote>
+<hr /></div></details></div></details><details class="acc"><summary>O7 / T7 · Hackathon · a grande final [COMPARTILHADA]</summary><div class="acc-body"><blockquote>
 <p><strong>Atividade compartilhada.</strong> Este é o MESMO texto no 128 (Festival AgriCULTURA Sustentável · "Hackathon Guardiões da Terra")
 e no 129 (Agrofuturo Cultural nas Escolas · "Desafio AgroFuturo"). Muda só o <strong>tema</strong>, a <strong>cenografia</strong> e, no 128,
 a <strong>Contação de Histórias</strong> que abre o dia (descrita ao fim deste arquivo). A mecânica é idêntica.</p>
@@ -3508,7 +3670,10 @@ cor, mesma bandeira). O placar acumulado da semana <strong>soma</strong> com o p
 tem vantagem, mas a final vale muito ponto e vira o jogo. Cada cidade tem até 12 salas, então até 12 squads na quadra
 (128: cerca de 9 salas por cidade; 129: até 12 salas por cidade).</p>
 <hr />
-<h3>1. Introdução educativa (o script que o educador fala)</h3>
+<p><strong>O que é:</strong> A grande final de sexta: a sala inteira vira um squad e resolve problemas reais do campo e do planeta na hora, num formato de maratona de ideias, diante da comunidade.
+<strong>Principais entregas:</strong> Uma solução por rodada (discurso ou encenação) e uma solução geral apresentada ao público na problemática final; a sala campeã leva a premiação.
+<strong>Como é:</strong> Rodadas cronometradas em que o mestre lança problemáticas e solta pistas a cada 10 min, com o placar da semana somando ao do hackathon; evento aberto de cerca de 4 horas.
+<strong>Materiais:</strong> Box do squad (notebook, cartolina, kit de maquete e de encenação, fichas de solução), baralho de 6 problemáticas, telão com placar ao vivo, bancada central de monitores e mesa de premiação com os 4 tablets.</p><details class="acc-inner"><summary>Ver metodologia completa (regras, roteiro, pontuação)</summary><div class="acc-body"><h3>1. Introdução educativa (o script que o educador fala)</h3>
 <blockquote>
 <p>"Chegou o dia. A semana inteira vocês competiram, aprenderam e criaram. Hoje não tem mais oficina separada: a sala
 de vocês inteira vira <strong>um time só</strong>, com o nome e a cor que vocês defenderam a semana toda. E hoje o desafio é o de
@@ -3767,236 +3932,7 @@ Repetir por 3 a 4 problemáticas, conforme o tempo (o mestre escolhe as cartas d
 plataforma.</p>
 </blockquote>
 <hr />
-<hr />
-</div></details><details class="acc"><summary>Status e pendências</summary><div class="acc-body">
-<p>Documento <strong>completo</strong> (Oficina 0 + O1 a O7), aguardando validação. Todas as dúvidas e decisões em aberto estão
-compiladas em <a href="brief/perguntas-em-aberto-metodologia.md">brief/perguntas-em-aberto-metodologia.md</a>. Lista de
-material em <a href="lista-de-material-129.md">lista-de-material-129.md</a>.</p></div></details></div>
-  </div>
-
-  <div class="page" data-page="pontuacao">
-    <div class="mb-4">
-      <p class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-1">2 · Metodologia · a Liga</p>
-      <h2 class="font-headline-lg text-headline-lg text-primary">Pontuação, tempo e subgrupos</h2>
-    </div>
-    <div class="card doc-wrap"><div class="doc-summary"><h1>Sistema da Liga · subgrupos, tempo e pontuação</h1></div><details class="acc" open><summary>1. Divisão da sala em subgrupos (unidade = sala de 30)</summary><div class="acc-body">
-<p>A <strong>sala de 30 é a equipe da Liga</strong> (Terraforge, Bionix, etc.). Dentro de cada atividade ela se divide em
-<strong>subgrupos</strong>, e a <strong>pontuação dos subgrupos soma na sala</strong>. A divisão varia por atividade:</p>
-<table>
-<thead>
-<tr>
-<th>Atividade</th>
-<th>Divisão da sala de 30</th>
-<th>Por quê</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>O1 / T3 · Feira Viva</td>
-<td><strong>6 subgrupos de 5</strong> (um por elo) · 1 cadeia por sala</td>
-<td>são 6 elos; cada subgrupo assume um</td>
-</tr>
-<tr>
-<td>O2 · Laboratório de Inovação</td>
-<td><strong>3 subgrupos de 10</strong> no rodízio de estações · depois <strong>6 grupos de 5</strong> na Ideação</td>
-<td>estações comportam ~10; a ideação pede grupos pequenos</td>
-</tr>
-<tr>
-<td>O3 · Água / Light Painting</td>
-<td><strong>subgrupos de 6 a 7</strong> revezando na sala escura</td>
-<td>a sala escura recebe 1 subgrupo por vez</td>
-</tr>
-<tr>
-<td>O4 / T6 · Usina de Bioenergia</td>
-<td><strong>5 subgrupos de 6</strong> (cada um monta uma garrafa e uma "usina do futuro")</td>
-<td>experimento por subgrupo</td>
-</tr>
-<tr>
-<td>O5 / T5 · Safra sob Pressão</td>
-<td><strong>5 a 6 mesas-fazenda</strong> (subgrupos de 5 a 6)</td>
-<td>cada mesa é uma fazenda</td>
-</tr>
-<tr>
-<td>O6 · Painel Manifesto</td>
-<td><strong>individual</strong> (peça de cada aluno) + <strong>sala inteira</strong> (mosaico)</td>
-<td>é obra individual e coletiva</td>
-</tr>
-<tr>
-<td>T1 · Terrário</td>
-<td><strong>5 a 6 subgrupos</strong> (um terrário cada)</td>
-<td>um pote por subgrupo</td>
-</tr>
-<tr>
-<td>T2 · Fotografia macro</td>
-<td><strong>subgrupos de 6</strong> (revezam na câmera)</td>
-<td>poucas câmeras</td>
-</tr>
-<tr>
-<td>T4 · Chef do Campo</td>
-<td><strong>5 a 6 subgrupos</strong> (um produto cada)</td>
-<td>um produto por subgrupo</td>
-</tr>
-<tr>
-<td>O7 / T7 · Hackathon</td>
-<td><strong>a sala inteira = 1 squad</strong> (com papéis internos)</td>
-<td>é a grande final, a sala compete unida</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>Regra prática: quando a atividade pede "grupos", o padrão é <strong>subgrupos de 5 a 10</strong>. A nota da atividade é
-da <strong>sala</strong> (média ou soma normalizada dos subgrupos, ver seção 3), nunca de um subgrupo isolado.</p>
-</blockquote>
-</div></details><details class="acc"><summary>2. Grade de tempo · o bloco de 100 min (2 aulas)</summary><div class="acc-body">
-<p><strong>Regra (decisão Lucas, 16/07):</strong> o bloco de aula é de <strong>100 minutos</strong> e <strong>não pode variar</strong>. Nos dias de
-<strong>dois temas</strong>, os dois <strong>dividem os 100 minutos</strong> (um com mais, outro com menos, conforme a demanda), com um
-<strong>divisor claro</strong> de quando um termina e o outro começa. Nos dias de <strong>um tema</strong>, a atividade usa o bloco.</p>
-<h3>129 (Mato Grosso)</h3>
-<table>
-<thead>
-<tr>
-<th>Dia</th>
-<th>Bloco de 100 min</th>
-<th>Divisão</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Segunda</td>
-<td><strong>Oficina 0 (15) + O1 Feira Viva + O5 Safra sob Pressão</strong></td>
-<td>15 + ~50 (Feira) + ~35 (Safra pareada)</td>
-</tr>
-<tr>
-<td>Terça</td>
-<td><strong>O3 Light Painting + O4 Usina</strong> · rodam <strong>em paralelo</strong> (revezamento), não em sequência</td>
-<td>os dois ocupam os 100 min ao mesmo tempo</td>
-</tr>
-<tr>
-<td>Quarta</td>
-<td><strong>O2 Laboratório de Inovação</strong> (tema único)</td>
-<td>~90 no bloco</td>
-</tr>
-<tr>
-<td>Quinta</td>
-<td><strong>O6 Painel Manifesto</strong> + prep do Desafio</td>
-<td>~70 + 30 de prep</td>
-</tr>
-<tr>
-<td>Sexta</td>
-<td><strong>O7 Desafio AgroFuturo</strong> (hackathon)</td>
-<td>evento</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p><strong>Swap aplicado (Lucas, 16/07):</strong> o Laboratório de Inovação saiu da segunda para a <strong>quarta</strong> (tema único,
-bloco inteiro), e a <strong>Safra</strong> desceu para a segunda pareada com a Feira Viva. Assim as duas atividades de
-raciocínio mais pesadas (Laboratório e Painel/Safra) ficam com tempo cheio.</p>
-</blockquote>
-<h3>128 (Sul · RS/PR)</h3>
-<table>
-<thead>
-<tr>
-<th>Dia</th>
-<th>Bloco de 100 min</th>
-<th>Divisão</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Segunda</td>
-<td><strong>Oficina 0 (15) + T1 Terrário + T2 Fotografia</strong> · integrados (monta e fotografa o que montou)</td>
-<td>15 + ~50 + ~35</td>
-</tr>
-<tr>
-<td>Terça</td>
-<td><strong>T3 Feira Viva + T4 Chef do Campo</strong> · encadeados (vive a cadeia, depois cria um produto pra ela)</td>
-<td>~55 + ~45</td>
-</tr>
-<tr>
-<td>Quarta</td>
-<td><strong>T5 Safra sob Pressão</strong> (tema único)</td>
-<td>~90 no bloco</td>
-</tr>
-<tr>
-<td>Quinta</td>
-<td><strong>T6 Usina de Bioenergia</strong> + prep do Hackathon</td>
-<td>~70 + 30 de prep</td>
-</tr>
-<tr>
-<td>Sexta</td>
-<td><strong>T7 Hackathon Guardiões da Terra</strong> (abre com Contação)</td>
-<td>evento</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p><strong>Terça do 128 (Feira Viva + Chef do Campo):</strong> as duas são encadeadas nos 100 min, com <strong>Feira Viva ~55 min
-e Chef do Campo ~45 min</strong> (o Chef é a versão pareada/curta, já que divide o bloco). Faz sentido: na Feira
-Viva a sala vive a cadeia, e no Chef ela cria um produto para essa mesma cadeia.</p>
-</blockquote>
-</div></details><details class="acc"><summary>3. Balanço de pontuação (semana até o hackathon)</summary><div class="acc-body">
-<p><strong>Problema que isso resolve:</strong> algumas atividades têm vários momentos que pontuam (a Safra tem 5 rodadas, a
-Feira Viva tem rodadas, o Laboratório tem estações + ideação). Se cada momento somasse solto, essas
-atividades valeriam muito mais que um terrário (um momento só) e a Liga ficaria desequilibrada.</p>
-<p><strong>Regra de ouro:</strong> <strong>cada atividade contribui no máximo 6 pontos</strong> para a Liga da sala, não importa quantos
-momentos internos tenha. Os momentos internos definem <strong>onde</strong> de 0 a 6 a sala cai, mas <strong>não somam além de
-6</strong>. Os 6 pontos saem sempre dos 3 eixos:</p>
-<ul>
-<li><strong>Desafio 0 a 3</strong> · qualidade e coerência da entrega. Em atividades de vários momentos, é a <strong>média
-  normalizada</strong> do desempenho (ex.: na Safra, a média dos acertos das 5 rodadas vira um 0 a 3), nunca a soma
-  bruta.</li>
-<li><strong>Conhecimento 0 a 2</strong> · a sala mostrou que entendeu o tema.</li>
-<li><strong>Colaboração 0 a 1</strong> · trabalharam como equipe.</li>
-</ul>
-<h3>Quanto vale cada parte</h3>
-<table>
-<thead>
-<tr>
-<th>Parte</th>
-<th>Pontos máximos</th>
-<th>% do total</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>6 oficinas da semana (O1 a O6 · 6 × 6)</td>
-<td><strong>36</strong></td>
-<td>55%</td>
-</tr>
-<tr>
-<td>Hackathon (O7)</td>
-<td><strong>30</strong></td>
-<td>45%</td>
-</tr>
-<tr>
-<td><strong>Total do projeto</strong></td>
-<td><strong>66</strong></td>
-<td>100%</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Como o hackathon chega a 30</strong> (a culminância vale mais, mas não anula a semana · decisão Lucas: 45%):
-- 4 problemáticas × 3 pontos = 12
-- Problemática final (a grande entrega) = 18
-- Total = 30</p>
-<p><strong>Por que esse equilíbrio funciona:</strong>
-- Nenhuma oficina isolada decide o jogo (cada uma vale ~10% do máximo da semana), então a sala que vai mal
-  em uma atividade não está fora.
-- A semana toda (60%) recompensa consistência e mantém todas as salas no páreo até sexta.
-- O hackathon (40%) é decisivo: uma sala mediana na semana pode virar o jogo com um grande hackathon, e uma
-  sala que arrasou a semana precisa não desabar na final. É tensão boa até o último minuto.
-- O placar split-flap mostra os pontos acumulando sobre esse teto de 60, fácil de ler.</p>
-<blockquote>
-<p><strong>Validado (Lucas, 16/07):</strong> hackathon em <strong>45%</strong> (30 pontos), semana em 55% (36 pontos), total 66.</p>
-</blockquote>
-</div></details><details class="acc"><summary>4. Pendências deste modelo</summary><div class="acc-body">
-<ul>
-<li>[x] Swap da segunda do 129 (Laboratório ↔ Safra) · <strong>aplicado</strong>.</li>
-<li>[x] Teto de pontos e peso do hackathon (45%) · <strong>validado</strong>.</li>
-<li>[ ] Afinar os roteiros (bloco 6 "Como se joga") de cada atividade para os tempos reais desta grade · em
-  andamento (as atividades pareadas ganham uma "versão pareada" curta; as de tema único mantêm o bloco cheio).</li>
-</ul></div></details></div>
+<hr /></div></details></div></details></div>
   </div>
 
   <div class="page" data-page="materiais">
