@@ -5442,6 +5442,7 @@ CIDADES_KITS.forEach(c => {
   gridKits.appendChild(div);
 });
 </script>
+
 <!--EDITLAYER-->
 <style>
 .edit-bar{position:fixed;right:16px;bottom:16px;z-index:9999;display:flex;gap:8px;background:rgba(20,30,26,.92);padding:8px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.25)}
@@ -5459,7 +5460,7 @@ CIDADES_KITS.forEach(c => {
 </style>
 <script type="module">
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-const SB="https://cnarvculrqfzjqhpyyqq.supabase.co", KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNuYXJ2Y3VscnFmempxaHB5eXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNzc2NjcsImV4cCI6MjA5MDY1MzY2N30.c3u8MtJAYSlBYuPI7Koyc7NcKUTxweGAzL99ElZl0Yw", PROJ="129";
+const SB="https://mpodehjmcsthotcnzfiz.supabase.co", KEY="sb_publishable_dRrfJ0sBYrK-Jv_btJ8DYA_tJpclvmJ", PROJ="129";
 const sb=createClient(SB,KEY);
 let editing=false, cur=null; const dirty=new Set();
 
