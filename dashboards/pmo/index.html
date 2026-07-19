@@ -476,6 +476,8 @@ table.gt.view-sem2 th:nth-child(n+3):nth-child(-n+8),table.gt.view-sem2 td:nth-c
     <span class="clr-btn" onclick="clearFilter()">✕ Limpar</span>
     <span class="clr-btn seed-btn" onclick="resetSeed()" title="Apaga edições salvas no browser e recarrega o planejamento do arquivo HTML">⟳ Recarregar seed</span>
     <span class="clr-btn seed-btn" onclick="exportSeed()" title="Copia o planejamento atual como código para colar no HTML">↓ Exportar seed</span>
+    <span class="clr-btn seed-btn" id="btn-salvar-nuvem" onclick="salvarPMO()" title="Salva na nuvem — todos que abrirem, em qualquer lugar, verão esta versão" style="background:#166534;color:#fff;font-weight:600;">💾 Salvar na nuvem</span>
+    <span id="nuvem-status" style="font-size:11px;color:#6b7280;margin-left:6px;"></span>
   </div>
 
   <div class="period-wrap">
@@ -1736,10 +1738,74 @@ function switchTab(name,el){
 }
 
 // INIT
-buildGantt();
-buildCoord();buildArea();buildDetProj();buildDetCoord();buildCampo();
-buildPlanoAjustes();
-buildHandson();
+function renderAll(){
+  buildGantt();
+  buildCoord();buildArea();buildDetProj();buildDetCoord();buildCampo();
+  buildPlanoAjustes();
+  buildHandson();
+}
+renderAll();
+
+// ── ponte para a camada de nuvem (Supabase) ──
+// weekOverrides é a fonte das edições manuais (fase por semana, KC/KI, +fase).
+// A camada de nuvem lê/grava esse objeto para que a edição seja compartilhada.
+window.__pmo = {
+  getOverrides: function(){ return weekOverrides; },
+  applyOverrides: function(obj){
+    Object.keys(weekOverrides).forEach(function(k){ delete weekOverrides[k]; });
+    Object.assign(weekOverrides, DEFAULT_WEEK_OVERRIDES, obj || {});
+    saveWeekOverrides();
+    renderAll();
+  }
+};
+</script>
+<script type="module">
+// ── Camada de edição compartilhada (Supabase) ──
+// Reusa o mesmo projeto/tabela dos dashboards CNH. A chave é publishable (segura no cliente).
+// Guarda TODO o objeto de overrides do painel numa linha (projeto='pmo-mensal').
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+const SB  = "https://mpodehjmcsthotcnzfiz.supabase.co",
+      KEY = "sb_publishable_dRrfJ0sBYrK-Jv_btJ8DYA_tJpclvmJ",
+      PROJ = "pmo-mensal", BLOCK = "week_overrides_v8";
+const sb = createClient(SB, KEY);
+
+function status(t){ const s = document.getElementById('nuvem-status'); if(s) s.textContent = t; }
+
+async function carregarNuvem(){
+  status('Sincronizando…');
+  try{
+    const { data, error } = await sb.from("dashboard_content")
+      .select("html").eq("projeto", PROJ).eq("block_id", BLOCK).maybeSingle();
+    if(error){ status('Nuvem indisponível (usando cópia local)'); console.warn('PMO load:', error.message); return; }
+    if(data && data.html){
+      try{ window.__pmo.applyOverrides(JSON.parse(data.html)); }catch(e){ console.warn('PMO parse:', e); }
+      status('Sincronizado com a nuvem');
+    } else {
+      status('Nenhuma edição salva na nuvem ainda');
+    }
+  }catch(e){ status('Nuvem indisponível (usando cópia local)'); console.warn('PMO load ex:', e); }
+}
+
+window.salvarPMO = async function(){
+  const btn = document.getElementById('btn-salvar-nuvem');
+  const orig = btn ? btn.textContent : '';
+  if(btn){ btn.textContent = 'Salvando…'; }
+  try{
+    const html = JSON.stringify(window.__pmo.getOverrides());
+    const { error } = await sb.from("dashboard_content")
+      .upsert({ projeto: PROJ, block_id: BLOCK, html: html }, { onConflict: 'projeto,block_id' });
+    if(error) throw error;
+    if(btn){ btn.textContent = 'Salvo na nuvem ✓'; btn.style.background = '#15803d'; btn.style.color = '#fff'; }
+    status('Salvo — quem abrir em qualquer lugar verá esta versão');
+    setTimeout(function(){ if(btn){ btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; } }, 2600);
+  }catch(e){
+    if(btn){ btn.textContent = orig; }
+    status('Erro ao salvar');
+    alert('Erro ao salvar na nuvem: ' + (e.message || e));
+  }
+};
+
+carregarNuvem();
 </script>
 </body>
 </html>
