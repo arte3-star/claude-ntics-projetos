@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Clareza da Semana — 25/05 a 29/05/2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0d1f3c;--navy2:#1a3660;--red:#c0202a;--orange:#e07820;
+  --green:#1a7a46;--teal:#0e6e82;--ink:#1a2230;--muted:#4a5568;
+  --line:#e2e8f0;--bg:#edf0f5;--white:#ffffff;--purple:#6b46c1;
+  --shadow:0 2px 8px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#2d3548;padding:24px;display:flex;justify-content:center;}
+#sheet{width:1720px;background:var(--bg);border-radius:14px;overflow:hidden;box-shadow:0 32px 100px rgba(0,0,0,.45);}
+
+/* HEADER */
+.header{background:var(--navy);padding:20px 28px 16px;display:grid;grid-template-columns:1.6fr 1.1fr 1.1fr 0.65fr 1.1fr;gap:14px;align-items:stretch;}
+.brand{display:flex;flex-direction:column;justify-content:center;}
+.brand .logo{font-size:36px;}
+.brand h1{font-family:'DM Serif Display',serif;font-size:38px;color:#fff;line-height:1;margin-top:4px;}
+.brand .sub{font-size:12px;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:.4px;margin-top:7px;}
+.hcard{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:12px 14px;}
+.hcard .htitle{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;display:flex;align-items:center;gap:6px;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,.1);}
+.hcard.c1 .htitle{color:#f0a93a;}.hcard.c2 .htitle{color:#e05a5a;}.hcard.c4 .htitle{color:#7dd4a8;}
+.hcard ul{list-style:none;}
+.hcard li{font-size:11px;color:rgba(255,255,255,.68);line-height:1.55;padding-left:12px;position:relative;margin-bottom:3px;}
+.hcard li::before{content:"›";position:absolute;left:0;color:rgba(255,255,255,.3);font-weight:700;}
+.week-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12px;}
+.week-card .wlbl{font-size:10px;font-weight:800;color:#5ab4e0;text-transform:uppercase;letter-spacing:.6px;}
+.week-card .wdate{font-family:'DM Serif Display',serif;font-size:21px;color:#fff;margin-top:6px;line-height:1.25;}
+
+/* BODY */
+.body{padding:18px 22px 22px;}
+.band{color:#fff;font-weight:800;font-size:12.5px;text-transform:uppercase;letter-spacing:.7px;padding:7px 13px;border-radius:7px;margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+.band.red{background:var(--red);}.band.navy{background:var(--navy2);}.band.orange{background:var(--orange);}
+.band.teal{background:var(--teal);}.band.green{background:var(--green);}.band.purple{background:var(--purple);}
+
+.row1{display:grid;grid-template-columns:1.1fr 0.95fr 1.95fr;gap:16px;}
+.row2{display:grid;grid-template-columns:1.15fr 1.15fr 1fr;gap:16px;margin-top:14px;}
+
+/* PROJECT CARDS */
+.pcard{background:var(--white);border:1px solid var(--line);border-left-width:4px;border-radius:9px;padding:11px 12px 10px 13px;margin-bottom:10px;box-shadow:var(--shadow);}
+.pcard:last-child{margin-bottom:0;}
+.pcard .top{display:flex;align-items:center;gap:8px;margin-bottom:9px;padding-bottom:8px;border-bottom:1px solid var(--line);}
+.pcard .ico{font-size:20px;flex-shrink:0;}
+.pcard .num{font-family:'DM Serif Display',serif;font-size:24px;line-height:1;flex-shrink:0;}
+.pcard .pname{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.2px;line-height:1.3;color:var(--ink);}
+.pcard ul{list-style:none;}
+.pcard li{font-size:10.5px;color:var(--muted);line-height:1.5;padding-left:12px;position:relative;margin-bottom:3px;}
+.pcard li::before{content:"";position:absolute;left:1px;top:6px;width:4px;height:4px;border-radius:50%;}
+.pcard .coord{margin-top:9px;font-size:10px;color:var(--navy2);font-weight:700;border-top:1px dashed var(--line);padding-top:6px;}
+.tag-crit{display:inline-block;font-size:9px;font-weight:800;color:#fff;background:var(--red);border-radius:4px;padding:2px 6px;text-transform:uppercase;margin-top:6px;}
+.t-red{border-left-color:var(--red);}.t-red .num,.t-red .ico{color:var(--red);}.t-red li::before{background:var(--red);}
+.t-navy{border-left-color:var(--navy2);}.t-navy .num,.t-navy .ico{color:var(--navy2);}.t-navy li::before{background:var(--navy2);}
+.t-orange{border-left-color:var(--orange);}.t-orange .num,.t-orange .ico{color:var(--orange);}.t-orange li::before{background:var(--orange);}
+.t-teal{border-left-color:var(--teal);}.t-teal .num,.t-teal .ico{color:var(--teal);}.t-teal li::before{background:var(--teal);}
+.t-green{border-left-color:var(--green);}.t-green .num,.t-green .ico{color:var(--green);}.t-green li::before{background:var(--green);}
+.exec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.twoup{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+/* PRÓXIMA SEMANA */
+.proxsem{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--purple);border-radius:9px;padding:12px 14px;box-shadow:var(--shadow);}
+.proxsem h4{font-size:11px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+.proxsem li{list-style:none;font-size:10.5px;color:var(--muted);line-height:1.5;padding-left:12px;position:relative;margin-bottom:4px;}
+.proxsem li::before{content:"›";position:absolute;left:0;color:var(--purple);font-weight:800;}
+
+/* NOVIDADE */
+.novidade{background:#fffbeb;border:1px solid #fcd34d;border-left:4px solid #f59e0b;border-radius:9px;padding:11px 13px;margin-bottom:10px;box-shadow:var(--shadow);}
+.novidade .nov-title{font-size:10px;font-weight:800;color:#92400e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.novidade p{font-size:10.5px;color:#78350f;line-height:1.5;}
+
+/* QUADRO DE CAMPO */
+.campo-section{margin-top:14px;background:var(--white);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);}
+.campo-head{background:var(--purple);color:#fff;font-weight:800;font-size:12.5px;text-transform:uppercase;letter-spacing:.7px;padding:8px 18px;display:flex;align-items:center;justify-content:space-between;}
+.campo-legenda{display:flex;gap:14px;font-size:10px;font-weight:600;}
+.legenda-item{display:flex;align-items:center;gap:5px;}
+.leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.campo-grid{display:grid;grid-template-columns:repeat(6,1fr);}
+.campo-dia{padding:10px 11px;border-right:1px solid var(--line);}
+.campo-dia:last-child{border-right:none;}
+.campo-dia .dia-label{font-size:10px;font-weight:800;text-transform:uppercase;color:var(--navy);letter-spacing:.5px;padding-bottom:6px;margin-bottom:8px;border-bottom:2px solid var(--line);}
+.campo-item{border-radius:6px;padding:6px 8px;margin-bottom:6px;border-left:3px solid var(--navy2);background:var(--bg);position:relative;}
+.campo-item.p119{border-left-color:#1a3660;}
+.campo-item.p120{border-left-color:#e07820;}
+.campo-item.p124{border-left-color:#c0202a;}
+.campo-item.p125{border-left-color:#9b1c1c;}
+.campo-item.p127{border-left-color:#1a7a46;}
+.campo-item.p116{border-left-color:#0e6e82;}
+.ci-proj{font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;}
+.ci-acao{font-size:10px;color:var(--ink);line-height:1.35;margin-top:2px;}
+.ci-resp{font-size:9px;color:var(--muted);margin-top:3px;}
+.ci-tags{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap;}
+.ci-tag{font-size:8.5px;font-weight:700;padding:1px 5px;border-radius:3px;color:#fff;}
+.tag-ntics{background:#6b46c1;}
+.tag-cobertura{background:#0e6e82;}
+.campo-vazio{font-size:10px;color:var(--line);font-style:italic;text-align:center;padding-top:8px;}
+.sab-note{margin-top:6px;font-size:10px;color:var(--muted);font-style:italic;line-height:1.4;}
+
+/* ÁREAS */
+.areas-section{background:var(--white);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);}
+.areas-head{background:var(--green);color:#fff;font-weight:800;font-size:12.5px;text-transform:uppercase;letter-spacing:.7px;padding:8px 18px;text-align:center;}
+.areas-cols{display:grid;grid-template-columns:repeat(5,1fr);}
+.area-col{padding:13px 15px;border-right:1px solid var(--line);}
+.area-col:last-child{border-right:none;}
+.area-col .area-icon{font-size:20px;margin-bottom:6px;}
+.area-col h4{font-size:11px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;border-bottom:2px solid var(--line);padding-bottom:5px;}
+.area-col ul{list-style:none;}
+.area-col li{font-size:10.5px;color:var(--muted);line-height:1.5;padding-left:10px;position:relative;margin-bottom:4px;}
+.area-col li::before{content:"";position:absolute;left:0;top:5px;width:4px;height:4px;border-radius:50%;background:var(--green);}
+
+/* AÇÕES */
+.actions{background:var(--white);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);}
+.actions-head{background:var(--navy);color:#fff;font-weight:800;font-size:12.5px;text-transform:uppercase;letter-spacing:.7px;padding:9px 18px;text-align:center;}
+.acols{display:grid;grid-template-columns:repeat(4,1fr);}
+.acol{padding:12px 14px;border-right:1px solid var(--line);}
+.acol:last-child{border-right:none;}
+.acol h4{font-size:10.5px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;display:flex;align-items:center;gap:5px;line-height:1.3;padding-bottom:6px;border-bottom:1px solid var(--line);}
+.acol ul{list-style:none;}
+.acol li{font-size:10.5px;color:var(--muted);line-height:1.45;padding-left:10px;position:relative;margin-bottom:4px;}
+.acol li::before{content:"";position:absolute;left:0;top:5px;width:4px;height:4px;border-radius:50%;background:var(--red);}
+.acol.green li::before{background:var(--green);}
+.acol li b{color:var(--ink);font-weight:700;}
+.day{color:var(--green);font-weight:800;}
+.bottom-row{display:flex;flex-direction:column;gap:14px;margin-top:14px;}
+
+footer{background:var(--navy);display:grid;grid-template-columns:repeat(6,1fr);}
+footer div{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 6px;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:.5px;border-right:1px solid rgba(255,255,255,.08);}
+footer div:last-child{border-right:none;}
+footer .fi{font-size:17px;}
+@media print{body{background:#fff;padding:0;}#sheet{box-shadow:none;border-radius:0;width:100%;}}
+</style>
+</head>
+<body>
+<div id="sheet">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="brand">
+    <div class="logo">🎯</div>
+    <h1>Clareza da Semana</h1>
+    <div class="sub">Escritório de Projetos &nbsp;·&nbsp; 25/05 a 29/05/2026 &nbsp;·&nbsp; Reunião Hands On</div>
+  </div>
+  <div class="hcard c1">
+    <div class="htitle">🎯 1. Foco — Comportamental</div>
+    <ul>
+      <li>Vamos continuar trabalhando a empatia pelo outro</li>
+      <li>Preenchimento e comunicação clara</li>
+      <li>Agendas planejadas na semana</li>
+    </ul>
+  </div>
+  <div class="hcard c2">
+    <div class="htitle">❗ 2. Principais Atenções</div>
+    <ul>
+      <li>Comunicação dos projetos críticos em execução</li>
+      <li>Cobertura em campo ainda não 100% estabilizada</li>
+      <li>Auditoria e validação com Mayara</li>
+      <li>Kickoffs, termos e planejamento CNH</li>
+      <li>Confirmações externas pendentes</li>
+    </ul>
+  </div>
+  <div class="week-card">
+    <div class="wlbl">📅 Semana</div>
+    <div class="wdate">25/05<br>a<br>29/05<br>2026</div>
+  </div>
+  <div class="hcard c4">
+    <div class="htitle">👥 4. Planejamento Estratégico</div>
+    <ul>
+      <li>Quarta-feira à tarde: planejamento estratégico do mês</li>
+      <li>Foco no próximo mês — áreas acionadas</li>
+      <li>Destaque para Vendas</li>
+      <li>Agenda: TERMO DE ABERTURA PROJETO 133 — RJ</li>
+    </ul>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="body">
+<div class="row1">
+
+  <!-- CRÍTICOS -->
+  <div>
+    <div class="band red">🔴 Projetos Críticos da Semana</div>
+    <div class="pcard t-green">
+      <div class="top"><span class="ico">🚛</span>
+        <div><div class="num">133</div><div class="pname">ECOARTE CONTAINER — MANAUS (VIBRA)</div></div>
+      </div>
+      <ul>
+        <li>Fechar programação esta semana (prioritário)</li>
+        <li>Fechamento de orçamento — urgente</li>
+        <li>Mídia paga — estruturação</li>
+        <li>Reunião com parceiros — tendas e palco</li>
+        <li>Materiais de comunicação (urgente)</li>
+        <li>Mockups escolas, caminhão e palco na grama</li>
+      </ul>
+      <div class="coord">👤 Coord.: Bellmond</div>
+    </div>
+    <div class="pcard t-orange">
+      <div class="top"><span class="ico">🚆</span>
+        <div><div class="num">132</div><div class="pname">ESTAÇÃO SAMARCO</div></div>
+      </div>
+      <ul>
+        <li>Treinamento com produtoras e equipe</li>
+        <li>Checklist pré-execução MG</li>
+        <li>Corrigir releases MG/ES e plano de comunicação</li>
+        <li>Credenciamento SharePoint: Bruna → Lucas (urgente)</li>
+      </ul>
+      <div class="coord">👤 Coord.: Lucas</div>
+      <span class="tag-crit">Crítico</span>
+    </div>
+    <div class="pcard t-navy">
+      <div class="top"><span class="ico">👥</span>
+        <div><div class="num">120</div><div class="pname">NEGÓCIO CULTURAL 2ED (STATKRAFT / PORTO ITAPOÁ)</div></div>
+      </div>
+      <ul>
+        <li style="color:var(--red);font-weight:700;">⚠️ Acompanhar situação Cremilda — resistência (problema ativo)</li>
+        <li>Confirmação 100% das escolas estaduais</li>
+        <li>Novo plano de ação Porto Itapoá para atingir a meta</li>
+        <li>Execução em campo: Uibaí e Ibipeba</li>
+      </ul>
+      <div class="coord">👤 Coord.: Bruna</div>
+      <span class="tag-crit">Crítico</span>
+    </div>
+  </div>
+
+  <!-- PLANEJAMENTO -->
+  <div>
+    <div class="band navy">📋 Projetos em Planejamento</div>
+    <div class="pcard t-navy">
+      <div class="top"><span class="ico">🌱</span>
+        <div><div class="num">128</div><div class="pname">FESTIVAL AGRICULTURA SUSTENTÁVEL (CNH)</div></div>
+      </div>
+      <ul><li>Estruturação kickoff e planejamento do projeto TAP</li></ul>
+      <div class="coord">👤 Coord.: Lucas</div>
+    </div>
+    <div class="pcard t-navy">
+      <div class="top"><span class="ico">🚜</span>
+        <div><div class="num">129</div><div class="pname">AGROFUTURO CULTURAL NAS ESCOLAS (CNH)</div></div>
+      </div>
+      <ul><li>Estruturação kickoff e planejamento do projeto TAP</li></ul>
+      <div class="coord">👤 Coord.: Lucas</div>
+    </div>
+    <div class="pcard t-green">
+      <div class="top"><span class="ico">🚛</span>
+        <div><div class="num">133</div><div class="pname">ECOARTE CONTAINER — RJ (VIBRA)</div></div>
+      </div>
+      <ul>
+        <li>Planejamento do projeto na cidade do Rio de Janeiro</li>
+        <li>Termo de Abertura do Projeto (TAP) — RJ</li>
+      </ul>
+      <div class="coord">👤 Coord.: Bellmond</div>
+    </div>
+    <div class="proxsem">
+      <h4>🔜 Entra na Próxima Semana</h4>
+      <ul>
+        <li><b>BTG Pactual:</b> reunião de agendamento</li>
+        <li><b>CNH:</b> reunião de comunicação com o time</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EXECUÇÃO CAMPO -->
+  <div>
+    <div class="band navy">🏃 Projetos em Execução (Campo)</div>
+    <div class="exec-grid">
+      <div class="pcard t-navy">
+        <div class="top"><span class="ico">👥</span>
+          <div><div class="num">119</div><div class="pname">PEC EU FAÇO PARTE (SYLVAMO)</div></div>
+        </div>
+        <ul>
+          <li>Última escola em Mogi das Cruzes</li>
+          <li>Checklist Guatapará em dia</li>
+          <li>Início da desmobilização</li>
+          <li>Vídeos e impacto de mídia</li>
+        </ul>
+        <div class="coord">👤 Raíza</div>
+      </div>
+      <div class="pcard t-navy">
+        <div class="top"><span class="ico">🤖</span>
+          <div><div class="num">116</div><div class="pname">CULTURA ROBÓTICA (ÁSTER)</div></div>
+        </div>
+        <ul>
+          <li>Última cidade: Maracaju</li>
+          <li>Vídeos durante evento</li>
+          <li>Clipping + indicadores</li>
+          <li>Documento de fechamento</li>
+        </ul>
+        <div class="coord">👤 Raíza</div>
+      </div>
+      <div class="pcard t-red">
+        <div class="top"><span class="ico">🍽️</span>
+          <div><div class="num">124</div><div class="pname">GASTRONOMIA TAMBÉM É ARTE (COMPAGAS)</div></div>
+        </div>
+        <ul>
+          <li>Ação Culinária e Workshop Fotografia</li>
+          <li>Início da exposição em Lapa</li>
+          <li>Ida da Mayara em campo para acompanhamento</li>
+          <li>Relatório Parcial 2</li>
+        </ul>
+        <div class="coord">👤 Mayara</div>
+      </div>
+      <div class="pcard t-navy">
+        <div class="top"><span class="ico">🚀</span>
+          <div><div class="num">127</div><div class="pname">PIE EMPREENDEDORISMO É ARTE 2ED (GRU/SOTREQ)</div></div>
+        </div>
+        <ul>
+          <li>SOTREQ: seleção de escolas em andamento</li>
+          <li>Pré-projeto SOTREQ: alinhamento da ação (junho)</li>
+          <li>Material comunicação p/ gráfica</li>
+        </ul>
+        <div class="coord">👤 Jessica</div>
+      </div>
+      <div class="pcard t-red">
+        <div class="top"><span class="ico">🍲</span>
+          <div><div class="num">125</div><div class="pname">GASTRONOMIA TAMBÉM É ARTE 2ED (GRU)</div></div>
+        </div>
+        <ul>
+          <li>Workshop de fotografia — toda a semana</li>
+          <li>Evento oficial de culinária — sábado 30/05</li>
+          <li>Finalizar curadoria completa da exposição</li>
+        </ul>
+        <div class="coord">👤 Jessica</div>
+      </div>
+      <div class="pcard t-red">
+        <div class="top"><span class="ico">🎭</span>
+          <div><div class="num">117</div><div class="pname">TEATRO E OFICINA ROBÓTICA 4ED (WHIRLPOOL)</div></div>
+        </div>
+        <ul>
+          <li>Finalização do relatório</li>
+          <li>Início da produção de materiais finais</li>
+          <li>Aprovar entregáveis MINC (compliance)</li>
+        </ul>
+        <div class="coord">👤 Raíza</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 2 -->
+<div class="row2">
+  <!-- FINALIZAÇÃO -->
+  <div>
+    <div class="band orange">📦 Projetos em Finalização</div>
+    <div class="twoup">
+      <div class="pcard t-orange">
+        <div class="top"><span class="ico">🌍</span>
+          <div><div class="num">74</div><div class="pname">GLOBAL GOALS EDUCA (ÁSTER MÁQUINAS)</div></div>
+        </div>
+        <ul>
+          <li>Reunião com Secretaria MT — alinhamento</li>
+          <li>Fechar orçamento Pantanal</li>
+          <li>Aviso ao cliente sobre encaminhamentos</li>
+          <li>Atualizar site + Link Tree e vídeos</li>
+        </ul>
+        <div class="coord">👤 Bruna / Lucas</div>
+      </div>
+      <div class="pcard t-red">
+        <div class="top"><span class="ico">🎭</span>
+          <div><div class="num">117</div><div class="pname">WHIRLPOOL — Finalização</div></div>
+        </div>
+        <ul>
+          <li>Finalização do relatório</li>
+          <li>Produção de materiais finais</li>
+          <li>Entregáveis MINC (compliance)</li>
+        </ul>
+        <div class="coord">👤 Raíza</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRÓXIMO MÊS -->
+  <div>
+    <div class="band teal">🗓️ Planejamento Próximo Mês</div>
+    <div class="twoup">
+      <div class="pcard t-teal">
+        <div class="top"><span class="ico">🚌</span>
+          <div><div class="num">121</div><div class="pname">NEGÓCIO CULTURAL 3ED (TAG)</div></div>
+        </div>
+        <ul>
+          <li>Relatório Mensal Junho/26</li>
+          <li>Estruturação do planejamento</li>
+        </ul>
+        <div class="coord">👤 Bruna</div>
+      </div>
+      <div class="pcard t-teal">
+        <div class="top"><span class="ico">🤖</span>
+          <div><div class="num">115</div><div class="pname">CULTURA ROBÓTICA 2ED (PERÓXIDOS/TUPY/BTG)</div></div>
+        </div>
+        <ul>
+          <li>Preparar para planejamento mensal</li>
+          <li>Configurar APP NTICS</li>
+        </ul>
+        <div class="coord">👤 Lucas</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;">
+      <div class="pcard t-teal">
+        <div class="top"><span class="ico">🎡</span>
+          <div><div class="num">122</div><div class="pname">CULTURA ITINERANTE — ODS (REPSOL)</div></div>
+        </div>
+        <ul>
+          <li>Preparar para planejamento mensal</li>
+          <li>Estruturar proposta + planilha orçamentária</li>
+        </ul>
+        <div class="coord">👤 Abilio</div>
+      </div>
+      <div class="pcard t-green" style="margin-top:10px;">
+        <div class="top"><span class="ico">🚛</span>
+          <div><div class="num">133</div><div class="pname">ECOARTE CONTAINER — MANAUS + RJ (VIBRA)</div></div>
+        </div>
+        <ul>
+          <li>Manaus: planejamento e confirmação da execução</li>
+          <li>RJ: pré-produção e preparativos em andamento</li>
+        </ul>
+        <div class="coord">👤 Coord.: Bellmond</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOVIDADES -->
+  <div>
+    <div class="band green">💡 Novidades da Semana</div>
+    <div class="novidade">
+      <div class="nov-title">📱 App NTICS no Campo</div>
+      <p>O aplicativo NTICS no Campo está sendo desenvolvido para padronizar a atuação de videomakers e produtores. A meta é transformar o briefing — antes em documento Word — em uma tarefa estruturada dentro do app, garantindo padronização e rastreabilidade nas execuções.</p>
+    </div>
+  </div>
+</div>
+
+<!-- QUADRO DE EXECUÇÃO EM CAMPO -->
+<div class="campo-section">
+  <div class="campo-head">
+    <span>📍 Execuções em Campo — 25/05 a 30/05 (via etiquetas ClickUp)</span>
+    <div class="campo-legenda">
+      <div class="legenda-item"><div class="leg-dot" style="background:#6b46c1"></div><span>NTICS em Campo</span></div>
+      <div class="legenda-item"><div class="leg-dot" style="background:#0e6e82"></div><span>Cobertura em Campo</span></div>
+      <div class="legenda-item"><div class="leg-dot" style="background:#c0202a;width:10px;height:3px;border-radius:2px;"></div><span>124 Compagas</span></div>
+      <div class="legenda-item"><div class="leg-dot" style="background:#e07820;width:10px;height:3px;border-radius:2px;"></div><span>120 Neg.Cultural</span></div>
+      <div class="legenda-item"><div class="leg-dot" style="background:#1a7a46;width:10px;height:3px;border-radius:2px;"></div><span>127 PIE</span></div>
+      <div class="legenda-item"><div class="leg-dot" style="background:#9b1c1c;width:10px;height:3px;border-radius:2px;"></div><span>125 GRU</span></div>
+    </div>
+  </div>
+  <div class="campo-grid">
+
+    <!-- SEG 25 -->
+    <div class="campo-dia">
+      <div class="dia-label">☀️ Segunda 25/05</div>
+      <div class="campo-item p120">
+        <div class="ci-proj">120 · Neg. Cultural</div>
+        <div class="ci-acao">Ibipeba | Col. Epaminondas Rocha</div>
+        <div class="ci-resp">👤 Bruna</div>
+      </div>
+      <div class="campo-item p127">
+        <div class="ci-proj">127 · PIE GRU</div>
+        <div class="ci-acao">E.E. Jd Nova Cumbica | Palestras</div>
+        <div class="ci-resp">👤 Jessica</div>
+        <div class="ci-tags">
+          <span class="ci-tag tag-ntics">NTICS em campo</span>
+          <span class="ci-tag tag-cobertura">Cobertura</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TER 26 -->
+    <div class="campo-dia">
+      <div class="dia-label">🌤 Terça 26/05</div>
+      <div class="campo-item p120">
+        <div class="ci-proj">120 · Neg. Cultural</div>
+        <div class="ci-acao">Ibipeba | E.M. Antonio Barnabé + Col. Epaminondas</div>
+        <div class="ci-resp">👤 Bruna</div>
+      </div>
+      <div class="campo-item p120">
+        <div class="ci-proj">120 · Neg. Cultural</div>
+        <div class="ci-acao">ACOPOF | 19h | Módulo Imagem Profissional | Rejane</div>
+        <div class="ci-resp">👤 Bruna</div>
+      </div>
+      <div class="campo-item p127">
+        <div class="ci-proj">127 · PIE GRU</div>
+        <div class="ci-acao">E.E. Jd Nova Cumbica | Palestras</div>
+        <div class="ci-resp">👤 Jessica</div>
+      </div>
+    </div>
+
+    <!-- QUA 27 -->
+    <div class="campo-dia">
+      <div class="dia-label">🌥 Quarta 27/05</div>
+      <div class="campo-item p124">
+        <div class="ci-proj">124 · Gastronomia</div>
+        <div class="ci-acao">CEJU | Aula Show Culinária | 13h | 30 alunos</div>
+        <div class="ci-resp">👤 Mayara</div>
+      </div>
+      <div class="campo-item p120">
+        <div class="ci-proj">120 · Neg. Cultural</div>
+        <div class="ci-acao">Ibipeba | Jovino Amorim + Faustiniano Bastos</div>
+        <div class="ci-resp">👤 Bruna</div>
+      </div>
+      <div class="campo-item p120">
+        <div class="ci-proj">120 · Neg. Cultural</div>
+        <div class="ci-acao">ACOPOF | 19h | Marketing Digital | Jessica Lima</div>
+        <div class="ci-resp">👤 Bruna</div>
+      </div>
+      <div class="campo-item p127">
+        <div class="ci-proj">127 · PIE GRU</div>
+        <div class="ci-acao">E.E. Jd Nova Cumbica | Palestras</div>
+        <div class="ci-resp">👤 Jessica</div>
+      </div>
+    </div>
+
+    <!-- QUI 28 -->
+    <div class="campo-dia">
+      <div class="dia-label">⛅ Quinta 28/05</div>
+      <div class="campo-item p124">
+        <div class="ci-proj">124 · Gastronomia</div>
+        <div class="ci-acao">CEJU | Workshop Fotografia | 9h (40) + 14h (40)</div>
+        <div class="ci-resp">👤 Mayara</div>
+        <div class="ci-tags">
+          <span class="ci-tag tag-ntics">NTICS em campo</span>
+          <span class="ci-tag tag-cobertura">Cobertura</span>
+        </div>
+      </div>
+      <div class="campo-item p120">
+        <div class="ci-proj">120 · Neg. Cultural</div>
+        <div class="ci-acao">Ibipeba | Col. Jovino Amorim Barreto</div>
+        <div class="ci-resp">👤 Bruna</div>
+      </div>
+      <div class="campo-item p127">
+        <div class="ci-proj">127 · PIE GRU</div>
+        <div class="ci-acao">E.E. PEI Cidade Soimco II | Palestras</div>
+        <div class="ci-resp">👤 Jessica</div>
+      </div>
+    </div>
+
+    <!-- SEX 29 -->
+    <div class="campo-dia">
+      <div class="dia-label">🌈 Sexta 29/05</div>
+      <div class="campo-item p120">
+        <div class="ci-proj">120 · Neg. Cultural</div>
+        <div class="ci-acao">Ibipeba | Feira — Divulgação Oficina</div>
+        <div class="ci-resp">👤 Bruna</div>
+      </div>
+      <div class="campo-item p127">
+        <div class="ci-proj">127 · PIE GRU</div>
+        <div class="ci-acao">E.E. PEI Cidade Soimco II | Palestras</div>
+        <div class="ci-resp">👤 Jessica</div>
+      </div>
+      <div class="campo-item p124">
+        <div class="ci-proj">124 · Gastronomia</div>
+        <div class="ci-acao">CEJU | Aula Show Culinária | 9h | 30 alunos</div>
+        <div class="ci-resp">👤 Mayara</div>
+      </div>
+    </div>
+
+    <!-- SAB 30 -->
+    <div class="campo-dia">
+      <div class="dia-label">🎉 Sábado 30/05</div>
+      <div class="campo-item p125">
+        <div class="ci-proj">125 · Gastronomia GRU</div>
+        <div class="ci-acao">Guarulhos — Evento Oficial Culinária</div>
+        <div class="ci-resp">👤 Jessica</div>
+        <div class="ci-tags">
+          <span class="ci-tag tag-ntics">NTICS em campo</span>
+          <span class="ci-tag tag-cobertura">Cobertura</span>
+        </div>
+      </div>
+      <div class="sab-note">⚠️ Confirmar cobertura e NTICS em campo para o evento de culinária GRU</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="bottom-row">
+  <!-- ÁREAS -->
+  <div class="areas-section">
+    <div class="areas-head">Áreas de Apoio e Gestão</div>
+    <div class="areas-cols">
+      <div class="area-col">
+        <div class="area-icon">💰</div>
+        <h4>Financeiro</h4>
+        <ul><li>Finalizar saldos Connect Use</li><li>Finalização auditoria abril com Claude</li></ul>
+      </div>
+      <div class="area-col">
+        <div class="area-icon">🧪</div>
+        <h4>Lab</h4>
+        <ul><li>Finalização projetos vendas</li></ul>
+      </div>
+      <div class="area-col">
+        <div class="area-icon">🤝</div>
+        <h4>Vendas</h4>
+        <ul><li>Força total: 20 propostas por mês</li><li>Alinhamento diário frente principal</li></ul>
+      </div>
+      <div class="area-col">
+        <div class="area-icon">🎓</div>
+        <h4>Inscrições | Educação</h4>
+        <ul><li>Inscrição projetos Educação</li></ul>
+      </div>
+      <div class="area-col">
+        <div class="area-icon">📍</div>
+        <h4>Inscrições | Prog. Território</h4>
+        <ul><li>Inscrição Programa Território</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- AÇÕES — sem item 1 (execuções já no quadro) -->
+  <div class="actions">
+    <div class="actions-head">Principais Ações e Execuções da Semana</div>
+    <div class="acols">
+      <div class="acol">
+        <h4>📣 1. Divulgação e Confirmações</h4>
+        <ul>
+          <li><b>133</b> Orçamento, mockups, mídia paga</li>
+          <li><b>132</b> Releases MG/ES e comunicação</li>
+          <li><b>74</b> Site, Link Tree e vídeos</li>
+          <li><b>120</b> Confirmação escolas + plano Porto Itapoá</li>
+          <li><b>127</b> Kickoff BTG Pactual — próxima semana</li>
+        </ul>
+      </div>
+      <div class="acol">
+        <h4>📋 2. Planejamento e Kickoffs</h4>
+        <ul>
+          <li><b>128/129</b> Estruturação kickoff + TAP</li>
+          <li><b>133 RJ</b> TAP e planejamento RJ</li>
+          <li><b>122/115</b> Preparar para planejamento mensal</li>
+          <li><b>CNH</b> Reunião comunicação — próxima semana</li>
+        </ul>
+      </div>
+      <div class="acol">
+        <h4>✅ 3. Finalizações e Entregas</h4>
+        <ul>
+          <li><b>117</b> Relatório + materiais finais + MINC</li>
+          <li><b>116</b> Indicadores Áster + fechamento</li>
+          <li><b>74</b> Reunião MT + orçamento Pantanal</li>
+          <li>Decisões da semana → ClickUp</li>
+        </ul>
+      </div>
+      <div class="acol green">
+        <h4>🚩 4. Marcos da Semana</h4>
+        <ul>
+          <li><span class="day">Segunda:</span> sprints e alinhamentos</li>
+          <li><span class="day">Terça:</span> fechar orçamentos 133 e 132</li>
+          <li><span class="day">Quarta tarde:</span> planejamento estratégico + TAP 133 RJ</li>
+          <li><span class="day">Sábado:</span> Evento culinária GRU (125)</li>
+          <li><span class="day">Sexta:</span> consolidar entregas no ClickUp</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<footer>
+  <div><span class="fi">🎯</span> Execução</div>
+  <div><span class="fi">👥</span> Comunicação</div>
+  <div><span class="fi">🛒</span> Compras e Orçamentos</div>
+  <div><span class="fi">📋</span> Planejamento</div>
+  <div><span class="fi">📷</span> Cobertura</div>
+  <div><span class="fi">📈</span> Gestão</div>
+</footer>
+
+</div>
+</body>
+</html>
