@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Clareza da Semana — 15/06 a 20/06/2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0d1f3c;--navy2:#1a3660;--red:#c0202a;--orange:#e07820;
+  --green:#1a7a46;--teal:#0e6e82;--ink:#1a2230;--muted:#4a5568;
+  --line:#e2e8f0;--bg:#edf0f5;--white:#ffffff;--purple:#6b46c1;
+  --shadow:0 2px 8px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#2d3548;padding:24px;display:flex;justify-content:center;}
+#sheet{width:1720px;background:var(--bg);border-radius:14px;overflow:hidden;box-shadow:0 32px 100px rgba(0,0,0,.45);}
+
+/* HEADER */
+.header{background:var(--navy);padding:20px 28px 16px;display:grid;grid-template-columns:1.4fr 1.2fr 1.2fr 0.55fr 1.1fr;gap:14px;align-items:stretch;}
+.brand{display:flex;flex-direction:column;justify-content:center;}
+.brand .logo{font-size:36px;}
+.brand h1{font-family:'DM Serif Display',serif;font-size:38px;color:#fff;line-height:1;margin-top:4px;}
+.brand .sub{font-size:12px;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:.4px;margin-top:7px;}
+.hcard{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:12px 14px;}
+.hcard .htitle{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;display:flex;align-items:center;gap:6px;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,.1);}
+.hcard.c1 .htitle{color:#f0a93a;}.hcard.c2 .htitle{color:#e05a5a;}.hcard.c4 .htitle{color:#7dd4a8;}
+.hcard ul{list-style:none;}
+.hcard li{font-size:11px;color:rgba(255,255,255,.68);line-height:1.55;padding-left:12px;position:relative;margin-bottom:3px;}
+.hcard li::before{content:"›";position:absolute;left:0;color:rgba(255,255,255,.3);font-weight:700;}
+.week-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12px;}
+.week-card .wlbl{font-size:10px;font-weight:800;color:#5ab4e0;text-transform:uppercase;letter-spacing:.6px;}
+.week-card .wdate{font-family:'DM Serif Display',serif;font-size:21px;color:#fff;margin-top:6px;line-height:1.25;}
+
+/* BODY */
+.body{padding:18px 22px 22px;}
+.band{color:#fff;font-weight:800;font-size:12.5px;text-transform:uppercase;letter-spacing:.7px;padding:7px 13px;border-radius:7px;margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+.band.orange{background:var(--orange);}
+.band.green{background:var(--green);}
+.band.teal{background:var(--teal);}
+.band.navy{background:var(--navy2);}
+
+/* CARDS */
+.pcard{background:var(--white);border:1px solid var(--line);border-left-width:4px;border-radius:9px;padding:11px 12px 10px 13px;margin-bottom:10px;box-shadow:var(--shadow);}
+.pcard:last-child{margin-bottom:0;}
+.pcard .top{display:flex;align-items:center;gap:8px;margin-bottom:9px;padding-bottom:8px;border-bottom:1px solid var(--line);}
+.pcard .ico{font-size:20px;flex-shrink:0;}
+.pcard .num{font-family:'DM Serif Display',serif;font-size:24px;line-height:1;flex-shrink:0;}
+.pcard .pname{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.2px;line-height:1.3;color:var(--ink);}
+.pcard ul{list-style:none;}
+.pcard li{font-size:10.5px;color:var(--muted);line-height:1.5;padding-left:12px;position:relative;margin-bottom:3px;}
+.pcard li::before{content:"";position:absolute;left:1px;top:6px;width:4px;height:4px;border-radius:50%;}
+.pcard .coord{margin-top:9px;font-size:10px;color:var(--navy2);font-weight:700;border-top:1px dashed var(--line);padding-top:6px;}
+.warn{color:var(--red) !important;font-weight:700;}
+.t-orange{border-left-color:var(--orange);}.t-orange .num,.t-orange .ico{color:var(--orange);}.t-orange li::before{background:var(--orange);}
+.t-teal{border-left-color:var(--teal);}.t-teal .num,.t-teal .ico{color:var(--teal);}.t-teal li::before{background:var(--teal);}
+.t-green{border-left-color:var(--green);}.t-green .num,.t-green .ico{color:var(--green);}.t-green li::before{background:var(--green);}
+.t-navy{border-left-color:var(--navy2);}.t-navy .num,.t-navy .ico{color:var(--navy2);}.t-navy li::before{background:var(--navy2);}
+
+/* GRIDS */
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px;}
+
+/* PRÓXIMA SEMANA */
+.proxsem{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--purple);border-radius:9px;padding:12px 14px;box-shadow:var(--shadow);margin-top:10px;}
+.proxsem h4{font-size:11px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+.proxsem ul{list-style:none;}
+.proxsem li{font-size:10.5px;color:var(--muted);line-height:1.5;padding-left:12px;position:relative;margin-bottom:4px;}
+.proxsem li::before{content:"›";position:absolute;left:0;color:var(--purple);font-weight:800;}
+
+/* CAMPO */
+.campo-section{margin-top:14px;background:var(--white);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);}
+.campo-head{background:var(--purple);color:#fff;font-weight:800;font-size:12.5px;text-transform:uppercase;letter-spacing:.7px;padding:8px 18px;display:flex;align-items:center;justify-content:space-between;}
+.campo-legenda{display:flex;gap:14px;font-size:10px;font-weight:600;color:#fff;}
+.legenda-item{display:flex;align-items:center;gap:5px;}
+.leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.campo-grid{display:grid;grid-template-columns:repeat(7,1fr);}
+.campo-dia{padding:10px 11px;border-right:1px solid var(--line);}
+.campo-dia:last-child{border-right:none;}
+.campo-dia .dia-label{font-size:10px;font-weight:800;text-transform:uppercase;color:var(--navy);letter-spacing:.5px;padding-bottom:6px;margin-bottom:8px;border-bottom:2px solid var(--line);}
+.campo-item{border-radius:6px;padding:6px 8px;margin-bottom:6px;border-left:3px solid var(--navy2);background:var(--bg);}
+.ci-proj{font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;}
+.ci-acao{font-size:10px;color:var(--ink);line-height:1.35;margin-top:2px;}
+.ci-resp{font-size:9px;color:var(--muted);margin-top:3px;}
+.ci-tags{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap;}
+.ci-tag{font-size:8.5px;font-weight:700;padding:1px 5px;border-radius:3px;color:#fff;}
+.tag-ntics{background:#6b46c1;}
+.tag-cobertura{background:#0e6e82;}
+.campo-vazio{font-size:10px;color:#aaa;font-style:italic;text-align:center;padding-top:8px;}
+
+/* ÁREAS */
+.areas-section{background:var(--white);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);}
+.areas-head{background:var(--green);color:#fff;font-weight:800;font-size:12.5px;text-transform:uppercase;letter-spacing:.7px;padding:8px 18px;text-align:center;}
+.areas-cols{display:grid;grid-template-columns:repeat(6,1fr);}
+.area-col{padding:13px 15px;border-right:1px solid var(--line);}
+.area-col:last-child{border-right:none;}
+.area-col .area-icon{font-size:20px;margin-bottom:6px;}
+.area-col h4{font-size:11px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;border-bottom:2px solid var(--line);padding-bottom:5px;}
+.area-col ul{list-style:none;}
+.area-col li{font-size:10.5px;color:var(--muted);line-height:1.5;padding-left:10px;position:relative;margin-bottom:4px;}
+.area-col li::before{content:"";position:absolute;left:0;top:5px;width:4px;height:4px;border-radius:50%;background:var(--green);}
+
+/* AÇÕES */
+.actions{background:var(--white);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);margin-top:14px;}
+.actions-head{background:var(--navy);color:#fff;font-weight:800;font-size:12.5px;text-transform:uppercase;letter-spacing:.7px;padding:9px 18px;text-align:center;}
+.acols{display:grid;grid-template-columns:repeat(4,1fr);}
+.acol{padding:12px 14px;border-right:1px solid var(--line);}
+.acol:last-child{border-right:none;}
+.acol h4{font-size:10.5px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+.acol ul{list-style:none;}
+.acol li{font-size:10.5px;color:var(--muted);line-height:1.45;padding-left:10px;position:relative;margin-bottom:4px;}
+.acol li::before{content:"";position:absolute;left:0;top:5px;width:4px;height:4px;border-radius:50%;background:var(--red);}
+.acol.green li::before{background:var(--green);}
+.acol li b{color:var(--ink);font-weight:700;}
+
+/* FOOTER */
+footer{background:var(--navy);display:grid;grid-template-columns:repeat(6,1fr);}
+footer div{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 6px;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:.5px;border-right:1px solid rgba(255,255,255,.08);}
+footer div:last-child{border-right:none;}
+.fi{font-size:17px;}
+
+@media print{body{background:#fff;padding:0;}#sheet{box-shadow:none;border-radius:0;width:100%;}}
+</style>
+</head>
+<body>
+<div id="sheet">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="brand">
+    <div class="logo">🎯</div>
+    <h1>Clareza da Semana</h1>
+    <div class="sub">Escritório de Projetos &nbsp;·&nbsp; 15/06 a 20/06/2026 &nbsp;·&nbsp; Reunião Hands On</div>
+  </div>
+
+  <div class="hcard c1">
+    <div class="htitle">🎯 1. Foco — Comportamental</div>
+    <ul>
+      <li>Comunicação é prioridade esta semana — confirme por escrito, não suponha que foi entendido</li>
+      <li>Registre cada entregável no ClickUp antes de encerrar o dia — histórico limpo facilita o fechamento dos projetos</li>
+      <li>Patrocinadores aguardam relatórios parciais da semana anterior — não deixar acumular mais</li>
+    </ul>
+  </div>
+
+  <div class="hcard c2">
+    <div class="htitle">❗ 2. Principais Atenções</div>
+    <ul>
+      <li>#122 REPSOL — finalizar apresentação de parcerias e iniciar engajamento com secretarias</li>
+      <li>#132 SAMARCO — confirmar pré-projeto MG + ES entrando; alinhamento de fornecedores hoje</li>
+      <li>#133 VIBRA — lançar pré-Manaus nas redes + alinhar RJ com aprendizados de Manaus</li>
+      <li>#120 NC 2ED — fechar Porto Itapoá e estruturar Statkraft conforme áudios do cliente</li>
+      <li>#127 GRU PIE — reunião com cliente + reposicionamento escolas Guarulhos esta semana</li>
+    </ul>
+  </div>
+
+  <div class="week-card">
+    <div class="wlbl">Semana</div>
+    <div class="wdate">15/06<br>a<br>20/06<br>2026</div>
+  </div>
+
+  <div class="hcard c4">
+    <div class="htitle">📅 4. Agenda do Mês — Junho</div>
+    <ul>
+      <li><b style="color:#f0a93a;">17/06</b> — #122 2ª Reunião Mockup / Termo Abertura — Cultura Itinerante ODS + ODS Cultural Repsol (Abilio + Lucas)</li>
+      <li><b style="color:#f0a93a;">18/06</b> — #115 KC Kickoff Cliente BTG (Fernando Clark)</li>
+      <li><b style="color:#f0a93a;">19/06</b> — #133 KI Reunião Termo Abertura RJ (Abilio)</li>
+      <li><b style="color:#f0a93a;">19/06</b> — #122 KI Kickoff Interno — Repsol</li>
+      <li><b style="color:#f0a93a;">26/06</b> — #115 Mockup / Termo Abertura — Robótica 2ED (Lucas)</li>
+      <li><b style="color:#f0a93a;">26/06</b> — #126 Mockup / Termo Abertura — Ecoarte GRU (Lucas)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="body">
+
+  <!-- EXECUÇÃO -->
+  <div class="band orange">Projetos em Execução</div>
+  <div class="grid4">
+
+    <div class="pcard t-orange">
+      <div class="top"><span class="ico">🚢</span>
+        <div><div class="num">122</div><div class="pname">Cultura Itinerante ODS — Repsol</div></div>
+      </div>
+      <ul>
+        <li>Finalizar revisão da apresentação de parcerias com secretarias</li>
+        <li>Iniciar contato e engajamento com as secretarias de destino</li>
+        <li>2ª Reunião Mockup / Termo Abertura — quarta 17/06 (Abilio + Lucas)</li>
+        <li>KI Interno agendado sexta 19/06 — confirmar participantes</li>
+        <li>Preparar planilha orçamentária + briefings (site, peças, vídeo)</li>
+      </ul>
+      <div class="coord">Coord: Abilio / Lucas Rotta</div>
+    </div>
+
+    <div class="pcard t-teal">
+      <div class="top"><span class="ico">🌱</span>
+        <div><div class="num">132</div><div class="pname">Estação Samarco</div></div>
+      </div>
+      <ul>
+        <li>Confirmar toda a pré-execução — materiais, fornecedores e logística MG</li>
+        <li>Hoje: reforçar participação + alinhamento fornecedores + validar comunicação</li>
+        <li>Seguir com ES: treinamento equipe, check-list, FUP APP NTICS</li>
+        <li>Fotógrafo ES (Arthur/Pixel) — fechar contrato esta semana</li>
+      </ul>
+      <div class="coord">Coord: Lucas Rotta</div>
+    </div>
+
+    <div class="pcard t-navy">
+      <div class="top"><span class="ico">🚛</span>
+        <div><div class="num">133</div><div class="pname">Ecoarte Container — Vibra</div></div>
+      </div>
+      <ul>
+        <li>Lançar todo o pré-Manaus nas redes: vídeos de divulgação com material disponível</li>
+        <li>Alinhar RJ com aprendizados de Manaus (engajamento, comunicação, equipe)</li>
+        <li>Local Cidade Nova/RJ — definir e confirmar esta semana (Abilio)</li>
+        <li>Formalizar grade de atividades com Secretaria (Jeferson)</li>
+        <li>KI RJ agendado sexta 19/06 — TAP Rio de Janeiro</li>
+      </ul>
+      <div class="coord">Coord: Bellmond Viga / Jeferson Santana</div>
+    </div>
+
+    <div class="pcard t-orange">
+      <div class="top"><span class="ico">🏫</span>
+        <div><div class="num">120</div><div class="pname">Negócio Cultural 2ED (Statkraft + Porto Itapoá)</div></div>
+      </div>
+      <ul>
+        <li>Finalizar esta semana a parte de Porto Itapoá — enviar fechamento da cidade</li>
+        <li>Enviar fechamento de Uibaí + Statkraft para o cliente esta semana</li>
+        <li>Estruturar todo o projeto Statkraft conforme áudios enviados pelo cliente</li>
+        <li>Relatório Parcial 4 e fechamento MINC — prazo 19/06</li>
+      </ul>
+      <div class="coord">Coord: Bruna Seibel</div>
+    </div>
+
+    <div class="pcard t-teal">
+      <div class="top"><span class="ico">✈️</span>
+        <div><div class="num">127</div><div class="pname">PIE Empreendedorismo é Arte 2ED (GRU + SOTREQ)</div></div>
+      </div>
+      <ul>
+        <li>EMEF Modenesi — Oficina 1 SOTREQ/Serra (180 alunos): de 16 a 19/06</li>
+        <li>Reposicionar escolas de Guarulhos — ação importante esta semana</li>
+        <li>Reunião com o cliente para expor o reposicionamento das escolas</li>
+        <li>Relatórios Parciais 7 e 8 em aberto</li>
+      </ul>
+      <div class="coord">Coord: Jéssica Lora</div>
+    </div>
+
+    <div class="pcard t-green">
+      <div class="top"><span class="ico">🍳</span>
+        <div><div class="num">125</div><div class="pname">Gastronomia Também é Arte 2ED (GRU)</div></div>
+      </div>
+      <ul>
+        <li>Finalizar 100% a exposição esta semana</li>
+        <li>Aprovar com Ana e enviar — curadoria já disponível</li>
+        <li>ACM Cumbica (Guarulhos) — Oficina Culinária quarta 17/06 (9h–12h e 14h–17h | 100 alunos)</li>
+        <li>Relatório Parcial 8 — prazo 19/06</li>
+      </ul>
+      <div class="coord">Coord: Jéssica Lora</div>
+    </div>
+
+    <div class="pcard t-teal">
+      <div class="top"><span class="ico">🍽️</span>
+        <div><div class="num">124</div><div class="pname">Gastronomia Também é Arte (COMPAGAS)</div></div>
+      </div>
+      <ul>
+        <li>Programar transmissões no YouTube e preparar vídeos de oficina (Mayara)</li>
+        <li>Confirmar melhor data para transmissão (aguardando externo)</li>
+        <li>Envio relatório de resultados ao patrocinador II (Angelo Miguel)</li>
+      </ul>
+      <div class="coord">Coord: Mayara Ferreira</div>
+    </div>
+
+  </div>
+
+  <!-- ROW 2: 3 colunas -->
+  <div class="grid3">
+
+    <!-- FINALIZAÇÃO -->
+    <div>
+      <div class="band green">Projetos em Finalização</div>
+
+      <div class="pcard t-green">
+        <div class="top"><span class="ico">🏆</span>
+          <div><div class="num">116</div><div class="pname">Cultura Robótica (Áster)</div></div>
+        </div>
+        <ul>
+          <li class="warn">Relatório clipping, convites MinC e carta doação vencidos desde 11/06</li>
+          <li class="warn">Auditoria final prestação de contas vencida (Mayara)</li>
+          <li>Enviar tablets urgente — prazo 19/06 (Raíza)</li>
+          <li>Criar PPT final (Luisa Moreira) · Fechamento MINC (Raíza)</li>
+          <li>Divulgação resultados Imprensa (Angelo) · Atualizar inventário</li>
+        </ul>
+        <div class="coord">Coord: Raíza Araújo / Mayara Ferreira</div>
+      </div>
+
+      <div class="pcard t-green">
+        <div class="top"><span class="ico">🎭</span>
+          <div><div class="num">119</div><div class="pname">PEC Eu Faço Parte (Sylvamo)</div></div>
+        </div>
+        <ul>
+          <li class="warn">Fotógrafo e produtor ainda não contratados</li>
+          <li class="warn">Certificados e premiação sem alinhamento</li>
+          <li>Edição relatório final · Fechamento MINC — prazo 19/06</li>
+          <li>Formalizar resultados com stakeholders + atualizar inventário</li>
+        </ul>
+        <div class="coord">Coord: Raíza Araújo</div>
+      </div>
+
+      <div class="pcard t-green">
+        <div class="top"><span class="ico">🤖</span>
+          <div><div class="num">117</div><div class="pname">Teatro e Oficina Robótica 4ED (Whirlpool)</div></div>
+        </div>
+        <ul>
+          <li class="warn">Vídeo Case Pós e carrossel pós-evento atrasados</li>
+          <li>Visita alunos vencedores Robótica — Joinville · sexta 19/06 (Raíza)</li>
+          <li>Envio email Criação de Projetos (Abilio) · Fechamento MINC (Raíza)</li>
+        </ul>
+        <div class="coord">Coord: Raíza Araújo</div>
+      </div>
+
+      <div class="pcard t-green">
+        <div class="top"><span class="ico">🌍</span>
+          <div><div class="num">74</div><div class="pname">Global Goals Educa (Áster Máquinas)</div></div>
+        </div>
+        <ul>
+          <li>Verificar extensão de contrato com MG (aguardando externo — Bruna)</li>
+          <li>Notificar Áster sobre premiação MT (Abilio)</li>
+          <li>Acompanhamento Redes Sociais (Bruna)</li>
+        </ul>
+        <div class="coord">Coord: Bruna Seibel</div>
+      </div>
+    </div>
+
+    <!-- AÇÕES INICIAIS -->
+    <div>
+      <div class="band teal">Projetos com Ações Iniciais</div>
+
+      <div class="pcard t-navy">
+        <div class="top"><span class="ico">🌊</span>
+          <div><div class="num">121</div><div class="pname">Negócio Cultural 3ED (TAG)</div></div>
+        </div>
+        <ul>
+          <li>Relatório mensal junho — enviar esta semana (Bruna/Jeferson)</li>
+          <li>Ação com Priscila (Barra dos Coqueiros): prevista 26/06</li>
+        </ul>
+        <div class="coord">Coord: Abilio / Jeferson</div>
+      </div>
+
+      <div class="pcard t-navy">
+        <div class="top"><span class="ico">📦</span>
+          <div><div class="num">126</div><div class="pname">Ecoarte Container GRU</div></div>
+        </div>
+        <ul>
+          <li>TAP/Mockup: prazo 26/06 (Lucas Rotta) — preparar esta semana</li>
+          <li>Sem movimentação de campo esta semana</li>
+        </ul>
+        <div class="coord">Coord: (a confirmar)</div>
+      </div>
+    </div>
+
+    <!-- PLANEJAMENTO -->
+    <div>
+      <div class="band navy">Projetos em Planejamento</div>
+
+      <div class="pcard t-navy">
+        <div class="top"><span class="ico">🤖</span>
+          <div><div class="num">115</div><div class="pname">Cultura Robótica 2ED (Peróxidos, Tupy, BTG)</div></div>
+        </div>
+        <ul>
+          <li>KC BTG agendado quinta 18/06 — Fernando Clark conduz</li>
+          <li>Preenchimento formulário de Kickoff e envio email pós-reunião (Abilio)</li>
+          <li>TAP/Mockup: prazo 26/06 (Lucas Rotta)</li>
+        </ul>
+        <div class="coord">Coord: Fernando Clark / Abilio</div>
+      </div>
+
+      <div class="pcard t-navy">
+        <div class="top"><span class="ico">🌾</span>
+          <div><div class="num">128</div><div class="pname">Festival Agricultura Sustentável (CNH)</div></div>
+        </div>
+        <ul>
+          <li>Aguardando apresentação das secretarias para seguir com engajamento</li>
+          <li>Responder formulário de Kickoff quando documentação chegar</li>
+        </ul>
+        <div class="coord">Coord: Lucas Rotta</div>
+      </div>
+
+      <div class="pcard t-navy">
+        <div class="top"><span class="ico">🚜</span>
+          <div><div class="num">129</div><div class="pname">Agrofuturo Cultural nas Escolas (CNH)</div></div>
+        </div>
+        <ul>
+          <li>Aguardando apresentação das secretarias para seguir com engajamento</li>
+          <li>Responder formulário de Kickoff quando documentação chegar</li>
+        </ul>
+        <div class="coord">Coord: Lucas Rotta</div>
+      </div>
+
+      <div class="proxsem">
+        <h4>Entra na Próxima Semana</h4>
+        <ul>
+          <li>TAPs #115 e #126 com prazo 26/06 — Lucas Rotta</li>
+          <li>Samarco ES: início das primeiras ações de campo</li>
+          <li>Oficinas PIE SOTREQ/Serra podem continuar dependendo da grade</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CAMPO -->
+  <div class="campo-section">
+    <div class="campo-head">
+      <span>📍 Execuções em Campo — 15/06 (seg) a 21/06 (dom) 2026 (via etiquetas ClickUp)</span>
+      <div class="campo-legenda">
+        <div class="legenda-item"><div class="leg-dot" style="background:#6b46c1;"></div><span>NTICS em Campo</span></div>
+        <div class="legenda-item"><div class="leg-dot" style="background:#0e6e82;"></div><span>Cobertura em Campo</span></div>
+      </div>
+    </div>
+    <div class="campo-grid">
+
+      <div class="campo-dia">
+        <div class="dia-label">Segunda 15/06</div>
+        <div class="campo-vazio">Sem execução tagueada</div>
+      </div>
+
+      <div class="campo-dia">
+        <div class="dia-label">Terça 16/06</div>
+        <div class="campo-item" style="border-left-color:#1a3660;">
+          <div class="ci-proj">127 · PIE SOTREQ (Serra)</div>
+          <div class="ci-acao">EMEF Prof. Maria Istela Modenesi | Oficina 1 | 180 alunos</div>
+          <div class="ci-resp">Jéssica Lora</div>
+          <div class="ci-tags"><span class="ci-tag tag-cobertura">Captação em Campo</span></div>
+        </div>
+        <div class="campo-item" style="border-left-color:#6b46c1;">
+          <div class="ci-proj">132 · Estação Samarco</div>
+          <div class="ci-acao">Trilha de Empreendedorismo — MG</div>
+          <div class="ci-resp">Lucas Rotta</div>
+          <div class="ci-tags"><span class="ci-tag tag-ntics">NTICS em Campo</span></div>
+        </div>
+      </div>
+
+      <div class="campo-dia">
+        <div class="dia-label">Quarta 17/06</div>
+        <div class="campo-item" style="border-left-color:#1a3660;">
+          <div class="ci-proj">127 · PIE SOTREQ (Serra)</div>
+          <div class="ci-acao">EMEF Prof. Maria Istela Modenesi | Oficina 1 | 180 alunos</div>
+          <div class="ci-resp">Jéssica Lora</div>
+        </div>
+        <div class="campo-item" style="border-left-color:#1a7a46;">
+          <div class="ci-proj">125 · Gastronomia GRU 2ED (Guarulhos)</div>
+          <div class="ci-acao">ACM Cumbica | Oficina Culinária | 9h–12h e 14h–17h | 100 alunos</div>
+          <div class="ci-resp">Jéssica Lora</div>
+          <div class="ci-tags"><span class="ci-tag tag-cobertura">Cobertura</span></div>
+        </div>
+      </div>
+
+      <div class="campo-dia">
+        <div class="dia-label">Quinta 18/06</div>
+        <div class="campo-item" style="border-left-color:#1a3660;">
+          <div class="ci-proj">127 · PIE SOTREQ (Serra)</div>
+          <div class="ci-acao">EMEF Prof. Maria Istela Modenesi | Oficina 1 | 180 alunos</div>
+          <div class="ci-resp">Jéssica Lora</div>
+        </div>
+      </div>
+
+      <div class="campo-dia">
+        <div class="dia-label">Sexta 19/06</div>
+        <div class="campo-item" style="border-left-color:#1a3660;">
+          <div class="ci-proj">127 · PIE SOTREQ (Serra)</div>
+          <div class="ci-acao">EMEF Prof. Maria Istela Modenesi | Oficina 1 | 180 alunos</div>
+          <div class="ci-resp">Jéssica Lora</div>
+        </div>
+        <div class="campo-item" style="border-left-color:#6b46c1;">
+          <div class="ci-proj">117 · Teatro Robótica Whirlpool</div>
+          <div class="ci-acao">Visita Alunos Vencedores Robótica — Joinville</div>
+          <div class="ci-resp">Raíza Araújo</div>
+          <div class="ci-tags"><span class="ci-tag tag-ntics">NTICS em Campo</span></div>
+        </div>
+      </div>
+
+      <div class="campo-dia">
+        <div class="dia-label">Sábado 20/06</div>
+        <div class="campo-vazio">Sem execução tagueada</div>
+      </div>
+
+      <div class="campo-dia">
+        <div class="dia-label">Domingo 21/06</div>
+        <div class="campo-vazio">Sem execução tagueada</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ÁREAS -->
+  <div class="areas-section" style="margin-top:14px;">
+    <div class="areas-head">Áreas de Apoio e Gestão</div>
+    <div class="areas-cols">
+      <div class="area-col">
+        <div class="area-icon">💰</div>
+        <h4>Financeiro e Compras</h4>
+        <ul>
+          <li>Pedidos de pagamento até dia 20 (pagamento no dia 5)</li>
+          <li>Compliance: Vera Carvalho e Mayara Ferreira nos projetos em prestação de contas</li>
+          <li>Acompanhar fechamentos MINC com prazo esta semana (#116, #117, #119, #120)</li>
+        </ul>
+      </div>
+      <div class="area-col">
+        <div class="area-icon">⚖️</div>
+        <h4>Jurídico</h4>
+        <ul>
+          <li>Luiz Felipe Deffune validando contratos da <b>Tupy</b></li>
+          <li>Aguardando representante legal da <b>Áster Máquinas</b> para assinatura</li>
+          <li>Cobrando gerente BB por resposta formal sobre contrato</li>
+        </ul>
+      </div>
+      <div class="area-col">
+        <div class="area-icon">🧪</div>
+        <h4>Lab</h4>
+        <ul>
+          <li>TAPs #115 e #126 — iniciar esta semana para entregar 26/06</li>
+          <li>Conferir entregáveis #117 Whirlpool (Abilio envia email Criação)</li>
+        </ul>
+      </div>
+      <div class="area-col">
+        <div class="area-icon">🤝</div>
+        <h4>Vendas</h4>
+        <ul>
+          <li>KC BTG na quinta 18/06 — preparar Fernando Clark</li>
+          <li>Foco nas 20 propostas mensais — acompanhar pipeline e avançar contatos</li>
+        </ul>
+      </div>
+      <div class="area-col">
+        <div class="area-icon">📣</div>
+        <h4>Comunicação</h4>
+        <ul>
+          <li>Vídeos "durante" #117, #119 em edição — cobrar Marcos e Aline</li>
+          <li>Carrossel Case Pós #117 pendente de aprovação e postagem</li>
+          <li>Redes NTICS: conteúdo semana 13 (Aline B.)</li>
+        </ul>
+      </div>
+      <div class="area-col">
+        <div class="area-icon">🎨</div>
+        <h4>Criação de Projetos</h4>
+        <ul>
+          <li><b>Hub de Empreendedorismo e Tecnologia Social (Santos Brasil):</b> início do processo de inscrição</li>
+          <li><b>Território do Futuro:</b> necessidade de aprovação de dois projetos deste tema</li>
+          <li>TAP #115 e #126 — prazo 26/06 (Lucas)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- AÇÕES -->
+  <div class="actions">
+    <div class="actions-head">Principais Ações e Execuções da Semana</div>
+    <div class="acols">
+      <div class="acol">
+        <h4>🔴 1. Foco Principal</h4>
+        <ul>
+          <li><b>#122</b> Finalizar apresentação parcerias + iniciar contato secretarias</li>
+          <li><b>#133</b> Lançar pré-Manaus nas redes + alinhar RJ com aprendizados Manaus</li>
+          <li><b>#132</b> Confirmar pré-execução completa MG + seguir com ES</li>
+          <li><b>#120</b> Fechar Porto Itapoá + estruturar Statkraft conforme áudios cliente</li>
+          <li><b>#127</b> Reunião cliente + reposicionar escolas Guarulhos</li>
+        </ul>
+      </div>
+      <div class="acol">
+        <h4>📋 2. Planejamento e Kickoffs</h4>
+        <ul>
+          <li><b>#115</b> KC BTG quinta 18/06 — Fernando Clark conduz</li>
+          <li><b>#133</b> KI RJ sexta 19/06 — reunião TAP (Abilio)</li>
+          <li><b>#122</b> KI Interno sexta 19/06 — confirmar presença</li>
+          <li><b>#126/#115</b> Iniciar TAPs para prazo 26/06 (Lucas)</li>
+        </ul>
+      </div>
+      <div class="acol">
+        <h4>✅ 3. Fechamentos e Entregas</h4>
+        <ul>
+          <li><b>#120</b> Enviar fechamento Uibaí + Statkraft ao cliente</li>
+          <li><b>#125</b> Finalizar 100% exposição e aprovar com Ana</li>
+          <li><b>#119</b> Edição relatório final + Fechamento MINC</li>
+          <li><b>#116</b> Tablets (Raíza) + PPT final + Fechamento MINC</li>
+          <li><b>#117</b> Fechamento MINC + carrossel case</li>
+        </ul>
+      </div>
+      <div class="acol green">
+        <h4>🚩 4. Marcos da Semana</h4>
+        <ul>
+          <li><b>16/06 (ter)</b> EMEF Modenesi Oficina 1 (#127) · Samarco MG Trilha (#132)</li>
+          <li><b>17/06 (qua)</b> 2ª Reunião TAP Repsol · ACM Cumbica Culinária GRU (#125)</li>
+          <li><b>18/06 (qui)</b> KC BTG — #115 Cultura Robótica 2ED</li>
+          <li><b>19/06 (sex)</b> KI Vibra RJ + KI Repsol · Joinville Robótica #117</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div><span class="fi">🎯</span> Execução</div>
+  <div><span class="fi">👥</span> Comunicação</div>
+  <div><span class="fi">🛒</span> Compras e Orçamentos</div>
+  <div><span class="fi">📋</span> Planejamento</div>
+  <div><span class="fi">📷</span> Cobertura</div>
+  <div><span class="fi">📈</span> Gestão</div>
+</footer>
+
+</div>
+</body>
+</html>
