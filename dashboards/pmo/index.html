@@ -87,6 +87,16 @@ table.gt tbody tr:nth-child(even) td{background:#fafafa}
 table.gt tbody tr:hover td{background:#f0fdf4}
 table.gt tbody tr.hidden{display:none}
 table.gt tbody tr.row-previsto td{background:#fefce8;border-top:2px dashed #fbbf24}
+/* ── Congelar painéis (freeze panes): linha de meses no topo + colunas Projeto e Resp. à esquerda ── */
+.gantt-wrap{max-height:calc(100vh - 190px);overflow:auto}
+table.gt thead th{position:sticky;top:0;z-index:5}
+table.gt thead th.th-proj{left:0;z-index:6}
+table.gt thead th.th-resp{left:220px;z-index:6;box-shadow:3px 0 5px -2px rgba(0,0,0,.28)}
+table.gt td.td-proj{position:sticky;left:0;z-index:4;background:var(--white)}
+table.gt td.td-resp{position:sticky;left:220px;z-index:4;background:var(--white);box-shadow:3px 0 5px -2px rgba(0,0,0,.18)}
+table.gt tbody tr:nth-child(even) td.td-proj,table.gt tbody tr:nth-child(even) td.td-resp{background:#fafafa}
+table.gt tbody tr:hover td.td-proj,table.gt tbody tr:hover td.td-resp{background:#f0fdf4}
+table.gt tbody tr.row-previsto td.td-proj,table.gt tbody tr.row-previsto td.td-resp{background:#fefce8}
 table.gt td{padding:3px 4px;border:1px solid #e5e7eb;vertical-align:middle}
 table.gt td.td-proj{padding:5px 12px;min-width:220px;line-height:1.3}
 table.gt td.td-proj .pname{font-weight:700;font-size:11px;color:var(--gray-d)}
