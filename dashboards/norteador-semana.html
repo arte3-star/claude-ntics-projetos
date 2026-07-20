@@ -126,16 +126,6 @@ body.editmode .toggleable.off{display:revert;opacity:.32;text-decoration:line-th
 .highlights ul{list-style:none;columns:2;column-gap:28px;}
 .highlights li{font-size:11.5px;color:var(--ink);line-height:1.4;margin-bottom:6px;padding-left:15px;position:relative;break-inside:avoid;}
 .highlights li::before{content:"✦";position:absolute;left:0;color:var(--green);font-weight:800;}
-/* ===== OS QUATRO COMPROMISSOS ===== */
-.comp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:8px;}
-.comp-card{background:var(--white);border-radius:10px;box-shadow:var(--shadow);padding:15px 18px 14px;border-left:5px solid var(--navy2);position:relative;overflow:hidden;}
-.comp-card:nth-child(1){border-left-color:var(--green);}
-.comp-card:nth-child(2){border-left-color:var(--teal);}
-.comp-card:nth-child(3){border-left-color:var(--orange);}
-.comp-card:nth-child(4){border-left-color:var(--purple);}
-.comp-card .comp-num{position:absolute;top:8px;right:16px;font-family:'DM Serif Display',serif;font-size:46px;color:var(--line);line-height:1;pointer-events:none;}
-.comp-card h3{font-family:'DM Serif Display',serif;font-size:16px;color:var(--navy);margin-bottom:7px;padding-right:40px;line-height:1.15;}
-.comp-card p{font-size:11.5px;color:var(--ink);line-height:1.5;text-align:justify;}
 </style>
 </head>
 <body>
@@ -159,30 +149,46 @@ body.editmode .toggleable.off{display:revert;opacity:.32;text-decoration:line-th
 
   <div class="body">
 
-    <!-- OS QUATRO COMPROMISSOS -->
-    <div class="section-title">🎯 Os Quatro Compromissos</div>
-    <div class="comp-grid">
-      <div class="comp-card">
-        <span class="comp-num">1</span>
-        <h3>Seja impecável com a sua palavra</h3>
-        <p>Observe a força da sua palavra. Ela pode curar, mas também pode ferir; pode aproximar, mas também pode criar separação. Ser impecável com a palavra é permitir que ela nasça de um espaço de presença, verdade e amor. Antes de falar, perceba de onde vem aquilo que deseja dizer. Vem da raiva, da necessidade de ter razão, do medo ou do desejo de controlar? Ou vem de uma intenção sincera de construir? A prática é usar a palavra para abençoar, esclarecer e acolher. E isso também vale para a forma como você conversa consigo mesmo. Não alimente internamente a crença de que você não é capaz ou não é digno. Quando a palavra está alinhada com o coração, ela se transforma em instrumento de paz.</p>
-      </div>
-      <div class="comp-card">
-        <span class="comp-num">2</span>
-        <h3>Não leve nada para o lado pessoal</h3>
-        <p>Compreenda que cada pessoa enxerga a vida através das próprias feridas, condicionamentos e histórias. Muitas vezes, aquilo que o outro projeta sobre você fala muito mais sobre o mundo interior dele do que sobre quem você realmente é. Quando alguém critica, rejeita ou reage com agressividade, perceba o que isso desperta dentro de você, mas não entregue ao outro o poder de definir o seu valor. Isso não significa aceitar abusos ou abandonar os seus limites. Significa apenas não permitir que a inconsciência do outro determine o seu estado interior. Mantenha a dignidade, proteja o seu espaço e, ao mesmo tempo, procure não alimentar o ressentimento.</p>
-      </div>
-      <div class="comp-card">
-        <span class="comp-num">3</span>
-        <h3>Não tire conclusões</h3>
-        <p>A mente quer preencher todos os espaços vazios. Quando não sabe, ela imagina; quando não entende, interpreta; e, muitas vezes, transforma uma suposição em verdade. Assim nascem conflitos, medos e distanciamentos. A prática é sustentar o não saber por algum tempo. Em vez de concluir que alguém não gosta de você, pergunte. Em vez de imaginar que uma situação terminará mal, observe os fatos. Em vez de criar uma história sobre o silêncio do outro, abra espaço para o diálogo. A verdade não precisa ser construída pela ansiedade. Ela se revela quando há presença, escuta e coragem para olhar além das projeções da mente.</p>
-      </div>
-      <div class="comp-card">
-        <span class="comp-num">4</span>
-        <h3>Dê sempre o melhor de si</h3>
-        <p>Dar o melhor de si não é viver sob pressão ou buscar uma perfeição impossível. O seu melhor muda a cada dia, porque você também muda. Existem momentos em que você terá muita energia e clareza; em outros, o seu melhor será simplesmente respirar, acolher a própria fragilidade e não desistir. O importante é agir com sinceridade, respeitando os seus limites, sem usar esses limites como desculpa para permanecer paralisado. Faça aquilo que pode ser feito agora, com presença e inteireza. Quando você oferece o melhor disponível naquele momento, não há espaço para culpa. Há aprendizado, amadurecimento e a possibilidade de recomeçar.</p>
-      </div>
-    </div>
+    <style>
+.comp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:8px;}
+.comp-card{background:var(--white);border-radius:10px;box-shadow:var(--shadow);border-left:5px solid var(--navy2);overflow:hidden;}
+.comp-card:nth-child(1){border-left-color:var(--green);}
+.comp-card:nth-child(2){border-left-color:var(--teal);}
+.comp-card:nth-child(3){border-left-color:var(--orange);}
+.comp-card:nth-child(4){border-left-color:var(--purple);}
+.comp-card>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:11px;padding:13px 16px;user-select:none;}
+.comp-card>summary::-webkit-details-marker{display:none;}
+.comp-card .comp-num{font-family:'DM Serif Display',serif;font-size:20px;color:#fff;background:var(--navy2);width:32px;height:32px;min-width:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;line-height:1;}
+.comp-card:nth-child(1) .comp-num{background:var(--green);}
+.comp-card:nth-child(2) .comp-num{background:var(--teal);}
+.comp-card:nth-child(3) .comp-num{background:var(--orange);}
+.comp-card:nth-child(4) .comp-num{background:var(--purple);}
+.comp-card .comp-title{font-family:'DM Serif Display',serif;font-size:15.5px;color:var(--navy);line-height:1.15;flex:1;}
+.comp-card>summary::after{content:"\25B8";color:var(--muted);font-size:15px;transition:transform .15s;}
+.comp-card[open]>summary::after{transform:rotate(90deg);}
+.comp-card>p{margin:0 16px 14px;font-size:11.5px;color:var(--ink);line-height:1.5;text-align:justify;}
+@media print{.comp-card>p{display:block !important;}}
+</style>
+<div class="section-title">🎯 Os Quatro Compromissos</div>
+<div class="comp-grid">
+  <details class="comp-card">
+    <summary><span class="comp-num">1</span><span class="comp-title">Seja impecável com a sua palavra</span></summary>
+    <p>Observe a força da sua palavra. Ela pode curar, mas também pode ferir; pode aproximar, mas também pode criar separação. Ser impecável com a palavra é permitir que ela nasça de um espaço de presença, verdade e amor. Antes de falar, perceba de onde vem aquilo que deseja dizer. Vem da raiva, da necessidade de ter razão, do medo ou do desejo de controlar? Ou vem de uma intenção sincera de construir? A prática é usar a palavra para abençoar, esclarecer e acolher. E isso também vale para a forma como você conversa consigo mesmo. Não alimente internamente a crença de que você não é capaz ou não é digno. Quando a palavra está alinhada com o coração, ela se transforma em instrumento de paz.</p>
+  </details>
+  <details class="comp-card">
+    <summary><span class="comp-num">2</span><span class="comp-title">Não leve nada para o lado pessoal</span></summary>
+    <p>Compreenda que cada pessoa enxerga a vida através das próprias feridas, condicionamentos e histórias. Muitas vezes, aquilo que o outro projeta sobre você fala muito mais sobre o mundo interior dele do que sobre quem você realmente é. Quando alguém critica, rejeita ou reage com agressividade, perceba o que isso desperta dentro de você, mas não entregue ao outro o poder de definir o seu valor. Isso não significa aceitar abusos ou abandonar os seus limites. Significa apenas não permitir que a inconsciência do outro determine o seu estado interior. Mantenha a dignidade, proteja o seu espaço e, ao mesmo tempo, procure não alimentar o ressentimento.</p>
+  </details>
+  <details class="comp-card">
+    <summary><span class="comp-num">3</span><span class="comp-title">Não tire conclusões</span></summary>
+    <p>A mente quer preencher todos os espaços vazios. Quando não sabe, ela imagina; quando não entende, interpreta; e, muitas vezes, transforma uma suposição em verdade. Assim nascem conflitos, medos e distanciamentos. A prática é sustentar o não saber por algum tempo. Em vez de concluir que alguém não gosta de você, pergunte. Em vez de imaginar que uma situação terminará mal, observe os fatos. Em vez de criar uma história sobre o silêncio do outro, abra espaço para o diálogo. A verdade não precisa ser construída pela ansiedade. Ela se revela quando há presença, escuta e coragem para olhar além das projeções da mente.</p>
+  </details>
+  <details class="comp-card">
+    <summary><span class="comp-num">4</span><span class="comp-title">Dê sempre o melhor de si</span></summary>
+    <p>Dar o melhor de si não é viver sob pressão ou buscar uma perfeição impossível. O seu melhor muda a cada dia, porque você também muda. Existem momentos em que você terá muita energia e clareza; em outros, o seu melhor será simplesmente respirar, acolher a própria fragilidade e não desistir. O importante é agir com sinceridade, respeitando os seus limites, sem usar esses limites como desculpa para permanecer paralisado. Faça aquilo que pode ser feito agora, com presença e inteireza. Quando você oferece o melhor disponível naquele momento, não há espaço para culpa. Há aprendizado, amadurecimento e a possibilidade de recomeçar.</p>
+  </details>
+</div>
+
 
     <!-- DESTAQUES -->
     <div class="section-title">✨ Destaques da Semana</div>
