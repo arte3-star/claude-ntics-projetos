@@ -15,7 +15,8 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'DM Sans',sans-serif;background:#2d3548;padding:24px;display:flex;justify-content:center;color:var(--ink);}
 #sheet{width:1720px;max-width:100%;background:var(--bg);border-radius:14px;overflow:hidden;box-shadow:0 32px 100px rgba(0,0,0,.45);}
-.header{background:var(--navy);padding:22px 28px 18px;display:grid;grid-template-columns:2fr 0.8fr 1.8fr;gap:14px;align-items:stretch;}
+.header{background:var(--navy);padding:22px 28px 18px;display:flex;justify-content:space-between;align-items:center;gap:24px;}
+.header .week-box{min-width:160px;}
 .brand{display:flex;flex-direction:column;justify-content:center;}
 .brand .logo{font-size:30px;}
 .brand h1{font-family:'DM Serif Display',serif;font-size:40px;color:#fff;line-height:1;margin-top:4px;}
@@ -154,10 +155,6 @@ body.editmode .toggleable.off{display:revert;opacity:.32;text-decoration:line-th
       <div class="wsmall" style="margin-top:6px;">2026</div>
     </div>
 
-    <div class="hcard">
-      <div class="htitle">📅 4. Agenda — Julho 2026</div>
-      <div class="agenda-line">Há tarefas "📌 FASE: Mockup / Kick-off" (#122, #115, #126) sem a etiqueta — taguear para entrarem aqui.</div>
-    </div>
   </div>
 
   <div class="body">
@@ -188,8 +185,8 @@ body.editmode .toggleable.off{display:revert;opacity:.32;text-decoration:line-th
     </div>
 
     <!-- DESTAQUES -->
+    <div class="section-title">✨ Destaques da Semana</div>
     <div class="highlights">
-      <h4>✨ Destaques da Semana</h4>
       <ul data-edit-id="nb-1">
         <li><b>#74 Global Goals</b> — Mato Grosso saltou de 9.000 para 13.000 inscritos sem divulgação ativa</li>
       </ul>
