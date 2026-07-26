@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Itens em aberto · Pós-kickoff CNH 22/05 · Projetos 128 + 129</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
+    background: #f5f6f7;
+    color: #1a1a1a;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+  header {
+    background: #0e2235;
+    color: #fff;
+    padding: 32px 40px;
+    border-radius: 6px;
+    margin-bottom: 32px;
+    border-left: 6px solid #f5b400;
+  }
+  header .eyebrow {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #f5b400;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  header h1 {
+    font-size: 1.875rem;
+    line-height: 1.2;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  header .sub {
+    font-size: 0.9375rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
+  .projects-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .project-box {
+    padding: 14px 18px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.05);
+    border-left: 3px solid;
+  }
+  .project-box.nh { border-left-color: #4dabf7; }
+  .project-box.case { border-left-color: #ff6b6b; }
+  .project-box .pid {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .project-box.nh .pid { color: #4dabf7; }
+  .project-box.case .pid { color: #ff6b6b; }
+  .project-box .pname {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .project-box .pmeta {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-bottom: 16px;
+    padding: 16px 20px;
+    background: #fff;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+  }
+  .legend-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+  .legend-group + .legend-group {
+    padding-left: 18px;
+    border-left: 1px solid #e5e7eb;
+  }
+  .legend-label {
+    font-weight: 700;
+    color: #6b7280;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .chip {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.04em;
+  }
+  .chip-128   { background: #d0ebff; color: #0b4f8c; }
+  .chip-129   { background: #ffd6d6; color: #a02020; }
+  .chip-ambos { background: #fff3bf; color: #846100; }
+  .chip-minc  { background: #c3fae8; color: #0c5848; }
+  .card.minc { border-left-color: #0c5848; }
+  .section-note {
+    font-size: 0.875rem;
+    color: #4b5563;
+    margin: -8px 0 16px;
+    padding: 10px 14px;
+    background: #f0fdfa;
+    border-left: 3px solid #0c5848;
+    border-radius: 0 4px 4px 0;
+  }
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 56px 0 24px;
+  }
+  .section-divider-line {
+    flex: 1;
+    height: 1px;
+    background: #d1d5db;
+  }
+  .section-divider-text {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #6b7280;
+  }
+  .alert {
+    background: #fff8e1;
+    border: 1px solid #f5b400;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    font-size: 0.875rem;
+  }
+  .alert strong { color: #0e2235; }
+  section {
+    margin-bottom: 40px;
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #1a1a1a;
+  }
+  .section-head h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0e2235;
+  }
+  .section-head .count {
+    font-size: 0.75rem;
+    color: #6b7280;
+    font-weight: 600;
+    background: #e5e7eb;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 6px;
+    padding: 18px 22px;
+    border-left: 4px solid #d1d5db;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .card.decisao { border-left-color: #c92a2a; }
+  .card.cnh { border-left-color: #1971c2; }
+  .card.ntics { border-left-color: #7048e8; }
+  .card.sugestao { border-left-color: #f5b400; }
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .card-head-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0e2235;
+    line-height: 1.35;
+  }
+  .tag {
+    flex-shrink: 0;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .tag-urgent { background: #ffe3e3; color: #c92a2a; }
+  .tag-high   { background: #fff3bf; color: #846100; }
+  .tag-normal { background: #e7f5ff; color: #1864ab; }
+  .card p {
+    font-size: 0.875rem;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .card .footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #e5e7eb;
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+  .card .footer span strong {
+    color: #1a1a1a;
+    font-weight: 600;
+  }
+  .checklist {
+    list-style: none;
+  }
+  .checklist li {
+    background: #fff;
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    border-left: 3px solid #d1d5db;
+    font-size: 0.9375rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .checklist.cnh li { border-left-color: #1971c2; }
+  .checklist.ntics li { border-left-color: #7048e8; }
+  .checklist li::before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid #9ca3af;
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .checklist li .item-body {
+    flex: 1;
+  }
+  .checklist li .item-body .title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .checklist li strong {
+    color: #0e2235;
+  }
+  .checklist li em {
+    display: block;
+    font-size: 0.8125rem;
+    color: #6b7280;
+    margin-top: 3px;
+    font-style: normal;
+  }
+  footer.page-foot {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid #d1d5db;
+    font-size: 0.75rem;
+    color: #6b7280;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  @media print {
+    body { background: #fff; }
+    header { background: #fff; color: #0e2235; border: 2px solid #0e2235; }
+    header .eyebrow, header strong { color: #846100; }
+    header .project-box { background: transparent; border: 1px solid #d1d5db; }
+    header .project-box .pname, header .project-box .pmeta { color: #1a1a1a; }
+    .card { box-shadow: none; border: 1px solid #d1d5db; }
+    .legend, .alert { border: 1px solid #d1d5db; }
+    section { break-inside: avoid-page; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <div class="eyebrow">Pós-kickoff CNH · Reunião 22/05/2026</div>
+      <h1>Itens em aberto</h1>
+      <div class="sub">Diagnóstico unificado dos projetos 128 (New Holland) e 129 (Case IH)</div>
+
+      <div class="projects-bar">
+        <div class="project-box nh">
+          <div class="pid">128 · New Holland</div>
+          <div class="pname">Festival Agricultura Sustentável</div>
+          <div class="pmeta">4 cidades · 7 oficinas · 7.000 atendimentos · evento final praça pública em Curitiba (com domo) · verba R$ 600 mil · PRONAC 259965</div>
+        </div>
+        <div class="project-box case">
+          <div class="pid">129 · Case IH</div>
+          <div class="pname">Agrofuturo Cultural nas Escolas</div>
+          <div class="pmeta">3 cidades · 7 oficinas + Hackathon · 2.520 atendimentos por cidade · evento final em Cuiabá (Pantanal Shopping é referência do projeto anterior)</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="legend">
+      <div class="legend-group">
+        <span class="legend-label">Status</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#c92a2a"></span>Decisão pendente NTICS</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#1971c2"></span>Aguardando CNH</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#7048e8"></span>Validação interna NTICS</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#f5b400"></span>Sugestão da Raquel a avaliar</span>
+      </div>
+      <div class="legend-group">
+        <span class="legend-label">Projeto</span>
+        <span class="legend-item"><span class="chip chip-128">128</span></span>
+        <span class="legend-item"><span class="chip chip-129">129</span></span>
+        <span class="legend-item"><span class="chip chip-ambos">AMBOS</span></span>
+      </div>
+      <div class="legend-group">
+        <span class="legend-label">Origem</span>
+        <span class="legend-item"><span class="chip chip-minc">MinC</span> Produto cultural Rouanet</span>
+      </div>
+    </div>
+
+    <div class="alert">
+      <strong>Diretriz de leitura:</strong> o documento tem dois blocos. Em cima, <strong>Entregas MinC</strong>, com produtos culturais aprovados no Rouanet que ainda precisam de definição de formato — independem da reunião com a Raquel. Em baixo, os itens que saíram da reunião de kickoff de 22/05 (decisões NTICS, cobranças à CNH, validações internas, sugestões da Raquel). Cada item tem chip indicando se aplica ao 128, ao 129 ou aos dois. Sugestões da Raquel entram como sugestão a avaliar, não como decisão fechada.
+    </div>
+
+    <section>
+      <div class="section-head">
+        <h2>Entregas MinC · formato em aberto</h2>
+        <span class="count">7 itens</span>
+      </div>
+      <p class="section-note">Produtos culturais aprovados no MinC (Rouanet) que precisam de definição interna de formato, conteúdo e amarração temática antes de virarem briefing operacional. Owner padrão: Lucas + Ana. Validação MinC: Mayara.</p>
+
+      <div class="grid">
+
+        <div class="card minc">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-128">128</span>
+              <span class="chip chip-minc">MinC</span>
+              <h3>Palestra "Arte e Sustentabilidade" para professores (ampliação de acesso)</h3>
+            </div>
+            <span class="tag tag-urgent">Não previsto</span>
+          </div>
+          <p>Aprovada no MinC como ampliação de acesso, dirigida a professores. <strong>Não está prevista no plano de execução atual.</strong> Precisa ser confirmada se entra no escopo operacional ou se vai exigir reavaliação com a Mayara.</p>
+          <div class="footer">
+            <span><strong>Público:</strong> 100 professores por cidade · 4 cidades = 400 no total</span>
+            <span><strong>Owner:</strong> Lucas + Mayara</span>
+          </div>
+        </div>
+
+        <div class="card minc">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-128">128</span>
+              <span class="chip chip-minc">MinC</span>
+              <h3>Oficina de Fotografia "Do Campo ao Olhar Artístico"</h3>
+            </div>
+            <span class="tag tag-high">Definir formato</span>
+          </div>
+          <p>Produto cultural MinC. Definição de formato, conteúdo e amarração com a temática agrícola/sustentabilidade pendente. Verificar também a compatibilidade da faixa etária com a faixa pactuada no kickoff (8º/9º ano + ensino médio).</p>
+          <div class="footer">
+            <span><strong>Faixa etária:</strong> 13 a 17 anos</span>
+            <span><strong>Owner:</strong> Lucas + Ana</span>
+          </div>
+        </div>
+
+        <div class="card minc">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-128">128</span>
+              <span class="chip chip-minc">MinC</span>
+              <h3>Oficina de Artes Plásticas "Águas e Expressão"</h3>
+            </div>
+            <span class="tag tag-high">Definir formato</span>
+          </div>
+          <p>Produto cultural MinC. Definição de formato, conteúdo, materiais e amarração com tema água/pulverização seletiva pendente. Faixa etária mais ampla que a do kickoff, contempla também crianças menores.</p>
+          <div class="footer">
+            <span><strong>Faixa etária:</strong> 7 a 14 anos</span>
+            <span><strong>Owner:</strong> Lucas + Ana</span>
+          </div>
+        </div>
+
+        <div class="card minc">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-128">128</span>
+              <span class="chip chip-minc">MinC</span>
+              <h3>Oficina de Contação de Histórias "Vozes da Terra"</h3>
+            </div>
+            <span class="tag tag-high">Definir formato</span>
+          </div>
+          <p>Produto cultural MinC. Definição de roteiro, contadores e amarração com a narrativa do agro sustentável pendente.</p>
+          <div class="footer">
+            <span><strong>Faixa etária:</strong> 7 a 14 anos</span>
+            <span><strong>Owner:</strong> Lucas + Ana</span>
+          </div>
+        </div>
+
+        <div class="card minc">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-129">129</span>
+              <span class="chip chip-minc">MinC</span>
+              <h3>Oficina de Artes Plásticas "A Terra em Cores"</h3>
+            </div>
+            <span class="tag tag-high">Definir formato</span>
+          </div>
+          <p>Produto cultural MinC. Definição de conteúdo, materiais e amarração com tecnologia / inovação Case IH (drone, telemetria, etanol) pendente.</p>
+          <div class="footer">
+            <span><strong>Faixa etária:</strong> 7 a 12 anos</span>
+            <span><strong>Duração:</strong> 2h30</span>
+            <span><strong>Owner:</strong> Lucas + Ana</span>
+          </div>
+        </div>
+
+        <div class="card minc">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-129">129</span>
+              <span class="chip chip-minc">MinC</span>
+              <h3>Oficina de Fotografia (129)</h3>
+            </div>
+            <span class="tag tag-high">Definir formato</span>
+          </div>
+          <p>Produto cultural MinC. Definição de formato, conteúdo e amarração com tecnologia / inovação Case IH pendente.</p>
+          <div class="footer">
+            <span><strong>Faixa etária:</strong> 13 a 17 anos</span>
+            <span><strong>Duração:</strong> 2h30</span>
+            <span><strong>Owner:</strong> Lucas + Ana</span>
+          </div>
+        </div>
+
+        <div class="card minc">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-129">129</span>
+              <span class="chip chip-minc">MinC</span>
+              <h3>Exposição (1 por cidade) · eixos temáticos definidos</h3>
+            </div>
+            <span class="tag tag-normal">Definir curadoria</span>
+          </div>
+          <p>Eixos temáticos validados: <strong>Terra e natureza · Desenho e colagem · Agro sustentabilidade · Trabalho artístico · Inovação e futuro · Fotografia sobre tecnologia · Juventude e foco · Olhares criativos de crianças e adolescentes.</strong> Em aberto: como traduzir cada eixo em obras concretas e como amarrar com os produtos das oficinas de fotografia e artes plásticas.</p>
+          <div class="footer">
+            <span><strong>Formato:</strong> 1 exposição por cidade</span>
+            <span><strong>Owner:</strong> Lucas + Ana + curadoria</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="section-divider">
+      <span class="section-divider-line"></span>
+      <span class="section-divider-text">A seguir · pontos da reunião de kickoff 22/05</span>
+      <span class="section-divider-line"></span>
+    </div>
+
+    <section>
+      <div class="section-head">
+        <h2>Decisões pendentes NTICS</h2>
+        <span class="count">10 itens</span>
+      </div>
+      <div class="grid">
+
+        <div class="card decisao">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-ambos">AMBOS</span>
+              <h3>Rebalancear escopo das oficinas entre 128 e 129</h3>
+            </div>
+            <span class="tag tag-urgent">Crítico</span>
+          </div>
+          <p>A Raquel sinalizou que, do jeito que está apresentado, um projeto parece entregar mais que o outro. Pediu revisão das 7 oficinas dos dois projetos para que fiquem próximas em volume e tipo de entrega, mantendo a proposta única de cada marca (NH humanizado / biometano; Case tecnologia / etanol) e atrelando às ferramentas reais da CNH (drone, pulverização seletiva, telemetria, automação).</p>
+          <div class="footer">
+            <span><strong>Owner:</strong> Lucas + Ana</span>
+            <span><strong>Prazo:</strong> até reunião com Comunicação CNH</span>
+          </div>
+        </div>
+
+        <div class="card decisao">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-128">128</span>
+              <h3>Local do evento final em Curitiba</h3>
+            </div>
+            <span class="tag tag-urgent">Deadline junho</span>
+          </div>
+          <p>Primeira sugestão NTICS: <strong>Fazenda Urbana</strong> (parceria CNH em fechamento, Parque dos Tropeiros, perto da fábrica). Alternativas autorizadas: praça pública via Secretaria da Educação de Curitiba (risco alto, ~40 projetos negados em ano eleitoral); outra cidade do PR.</p>
+          <div class="footer">
+            <span><strong>Owner:</strong> Lucas + Raquel</span>
+            <span><strong>Deadline crítico:</strong> final de junho/2026</span>
+            <span><strong>Razão:</strong> janela para incluir oficinas no contrato CNH ↔ Fazenda Urbana</span>
+          </div>
+        </div>
+
+        <div class="card decisao">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-129">129</span>
+              <h3>Local do evento final em Cuiabá</h3>
+            </div>
+            <span class="tag tag-high">Alta</span>
+          </div>
+          <p>Referência da NTICS é o evento anterior em Pantanal Shopping (exposição fotográfica ficou 2 meses no shopping). Vantagem: passante para ativação de mídia. Dani sugeriu também avaliar lugar privado (universidade, SESI, SENAI) com menos atrito burocrático. Restrição: CNH não tem dealer em Cuiabá (só CD de peças), o que limita a presença de máquinas.</p>
+          <div class="footer">
+            <span><strong>Owner:</strong> Lucas + Raquel</span>
+            <span><strong>Prazo:</strong> antes do engajamento em Cuiabá</span>
+          </div>
+        </div>
+
+        <div class="card decisao">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-128">128</span>
+              <h3>Hackathon no 128 (proposta da Raquel)</h3>
+            </div>
+            <span class="tag tag-high">Alta</span>
+          </div>
+          <p>A Raquel lembrou que tinha pedido Hackathon nos dois projetos, mas no escopo vendido do 128 ele não aparece (no 129 já está). Lucas valida viabilidade orçamentária (verba já apertada em R$ 600 mil) e encaixe na aprovação MinC (formato vendido era só oficinas + festival).</p>
+          <div class="footer">
+            <span><strong>Owner:</strong> Lucas + Abílio</span>
+            <span><strong>Prazo:</strong> até reunião com Comunicação CNH</span>
+          </div>
+        </div>
+
+        <div class="card decisao">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-129">129</span>
+              <h3>Logística de máquinas Case IH em Cuiabá</h3>
+            </div>
+            <span class="tag tag-high">Alta</span>
+          </div>
+          <p>Cuiabá não tem dealer Case IH (só CD de peças). Sem fábrica. Definir como levar máquinas para o evento final: dealer mais próximo aceita transportar? Algum cliente local empresta? Aceitamos rodar o evento sem máquina física, só com vídeo/projeção?</p>
+          <div class="footer">
+            <span><strong>Owner:</strong> Lucas + Raquel</span>
+            <span><strong>Prazo:</strong> antes da execução em Cuiabá</span>
+          </div>
+        </div>
+
+        <div class="card decisao">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-129">129</span>
+              <h3>Aplicar cores Case IH no KV do 129</h3>
+            </div>
+            <span class="tag tag-high">Alta</span>
+          </div>
+          <p>Raquel determinou: tirar <strong>TODO o azul</strong> (associa New Holland). Tirar <strong>verde</strong> (concorrente John Deere). Usar <strong>vermelho vinho + preto</strong> (tom da paleta oficial). Aplicar em logo, letras e fundo do KV. Isso já foi pedido no kickoff e precisa ser executado.</p>
+          <div class="footer">
+            <span><strong>Owner:</strong> Lucas + designer</span>
+            <span><strong>Prazo:</strong> antes da reunião com Comunicação CNH</span>
+          </div>
+        </div>
+
+        <div class="card decisao">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-128">128</span>
+              <h3>Formato dos logos das concessionárias nas peças (128)</h3>
+            </div>
+            <span class="tag tag-high">Alta</span>
+          </div>
+          <p>Banner unificado com todas as 4 concessionárias na régua (Agritex, Comim, Cimex, Aglio), <strong>ou</strong> banner separado por cidade com tudo agrupado em Curitiba. Decisão técnica de brand a fechar com o time de Comunicação CNH na próxima reunião.</p>
+          <div class="footer">
+            <span><strong>Owner:</strong> NTICS + Brand CNH</span>
+            <span><strong>Prazo:</strong> reunião com Comunicação CNH</span>
+          </div>
+        </div>
+
+        <div class="card decisao">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-ambos">AMBOS</span>
+              <h3>Formato da apresentação combinada NH + Case</h3>
+            </div>
+            <span class="tag tag-high">Alta</span>
+          </div>
+          <p>A Raquel quer NH e Case entrelaçados no mesmo deck para o público interno CNH (pessoas que viraram corporativo recentemente). Formato sugerido: por tema (oficinas, evento, plataforma), mostrar "NH faz assim / Case faz assim" lado a lado. Confirmar na reunião de Comunicação.</p>
+          <div class="footer">
+            <span><strong>Owner:</strong> Lucas</span>
+            <span><strong>Prazo:</strong> antes da reunião com Comunicação CNH</span>
+          </div>
+        </div>
+
+        <div class="card decisao">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-ambos">AMBOS</span>
+              <h3>O que vai nas tendas da feira (eventos finais)</h3>
+            </div>
+            <span class="tag tag-normal">A discutir</span>
+          </div>
+          <p>As tendas de ativação dos eventos finais podem receber parceiros externos da CNH (sugestão do Lucas Magalhães na reunião, exemplo da Feira de Saberes), ou ficar reservadas para produtos das oficinas da NTICS. Decisão caso a caso por tenda. <strong>Restrição MinC:</strong> parceiro não pode vender na tenda.</p>
+          <div class="footer">
+            <span><strong>Owner:</strong> NTICS</span>
+            <span><strong>Decisão:</strong> conforme cada tenda for sendo desenhada</span>
+          </div>
+        </div>
+
+        <div class="card decisao">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-129">129</span>
+              <h3>Conexão com Impacta Hub Cuiabá</h3>
+            </div>
+            <span class="tag tag-normal">A avaliar</span>
+          </div>
+          <p>Raquel conectou com a Cris (Impacta Hub Cuiabá) num evento e ofereceu intermediar. Impacta Hub tem projetos com startups e jovens em Cuiabá e pode agregar recursos / parceiros ao evento. NTICS precisa avaliar se faz sentido engajar e em que formato (parceria de palco, startups expondo, etc.).</p>
+          <div class="footer">
+            <span><strong>Owner:</strong> Lucas</span>
+            <span><strong>Depende de:</strong> Fernando passar o contato da Cris</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Aguardando entrega da CNH (Raquel)</h2>
+        <span class="count">11 itens</span>
+      </div>
+      <ul class="checklist cnh">
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-ambos">AMBOS</span><strong>Catálogo de produtos CNH</strong></div><em>Para conectar oficinas com tecnologia real do portfólio.</em></div></li>
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-ambos">AMBOS</span><strong>Relatório de sustentabilidade CNH</strong></div><em>Global, em inglês. Único para a CNH com destaques específicos por marca. Base do cruzamento metodológico das oficinas.</em></div></li>
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-ambos">AMBOS</span><strong>Revista institucional CNH</strong></div><em>Material de referência editorial.</em></div></li>
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-ambos">AMBOS</span><strong>Materiais do projeto Siembra (Argentina)</strong></div><em>Programa educacional aplicado pelos dealers da CNH. Referência forte para o modelo, inclusive visita à concessionária.</em></div></li>
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-ambos">AMBOS</span><strong>Conteúdo do concurso de redação do voluntariado</strong></div><em>CNH está rodando agora nas escolas, tema agricultura sustentável. Pode virar input direto das oficinas.</em></div></li>
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-128">128</span><strong>Indicação de escolas em Dom Pedrito, Toledo e Guarapuava</strong></div><em>Via concessionárias locais (Agritex, Comim, Cimex, Aglio). Raquel quer ser informada.</em></div></li>
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-129">129</span><strong>Indicação de cidades e escolas para o 129</strong></div><em>O 129 ainda não tem cidades fechadas. Definir com a Raquel + concessionárias Case IH locais.</em></div></li>
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-ambos">AMBOS</span><strong>Agenda da reunião com Comunicação / Brand CNH</strong></div><em>Raquel marca segunda 25/05. Time: Brand NH, Brand Case, Corporativo, Raquel Mozardo (Instagram), Comunicação Interna.</em></div></li>
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-ambos">AMBOS</span><strong>Aprovação de quais máquinas e tratores podem ir aos eventos</strong></div><em>Em Curitiba a fábrica ajuda; em Cuiabá não tem dealer. Nas demais cidades, depende da concessionária e do custo de deslocamento.</em></div></li>
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-128">128</span><strong>Conversa com a Evelyn sobre voluntariado em Curitiba</strong></div><em>Evelyn coordena o programa estruturado via WhatsApp. Definir perfil, quantidades e ações por oficina.</em></div></li>
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-129">129</span><strong>Ponte com Gerson (dono Agritex / Fazenda Conectada em Água Boa)</strong></div><em>Para viabilizar visita de vencedores do Hackathon à fazenda. Raquel oferece a ponte se Lucas quiser explorar.</em></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Validações internas NTICS</h2>
+        <span class="count">5 itens</span>
+      </div>
+      <ul class="checklist ntics">
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-128">128</span><strong>Ana Carolina: limites de uso da marca New Holland no KV</strong></div><em>Até onde a NTICS pode aproximar o visual da marca NH sem infringir lei de marca. Parecer destrava finalização do KV.</em></div></li>
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-129">129</span><strong>Ana Carolina: aplicação correta da paleta Case IH</strong></div><em>Confirmar tom exato de vermelho vinho + preto, e regra de uso (sem azul, sem verde) no KV do 129.</em></div></li>
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-128">128</span><strong>Mayara Ferreira: validação MinC do vídeo do domo</strong></div><em>Confirmar se o vídeo de imersão de 15 a 20 min pode mostrar logos do patrocinador nas máquinas. Como é peça MinC, regra precisa ser checada antes de produzir.</em></div></li>
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-128">128</span><strong>Lucas + Abílio: viabilidade orçamentária do Hackathon no 128</strong></div><em>Cabe na verba R$ 600 mil aprovada? Cabe no formato aprovado no MinC sem retificação?</em></div></li>
+        <li><div class="item-body"><div class="title-row"><span class="chip chip-ambos">AMBOS</span><strong>Treinamento editorial do instrutor antes da execução</strong></div><em>Reunião obrigatória NTICS + instrutor responsável (e Raquel quando possível) para alinhar narrativa. Risco real conhecido: caso PEC, peça teatral mencionou desmatamento sem alinhamento e gerou movimento da comunidade para expulsar o patrocinador.</em></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Sugestões da Raquel ainda a avaliar</h2>
+        <span class="count">5 itens</span>
+      </div>
+      <div class="grid">
+
+        <div class="card sugestao">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-ambos">AMBOS</span>
+              <h3>Storytelling internacional do projeto (selo ONU, ODS, ESG, Pacto Global)</h3>
+            </div>
+            <span class="tag tag-normal">Sugestão</span>
+          </div>
+          <p>Dani citou caso em que outro parceiro social rendeu publicação em site de agência da ONU sobre projeto CNH e repercutiu internamente em todas as CBUs (Country Business Units). Raquel quer formato parecido. NTICS precisa propor qual selo atrelar, como construir a narrativa e o caminho de distribuição. Apresentar na reunião de Comunicação.</p>
+          <div class="footer">
+            <span><strong>Owner sugerido:</strong> Lucas + Marketing NTICS</span>
+            <span><strong>Janela:</strong> reunião de Comunicação CNH</span>
+          </div>
+        </div>
+
+        <div class="card sugestao">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-ambos">AMBOS</span>
+              <h3>Visita de vencedores do Hackathon à concessionária local (modelo Siembra)</h3>
+            </div>
+            <span class="tag tag-normal">Sugestão</span>
+          </div>
+          <p>Modelo do projeto Siembra (Argentina): dealer recebe vencedores na loja modelo. No 129 a referência é a <strong>Fazenda Conectada da Agritex em Água Boa</strong> (laboratório real CNH com conectividade Vivo, gestão por dados, máquinas inteligentes). No 128, se confirmarmos Hackathon, vale aplicar nas 4 concessionárias.</p>
+          <div class="footer">
+            <span><strong>Owner sugerido:</strong> Lucas</span>
+            <span><strong>Depende de:</strong> decisão sobre Hackathon no 128 + ponte com Gerson (129)</span>
+          </div>
+        </div>
+
+        <div class="card sugestao">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-ambos">AMBOS</span>
+              <h3>Reunião extra de conteúdo educacional com a Raquel</h3>
+            </div>
+            <span class="tag tag-normal">Sugestão</span>
+          </div>
+          <p>Distinta da reunião com Comunicação / Brand. Foco exclusivo em refinar a narrativa técnica das oficinas, alinhar com o portfólio CNH e revisar materiais editoriais. Encadear depois do cruzamento das oficinas com o relatório de sustentabilidade.</p>
+          <div class="footer">
+            <span><strong>Owner:</strong> Lucas + Ana + Raquel</span>
+            <span><strong>Janela:</strong> depois da reunião de Comunicação</span>
+          </div>
+        </div>
+
+        <div class="card sugestao">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-ambos">AMBOS</span>
+              <h3>Live do Dealer Standard mencionando o projeto</h3>
+            </div>
+            <span class="tag tag-normal">Sugestão</span>
+          </div>
+          <p>Raquel vai promover uma live com concessionários sobre tema social e quer abordar o projeto mesmo antes da execução. Quer chamar as concessionárias aportadoras para dar depoimento (Agritex, Comim, Cimex, Aglio no 128; Case IH no 129). Para a NTICS, é janela de visibilidade interna CNH antes da execução, mas exige material visual finalizado a tempo. <strong>Data e detalhes da live ainda não foram fechados.</strong></p>
+          <div class="footer">
+            <span><strong>Owner:</strong> Raquel define data</span>
+            <span><strong>Ação NTICS:</strong> garantir KV, mockups e vídeo conceitual prontos</span>
+          </div>
+        </div>
+
+        <div class="card sugestao">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="chip chip-129">129</span>
+              <h3>Pantanal Shopping em Cuiabá como local do evento final</h3>
+            </div>
+            <span class="tag tag-normal">Sugestão</span>
+          </div>
+          <p>Referência forte do projeto anterior NTICS x CNH em Cuiabá: evento dentro do shopping + exposição fotográfica ficou 2 meses no local. Ganho de mídia espontânea relevante. Dani sugeriu também avaliar lugar privado (universidade, SESI, SENAI) caso o shopping não rolar.</p>
+          <div class="footer">
+            <span><strong>Owner:</strong> Lucas</span>
+            <span><strong>Conecta com:</strong> decisão sobre local do evento final em Cuiabá</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer class="page-foot">
+      <span>Projetos 128 (NH) + 129 (Case IH) · Patrocínio CNH</span>
+      <span>Fonte: ata kickoff CNH 22/05/2026 · Documento vivo, atualizado em 24/05/2026</span>
+    </footer>
+
+  </div>
+</body>
+</html>
