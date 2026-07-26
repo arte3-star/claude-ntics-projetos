@@ -94,22 +94,28 @@ qEl.addEventListener('input', e=>{
  const term=e.target.value;
  searchTimer=setTimeout(()=>doSearch(term), 250);
 });
-qEl.addEventListener('focus', ()=>{ if(qEl.value) listEl.classList.add('show'); });
+qEl.addEventListener('focus', ()=>{ listEl.classList.add('show'); doSearch(qEl.value); });
 document.addEventListener('click', e=>{ if(!e.target.closest('.search') && !e.target.closest('.list')) listEl.classList.remove('show'); });
 
 async function doSearch(term){
- if(!term || term.length<2){ listEl.classList.remove('show'); return; }
+ const t = (term||'').trim();
  listEl.innerHTML = '<div class="opt c">Buscando…</div>'; listEl.classList.add('show');
  try{
   if(mode==='prod'){
-   const {data, error} = await sb.from('itens_fornecedor').select('produto_servico').ilike('produto_servico', '%'+term+'%').limit(500);
+   let q = sb.from('itens_fornecedor').select('produto_servico').limit(1500);
+   if(t.length>=2) q = q.ilike('produto_servico', '%'+t+'%');
+   const {data, error} = await q;
    if(error) throw error;
    const uniq=[...new Set(data.map(r=>r.produto_servico))].sort((a,b)=>a.localeCompare(b,'pt'));
-   listEl.innerHTML = uniq.slice(0,40).map(p=>`<div class="opt" onclick="pickProduct('${p.replace(/'/g,"\\'")}')"><span>${p}</span></div>`).join('') || '<div class="opt c">Nada encontrado</div>';
+   const label = t.length>=2 ? '' : `<div class="opt c">Todos os produtos/serviços (${uniq.length}) — digite pra filtrar</div>`;
+   listEl.innerHTML = label + (uniq.slice(0,200).map(p=>`<div class="opt" onclick="pickProduct('${p.replace(/'/g,"\\'")}')"><span>${p}</span></div>`).join('') || '<div class="opt c">Nada encontrado</div>');
   } else {
-   const {data, error} = await sb.from('fornecedores').select('id,razao_social,n_contratacoes').ilike('razao_social','%'+term+'%').order('n_contratacoes',{ascending:false}).limit(40);
+   let q = sb.from('fornecedores').select('id,razao_social,n_contratacoes').order('n_contratacoes',{ascending:false}).limit(t.length>=2 ? 40 : 200);
+   if(t.length>=2) q = q.ilike('razao_social','%'+t+'%');
+   const {data, error} = await q;
    if(error) throw error;
-   listEl.innerHTML = data.map(f=>`<div class="opt" onclick="pickSupplier('${f.id}')"><span>${f.razao_social}</span><span class="c">${f.n_contratacoes||0}x</span></div>`).join('') || '<div class="opt c">Nada encontrado</div>';
+   const label = t.length>=2 ? '' : `<div class="opt c">Todos os fornecedores, por nº de contratações — digite pra filtrar</div>`;
+   listEl.innerHTML = label + (data.map(f=>`<div class="opt" onclick="pickSupplier('${f.id}')"><span>${f.razao_social}</span><span class="c">${f.n_contratacoes||0}x</span></div>`).join('') || '<div class="opt c">Nada encontrado</div>');
   }
  }catch(err){
   listEl.innerHTML = `<div class="opt"><span class="err">Erro: ${err.message||err}</span></div>`;
