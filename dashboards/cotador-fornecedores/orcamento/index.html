@@ -165,9 +165,28 @@ function resetForn(){
  document.getElementById('unidadeCustom').value='';
  document.getElementById('unidadeCustom').style.display='none';
 }
+function expandirPorTamanho(rows){
+ // Um fornecedor pode ter preços bem diferentes por tamanho do mesmo item
+ // (ex: Backdrop 180x70cm != 225x225cm) — nunca misturar tamanhos numa
+ // única linha/preço (mesma regra do Cotador e do Catálogo ao vivo).
+ let out=[];
+ rows.forEach(r=>{
+  const pt=r.por_tamanho;
+  const keys=pt && typeof pt==='object' ? Object.keys(pt) : [];
+  if(keys.length>1){
+   keys.sort().forEach(t=>{
+    const v=pt[t]||{};
+    out.push(Object.assign({}, r, {tamanho:t, recent_val:v.val, recent_date:v.data, n:v.n, min:v.min, max:v.max}));
+   });
+  } else {
+   out.push(Object.assign({}, r, {tamanho:r.tamanho_recente||''}));
+  }
+ });
+ return out;
+}
 function renderFornList(){
  const p=selProd.value; if(!p){ return; }
- const rows=D.products[p]||[];
+ const rows=expandirPorTamanho(D.products[p]||[]);
  const term=norm(document.getElementById('selForn').value);
  const cidade=norm(selCidade.value);
  let filtered=rows.filter(r=>{
@@ -177,10 +196,10 @@ function renderFornList(){
    return okTerm && okCidade;
  });
  const L=document.getElementById('fornList');
- L.innerHTML=filtered.slice(0,40).map(r=>{
+ L.innerHTML=filtered.slice(0,60).map(r=>{
   const sup=D.suppliers[r.forn_key]||{};
   return `<div class="res" onclick='pickForn(${JSON.stringify(r).replace(/'/g,"&#39;")})'>`+
-   `<b>${r.forn}</b> <span class="c">${r.n}x · ${brl(r.recent_val)}${sup.cidade?' · '+sup.cidade:''}${r.diaria?' · 🕑 diária':''}</span></div>`;
+   `<b>${r.forn}</b>${r.tamanho?' <span class="c">'+r.tamanho+'</span>':''} <span class="c">${r.n}x · ${brl(r.recent_val)}${sup.cidade?' · '+sup.cidade:''}${r.diaria?' · 🕑 diária':''}</span></div>`;
  }).join('') || '<div class="res c">Nenhum fornecedor encontrado para esse filtro</div>';
  L.classList.add('show');
 }
@@ -192,7 +211,7 @@ function pickForn(r){
  onUnidadeChange();
  document.getElementById('precoUnit').value = (r.diaria ? (r.por_diaria||r.recent_val) : r.recent_val) || '';
  document.getElementById('infoBar').innerHTML=
-  `Preço recente: <b>${brl(r.recent_val)}</b>${r.recent_date?' ('+r.recent_date+')':''} · faixa histórica ${brl(r.min)}–${brl(r.max)} · `+
+  `${r.tamanho?'Tamanho: <b>'+r.tamanho+'</b> · ':''}Preço recente: <b>${brl(r.recent_val)}</b>${r.recent_date?' ('+r.recent_date+')':''} · faixa histórica ${brl(r.min)}–${brl(r.max)} · `+
   `contratado <b>${r.n}x</b> antes${r.diaria?' · <span class=\"dbadge\">🕑 preço por diária, use qtd = nº de diárias</span>':''}`;
  document.getElementById('addBtn').disabled=false;
 }
@@ -213,7 +232,7 @@ function addItem(){
  const unidade = selU==='__outro' ? (document.getElementById('unidadeCustom').value.trim()||'unidade') : selU;
  budget.itens.push({
   categoria:selCat.value, item:selProd.value, fornecedor:currentForn.forn,
-  qtd, unidade, preco:unitVal,
+  tamanho: currentForn.tamanho||'', qtd, unidade, preco:unitVal,
   subtotal: unitVal*qtd
  });
  saveBudget(budget); renderBudget();
@@ -229,7 +248,7 @@ function renderBudget(){
  if(!budget.itens.length){ tb.innerHTML=''; empty.style.display='block'; document.getElementById('totals').innerHTML=''; return; }
  empty.style.display='none';
  tb.innerHTML=budget.itens.map((it,i)=>
-  `<tr><td><span class="cat-tag">${it.categoria}</span></td><td><b>${it.item}</b></td><td>${it.fornecedor}</td>`+
+  `<tr><td><span class="cat-tag">${it.categoria}</span></td><td><b>${it.item}</b>${it.tamanho?'<div style=\"color:var(--mut);font-size:11.5px\">'+it.tamanho+'</div>':''}</td><td>${it.fornecedor}</td>`+
   `<td class="num">${it.qtd}</td><td>${it.unidade}</td><td class="num">${brl(it.preco)}</td>`+
   `<td class="num"><b>${brl(it.subtotal)}</b></td><td><button class="rmv" onclick="removerItem(${i})">remover</button></td></tr>`
  ).join('');
@@ -247,7 +266,7 @@ function baixarCSV(){
  const rows=[header];
  const projeto = budget.nome || '';
  budget.itens.forEach(it=>rows.push([
-   projeto, "", it.categoria, "", it.item, it.fornecedor, "",
+   projeto, "", it.categoria, "", it.item, it.fornecedor, it.tamanho||"",
    it.qtd, "", "", it.preco.toFixed(2).replace('.',','),
    it.subtotal.toFixed(2).replace('.',','), "", "", "", "", ""
  ]));
