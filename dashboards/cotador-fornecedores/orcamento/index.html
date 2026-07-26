@@ -108,6 +108,10 @@ td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-n
 <div class="step"><label><span class="n">6</span>Preço unit. (R$)</label><input id="precoUnit" type="number" min="0" step="0.01" style="width:100%"></div>
 <div class="step"><button class="addbtn" id="addBtn" disabled onclick="addItem()">+ Adicionar</button></div>
 </div>
+<div id="tamanhoBox" style="display:none;margin-top:12px;padding:12px 14px;background:var(--brand-g-tint);border:1px solid var(--brand-g);border-radius:10px">
+ <label style="font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--brand-g-dark);display:block;margin-bottom:8px">Esse fornecedor tem preços diferentes por tamanho — escolha qual:</label>
+ <div id="tamanhoOpts" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+</div>
 <div class="info" id="infoBar"></div>
 </div>
 
@@ -139,6 +143,7 @@ const selCidade=document.getElementById('selCidade');
 selCidade.innerHTML='<option value="">Todas</option>'+D.cidades.map(c=>`<option value="${c}">${c}</option>`).join('');
 
 let currentForn=null;
+let currentTamanho=null;
 function onCat(){
  const cat=selCat.value;
  selProd.innerHTML='<option value="">Selecione…</option>';
@@ -156,6 +161,7 @@ function onUnidadeChange(){
 }
 function resetForn(){
  currentForn=null;
+ currentTamanho=null;
  document.getElementById('selForn').value='';
  document.getElementById('addBtn').disabled=true;
  document.getElementById('infoBar').innerHTML='';
@@ -164,29 +170,14 @@ function resetForn(){
  document.getElementById('selUnidade').value='unitário';
  document.getElementById('unidadeCustom').value='';
  document.getElementById('unidadeCustom').style.display='none';
-}
-function expandirPorTamanho(rows){
- // Um fornecedor pode ter preços bem diferentes por tamanho do mesmo item
- // (ex: Backdrop 180x70cm != 225x225cm) — nunca misturar tamanhos numa
- // única linha/preço (mesma regra do Cotador e do Catálogo ao vivo).
- let out=[];
- rows.forEach(r=>{
-  const pt=r.por_tamanho;
-  const keys=pt && typeof pt==='object' ? Object.keys(pt) : [];
-  if(keys.length>1){
-   keys.sort().forEach(t=>{
-    const v=pt[t]||{};
-    out.push(Object.assign({}, r, {tamanho:t, recent_val:v.val, recent_date:v.data, n:v.n, min:v.min, max:v.max}));
-   });
-  } else {
-   out.push(Object.assign({}, r, {tamanho:r.tamanho_recente||''}));
-  }
- });
- return out;
+ document.getElementById('tamanhoBox').style.display='none';
+ document.getElementById('tamanhoOpts').innerHTML='';
 }
 function renderFornList(){
+ // Lista mostra 1 linha POR FORNECEDOR (nunca por tamanho) — escolher o
+ // tamanho é um passo separado, depois de já ter escolhido o fornecedor.
  const p=selProd.value; if(!p){ return; }
- const rows=expandirPorTamanho(D.products[p]||[]);
+ const rows=D.products[p]||[];
  const term=norm(document.getElementById('selForn').value);
  const cidade=norm(selCidade.value);
  let filtered=rows.filter(r=>{
@@ -196,23 +187,58 @@ function renderFornList(){
    return okTerm && okCidade;
  });
  const L=document.getElementById('fornList');
- L.innerHTML=filtered.slice(0,60).map(r=>{
+ L.innerHTML=filtered.slice(0,40).map(r=>{
   const sup=D.suppliers[r.forn_key]||{};
+  const nTam=r.por_tamanho && typeof r.por_tamanho==='object' ? Object.keys(r.por_tamanho).length : 0;
   return `<div class="res" onclick='pickForn(${JSON.stringify(r).replace(/'/g,"&#39;")})'>`+
-   `<b>${r.forn}</b>${r.tamanho?' <span class="c">'+r.tamanho+'</span>':''} <span class="c">${r.n}x · ${brl(r.recent_val)}${sup.cidade?' · '+sup.cidade:''}${r.diaria?' · 🕑 diária':''}</span></div>`;
+   `<b>${r.forn}</b> <span class="c">${r.n}x · ${nTam>1? nTam+' tamanhos':brl(r.recent_val)}${sup.cidade?' · '+sup.cidade:''}${r.diaria?' · 🕑 diária':''}</span></div>`;
  }).join('') || '<div class="res c">Nenhum fornecedor encontrado para esse filtro</div>';
  L.classList.add('show');
 }
 function pickForn(r){
  currentForn=r;
+ currentTamanho=null;
  document.getElementById('selForn').value=r.forn;
  document.getElementById('fornList').classList.remove('show');
  document.getElementById('selUnidade').value = r.diaria ? 'diária' : 'unitário';
  onUnidadeChange();
- document.getElementById('precoUnit').value = (r.diaria ? (r.por_diaria||r.recent_val) : r.recent_val) || '';
+
+ const pt=r.por_tamanho;
+ const keys=pt && typeof pt==='object' ? Object.keys(pt).sort() : [];
+ const tBox=document.getElementById('tamanhoBox');
+ if(keys.length>1){
+  // Tem mais de um tamanho com preço diferente — obriga escolher antes de liberar Adicionar.
+  document.getElementById('precoUnit').value='';
+  document.getElementById('addBtn').disabled=true;
+  document.getElementById('infoBar').innerHTML=`Fornecedor: <b>${r.forn}</b> — escolha o tamanho abaixo para ver o preço.`;
+  document.getElementById('tamanhoOpts').innerHTML=keys.map(t=>{
+   const v=pt[t]||{};
+   return `<button type="button" class="tampill" onclick='pickTamanho(${JSON.stringify(t)},${JSON.stringify(v)})' `+
+    `style="padding:8px 12px;border:2px solid var(--brand-g);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer;font-size:13px">`+
+    `<b>${t}</b><br><span style="color:var(--mut);font-size:11.5px">${brl(v.val)} · ${v.n}x</span></button>`;
+  }).join('');
+  tBox.style.display='block';
+ } else {
+  tBox.style.display='none';
+  document.getElementById('tamanhoOpts').innerHTML='';
+  currentTamanho = r.tamanho_recente||'';
+  document.getElementById('precoUnit').value = (r.diaria ? (r.por_diaria||r.recent_val) : r.recent_val) || '';
+  document.getElementById('infoBar').innerHTML=
+   `${currentTamanho?'Tamanho: <b>'+currentTamanho+'</b> · ':''}Preço recente: <b>${brl(r.recent_val)}</b>${r.recent_date?' ('+r.recent_date+')':''} · faixa histórica ${brl(r.min)}–${brl(r.max)} · `+
+   `contratado <b>${r.n}x</b> antes${r.diaria?' · <span class=\"dbadge\">🕑 preço por diária, use qtd = nº de diárias</span>':''}`;
+  document.getElementById('addBtn').disabled=false;
+ }
+}
+function pickTamanho(t, v){
+ currentTamanho=t;
+ [...document.querySelectorAll('.tampill')].forEach(b=>{
+  const on=b.innerText.startsWith(t);
+  b.style.background = on ? 'var(--brand-g-dark)' : 'var(--card)';
+  b.style.color = on ? '#fff' : 'var(--ink)';
+ });
+ document.getElementById('precoUnit').value = v.val || '';
  document.getElementById('infoBar').innerHTML=
-  `${r.tamanho?'Tamanho: <b>'+r.tamanho+'</b> · ':''}Preço recente: <b>${brl(r.recent_val)}</b>${r.recent_date?' ('+r.recent_date+')':''} · faixa histórica ${brl(r.min)}–${brl(r.max)} · `+
-  `contratado <b>${r.n}x</b> antes${r.diaria?' · <span class=\"dbadge\">🕑 preço por diária, use qtd = nº de diárias</span>':''}`;
+  `Fornecedor: <b>${currentForn.forn}</b> · Tamanho: <b>${t}</b> · Preço recente: <b>${brl(v.val)}</b>${v.data?' ('+v.data+')':''} · faixa ${brl(v.min)}–${brl(v.max)} · contratado <b>${v.n}x</b> antes`;
  document.getElementById('addBtn').disabled=false;
 }
 document.addEventListener('click',e=>{ if(!e.target.closest('.list')) document.getElementById('fornList').classList.remove('show'); });
@@ -232,7 +258,7 @@ function addItem(){
  const unidade = selU==='__outro' ? (document.getElementById('unidadeCustom').value.trim()||'unidade') : selU;
  budget.itens.push({
   categoria:selCat.value, item:selProd.value, fornecedor:currentForn.forn,
-  tamanho: currentForn.tamanho||'', qtd, unidade, preco:unitVal,
+  tamanho: currentTamanho||'', qtd, unidade, preco:unitVal,
   subtotal: unitVal*qtd
  });
  saveBudget(budget); renderBudget();
