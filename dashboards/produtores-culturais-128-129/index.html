@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produtores Culturais — Projetos 128 &amp; 129 (CNH) · NTICS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font:'Inter','Helvetica Neue',Arial,sans-serif;
+    --verde-logo:#8DC63F; --verde:#3DAA35; --petroleo:#003D4D; --petroleo2:#00566b;
+    --magenta:#D41A6A; --amarelo:#F5B800; --ciano:#00A5B8; --laranja:#E86428; --roxo:#6B2D7B;
+    --ink:#2d2d2d; --mut:#5c6b72; --line:#e2e7ea; --bg:#eef1f2; --card:#ffffff;
+    --wa:#25d366; --li:#0a66c2;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  /* topbar */
+  .topbar{background:linear-gradient(100deg,var(--petroleo),var(--petroleo2));color:#fff}
+  .topbar .in{max-width:1080px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;gap:14px}
+  .topbar img{height:34px;width:auto;display:block}
+  .topbar .bar-txt{font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;opacity:.85;font-weight:600}
+  .topaccent{height:4px;background:var(--verde-logo)}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 18px 80px}
+  /* hero */
+  .hero{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .hero h1{font-size:1.6rem;margin:0 0 8px;font-weight:800;letter-spacing:-.4px;color:var(--petroleo)}
+  .hero .sub{color:var(--mut);font-size:.95rem;margin-bottom:4px}
+  .hero .sub b{color:var(--verde)}
+  .hero .meta{color:var(--mut);font-size:.78rem;margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+  .legend{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 0;font-size:.72rem;color:var(--mut)}
+  .legend span{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:3px 10px}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .note{background:#eaf5ee;border:1px solid #cfe6d7;border-left:3px solid var(--verde);border-radius:10px;
+    padding:11px 15px;font-size:.83rem;color:#2f5138;margin:16px 0 0}
+  /* tabs */
+  .tabs{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px;position:sticky;top:0;background:var(--bg);
+    padding:12px 0;z-index:10;border-bottom:1px solid var(--line)}
+  .tab{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:11px;
+    padding:8px 13px;cursor:pointer;font-size:.86rem;font-weight:700;display:flex;flex-direction:column;gap:1px;line-height:1.15;transition:all .15s}
+  .tab small{font-size:.6rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+  .tab.p128 small{color:var(--verde)}
+  .tab.p129 small{color:var(--ciano)}
+  .tab:hover{border-color:var(--verde-logo)}
+  .tab.active{background:var(--verde-logo);color:var(--petroleo);border-color:var(--verde-logo)}
+  .tab.active small{color:var(--petroleo)}
+  .panel{display:none;animation:fade .25s ease}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .cityhead{margin:20px 0 4px}
+  .cityhead h2{font-size:1.35rem;margin:0;font-weight:800;color:var(--petroleo)}
+  .cityhead .tag{font-size:.72rem;color:var(--mut);font-weight:600}
+  .best{background:#f3f9ea;border:1px solid #d8ecbf;border-left:3px solid var(--verde-logo);border-radius:10px;
+    padding:11px 15px;font-size:.85rem;color:#3c5227;margin:12px 0 18px}
+  .best b{color:var(--verde)}
+  /* cards */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .card.top{border-left:4px solid var(--verde);background:#f8fcf2}
+  .card .row1{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .card .name{font-size:1.05rem;font-weight:700;margin:0;color:var(--petroleo)}
+  .card .name .st{color:var(--amarelo)}
+  .badge{font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:3px 9px;border-radius:20px;white-space:nowrap;color:#fff}
+  .b-pf{background:var(--ciano)}
+  .b-emp{background:var(--roxo)}
+  .b-org{background:var(--petroleo)}
+  .b-assoc{background:var(--verde)}
+  .qual{color:var(--mut);font-size:.85rem;margin:8px 0 6px}
+  .sit{font-size:.79rem;color:#3f5138;margin-bottom:11px;font-weight:500}
+  .btns{display:flex;flex-wrap:wrap;gap:7px}
+  .btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#fff;font-size:.79rem;
+    font-weight:600;padding:7px 12px;border-radius:8px;transition:filter .15s;border:none}
+  .btn:hover{filter:brightness(1.08)}
+  .btn.wa{background:var(--wa)} .btn.tel{background:var(--petroleo)} .btn.ig{background:var(--magenta)}
+  .btn.li{background:var(--li)} .btn.site{background:var(--ciano)} .btn.mail{background:var(--amarelo);color:var(--petroleo)}
+  .btn.src{background:#fff;border:1px solid var(--line);color:var(--mut);font-weight:500}
+  footer{margin-top:40px;color:var(--mut);font-size:.75rem;border-top:1px solid var(--line);padding-top:16px}
+  footer b{color:var(--petroleo)}
+  @media(max-width:560px){.hero h1{font-size:1.3rem}.tab{flex:1 1 auto}.topbar img{height:28px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="in">
+    <img src="logo-ntics-branca.png" alt="NTICS Projetos">
+    <span class="bar-txt">Escritório de Projetos · Levantamento de campo</span>
+  </div>
+</div>
+<div class="topaccent"></div>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>Produtores Culturais por Cidade</h1>
+    <div class="sub">Projetos <b>128 — Festival AgriCultura Sustentável</b> (New Holland) &amp; <b>129 — Agrofuturo nas Escolas</b> (Case IH)</div>
+    <div class="sub">Produtores locais e caminhos de contato para oficinas em escolas + atividade/evento cultural.</div>
+    <div class="meta">Pesquisa NTICS · 29/07/2026 · 7 cidades · 59 contatos. Toda linha tem contato direto (WhatsApp, Instagram, LinkedIn ou site). Nenhum número foi inventado — quando não é público, aponta-se o canal real.</div>
+
+    <div class="legend">
+      <span><i class="dot" style="background:var(--wa)"></i>WhatsApp</span>
+      <span><i class="dot" style="background:var(--petroleo)"></i>Ligar</span>
+      <span><i class="dot" style="background:var(--magenta)"></i>Instagram</span>
+      <span><i class="dot" style="background:var(--li)"></i>LinkedIn</span>
+      <span><i class="dot" style="background:var(--ciano)"></i>Site</span>
+      <span><i class="dot" style="background:var(--amarelo)"></i>E-mail</span>
+      <span><i class="dot" style="background:var(--verde)"></i>Melhor aposta</span>
+    </div>
+
+    <div class="note">💡 <b>Como ler:</b> os cards vêm ranqueados por facilidade de contato — quem tem telefone/WhatsApp primeiro, depois quem só tem Instagram/LinkedIn/site. A estrela marca o encaixe mais forte para o projeto (faz oficinas + evento). Órgãos públicos entram como caminho para a lista de contemplados de editais, que traz dezenas de produtores locais.</div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div id="panels"></div>
+
+  <footer>
+    Fontes por contato no botão “fonte” de cada card. Preferência por produtores independentes (pessoa física) atendida onde havia dado público. Cidades pequenas (Água Boa, Dom Pedrito) complementadas por polo regional (Barra do Garças; Bagé).<br>
+    <b>NTICS Projetos</b> · Escritório de Projetos.
+  </footer>
+</div>
+
+<script>
+const DATA = [
+ {city:"Curitiba", uf:"PR", proj:"128", projName:"New Holland",
+  best:"<b>Contato direto já:</b> Agrupa Cultura (WhatsApp público, faz oficinas + eventos, executou Lei Paulo Gustavo). <b>Independentes preferidos:</b> Aline Valente (LinkedIn) e Cristiane Lissoni (Instagram). Para evento grande em praça, Parnaxx/Leandro Knopfholz.",
+  list:[
+   {n:"Agrupa Cultura",t:"emp",top:true,q:"Produtora + espaço cultural. Executou a Lei Paulo Gustavo (filme “Rapsódia em Azul”); declara +20 cursos e +30 eventos. Já faz oficinas + eventos — o escopo exato.",s:"★ Melhor contato direto — telefone público",wa:"5541997070065",tel:"5541997070065",ig:"https://www.instagram.com/agrupacultura/",mail:"contato@agrupacultura.com",src:"https://topview.com.br/estilo/cultura/artes/agrupa-cultura-celebra-2-anos-de-atividades-artisticas-em-curitiba/"},
+   {n:"Aline Valente",t:"pf",q:"Produtora cultural desde 2012 (+10 anos): festivais, shows e curadoria. Gestora/curadora do Sofar Sounds Curitiba por 7 anos; fundadora da Rede Coragem. Formada em Música (FAP/Unespar).",s:"Produtora independente ativa e articulada",li:"https://www.linkedin.com/in/aline-valente-6a1421176/",ig:"https://www.instagram.com/sofarcuritiba/",src:"https://jornalcomunicacao.ufpr.br/primeiro-sofar-sounds-curitiba-do-ano-abre-inscricoes/"},
+   {n:"Cristiane Lissoni",t:"pf",q:"Produtora de eventos de Curitiba (Zoli Eventos Exclusivos): corporativos, shows, culturais e festas. ~6,1 mil seguidores.",s:"Produtora independente ativa",ig:"https://www.instagram.com/zolieventosexclusivos/",ig2:"https://www.instagram.com/cristiane_lissoni/",src:"https://www.instagram.com/zolieventosexclusivos/"},
+   {n:"Rumo de Cultura",t:"emp",q:"Desde 2006. Site declara explicitamente “projetos pedagógicos (cursos e oficinas)” + produção de eventos e editais. Casa com oficinas em escola + evento em praça.",s:"Produtora ativa com braço pedagógico",ig:"https://www.instagram.com/rumodecultura",site:"https://www.rumodecultura.com/",src:"https://www.rumodecultura.com/"},
+   {n:"Leandro Knopfholz (Parnaxx)",t:"pf",q:"Diretor e criador do Festival de Teatro de Curitiba (34ª ed.); produtor de eventos de grande porte em praça/rua (Natal, Fringe, Risorama). Referência nacional.",s:"Ideal para evento grande em praça (menos ágil p/ oficinas)",ig:"https://www.instagram.com/parnaxx/",li:"https://br.linkedin.com/company/parnaxx",site:"https://parnaxx.com.br/",src:"https://www.agenciadacultura.pr.gov.br/Noticia/Leandro-Knopholz-diretor-da-Parnaxx-realizador-do-Festival-de-Teatro-de-Curitiba"},
+   {n:"Duplo Produções Culturais",t:"emp",q:"Produtora cultural ativa desde 2010 (teatro e projetos culturais).",s:"Produtora ativa — contato via redes",ig:"https://www.instagram.com/duploproducoes/",src:"https://www.solutudo.com.br/empresas/pr/curitiba/teatros/duplo-producoes-culturais-ltda-2875922"},
+   {n:"The Curitiba",t:"assoc",q:"Coletivo “facilitadores de cultura” com ~18 mil seguidores; conecta produção e cena local. Bom para mobilização e indicação de oficineiros.",s:"Coletivo ativo, grande alcance",ig:"https://www.instagram.com/thecuritiba_/",src:"https://www.instagram.com/thecuritiba_/"},
+   {n:"Ferreira Eventos Culturais",t:"pf",q:"Perfil profissional de produtor cultural / eventos culturais em Curitiba (confirmar escopo no contato).",s:"Produtor independente — via LinkedIn",li:"https://www.linkedin.com/in/ferreira-eventos-culturais-359b822a7/",src:"https://www.linkedin.com/in/ferreira-eventos-culturais-359b822a7/"},
+   {n:"Fundação Cultural de Curitiba (FCC)",t:"org",q:"Órgão municipal. A Coordenação de Editais e Contratos (Rosani) dá acesso às listas públicas de contemplados (Lei Paulo Gustavo/Aldir Blanc/FCC) com o produtor responsável de cada projeto.",s:"Caminho para lista nominal de produtores testados em edital",tel:"554132212118",mail:"paiccontratos@curitiba.pr.gov.br",ig:"https://www.instagram.com/fcccuritiba/",src:"https://fcc.curitiba.pr.gov.br/conteudo/contatos/417"}
+  ]},
+
+ {city:"Guarapuava", uf:"PR", proj:"128", projName:"New Holland",
+  best:"<b>Ligar hoje:</b> Aha Produções (WhatsApp) e Produza/Laffite Guimarães (telefone fixo). <b>Independente pessoa física:</b> Vini du Samba e Studio Bruna Pacheco (Instagram). A SECULT tem a lista dos 52 contemplados da Lei Paulo Gustavo — peça por e-mail.",
+  list:[
+   {n:"Aha Produções e Eventos",t:"emp",top:true,q:"Produtora de eventos local (Guarapuava): organização, contratação de shows, equipamentos e prestadores.",s:"★ Pronto para contato direto — WhatsApp público",wa:"5542991310789",tel:"5542991310789",mail:"ahaproducao@gmail.com",ig:"https://www.instagram.com/ahaproducao/",src:"https://www.emis.com/php/company-profile/BR/Aha_Producoes_e_Eventos_Ltda_en_20953714.html"},
+   {n:"Laffite Guimarães (Produza)",t:"pf",top:true,q:"Publicitário/produtor, sócio da Produza: vídeo, áudio, fotografia, música, jingles (4K, estúdio próprio). Rua Afonso Botelho 350, Trianon.",s:"★ Telefone fixo verificado (Instagram a confirmar)",tel:"554230356632",ig:"https://www.instagram.com/produzafilms/",src:"https://redesuldenoticias.com.br/noticias/guarapuava-tem-produtora-com-tecnologia-de-ponta/"},
+   {n:"Vinicius Santos (Vini du Samba)",t:"pf",q:"Empreendedor e artista cultural: produz rodas de samba e movimento de cultura de bar (Buteco du Samba), articula músicos locais.",s:"Independente nomeado — abordar via Instagram",ig:"https://www.instagram.com/butecodusamba/",src:"https://redesuldenoticias.com.br/noticias/vinicius-santos-empreendedor-e-artista-pela-cultura-de-bar-e-do-samba-em-guarapuava/"},
+   {n:"Bruna Pacheco (Studio de Dança)",t:"pf",q:"18 anos de dança em Guarapuava; potencial oficineira/executora de atividade artística em escola/praça.",s:"Independente nomeada — abordar via Instagram",ig:"https://www.instagram.com/studiobrunapacheco/",src:"https://www.instagram.com/studiobrunapacheco/"},
+   {n:"Grupo de Danças Anima",t:"assoc",q:"Grupo de danças de Guarapuava (desde 1991), difusão cultural — pode executar ou indicar oficineiros.",s:"Coletivo local — via Instagram",ig:"https://www.instagram.com/animaitaliano/",src:"https://redesuldenoticias.com.br/redemais/grupo-de-dancas-anima-preserva-cultura-italiana-em-guarapuava/"},
+   {n:"SECULT Guarapuava",t:"org",q:"Órgão municipal (secretária Rossana Campello Manfredini). Rodou a Lei Paulo Gustavo (52 contemplados) e a PNAB 2026; tem a lista de contemplados e o cadastro de agentes culturais.",s:"Melhor via para dezenas de produtores locais nomeados",tel:"554231420740",mail:"duvidaspaulogustavo@guarapuava.pr.gov.br",ig:"https://www.instagram.com/culturaguarapuava/",src:"https://linktr.ee/Culturaguarapuava"}
+  ]},
+
+ {city:"Toledo", uf:"PR", proj:"128", projName:"New Holland",
+  best:"<b>Telefone hoje:</b> Cavalleri (eventos), Circo Ático e Circo da Alegria — os dois circos são o encaixe literal de oficina em escola + apresentação em praça. <b>Melhor fit temático:</b> AH2T (oficinas em escolas + mostras, já executou vários editais) — via Instagram/site.",
+  list:[
+   {n:"Cavalleri Produções (Cássio Cavaleri)",t:"pf",top:true,q:"Empresa de produção de eventos (dono nomeado); organização de festas/eventos. Inscreveu “Carnaval das Crianças no CEU das Artes” na Lei Paulo Gustavo.",s:"★ Contato direto — WhatsApp público",wa:"5545999516184",tel:"5545999516184",mail:"cassio_cavaleri@hotmail.com",src:"https://www.solutudo.com.br/empresas/pr/toledo/organizacao-de-festas-e-eventos/cassio-junior-cavaleri-eventos-16674303"},
+   {n:"Circo Ático — Assoc. Toledana de Circo",t:"assoc",top:true,q:"Circo social (dir. Dado Guerra e Tania Piazzetta): oficinas com crianças/jovens + espetáculo. Encaixa oficina em escola + praça.",s:"★ Contato direto — WhatsApp + site",wa:"5545999743019",tel:"5545999743019",mail:"circoatico@hotmail.com",site:"http://circoatico.org.br/atico.php",src:"https://www.circonteudo.com/escola/circo-atico-associacao-toledana-de-circo-toledo-pr/"},
+   {n:"Circo da Alegria",t:"assoc",top:true,q:"Circo/produtora: Mostra de Circo Social + Festival Nacional de Circo; posta oficinas e ações em escola. Habilitada na Lei Paulo Gustavo.",s:"★ Ativíssima — telefone + Instagram",tel:"554531963902",ig:"https://www.instagram.com/circodaalegriatoledo/",src:"https://www.instagram.com/circodaalegriatoledo/"},
+   {n:"AH2T — Hip-Hop e Fórum de Dança",t:"assoc",q:"Melhor fit temático: oficinas gratuitas de dança urbana em escolas + mostras em praça/teatro (“Let’s Dance”); executa LPG/PNAB/Itaipu; 1º lugar nacional MinC 2023.",s:"Encaixe perfeito — via Instagram/site",ig:"https://www.instagram.com/ah2t.hiphop/",site:"https://ah2t.com.br/",src:"https://www.toledo.pr.gov.br/noticias/cultura/lets-dance-2025-tera-mostras-de-danca-e-workshops-para-o-publico"},
+   {n:"Valdirene Marssaro (Artemúsica)",t:"pf",q:"Escola de música e ballet (31 anos), diretora nomeada. Inscreveu espetáculo “com os alunos que frequentam a escola” — perfil de oficina/formação.",s:"Independente nomeada — via Instagram",ig:"https://www.instagram.com/artemusicatoledo/",src:"https://www.instagram.com/artemusicatoledo/"},
+   {n:"Gicelle Jan (DançArte)",t:"pf",q:"Escola de dança e teatro (desde 2008), fundadora nomeada. Inscreveu “Dança em Progressão” (ações formativas) na Lei Paulo Gustavo.",s:"Independente nomeada — via Instagram",ig:"https://www.instagram.com/dancarte_toledo/",src:"https://www.instagram.com/dancarte_toledo/"},
+   {n:"Os Amadores Cia de Teatro",t:"assoc",q:"Companhia de teatro de Toledo/PR — opção para linguagem teatral em oficina/apresentação.",s:"Ativa — via Facebook",site:"https://www.facebook.com/OsAmadoresCiadeTeatro/",src:"https://www.facebook.com/OsAmadoresCiadeTeatro/"},
+   {n:"Secretaria da Cultura de Toledo",t:"org",q:"Gere os editais e o cadastro de agentes; autoriza uso de praça pública. Atalho para os contatos que não são públicos (Mapa Cultural de Toledo).",s:"Caminho institucional + liberação de praça",tel:"554531962316",mail:"cultura@toledo.pr.gov.br",ig:"https://www.instagram.com/cultura_toledo/",src:"https://www.toledo.pr.gov.br/secretarias/secretaria_cultura"},
+   {n:"Teatro Municipal de Toledo",t:"org",q:"Equipamento cultural que concentra e indica os grupos/produtores ativos da cidade.",s:"Espaço público — indica produtores",tel:"554531962490",mail:"teatromunicipal@toledo.pr.gov.br",ig:"https://www.instagram.com/teatromunicipaldetoledo/",src:"https://www.toledo.pr.gov.br/secretarias/secretaria_cultura"}
+  ]},
+
+ {city:"Dom Pedrito", uf:"RS", proj:"128", projName:"New Holland",
+  best:"Cidade pequena (~40 mil hab): produtores nomeados são escassos. <b>Local:</b> Instituto Cultural Dom Pedrito (faz oficinas) e o artista-produtor Raineri Spohr. <b>Plano B regional (Bagé, ~40 min):</b> Sociedade Espanhola (telefone) e Strategia Eventos. Ferramenta útil: diretório do Pró-Cultura RS por município.",
+  list:[
+   {n:"Instituto Cultural Dom Pedrito",t:"assoc",top:true,q:"Entidade cultural local (Ponto de Cultura Dom Pedrito) que faz oficinas na comunidade — perfil aderente a oficinas + comunidade.",s:"★ Executor local — via Instagram",ig:"https://www.instagram.com/cultural_dompedrito/",site:"https://www.facebook.com/p/Instituto-Cultural-Dom-Pedrito-100064170579280/",src:"https://pontosdeculturars.redelivre.org.br/project/dom-pedrito/"},
+   {n:"Raineri Spohr",t:"pf",q:"Artista-produtor pedritense, premiado na música nativista; perfil pessoa física independente. Mobiliza a cena musical local.",s:"Independente nomeado — via Facebook",site:"https://www.facebook.com/RaineriSpohr/",src:"https://www.gaz.com.br/raineri-spohr-e-atracao-desta-sexta-feira-na-confraria-nativista/"},
+   {n:"CTG Rodeio da Fronteira",t:"assoc",q:"CTG com produção de eventos (danças, música, rodeios); executa ou indica produtor tradicionalista.",s:"Entidade local — via Instagram",ig:"https://www.instagram.com/ctgrf_/",src:"https://www.instagram.com/ctgrf_/"},
+   {n:"Garufa",t:"assoc",q:"Espaço cultural/bar de música da cena local; ponto para indicar artistas-produtores.",s:"Cena local — via Instagram",ig:"https://www.instagram.com/garufa_dp/",src:"https://www.instagram.com/garufa_dp/"},
+   {n:"SEDECTUR Dom Pedrito",t:"org",q:"Secretaria de Desenvolvimento Econômico, Inovação, Cultura e Turismo. Porta de entrada para uso de praça pública (Decreto 628/2025) e indicação de produtores locais.",s:"Caminho institucional (obrigatório p/ praça)",tel:"555332433050",mail:"cultura@dompedrito.rs.gov.br",ig:"https://www.instagram.com/prefeituradp/",src:"https://www.dompedrito.rs.gov.br/secretarias/secretaria-de-desenvolvimento-economico-inovacao-cultura-e-turismo"},
+   {n:"Sociedade Espanhola de Bagé",t:"emp",q:"Polo regional (Bagé). Espaço/produtora de eventos com capacidade operacional para evento em praça/salão. Contato completo público.",s:"Reforço regional — telefone público",tel:"555331810161",mail:"contato@sociedadeespanhola.com.br",ig:"https://www.instagram.com/sociedadeespanholabage",site:"https://sociedadeespanhola.com.br/salao",src:"https://sociedadeespanhola.com.br/salao"},
+   {n:"Strategia Eventos (Bagé)",t:"emp",q:"Produtora de eventos (+23 anos) que atende Bagé e região da Campanha.",s:"Reforço regional — via Instagram",ig:"https://www.instagram.com/strategiaeventos/",src:"https://www.instagram.com/strategiaeventos/"},
+   {n:"MBS Associadas (Bagé)",t:"emp",q:"Produtora cultural de Bagé (rep. Elisabeth Cristina Drumm) registrada no Cadastro Estadual de Produtor Cultural (CEPC), situação regular.",s:"Produtora regional registrada — via e-mail",mail:"mbs.associadas@gmail.com",site:"https://www.procultura.rs.gov.br/consulta_produtor.php?cod=27383",src:"https://www.procultura.rs.gov.br/consulta_produtor.php?cod=27383"},
+   {n:"SEDAC RS (estadual)",t:"org",q:"Secretaria de Estado da Cultura do RS. Canal estadual + diretório público de produtores cadastrados por município (Pró-Cultura RS).",s:"Diretório estadual pesquisável por cidade",tel:"555132885400",mail:"gabinete@sedac.rs.gov.br",site:"https://cultura.rs.gov.br/contatos-sec",src:"https://cultura.rs.gov.br/contatos-sec"}
+  ]},
+
+ {city:"Cuiabá", uf:"MT", proj:"129", projName:"Case IH",
+  best:"<b>Oficinas + gestão:</b> Mario Olímpio / Instituto Mutirum (WhatsApp) — fit perfeito. <b>Evento de encerramento (500–1.000, Shopping Pantanal):</b> Cibele Bussiki / Instituto INCA (Festival Cinemato) ou a empresa A Produtora. Independentes fortes: Larissa Sossai (festivais) e Adriana Milano.",
+  list:[
+   {n:"Mario Olímpio",t:"pf",top:true,q:"Produtor cultural e curador; coordena as oficinas da Aldir Blanc/PNAB em MT; produtor executivo do “Sempre Dalva”. Faz oficinas + gestão de projeto.",s:"★ Melhor fit — WhatsApp (via Instituto Mutirum)",wa:"5565992779847",tel:"5565992779847",ig:"https://www.instagram.com/mutirumcultura/",src:"https://mutirum.com/sempre-dalva/"},
+   {n:"Cibele Bussiki",t:"pf",top:true,q:"Presidente do Instituto INCA; produtora do Festival de Cinema e Vídeo de Cuiabá (Cinemato, 23 edições). Experiência real em evento cultural de grande público.",s:"★ Forte p/ o encerramento — WhatsApp (via INCA)",wa:"5565984727156",tel:"5565984727156",ig:"https://www.instagram.com/institutoincamt/",site:"https://institutoinca.com.br/",src:"https://festivalcinemato.com.br/equipe/"},
+   {n:"Adelita Sarkis",t:"pf",q:"Artesã/produtora cultural (sementes e cascas do cerrado) cadastrada no MT Criativo. Contato pessoal completo e público.",s:"Independente — telefone/WhatsApp público",wa:"5566992140880",tel:"5566992140880",ig:"https://www.instagram.com/adelitasarkis/",src:"https://www.mtcriativo.mt.gov.br/index.php/directory/"},
+   {n:"Instituto Mutirum",t:"assoc",q:"Produção e gestão de projetos culturais + oficinas gratuitas; parceiro executor da SECEL na PNAB. Av. Rubens de Mendonça, 1856.",s:"Organização com braço de oficinas — WhatsApp + site",wa:"5565992779847",tel:"5565992779847",mail:"contato@mutirum.com",site:"https://mutirum.com/",src:"https://mutirum.com/"},
+   {n:"Larissa Sossai",t:"pf",q:"Produtora e gestora de carreira (MT desde 2016); criadora da Feira de Música de MT (FeMus-MT) e do show DasMatas. Realizadora de festivais/eventos.",s:"Independente ativa — via Linktree",site:"https://linktr.ee/femusmt",src:"https://www.gazetadigital.com.br/editorias/cidades/feira-da-musica-de-mt-conecta-artistas-publico-e-realizadores-de-festivais-em-tres-dias/839079"},
+   {n:"Adriana Milano",t:"pf",q:"Artista visual e produtora; realiza a Feira Gaia (arte, cultura e economia criativa) em Cuiabá.",s:"Independente — via Instagram",ig:"https://www.instagram.com/adriana_milano/",src:"https://www.mtcriativo.mt.gov.br/index.php/directory/adriana-milano-de-souza-feira-gaia/"},
+   {n:"Instituto INCA",t:"assoc",q:"Realiza o Festival Cinemato e projetos socioculturais; equipe de produção estruturada. Av. São Sebastião, 3285.",s:"Organização com equipe de produção — WhatsApp + site",wa:"5565984727156",tel:"5565984727156",ig:"https://www.instagram.com/institutoincamt/",site:"https://institutoinca.com.br/",src:"https://institutoinca.com.br/"},
+   {n:"A Produtora — Produção de Eventos",t:"emp",q:"Produtora de “eventos de alta exposição”. Candidata forte para o encerramento de 500–1.000 (confirmar sede Cuiabá no 1º contato).",s:"Evento de grande porte — via Instagram",ig:"https://www.instagram.com/aprodutora_eventos/",src:"https://www.instagram.com/aprodutora_eventos/"},
+   {n:"Mega Eventos MT",t:"emp",q:"+27 anos em MT, eventos de grande porte e ações promocionais. Estrutura/logística para o encerramento.",s:"Evento de campo — via Instagram",ig:"https://www.instagram.com/megaeventosmt/",src:"https://www.instagram.com/megaeventosmt/"},
+   {n:"MAC Produções Culturais",t:"emp",q:"Produções culturais (perfil cultural, mais aderente a oficinas do que produtoras só de festa). Confirmar porte.",s:"Perfil cultural — via Instagram",ig:"https://www.instagram.com/mac.cultura/",src:"https://www.instagram.com/mac.cultura/"}
+  ]},
+
+ {city:"Tangará da Serra", uf:"MT", proj:"129", projName:"Case IH",
+  best:"<b>Duas apostas independentes com contato:</b> Grupo Os de Fora (telefone) e Mestre Bicudo — este já faz oficinas de capoeira/dança afro/musicalização com crianças em idade escolar, o encaixe mais literal do briefing. Para teatro/dança em escola: Teatro Coxia e ACAD.",
+  list:[
+   {n:"Grupo Os de Fora (Welington “Japa”)",t:"assoc",top:true,q:"Coletivo cultural (19 anos) que faz formação e oficinas de cultura popular; executa projetos culturais. Casa direto com oficinas + atividade cultural.",s:"★ Contato direto — WhatsApp público",wa:"5565999932724",tel:"5565999932724",site:"https://www.facebook.com/profile.php?id=100064010589624",src:"https://diariodaserra.com.br/Noticia/Detalhes/MjE0ODQx"},
+   {n:"Mestre Bicudo (Instituto Jogo de Mandinga)",t:"pf",top:true,q:"Pessoa física nomeada, 30+ anos: leva capoeira, danças afro e musicalização a crianças em idade escolar em Tangará. Match ideal para oficinas em escolas.",s:"★ Encaixe literal do briefing — via Facebook (confirmar telefone)",site:"https://www.facebook.com/MestreBicudoIJDM/",src:"https://diariodaserra.com.br/Noticia/Detalhes/MjE2Mzg5/AMPLIANDO-A-ATUACAO---Mestre-Bicudo-leva-a--capoeira-de-Tangara--da-Serra-para-Angola-em--missao-cultural-historica"},
+   {n:"Teatro Coxia — Oficina de Teatro",t:"assoc",q:"Grupo/oficina de teatro sediado no Centro Cultural Pedro Alberto Tayano Filho (Tangará); roda imersões e inscrições de oficina. Match direto para oficina em escola.",s:"Ativo — inscrições abertas, via Instagram",ig:"https://www.instagram.com/teatro.coxia/",src:"https://www.instagram.com/teatro.coxia/"},
+   {n:"ACAD — Assoc. Cultural Art e Dança",t:"assoc",q:"Associação que roda oficinas culturais gratuitas (costura, artesanato, dança) e o Festival “Sou os de Fora”. Pessoa jurídica apta a contratar.",s:"Associação apta a contratar — via Instagram",ig:"https://www.instagram.com/acad.tga/",src:"https://bemnoticias.com.br/inscricoes-abertas-para-o-1o-festival-sou-os-de-fora-sou-cultura-popular-com-formacao-gratuita-em-tangara/"},
+   {n:"Grupo Zahara (dança do ventre)",t:"assoc",q:"Coletivo de dança de Tangará; apresenta-se em festivais de cultura popular. Contato via reel público (handle próprio não confirmado).",s:"Coletivo ativo (2026) — via Instagram",ig:"https://www.instagram.com/reel/DT4FaqMkdW2/",src:"https://www.instagram.com/reel/DT4FaqMkdW2/"},
+   {n:"ZEM Produções (Emerson Andrade)",t:"emp",q:"Produtora local consolidada de eventos (ExpoSerra) — infra/logística. Perfil mais show que pedagógico.",s:"Evento de campo — via site do evento",site:"https://enfoquebusiness.com.br/exposerra-2025-acontecera-de-10-a-13-de-setembro-com-rodeio-e-seis-shows-nacionais/",src:"https://www.econodata.com.br/consulta-empresa/07775667000105-o-storari-servicos"},
+   {n:"Rede de Pontos de Cultura (SECULTUR)",t:"org",q:"Articula os Pontos de Cultura e as oficinas (Festival de Cultura Popular). Tem a relação nominal de contemplados (Aldir Blanc/LPG). Instagram @turismo_tga.",s:"Caminho institucional — telefone + Instagram",tel:"556533264724",ig:"https://www.instagram.com/turismo_tga/",src:"https://diariodaserra.com.br/Noticia/Detalhes/MjE0ODkx"}
+  ]},
+
+ {city:"Água Boa", uf:"MT", proj:"129", projName:"Case IH",
+  best:"Cidade pequena (~24 mil hab): sem produtor pessoa física de edital clássico. <b>Local:</b> Gerson Luiz Pinheiro (GLP Vídeo) e Ateliê by Taty (Instagram). <b>Institucional:</b> Secretaria Municipal (telefone). <b>Polo regional (Barra do Garças):</b> ALCARTES e a rede @eventos_barra_do_garcas_mt — de onde puxar produtor com histórico de edital.",
+  list:[
+   {n:"Secretaria Mun. de Esporte, Cultura e Lazer",t:"org",top:true,q:"Órgão (secretário Erik Rodrigo) que conduz festivais e editais (Lei Paulo Gustavo, chamamento de projetos). Porta de entrada nº 1; articula produtor + escolas + espaços.",s:"★ Porta de entrada — telefone + e-mail de projetos",tel:"556634682982",mail:"pregao4@aguaboa.mt.gov.br",ig:"https://www.instagram.com/prefeituradeaguaboamt/",src:"https://www.aguaboa.mt.gov.br/esporte"},
+   {n:"Gerson Luiz Pinheiro (GLP Vídeo)",t:"pf",q:"Produtor de vídeo/foto de eventos em Água Boa. Independente nomeado com Instagram.",s:"Independente local — via Instagram",ig:"https://www.instagram.com/gerson_luiz_pinheiro/",src:"https://www.econodata.com.br/empresas/mt-agua-boa/atividades-fotograficas-e-similares-m-7420004"},
+   {n:"Ateliê de Eventos by Taty",t:"pf",q:"Produção/decoração de eventos em Água Boa. Aderência cultural média, mas @ ativo e local.",s:"Local — via Instagram",ig:"https://www.instagram.com/atelie_de_eventos_by_taty/",src:"https://www.instagram.com/atelie_de_eventos_by_taty/"},
+   {n:"ExpoVale Água Boa",t:"assoc",q:"Comissão que organiza o maior evento da cidade; rede direta para artistas/produtores locais.",s:"Rede local de eventos — via Instagram",ig:"https://www.instagram.com/expovaleab/",src:"https://www.instagram.com/expovaleab/"},
+   {n:"R&D Produtora (Rafael Alcântara)",t:"emp",q:"Produtora audiovisual/eventos, Rua 05, 622 - Centro, Água Boa; ativa desde 2012.",s:"Produtora local — via anúncio (telefone no site)",site:"https://www.solutudo.com.br/empresas/mt/agua-boa/produtoras-filmagens/r-d-produtora-marketing-visual-16013342",src:"https://www.econodata.com.br/consulta-empresa/16582430000107-rafael-pereira-de-alcantara"},
+   {n:"ALCARTES (Barra do Garças)",t:"assoc",q:"Polo regional. Academia de Letras, Cultura e Artes do Centro-Oeste. Contemplada Lei Paulo Gustavo/Cinemotion; realizou a Mostra “Araguaia em Curso” (audiovisual + oficinas).",s:"Polo regional — via site/Facebook",site:"https://www.alcartes.com.br/",src:"https://rededanoticia.com.br/mostra-audiovisual-araguaia-em-curso-celebra-a-producao-local-com-exibicao-gratuita-em-barra-do-garcas"},
+   {n:"Rede Eventos Barra do Garças",t:"assoc",q:"Hub regional de produtores/DJs/eventos no polo Barra do Garças (~11 mil no Facebook). Bom para puxar oficineiro/produtor.",s:"Hub regional — via Instagram",ig:"https://www.instagram.com/eventos_barra_do_garcas_mt/",src:"https://www.instagram.com/eventos_barra_do_garcas_mt/"},
+   {n:"Sec. de Cultura de Barra do Garças",t:"org",q:"Secretaria do polo regional (secretário José Roberto Ribeiro); lidera 24 projetos PNAB (oficinas de cinema, teatro, dança). Indica produtores.",s:"Institucional regional — via Facebook",site:"https://www.facebook.com/secculturabg/",src:"https://rededanoticia.com.br/barra-do-garcas-vira-referencia-em-cultura-e-lidera-projetos-da-pnab-no-interior-de-mt"},
+   {n:"SECEL-MT (Economia Criativa)",t:"org",q:"Canal estadual (Alessandra Keiko Okamura) para indicar produtores da região com histórico de edital (Cinemotion/PNAB).",s:"Atalho estadual — telefone + e-mail",tel:"556536130240",mail:"alessandraokamura@secel.mt.gov.br",site:"https://www.secel.mt.gov.br/en/contatos",src:"https://www.secel.mt.gov.br/en/contatos"}
+  ]}
+];
+
+const TBADGE={pf:["b-pf","Pessoa física"],emp:["b-emp","Produtora / empresa"],org:["b-org","Órgão público"],assoc:["b-assoc","Associação / coletivo"]};
+
+function fmtTel(n){
+  const d=n.replace(/\D/g,'').replace(/^55/,'');
+  if(d.length===11) return '('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7);
+  if(d.length===10) return '('+d.slice(0,2)+') '+d.slice(2,6)+'-'+d.slice(6);
+  return n;
+}
+function btn(cls,href,label){return '<a class="btn '+cls+'" href="'+href+'" target="_blank" rel="noopener">'+label+'</a>';}
+
+function renderCard(c){
+  const [bc,bl]=TBADGE[c.t]||["b-org",""];
+  let b='';
+  if(c.wa) b+=btn('wa','https://wa.me/'+c.wa,'WhatsApp');
+  if(c.tel&&!c.wa) b+=btn('tel','tel:+'+c.tel.replace(/\D/g,''),'Ligar '+fmtTel(c.tel));
+  else if(c.tel&&c.wa) b+=btn('tel','tel:+'+c.tel.replace(/\D/g,''),'Ligar');
+  if(c.ig) b+=btn('ig',c.ig,'Instagram');
+  if(c.ig2) b+=btn('ig',c.ig2,'Instagram (pessoal)');
+  if(c.li) b+=btn('li',c.li,'LinkedIn');
+  if(c.site) b+=btn('site',c.site,'Site');
+  if(c.mail) b+=btn('mail','mailto:'+c.mail,'E-mail');
+  if(c.src) b+=btn('src',c.src,'fonte');
+  return '<div class="card'+(c.top?' top':'')+'">'
+    +'<div class="row1"><p class="name">'+(c.top?'<span class="st">★</span> ':'')+c.n+'</p>'
+    +'<span class="badge '+bc+'">'+bl+'</span></div>'
+    +'<p class="qual">'+c.q+'</p>'
+    +'<p class="sit">'+c.s+'</p>'
+    +'<div class="btns">'+b+'</div></div>';
+}
+
+const tabsEl=document.getElementById('tabs'), panelsEl=document.getElementById('panels');
+DATA.forEach((city,i)=>{
+  const t=document.createElement('button');
+  t.className='tab p'+city.proj+(i===0?' active':'');
+  t.innerHTML='<small>'+city.proj+' · '+city.projName+'</small>'+city.city+'/'+city.uf;
+  t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active'); document.getElementById('panel'+i).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});};
+  tabsEl.appendChild(t);
+
+  const p=document.createElement('div');
+  p.className='panel'+(i===0?' active':''); p.id='panel'+i;
+  p.innerHTML='<div class="cityhead"><h2>'+city.city+' <span class="tag">/'+city.uf+' · Projeto '+city.proj+' ('+city.projName+')</span></h2></div>'
+    +'<div class="best">🎯 '+city.best+'</div>'
+    +city.list.map(renderCard).join('');
+  panelsEl.appendChild(p);
+});
+</script>
+</body>
+</html>
