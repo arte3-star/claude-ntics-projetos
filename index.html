@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de Páginas · NTICS</title>
+<meta name="description" content="Catálogo central de todas as páginas publicadas pela NTICS no GitHub Pages.">
+<link rel="icon" href="assets/brand/logo-ntics.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde-logo:#8DC63F;
+    --verde-regeneracao:#3DAA35;
+    --azul-petroleo:#003D4D;
+    --azul-petroleo-2:#00566B;
+    --magenta:#D41A6A;
+    --amarelo:#F5B800;
+    --ciano:#00A5B8;
+    --laranja:#E86428;
+    --roxo:#6B2D7B;
+    --tinta:#2D2D2D;
+    --fundo-claro:#F4F4F4;
+    --fundo-alt:#EEF1F2;
+    --card:#FFFFFF;
+    --borda:#E2E6E8;
+    --sombra: 0 4px 16px rgba(0,61,77,0.08);
+    --sombra-hover: 0 10px 28px rgba(0,61,77,0.16);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Inter','Helvetica Neue',Arial,sans-serif;
+    background:var(--fundo-claro);
+    color:var(--tinta);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+
+  /* ===== Header ===== */
+  header{
+    background:linear-gradient(135deg, var(--azul-petroleo) 0%, var(--azul-petroleo-2) 100%);
+    color:#fff;
+    padding:48px 24px 40px;
+    position:relative;
+    overflow:hidden;
+  }
+  header::before{
+    content:"";
+    position:absolute;
+    top:-60px; right:-60px;
+    width:280px; height:280px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(141,198,63,0.25) 0%, rgba(141,198,63,0) 70%);
+  }
+  header::after{
+    content:"";
+    position:absolute;
+    bottom:-100px; left:10%;
+    width:320px; height:320px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(0,165,184,0.18) 0%, rgba(0,165,184,0) 70%);
+  }
+  .header-inner{
+    max-width:1180px;
+    margin:0 auto;
+    position:relative;
+    z-index:1;
+  }
+  .brand-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:28px;
+  }
+  .brand-row img{
+    height:34px;
+    width:auto;
+    display:block;
+  }
+  .brand-row span{
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.72);
+  }
+  header h1{
+    font-size:38px;
+    font-weight:800;
+    line-height:1.15;
+    margin:0 0 12px;
+    letter-spacing:-0.01em;
+  }
+  header p.lead{
+    font-size:16px;
+    font-weight:400;
+    color:rgba(255,255,255,0.82);
+    max-width:640px;
+    margin:0 0 28px;
+    line-height:1.55;
+  }
+  .stats-row{
+    display:flex;
+    gap:28px;
+    flex-wrap:wrap;
+  }
+  .stat{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .stat b{
+    font-size:24px;
+    font-weight:800;
+    color:var(--verde-logo);
+  }
+  .stat span{
+    font-size:12px;
+    color:rgba(255,255,255,0.68);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-weight:600;
+  }
+
+  /* ===== Controls ===== */
+  .controls-wrap{
+    background:#fff;
+    border-bottom:1px solid var(--borda);
+    position:sticky;
+    top:0;
+    z-index:10;
+    box-shadow:0 2px 10px rgba(0,0,0,0.04);
+  }
+  .controls{
+    max-width:1180px;
+    margin:0 auto;
+    padding:16px 24px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .search-box{
+    position:relative;
+    flex:1 1 260px;
+    min-width:220px;
+  }
+  .search-box input{
+    width:100%;
+    padding:11px 14px 11px 38px;
+    border-radius:10px;
+    border:1.5px solid var(--borda);
+    background:var(--fundo-alt);
+    font-family:inherit;
+    font-size:14px;
+    color:var(--tinta);
+    outline:none;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .search-box input:focus{
+    border-color:var(--verde-logo);
+    background:#fff;
+  }
+  .search-box svg{
+    position:absolute;
+    left:12px; top:50%;
+    transform:translateY(-50%);
+    width:16px; height:16px;
+    opacity:.45;
+  }
+  .filter-pills{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .pill{
+    padding:9px 16px;
+    border-radius:999px;
+    border:1.5px solid var(--borda);
+    background:#fff;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:600;
+    color:var(--tinta);
+    cursor:pointer;
+    transition:all .15s ease;
+    white-space:nowrap;
+  }
+  .pill:hover{
+    border-color:var(--verde-logo);
+  }
+  .pill.active{
+    background:var(--azul-petroleo);
+    border-color:var(--azul-petroleo);
+    color:#fff;
+  }
+
+  /* ===== Main ===== */
+  main{
+    max-width:1180px;
+    margin:0 auto;
+    padding:36px 24px 80px;
+  }
+  .category-block{
+    margin-bottom:40px;
+  }
+  .category-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:16px;
+  }
+  .category-dot{
+    width:10px; height:10px;
+    border-radius:3px;
+    flex-shrink:0;
+  }
+  .category-head h2{
+    font-size:20px;
+    font-weight:700;
+    margin:0;
+    color:var(--azul-petroleo);
+  }
+  .category-head .count{
+    font-size:12px;
+    font-weight:600;
+    color:var(--cinza-medio,#6B7280);
+    background:var(--fundo-alt);
+    padding:2px 10px;
+    border-radius:999px;
+  }
+  .category-desc{
+    font-size:13.5px;
+    color:#5b6870;
+    margin:0 0 18px;
+    max-width:720px;
+    line-height:1.5;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+    gap:16px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--borda);
+    border-radius:14px;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    box-shadow:var(--sombra);
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    position:relative;
+  }
+  .card:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--sombra-hover);
+    border-color:transparent;
+  }
+  .card-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .card-icon{
+    width:38px; height:38px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    flex-shrink:0;
+  }
+  .card h3{
+    font-size:15.5px;
+    font-weight:700;
+    margin:0;
+    line-height:1.35;
+    color:var(--tinta);
+  }
+  .card p{
+    font-size:13px;
+    color:#6b7680;
+    margin:0;
+    line-height:1.5;
+    flex-grow:1;
+  }
+  .card-footer{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:4px;
+    padding-top:12px;
+    border-top:1px solid var(--fundo-alt);
+  }
+  .card-tag{
+    font-size:10.5px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    padding:3px 9px;
+    border-radius:999px;
+  }
+  .card-open{
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--azul-petroleo);
+    display:flex;
+    align-items:center;
+    gap:4px;
+  }
+  .card-open svg{width:13px;height:13px;transition:transform .15s ease;}
+  .card:hover .card-open svg{transform:translate(2px,-2px);}
+  .card-link{
+    position:absolute;
+    inset:0;
+    border-radius:14px;
+  }
+
+  .empty-state{
+    text-align:center;
+    padding:60px 20px;
+    color:#8b96a0;
+    font-size:14px;
+    display:none;
+  }
+  .empty-state.show{display:block;}
+
+  footer{
+    text-align:center;
+    padding:28px 24px 40px;
+    font-size:12.5px;
+    color:#8b96a0;
+  }
+  footer a{
+    color:var(--azul-petroleo);
+    font-weight:600;
+  }
+
+  @media (max-width:640px){
+    header{padding:36px 18px 32px;}
+    header h1{font-size:28px;}
+    .stats-row{gap:20px;}
+    .controls{padding:12px 18px;}
+    main{padding:28px 18px 60px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand-row">
+      <img src="assets/brand/logo-ntics-branca.png" alt="NTICS">
+      <span>Escritório de Projetos</span>
+    </div>
+    <h1>Catálogo de Páginas NTICS</h1>
+    <p class="lead">Todos os painéis, dashboards e ferramentas que publicamos no GitHub Pages, organizados em um só lugar para acesso rápido.</p>
+    <div class="stats-row" id="statsRow">
+      <div class="stat"><b id="statTotal">0</b><span>Páginas</span></div>
+      <div class="stat"><b id="statCategorias">0</b><span>Categorias</span></div>
+      <div class="stat"><b>arte3-star</b><span>Repositório</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="controls-wrap">
+  <div class="controls">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="searchInput" placeholder="Buscar página...">
+    </div>
+    <div class="filter-pills" id="filterPills"></div>
+  </div>
+</div>
+
+<main>
+  <div id="catalogRoot"></div>
+  <div class="empty-state" id="emptyState">Nenhuma página encontrada para essa busca.</div>
+</main>
+
+<footer>
+  Publicado em <a href="https://arte3-star.github.io/claude-ntics-projetos/" target="_blank" rel="noopener">arte3-star.github.io/claude-ntics-projetos</a> · Escritório de Projetos NTICS
+</footer>
+
+<script>
+const CATEGORIES = [
+  {
+    id: "gestao",
+    label: "Painéis de Gestão",
+    color: "var(--verde-regeneracao)",
+    colorBg: "#EAF6E5",
+    icon: "📊",
+    desc: "Rotinas do Escritório de Projetos: acompanhamento de equipe, semana e mês em curso.",
+    pages: [
+      {
+        title: "Painel do Escritório de Projetos",
+        desc: "Dashboard diário por pessoa e por projeto: concluído, atrasado e carga da semana.",
+        url: "dashboards/painel-escritorio.html",
+        tag: "Diário"
+      },
+      {
+        title: "Norteador da Semana · Clareza da Semana",
+        desc: "Infográfico que orienta a reunião Hands On, com execuções em campo da semana.",
+        url: "dashboards/norteador-semana.html",
+        tag: "Semanal"
+      },
+      {
+        title: "Direção do Período",
+        desc: "Principais entregas de cada projeto, semana a semana, numa janela móvel de 30 dias.",
+        url: "dashboards/direcao-mes.html",
+        tag: "Mensal"
+      },
+      {
+        title: "Raio-X da Semana",
+        desc: "Leitura rápida da semana em curso do Escritório de Projetos.",
+        url: "dashboards/raio-x-semana.html",
+        tag: "Semanal"
+      },
+      {
+        title: "Raio-X de 3 Semanas",
+        desc: "Visão estendida de 3 semanas para antecipar gargalos e picos de carga.",
+        url: "dashboards/raio-x-3-semanas.html",
+        tag: "Semanal"
+      },
+      {
+        title: "PMO NTICS · Planejamento 2026",
+        desc: "Gantt anual, visões do mês por coordenador/projeto, calendário de campo e detalhado por semanas.",
+        url: "dashboards/pmo/index.html",
+        tag: "Mensal"
+      },
+      {
+        title: "PMO NTICS · Snapshot Julho/2026",
+        desc: "Recorte do planejamento mensal puxado do ClickUp em julho de 2026.",
+        url: "dashboards/pmo/julho-2026-clickup.html",
+        tag: "Snapshot"
+      }
+    ]
+  },
+  {
+    id: "cnh",
+    label: "Projetos CNH · 128 + 129",
+    color: "var(--laranja)",
+    colorBg: "#FCEEE4",
+    icon: "🌾",
+    desc: "Painéis de acompanhamento dos projetos CNH Festival AgriCULTURA (128) e Agrofuturo Cultural nas Escolas (129).",
+    pages: [
+      {
+        title: "Dashboard 128 · Festival AgriCULTURA Sustentável",
+        desc: "Painel oficial do projeto 128, com cronograma, oficinas e cidades atendidas.",
+        url: "SecondBrain/projetos/128-cnh-festival-agricultura/site/dashboard-128.html",
+        tag: "Projeto 128"
+      },
+      {
+        title: "Dashboard 129 · Agrofuturo Cultural nas Escolas",
+        desc: "Painel oficial do projeto 129, com cronograma, oficinas e cidades atendidas.",
+        url: "SecondBrain/projetos/129-cnh-agrofuturo-escolas/site/dashboard-129.html",
+        tag: "Projeto 129"
+      },
+      {
+        title: "Benchmark de Atividades · Oficinas 128 + 129",
+        desc: "Comparativo de referência entre as dinâmicas das oficinas dos dois projetos.",
+        url: "dashboards/cnh-128-129-benchmark-atividades/index.html",
+        tag: "128 · 129"
+      },
+      {
+        title: "Itens em Aberto · Pós-Kickoff CNH",
+        desc: "Pendências levantadas após o kickoff de 22/05 dos projetos 128 e 129.",
+        url: "dashboards/cnh-128-129-pos-kickoff/index.html",
+        tag: "128 · 129"
+      },
+      {
+        title: "Produtores Culturais · Projetos 128 & 129",
+        desc: "Mapeamento dos produtores culturais envolvidos nas duas frentes CNH.",
+        url: "dashboards/produtores-culturais-128-129/index.html",
+        tag: "128 · 129"
+      }
+    ]
+  },
+  {
+    id: "ferramentas",
+    label: "Ferramentas · Fornecedores",
+    color: "var(--ciano)",
+    colorBg: "#E3F5F7",
+    icon: "🛠️",
+    desc: "Ferramentas vivas de apoio à operação: cotação de fornecedores e montagem de orçamento.",
+    pages: [
+      {
+        title: "Catálogo de Fornecedores NTICS",
+        desc: "Base ao vivo de fornecedores, com preços de orçamento e cadastro para consulta rápida.",
+        url: "dashboards/cotador-fornecedores/index.html",
+        tag: "Ao vivo"
+      },
+      {
+        title: "Orçamento de Projeto",
+        desc: "Montagem de orçamento de projeto a partir do catálogo de fornecedores.",
+        url: "dashboards/cotador-fornecedores/orcamento/index.html",
+        tag: "Ferramenta"
+      }
+    ]
+  }
+];
+
+const root = document.getElementById('catalogRoot');
+const pillsWrap = document.getElementById('filterPills');
+const searchInput = document.getElementById('searchInput');
+const emptyState = document.getElementById('emptyState');
+
+let activeFilter = 'all';
+
+function iconSvgArrow(){
+  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>';
+}
+
+function buildPills(){
+  const all = document.createElement('button');
+  all.className = 'pill active';
+  all.textContent = 'Todas';
+  all.dataset.filter = 'all';
+  pillsWrap.appendChild(all);
+
+  CATEGORIES.forEach(cat => {
+    const p = document.createElement('button');
+    p.className = 'pill';
+    p.textContent = cat.icon + ' ' + cat.label;
+    p.dataset.filter = cat.id;
+    pillsWrap.appendChild(p);
+  });
+
+  pillsWrap.addEventListener('click', (e) => {
+    const btn = e.target.closest('.pill');
+    if(!btn) return;
+    activeFilter = btn.dataset.filter;
+    pillsWrap.querySelectorAll('.pill').forEach(b => b.classList.toggle('active', b === btn));
+    render();
+  });
+}
+
+function render(){
+  const query = searchInput.value.trim().toLowerCase();
+  root.innerHTML = '';
+  let totalShown = 0;
+  let totalPages = 0;
+
+  CATEGORIES.forEach(cat => {
+    totalPages += cat.pages.length;
+    if(activeFilter !== 'all' && activeFilter !== cat.id) return;
+
+    const filteredPages = cat.pages.filter(p =>
+      !query || p.title.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query)
+    );
+    if(filteredPages.length === 0) return;
+
+    totalShown += filteredPages.length;
+
+    const block = document.createElement('div');
+    block.className = 'category-block';
+    block.innerHTML = `
+      <div class="category-head">
+        <span class="category-dot" style="background:${cat.color}"></span>
+        <h2>${cat.label}</h2>
+        <span class="count">${filteredPages.length}</span>
+      </div>
+      <p class="category-desc">${cat.desc}</p>
+      <div class="grid"></div>
+    `;
+    const grid = block.querySelector('.grid');
+
+    filteredPages.forEach(page => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <a class="card-link" href="${page.url}" target="_blank" rel="noopener" aria-label="${page.title}"></a>
+        <div class="card-top">
+          <div class="card-icon" style="background:${cat.colorBg}">${cat.icon}</div>
+        </div>
+        <h3>${page.title}</h3>
+        <p>${page.desc}</p>
+        <div class="card-footer">
+          <span class="card-tag" style="background:${cat.colorBg}; color:${cat.color}">${page.tag}</span>
+          <span class="card-open">Abrir ${iconSvgArrow()}</span>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    root.appendChild(block);
+  });
+
+  emptyState.classList.toggle('show', totalShown === 0);
+  document.getElementById('statTotal').textContent = totalPages;
+  document.getElementById('statCategorias').textContent = CATEGORIES.length;
+}
+
+searchInput.addEventListener('input', render);
+
+buildPills();
+render();
+</script>
+
+</body>
+</html>
