@@ -1781,39 +1781,82 @@ const SB  = "https://mpodehjmcsthotcnzfiz.supabase.co",
       PROJ = "pmo-mensal", BLOCK = "week_overrides_v8";
 const sb = createClient(SB, KEY);
 
-function status(t){ const s = document.getElementById('nuvem-status'); if(s) s.textContent = t; }
+let lastKnownUpdatedAt = null; // updated_at que este browser carregou — usado p/ pegar edição concorrente
+
+function status(t, tone){
+  const s = document.getElementById('nuvem-status');
+  if(!s) return;
+  s.textContent = t;
+  s.style.color = tone === 'err' ? '#b91c1c' : tone === 'ok' ? '#166534' : '#6b7280';
+}
+
+function fmtWhen(iso){
+  if(!iso) return '';
+  try{ return new Date(iso).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'}); }
+  catch(e){ return ''; }
+}
+
+function nomeEditor(){
+  let nome = localStorage.getItem('pmo_editor_nome');
+  if(!nome){
+    nome = (prompt('Seu nome (aparece como quem salvou esta edição):', '') || '').trim() || 'anônimo';
+    localStorage.setItem('pmo_editor_nome', nome);
+  }
+  return nome;
+}
 
 async function carregarNuvem(){
   status('Sincronizando…');
   try{
     const { data, error } = await sb.from("dashboard_content")
-      .select("html").eq("projeto", PROJ).eq("block_id", BLOCK).maybeSingle();
-    if(error){ status('Nuvem indisponível (usando cópia local)'); console.warn('PMO load:', error.message); return; }
+      .select("html,updated_at,updated_by").eq("projeto", PROJ).eq("block_id", BLOCK).maybeSingle();
+    if(error){ status('Nuvem indisponível (usando cópia local)', 'err'); console.warn('PMO load:', error.message); return; }
     if(data && data.html){
       try{ window.__pmo.applyOverrides(JSON.parse(data.html)); }catch(e){ console.warn('PMO parse:', e); }
-      status('Sincronizado com a nuvem');
+      lastKnownUpdatedAt = data.updated_at || null;
+      const quem = data.updated_by ? (' — última edição de ' + data.updated_by + (lastKnownUpdatedAt ? ' em ' + fmtWhen(lastKnownUpdatedAt) : '')) : '';
+      status('Sincronizado com a nuvem' + quem, 'ok');
     } else {
       status('Nenhuma edição salva na nuvem ainda');
     }
-  }catch(e){ status('Nuvem indisponível (usando cópia local)'); console.warn('PMO load ex:', e); }
+  }catch(e){ status('Nuvem indisponível (usando cópia local)', 'err'); console.warn('PMO load ex:', e); }
 }
 
 window.salvarPMO = async function(){
   const btn = document.getElementById('btn-salvar-nuvem');
-  const orig = btn ? btn.textContent : '';
-  if(btn){ btn.textContent = 'Salvando…'; }
+  if(!btn || btn.disabled) return; // trava clique duplo
+  const orig = btn.textContent;
+
   try{
+    const { data: atual } = await sb.from("dashboard_content")
+      .select("updated_at,updated_by").eq("projeto", PROJ).eq("block_id", BLOCK).maybeSingle();
+    if(atual && atual.updated_at && lastKnownUpdatedAt && atual.updated_at !== lastKnownUpdatedAt){
+      const seguir = confirm(
+        (atual.updated_by || 'Alguém') + ' salvou uma versão mais nova em ' + fmtWhen(atual.updated_at) +
+        ', depois que esta página carregou.\n\nSalvar agora vai SUBSTITUIR a edição dessa pessoa pela sua.\n\nSalvar mesmo assim?'
+      );
+      if(!seguir){ status('Salvamento cancelado — recarregue a página para pegar a versão mais nova'); return; }
+    }
+  }catch(e){ console.warn('PMO check ex:', e); }
+
+  const nome = nomeEditor();
+  btn.disabled = true; btn.style.opacity = '.65'; btn.style.cursor = 'wait'; btn.textContent = 'Salvando…';
+  try{
+    const agora = new Date().toISOString();
     const html = JSON.stringify(window.__pmo.getOverrides());
     const { error } = await sb.from("dashboard_content")
-      .upsert({ projeto: PROJ, block_id: BLOCK, html: html }, { onConflict: 'projeto,block_id' });
+      .upsert({ projeto: PROJ, block_id: BLOCK, html: html, updated_at: agora, updated_by: nome }, { onConflict: 'projeto,block_id' });
     if(error) throw error;
-    if(btn){ btn.textContent = 'Salvo na nuvem ✓'; btn.style.background = '#15803d'; btn.style.color = '#fff'; }
-    status('Salvo — quem abrir em qualquer lugar verá esta versão');
-    setTimeout(function(){ if(btn){ btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; } }, 2600);
+    lastKnownUpdatedAt = agora;
+    btn.textContent = 'Salvo ✓ (' + nome + ')'; btn.style.background = '#15803d'; btn.style.color = '#fff';
+    status('Salvo por ' + nome + ' às ' + fmtWhen(agora) + ' — quem abrir em qualquer lugar verá esta versão', 'ok');
+    setTimeout(function(){ btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; }, 3200);
   }catch(e){
-    if(btn){ btn.textContent = orig; }
-    status('Erro ao salvar');
-    alert('Erro ao salvar na nuvem: ' + (e.message || e));
+    btn.textContent = orig;
+    status('Erro ao salvar: ' + (e.message || e), 'err');
+    console.warn('PMO save ex:', e);
+  }finally{
+    btn.disabled = false; btn.style.opacity = ''; btn.style.cursor = '';
   }
 };
 
