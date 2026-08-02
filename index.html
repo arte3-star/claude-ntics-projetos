@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>Catálogo de Páginas · NTICS</title>
-<meta name="description" content="Catálogo central de todas as páginas publicadas pela NTICS no GitHub Pages.">
+<meta name="description" content="Catálogo central de todas as páginas publicadas pela NTICS: planejamento interno e sites de projeto.">
 <link rel="icon" href="assets/brand/logo-ntics.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,6 +38,62 @@
     -webkit-font-smoothing:antialiased;
   }
   a{color:inherit;text-decoration:none;}
+
+  /* ===== Gate de senha ===== */
+  #gate{
+    position:fixed; inset:0; z-index:1000;
+    background:linear-gradient(135deg, var(--azul-petroleo) 0%, var(--azul-petroleo-2) 100%);
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+  }
+  #gate-box{
+    background:#fff;
+    border-radius:18px;
+    padding:40px 36px;
+    max-width:360px;
+    width:100%;
+    box-shadow:0 20px 60px rgba(0,0,0,0.35);
+    text-align:center;
+  }
+  #gate-box img{height:32px; margin-bottom:20px;}
+  #gate-box h2{font-size:18px; font-weight:700; margin:0 0 6px; color:var(--azul-petroleo);}
+  #gate-box p{font-size:13px; color:#6b7680; margin:0 0 22px; line-height:1.5;}
+  #gate-box input{
+    width:100%;
+    padding:12px 14px;
+    border-radius:10px;
+    border:1.5px solid var(--borda);
+    background:var(--fundo-alt);
+    font-family:inherit;
+    font-size:15px;
+    text-align:center;
+    letter-spacing:.04em;
+    outline:none;
+    margin-bottom:12px;
+  }
+  #gate-box input:focus{border-color:var(--verde-logo); background:#fff;}
+  #gate-box button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:var(--azul-petroleo);
+    color:#fff;
+    font-family:inherit;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  #gate-box button:hover{background:var(--azul-petroleo-2);}
+  #gate-error{
+    color:#C0202A;
+    font-size:12.5px;
+    font-weight:600;
+    margin-top:10px;
+    min-height:16px;
+  }
+  #app{display:none;}
 
   /* ===== Header ===== */
   header{
@@ -136,7 +193,7 @@
   .controls{
     max-width:1180px;
     margin:0 auto;
-    padding:16px 24px;
+    padding:16px 24px 4px;
     display:flex;
     gap:12px;
     flex-wrap:wrap;
@@ -170,18 +227,44 @@
     width:16px; height:16px;
     opacity:.45;
   }
+  .group-toggle{
+    display:flex;
+    gap:6px;
+    background:var(--fundo-alt);
+    padding:4px;
+    border-radius:11px;
+  }
+  .group-toggle button{
+    padding:8px 16px;
+    border-radius:8px;
+    border:none;
+    background:transparent;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:700;
+    color:var(--tinta);
+    cursor:pointer;
+    transition:all .15s ease;
+    white-space:nowrap;
+  }
+  .group-toggle button.active{
+    background:var(--azul-petroleo);
+    color:#fff;
+    box-shadow:0 2px 6px rgba(0,61,77,0.25);
+  }
   .filter-pills{
     display:flex;
     gap:8px;
     flex-wrap:wrap;
+    padding:12px 0 12px;
   }
   .pill{
-    padding:9px 16px;
+    padding:7px 14px;
     border-radius:999px;
     border:1.5px solid var(--borda);
     background:#fff;
     font-family:inherit;
-    font-size:13px;
+    font-size:12.5px;
     font-weight:600;
     color:var(--tinta);
     cursor:pointer;
@@ -192,8 +275,8 @@
     border-color:var(--verde-logo);
   }
   .pill.active{
-    background:var(--azul-petroleo);
-    border-color:var(--azul-petroleo);
+    background:var(--verde-regeneracao);
+    border-color:var(--verde-regeneracao);
     color:#fff;
   }
 
@@ -203,14 +286,47 @@
     margin:0 auto;
     padding:36px 24px 80px;
   }
+  .group-band{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin:44px 0 6px;
+    padding-bottom:10px;
+    border-bottom:2px solid var(--borda);
+  }
+  .group-band:first-child{margin-top:0;}
+  .group-band h1.gtitle{
+    font-size:22px;
+    font-weight:800;
+    margin:0;
+    color:var(--azul-petroleo);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .group-band .gcount{
+    font-size:12.5px;
+    font-weight:700;
+    color:#fff;
+    background:var(--verde-regeneracao);
+    padding:2px 11px;
+    border-radius:999px;
+  }
+  .group-desc{
+    font-size:13.5px;
+    color:#5b6870;
+    margin:0 0 20px;
+    max-width:760px;
+    line-height:1.5;
+  }
   .category-block{
-    margin-bottom:40px;
+    margin-bottom:32px;
   }
   .category-head{
     display:flex;
     align-items:center;
     gap:10px;
-    margin-bottom:16px;
+    margin-bottom:14px;
   }
   .category-dot{
     width:10px; height:10px;
@@ -218,39 +334,32 @@
     flex-shrink:0;
   }
   .category-head h2{
-    font-size:20px;
+    font-size:16.5px;
     font-weight:700;
     margin:0;
-    color:var(--azul-petroleo);
+    color:var(--tinta);
   }
   .category-head .count{
-    font-size:12px;
+    font-size:11.5px;
     font-weight:600;
-    color:var(--cinza-medio,#6B7280);
+    color:#6B7280;
     background:var(--fundo-alt);
-    padding:2px 10px;
+    padding:2px 9px;
     border-radius:999px;
-  }
-  .category-desc{
-    font-size:13.5px;
-    color:#5b6870;
-    margin:0 0 18px;
-    max-width:720px;
-    line-height:1.5;
   }
   .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
-    gap:16px;
+    grid-template-columns:repeat(auto-fill, minmax(270px, 1fr));
+    gap:14px;
   }
   .card{
     background:var(--card);
     border:1px solid var(--borda);
     border-radius:14px;
-    padding:20px;
+    padding:18px;
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:8px;
     box-shadow:var(--sombra);
     transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     position:relative;
@@ -267,23 +376,23 @@
     gap:10px;
   }
   .card-icon{
-    width:38px; height:38px;
-    border-radius:10px;
+    width:34px; height:34px;
+    border-radius:9px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:18px;
+    font-size:16px;
     flex-shrink:0;
   }
   .card h3{
-    font-size:15.5px;
+    font-size:14.5px;
     font-weight:700;
     margin:0;
     line-height:1.35;
     color:var(--tinta);
   }
   .card p{
-    font-size:13px;
+    font-size:12.5px;
     color:#6b7680;
     margin:0;
     line-height:1.5;
@@ -293,27 +402,35 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
-    margin-top:4px;
-    padding-top:12px;
+    margin-top:2px;
+    padding-top:11px;
     border-top:1px solid var(--fundo-alt);
+    gap:8px;
+    flex-wrap:wrap;
   }
+  .card-tags{display:flex; gap:5px; flex-wrap:wrap;}
   .card-tag{
-    font-size:10.5px;
+    font-size:10px;
     font-weight:700;
     text-transform:uppercase;
-    letter-spacing:.05em;
-    padding:3px 9px;
+    letter-spacing:.04em;
+    padding:3px 8px;
     border-radius:999px;
   }
+  .card-tag.lock{
+    background:#FCEEE4;
+    color:var(--laranja);
+  }
   .card-open{
-    font-size:12.5px;
+    font-size:12px;
     font-weight:700;
     color:var(--azul-petroleo);
     display:flex;
     align-items:center;
     gap:4px;
+    margin-left:auto;
   }
-  .card-open svg{width:13px;height:13px;transition:transform .15s ease;}
+  .card-open svg{width:12px;height:12px;transition:transform .15s ease;}
   .card:hover .card-open svg{transform:translate(2px,-2px);}
   .card-link{
     position:absolute;
@@ -345,12 +462,25 @@
     header{padding:36px 18px 32px;}
     header h1{font-size:28px;}
     .stats-row{gap:20px;}
-    .controls{padding:12px 18px;}
+    .controls{padding:12px 18px 0;}
     main{padding:28px 18px 60px;}
   }
 </style>
 </head>
 <body>
+
+<div id="gate">
+  <div id="gate-box">
+    <img src="assets/brand/logo-ntics.png" alt="NTICS">
+    <h2>Catálogo de Páginas NTICS</h2>
+    <p>Acesso interno. Digite a senha para continuar.</p>
+    <input type="password" id="gate-input" placeholder="Senha" autocomplete="off">
+    <button id="gate-btn">Entrar</button>
+    <div id="gate-error"></div>
+  </div>
+</div>
+
+<div id="app">
 
 <header>
   <div class="header-inner">
@@ -359,11 +489,11 @@
       <span>Escritório de Projetos</span>
     </div>
     <h1>Catálogo de Páginas NTICS</h1>
-    <p class="lead">Todos os painéis, dashboards e ferramentas que publicamos no GitHub Pages, organizados em um só lugar para acesso rápido.</p>
+    <p class="lead">Todo painel de planejamento e todo site de projeto que já publicamos, organizados em um só lugar para acesso rápido.</p>
     <div class="stats-row" id="statsRow">
       <div class="stat"><b id="statTotal">0</b><span>Páginas</span></div>
-      <div class="stat"><b id="statCategorias">0</b><span>Categorias</span></div>
-      <div class="stat"><b>arte3-star</b><span>Repositório</span></div>
+      <div class="stat"><b id="statPlanejamento">0</b><span>Planejamento</span></div>
+      <div class="stat"><b id="statProjetos">0</b><span>Projetos</span></div>
     </div>
   </div>
 </header>
@@ -372,8 +502,15 @@
   <div class="controls">
     <div class="search-box">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input type="text" id="searchInput" placeholder="Buscar página...">
+      <input type="text" id="searchInput" placeholder="Buscar página ou projeto...">
     </div>
+    <div class="group-toggle" id="groupToggle">
+      <button data-group="all" class="active">Todas</button>
+      <button data-group="planejamento">📋 Planejamento</button>
+      <button data-group="projetos">🌐 Projetos</button>
+    </div>
+  </div>
+  <div class="controls" style="padding-top:0;">
     <div class="filter-pills" id="filterPills"></div>
   </div>
 </div>
@@ -387,219 +524,381 @@
   Publicado em <a href="https://arte3-star.github.io/claude-ntics-projetos/" target="_blank" rel="noopener">arte3-star.github.io/claude-ntics-projetos</a> · Escritório de Projetos NTICS
 </footer>
 
+</div>
+
 <script>
-const CATEGORIES = [
+const GROUPS = [
   {
-    id: "gestao",
-    label: "Painéis de Gestão",
-    color: "var(--verde-regeneracao)",
-    colorBg: "#EAF6E5",
-    icon: "📊",
-    desc: "Rotinas do Escritório de Projetos: acompanhamento de equipe, semana e mês em curso.",
-    pages: [
+    id: "planejamento",
+    label: "Planejamento",
+    icon: "📋",
+    desc: "Rotinas do Escritório de Projetos: acompanhamento de equipe, portfólio e ferramentas internas — não são páginas de um projeto específico.",
+    categories: [
       {
-        title: "Painel do Escritório de Projetos",
-        desc: "Dashboard diário por pessoa e por projeto: concluído, atrasado e carga da semana.",
-        url: "dashboards/painel-escritorio.html",
-        tag: "Diário"
+        id: "gestao",
+        label: "Painéis de Gestão",
+        color: "var(--verde-regeneracao)",
+        colorBg: "#EAF6E5",
+        icon: "📊",
+        pages: [
+          { title: "Painel do Escritório de Projetos", desc: "Dashboard diário por pessoa e por projeto: concluído, atrasado e carga da semana.", url: "dashboards/painel-escritorio.html", tag: "Diário" },
+          { title: "Norteador da Semana · Clareza da Semana", desc: "Infográfico que orienta a reunião Hands On, com execuções em campo da semana.", url: "dashboards/norteador-semana.html", tag: "Semanal" },
+          { title: "Direção do Período", desc: "Principais entregas de cada projeto, semana a semana, numa janela móvel de 30 dias.", url: "dashboards/direcao-mes.html", tag: "Mensal" },
+          { title: "Raio-X da Semana", desc: "Leitura rápida da semana em curso do Escritório de Projetos.", url: "dashboards/raio-x-semana.html", tag: "Semanal" },
+          { title: "Raio-X de 3 Semanas", desc: "Visão estendida de 3 semanas para antecipar gargalos e picos de carga.", url: "dashboards/raio-x-3-semanas.html", tag: "Semanal" },
+          { title: "PMO NTICS · Planejamento 2026", desc: "Gantt anual, visões do mês por coordenador/projeto, calendário de campo e detalhado por semanas.", url: "dashboards/pmo/index.html", tag: "Mensal" },
+          { title: "PMO NTICS · Snapshot Julho/2026", desc: "Recorte do planejamento mensal puxado do ClickUp em julho de 2026.", url: "dashboards/pmo/julho-2026-clickup.html", tag: "Snapshot" }
+        ]
       },
       {
-        title: "Norteador da Semana · Clareza da Semana",
-        desc: "Infográfico que orienta a reunião Hands On, com execuções em campo da semana.",
-        url: "dashboards/norteador-semana.html",
-        tag: "Semanal"
-      },
-      {
-        title: "Direção do Período",
-        desc: "Principais entregas de cada projeto, semana a semana, numa janela móvel de 30 dias.",
-        url: "dashboards/direcao-mes.html",
-        tag: "Mensal"
-      },
-      {
-        title: "Raio-X da Semana",
-        desc: "Leitura rápida da semana em curso do Escritório de Projetos.",
-        url: "dashboards/raio-x-semana.html",
-        tag: "Semanal"
-      },
-      {
-        title: "Raio-X de 3 Semanas",
-        desc: "Visão estendida de 3 semanas para antecipar gargalos e picos de carga.",
-        url: "dashboards/raio-x-3-semanas.html",
-        tag: "Semanal"
-      },
-      {
-        title: "PMO NTICS · Planejamento 2026",
-        desc: "Gantt anual, visões do mês por coordenador/projeto, calendário de campo e detalhado por semanas.",
-        url: "dashboards/pmo/index.html",
-        tag: "Mensal"
-      },
-      {
-        title: "PMO NTICS · Snapshot Julho/2026",
-        desc: "Recorte do planejamento mensal puxado do ClickUp em julho de 2026.",
-        url: "dashboards/pmo/julho-2026-clickup.html",
-        tag: "Snapshot"
+        id: "ferramentas",
+        label: "Ferramentas Internas",
+        color: "var(--ciano)",
+        colorBg: "#E3F5F7",
+        icon: "🛠️",
+        pages: [
+          { title: "Catálogo de Fornecedores NTICS", desc: "Base ao vivo de fornecedores, com preços de orçamento e cadastro para consulta rápida.", url: "dashboards/cotador-fornecedores/index.html", tag: "Ao vivo" },
+          { title: "Orçamento de Projeto", desc: "Montagem de orçamento de projeto a partir do catálogo de fornecedores.", url: "dashboards/cotador-fornecedores/orcamento/index.html", tag: "Ferramenta" },
+          { title: "NTICS em Campo", desc: "App das equipes de campo: diário de atividades, presença e fotos por projeto/cidade. Login por convite.", url: "https://ntics-em-campo.lovable.app", external: true, tag: "App · Login" }
+        ]
       }
     ]
   },
   {
-    id: "cnh",
-    label: "Projetos CNH · 128 + 129",
-    color: "var(--laranja)",
-    colorBg: "#FCEEE4",
-    icon: "🌾",
-    desc: "Painéis de acompanhamento dos projetos CNH Festival AgriCULTURA (128) e Agrofuturo Cultural nas Escolas (129).",
-    pages: [
+    id: "projetos",
+    label: "Projetos",
+    icon: "🌐",
+    desc: "Sites, formulários e painéis publicados para um projeto específico — voltados a comunidade, aluno, cliente ou patrocinador.",
+    categories: [
       {
-        title: "Dashboard 128 · Festival AgriCULTURA Sustentável",
-        desc: "Painel oficial do projeto 128, com cronograma, oficinas e cidades atendidas.",
-        url: "SecondBrain/projetos/128-cnh-festival-agricultura/site/dashboard-128.html",
-        tag: "Projeto 128"
+        id: "p132",
+        label: "132 · Estação Samarco",
+        color: "var(--laranja)",
+        colorBg: "#FCEEE4",
+        icon: "🎓",
+        pages: [
+          { title: "Site de Inscrição (venda)", desc: "Landing page do programa com formulário de inscrição por cidade.", url: "https://ntics.com.br/estacao-samarco/", external: true, tag: "Projeto 132" },
+          { title: "Painel do Cliente", desc: "Painel para a Samarco acompanhar inscritos, presença, cronograma e certificação.", url: "https://ntics.com.br/estacao-samarco/painel/", external: true, tag: "Projeto 132", locked: "senha" },
+          { title: "Plataforma da Aluna (app)", desc: "App gamificado de formação digital: módulos, quiz, ferramentas e certificado. Login por CPF.", url: "https://estacao-samarco.lovable.app", external: true, tag: "Projeto 132", locked: "CPF" },
+          { title: "Página do Patrocinador", desc: "Dentro do app: indicadores 2025 e compromisso da Samarco, sem rótulo de \"patrocinador\".", url: "https://estacao-samarco.lovable.app/sobre-samarco", external: true, tag: "Projeto 132" },
+          { title: "Painel de Coordenação", desc: "Métricas, engajamento e cadastro/importação em massa de alunas.", url: "https://estacao-samarco.lovable.app/coord", external: true, tag: "Projeto 132", locked: "senha" }
+        ]
       },
       {
-        title: "Dashboard 129 · Agrofuturo Cultural nas Escolas",
-        desc: "Painel oficial do projeto 129, com cronograma, oficinas e cidades atendidas.",
-        url: "SecondBrain/projetos/129-cnh-agrofuturo-escolas/site/dashboard-129.html",
-        tag: "Projeto 129"
+        id: "p128129",
+        label: "128 + 129 · CNH",
+        color: "var(--laranja)",
+        colorBg: "#FCEEE4",
+        icon: "🌾",
+        pages: [
+          { title: "Dashboard 128 · Festival AgriCULTURA Sustentável", desc: "Painel oficial do projeto 128 para o patrocinador: cronograma, oficinas e cidades.", url: "SecondBrain/projetos/128-cnh-festival-agricultura/site/dashboard-128.html", tag: "Projeto 128" },
+          { title: "Dashboard 129 · Agrofuturo Cultural nas Escolas", desc: "Painel oficial do projeto 129 para o patrocinador: cronograma, oficinas e cidades.", url: "SecondBrain/projetos/129-cnh-agrofuturo-escolas/site/dashboard-129.html", tag: "Projeto 129" },
+          { title: "Benchmark de Atividades · Oficinas", desc: "Comparativo de referência entre as dinâmicas das oficinas dos dois projetos.", url: "dashboards/cnh-128-129-benchmark-atividades/index.html", tag: "128 · 129" },
+          { title: "Itens em Aberto · Pós-Kickoff", desc: "Pendências levantadas após o kickoff de 22/05 dos projetos 128 e 129.", url: "dashboards/cnh-128-129-pos-kickoff/index.html", tag: "128 · 129" },
+          { title: "Produtores Culturais", desc: "Mapeamento dos produtores culturais envolvidos nas duas frentes CNH.", url: "dashboards/produtores-culturais-128-129/index.html", tag: "128 · 129" }
+        ]
       },
       {
-        title: "Benchmark de Atividades · Oficinas 128 + 129",
-        desc: "Comparativo de referência entre as dinâmicas das oficinas dos dois projetos.",
-        url: "dashboards/cnh-128-129-benchmark-atividades/index.html",
-        tag: "128 · 129"
+        id: "p74",
+        label: "74 · Global Goals Educa",
+        color: "var(--ciano)",
+        colorBg: "#E3F5F7",
+        icon: "🌍",
+        pages: [
+          { title: "Global Goals Educa", desc: "Site institucional da formação com premiação, cursos e comunidade de professores (Áster Máquinas).", url: "https://globalgoalseduca.com.br/", external: true, tag: "Projeto 74" }
+        ]
       },
       {
-        title: "Itens em Aberto · Pós-Kickoff CNH",
-        desc: "Pendências levantadas após o kickoff de 22/05 dos projetos 128 e 129.",
-        url: "dashboards/cnh-128-129-pos-kickoff/index.html",
-        tag: "128 · 129"
+        id: "p120",
+        label: "120/94 · Negócio Cultural",
+        color: "var(--roxo)",
+        colorBg: "#F1E7F4",
+        icon: "🎭",
+        pages: [
+          { title: "Negócio Cultural", desc: "LP do programa de trilhas culturais e empreendedorismo, com cursos por cidade (Statkraft/TAG).", url: "https://negociocultural.com.br/", external: true, tag: "Projeto 120" }
+        ]
       },
       {
-        title: "Produtores Culturais · Projetos 128 & 129",
-        desc: "Mapeamento dos produtores culturais envolvidos nas duas frentes CNH.",
-        url: "dashboards/produtores-culturais-128-129/index.html",
-        tag: "128 · 129"
-      }
-    ]
-  },
-  {
-    id: "ferramentas",
-    label: "Ferramentas · Fornecedores",
-    color: "var(--ciano)",
-    colorBg: "#E3F5F7",
-    icon: "🛠️",
-    desc: "Ferramentas vivas de apoio à operação: cotação de fornecedores e montagem de orçamento.",
-    pages: [
-      {
-        title: "Catálogo de Fornecedores NTICS",
-        desc: "Base ao vivo de fornecedores, com preços de orçamento e cadastro para consulta rápida.",
-        url: "dashboards/cotador-fornecedores/index.html",
-        tag: "Ao vivo"
+        id: "p133",
+        label: "133 · Conhecendo os ODS",
+        color: "var(--teal-futuro, var(--ciano))",
+        colorBg: "#E3F5F7",
+        icon: "🚚",
+        pages: [
+          { title: "Conhecendo os ODS · Caminhão", desc: "Site do Caminhão itinerante nas escolas, com programação por cidade (Vibra).", url: "https://conhecendoosods.com.br/caminhao/", external: true, tag: "Projeto 133" }
+        ]
       },
       {
-        title: "Orçamento de Projeto",
-        desc: "Montagem de orçamento de projeto a partir do catálogo de fornecedores.",
-        url: "dashboards/cotador-fornecedores/orcamento/index.html",
-        tag: "Ferramenta"
+        id: "p109",
+        label: "109 · PEC Eu Faço Parte (Statkraft)",
+        color: "var(--magenta)",
+        colorBg: "#FBE6EF",
+        icon: "🎨",
+        pages: [
+          { title: "PEC Eu Faço Parte · 2ª Edição", desc: "Site do projeto cultural e educacional Statkraft/Porto Itapoá.", url: "https://ntics.com.br/peceufacoparte2edicao/", external: true, tag: "Projeto 109" }
+        ]
+      },
+      {
+        id: "p116",
+        label: "116 · Cultura Robótica (Aster)",
+        color: "var(--amarelo)",
+        colorBg: "#FDF3DA",
+        icon: "🤖",
+        pages: [
+          { title: "Cultura Robótica", desc: "Site do projeto de robótica educacional para escolas, patrocínio Aster.", url: "https://ntics.com.br/cultura-robotica-aster/", external: true, tag: "Projeto 116" }
+        ]
+      },
+      {
+        id: "p117",
+        label: "117 · Teatro e Robótica (Whirlpool)",
+        color: "var(--amarelo)",
+        colorBg: "#FDF3DA",
+        icon: "🎭",
+        pages: [
+          { title: "Teatro e Robótica nas Escolas · 4ª Edição", desc: "Site do projeto que une teatro e robótica nas escolas, patrocínio Whirlpool.", url: "https://ntics.com.br/teatro-oficina-robotica-4ed-whirlpool/", external: true, tag: "Projeto 117" }
+        ]
+      },
+      {
+        id: "p119",
+        label: "119 · Eu Faço Parte (Sylvamo)",
+        color: "var(--magenta)",
+        colorBg: "#FBE6EF",
+        icon: "🎨",
+        pages: [
+          { title: "Eu Faço Parte · 2ª Edição", desc: "Site do projeto cultural e educacional, patrocínio Sylvamo.", url: "https://ntics.com.br/pec-eu-faco-parte-2ed-sylvamo/", external: true, tag: "Projeto 119" }
+        ]
+      },
+      {
+        id: "p124",
+        label: "124 · Gastronomia Também é Arte (Compagas)",
+        color: "var(--laranja)",
+        colorBg: "#FCEEE4",
+        icon: "🍽️",
+        pages: [
+          { title: "Gastronomia Também é Arte", desc: "Site da exposição de artes com foco em gastronomia, patrocínio Compagas.", url: "https://ntics.com.br/exposicaodeartesgastronomiatambemearte/", external: true, tag: "Projeto 124" }
+        ]
+      },
+      {
+        id: "p125",
+        label: "125 · Gastronomia Também é Arte · GRU",
+        color: "var(--laranja)",
+        colorBg: "#FCEEE4",
+        icon: "🍽️",
+        pages: [
+          { title: "Gastronomia Também é Arte · 2ª Ed. GRU", desc: "Site da exposição de artes com foco em gastronomia, edição GRU.", url: "https://ntics.com.br/gastronomia-tambem-e-arte-2ed-gru/", external: true, tag: "Projeto 125" }
+        ]
+      },
+      {
+        id: "p126",
+        label: "126 · Ecoarte Container (GRU)",
+        color: "var(--verde-regeneracao)",
+        colorBg: "#EAF6E5",
+        icon: "♻️",
+        pages: [
+          { title: "Ecoarte Container Itinerante nas Escolas", desc: "Site do container itinerante de arte e sustentabilidade nas escolas de GRU.", url: "https://ntics.com.br/ecoarte-container-itinerante/", external: true, tag: "Projeto 126" }
+        ]
+      },
+      {
+        id: "p127gru",
+        label: "127 · P.I.E. Empreendedorismo e Arte (GRU)",
+        color: "var(--roxo)",
+        colorBg: "#F1E7F4",
+        icon: "💡",
+        pages: [
+          { title: "P.I.E. · 2ª Edição GRU", desc: "Site do Programa de Inovação e Empreendedorismo, edição GRU.", url: "https://ntics.com.br/pie-empreendedorismo-e-arte-2ed-gru/", external: true, tag: "Projeto 127" },
+          { title: "Votação · Projetos PIE 2026 (GRU)", desc: "Página de votação popular dos projetos apresentados pelos alunos.", url: "https://ntics.com.br/pie-empreendedorismo-e-arte-2ed-gru/votacao/", external: true, tag: "Projeto 127" }
+        ]
+      },
+      {
+        id: "p127sotreq",
+        label: "127 · P.I.E. Empreendedorismo e Arte (SOTREQ)",
+        color: "var(--roxo)",
+        colorBg: "#F1E7F4",
+        icon: "💡",
+        pages: [
+          { title: "P.I.E. · 2ª Edição SOTREQ", desc: "Site do Programa de Inovação e Empreendedorismo, edição SOTREQ.", url: "https://ntics.com.br/pie-empreendedorismo-e-arte-2ed-sotreq/", external: true, tag: "Projeto 127" }
+        ]
       }
     ]
   }
 ];
 
-const root = document.getElementById('catalogRoot');
-const pillsWrap = document.getElementById('filterPills');
-const searchInput = document.getElementById('searchInput');
-const emptyState = document.getElementById('emptyState');
+const PASSWORD = "ntics2026";
+const gate = document.getElementById('gate');
+const app = document.getElementById('app');
+const gateInput = document.getElementById('gate-input');
+const gateBtn = document.getElementById('gate-btn');
+const gateError = document.getElementById('gate-error');
 
-let activeFilter = 'all';
-
-function iconSvgArrow(){
-  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>';
+function unlock(){
+  gate.style.display = 'none';
+  app.style.display = 'block';
+  initCatalog();
 }
 
-function buildPills(){
-  const all = document.createElement('button');
-  all.className = 'pill active';
-  all.textContent = 'Todas';
-  all.dataset.filter = 'all';
-  pillsWrap.appendChild(all);
+function tryPassword(){
+  if(gateInput.value === PASSWORD){
+    try{ localStorage.setItem('ntics_catalog_auth', '1'); }catch(e){}
+    unlock();
+  } else {
+    gateError.textContent = 'Senha incorreta.';
+    gateInput.value = '';
+    gateInput.focus();
+  }
+}
+gateBtn.addEventListener('click', tryPassword);
+gateInput.addEventListener('keydown', e => { if(e.key === 'Enter') tryPassword(); });
 
-  CATEGORIES.forEach(cat => {
-    const p = document.createElement('button');
-    p.className = 'pill';
-    p.textContent = cat.icon + ' ' + cat.label;
-    p.dataset.filter = cat.id;
-    pillsWrap.appendChild(p);
-  });
+let authed = false;
+try{ authed = localStorage.getItem('ntics_catalog_auth') === '1'; }catch(e){}
+if(authed){
+  unlock();
+} else {
+  gateInput.focus();
+}
+
+function initCatalog(){
+  const root = document.getElementById('catalogRoot');
+  const pillsWrap = document.getElementById('filterPills');
+  const searchInput = document.getElementById('searchInput');
+  const emptyState = document.getElementById('emptyState');
+  const groupToggle = document.getElementById('groupToggle');
+
+  let activeGroup = 'all';
+  let activeCategory = 'all';
+
+  function iconSvgArrow(){
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>';
+  }
+
+  function buildPills(){
+    pillsWrap.innerHTML = '';
+    const all = document.createElement('button');
+    all.className = 'pill active';
+    all.textContent = 'Todas as categorias';
+    all.dataset.cat = 'all';
+    pillsWrap.appendChild(all);
+
+    GROUPS.forEach(g => {
+      if(activeGroup !== 'all' && activeGroup !== g.id) return;
+      g.categories.forEach(cat => {
+        const p = document.createElement('button');
+        p.className = 'pill';
+        p.textContent = cat.icon + ' ' + cat.label;
+        p.dataset.cat = cat.id;
+        pillsWrap.appendChild(p);
+      });
+    });
+  }
 
   pillsWrap.addEventListener('click', (e) => {
     const btn = e.target.closest('.pill');
     if(!btn) return;
-    activeFilter = btn.dataset.filter;
+    activeCategory = btn.dataset.cat;
     pillsWrap.querySelectorAll('.pill').forEach(b => b.classList.toggle('active', b === btn));
     render();
   });
-}
 
-function render(){
-  const query = searchInput.value.trim().toLowerCase();
-  root.innerHTML = '';
-  let totalShown = 0;
-  let totalPages = 0;
-
-  CATEGORIES.forEach(cat => {
-    totalPages += cat.pages.length;
-    if(activeFilter !== 'all' && activeFilter !== cat.id) return;
-
-    const filteredPages = cat.pages.filter(p =>
-      !query || p.title.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query)
-    );
-    if(filteredPages.length === 0) return;
-
-    totalShown += filteredPages.length;
-
-    const block = document.createElement('div');
-    block.className = 'category-block';
-    block.innerHTML = `
-      <div class="category-head">
-        <span class="category-dot" style="background:${cat.color}"></span>
-        <h2>${cat.label}</h2>
-        <span class="count">${filteredPages.length}</span>
-      </div>
-      <p class="category-desc">${cat.desc}</p>
-      <div class="grid"></div>
-    `;
-    const grid = block.querySelector('.grid');
-
-    filteredPages.forEach(page => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <a class="card-link" href="${page.url}" target="_blank" rel="noopener" aria-label="${page.title}"></a>
-        <div class="card-top">
-          <div class="card-icon" style="background:${cat.colorBg}">${cat.icon}</div>
-        </div>
-        <h3>${page.title}</h3>
-        <p>${page.desc}</p>
-        <div class="card-footer">
-          <span class="card-tag" style="background:${cat.colorBg}; color:${cat.color}">${page.tag}</span>
-          <span class="card-open">Abrir ${iconSvgArrow()}</span>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-
-    root.appendChild(block);
+  groupToggle.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    activeGroup = btn.dataset.group;
+    activeCategory = 'all';
+    groupToggle.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+    buildPills();
+    render();
   });
 
-  emptyState.classList.toggle('show', totalShown === 0);
-  document.getElementById('statTotal').textContent = totalPages;
-  document.getElementById('statCategorias').textContent = CATEGORIES.length;
+  function render(){
+    const query = searchInput.value.trim().toLowerCase();
+    root.innerHTML = '';
+    let totalShown = 0;
+    let totalPlanejamento = 0;
+    let totalProjetos = 0;
+
+    GROUPS.forEach(g => {
+      const gTotal = g.categories.reduce((n, c) => n + c.pages.length, 0);
+      if(g.id === 'planejamento') totalPlanejamento = gTotal;
+      if(g.id === 'projetos') totalProjetos = gTotal;
+
+      if(activeGroup !== 'all' && activeGroup !== g.id) return;
+
+      const groupCategories = g.categories
+        .filter(cat => activeCategory === 'all' || activeCategory === cat.id)
+        .map(cat => ({
+          ...cat,
+          pages: cat.pages.filter(p =>
+            !query || p.title.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query) || cat.label.toLowerCase().includes(query)
+          )
+        }))
+        .filter(cat => cat.pages.length > 0);
+
+      if(groupCategories.length === 0) return;
+
+      const gCount = groupCategories.reduce((n, c) => n + c.pages.length, 0);
+      totalShown += gCount;
+
+      const band = document.createElement('div');
+      band.className = 'group-band';
+      band.innerHTML = `<h1 class="gtitle">${g.icon} ${g.label}</h1><span class="gcount">${gCount}</span>`;
+      root.appendChild(band);
+
+      const gDesc = document.createElement('p');
+      gDesc.className = 'group-desc';
+      gDesc.textContent = g.desc;
+      root.appendChild(gDesc);
+
+      groupCategories.forEach(cat => {
+        const block = document.createElement('div');
+        block.className = 'category-block';
+        block.innerHTML = `
+          <div class="category-head">
+            <span class="category-dot" style="background:${cat.color}"></span>
+            <h2>${cat.label}</h2>
+            <span class="count">${cat.pages.length}</span>
+          </div>
+          <div class="grid"></div>
+        `;
+        const grid = block.querySelector('.grid');
+
+        cat.pages.forEach(page => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          const lockTag = page.locked ? `<span class="card-tag lock">🔒 ${page.locked}</span>` : '';
+          const targetAttrs = page.external ? 'target="_blank" rel="noopener"' : 'target="_blank"';
+          card.innerHTML = `
+            <a class="card-link" href="${page.url}" ${targetAttrs} aria-label="${page.title}"></a>
+            <div class="card-top">
+              <div class="card-icon" style="background:${cat.colorBg}">${cat.icon}</div>
+            </div>
+            <h3>${page.title}</h3>
+            <p>${page.desc}</p>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="card-tag" style="background:${cat.colorBg}; color:${cat.color}">${page.tag}</span>
+                ${lockTag}
+              </div>
+              <span class="card-open">Abrir ${iconSvgArrow()}</span>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+
+        root.appendChild(block);
+      });
+    });
+
+    emptyState.classList.toggle('show', totalShown === 0);
+    document.getElementById('statTotal').textContent = totalPlanejamento + totalProjetos;
+    document.getElementById('statPlanejamento').textContent = totalPlanejamento;
+    document.getElementById('statProjetos').textContent = totalProjetos;
+  }
+
+  searchInput.addEventListener('input', render);
+
+  buildPills();
+  render();
 }
-
-searchInput.addEventListener('input', render);
-
-buildPills();
-render();
 </script>
 
 </body>
