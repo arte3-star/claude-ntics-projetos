@@ -298,6 +298,24 @@ tr.group-band.band-previsto td{background:linear-gradient(to right,#92400e,#1f29
 /* esconde meses por período. col1=Projeto col2=Resp col3-8=Jan-Jun col9-14=Jul-Dez */
 table.gt.view-sem1 th:nth-child(n+9),table.gt.view-sem1 td:nth-child(n+9){display:none}
 table.gt.view-sem2 th:nth-child(n+3):nth-child(-n+8),table.gt.view-sem2 td:nth-child(n+3):nth-child(-n+8){display:none}
+/* esconde mês individual (independe do período acima, os dois se somam) */
+.month-toggle-wrap{margin-top:-10px}
+.mon-nav{display:inline-flex;background:#e5e7eb;border-radius:8px;padding:3px;gap:2px;flex-wrap:wrap}
+.mon-btn{padding:6px 11px;font-size:11px;font-weight:600;color:var(--gray-d);cursor:pointer;border-radius:6px;user-select:none;font-family:'Barlow Condensed',sans-serif;letter-spacing:.3px;text-transform:uppercase;background:var(--white);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.mon-btn:hover{color:var(--green-d)}
+.mon-btn.off{background:transparent;color:#9ca3af;box-shadow:none;text-decoration:line-through}
+table.gt.hm-3 th:nth-child(3),table.gt.hm-3 td:nth-child(3){display:none}
+table.gt.hm-4 th:nth-child(4),table.gt.hm-4 td:nth-child(4){display:none}
+table.gt.hm-5 th:nth-child(5),table.gt.hm-5 td:nth-child(5){display:none}
+table.gt.hm-6 th:nth-child(6),table.gt.hm-6 td:nth-child(6){display:none}
+table.gt.hm-7 th:nth-child(7),table.gt.hm-7 td:nth-child(7){display:none}
+table.gt.hm-8 th:nth-child(8),table.gt.hm-8 td:nth-child(8){display:none}
+table.gt.hm-9 th:nth-child(9),table.gt.hm-9 td:nth-child(9){display:none}
+table.gt.hm-10 th:nth-child(10),table.gt.hm-10 td:nth-child(10){display:none}
+table.gt.hm-11 th:nth-child(11),table.gt.hm-11 td:nth-child(11){display:none}
+table.gt.hm-12 th:nth-child(12),table.gt.hm-12 td:nth-child(12){display:none}
+table.gt.hm-13 th:nth-child(13),table.gt.hm-13 td:nth-child(13){display:none}
+table.gt.hm-14 th:nth-child(14),table.gt.hm-14 td:nth-child(14){display:none}
 /* ══ MENSAL JULHO: CSS portado do planejamento_julho_v6 (validado) ══ */
 .subviews{display:inline-flex;background:#e5e7eb;border-radius:8px;padding:3px;margin-bottom:18px;gap:2px;flex-wrap:wrap}
 .sv-btn{padding:7px 14px;font-size:12px;font-weight:600;color:var(--gray);cursor:pointer;border-radius:6px;user-select:none;font-family:'Barlow Condensed',sans-serif;letter-spacing:.3px;text-transform:uppercase}
@@ -501,6 +519,12 @@ table.gt.view-sem2 th:nth-child(n+3):nth-child(-n+8),table.gt.view-sem2 td:nth-c
     </div>
   </div>
 
+  <div class="period-wrap month-toggle-wrap">
+    <span class="per-lbl">Ocultar meses:</span>
+    <div class="mon-nav" id="month-nav"></div>
+    <span class="clr-btn" onclick="showAllMonths()" style="margin-left:8px">Mostrar todos</span>
+  </div>
+
   <div class="gantt-wrap">
     <table class="gt" id="gantt">
       <thead><tr>
@@ -638,17 +662,19 @@ table.gt.view-sem2 th:nth-child(n+3):nth-child(-n+8),table.gt.view-sem2 td:nth-c
 <div class="seed-modal-overlay" id="seed-modal-overlay" onclick="if(event.target===this)closeSeedModal()">
   <div class="seed-modal">
     <h3>↓ Exportar seed — planejamento atual</h3>
-    <p>Copie o bloco abaixo e cole no <code style="background:#f3f4f6;padding:1px 4px;border-radius:3px;font-size:10px">index.html</code> substituindo o bloco <code style="background:#f3f4f6;padding:1px 4px;border-radius:3px;font-size:10px">const DEFAULT_WEEK_OVERRIDES = …</code>:</p>
+    <p id="seed-modal-meta" style="font-weight:600;color:var(--gray-d)"></p>
+    <p>Copie ou baixe o bloco abaixo e substitua no <code style="background:#f3f4f6;padding:1px 4px;border-radius:3px;font-size:10px">index.html</code> o bloco <code style="background:#f3f4f6;padding:1px 4px;border-radius:3px;font-size:10px">const DEFAULT_WEEK_OVERRIDES = …</code>:</p>
     <ol>
       <li>Abra <code>index.html</code> num editor de texto</li>
-      <li>Localize a linha <code>const DEFAULT_WEEK_OVERRIDES = (function(){</code></li>
-      <li>Selecione até o fechamento <code>})();</code> e substitua pelo código copiado</li>
+      <li>Localize a linha <code>const DEFAULT_WEEK_OVERRIDES = {</code></li>
+      <li>Selecione até o fechamento <code>};</code> (linha seguinte) e substitua pelo código copiado</li>
       <li>Salve · faça commit · push</li>
       <li>No browser, clique <strong>⟳ Recarregar seed</strong> para limpar o cache local</li>
     </ol>
     <textarea id="seed-modal-textarea" readonly spellcheck="false"></textarea>
     <div class="seed-modal-actions">
       <button class="seed-mbtn secondary" onclick="closeSeedModal()">Fechar</button>
+      <button class="seed-mbtn secondary" id="seed-download-btn" onclick="downloadSeed()">Baixar arquivo .js</button>
       <button class="seed-mbtn primary" id="seed-copy-btn" onclick="copySeedToClipboard()">Copiar código</button>
     </div>
   </div>
@@ -1324,6 +1350,35 @@ function setAnnualPeriod(mode,el){
   document.querySelectorAll('#period-nav .per-btn').forEach(b=>b.classList.toggle('active',b===el));
 }
 
+// ── ANUAL: ocultar meses individualmente (preferência local, por navegador, não vai pra nuvem) ──
+const MONTH_COLS=[{i:3,l:'Jan'},{i:4,l:'Fev'},{i:5,l:'Mar'},{i:6,l:'Abr'},{i:7,l:'Mai'},{i:8,l:'Jun'},
+                   {i:9,l:'Jul'},{i:10,l:'Ago'},{i:11,l:'Set'},{i:12,l:'Out'},{i:13,l:'Nov'},{i:14,l:'Dez'}];
+const MONTH_HIDE_KEY='pmo_meses_ocultos_v1';
+function loadHiddenMonths(){
+  try{ return new Set(JSON.parse(localStorage.getItem(MONTH_HIDE_KEY)||'[]')); }catch(e){ return new Set(); }
+}
+function saveHiddenMonths(){ try{ localStorage.setItem(MONTH_HIDE_KEY, JSON.stringify(Array.from(hiddenMonths))); }catch(e){} }
+const hiddenMonths=loadHiddenMonths();
+function buildMonthToggles(){
+  const nav=document.getElementById('month-nav'); if(!nav) return;
+  nav.innerHTML=MONTH_COLS.map(function(m){
+    const off=hiddenMonths.has(m.i);
+    return '<div class="mon-btn'+(off?' off':'')+'" onclick="toggleMonth('+m.i+')" title="'+(off?'Mostrar ':'Ocultar ')+m.l+'">'+m.l+'</div>';
+  }).join('');
+  const t=document.getElementById('gantt');
+  MONTH_COLS.forEach(function(m){ t.classList.toggle('hm-'+m.i, hiddenMonths.has(m.i)); });
+}
+window.toggleMonth=function(i){
+  if(hiddenMonths.has(i)) hiddenMonths.delete(i); else hiddenMonths.add(i);
+  saveHiddenMonths();
+  buildMonthToggles();
+};
+window.showAllMonths=function(){
+  hiddenMonths.clear();
+  saveHiddenMonths();
+  buildMonthToggles();
+};
+
 // ── GANTT ──
 function buildGantt(){
   const tb=document.getElementById('gantt-body'); tb.innerHTML='';
@@ -1710,12 +1765,25 @@ function resetSeed(){
 }
 
 function exportSeed(){
+  const cloud = window.__pmoCloud || {};
+  if(!cloud.ready){
+    if(!confirm('A sincronização com a nuvem ainda não terminou — exportar agora pode gerar uma versão desatualizada (sem as últimas edições de outras pessoas).\n\nExportar mesmo assim?')) return;
+  }
+  const count = Object.keys(weekOverrides).length;
   const json = JSON.stringify(weekOverrides, null, 2);
+  const agora = new Date();
   const code = '// ── SEED inicial da visão anual semanal (planejamento Jul+/2026) ──\n'
-    + '// Gerado via "Exportar seed" em ' + new Date().toLocaleString('pt-BR') + '\n'
+    + '// Gerado via "Exportar seed" em ' + agora.toLocaleString('pt-BR') + '\n'
     + '// Meses: 6=Jul 7=Ago 8=Set 9=Out 10=Nov 11=Dez. Semanas: 0=S1 1=S2 2=S3 3=S4\n'
     + 'const DEFAULT_WEEK_OVERRIDES = ' + json + ';';
   document.getElementById('seed-modal-textarea').value = code;
+  const meta = document.getElementById('seed-modal-meta');
+  if(meta){
+    const fonte = cloud.synced
+      ? 'sincronizado com a nuvem' + (cloud.updatedBy ? ' (última edição de ' + cloud.updatedBy + ')' : '')
+      : 'cópia local deste navegador — pode não refletir edições salvas por outras pessoas';
+    meta.textContent = count + ' semana(s) com ajuste · fonte: ' + fonte;
+  }
   document.getElementById('seed-modal-overlay').classList.add('open');
 }
 
@@ -1732,6 +1800,24 @@ function copySeedToClipboard(){
   btn.textContent = 'Copiado! ✓';
   btn.style.background = '#15803d';
   setTimeout(()=>{ btn.textContent = orig; btn.style.background = ''; }, 2500);
+}
+
+function downloadSeed(){
+  const ta = document.getElementById('seed-modal-textarea');
+  const blob = new Blob([ta.value], { type: 'text/javascript' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const stamp = new Date().toISOString().slice(0,16).replace(/[-:T]/g,'');
+  a.href = url;
+  a.download = 'pmo-seed-' + stamp + '.js';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  const btn = document.getElementById('seed-download-btn');
+  const orig = btn.textContent;
+  btn.textContent = 'Baixado ✓';
+  setTimeout(()=>{ btn.textContent = orig; }, 2500);
 }
 function resetAllSwaps(){
   Object.keys(respOverrides).forEach(k=>delete respOverrides[k]);
@@ -1757,6 +1843,7 @@ function renderAll(){
   buildHandson();
 }
 renderAll();
+buildMonthToggles();
 
 // ── ponte para a camada de nuvem (Supabase) ──
 // weekOverrides é a fonte das edições manuais (fase por semana, KC/KI, +fase).
@@ -1805,6 +1892,8 @@ function nomeEditor(){
   return nome;
 }
 
+window.__pmoCloud = { ready:false, synced:false, updatedAt:null, updatedBy:null };
+
 async function carregarNuvem(){
   status('Sincronizando…');
   try{
@@ -1814,12 +1903,16 @@ async function carregarNuvem(){
     if(data && data.html){
       try{ window.__pmo.applyOverrides(JSON.parse(data.html)); }catch(e){ console.warn('PMO parse:', e); }
       lastKnownUpdatedAt = data.updated_at || null;
+      window.__pmoCloud.synced = true;
+      window.__pmoCloud.updatedAt = data.updated_at || null;
+      window.__pmoCloud.updatedBy = data.updated_by || null;
       const quem = data.updated_by ? (' — última edição de ' + data.updated_by + (lastKnownUpdatedAt ? ' em ' + fmtWhen(lastKnownUpdatedAt) : '')) : '';
       status('Sincronizado com a nuvem' + quem, 'ok');
     } else {
       status('Nenhuma edição salva na nuvem ainda');
     }
   }catch(e){ status('Nuvem indisponível (usando cópia local)', 'err'); console.warn('PMO load ex:', e); }
+  finally{ window.__pmoCloud.ready = true; }
 }
 
 window.salvarPMO = async function(){
