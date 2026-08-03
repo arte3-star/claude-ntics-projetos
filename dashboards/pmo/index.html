@@ -358,6 +358,36 @@ table.gt.mc-12 th:nth-child(12),table.gt.mc-13 th:nth-child(13),table.gt.mc-14 t
 .proj-hide-item:hover{background:#f9fafb}
 .proj-hide-item input{flex-shrink:0}
 .proj-hide-item em{color:var(--gray);font-style:normal}
+/* ── botão Visualização/Edição ── */
+.btn-edit-mode{display:inline-flex;align-items:center;gap:6px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.3px;color:var(--gray-d);background:#fff;border:1.5px solid #d1d5db;padding:8.5px 16px;border-radius:8px;cursor:pointer;user-select:none;margin-left:14px;transition:all .15s ease}
+.btn-edit-mode:hover{border-color:var(--green-d);color:var(--green-d)}
+.btn-edit-mode.is-editing{background:#fef3c7;border-color:#f59e0b;color:#92400e}
+.btn-edit-mode.is-editing:hover{background:#fde68a}
+/* ── Visão Anual: modo Visualização (padrão, compacto, só mostra o que está marcado) vs Edição (table.gt.edit-mode) ── */
+table.gt:not(.edit-mode) .wk-add-fase,
+table.gt:not(.edit-mode) .wk-item-x,
+table.gt:not(.edit-mode) .ph-who-empty,
+table.gt:not(.edit-mode) .wk-marco-btn:not(.on){display:none}
+table.gt:not(.edit-mode) .resp-wrap,
+table.gt:not(.edit-mode) .ph-who,
+table.gt:not(.edit-mode) .wk-item-av-wrap,
+table.gt:not(.edit-mode) .wk-marco-btn{pointer-events:none;cursor:default}
+table.gt:not(.edit-mode) .ph-block.editable{cursor:default}
+table.gt:not(.edit-mode) .ph-block.editable:hover{outline:none}
+table.gt:not(.edit-mode) td{padding:1px 3px}
+table.gt:not(.edit-mode) .month-cell{padding:1px;min-height:20px;gap:1px}
+table.gt:not(.edit-mode) .ph-block{padding:1px 3px;min-height:14px}
+table.gt:not(.edit-mode) .ph-block .ph-lbl{font-size:7px}
+table.gt:not(.edit-mode) .ph-block img,
+table.gt:not(.edit-mode) .ph-who img{width:12px;height:12px}
+table.gt:not(.edit-mode) .month-cell-wk{padding:2px;min-width:300px}
+table.gt:not(.edit-mode) .month-cell-wk5{min-width:360px}
+table.gt:not(.edit-mode) .wk-cell{padding:2px 3px 3px;gap:2px}
+table.gt:not(.edit-mode) .wk-item{padding:1px 3px;gap:3px}
+table.gt:not(.edit-mode) .wk-item-lbl{font-size:7px}
+table.gt:not(.edit-mode) .wk-item-av,
+table.gt:not(.edit-mode) .wk-item-av-empty{width:12px;height:12px}
+table.gt:not(.edit-mode) .wk-marcos{margin-top:0}
 /* ══ MENSAL JULHO: CSS portado do planejamento_julho_v6 (validado) ══ */
 .subviews{display:inline-flex;background:#e5e7eb;border-radius:8px;padding:3px;margin-bottom:18px;gap:2px;flex-wrap:wrap}
 .sv-btn{padding:7px 14px;font-size:12px;font-weight:600;color:var(--gray);cursor:pointer;border-radius:6px;user-select:none;font-family:'Barlow Condensed',sans-serif;letter-spacing:.3px;text-transform:uppercase}
@@ -548,6 +578,7 @@ table.gt.mc-12 th:nth-child(12),table.gt.mc-13 th:nth-child(13),table.gt.mc-14 t
     <span class="clr-btn" onclick="clearFilter()">✕ Limpar</span>
     <span class="clr-btn seed-btn" onclick="resetSeed()" title="Apaga edições salvas no browser e recarrega o planejamento do arquivo HTML">⟳ Recarregar seed</span>
     <span class="clr-btn seed-btn" onclick="exportSeed()" title="Copia o planejamento atual como código para colar no HTML">↓ Exportar seed</span>
+    <button type="button" class="btn-edit-mode" id="btn-edit-mode" onclick="toggleEditMode()" title="Visualização: compacto e só mostra o que está marcado. Edição: expande e libera trocar responsável, +fase, KC/KI.">✏️ Editar</button>
     <button type="button" class="btn-cloud-save" id="btn-salvar-nuvem" onclick="salvarPMO()" title="Salva na nuvem — todos que abrirem, em qualquer lugar, verão esta versão">💾 Salvar na nuvem</button>
     <span id="nuvem-status" style="font-size:11px;color:#6b7280;margin-left:8px;"></span>
   </div>
@@ -833,7 +864,7 @@ function phBlock(b, respKey, p, mi, bi){
       </span>`;
     } else {
       // sem pessoa específica (segue responsável): mostra ícone discreto editável
-      avatar=`<span class="ph-who" id="phw-${k.replace(/\|/g,'-')}" onclick="togglePhWho('${k}',event)">
+      avatar=`<span class="ph-who ph-who-empty" id="phw-${k.replace(/\|/g,'-')}" onclick="togglePhWho('${k}',event)">
         <img src="${IMGS[respKey]||''}" alt="add" title="Atribuir pessoa — clique" style="opacity:.55">
         ${buildPhWhoDrop(p, k, who)}
       </span>`;
@@ -864,6 +895,7 @@ function buildPhWhoDrop(p, k, cur){
 
 function togglePhWho(k, e){
   e.stopPropagation();
+  if(!editMode) return;
   const id = 'phw-'+k.replace(/\|/g,'-');
   const el = document.getElementById(id);
   const isOpen = el.classList.contains('open');
@@ -900,6 +932,25 @@ function shouldShowKI(p, monthIdx){
   return prevHasMockup && currHasEngajamento;
 }
 
+// ── MODO VISUALIZAÇÃO / EDIÇÃO ──
+// Visualização (padrão): compacto, só mostra o que está marcado, nada é clicável.
+// Edição: expande, mostra todos os controles (trocar responsável, +fase, KC/KI, remover).
+let editMode = false;
+function updateEditModeButton(){
+  const btn = document.getElementById('btn-edit-mode');
+  if(!btn) return;
+  btn.textContent = editMode ? '👁 Modo visualização' : '✏️ Editar';
+  btn.classList.toggle('is-editing', editMode);
+}
+window.toggleEditMode = function(){
+  editMode = !editMode;
+  const t = document.getElementById('gantt');
+  if(t) t.classList.toggle('edit-mode', editMode);
+  document.querySelectorAll('.resp-wrap.open, .ph-who.open, .wk-item-av-wrap.open, .wk-add-fase.open').forEach(w=>w.classList.remove('open'));
+  updateEditModeButton();
+  fitGanttHeight();
+};
+
 // ── GANTT SWAP STATE ──
 const respOverrides = {}; // {projId: newRespKey}
 
@@ -927,6 +978,7 @@ function buildRespDropdown(p){
 
 function toggleRespDrop(projId, e){
   e.stopPropagation();
+  if(!editMode) return;
   const wrap = document.getElementById('rw-'+projId);
   const isOpen = wrap.classList.contains('open');
   document.querySelectorAll('.resp-wrap.open').forEach(w=>w.classList.remove('open'));
@@ -1363,6 +1415,7 @@ function refreshWeekCell(key){
 // ── interação ──
 function toggleWeekDrop(id, e){
   e.stopPropagation();
+  if(!editMode) return;
   const el = document.getElementById(id); if(!el) return;
   const isOpen = el.classList.contains('open');
   document.querySelectorAll('.wk-item-av-wrap.open, .wk-add-fase.open').forEach(w=>w.classList.remove('open'));
@@ -1395,6 +1448,7 @@ function setWeekItemResp(key, idx, resp, e){
 }
 function toggleWeekMarco(key, which, e){
   e.stopPropagation();
+  if(!editMode) return;
   const ov = ensureWeekOv(key);
   ov[which] = !ov[which];
   saveWeekOverrides();
