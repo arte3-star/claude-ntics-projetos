@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tarefa-mãe no Painel — propostas</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0d1f3c;--navy2:#1a3660;--red:#c0202a;--orange:#e07820;--green:#1a7a46;--teal:#0e6e82;
+--ink:#1a2230;--muted:#4a5568;--line:#e2e8f0;--bg:#edf0f5;--shadow:0 2px 8px rgba(0,0,0,.08)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#2d3548;padding:24px;display:flex;justify-content:center;color:var(--ink)}
+#sheet{width:1180px;max-width:100%;background:var(--bg);border-radius:14px;overflow:hidden;box-shadow:0 32px 100px rgba(0,0,0,.45)}
+.header{background:var(--navy);padding:24px 30px}
+.header h1{font-family:'DM Serif Display',Georgia,serif;font-size:32px;color:#fff;line-height:1.1}
+.header .sub{font-size:12px;color:rgba(255,255,255,.62);font-weight:600;margin-top:9px;line-height:1.6;max-width:820px}
+.body{padding:22px 30px 30px}
+.diag{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:18px 20px;margin-bottom:20px;border-left:5px solid var(--orange)}
+.diag h2{font-family:'DM Serif Display',Georgia,serif;font-size:19px;color:var(--navy);margin-bottom:8px}
+.diag p{font-size:12.4px;line-height:1.65;color:var(--ink);margin-bottom:9px}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.num{background:#f4f7fb;border-radius:9px;padding:12px;text-align:center}
+.num b{display:block;font-family:'DM Serif Display',Georgia,serif;font-size:28px;color:var(--orange);line-height:1}
+.num span{font-size:9.6px;font-weight:700;text-transform:uppercase;color:var(--muted);display:block;margin-top:5px;line-height:1.3}
+.op{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:20px 22px;margin-bottom:18px;border-top:5px solid var(--navy2)}
+.op.rec{border-top-color:var(--green)}
+.ophead{display:flex;align-items:baseline;gap:11px;margin-bottom:5px;flex-wrap:wrap}
+.opn{font-family:'DM Serif Display',Georgia,serif;font-size:27px;color:var(--navy);line-height:1}
+.opt{font-size:17px;font-weight:800;color:var(--navy)}
+.tag{font-size:9px;font-weight:800;text-transform:uppercase;border-radius:9px;padding:3px 9px;letter-spacing:.3px}
+.tag.rec{background:#e8f6ee;color:var(--green)}.tag.b{background:#e2f1f5;color:var(--teal)}
+.tag.c{background:#fdf3e6;color:#a85a10}
+.opd{font-size:12.4px;line-height:1.6;color:var(--ink);margin:7px 0 14px}
+.opd b{color:var(--navy)}
+.demo{background:#f7f9fc;border:1px solid var(--line);border-radius:10px;padding:13px 15px}
+.demolab{font-size:9.4px;font-weight:800;text-transform:uppercase;color:var(--muted);margin-bottom:9px;letter-spacing:.4px}
+.pro{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.pro div{font-size:11.4px;line-height:1.55}
+.pro h5{font-size:9.6px;font-weight:800;text-transform:uppercase;margin-bottom:5px;letter-spacing:.3px}
+.pro .g h5{color:var(--green)}.pro .r h5{color:var(--red)}
+.tl{list-style:none}
+.tl li{font-size:11px;line-height:1.45;padding:6px 0 6px 8px;border-bottom:1px dashed var(--line);
+ display:flex;gap:6px;align-items:baseline;flex-wrap:wrap;border-left:4px solid transparent}
+.tl li.s-atr{border-left-color:var(--red)}.tl li.s-rev{border-left-color:var(--teal)}
+.tl a{color:var(--ink);text-decoration:none;flex:1;min-width:170px}
+.ld{font-weight:800;color:var(--navy2);flex:none}
+.lid,.lp{background:#eef1f6;color:var(--muted);border-radius:8px;padding:0 5px;font-size:8.6px;font-weight:800;flex:none}
+.lp{color:var(--navy)}
+.lst{font-size:8.4px;font-weight:800;border-radius:8px;padding:1px 5px;text-transform:uppercase;flex:none}
+.lst.atr{background:#fdecec;color:var(--red)}.lst.rev{background:#e2f1f5;color:var(--teal)}
+.mchip{background:#ede9fe;color:#5b21b6;border-radius:8px;padding:1px 7px;font-size:9px;font-weight:800;flex:none}
+.mchip.vaz{background:#eef1f6;color:#9aa5b5}
+.mgrp{border:1px solid var(--line);border-radius:9px;margin-bottom:7px;background:#fff;overflow:hidden}
+.mgrp>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:9px;padding:8px 12px;background:#f2f6fb}
+.mgrp>summary::-webkit-details-marker{display:none}
+.mgrp>summary::after{content:"▾";margin-left:auto;color:#9aa5b5;font-weight:800}
+.gdot{width:11px;height:11px;border-radius:4px;flex:none;display:inline-block}
+.k-atr{background:var(--red)}
+.mgt{font-size:11.6px;font-weight:800;color:var(--navy)}
+.mgc{background:var(--navy);color:#fff;border-radius:9px;padding:1px 8px;font-size:9.6px;font-weight:800}
+.mgh{font-size:9.4px;color:var(--muted);font-weight:600}
+.mgrp .tl{padding:2px 12px 6px}
+.cam{flex-direction:column;align-items:stretch;gap:2px}
+.camtop{font-size:9.4px;font-weight:700;color:var(--muted)}
+.camtop .sep{color:#c3cbd8;margin:0 3px}
+.cambot{display:flex;gap:6px;align-items:baseline;flex-wrap:wrap}
+.erow{display:flex;align-items:center;gap:12px;margin-bottom:9px}
+.ebar{width:120px;height:26px;background:#eef1f6;border-radius:5px;overflow:hidden;flex:none}
+.ebar span{display:block;height:100%;background:linear-gradient(90deg,#e04a52,#c0202a);border-radius:5px}
+.einfo{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;flex:1}
+.einfo b{font-family:'DM Serif Display',Georgia,serif;font-size:21px;color:var(--red);line-height:1}
+.enome{font-size:12px;font-weight:800;color:var(--navy)}
+.elist{background:#eef1f6;border-radius:8px;padding:1px 6px;font-size:9px;font-weight:800;color:var(--navy)}
+.equem{font-size:9.6px;color:var(--muted);font-weight:600}
+.final{background:var(--navy);color:#fff;border-radius:12px;padding:20px 24px;margin-top:6px}
+.final h2{font-family:'DM Serif Display',Georgia,serif;font-size:21px;margin-bottom:9px}
+.final p{font-size:12.4px;line-height:1.7;color:rgba(255,255,255,.85)}
+.final b{color:#7fd3e6}
+.footer{padding:14px 30px 22px;font-size:10.6px;color:var(--muted)}
+</style></head><body><div id="sheet">
+<div class="header"><h1>A tarefa-mãe no Painel do Escritório</h1>
+<div class="sub">Cinco propostas para a subtarefa parar de aparecer solta. Todos os exemplos abaixo são
+dados reais do painel de hoje — nada é ilustração. Escolha uma (ou a combinação no fim) e eu implemento.</div></div>
+<div class="body">
+
+<div class="diag"><h2>O tamanho do problema</h2>
+<p>Quase tudo que o painel mostra é subtarefa, e a maior parte está no terceiro nível ou mais fundo.
+A tarefa-mãe é justamente onde mora o contexto que falta: <b>a cidade</b> ("Nova Jerusalém", "Serra/ES",
+"Porto Itapoá", "Cidade Rio de Janeiro") ou <b>a entrega</b> ("Estruturar Pré-Termo de Abertura",
+"Executar Plano de Comunicação", "Check-list Pré execução Curitiba").</p>
+<p>Pior: nomes de subtarefa se repetem entre projetos. "Entrega de Materiais de Comunicação finais"
+aparece no 127 e no 125; "Gerar Formulários/Documentos do Projeto" no 133 e no 115. Sem a mãe na tela,
+são duas linhas idênticas de projetos diferentes.</p>
+<div class="nums">
+<div class="num"><b>84%</b><span>das tarefas abertas são subtarefa</span></div>
+<div class="num"><b>57%</b><span>estão no 3º nível ou mais fundo</span></div>
+<div class="num"><b>226</b><span>tarefas-mãe distintas por trás delas</span></div>
+</div></div>
+
+<div class="op"><div class="ophead"><span class="opn">1</span><span class="opt">Selo da mãe na própria linha</span>
+<span class="tag b">barato · não muda o layout</span></div>
+<div class="opd">Um selo roxo antes do nome da tarefa, com o nome da mãe. A lista continua exatamente como está —
+só deixa de ser ambígua. É o mínimo que resolve o "de onde saiu isso?".</div>
+<div class="demo"><div class="demolab">Como ficaria — atrasadas do Bellmond, hoje</div><ul class="tl"><li class="s-atr"><span class="ld">31/07</span><span class="lid">3d</span><span class="lp">#133</span><span class="mchip">ESCOLAS</span><a href="https://app.clickup.com/t/868kgmpfx">Contato com fornecedores</a><span class="lst atr">em andamento</span></li><li class="s-atr"><span class="ld">19/06</span><span class="lid">45d</span><span class="lp">#133</span><span class="mchip">Lista de Peças a serem criadas</span><a href="https://app.clickup.com/t/868kgbga9">Atualização régua oficial parceiros</a><span class="lst atr">backlog</span></li><li class="s-rev"><span class="ld">31/07</span><span class="lid">3d</span><span class="lp">#133</span><span class="mchip">Produtos MINC</span><a href="https://app.clickup.com/t/868ke11yh">Aprovar metas por cidade x produto</a><span class="lst rev">revisão</span></li><li class="s-rev"><span class="ld">30/07</span><span class="lid">4d</span><span class="lp">#133</span><span class="mchip">Preparar e protocolar o projeto na</span><a href="https://app.clickup.com/t/868kdh9ty">Contato com indicação BEDE + Pablo Moleque mateiro</a><span class="lst rev">aguardando (externo)</span></li><li class="s-atr"><span class="ld">10/07</span><span class="lid">24d</span><span class="lp">#122</span><span class="mchip">Executar Plano de Comunicação</span><a href="https://app.clickup.com/t/868k8zgg7">Solicitar logo dos parceiros Repsol do projeto</a><span class="lst atr">em andamento</span></li><li class="s-atr"><span class="ld">31/07</span><span class="lid">3d</span><span class="lp">#133</span><span class="mchip">Checklist Roteiro Talks Manaus</span><a href="https://app.clickup.com/t/868k8yzt8">Roteiro com falas e mediadores</a><span class="lst atr">backlog</span></li><li class="s-atr"><span class="ld">10/07</span><span class="lid">24d</span><span class="lp">#133</span><span class="mchip">👤 ROTINA — Bellmond</span><a href="https://app.clickup.com/t/868k8y9yp">🔁 Sexta — Fechamento semana + pré sprint</a><span class="lst atr">backlog</span></li><li class="s-atr"><span class="ld">06/07</span><span class="lid">28d</span><span class="lp">#133</span><span class="mchip">👤 ROTINA — Bellmond</span><a href="https://app.clickup.com/t/868k8y9wj">🔁 Segunda — Clareza da semana</a><span class="lst atr">em andamento</span></li><li class="s-atr"><span class="ld">31/07</span><span class="lid">3d</span><span class="lp">#133</span><span class="mchip">👤 ROTINA — Bellmond</span><a href="https://app.clickup.com/t/868k8xwr1">🔁 Dia 30 — Planejamento mensal</a><span class="lst atr">backlog</span></li><li class="s-atr"><span class="ld">24/07</span><span class="lid">10d</span><span class="lp">#133</span><span class="mchip vaz">tarefa principal</span><a href="https://app.clickup.com/t/868k8czrg">Realizar visita técnica ao auditório da Vibra</a><span class="lst atr">backlog</span></li><li class="s-atr"><span class="ld">06/07</span><span class="lid">28d</span><span class="lp">#122</span><span class="mchip vaz">tarefa principal</span><a href="https://app.clickup.com/t/868k8cyx8">Alinhar escopo de Guilherme e formalizar contrato antes da s</a><span class="lst atr">backlog</span></li><li class="s-atr"><span class="ld">13/07</span><span class="lid">21d</span><span class="lp">#133</span><span class="mchip vaz">tarefa principal</span><a href="https://app.clickup.com/t/868k67r5x">Validar sinergia entre lista de parceiros e budget</a><span class="lst atr">em andamento</span></li><li class="s-rev"><span class="ld">24/06</span><span class="lid">40d</span><span class="lp">Sprint 81 (3/8</span><span class="mchip vaz">tarefa principal</span><a href="https://app.clickup.com/t/868k4huba">PARCERIA SEC. CULTURA RIO</a><span class="lst rev">aguardando (externo)</span></li><li class="s-rev"><span class="ld">30/07</span><span class="lid">4d</span><span class="lp">#133</span><span class="mchip">Programação evento praça</span><a href="https://app.clickup.com/t/868k3dg4d">Professor (aulão/atividade física, garantir que traz público</a><span class="lst rev">aguardando (externo)</span></li></ul></div>
+<div class="pro"><div class="g"><h5>A favor</h5>Nada muda de lugar. Funciona em todas as listas do painel de uma vez, inclusive nas concluídas e nos cards de projeto.</div>
+<div class="r"><h5>Contra</h5>A linha fica mais cheia. Em nome de mãe comprido, corta.</div></div></div>
+
+<div class="op rec"><div class="ophead"><span class="opn">2</span><span class="opt">Agrupar a lista por tarefa-mãe</span>
+<span class="tag rec">recomendada</span></div>
+<div class="opd">A lista deixa de ser plana e passa a ser lida <b>por entrega</b>: cada mãe vira um bloco que abre e
+fecha, com o total de subtarefas e a idade da mais antiga. Repare no exemplo: em vez de 14 linhas soltas,
+aparece que o Bellmond está travado em duas ou três frentes.</div>
+<div class="demo"><div class="demolab">Como ficaria — mesmas atrasadas, agrupadas</div><details class="mgrp" open><summary><i class="gdot k-atr"></i><span class="mgt">Checklist Roteiro Talks Manaus</span><span class="mgc">1</span><span class="mgh">#133 · mais antiga 3d</span></summary><ul class="tl"><li class="s-atr"><span class="ld">31/07</span><span class="lid">3d</span><a href="https://app.clickup.com/t/868k8yzt8">Roteiro com falas e mediadores</a><span class="lst atr">backlog</span></li></ul></details><details class="mgrp" open><summary><i class="gdot k-atr"></i><span class="mgt">ESCOLAS</span><span class="mgc">1</span><span class="mgh">#133 · mais antiga 3d</span></summary><ul class="tl"><li class="s-atr"><span class="ld">31/07</span><span class="lid">3d</span><a href="https://app.clickup.com/t/868kgmpfx">Contato com fornecedores</a><span class="lst atr">em andamento</span></li></ul></details><details class="mgrp" open><summary><i class="gdot k-atr"></i><span class="mgt">Executar Plano de Comunicação</span><span class="mgc">1</span><span class="mgh">#122 · mais antiga 24d</span></summary><ul class="tl"><li class="s-atr"><span class="ld">10/07</span><span class="lid">24d</span><a href="https://app.clickup.com/t/868k8zgg7">Solicitar logo dos parceiros Repsol do projeto</a><span class="lst atr">em andamento</span></li></ul></details><details class="mgrp" open><summary><i class="gdot k-atr"></i><span class="mgt">Lista de Peças a serem criadas</span><span class="mgc">1</span><span class="mgh">#133 · mais antiga 45d</span></summary><ul class="tl"><li class="s-atr"><span class="ld">19/06</span><span class="lid">45d</span><a href="https://app.clickup.com/t/868kgbga9">Atualização régua oficial parceiros</a><span class="lst atr">backlog</span></li></ul></details><details class="mgrp" open><summary><i class="gdot k-atr"></i><span class="mgt">Preparar e protocolar o projeto na prefeitura (Consu</span><span class="mgc">1</span><span class="mgh">#133 · mais antiga 4d</span></summary><ul class="tl"><li class="s-rev"><span class="ld">30/07</span><span class="lid">4d</span><a href="https://app.clickup.com/t/868kdh9ty">Contato com indicação BEDE + Pablo Moleque mateiro</a><span class="lst rev">aguardando (externo)</span></li></ul></details><details class="mgrp" open><summary><i class="gdot k-atr"></i><span class="mgt">Produtos MINC</span><span class="mgc">1</span><span class="mgh">#133 · mais antiga 3d</span></summary><ul class="tl"><li class="s-rev"><span class="ld">31/07</span><span class="lid">3d</span><a href="https://app.clickup.com/t/868ke11yh">Aprovar metas por cidade x produto</a><span class="lst rev">revisão</span></li></ul></details><details class="mgrp" open><summary><i class="gdot k-atr"></i><span class="mgt">Programação evento praça</span><span class="mgc">1</span><span class="mgh">#133 · mais antiga 4d</span></summary><ul class="tl"><li class="s-rev"><span class="ld">30/07</span><span class="lid">4d</span><a href="https://app.clickup.com/t/868k3dg4d">Professor (aulão/atividade física, garantir que traz públi</a><span class="lst rev">aguardando (externo)</span></li></ul></details><details class="mgrp" open><summary><i class="gdot k-atr"></i><span class="mgt">· sem tarefa-mãe (é tarefa principal)</span><span class="mgc">4</span><span class="mgh">Sprint 81 (3/8 · mais antiga 40d</span></summary><ul class="tl"><li class="s-rev"><span class="ld">24/06</span><span class="lid">40d</span><a href="https://app.clickup.com/t/868k4huba">PARCERIA SEC. CULTURA RIO</a><span class="lst rev">aguardando (externo)</span></li><li class="s-atr"><span class="ld">06/07</span><span class="lid">28d</span><a href="https://app.clickup.com/t/868k8cyx8">Alinhar escopo de Guilherme e formalizar contrato antes da</a><span class="lst atr">backlog</span></li><li class="s-atr"><span class="ld">13/07</span><span class="lid">21d</span><a href="https://app.clickup.com/t/868k67r5x">Validar sinergia entre lista de parceiros e budget</a><span class="lst atr">em andamento</span></li><li class="s-atr"><span class="ld">24/07</span><span class="lid">10d</span><a href="https://app.clickup.com/t/868k8czrg">Realizar visita técnica ao auditório da Vibra</a><span class="lst atr">backlog</span></li></ul></details><details class="mgrp" open><summary><i class="gdot k-atr"></i><span class="mgt">👤 ROTINA — Bellmond</span><span class="mgc">3</span><span class="mgh">#133 · mais antiga 28d</span></summary><ul class="tl"><li class="s-atr"><span class="ld">06/07</span><span class="lid">28d</span><a href="https://app.clickup.com/t/868k8y9wj">🔁 Segunda — Clareza da semana</a><span class="lst atr">em andamento</span></li><li class="s-atr"><span class="ld">10/07</span><span class="lid">24d</span><a href="https://app.clickup.com/t/868k8y9yp">🔁 Sexta — Fechamento semana + pré sprint</a><span class="lst atr">backlog</span></li><li class="s-atr"><span class="ld">31/07</span><span class="lid">3d</span><a href="https://app.clickup.com/t/868k8xwr1">🔁 Dia 30 — Planejamento mensal</a><span class="lst atr">backlog</span></li></ul></details></div>
+<div class="pro"><div class="g"><h5>A favor</h5>Responde "o que está travado", não só "quantas estão atrasadas". Encaixa nos blocos que já abrem e fecham. Vira um 6º botão de filtro: <b>por entrega</b> × <b>por tarefa</b>.</div>
+<div class="r"><h5>Contra</h5>Quem não tem mãe cai num bloco "tarefa principal". Em lista curta, agrupar atrapalha mais que ajuda — por isso entra como alternância, não como único jeito.</div></div></div>
+
+<div class="op"><div class="ophead"><span class="opn">3</span><span class="opt">Caminho completo acima do nome</span>
+<span class="tag c">mais contexto · ocupa mais espaço</span></div>
+<div class="opd">Projeto › tarefa de topo › mãe, em cinza pequeno sobre o nome da tarefa. É a leitura mais completa:
+mostra também o nível de cima, que costuma ser a fase macro ("Engajamento", "Preparação Operacional", "ES").</div>
+<div class="demo"><div class="demolab">Como ficaria — mesmas atrasadas, com caminho</div><ul class="tl"><li class="s-atr cam"><div class="camtop">#133 <span class='sep'>›</span> Engajamento <span class='sep'>›</span> ESCOLAS</div><div class="cambot"><span class="ld">31/07</span><span class="lid">3d</span><a href="https://app.clickup.com/t/868kgmpfx">Contato com fornecedores</a><span class="lst atr">em andamento</span></div></li><li class="s-atr cam"><div class="camtop">#133 <span class='sep'>›</span> Executar Plano de Comunica <span class='sep'>›</span> Lista de Peças a serem criadas</div><div class="cambot"><span class="ld">19/06</span><span class="lid">45d</span><a href="https://app.clickup.com/t/868kgbga9">Atualização régua oficial parceiros</a><span class="lst atr">backlog</span></div></li><li class="s-rev cam"><div class="camtop">#133 <span class='sep'>›</span> Produtos MINC</div><div class="cambot"><span class="ld">31/07</span><span class="lid">3d</span><a href="https://app.clickup.com/t/868ke11yh">Aprovar metas por cidade x produto</a><span class="lst rev">revisão</span></div></li><li class="s-rev cam"><div class="camtop">#133 <span class='sep'>›</span> Engajamento <span class='sep'>›</span> Preparar e protocolar o projeto </div><div class="cambot"><span class="ld">30/07</span><span class="lid">4d</span><a href="https://app.clickup.com/t/868kdh9ty">Contato com indicação BEDE + Pablo Moleque mateiro</a><span class="lst rev">aguardando (externo)</span></div></li><li class="s-atr cam"><div class="camtop">#122 <span class='sep'>›</span> Executar Plano de Comunicação</div><div class="cambot"><span class="ld">10/07</span><span class="lid">24d</span><a href="https://app.clickup.com/t/868k8zgg7">Solicitar logo dos parceiros Repsol do projeto</a><span class="lst atr">em andamento</span></div></li><li class="s-atr cam"><div class="camtop">#133 <span class='sep'>›</span> Preparação Operacional <span class='sep'>›</span> Checklist Roteiro Talks Manaus</div><div class="cambot"><span class="ld">31/07</span><span class="lid">3d</span><a href="https://app.clickup.com/t/868k8yzt8">Roteiro com falas e mediadores</a><span class="lst atr">backlog</span></div></li><li class="s-atr cam"><div class="camtop">#133 <span class='sep'>›</span> 👤 ROTINA — Bellmond</div><div class="cambot"><span class="ld">10/07</span><span class="lid">24d</span><a href="https://app.clickup.com/t/868k8y9yp">🔁 Sexta — Fechamento semana + pré sprint</a><span class="lst atr">backlog</span></div></li><li class="s-atr cam"><div class="camtop">#133 <span class='sep'>›</span> 👤 ROTINA — Bellmond</div><div class="cambot"><span class="ld">06/07</span><span class="lid">28d</span><a href="https://app.clickup.com/t/868k8y9wj">🔁 Segunda — Clareza da semana</a><span class="lst atr">em andamento</span></div></li></ul></div>
+<div class="pro"><div class="g"><h5>A favor</h5>Contexto inteiro sem clicar. Bom para quem não acompanha o projeto de perto.</div>
+<div class="r"><h5>Contra</h5>Cada tarefa passa a ocupar duas linhas — a lista fica quase o dobro mais alta. Vai contra o "está muito texto" que você falou hoje de manhã.</div></div></div>
+
+<div class="op rec"><div class="ophead"><span class="opn">4</span><span class="opt">Seção nova na Geral: entregas travadas</span>
+<span class="tag rec">recomendada</span></div>
+<div class="opd">Hoje a Geral mostra o passivo por <b>projeto</b>. Esta seção desce um nível e mostra por <b>entrega</b> —
+qual tarefa-mãe concentra mais subtarefa atrasada no escritório inteiro. O ranking abaixo é real, de hoje:</div>
+<div class="demo"><div class="demolab">Como ficaria — ranking real das atrasadas de hoje</div><div class="erow"><div class="ebar"><span style="width:100%"></span></div><div class="einfo"><b>14</b><span class="enome">Check-list Pré execução Cidade Curitiba</span><span class="elist">115. CULTURA ROBÓTICA 2ªED</span><span class="equem">Raíza · mais antiga 3d</span></div></div><div class="erow"><div class="ebar"><span style="width:93%"></span></div><div class="einfo"><b>13</b><span class="enome">Caminhão ODS</span><span class="elist">133. ECOARTE CONTAINER NAS</span><span class="equem">Marina · mais antiga 5d · 13 fora das mãos</span></div></div><div class="erow"><div class="ebar"><span style="width:43%"></span></div><div class="einfo"><b>6</b><span class="enome">Cidade Rio de Janeiro</span><span class="elist">133. ECOARTE CONTAINER NAS</span><span class="equem">Bellmond, Jeferson · mais antiga 17d · 1 fora das mãos</span></div></div><div class="erow"><div class="ebar"><span style="width:29%"></span></div><div class="einfo"><b>4</b><span class="enome">👤 ROTINA — RAÍZA</span><span class="elist">Gestão Escritório de Proje</span><span class="equem">Raíza · mais antiga 31d</span></div></div><div class="erow"><div class="ebar"><span style="width:29%"></span></div><div class="einfo"><b>4</b><span class="enome">Gerar Formulários/Documentos do Projeto</span><span class="elist">133. ECOARTE CONTAINER NAS</span><span class="equem">Jeferson · mais antiga 3d</span></div></div><div class="erow"><div class="ebar"><span style="width:29%"></span></div><div class="einfo"><b>4</b><span class="enome">Comunicação Visual</span><span class="elist">133. ECOARTE CONTAINER NAS</span><span class="equem">Marina · mais antiga 5d · 4 fora das mãos</span></div></div><div class="erow"><div class="ebar"><span style="width:29%"></span></div><div class="einfo"><b>4</b><span class="enome">👤 ROTINA — Bellmond</span><span class="elist">133. ECOARTE CONTAINER NAS</span><span class="equem">Bellmond · mais antiga 28d</span></div></div><div class="erow"><div class="ebar"><span style="width:29%"></span></div><div class="einfo"><b>4</b><span class="enome">Programação evento praça</span><span class="elist">133. ECOARTE CONTAINER NAS</span><span class="equem">Bellmond, Fernando · mais antiga 5d · 2 fora das mãos</span></div></div></div>
+<div class="pro"><div class="g"><h5>A favor</h5>É a leitura que hoje não existe em lugar nenhum. "Check-list Pré execução Curitiba com 14 atrasadas" é uma frase de reunião; "14 subtarefas atrasadas no 115" não é.</div>
+<div class="r"><h5>Contra</h5>Mais uma seção na Geral, que já é longa. Cabe recolhida.</div></div></div>
+
+<div class="op"><div class="ophead"><span class="opn">5</span><span class="opt">Mãe no card de projeto</span>
+<span class="tag b">complemento</span></div>
+<div class="opd">Dentro de cada card de projeto, o "ver as N tarefas" passaria a vir agrupado pela mãe, do mesmo jeito
+da opção 2. Sozinha resolve pouco; junto da 2 sai de graça, porque é o mesmo componente.</div>
+<div class="pro"><div class="g"><h5>A favor</h5>Reaproveita o que for feito na 2, sem código novo.</div>
+<div class="r"><h5>Contra</h5>Não muda nada na aba da pessoa, que é onde você mais olha.</div></div></div>
+
+<div class="final"><h2>O que eu faria</h2>
+<p><b>1 + 2 + 4.</b> O selo (1) resolve a ambiguidade em toda lista do painel de uma vez e é barato.
+O agrupamento (2) entra como <b>alternância</b> ao lado dos filtros que já existem — "por tarefa" continua
+sendo o padrão, "por entrega" fica a um clique. E a seção da Geral (4) é a única que traz informação que
+hoje o painel não tem em canto nenhum, entrando recolhida para não alongar a página.<br><br>
+Deixaria a <b>3 de fora</b>: dobra a altura da lista, e você acabou de pedir menos texto. Se quiser o caminho
+completo, ele cabe como <i>tooltip</i> ao passar o mouse no selo da opção 1 — contexto sob demanda, sem ocupar tela.<br><br>
+Custo: as mães que faltam já são buscadas na API para herdar a fase, então são <b>57 chamadas a mais</b> por rodada.
+Nada que mude o tempo da rotina.</p></div>
+
+</div><div class="footer">Dados reais do Painel do Escritório · coleta de 03/08/2026 12:49 · space Escritório de Projetos 90113448115</div>
+</div></body></html>
