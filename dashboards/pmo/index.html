@@ -241,6 +241,11 @@ tr.group-band.band-previsto td{background:linear-gradient(to right,#92400e,#1f29
 /* ── SEED MANAGER ── */
 .seed-btn{color:#7c3aed!important;margin-left:8px}
 .seed-btn:hover{color:#5b21b6!important}
+/* ── botão Salvar na nuvem: destacado de propósito, não é mais um link de texto ── */
+.btn-cloud-save{display:inline-flex;align-items:center;gap:7px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.3px;color:#fff;background:linear-gradient(135deg,#22c55e,#15803d);border:none;padding:10px 20px;border-radius:9px;cursor:pointer;user-select:none;margin-left:14px;box-shadow:0 3px 8px rgba(21,128,61,.4),0 0 0 1px rgba(21,128,61,.2) inset;transition:transform .12s ease,box-shadow .12s ease,background .15s ease,opacity .15s ease}
+.btn-cloud-save:hover{transform:translateY(-1px);box-shadow:0 5px 14px rgba(21,128,61,.5),0 0 0 1px rgba(21,128,61,.25) inset}
+.btn-cloud-save:active{transform:translateY(0)}
+.btn-cloud-save:disabled{opacity:.65;cursor:wait;transform:none}
 .seed-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1000;align-items:center;justify-content:center}
 .seed-modal-overlay.open{display:flex}
 .seed-modal{background:#fff;border-radius:12px;padding:24px;max-width:720px;width:92%;max-height:85vh;display:flex;flex-direction:column;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,.25)}
@@ -543,8 +548,8 @@ table.gt.mc-12 th:nth-child(12),table.gt.mc-13 th:nth-child(13),table.gt.mc-14 t
     <span class="clr-btn" onclick="clearFilter()">✕ Limpar</span>
     <span class="clr-btn seed-btn" onclick="resetSeed()" title="Apaga edições salvas no browser e recarrega o planejamento do arquivo HTML">⟳ Recarregar seed</span>
     <span class="clr-btn seed-btn" onclick="exportSeed()" title="Copia o planejamento atual como código para colar no HTML">↓ Exportar seed</span>
-    <span class="clr-btn seed-btn" id="btn-salvar-nuvem" onclick="salvarPMO()" title="Salva na nuvem — todos que abrirem, em qualquer lugar, verão esta versão" style="background:#166534;color:#fff;font-weight:600;">💾 Salvar na nuvem</span>
-    <span id="nuvem-status" style="font-size:11px;color:#6b7280;margin-left:6px;"></span>
+    <button type="button" class="btn-cloud-save" id="btn-salvar-nuvem" onclick="salvarPMO()" title="Salva na nuvem — todos que abrirem, em qualquer lugar, verão esta versão">💾 Salvar na nuvem</button>
+    <span id="nuvem-status" style="font-size:11px;color:#6b7280;margin-left:8px;"></span>
   </div>
 
   <div class="period-wrap">
@@ -1466,11 +1471,20 @@ function applyHiddenProjects(){
   const btn=document.getElementById('proj-hide-btn');
   if(btn) btn.textContent = hiddenProjects.size ? ('🗂 Projetos ocultos: '+hiddenProjects.size) : '🗂 Ocultar projetos';
 }
+function projSortKey(id){
+  const m = /^(\d+)/.exec(String(id));
+  return m ? parseInt(m[1],10) : Infinity;
+}
 function buildProjectHideList(){
   const list=document.getElementById('proj-hide-list'); if(!list) return;
-  list.innerHTML = PROJECTS.map(function(p){
+  const sorted = PROJECTS.slice().sort(function(a,b){
+    const ka=projSortKey(a.id), kb=projSortKey(b.id);
+    if(ka!==kb) return ka-kb;
+    return String(a.id).localeCompare(String(b.id));
+  });
+  list.innerHTML = sorted.map(function(p){
     const off=hiddenProjects.has(p.id);
-    const label=p.name+(p.client?' <em>— '+p.client+'</em>':'');
+    const label='#'+p.id+' '+p.name+(p.client?' <em>— '+p.client+'</em>':'');
     return '<label class="proj-hide-item"><input type="checkbox" '+(off?'':'checked')+' onchange="toggleProjectHidden(\''+p.id+'\')"><span>'+label+'</span></label>';
   }).join('');
 }
