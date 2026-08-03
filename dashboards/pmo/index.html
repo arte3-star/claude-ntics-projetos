@@ -40,6 +40,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--gray-d)}
 
 /* FILTER */
 .team-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+#filter-row{position:sticky;top:81px;z-index:100;background:var(--white);padding:10px 0;margin-bottom:8px;box-shadow:0 4px 6px -4px rgba(0,0,0,.12)}
 .tm{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:5px 8px;border-radius:8px;border:2px solid transparent}
 .tm:hover{background:#f0fdf4;border-color:var(--green)}
 .tm.on{background:#dcfce7;border-color:var(--green-d)}
@@ -76,6 +77,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--gray-d)}
 .gantt-wrap.drop-open{overflow:visible}
 table.gt{width:100%;border-collapse:collapse;font-size:11px;min-width:1100px}
 table.gt thead th{background:var(--gray-d);color:var(--white);padding:9px 6px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:.4px;white-space:nowrap;border:1px solid #374151}
+table.gt thead th.th-m{cursor:pointer;user-select:none}
+table.gt thead th.th-m:hover{background:#4b5563}
 table.gt thead th.th-proj{text-align:left;padding-left:12px;min-width:220px}
 table.gt thead th.th-resp{min-width:70px}
 table.gt thead th.th-m{width:62px}
@@ -86,6 +89,7 @@ table.gt thead th.th-cur::after{content:"▲ JUN";font-size:8px;display:block;op
 table.gt tbody tr:nth-child(even) td{background:#fafafa}
 table.gt tbody tr:hover td{background:#f0fdf4}
 table.gt tbody tr.hidden{display:none}
+table.gt tbody tr.proj-hidden{display:none}
 table.gt tbody tr.row-previsto td{background:#fefce8;border-top:2px dashed #fbbf24}
 /* ── Congelar painéis (freeze panes): linha de meses no topo + colunas Projeto e Resp. à esquerda ── */
 .gantt-wrap{max-height:calc(100vh - 190px);overflow:auto}
@@ -299,7 +303,7 @@ tr.group-band.band-previsto td{background:linear-gradient(to right,#92400e,#1f29
 table.gt.view-sem1 th:nth-child(n+9),table.gt.view-sem1 td:nth-child(n+9){display:none}
 table.gt.view-sem2 th:nth-child(n+3):nth-child(-n+8),table.gt.view-sem2 td:nth-child(n+3):nth-child(-n+8){display:none}
 /* esconde mês individual (independe do período acima, os dois se somam) */
-.month-toggle-wrap{margin-top:-10px}
+.month-toggle-wrap{margin-top:-10px;position:relative}
 .mon-nav{display:inline-flex;background:#e5e7eb;border-radius:8px;padding:3px;gap:2px;flex-wrap:wrap}
 .mon-btn{padding:6px 11px;font-size:11px;font-weight:600;color:var(--gray-d);cursor:pointer;border-radius:6px;user-select:none;font-family:'Barlow Condensed',sans-serif;letter-spacing:.3px;text-transform:uppercase;background:var(--white);box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .mon-btn:hover{color:var(--green-d)}
@@ -316,6 +320,39 @@ table.gt.hm-11 th:nth-child(11),table.gt.hm-11 td:nth-child(11){display:none}
 table.gt.hm-12 th:nth-child(12),table.gt.hm-12 td:nth-child(12){display:none}
 table.gt.hm-13 th:nth-child(13),table.gt.hm-13 td:nth-child(13){display:none}
 table.gt.hm-14 th:nth-child(14),table.gt.hm-14 td:nth-child(14){display:none}
+/* compacta mês individual: coluna vira uma tira estreita, clique de novo reabre */
+table.gt.mc-3 th:nth-child(3),table.gt.mc-3 td:nth-child(3),
+table.gt.mc-4 th:nth-child(4),table.gt.mc-4 td:nth-child(4),
+table.gt.mc-5 th:nth-child(5),table.gt.mc-5 td:nth-child(5),
+table.gt.mc-6 th:nth-child(6),table.gt.mc-6 td:nth-child(6),
+table.gt.mc-7 th:nth-child(7),table.gt.mc-7 td:nth-child(7),
+table.gt.mc-8 th:nth-child(8),table.gt.mc-8 td:nth-child(8),
+table.gt.mc-9 th:nth-child(9),table.gt.mc-9 td:nth-child(9),
+table.gt.mc-10 th:nth-child(10),table.gt.mc-10 td:nth-child(10),
+table.gt.mc-11 th:nth-child(11),table.gt.mc-11 td:nth-child(11),
+table.gt.mc-12 th:nth-child(12),table.gt.mc-12 td:nth-child(12),
+table.gt.mc-13 th:nth-child(13),table.gt.mc-13 td:nth-child(13),
+table.gt.mc-14 th:nth-child(14),table.gt.mc-14 td:nth-child(14)
+{width:24px!important;min-width:24px!important;max-width:24px!important;padding-left:2px!important;padding-right:2px!important;overflow:hidden}
+table.gt.mc-3 td:nth-child(3)>*,table.gt.mc-4 td:nth-child(4)>*,table.gt.mc-5 td:nth-child(5)>*,
+table.gt.mc-6 td:nth-child(6)>*,table.gt.mc-7 td:nth-child(7)>*,table.gt.mc-8 td:nth-child(8)>*,
+table.gt.mc-9 td:nth-child(9)>*,table.gt.mc-10 td:nth-child(10)>*,table.gt.mc-11 td:nth-child(11)>*,
+table.gt.mc-12 td:nth-child(12)>*,table.gt.mc-13 td:nth-child(13)>*,table.gt.mc-14 td:nth-child(14)>*
+{display:none!important}
+table.gt.mc-3 th:nth-child(3),table.gt.mc-4 th:nth-child(4),table.gt.mc-5 th:nth-child(5),
+table.gt.mc-6 th:nth-child(6),table.gt.mc-7 th:nth-child(7),table.gt.mc-8 th:nth-child(8),
+table.gt.mc-9 th:nth-child(9),table.gt.mc-10 th:nth-child(10),table.gt.mc-11 th:nth-child(11),
+table.gt.mc-12 th:nth-child(12),table.gt.mc-13 th:nth-child(13),table.gt.mc-14 th:nth-child(14)
+{background:#6b7280!important;writing-mode:vertical-rl;text-orientation:mixed}
+/* painel "Ocultar projetos" */
+.proj-hide-panel{display:none;position:absolute;top:100%;left:0;margin-top:6px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.18);padding:10px;width:360px;max-height:320px;overflow-y:auto;z-index:150}
+.proj-hide-panel.open{display:block}
+.proj-hide-header{display:flex;align-items:center;gap:10px;justify-content:space-between;margin-bottom:8px;font-size:11px;color:var(--gray-d)}
+.proj-hide-header strong{font-size:11px;text-transform:uppercase;letter-spacing:.3px}
+.proj-hide-item{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--gray-d);padding:5px 4px;border-radius:4px;cursor:pointer}
+.proj-hide-item:hover{background:#f9fafb}
+.proj-hide-item input{flex-shrink:0}
+.proj-hide-item em{color:var(--gray);font-style:normal}
 /* ══ MENSAL JULHO: CSS portado do planejamento_julho_v6 (validado) ══ */
 .subviews{display:inline-flex;background:#e5e7eb;border-radius:8px;padding:3px;margin-bottom:18px;gap:2px;flex-wrap:wrap}
 .sv-btn{padding:7px 14px;font-size:12px;font-weight:600;color:var(--gray);cursor:pointer;border-radius:6px;user-select:none;font-family:'Barlow Condensed',sans-serif;letter-spacing:.3px;text-transform:uppercase}
@@ -523,16 +560,34 @@ table.gt.hm-14 th:nth-child(14),table.gt.hm-14 td:nth-child(14){display:none}
     <span class="per-lbl">Ocultar meses:</span>
     <div class="mon-nav" id="month-nav"></div>
     <span class="clr-btn" onclick="showAllMonths()" style="margin-left:8px">Mostrar todos</span>
+
+    <span class="clr-btn seed-btn" id="proj-hide-btn" onclick="toggleProjectHidePanel(event)" style="margin-left:16px">🗂 Ocultar projetos</span>
+    <div class="proj-hide-panel" id="proj-hide-panel">
+      <div class="proj-hide-header">
+        <strong>Ocultar projetos da Visão Anual</strong>
+        <span class="clr-btn" onclick="showAllProjects()">Mostrar todos</span>
+      </div>
+      <div class="proj-hide-list" id="proj-hide-list"></div>
+    </div>
+    <span style="font-size:10.5px;color:#9ca3af;margin-left:6px">· dica: clique no nome do mês na tabela pra compactar a coluna</span>
   </div>
 
   <div class="gantt-wrap">
     <table class="gt" id="gantt">
       <thead><tr>
         <th class="th-proj">Projeto</th><th class="th-resp">Resp.</th>
-        <th class="th-m">Jan</th><th class="th-m">Fev</th><th class="th-m">Mar</th>
-        <th class="th-m">Abr</th><th class="th-m">Mai</th><th class="th-m th-cur">Jun</th>
-        <th class="th-m th-anwk th-anwk5">Jul</th><th class="th-m th-anwk">Ago</th><th class="th-m th-anwk">Set</th>
-        <th class="th-m th-anwk">Out</th><th class="th-m th-anwk">Nov</th><th class="th-m th-anwk">Dez</th>
+        <th class="th-m" onclick="toggleMonthCompact(3)" title="Clique para compactar/expandir">Jan</th>
+        <th class="th-m" onclick="toggleMonthCompact(4)" title="Clique para compactar/expandir">Fev</th>
+        <th class="th-m" onclick="toggleMonthCompact(5)" title="Clique para compactar/expandir">Mar</th>
+        <th class="th-m" onclick="toggleMonthCompact(6)" title="Clique para compactar/expandir">Abr</th>
+        <th class="th-m" onclick="toggleMonthCompact(7)" title="Clique para compactar/expandir">Mai</th>
+        <th class="th-m th-cur" onclick="toggleMonthCompact(8)" title="Clique para compactar/expandir">Jun</th>
+        <th class="th-m th-anwk th-anwk5" onclick="toggleMonthCompact(9)" title="Clique para compactar/expandir">Jul</th>
+        <th class="th-m th-anwk" onclick="toggleMonthCompact(10)" title="Clique para compactar/expandir">Ago</th>
+        <th class="th-m th-anwk" onclick="toggleMonthCompact(11)" title="Clique para compactar/expandir">Set</th>
+        <th class="th-m th-anwk" onclick="toggleMonthCompact(12)" title="Clique para compactar/expandir">Out</th>
+        <th class="th-m th-anwk" onclick="toggleMonthCompact(13)" title="Clique para compactar/expandir">Nov</th>
+        <th class="th-m th-anwk" onclick="toggleMonthCompact(14)" title="Clique para compactar/expandir">Dez</th>
       </tr></thead>
       <tbody id="gantt-body"></tbody>
     </table>
@@ -1379,6 +1434,86 @@ window.showAllMonths=function(){
   buildMonthToggles();
 };
 
+// ── ANUAL: compactar mês (clique no cabeçalho do mês encolhe a coluna, clique de novo reabre) ──
+const MONTH_COMPACT_KEY='pmo_meses_compactos_v1';
+function loadCompactMonths(){
+  try{ return new Set(JSON.parse(localStorage.getItem(MONTH_COMPACT_KEY)||'[]')); }catch(e){ return new Set(); }
+}
+function saveCompactMonths(){ try{ localStorage.setItem(MONTH_COMPACT_KEY, JSON.stringify(Array.from(compactMonths))); }catch(e){} }
+const compactMonths=loadCompactMonths();
+function applyCompactMonths(){
+  const t=document.getElementById('gantt'); if(!t) return;
+  MONTH_COLS.forEach(function(m){ t.classList.toggle('mc-'+m.i, compactMonths.has(m.i)); });
+}
+window.toggleMonthCompact=function(i){
+  if(compactMonths.has(i)) compactMonths.delete(i); else compactMonths.add(i);
+  saveCompactMonths();
+  applyCompactMonths();
+  fitGanttHeight();
+};
+
+// ── ANUAL: ocultar projetos individualmente (preferência local, por navegador, não vai pra nuvem) ──
+const PROJ_HIDE_KEY='pmo_projetos_ocultos_v1';
+function loadHiddenProjects(){
+  try{ return new Set(JSON.parse(localStorage.getItem(PROJ_HIDE_KEY)||'[]')); }catch(e){ return new Set(); }
+}
+function saveHiddenProjects(){ try{ localStorage.setItem(PROJ_HIDE_KEY, JSON.stringify(Array.from(hiddenProjects))); }catch(e){} }
+const hiddenProjects=loadHiddenProjects();
+function applyHiddenProjects(){
+  document.querySelectorAll('#gantt-body tr[data-proj]').forEach(function(tr){
+    tr.classList.toggle('proj-hidden', hiddenProjects.has(tr.dataset.proj));
+  });
+  const btn=document.getElementById('proj-hide-btn');
+  if(btn) btn.textContent = hiddenProjects.size ? ('🗂 Projetos ocultos: '+hiddenProjects.size) : '🗂 Ocultar projetos';
+}
+function buildProjectHideList(){
+  const list=document.getElementById('proj-hide-list'); if(!list) return;
+  list.innerHTML = PROJECTS.map(function(p){
+    const off=hiddenProjects.has(p.id);
+    const label=p.name+(p.client?' <em>— '+p.client+'</em>':'');
+    return '<label class="proj-hide-item"><input type="checkbox" '+(off?'':'checked')+' onchange="toggleProjectHidden(\''+p.id+'\')"><span>'+label+'</span></label>';
+  }).join('');
+}
+window.toggleProjectHidden=function(id){
+  if(hiddenProjects.has(id)) hiddenProjects.delete(id); else hiddenProjects.add(id);
+  saveHiddenProjects();
+  applyHiddenProjects();
+  fitGanttHeight();
+};
+window.showAllProjects=function(){
+  hiddenProjects.clear();
+  saveHiddenProjects();
+  applyHiddenProjects();
+  buildProjectHideList();
+  fitGanttHeight();
+};
+window.toggleProjectHidePanel=function(e){
+  if(e) e.stopPropagation();
+  const p=document.getElementById('proj-hide-panel'); if(!p) return;
+  const opening=!p.classList.contains('open');
+  if(opening) buildProjectHideList();
+  p.classList.toggle('open', opening);
+};
+document.addEventListener('click', function(e){
+  const p=document.getElementById('proj-hide-panel');
+  if(!p || !p.classList.contains('open')) return;
+  if(p.contains(e.target) || e.target.id==='proj-hide-btn') return;
+  p.classList.remove('open');
+});
+
+// ── ANUAL: altura da tabela sempre cabendo na tela, pra barra de rolagem horizontal ficar alcançável ──
+function fitGanttHeight(){
+  const gw=document.querySelector('.gantt-wrap'); if(!gw) return;
+  const rect=gw.getBoundingClientRect();
+  const filterRow=document.getElementById('filter-row');
+  const coveredBottom = filterRow ? Math.max(81, filterRow.getBoundingClientRect().bottom) : 81;
+  const top = Math.max(rect.top, coveredBottom);
+  const avail = window.innerHeight - top - 16;
+  gw.style.maxHeight = Math.max(280, avail) + 'px';
+}
+window.addEventListener('resize', fitGanttHeight);
+window.addEventListener('scroll', fitGanttHeight, {passive:true});
+
 // ── GANTT ──
 function buildGantt(){
   const tb=document.getElementById('gantt-body'); tb.innerHTML='';
@@ -1404,6 +1539,7 @@ function buildGantt(){
       tr.classList.toggle('hidden', !inv.includes(name) && !isPrev);
     });
   }
+  applyHiddenProjects();
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1833,6 +1969,7 @@ function switchTab(name,el){
   el.classList.add('active');
   // "Por Coordenador" deriva da visão anual: re-deriva ao abrir o Planejamento Julho
   if(name==='junho') buildCoord();
+  if(name==='anual') requestAnimationFrame(fitGanttHeight);
 }
 
 // INIT
@@ -1844,6 +1981,8 @@ function renderAll(){
 }
 renderAll();
 buildMonthToggles();
+applyCompactMonths();
+fitGanttHeight();
 
 // ── ponte para a camada de nuvem (Supabase) ──
 // weekOverrides é a fonte das edições manuais (fase por semana, KC/KI, +fase).
