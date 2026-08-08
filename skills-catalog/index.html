@@ -1,0 +1,1031 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catálogo de Skills — NTICS Projetos</title>
+<meta name="description" content="Todas as skills de Claude Code usadas pelo Escritório de Projetos e Marketing da NTICS, prontas pra copiar e usar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --petroleo: #003D4D;
+  --petroleo-2: #005a70;
+  --verde: #8DC63F;
+  --verde-escuro: #3DAA35;
+  --bg: #F4F4F4;
+  --card: #FFFFFF;
+  --ink: #2D2D2D;
+  --ink-muted: #6b6f72;
+  --border: #E2E5E6;
+  --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 14px rgba(0,0,0,.05);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg); color: var(--ink); line-height: 1.55;
+}
+code, .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+header.top {
+  background: linear-gradient(135deg, var(--petroleo), var(--petroleo-2));
+  color: #fff; padding: 48px 24px 40px;
+}
+.top-inner { max-width: 1120px; margin: 0 auto; }
+header.top h1 { margin: 0 0 10px; font-size: 2rem; font-weight: 800; letter-spacing: -0.01em; }
+header.top p { margin: 0 0 22px; opacity: .88; max-width: 680px; font-size: 1rem; }
+.top-stats { display: flex; gap: 22px; flex-wrap: wrap; }
+.top-stats .stat { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+  border-radius: 12px; padding: 10px 16px; }
+.top-stats .stat b { font-size: 1.3rem; display: block; }
+.top-stats .stat span { font-size: .78rem; opacity: .85; }
+
+nav.pills { max-width: 1120px; margin: -20px auto 0; padding: 0 24px; position: relative; z-index: 2; }
+.pills-inner { background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  box-shadow: var(--shadow); padding: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+.nav-pill { text-decoration: none; color: var(--petroleo); background: #EEF4F1; border-radius: 999px;
+  padding: 7px 14px; font-size: .83rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+.nav-pill:hover { background: #E1EEE6; }
+.nav-pill .count { background: var(--verde); color: #fff; border-radius: 999px; padding: 1px 7px; font-size: .72rem; font-weight: 700; }
+
+main { max-width: 1120px; margin: 0 auto; padding: 40px 24px 80px; }
+.cat-section { margin-bottom: 48px; scroll-margin-top: 20px; }
+.cat-section h2 { font-size: 1.25rem; font-weight: 800; color: var(--petroleo); margin: 0 0 18px;
+  display: flex; align-items: center; gap: 10px; }
+.cat-section h2 .count { font-size: .75rem; font-weight: 600; color: var(--ink-muted); background: var(--card);
+  border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px; }
+
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px;
+  box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 10px; }
+.card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.skill-name { font-size: .86rem; font-weight: 600; color: var(--petroleo); background: #EEF4F1;
+  padding: 4px 9px; border-radius: 7px; }
+.btn-copy { display: inline-flex; align-items: center; gap: 6px; font-size: .76rem; font-weight: 600;
+  color: #fff; background: var(--verde-escuro); border: none; border-radius: 8px; padding: 6px 11px;
+  cursor: pointer; transition: background .15s; white-space: nowrap; }
+.btn-copy:hover { background: var(--verde); }
+.btn-copy.copied { background: var(--petroleo); }
+.skill-desc { font-size: .87rem; color: var(--ink-muted); margin: 0; flex: 1; }
+.skill-link { font-size: .8rem; color: var(--petroleo-2); font-weight: 600; text-decoration: none; }
+.skill-link:hover { text-decoration: underline; }
+
+.howto { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px;
+  box-shadow: var(--shadow); margin-bottom: 40px; }
+.howto h3 { margin: 0 0 10px; color: var(--petroleo); font-size: 1rem; }
+.howto ol { margin: 0; padding-left: 20px; font-size: .88rem; color: var(--ink); }
+.howto li { margin-bottom: 6px; }
+.howto code { background: #EEF1F2; padding: 1px 6px; border-radius: 5px; font-size: .82rem; }
+
+.search-box { margin: 0 0 28px; }
+.search-box input { width: 100%; max-width: 420px; padding: 11px 16px; border-radius: 10px;
+  border: 1px solid var(--border); font-family: Inter, sans-serif; font-size: .9rem; background: var(--card); }
+
+footer { text-align: center; padding: 30px 24px 50px; color: var(--ink-muted); font-size: .82rem; }
+footer a { color: var(--petroleo-2); }
+
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--petroleo); color: #fff; padding: 10px 18px; border-radius: 10px; font-size: .85rem;
+  font-weight: 600; opacity: 0; pointer-events: none; transition: all .2s; box-shadow: var(--shadow); z-index: 99; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#15181a; --card:#1e2224; --ink:#EDEFF0; --ink-muted:#9aa1a5; --border:#313638;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.35); }
+  .nav-pill { background: #22302a; color: #9be07a; }
+  .nav-pill:hover { background: #2a3a32; }
+  .skill-name { background: #22302a; color: #9be07a; }
+  .howto code { background: #262b2d; color: #EDEFF0; }
+}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="top-inner">
+  <h1>Catálogo de Skills — NTICS Projetos</h1>
+  <p>Skills de Claude Code que o Escritório de Projetos e o Marketing da NTICS usam no dia a dia — pra gerar painéis, orçamentos, carrosséis, sites, vídeos e muito mais. Copie o texto de qualquer uma e cole no seu próprio Claude Code, em <code>.claude/skills/&lt;nome&gt;/SKILL.md</code>.</p>
+  <div class="top-stats">
+    <div class="stat"><b>74</b><span>skills catalogadas</span></div>
+    <div class="stat"><b>6</b><span>categorias</span></div>
+  </div>
+</div></header>
+
+<nav class="pills"><div class="pills-inner"><a href="#gestão-do-escritório-de-projetos" class="nav-pill">📋 Gestão do Escritório de Projetos <span class="count">10</span></a><a href="#ciclo-de-vida-do-projeto" class="nav-pill">🔄 Ciclo de Vida do Projeto <span class="count">14</span></a><a href="#marketing---conteúdo-&amp;-redes-sociais" class="nav-pill">📣 Marketing — Conteúdo &amp; Redes Sociais <span class="count">14</span></a><a href="#marketing---vídeo-&amp;-design" class="nav-pill">🎬 Marketing — Vídeo &amp; Design <span class="count">20</span></a><a href="#sites-&amp;-landing-pages" class="nav-pill">🌐 Sites &amp; Landing Pages <span class="count">8</span></a><a href="#ferramentas-técnicas" class="nav-pill">🛠️ Ferramentas Técnicas <span class="count">8</span></a></div></nav>
+
+<main>
+  <div class="howto">
+    <h3>Como usar uma skill dessas no seu Claude Code</h3>
+    <ol>
+      <li>Clique em <b>Copiar</b> no card, ou abra <b>Ver arquivo completo</b>.</li>
+      <li>No seu projeto, crie a pasta <code>.claude/skills/&lt;nome-da-skill&gt;/</code>.</li>
+      <li>Cole o conteúdo copiado num arquivo <code>SKILL.md</code> dentro dela.</li>
+      <li>Algumas skills têm IDs internos da NTICS (ClickUp, planilhas) trocados por
+      placeholders como <code>&lt;ID_CLICKUP&gt;</code> — troque pelos IDs do seu próprio
+      workspace antes de usar.</li>
+    </ol>
+  </div>
+
+  <div class="search-box">
+    <input type="search" id="search" placeholder="Buscar por nome ou palavra-chave…" autocomplete="off">
+  </div>
+
+  
+<section class="cat-section" id="gestão-do-escritório-de-projetos">
+  <h2>📋 Gestão do Escritório de Projetos <span class="count">10 skills</span></h2>
+  <div class="card-grid">
+    <article class="card" data-name="painel-escritorio" data-desc="Gera o Painel do Escritório de Projetos diário: por pessoa e projeto, o que foi concluído, o que está atrasado e a carga da semana.">
+  <div class="card-top">
+    <code class="skill-name">painel-escritorio</code>
+    <button class="btn-copy" data-file="skills/painel-escritorio.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera o Painel do Escritório de Projetos diário: por pessoa e projeto, o que foi concluído, o que está atrasado e a carga da semana.</p>
+  <a class="skill-link" href="skills/painel-escritorio.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="direcao-mes" data-desc="Gera e publica a “Direção da Semana”: painel por projeto em 4 blocos (Atrasado, Semana, +1, +2), com tarefa-mãe e subtarefas.">
+  <div class="card-top">
+    <code class="skill-name">direcao-mes</code>
+    <button class="btn-copy" data-file="skills/direcao-mes.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera e publica a “Direção da Semana”: painel por projeto em 4 blocos (Atrasado, Semana, +1, +2), com tarefa-mãe e subtarefas.</p>
+  <a class="skill-link" href="skills/direcao-mes.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="norteador-semana" data-desc="Gera o infográfico “Clareza da Semana” pra reunião Hands On semanal, direto do ClickUp — substitui GPT e Canva.">
+  <div class="card-top">
+    <code class="skill-name">norteador-semana</code>
+    <button class="btn-copy" data-file="skills/norteador-semana.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera o infográfico “Clareza da Semana” pra reunião Hands On semanal, direto do ClickUp — substitui GPT e Canva.</p>
+  <a class="skill-link" href="skills/norteador-semana.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="planejamento-mensal" data-desc="Gera o dashboard interativo de planejamento mensal do Escritório de Projetos com dados ao vivo do ClickUp (Gantt anual, visão por coordenador/projeto, calendário de campo).">
+  <div class="card-top">
+    <code class="skill-name">planejamento-mensal</code>
+    <button class="btn-copy" data-file="skills/planejamento-mensal.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera o dashboard interativo de planejamento mensal do Escritório de Projetos com dados ao vivo do ClickUp (Gantt anual, visão por coordenador/projeto, calendário de campo).</p>
+  <a class="skill-link" href="skills/planejamento-mensal.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="resumo-sprints" data-desc="Lê as reuniões de sprint da semana e gera um resumo consolidado por pessoa → projeto → decisões → alertas no ClickUp.">
+  <div class="card-top">
+    <code class="skill-name">resumo-sprints</code>
+    <button class="btn-copy" data-file="skills/resumo-sprints.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Lê as reuniões de sprint da semana e gera um resumo consolidado por pessoa → projeto → decisões → alertas no ClickUp.</p>
+  <a class="skill-link" href="skills/resumo-sprints.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="relatorio-pmo" data-desc="Gera o relatório diário PMO lendo ClickUp: saúde por coordenador, atrasos, mudanças, marcos, bloqueios e decisões pendentes, enviado por e-mail.">
+  <div class="card-top">
+    <code class="skill-name">relatorio-pmo</code>
+    <button class="btn-copy" data-file="skills/relatorio-pmo.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera o relatório diário PMO lendo ClickUp: saúde por coordenador, atrasos, mudanças, marcos, bloqueios e decisões pendentes, enviado por e-mail.</p>
+  <a class="skill-link" href="skills/relatorio-pmo.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="relatorio-pmo-semanal" data-desc="Gera o relatório semanal PMO (segunda a domingo): o que foi entregue e o que está planejado para a próxima semana, agrupado por coordenador.">
+  <div class="card-top">
+    <code class="skill-name">relatorio-pmo-semanal</code>
+    <button class="btn-copy" data-file="skills/relatorio-pmo-semanal.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera o relatório semanal PMO (segunda a domingo): o que foi entregue e o que está planejado para a próxima semana, agrupado por coordenador.</p>
+  <a class="skill-link" href="skills/relatorio-pmo-semanal.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="orcamento-projeto" data-desc="Monta o orçamento de produção de um projeto no formato oficial da planilha, usando preços reais do catálogo de fornecedores da NTICS e pesquisa online para o que falta.">
+  <div class="card-top">
+    <code class="skill-name">orcamento-projeto</code>
+    <button class="btn-copy" data-file="skills/orcamento-projeto.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Monta o orçamento de produção de um projeto no formato oficial da planilha, usando preços reais do catálogo de fornecedores da NTICS e pesquisa online para o que falta.</p>
+  <a class="skill-link" href="skills/orcamento-projeto.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="abertura-budget" data-desc="Abre o pré-orçamento de um projeto novo: pergunta dados-chave, calcula a distribuição do budget por Class1/Class2/Serviço pelo padrão histórico do tipo de projeto e cria a aba na planilha oficial.">
+  <div class="card-top">
+    <code class="skill-name">abertura-budget</code>
+    <button class="btn-copy" data-file="skills/abertura-budget.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Abre o pré-orçamento de um projeto novo: pergunta dados-chave, calcula a distribuição do budget por Class1/Class2/Serviço pelo padrão histórico do tipo de projeto e cria a aba na planilha oficial.</p>
+  <a class="skill-link" href="skills/abertura-budget.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="bpmn-ntics" data-desc="Converte processos mapeados da NTICS em diagramas BPMN 2.0: lê um descritivo, monta um spec JSON e gera arquivo .bpmn e .svg de preview.">
+  <div class="card-top">
+    <code class="skill-name">bpmn-ntics</code>
+    <button class="btn-copy" data-file="skills/bpmn-ntics.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Converte processos mapeados da NTICS em diagramas BPMN 2.0: lê um descritivo, monta um spec JSON e gera arquivo .bpmn e .svg de preview.</p>
+  <a class="skill-link" href="skills/bpmn-ntics.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+  </div>
+</section>
+
+<section class="cat-section" id="ciclo-de-vida-do-projeto">
+  <h2>🔄 Ciclo de Vida do Projeto <span class="count">14 skills</span></h2>
+  <div class="card-grid">
+    <article class="card" data-name="projeto-abrir" data-desc="Bootstrap completo de um projeto novo no SecondBrain a partir de apresentação vendida, pasta Drive, lista ClickUp e KV do patrocinador.">
+  <div class="card-top">
+    <code class="skill-name">projeto-abrir</code>
+    <button class="btn-copy" data-file="skills/projeto-abrir.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Bootstrap completo de um projeto novo no SecondBrain a partir de apresentação vendida, pasta Drive, lista ClickUp e KV do patrocinador.</p>
+  <a class="skill-link" href="skills/projeto-abrir.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="projeto-avanca" data-desc="Marca deliverable como concluído: atualiza state.yaml, comenta evidência na task do ClickUp, identifica o próximo deliverable e salva a decisão.">
+  <div class="card-top">
+    <code class="skill-name">projeto-avanca</code>
+    <button class="btn-copy" data-file="skills/projeto-avanca.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Marca deliverable como concluído: atualiza state.yaml, comenta evidência na task do ClickUp, identifica o próximo deliverable e salva a decisão.</p>
+  <a class="skill-link" href="skills/projeto-avanca.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="projeto-briefing" data-desc="Gera briefing detalhado para um deliverable do projeto e delega à skill de produção correspondente (carrossel-cliente, briefing-video, kv-derivar etc.).">
+  <div class="card-top">
+    <code class="skill-name">projeto-briefing</code>
+    <button class="btn-copy" data-file="skills/projeto-briefing.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera briefing detalhado para um deliverable do projeto e delega à skill de produção correspondente (carrossel-cliente, briefing-video, kv-derivar etc.).</p>
+  <a class="skill-link" href="skills/projeto-briefing.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="projeto-email" data-desc="Gera rascunho de e-mail no Gmail para comunicação do projeto usando o stakeholders.yaml (calendário social, relatório mensal, status etc.).">
+  <div class="card-top">
+    <code class="skill-name">projeto-email</code>
+    <button class="btn-copy" data-file="skills/projeto-email.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera rascunho de e-mail no Gmail para comunicação do projeto usando o stakeholders.yaml (calendário social, relatório mensal, status etc.).</p>
+  <a class="skill-link" href="skills/projeto-email.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="projeto-registrar" data-desc="Registra artefato finalizado/aprovado no histórico do projeto (documento, e-mail, post, arte, atualização), fonte única auditável do que saiu.">
+  <div class="card-top">
+    <code class="skill-name">projeto-registrar</code>
+    <button class="btn-copy" data-file="skills/projeto-registrar.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Registra artefato finalizado/aprovado no histórico do projeto (documento, e-mail, post, arte, atualização), fonte única auditável do que saiu.</p>
+  <a class="skill-link" href="skills/projeto-registrar.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="projeto-retrospectiva" data-desc="Captura aprendizado por tarefa depois de um deliverable concluído: 4 perguntas curtas, grava em execucao.md e pode gerar stub de skill nova.">
+  <div class="card-top">
+    <code class="skill-name">projeto-retrospectiva</code>
+    <button class="btn-copy" data-file="skills/projeto-retrospectiva.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Captura aprendizado por tarefa depois de um deliverable concluído: 4 perguntas curtas, grava em execucao.md e pode gerar stub de skill nova.</p>
+  <a class="skill-link" href="skills/projeto-retrospectiva.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="projeto-salvar" data-desc="Salva nota, decisão ou ata no SecondBrain do projeto (execucao.md, decisoes.md, atas/), não no vault canônico NTICS.">
+  <div class="card-top">
+    <code class="skill-name">projeto-salvar</code>
+    <button class="btn-copy" data-file="skills/projeto-salvar.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Salva nota, decisão ou ata no SecondBrain do projeto (execucao.md, decisoes.md, atas/), não no vault canônico NTICS.</p>
+  <a class="skill-link" href="skills/projeto-salvar.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="projeto-status" data-desc="Reporta status executivo de um projeto: fase atual, próxima ação, deliverables pendentes/concluídos e blockers, lendo state.yaml e sincronizando com ClickUp.">
+  <div class="card-top">
+    <code class="skill-name">projeto-status</code>
+    <button class="btn-copy" data-file="skills/projeto-status.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Reporta status executivo de um projeto: fase atual, próxima ação, deliverables pendentes/concluídos e blockers, lendo state.yaml e sincronizando com ClickUp.</p>
+  <a class="skill-link" href="skills/projeto-status.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="projeto-sync" data-desc="Força sincronização imediata do estado do projeto com ClickUp e Gmail, em vez de esperar o próximo SessionStart ou cron.">
+  <div class="card-top">
+    <code class="skill-name">projeto-sync</code>
+    <button class="btn-copy" data-file="skills/projeto-sync.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Força sincronização imediata do estado do projeto com ClickUp e Gmail, em vez de esperar o próximo SessionStart ou cron.</p>
+  <a class="skill-link" href="skills/projeto-sync.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="projeto-tasks-sync" data-desc="Sincronização bidirecional informativa entre ClickUp e tasks.yaml: mostra o que é novo, o que fechou e o que mudou de status, sempre perguntando antes de alterar.">
+  <div class="card-top">
+    <code class="skill-name">projeto-tasks-sync</code>
+    <button class="btn-copy" data-file="skills/projeto-tasks-sync.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Sincronização bidirecional informativa entre ClickUp e tasks.yaml: mostra o que é novo, o que fechou e o que mudou de status, sempre perguntando antes de alterar.</p>
+  <a class="skill-link" href="skills/projeto-tasks-sync.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="reuniao" data-desc="Processa uma reunião a partir da transcrição: classifica, extrai tasks com responsável e prazo, separa pendências e cria as tarefas no ClickUp.">
+  <div class="card-top">
+    <code class="skill-name">reuniao</code>
+    <button class="btn-copy" data-file="skills/reuniao.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Processa uma reunião a partir da transcrição: classifica, extrai tasks com responsável e prazo, separa pendências e cria as tarefas no ClickUp.</p>
+  <a class="skill-link" href="skills/reuniao.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="salvar" data-desc="Salva o momento da conversa no vault Obsidian (segundo cérebro) com contexto, decisões e as palavras exatas.">
+  <div class="card-top">
+    <code class="skill-name">salvar</code>
+    <button class="btn-copy" data-file="skills/salvar.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Salva o momento da conversa no vault Obsidian (segundo cérebro) com contexto, decisões e as palavras exatas.</p>
+  <a class="skill-link" href="skills/salvar.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="publicar-drive" data-desc="Publica output final aprovado de marketing no Drive (Marketing/2026), organizado por categoria, só depois de validado visualmente.">
+  <div class="card-top">
+    <code class="skill-name">publicar-drive</code>
+    <button class="btn-copy" data-file="skills/publicar-drive.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Publica output final aprovado de marketing no Drive (Marketing/2026), organizado por categoria, só depois de validado visualmente.</p>
+  <a class="skill-link" href="skills/publicar-drive.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="verificar" data-desc="Verifica se uma operação de criação realmente produziu o resultado esperado, com checklist por serviço, antes de declarar sucesso.">
+  <div class="card-top">
+    <code class="skill-name">verificar</code>
+    <button class="btn-copy" data-file="skills/verificar.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Verifica se uma operação de criação realmente produziu o resultado esperado, com checklist por serviço, antes de declarar sucesso.</p>
+  <a class="skill-link" href="skills/verificar.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+  </div>
+</section>
+
+<section class="cat-section" id="marketing---conteúdo-&-redes-sociais">
+  <h2>📣 Marketing — Conteúdo &amp; Redes Sociais <span class="count">14 skills</span></h2>
+  <div class="card-grid">
+    <article class="card" data-name="artigo-mensal" data-desc="Compila os 4 roteiros semanais em um artigo mensal profissional de ESG para patrocinadores e público B2B, posicionando a NTICS como guia estratégico.">
+  <div class="card-top">
+    <code class="skill-name">artigo-mensal</code>
+    <button class="btn-copy" data-file="skills/artigo-mensal.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Compila os 4 roteiros semanais em um artigo mensal profissional de ESG para patrocinadores e público B2B, posicionando a NTICS como guia estratégico.</p>
+  <a class="skill-link" href="skills/artigo-mensal.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="artigo-site" data-desc="Transforma conteúdo de artigo em página HTML completa para ntics.com.br, com imagens via Leonardo AI e o design system do Brand Book.">
+  <div class="card-top">
+    <code class="skill-name">artigo-site</code>
+    <button class="btn-copy" data-file="skills/artigo-site.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Transforma conteúdo de artigo em página HTML completa para ntics.com.br, com imagens via Leonardo AI e o design system do Brand Book.</p>
+  <a class="skill-link" href="skills/artigo-site.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="newsletter" data-desc="Gera a newsletter &#x27;ESG em Foco&#x27; da NTICS em HTML e cria o rascunho pronto para enviar no Gmail ou Brevo.">
+  <div class="card-top">
+    <code class="skill-name">newsletter</code>
+    <button class="btn-copy" data-file="skills/newsletter.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera a newsletter &#x27;ESG em Foco&#x27; da NTICS em HTML e cria o rascunho pronto para enviar no Gmail ou Brevo.</p>
+  <a class="skill-link" href="skills/newsletter.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="carrossel-case" data-desc="Monta carrossel de case pós-projeto (8 cards) com identidade NTICS, texto do SecondBrain e fotos do projeto; gera, revisa e exporta para LinkedIn.">
+  <div class="card-top">
+    <code class="skill-name">carrossel-case</code>
+    <button class="btn-copy" data-file="skills/carrossel-case.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Monta carrossel de case pós-projeto (8 cards) com identidade NTICS, texto do SecondBrain e fotos do projeto; gera, revisa e exporta para LinkedIn.</p>
+  <a class="skill-link" href="skills/carrossel-case.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="carrossel-cliente" data-desc="Cria carrossel de projeto ativo (8 cards) com a identidade visual do patrocinador, a partir de release, TAP ou briefing.">
+  <div class="card-top">
+    <code class="skill-name">carrossel-cliente</code>
+    <button class="btn-copy" data-file="skills/carrossel-cliente.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Cria carrossel de projeto ativo (8 cards) com a identidade visual do patrocinador, a partir de release, TAP ou briefing.</p>
+  <a class="skill-link" href="skills/carrossel-cliente.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="carrossel-educativo" data-desc="Cria carrossel educativo (8 cards) sobre ESG ou Responsabilidade Social a partir de briefing ou tema, sem marca de patrocinador.">
+  <div class="card-top">
+    <code class="skill-name">carrossel-educativo</code>
+    <button class="btn-copy" data-file="skills/carrossel-educativo.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Cria carrossel educativo (8 cards) sobre ESG ou Responsabilidade Social a partir de briefing ou tema, sem marca de patrocinador.</p>
+  <a class="skill-link" href="skills/carrossel-educativo.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="carrossel-noticias" data-desc="Gera o Boletim de Boas Notícias ESG da semana: pesquisa notícias positivas, cura 8-10 histórias e monta o briefing para o designer.">
+  <div class="card-top">
+    <code class="skill-name">carrossel-noticias</code>
+    <button class="btn-copy" data-file="skills/carrossel-noticias.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera o Boletim de Boas Notícias ESG da semana: pesquisa notícias positivas, cura 8-10 histórias e monta o briefing para o designer.</p>
+  <a class="skill-link" href="skills/carrossel-noticias.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="revisao-carrossel" data-desc="Revisa visualmente os cards de qualquer carrossel NTICS (texto, cores, logo, layout), sinalizando problemas com sugestão de correção.">
+  <div class="card-top">
+    <code class="skill-name">revisao-carrossel</code>
+    <button class="btn-copy" data-file="skills/revisao-carrossel.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Revisa visualmente os cards de qualquer carrossel NTICS (texto, cores, logo, layout), sinalizando problemas com sugestão de correção.</p>
+  <a class="skill-link" href="skills/revisao-carrossel.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="post-instagram" data-desc="Cria capa 4:5 para post único no feed do Instagram da NTICS via Leonardo AI, no padrão visual case com badge verde e destaques amarelos.">
+  <div class="card-top">
+    <code class="skill-name">post-instagram</code>
+    <button class="btn-copy" data-file="skills/post-instagram.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Cria capa 4:5 para post único no feed do Instagram da NTICS via Leonardo AI, no padrão visual case com badge verde e destaques amarelos.</p>
+  <a class="skill-link" href="skills/post-instagram.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="postar-linkedin" data-desc="Publica posts na página da NTICS Projetos no LinkedIn (texto, imagem, vídeo, PDF/carrossel) via Playwright + Chrome CDP.">
+  <div class="card-top">
+    <code class="skill-name">postar-linkedin</code>
+    <button class="btn-copy" data-file="skills/postar-linkedin.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Publica posts na página da NTICS Projetos no LinkedIn (texto, imagem, vídeo, PDF/carrossel) via Playwright + Chrome CDP.</p>
+  <a class="skill-link" href="skills/postar-linkedin.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="editar-linkedin" data-desc="Edita o perfil de páginas de empresa no LinkedIn (tagline, descrição, especialidades, site) via Playwright + API interna Voyager.">
+  <div class="card-top">
+    <code class="skill-name">editar-linkedin</code>
+    <button class="btn-copy" data-file="skills/editar-linkedin.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Edita o perfil de páginas de empresa no LinkedIn (tagline, descrição, especialidades, site) via Playwright + API interna Voyager.</p>
+  <a class="skill-link" href="skills/editar-linkedin.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="plano-divulgacao" data-desc="Monta o Plano de Divulgação/Comunicação de um projeto cruzando o TAP com o Perfil do Patrocinador: estratégia, mensagens-chave e descrição por atividade.">
+  <div class="card-top">
+    <code class="skill-name">plano-divulgacao</code>
+    <button class="btn-copy" data-file="skills/plano-divulgacao.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Monta o Plano de Divulgação/Comunicação de um projeto cruzando o TAP com o Perfil do Patrocinador: estratégia, mensagens-chave e descrição por atividade.</p>
+  <a class="skill-link" href="skills/plano-divulgacao.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="plano-mensal" data-desc="Gera o plano editorial mensal (arco ABT + hooks + calendário) de redes sociais e cria as tasks no ClickUp para as 4 semanas.">
+  <div class="card-top">
+    <code class="skill-name">plano-mensal</code>
+    <button class="btn-copy" data-file="skills/plano-mensal.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera o plano editorial mensal (arco ABT + hooks + calendário) de redes sociais e cria as tasks no ClickUp para as 4 semanas.</p>
+  <a class="skill-link" href="skills/plano-mensal.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="time-social" data-desc="Monta Agent Team de mídias sociais (copy, newsletter, drafts Gmail, tasks ClickUp) para distribuir conteúdo em várias plataformas de uma vez.">
+  <div class="card-top">
+    <code class="skill-name">time-social</code>
+    <button class="btn-copy" data-file="skills/time-social.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Monta Agent Team de mídias sociais (copy, newsletter, drafts Gmail, tasks ClickUp) para distribuir conteúdo em várias plataformas de uma vez.</p>
+  <a class="skill-link" href="skills/time-social.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+  </div>
+</section>
+
+<section class="cat-section" id="marketing---vídeo-&-design">
+  <h2>🎬 Marketing — Vídeo &amp; Design <span class="count">20 skills</span></h2>
+  <div class="card-grid">
+    <article class="card" data-name="briefing-video" data-desc="Gera briefing de vídeo (roteiro para o editor) e de carrossel (para o designer) a partir de release, TAP ou briefing, nos tipos pré-projeto, durante e pós-projeto.">
+  <div class="card-top">
+    <code class="skill-name">briefing-video</code>
+    <button class="btn-copy" data-file="skills/briefing-video.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera briefing de vídeo (roteiro para o editor) e de carrossel (para o designer) a partir de release, TAP ou briefing, nos tipos pré-projeto, durante e pós-projeto.</p>
+  <a class="skill-link" href="skills/briefing-video.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="roteiro-video" data-desc="Gera roteiro completo de vídeo institucional de 1 minuto via NotebookLM + Opus Clip, em estilo animação ou b-roll, no tom do Brand Book.">
+  <div class="card-top">
+    <code class="skill-name">roteiro-video</code>
+    <button class="btn-copy" data-file="skills/roteiro-video.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera roteiro completo de vídeo institucional de 1 minuto via NotebookLM + Opus Clip, em estilo animação ou b-roll, no tom do Brand Book.</p>
+  <a class="skill-link" href="skills/roteiro-video.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="video-analysis" data-desc="Analisa vídeos brutos de captação em campo, cataloga momentos-chave e monta um vídeo temático com motion graphics via Remotion.">
+  <div class="card-top">
+    <code class="skill-name">video-analysis</code>
+    <button class="btn-copy" data-file="skills/video-analysis.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Analisa vídeos brutos de captação em campo, cataloga momentos-chave e monta um vídeo temático com motion graphics via Remotion.</p>
+  <a class="skill-link" href="skills/video-analysis.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="video-postprod" data-desc="Pós-produção de vídeo com FFmpeg: remove silêncio, masteriza áudio, queima legendas e aplica zoom dinâmico em talking-head, com receitas validadas.">
+  <div class="card-top">
+    <code class="skill-name">video-postprod</code>
+    <button class="btn-copy" data-file="skills/video-postprod.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Pós-produção de vídeo com FFmpeg: remove silêncio, masteriza áudio, queima legendas e aplica zoom dinâmico em talking-head, com receitas validadas.</p>
+  <a class="skill-link" href="skills/video-postprod.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="remotion-best-practices" data-desc="Boas práticas para criação de vídeo em React com Remotion.">
+  <div class="card-top">
+    <code class="skill-name">remotion-best-practices</code>
+    <button class="btn-copy" data-file="skills/remotion-best-practices.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Boas práticas para criação de vídeo em React com Remotion.</p>
+  <a class="skill-link" href="skills/remotion-best-practices.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="capa-video" data-desc="Cria capa estática 4:5 para vídeo de projeto, gerando 3 variações de layout via Leonardo AI com foto real, logo do projeto e do patrocinador.">
+  <div class="card-top">
+    <code class="skill-name">capa-video</code>
+    <button class="btn-copy" data-file="skills/capa-video.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Cria capa estática 4:5 para vídeo de projeto, gerando 3 variações de layout via Leonardo AI com foto real, logo do projeto e do patrocinador.</p>
+  <a class="skill-link" href="skills/capa-video.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="capa-leonardo" data-desc="Gera o prompt do Leonardo AI para capa de post (4:5) ou vídeo (9:16) com a gramática visual da NTICS, escolhendo o layout que melhor cabe no texto e na foto.">
+  <div class="card-top">
+    <code class="skill-name">capa-leonardo</code>
+    <button class="btn-copy" data-file="skills/capa-leonardo.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera o prompt do Leonardo AI para capa de post (4:5) ou vídeo (9:16) com a gramática visual da NTICS, escolhendo o layout que melhor cabe no texto e na foto.</p>
+  <a class="skill-link" href="skills/capa-leonardo.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="kv-derivar" data-desc="Deriva o KV (key visual) do projeto a partir do manual do cliente: pega logo, paleta e tipografia e gera biblioteca de ícones temáticos.">
+  <div class="card-top">
+    <code class="skill-name">kv-derivar</code>
+    <button class="btn-copy" data-file="skills/kv-derivar.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Deriva o KV (key visual) do projeto a partir do manual do cliente: pega logo, paleta e tipografia e gera biblioteca de ícones temáticos.</p>
+  <a class="skill-link" href="skills/kv-derivar.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="motion-projeto" data-desc="Adapta template de motion graphics (.aep) com dados do cliente e renderiza o vídeo final via Adobe After Effects.">
+  <div class="card-top">
+    <code class="skill-name">motion-projeto</code>
+    <button class="btn-copy" data-file="skills/motion-projeto.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Adapta template de motion graphics (.aep) com dados do cliente e renderiza o vídeo final via Adobe After Effects.</p>
+  <a class="skill-link" href="skills/motion-projeto.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="gerar-slide-chatgpt" data-desc="Gera e refaz imagens de slide dentro de uma conversa real do ChatGPT via Playwright + Chrome CDP, verificando cada uma por screenshot.">
+  <div class="card-top">
+    <code class="skill-name">gerar-slide-chatgpt</code>
+    <button class="btn-copy" data-file="skills/gerar-slide-chatgpt.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera e refaz imagens de slide dentro de uma conversa real do ChatGPT via Playwright + Chrome CDP, verificando cada uma por screenshot.</p>
+  <a class="skill-link" href="skills/gerar-slide-chatgpt.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="google-slides-template" data-desc="Cria template editável em Google Slides com placeholders nomeados a partir de um brief estruturado, e exporta PNG de exemplo preenchido.">
+  <div class="card-top">
+    <code class="skill-name">google-slides-template</code>
+    <button class="btn-copy" data-file="skills/google-slides-template.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Cria template editável em Google Slides com placeholders nomeados a partir de um brief estruturado, e exporta PNG de exemplo preenchido.</p>
+  <a class="skill-link" href="skills/google-slides-template.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="design-briefing" data-desc="Gate de aprovação antes de gerar qualquer imagem: confirma modelo, tamanho, tom e estrutura com o usuário e traz 1-2 ideias próprias como seed.">
+  <div class="card-top">
+    <code class="skill-name">design-briefing</code>
+    <button class="btn-copy" data-file="skills/design-briefing.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gate de aprovação antes de gerar qualquer imagem: confirma modelo, tamanho, tom e estrutura com o usuário e traz 1-2 ideias próprias como seed.</p>
+  <a class="skill-link" href="skills/design-briefing.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="ai-image-generation" data-desc="Gera imagens com IA (GPT-Image-2, FLUX, Gemini, Grok, Seedream, Reve e outros) via CLI inference.sh: texto-para-imagem, edição, inpainting, upscaling e mais.">
+  <div class="card-top">
+    <code class="skill-name">ai-image-generation</code>
+    <button class="btn-copy" data-file="skills/ai-image-generation.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera imagens com IA (GPT-Image-2, FLUX, Gemini, Grok, Seedream, Reve e outros) via CLI inference.sh: texto-para-imagem, edição, inpainting, upscaling e mais.</p>
+  <a class="skill-link" href="skills/ai-image-generation.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="time-design" data-desc="Monta Agent Team de design (Leonardo AI, Illustrator/After Effects, Gamma) para produzir vários assets visuais em paralelo.">
+  <div class="card-top">
+    <code class="skill-name">time-design</code>
+    <button class="btn-copy" data-file="skills/time-design.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Monta Agent Team de design (Leonardo AI, Illustrator/After Effects, Gamma) para produzir vários assets visuais em paralelo.</p>
+  <a class="skill-link" href="skills/time-design.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="adaptar-arte" data-desc="Adapta arte existente para a identidade visual do cliente (logo, cores, fontes) e exporta PDF/SVG vetorial via Illustrator, sem alterar a logo do cliente.">
+  <div class="card-top">
+    <code class="skill-name">adaptar-arte</code>
+    <button class="btn-copy" data-file="skills/adaptar-arte.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Adapta arte existente para a identidade visual do cliente (logo, cores, fontes) e exporta PDF/SVG vetorial via Illustrator, sem alterar a logo do cliente.</p>
+  <a class="skill-link" href="skills/adaptar-arte.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="estampa-textil" data-desc="Gera arte vetorial para estampa ou bordado têxtil (avental, camiseta, uniforme etc.) com cores Pantone, áreas demarcadas e mockup na peça.">
+  <div class="card-top">
+    <code class="skill-name">estampa-textil</code>
+    <button class="btn-copy" data-file="skills/estampa-textil.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera arte vetorial para estampa ou bordado têxtil (avental, camiseta, uniforme etc.) com cores Pantone, áreas demarcadas e mockup na peça.</p>
+  <a class="skill-link" href="skills/estampa-textil.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="arte-impressao-cmyk" data-desc="Gera arte vetorial pronta para gráfica (AI/PDF CMYK 300dpi com sangria + PNG preview) para rollup, banner, pantojet, saia de bancada, moldura e outros impressos.">
+  <div class="card-top">
+    <code class="skill-name">arte-impressao-cmyk</code>
+    <button class="btn-copy" data-file="skills/arte-impressao-cmyk.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Gera arte vetorial pronta para gráfica (AI/PDF CMYK 300dpi com sangria + PNG preview) para rollup, banner, pantojet, saia de bancada, moldura e outros impressos.</p>
+  <a class="skill-link" href="skills/arte-impressao-cmyk.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="revisao-arte-impressao" data-desc="Auditoria técnica de arte pronta para impressão: CMYK, 300dpi, sangria, fontes em outline, logos vetoriais e regras de marca da NTICS, com checklist pass/fail.">
+  <div class="card-top">
+    <code class="skill-name">revisao-arte-impressao</code>
+    <button class="btn-copy" data-file="skills/revisao-arte-impressao.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Auditoria técnica de arte pronta para impressão: CMYK, 300dpi, sangria, fontes em outline, logos vetoriais e regras de marca da NTICS, com checklist pass/fail.</p>
+  <a class="skill-link" href="skills/revisao-arte-impressao.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="revisao-relatorio-pdf" data-desc="Revisa relatório de projeto em PDF página por página antes de enviar ao cliente: erro ortográfico, nomenclatura inconsistente e números que não batem entre páginas.">
+  <div class="card-top">
+    <code class="skill-name">revisao-relatorio-pdf</code>
+    <button class="btn-copy" data-file="skills/revisao-relatorio-pdf.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Revisa relatório de projeto em PDF página por página antes de enviar ao cliente: erro ortográfico, nomenclatura inconsistente e números que não batem entre páginas.</p>
+  <a class="skill-link" href="skills/revisao-relatorio-pdf.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="vetorizar" data-desc="Vetoriza imagem raster (PNG/JPG) em SVG/AI/EPS/PDF via Image Trace do Illustrator, para logo ou arte que precisa escalar sem perder qualidade.">
+  <div class="card-top">
+    <code class="skill-name">vetorizar</code>
+    <button class="btn-copy" data-file="skills/vetorizar.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Vetoriza imagem raster (PNG/JPG) em SVG/AI/EPS/PDF via Image Trace do Illustrator, para logo ou arte que precisa escalar sem perder qualidade.</p>
+  <a class="skill-link" href="skills/vetorizar.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+  </div>
+</section>
+
+<section class="cat-section" id="sites-&-landing-pages">
+  <h2>🌐 Sites &amp; Landing Pages <span class="count">8 skills</span></h2>
+  <div class="card-grid">
+    <article class="card" data-name="criar-site" data-desc="Cria o site institucional do projeto no Lovable a partir do briefing do ClickUp, assets do Drive e template HTML (Tailwind + Jinja2).">
+  <div class="card-top">
+    <code class="skill-name">criar-site</code>
+    <button class="btn-copy" data-file="skills/criar-site.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Cria o site institucional do projeto no Lovable a partir do briefing do ClickUp, assets do Drive e template HTML (Tailwind + Jinja2).</p>
+  <a class="skill-link" href="skills/criar-site.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="criar-landing-ntics" data-desc="Cria landing page de projeto em ntics.com.br a partir de site Renderforest: faz scrape, organiza assets, gera HTML fiel e publica via Code Snippets API.">
+  <div class="card-top">
+    <code class="skill-name">criar-landing-ntics</code>
+    <button class="btn-copy" data-file="skills/criar-landing-ntics.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Cria landing page de projeto em ntics.com.br a partir de site Renderforest: faz scrape, organiza assets, gera HTML fiel e publica via Code Snippets API.</p>
+  <a class="skill-link" href="skills/criar-landing-ntics.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="criar-landing-preprojeto" data-desc="Cria landing page de projeto pré-execução (sem fotos próprias) em ntics.com.br a partir de site Lovable e banco de fotos genéricas por categoria.">
+  <div class="card-top">
+    <code class="skill-name">criar-landing-preprojeto</code>
+    <button class="btn-copy" data-file="skills/criar-landing-preprojeto.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Cria landing page de projeto pré-execução (sem fotos próprias) em ntics.com.br a partir de site Lovable e banco de fotos genéricas por categoria.</p>
+  <a class="skill-link" href="skills/criar-landing-preprojeto.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="criar-landing-v2" data-desc="Cria landing page de projeto em ntics.com.br escrevendo o HTML direto, guiado por frontend-design e ui-ux-pro-max, a partir do briefing do ClickUp e assets locais.">
+  <div class="card-top">
+    <code class="skill-name">criar-landing-v2</code>
+    <button class="btn-copy" data-file="skills/criar-landing-v2.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Cria landing page de projeto em ntics.com.br escrevendo o HTML direto, guiado por frontend-design e ui-ux-pro-max, a partir do briefing do ClickUp e assets locais.</p>
+  <a class="skill-link" href="skills/criar-landing-v2.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="editar-site-web" data-desc="Edita, preenche, clica ou automatiza qualquer coisa dentro de um site (autenticado ou não) usando Playwright + Chrome CDP no navegador real do usuário.">
+  <div class="card-top">
+    <code class="skill-name">editar-site-web</code>
+    <button class="btn-copy" data-file="skills/editar-site-web.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Edita, preenche, clica ou automatiza qualquer coisa dentro de um site (autenticado ou não) usando Playwright + Chrome CDP no navegador real do usuário.</p>
+  <a class="skill-link" href="skills/editar-site-web.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="editar-negocio-cultural" data-desc="Edita páginas, cursos, aulas e UX do site negociocultural.com.br via API (WordPress + Tutor LMS + Elementor + Code Snippets), com preview antes de publicar.">
+  <div class="card-top">
+    <code class="skill-name">editar-negocio-cultural</code>
+    <button class="btn-copy" data-file="skills/editar-negocio-cultural.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Edita páginas, cursos, aulas e UX do site negociocultural.com.br via API (WordPress + Tutor LMS + Elementor + Code Snippets), com preview antes de publicar.</p>
+  <a class="skill-link" href="skills/editar-negocio-cultural.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="relatorio-semanal-estacao-samarco" data-desc="Atualiza semanalmente o painel do cliente Estação Samarco (trilhas, presenças, melhores fotos), com prévia por e-mail antes de publicar.">
+  <div class="card-top">
+    <code class="skill-name">relatorio-semanal-estacao-samarco</code>
+    <button class="btn-copy" data-file="skills/relatorio-semanal-estacao-samarco.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Atualiza semanalmente o painel do cliente Estação Samarco (trilhas, presenças, melhores fotos), com prévia por e-mail antes de publicar.</p>
+  <a class="skill-link" href="skills/relatorio-semanal-estacao-samarco.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="producao-completa" data-desc="Pipeline completo em duas etapas: o Time de Design produz os assets visuais e o Time de Mídias Sociais produz a copy e distribui.">
+  <div class="card-top">
+    <code class="skill-name">producao-completa</code>
+    <button class="btn-copy" data-file="skills/producao-completa.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Pipeline completo em duas etapas: o Time de Design produz os assets visuais e o Time de Mídias Sociais produz a copy e distribui.</p>
+  <a class="skill-link" href="skills/producao-completa.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+  </div>
+</section>
+
+<section class="cat-section" id="ferramentas-técnicas">
+  <h2>🛠️ Ferramentas Técnicas <span class="count">8 skills</span></h2>
+  <div class="card-grid">
+    <article class="card" data-name="dashboard-editavel-supabase" data-desc="Adiciona camada de edição autenticada a um dashboard HTML estático: pessoas logadas editam textos direto na página e salvam no Supabase; visitantes só visualizam.">
+  <div class="card-top">
+    <code class="skill-name">dashboard-editavel-supabase</code>
+    <button class="btn-copy" data-file="skills/dashboard-editavel-supabase.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Adiciona camada de edição autenticada a um dashboard HTML estático: pessoas logadas editam textos direto na página e salvam no Supabase; visitantes só visualizam.</p>
+  <a class="skill-link" href="skills/dashboard-editavel-supabase.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="sheets-app" data-desc="Cria camada visual interativa (estilo app low-code) acoplada a uma planilha Google Sheets, com Apps Script + front-end Tailwind para filtrar e editar em massa.">
+  <div class="card-top">
+    <code class="skill-name">sheets-app</code>
+    <button class="btn-copy" data-file="skills/sheets-app.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Cria camada visual interativa (estilo app low-code) acoplada a uma planilha Google Sheets, com Apps Script + front-end Tailwind para filtrar e editar em massa.</p>
+  <a class="skill-link" href="skills/sheets-app.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="supabase-guia" data-desc="Guia de fundamentos do Supabase: estrutura da conta, onde achar URL/chaves/SQL Editor e como conectar via supabase-js (CRUD, Auth, RLS). Skill-base para fluxos específicos.">
+  <div class="card-top">
+    <code class="skill-name">supabase-guia</code>
+    <button class="btn-copy" data-file="skills/supabase-guia.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Guia de fundamentos do Supabase: estrutura da conta, onde achar URL/chaves/SQL Editor e como conectar via supabase-js (CRUD, Auth, RLS). Skill-base para fluxos específicos.</p>
+  <a class="skill-link" href="skills/supabase-guia.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="skill-creator" data-desc="Cria novas skills, edita e melhora skills existentes, roda avaliações de desempenho e otimiza a descrição de uma skill para melhorar o acionamento.">
+  <div class="card-top">
+    <code class="skill-name">skill-creator</code>
+    <button class="btn-copy" data-file="skills/skill-creator.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Cria novas skills, edita e melhora skills existentes, roda avaliações de desempenho e otimiza a descrição de uma skill para melhorar o acionamento.</p>
+  <a class="skill-link" href="skills/skill-creator.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="debug" data-desc="Investiga falha de tool ou API em 4 fases obrigatórias antes de corrigir: reproduzir, isolar, formular hipótese, só então corrigir. Root cause first.">
+  <div class="card-top">
+    <code class="skill-name">debug</code>
+    <button class="btn-copy" data-file="skills/debug.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Investiga falha de tool ou API em 4 fases obrigatórias antes de corrigir: reproduzir, isolar, formular hipótese, só então corrigir. Root cause first.</p>
+  <a class="skill-link" href="skills/debug.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="frontend-design" data-desc="Cria interfaces frontend de alta qualidade e visual distinto (componentes web, páginas, artefatos, pôsteres, apps), evitando a estética genérica de IA.">
+  <div class="card-top">
+    <code class="skill-name">frontend-design</code>
+    <button class="btn-copy" data-file="skills/frontend-design.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Cria interfaces frontend de alta qualidade e visual distinto (componentes web, páginas, artefatos, pôsteres, apps), evitando a estética genérica de IA.</p>
+  <a class="skill-link" href="skills/frontend-design.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="web-design-guidelines" data-desc="Revisa código de UI quanto à conformidade com as Web Interface Guidelines (acessibilidade, design, boas práticas).">
+  <div class="card-top">
+    <code class="skill-name">web-design-guidelines</code>
+    <button class="btn-copy" data-file="skills/web-design-guidelines.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Revisa código de UI quanto à conformidade com as Web Interface Guidelines (acessibilidade, design, boas práticas).</p>
+  <a class="skill-link" href="skills/web-design-guidelines.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+<article class="card" data-name="responder-whatsapp" data-desc="Lê e responde mensagens no WhatsApp Web via Chrome CDP: checa não lidas, detecta mensagens recebidas e envia respostas de forma confiável.">
+  <div class="card-top">
+    <code class="skill-name">responder-whatsapp</code>
+    <button class="btn-copy" data-file="skills/responder-whatsapp.md" title="Copiar o texto completo da skill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar
+    </button>
+  </div>
+  <p class="skill-desc">Lê e responde mensagens no WhatsApp Web via Chrome CDP: checa não lidas, detecta mensagens recebidas e envia respostas de forma confiável.</p>
+  <a class="skill-link" href="skills/responder-whatsapp.md" target="_blank" rel="noopener">Ver arquivo completo →</a>
+</article>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Mantido pela NTICS Projetos · <a href="../">← voltar ao catálogo de páginas</a>
+</footer>
+
+<div class="toast" id="toast">Copiado!</div>
+
+<script>
+const toast = document.getElementById('toast');
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 1800);
+}
+
+document.querySelectorAll('.btn-copy').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    try {
+      const res = await fetch(btn.dataset.file);
+      const text = await res.text();
+      await navigator.clipboard.writeText(text);
+      btn.classList.add('copied');
+      const original = btn.innerHTML;
+      btn.innerHTML = '✓ Copiado';
+      showToast('SKILL.md copiado — cole em .claude/skills/<nome>/SKILL.md');
+      setTimeout(() => { btn.innerHTML = original; btn.classList.remove('copied'); }, 1600);
+    } catch (e) {
+      showToast('Não deu pra copiar automaticamente — abra "Ver arquivo" e copie manual.');
+    }
+  });
+});
+
+const search = document.getElementById('search');
+search.addEventListener('input', () => {
+  const q = search.value.trim().toLowerCase();
+  document.querySelectorAll('.card').forEach(card => {
+    const hay = (card.dataset.name + ' ' + card.dataset.desc).toLowerCase();
+    card.style.display = hay.includes(q) ? '' : 'none';
+  });
+  document.querySelectorAll('.cat-section').forEach(sec => {
+    const visible = [...sec.querySelectorAll('.card')].some(c => c.style.display !== 'none');
+    sec.style.display = visible ? '' : 'none';
+  });
+});
+</script>
+
+</body>
+</html>
