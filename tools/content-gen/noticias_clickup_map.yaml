@@ -1,0 +1,132 @@
+# Mapa de tasks do ClickUp para a rotina semanal de Noticias ESG (carrossel-noticias / artigo).
+#
+# Consumido por: rotina agendada de sabado (tools/content-gen) e pela skill carrossel-noticias.
+# Cada entrada liga a segunda-feira de inicio da semana (semana_inicio) as tasks do ClickUp
+# onde o documento das 9 noticias e publicado.
+#
+# Como a rotina usa este arquivo:
+#   1. Calcula SEMANA = segunda-feira da semana que vai comecar (fuso BRT).
+#   2. Procura a entrada com semana_inicio == SEMANA.
+#   3. Publica o documento em carrossel_task_id e artigo_task_id.
+#
+# Reconstruido em 2026-08-30 a partir da lista "Cronograma de redes sociais NTICS"
+# (list_id 901109494072) do ClickUp. Ancora verificada: Semana 24 == segunda 2026-08-31
+# (carrossel com entrega no sabado 2026-09-05). semana_inicio de cada semana N e calculado
+# como 2026-08-31 + (N - 24) * 7 dias, cadencia de 1 semana por numero de semana.
+#
+# A serie "Noticias ESG" no ClickUp vai ate a Semana 24 (ultima edicao agendada no momento
+# da reconstrucao). Para semanas futuras (S25+), criar as tasks no ClickUp e acrescentar as
+# entradas correspondentes aqui.
+#
+# Observacao: onde carrossel_task_id esta null, a task "Carrossel Noticias SNN — Noticias ESG"
+# nao foi localizada na lista; conferir manualmente no ClickUp antes de usar a semana.
+
+list_id: "901109494072"
+timezone: "America/Sao_Paulo"
+
+semanas:
+
+  - numero: 24
+    semana_inicio: 2026-08-31
+    carrossel_task_id: "868j1uqqh"
+    artigo_task_id: "868j546gf"
+
+  - numero: 23
+    semana_inicio: 2026-08-24
+    carrossel_task_id: "868j1uq86"
+    artigo_task_id: "868j546g7"
+
+  - numero: 22
+    semana_inicio: 2026-08-17
+    carrossel_task_id: "868j1uqp7"
+    artigo_task_id: "868j546fz"
+
+  - numero: 21
+    semana_inicio: 2026-08-10
+    carrossel_task_id: "868j1uqa8"
+    artigo_task_id: "868j546fn"
+
+  - numero: 20
+    semana_inicio: 2026-08-03
+    carrossel_task_id: null
+    artigo_task_id: "868j546ff"
+
+  - numero: 19
+    semana_inicio: 2026-07-27
+    carrossel_task_id: "868j1uq6q"
+    artigo_task_id: "868j546f8"
+
+  - numero: 18
+    semana_inicio: 2026-07-20
+    carrossel_task_id: "868j1uq59"
+    artigo_task_id: "868j546f5"
+
+  - numero: 17
+    semana_inicio: 2026-07-13
+    carrossel_task_id: "868j1uq45"
+    artigo_task_id: "868j546ez"
+
+  - numero: 16
+    semana_inicio: 2026-07-06
+    carrossel_task_id: "868j1uq5f"
+    artigo_task_id: "868j546ew"
+
+  - numero: 15
+    semana_inicio: 2026-06-29
+    carrossel_task_id: "868j1uq50"
+    artigo_task_id: "868j546eu"
+
+  - numero: 14
+    semana_inicio: 2026-06-22
+    carrossel_task_id: "868j1uq4q"
+    artigo_task_id: "868j546et"
+
+  - numero: 13
+    semana_inicio: 2026-06-15
+    carrossel_task_id: "868j1uq4c"
+    artigo_task_id: "868j546eq"
+
+  - numero: 12
+    semana_inicio: 2026-06-08
+    carrossel_task_id: null
+    artigo_task_id: "868j546gy"
+
+  - numero: 11
+    semana_inicio: 2026-06-01
+    carrossel_task_id: null
+    artigo_task_id: "868j546eg"
+
+  - numero: 10
+    semana_inicio: 2026-05-25
+    carrossel_task_id: "868j1uq2v"
+    artigo_task_id: "868j546ec"
+
+  - numero: 9
+    semana_inicio: 2026-05-18
+    carrossel_task_id: "868j1upzn"
+    artigo_task_id: "868j546e9"
+
+  - numero: 8
+    semana_inicio: 2026-05-11
+    carrossel_task_id: "868j1upyv"
+    artigo_task_id: "868j546e4"
+
+  - numero: 7
+    semana_inicio: 2026-05-04
+    carrossel_task_id: "868j1upxv"
+    artigo_task_id: "868j546e2"
+
+  - numero: 6
+    semana_inicio: 2026-04-27
+    carrossel_task_id: "868j1upxn"
+    artigo_task_id: "868j546dz"
+
+  - numero: 5
+    semana_inicio: 2026-04-20
+    carrossel_task_id: "868j1upxc"
+    artigo_task_id: "868j546gw"
+
+  - numero: 4
+    semana_inicio: 2026-04-13
+    carrossel_task_id: "868hrghtr"
+    artigo_task_id: "868j546dh"
