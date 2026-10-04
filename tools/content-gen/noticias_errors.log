@@ -1,0 +1,6 @@
+2026-10-03 21:14 BRT | SEMANA=2026-10-05 | ERRO: pre-requisito ausente.
+  Passo 2 abortado. Arquivo tools/content-gen/noticias_clickup_map.yaml nao existe no repositorio
+  (verificado em HEAD, origin/master e todo o historico git; nenhum arquivo .yaml rastreado).
+  Sem o mapa nao ha carrossel_task_id nem artigo_task_id para a semana, portanto o Passo 6
+  (postagem garantida no ClickUp) nao pode ser executado com seguranca. Passo 7 (Canva) depende do Passo 6.
+  Nenhuma task foi criada ou alterada. Nenhuma noticia foi inventada. Execucao encerrada conforme regra do Passo 2.
