@@ -1,0 +1,1171 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<script>window.MX_CONFIG={"url": "https://naflfdhksreoplcljwyy.supabase.co", "anon": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5hZmxmZGhrc3Jlb3BsY2xqd3l5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyNTY1NTYsImV4cCI6MjEwNzgzMjU1Nn0.AgkO3-n4DZnpIUDNzkJgSnSW6yY88jLjxxFBE8uPjUM"};</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+</head>
+<body>
+<title>Máquina de Execução</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a working desk. Header with project + mode; a phase rail that reads like a production line; panels below. */
+:root{
+  --bg:#f3f4ef; --surface:#ffffff; --sunk:#eceee7; --ink:#17211c; --muted:#5b6961; --line:#d8ddd4;
+  --accent:#1d6a49; --accent-ink:#ffffff; --amber:#b9740f; --ok:#2b8553; --warn:#b98207; --bad:#bf3b28; --info:#2f6690;
+  --ok-bg:#e3f1e8; --warn-bg:#f8efd9; --bad-bg:#f8e3df; --info-bg:#e1ecf5;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif; --body:"Instrument Sans","Segoe UI",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --r:10px; --shadow:0 1px 2px rgba(20,30,25,.06),0 6px 20px rgba(20,30,25,.06);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1512; --surface:#161e1a; --sunk:#1c2621; --ink:#e5ebe7; --muted:#9aa89f; --line:#2b3731;
+  --accent:#47b07e; --accent-ink:#06130d; --amber:#e0a246; --ok:#4fbf80; --warn:#e2b23e; --bad:#ec6b55; --info:#6aa8d8;
+  --ok-bg:#16301f; --warn-bg:#33290f; --bad-bg:#3a1b16; --info-bg:#132a3c; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1512; --surface:#161e1a; --sunk:#1c2621; --ink:#e5ebe7; --muted:#9aa89f; --line:#2b3731;
+  --accent:#47b07e; --accent-ink:#06130d; --amber:#e0a246; --ok:#4fbf80; --warn:#e2b23e; --bad:#ec6b55; --info:#6aa8d8;
+  --ok-bg:#16301f; --warn-bg:#33290f; --bad-bg:#3a1b16; --info-bg:#132a3c; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25); color-scheme:dark}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:var(--body);font-size:14px;line-height:1.45;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+h1,h2,h3{font-family:var(--display);font-stretch:88%;letter-spacing:-.01em;text-wrap:balance;margin:0}
+h1{font-size:28px;font-weight:800} h2{font-size:19px;font-weight:750} h3{font-size:15px;font-weight:700}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)} .small{font-size:12px}
+.wrap{max-width:1240px;margin:0 auto}
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);border-bottom:1px solid var(--line);margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:10px max(16px,env(safe-area-inset-left,0px))}
+.top .wrap{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto;min-width:0}
+.mark{width:30px;height:30px;border-radius:7px;background:var(--accent);display:grid;place-items:center;flex:none}
+.mark i{display:block;width:16px;height:4px;background:var(--accent-ink);border-radius:2px;box-shadow:0 6px 0 var(--accent-ink),0 -6px 0 var(--accent-ink)}
+.brand b{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:17px;letter-spacing:.01em}
+.brand span{display:block;font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;background:var(--surface);padding:3px}
+.seg button{border:0;background:transparent;padding:6px 12px;border-radius:999px;font-weight:600;font-size:13px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+select.proj{max-width:280px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+/* tabs */
+.tabs{display:flex;gap:2px;overflow-x:auto;margin:14px 0 18px;border-bottom:1px solid var(--line);scrollbar-width:thin}
+.tabs button{border:0;background:none;padding:9px 12px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+/* generic blocks */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-width:0}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.sp{flex:1}
+.btn{border:1px solid var(--line);background:var(--surface);padding:7px 12px;border-radius:8px;font-weight:600;font-size:13px}
+.btn:hover{border-color:var(--muted)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--muted)}
+.btn.danger{color:var(--bad)}
+.btn:disabled{opacity:.5;cursor:default}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.p-ok{background:var(--ok-bg);color:var(--ok)} .p-warn{background:var(--warn-bg);color:var(--warn)} .p-bad{background:var(--bad-bg);color:var(--bad)} .p-info{background:var(--info-bg);color:var(--info)} .p-mut{background:var(--sunk);color:var(--muted)}
+.lbl{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.kpi .v{font-family:var(--display);font-stretch:80%;font-size:34px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:15px;color:var(--muted);font-weight:600;margin-left:4px}
+.bar{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.bar.amber i{background:var(--amber)}
+.empty{border:1px dashed var(--line);border-radius:var(--r);padding:22px;text-align:center;color:var(--muted)}
+.empty b{display:block;color:var(--ink);margin-bottom:4px}
+.list{display:flex;flex-direction:column}
+.li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line)}
+.li:first-child{border-top:0}
+.li .main{flex:1;min-width:0}
+.li .main b{font-weight:600}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.copy{border:0;background:none;color:var(--muted);padding:0 4px;font-size:12px}
+/* phase line */
+.line{display:flex;gap:8px;align-items:stretch;overflow-x:auto;padding:4px 2px 10px}
+.stage{flex:1 0 118px;display:flex;flex-direction:column;gap:6px}
+.stack{flex:1.4 0 160px;display:flex;flex-direction:column;gap:6px}
+.node{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:9px 10px;text-align:left;width:100%;display:flex;flex-direction:column;gap:6px;min-height:72px}
+.node:hover{border-color:var(--muted)}
+.node.cur{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.node .nm{font-family:var(--display);font-stretch:85%;font-weight:750;font-size:14px;line-height:1.1}
+.node .pc{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.stack .node{min-height:0;padding:7px 10px}
+.arrow{align-self:center;color:var(--line);font-size:18px;flex:none}
+.stagehead{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+/* tasks */
+.task{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start;padding:10px 0;border-top:1px solid var(--line)}
+.task:first-child{border-top:0}
+.st{width:26px;height:26px;border-radius:7px;border:1.5px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:13px;font-weight:700}
+.st.feito{background:var(--ok);border-color:var(--ok);color:#fff}
+.st.andamento{border-color:var(--info);color:var(--info)}
+.st.bloqueado{border-color:var(--bad);color:var(--bad)}
+.st.na{border-style:dashed;color:var(--muted)}
+.task .t{font-weight:600}
+.task.done .t{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.meta{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:3px}
+.late{color:var(--bad);font-weight:600}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:600}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+/* hero (visual do projeto) */
+.hero{background:var(--ink);color:var(--bg);border-radius:14px;padding:26px;display:grid;gap:18px;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)}
+.hero h1{font-size:36px;font-stretch:78%;color:var(--bg)}
+.hero .tag{color:var(--amber);font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.hero p{color:color-mix(in srgb,var(--bg) 80%,transparent);max-width:62ch;margin:8px 0 0}
+.hero .nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-content:start}
+.hero .nums div{border-top:2px solid var(--amber);padding-top:8px}
+.hero .nums b{display:block;font-family:var(--display);font-stretch:78%;font-size:30px;font-weight:800;color:var(--bg);font-variant-numeric:tabular-nums}
+.hero .nums span{font-size:12px;color:color-mix(in srgb,var(--bg) 70%,transparent)}
+@media (max-width:720px){.hero{grid-template-columns:1fr}}
+/* gantt */
+.gantt{display:grid;grid-template-columns:minmax(110px,180px) 1fr;gap:6px 10px;align-items:center;font-size:12px}
+.gtrack{position:relative;height:18px;background:var(--sunk);border-radius:5px}
+.gbar{position:absolute;top:2px;bottom:2px;border-radius:4px;background:var(--accent);min-width:4px}
+.gbar.c2{background:var(--amber)}
+.gtoday{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--bad)}
+/* photos */
+.thumbs{display:flex;gap:6px;flex-wrap:wrap}
+.thumbs img,.thumbs video{width:76px;height:76px;object-fit:cover;border-radius:7px;border:1px solid var(--line);background:var(--sunk)}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.gal img,.gal video{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;border:1px solid var(--line);max-width:100%}
+/* modal */
+.scrim{position:fixed;inset:0;background:rgba(10,15,12,.45);z-index:20;display:grid;place-items:center;padding:16px}
+.modal{background:var(--surface);border-radius:14px;max-width:640px;width:100%;max-height:calc(100% - 32px);overflow:auto;padding:20px;box-shadow:var(--shadow)}
+.form{display:grid;gap:12px;margin-top:14px}
+.form label{display:grid;gap:4px;font-weight:600;font-size:13px}
+.form input,.form select,.form textarea{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:8px 10px;font-weight:400;width:100%}
+.form textarea{min-height:84px;resize:vertical}
+.form .ck{display:flex;gap:8px;align-items:center;font-weight:500}
+.form .ck input{width:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:520px){.two{grid-template-columns:1fr}}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:9px;z-index:30;font-weight:600;max-width:calc(100% - 32px)}
+.note{background:var(--info-bg);color:var(--ink);border-radius:var(--r);padding:10px 14px;font-size:13px;border:1px solid color-mix(in srgb,var(--info) 30%,transparent)}
+.note.warn{background:var(--warn-bg);border-color:color-mix(in srgb,var(--warn) 35%,transparent)}
+/* campo (mobile first) */
+.campo{max-width:620px;margin:0 auto}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:block;width:100%;text-align:left}
+.card+.card{margin-top:8px}
+.acc{display:grid;gap:8px}
+.accitem{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface)}
+.yn{display:inline-flex;gap:4px}
+.yn button{border:1px solid var(--line);background:var(--surface);border-radius:7px;padding:4px 10px;font-size:12px;font-weight:600}
+.yn button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.people{display:grid;gap:6px}
+.people .pr{display:grid;grid-template-columns:1fr 1fr auto;gap:6px}
+.back{border:0;background:none;color:var(--muted);font-weight:600;padding:6px 0}
+@media (prefers-reduced-motion:no-preference){.node,.btn,.chip{transition:border-color .15s,background .15s}}
+</style>
+
+<div class="top"><div class="wrap">
+  <div class="brand"><div class="mark" aria-hidden="true"><i></i></div><div><b>Máquina de Execução</b><span>Escritório de Projetos NTICS</span></div></div>
+  <select class="proj" id="selProj" aria-label="Projeto"></select>
+  <span id="quem" class="row" style="gap:6px"></span>
+  <div class="seg" role="group" aria-label="Modo">
+    <button id="mEsc" data-modo="escritorio">Escritório</button>
+    <button id="mCampo" data-modo="campo">Campo</button>
+    <button id="mPat" data-modo="patrocinador">Patrocinador</button>
+  </div>
+</div></div>
+<main class="wrap" id="app"></main>
+
+<script>
+"use strict";
+var MODELO = {"fases": [{"k": "lab", "t": "Lab", "cor": "lab", "dep": [], "resumo": "Equipe, estrutura, entregas, atividades com metodologia e metas, pré-cronograma, direção de comunicação e engajamento."}, {"k": "kickoff", "t": "Kick-off", "cor": "kickoff", "dep": ["lab"], "resumo": "Alinhamento estratégico com o cliente: instituições indicadas, equipe de comunicação dele, locais e contatos."}, {"k": "planejamento", "t": "Planejamento", "cor": "planejamento", "dep": ["kickoff"], "resumo": "Dados faltantes, stakeholders, datas de todas as entregas, site, régua e assessoria de imprensa."}, {"k": "comunicacao", "t": "Comunicação", "cor": "comunicacao", "dep": ["planejamento"], "paralela": true, "resumo": "KV, peças de identidade visual, aprovação do cliente, gráfica e releases. Ligada à Máquina de Comunicação."}, {"k": "orcamento", "t": "Orçamento e formalização", "cor": "orcamento", "dep": ["planejamento"], "paralela": true, "resumo": "Orçamento de pessoas, materiais, gráfica, evento, transporte, estadia e locação; contratos e pagamentos."}, {"k": "engajamento", "t": "Engajamento", "cor": "engajamento", "dep": ["planejamento"], "paralela": true, "resumo": "Instituições confirmadas, meta por instituição, grade fechada e cronograma definitivo."}, {"k": "preexecucao", "t": "Pré-execução", "cor": "preexecucao", "dep": ["comunicacao", "orcamento", "engajamento"], "resumo": "Treinamento da equipe, documentos de campo, cartas e formulários, acessos do app de campo."}, {"k": "execucao", "t": "Execução", "cor": "execucao", "dep": ["preexecucao"], "resumo": "Diário de campo por instituição e atividade, comprovações e relatórios semanais."}, {"k": "consolidacao", "t": "Consolidação", "cor": "consolidacao", "dep": ["execucao"], "resumo": "Conferência de metas: alunos, instituições, atividades e oficinas contra o previsto."}, {"k": "finalizacao", "t": "Finalização", "cor": "finalizacao", "dep": ["consolidacao"], "resumo": "Relatório final, vídeo final, vídeo case, clipping, carrossel, apresentação ao cliente e NPS."}], "tarefas": [{"fase": "lab", "t": "Equipe do projeto definida (produção, equipe de campo, fornecedores e quantas pessoas)", "ref": "inicio", "off": -95}, {"fase": "lab", "t": "Estrutura do projeto e entregas", "ref": "inicio", "off": -92, "entrega": true}, {"fase": "lab", "t": "Atividades com metodologia, equipe por atividade, MinC e metas", "ref": "inicio", "off": -92, "modulo": "atividades"}, {"fase": "lab", "t": "Pré-cronograma de execução", "ref": "inicio", "off": -90}, {"fase": "lab", "t": "Direção e plano de comunicação (rascunho)", "ref": "inicio", "off": -90}, {"fase": "lab", "t": "Peças de comunicação previstas", "ref": "inicio", "off": -90, "modulo": "pecas"}, {"fase": "lab", "t": "Plano de engajamento (rascunho)", "ref": "inicio", "off": -90}, {"fase": "kickoff", "t": "Reunião de kick-off com o cliente", "ref": "inicio", "off": -80, "entrega": true}, {"fase": "kickoff", "t": "Instituições e locais indicados pelo cliente (escolas, praças, outros)", "ref": "inicio", "off": -78, "modulo": "instituicoes"}, {"fase": "kickoff", "t": "Equipe de comunicação do cliente e pontos focais", "ref": "inicio", "off": -78, "modulo": "stakeholders"}, {"fase": "kickoff", "t": "Pontos estratégicos alinhados e registrados", "ref": "inicio", "off": -78}, {"fase": "planejamento", "t": "Dados faltantes levantados", "ref": "inicio", "off": -65}, {"fase": "planejamento", "t": "Stakeholders com contato (equipe NTICS, patrocinador, secretarias, cidade, fotógrafo)", "ref": "inicio", "off": -65, "modulo": "stakeholders"}, {"fase": "planejamento", "t": "Plano de comunicação e de engajamento concluídos", "ref": "inicio", "off": -60, "entrega": true}, {"fase": "planejamento", "t": "Peças extras de comunicação definidas", "ref": "inicio", "off": -60, "modulo": "pecas"}, {"fase": "planejamento", "t": "Site do projeto no ar", "ref": "inicio", "off": -55, "entrega": true}, {"fase": "planejamento", "t": "Régua do projeto (logo e aplicação de marca do patrocinador)", "ref": "inicio", "off": -58}, {"fase": "planejamento", "t": "Assessoria de imprensa e ponto focal de comunicação do cliente", "ref": "inicio", "off": -58}, {"fase": "planejamento", "t": "Datas de todas as entregas definidas", "ref": "inicio", "off": -60}, {"fase": "comunicacao", "t": "KV e material de marca recebidos", "ref": "inicio", "off": -50}, {"fase": "comunicacao", "t": "Peças de identidade visual criadas", "ref": "inicio", "off": -40, "modulo": "pecas"}, {"fase": "comunicacao", "t": "Peças aprovadas pelo cliente", "ref": "inicio", "off": -25, "modulo": "pecas", "entrega": true}, {"fase": "comunicacao", "t": "Peças enviadas para a gráfica", "ref": "inicio", "off": -21}, {"fase": "comunicacao", "t": "Releases", "ref": "inicio", "off": -14, "entrega": true}, {"fase": "orcamento", "t": "Orçamento de pessoas (produtor, monitores, fotógrafo, equipe)", "ref": "inicio", "off": -50, "modulo": "orcamento"}, {"fase": "orcamento", "t": "Orçamento de materiais e gráfica", "ref": "inicio", "off": -45, "modulo": "orcamento"}, {"fase": "orcamento", "t": "Estrutura de evento, kits e materiais de atividade", "ref": "inicio", "off": -45, "modulo": "orcamento"}, {"fase": "orcamento", "t": "Assessoria, designer, transporte, estadia e locação", "ref": "inicio", "off": -40, "modulo": "orcamento"}, {"fase": "orcamento", "t": "Formalizações (contratos assinados)", "ref": "inicio", "off": -30, "modulo": "stakeholders", "entrega": true}, {"fase": "orcamento", "t": "Pagamentos programados", "ref": "inicio", "off": -20, "modulo": "stakeholders"}, {"fase": "engajamento", "t": "Instituições confirmadas", "ref": "inicio", "off": -40, "modulo": "instituicoes"}, {"fase": "engajamento", "t": "Meta de público por instituição", "ref": "inicio", "off": -35, "modulo": "instituicoes"}, {"fase": "engajamento", "t": "Grade fechada com as instituições (datas, turmas, atividades)", "ref": "inicio", "off": -30, "modulo": "grade", "entrega": true}, {"fase": "engajamento", "t": "Cronograma definitivo de execução", "ref": "inicio", "off": -28, "modulo": "grade"}, {"fase": "preexecucao", "t": "Treinamento da equipe", "ref": "inicio", "off": -10, "entrega": true}, {"fase": "preexecucao", "t": "Cartas de comprovação e formulários de indicadores", "ref": "inicio", "off": -10}, {"fase": "preexecucao", "t": "Acessos do diário de campo (produtor e fotógrafo)", "ref": "inicio", "off": -7, "modulo": "campo"}, {"fase": "preexecucao", "t": "Materiais impressos entregues nas cidades", "ref": "inicio", "off": -5}, {"fase": "execucao", "t": "Diário de campo preenchido em todas as atividades", "ref": "fim", "off": 0, "modulo": "diario", "auto": "diario"}, {"fase": "execucao", "t": "Comprovações das instituições completas (acessibilidade e cartas)", "ref": "fim", "off": 1, "modulo": "instituicoes", "auto": "comprovacoes"}, {"fase": "execucao", "t": "Relatórios semanais enviados ao cliente", "ref": "fim", "off": 3}, {"fase": "consolidacao", "t": "Metas conferidas (alunos, instituições, atividades, oficinas)", "ref": "fim", "off": 7, "modulo": "metas", "auto": "metas"}, {"fase": "consolidacao", "t": "Dados consolidados para o relatório", "ref": "fim", "off": 9}, {"fase": "finalizacao", "t": "Relatório final", "ref": "fim", "off": 14, "entrega": true}, {"fase": "finalizacao", "t": "Vídeo final", "ref": "fim", "off": 14, "entrega": true}, {"fase": "finalizacao", "t": "Vídeo case", "ref": "fim", "off": 20, "entrega": true}, {"fase": "finalizacao", "t": "Relatório de clipping", "ref": "fim", "off": 12, "entrega": true}, {"fase": "finalizacao", "t": "Carrossel de finalização", "ref": "fim", "off": 16, "entrega": true}, {"fase": "finalizacao", "t": "Apresentação dos resultados ao cliente", "ref": "fim", "off": 20}, {"fase": "finalizacao", "t": "NPS preenchido", "ref": "fim", "off": 22}], "acessibilidade": [{"k": "ambientes", "t": "Ambientes acessíveis além da sala de atividade"}, {"k": "rota", "t": "Rota acessível da entrada até o local da atividade"}, {"k": "banheiro", "t": "Banheiro acessível e sinalizado"}, {"k": "plateia", "t": "Espaço para cadeira de rodas na plateia"}, {"k": "rampas", "t": "Rampas"}, {"k": "piso", "t": "Piso tátil"}, {"k": "corrimao", "t": "Corrimãos"}, {"k": "elevador", "t": "Elevadores"}, {"k": "braille", "t": "Sinalização visual e em braille"}, {"k": "mobilidade", "t": "Participação de estudante com mobilidade reduzida"}]};
+var CONFIG = window.MX_CONFIG || null, WEB = !!CONFIG, WEBSB = null;
+var FASES = MODELO.fases, ACESS = MODELO.acessibilidade, TEMPLATE = MODELO.tarefas;
+var FMAP = {}; FASES.forEach(function(f){ FMAP[f.k] = f; });
+var COLS = ["tarefas","atividades","instituicoes","grade","diario","stakeholders","pecas","orcamento"];
+var S = { db:null, user:null, assets:null, ready:false, projetos:{}, cur:null, tab:"painel", fase:null, modo:"escritorio",
+          data:{}, unsubs:[], campo:{tela:"lista", inst:null, sess:null}, pat:"painel", filtroInst:"" };
+COLS.forEach(function(c){ S.data[c] = []; });
+
+/* ---------- utilidades ---------- */
+function h(tag, attrs){ var el = document.createElement(tag); attrs = attrs || {};
+  for (var k in attrs){ var v = attrs[k]; if (v == null || v === false) continue;
+    if (k === "class") el.className = v; else if (k === "text") el.textContent = v; else if (k === "html") continue;
+    else if (k.slice(0,2) === "on") el.addEventListener(k.slice(2), v); else if (k === "style") el.setAttribute("style", v);
+    else el.setAttribute(k, v === true ? "" : v); }
+  for (var i = 2; i < arguments.length; i++) add(el, arguments[i]); return el; }
+function add(el, c){ if (c == null || c === false) return; if (Array.isArray(c)) { c.forEach(function(x){ add(el, x); }); return; }
+  el.appendChild(typeof c === "object" ? c : document.createTextNode(String(c))); }
+function hoje(){ var d = new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function addDias(iso, n){ if (!iso) return ""; var d = new Date(iso+"T12:00:00"); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); }
+function fdata(iso){ if (!iso) return "sem data"; var p = String(iso).slice(0,10).split("-"); return p.length === 3 ? p[2]+"/"+p[1]+"/"+p[0].slice(2) : iso; }
+function dias(a, b){ return Math.round((new Date(b+"T12:00:00") - new Date(a+"T12:00:00")) / 864e5); }
+function num(v){ var n = Number(v); return isFinite(n) ? n : 0; }
+function fnum(n){ return Number(n||0).toLocaleString("pt-BR"); }
+function brl(n){ return Number(n||0).toLocaleString("pt-BR", {style:"currency", currency:"BRL", maximumFractionDigits:0}); }
+function pct(a, b){ return b ? Math.min(100, Math.round(100*a/b)) : 0; }
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+function toast(msg){ var t = h("div", {class:"toast", role:"status", text:msg}); document.body.appendChild(t); setTimeout(function(){ t.remove(); }, 2600); }
+function lsGet(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+function lsSet(k, v){ try { localStorage.setItem(k, v); } catch(e){} }
+function P(){ return S.cur ? S.projetos[S.cur] : null; }
+function byId(col, id){ return S.data[col].find(function(x){ return x.id === id; }); }
+function copyBtn(txt){ return h("button", {class:"copy", title:"Copiar", "aria-label":"Copiar "+txt, onclick:function(){
+  try { navigator.clipboard.writeText(txt).then(function(){ toast("Copiado"); }, function(){ toast(txt); }); } catch(e){ toast(txt); } }}, "copiar"); }
+
+/* ---------- banco ---------- */
+function path(col, id){ return "projetos/"+S.cur+"/"+col+(id ? "/"+id : ""); }
+async function salvar(col, id, dados){ if (!S.db) { toast("O banco ainda não conectou. Tente de novo em instantes."); return false; }
+  try { dados.atualizadoEm = new Date().toISOString(); await S.db.doc(path(col, id || uid())).set(dados); return true; }
+  catch(e){ toast(e && e.code === "invalid_argument" ? "Você não tem permissão para editar esta máquina." : "Não foi possível salvar. Tente de novo."); return false; } }
+async function atualizar(col, id, dados){ if (!S.db) return false;
+  try { dados.atualizadoEm = new Date().toISOString(); await S.db.doc(path(col, id)).update(dados); return true; }
+  catch(e){ toast("Não foi possível salvar. Tente de novo."); return false; } }
+async function apagar(col, id){ if (!S.db) return; try { await S.db.doc(path(col, id)).delete(); } catch(e){ toast("Não foi possível apagar."); } }
+async function salvarProjeto(id, dados){ if (!S.db) return false; try { await S.db.doc("projetos/"+id).set(dados); return true; } catch(e){ toast("Não foi possível salvar o projeto."); return false; } }
+
+function abrirProjeto(id){
+  S.unsubs.forEach(function(u){ try { u(); } catch(e){} }); S.unsubs = [];
+  COLS.forEach(function(c){ S.data[c] = []; });
+  S.cur = id; S.fase = null; S.campo = {tela:"lista", inst:null, sess:null}; lsSet("mx-proj", id || "");
+  if (!id) PORT.em = null;   // ao voltar para a visão geral, relê os projetos
+  if (id && S.db) COLS.forEach(function(c){
+    S.unsubs.push(S.db.collection("projetos/"+id+"/"+c).onSnapshot(function(snap){
+      S.data[c] = snap.docs.map(function(d){ var x = Object.assign({}, d.data()); x.id = d.id; return x; }); render();
+    }, function(){ toast("A conexão com o banco caiu. Recarregue a página."); }));
+  });
+  render();
+}
+
+/* ---------- cálculos ---------- */
+function prazoTarefa(t){ return t.prazo || ""; }
+function statusEfetivo(t){
+  if (t.auto && t.status !== "na") { var a = autoProgresso(t.auto); if (a.total && a.feito >= a.total) return "feito"; }
+  return t.status || "a_fazer"; }
+function autoProgresso(tipo){
+  if (tipo === "diario") { var passadas = S.data.grade.filter(function(g){ return g.data && g.data <= hoje(); });
+    return {feito: passadas.filter(function(g){ return sessaoFeita(g.id); }).length, total: S.data.grade.length}; }
+  if (tipo === "comprovacoes") { var is = S.data.instituicoes.filter(function(i){ return i.confirmada !== false; });
+    return {feito: is.filter(function(i){ return instCompleta(i).ok; }).length, total: is.length}; }
+  if (tipo === "metas") { var at = S.data.atividades.filter(function(a){ return num(a.meta) > 0; });
+    return {feito: at.filter(function(a){ return realizadoAtividade(a.id) >= num(a.meta); }).length, total: at.length}; }
+  return {feito:0, total:0}; }
+function tarefasFase(k){ return S.data.tarefas.filter(function(t){ return t.fase === k; }).sort(function(a,b){ return (num(a.ordem)-num(b.ordem)) || String(prazoTarefa(a)).localeCompare(prazoTarefa(b)); }); }
+function pctFase(k){ var ts = tarefasFase(k).filter(function(t){ return statusEfetivo(t) !== "na"; }); if (!ts.length) return null;
+  return pct(ts.filter(function(t){ return statusEfetivo(t) === "feito"; }).length, ts.length); }
+function faseAtual(){ for (var i = 0; i < FASES.length; i++){ var p = pctFase(FASES[i].k); if (p !== null && p < 100) return FASES[i].k; } return FASES[FASES.length-1].k; }
+function atrasadas(){ var d = hoje(); return S.data.tarefas.filter(function(t){ var s = statusEfetivo(t); return s !== "feito" && s !== "na" && t.prazo && t.prazo < d; }); }
+function bloqueadas(){ return S.data.tarefas.filter(function(t){ return statusEfetivo(t) === "bloqueado"; }); }
+function proximas(n){ var d = hoje(), lim = addDias(d, n || 14); return S.data.tarefas.filter(function(t){ var s = statusEfetivo(t); return s !== "feito" && s !== "na" && t.prazo && t.prazo >= d && t.prazo <= lim; })
+  .sort(function(a,b){ return a.prazo.localeCompare(b.prazo); }); }
+function saude(){ var a = atrasadas().length, b = bloqueadas().length;
+  if (b > 0 || a >= 3) return {k:"bad", t:"Crítico", d: b ? b+" impedimento"+(b>1?"s":"")+" e "+a+" atraso"+(a!==1?"s":"") : a+" tarefas atrasadas"};
+  if (a > 0) return {k:"warn", t:"Atenção", d: a+" tarefa"+(a>1?"s":"")+" atrasada"+(a>1?"s":"")};
+  return {k:"ok", t:"Em dia", d:"Nenhum atraso ou impedimento"}; }
+function diarioDe(gid){ return S.data.diario.find(function(d){ return d.id === gid; }); }
+function sessaoFeita(gid){ var d = diarioDe(gid); return !!(d && d.enviado); }
+function realizadoAtividade(aid){ return S.data.diario.filter(function(d){ var g = byId("grade", d.id); return d.enviado && g && g.atividadeId === aid; })
+  .reduce(function(s, d){ return s + num(d.publico); }, 0); }
+function realizadoInst(iid){ return S.data.diario.filter(function(d){ var g = byId("grade", d.id); return d.enviado && g && g.instituicaoId === iid; })
+  .reduce(function(s, d){ return s + num(d.publico); }, 0); }
+function atividadesDaInst(iid){ var ids = {}; S.data.grade.forEach(function(g){ if (g.instituicaoId === iid && g.atividadeId) ids[g.atividadeId] = 1; }); return Object.keys(ids); }
+function instCompleta(i){ var ac = i.acess || {}, faltaA = 0;
+  ACESS.forEach(function(a){ var x = ac[a.k]; if (!x || x.tem == null) { faltaA++; return; }
+    if (x.tem && !(x.fotos && x.fotos.length)) faltaA++; if (x.tem === false && !String(x.just || "").trim()) faltaA++; });
+  if (i.cartaSemAcess) faltaA = 0;
+  var ats = atividadesDaInst(i.id), cartas = i.cartas || {}, faltaC = ats.filter(function(a){ return !(cartas[a] && cartas[a].arquivo); }).length;
+  return {ok: faltaA === 0 && faltaC === 0 && ats.length > 0, faltaA: faltaA, faltaC: faltaC, ats: ats.length}; }
+function metaTotal(){ return S.data.atividades.reduce(function(s,a){ return s + num(a.meta); }, 0); }
+function realizadoTotal(){ return S.data.diario.filter(function(d){ return d.enviado; }).reduce(function(s,d){ return s + num(d.publico); }, 0); }
+function nomeInst(id){ var i = byId("instituicoes", id); return i ? i.nome : "Instituição"; }
+function nomeAtiv(id){ var a = byId("atividades", id); return a ? a.nome : "Atividade"; }
+function midiaUrl(m){ return m && m.id ? "/_blob/"+m.id : ""; }
+
+/* ---------- formulário genérico ---------- */
+function abrirForm(titulo, campos, valores, onSalvar, extra){
+  valores = valores || {}; var refs = {};
+  var form = h("form", {class:"form", onsubmit:async function(e){ e.preventDefault(); var out = {};
+    campos.forEach(function(c){ if (c.tipo === "sep") return; var el = refs[c.k];
+      out[c.k] = c.tipo === "check" ? el.checked : c.tipo === "number" ? (el.value === "" ? null : Number(el.value)) : el.value.trim(); });
+    var ok = await onSalvar(out); if (ok !== false) fechar(); }});
+  var linha = [];
+  campos.forEach(function(c){
+    if (c.tipo === "sep") { form.appendChild(h("div", {class:"lbl", text:c.t})); return; }
+    var id = "f_"+c.k, el;
+    if (c.tipo === "select") { el = h("select", {id:id}); (c.opts||[]).forEach(function(o){ var v = Array.isArray(o) ? o[0] : o, t = Array.isArray(o) ? o[1] : o;
+      var op = h("option", {value:v, text:t}); if (String(valores[c.k] == null ? (c.def||"") : valores[c.k]) === String(v)) op.selected = true; el.appendChild(op); }); }
+    else if (c.tipo === "textarea") { el = h("textarea", {id:id}); el.value = valores[c.k] || ""; }
+    else if (c.tipo === "check") { el = h("input", {id:id, type:"checkbox"}); el.checked = !!valores[c.k]; refs[c.k] = el; form.appendChild(h("label", {class:"ck"}, el, c.t)); return; }
+    else { el = h("input", {id:id, type:c.tipo || "text", step: c.tipo === "number" ? "any" : null}); el.value = valores[c.k] == null ? (c.def || "") : valores[c.k]; }
+    if (c.req) el.required = true; refs[c.k] = el;
+    var lab = h("label", {for:id}, c.t, el);
+    if (c.meio) { linha.push(lab); if (linha.length === 2) { form.appendChild(h("div", {class:"two"}, linha)); linha = []; } }
+    else { if (linha.length) { form.appendChild(h("div", {class:"two"}, linha)); linha = []; } form.appendChild(lab); }
+  });
+  if (linha.length) form.appendChild(h("div", {class:"two"}, linha));
+  form.appendChild(h("div", {class:"row"}, extra || null, h("span", {class:"sp"}), h("button", {type:"button", class:"btn ghost", onclick:fechar}, "Cancelar"), h("button", {type:"submit", class:"btn pri"}, "Salvar")));
+  var scrim = h("div", {class:"scrim", onclick:function(e){ if (e.target === scrim) fechar(); }}, h("div", {class:"modal", role:"dialog", "aria-modal":"true", "aria-label":titulo}, h("h2", {text:titulo}), form));
+  function onKey(e){ if (e.key === "Escape") fechar(); }
+  function fechar(){ scrim.remove(); document.removeEventListener("keydown", onKey); }
+  document.addEventListener("keydown", onKey); document.body.appendChild(scrim);
+  var first = form.querySelector("input,select,textarea"); if (first) first.focus();
+}
+function confirmar(texto, onSim){
+  var scrim = h("div", {class:"scrim"}, h("div", {class:"modal", role:"dialog", "aria-modal":"true"}, h("h2", {text:"Confirmar"}), h("p", {text:texto}),
+    h("div", {class:"row"}, h("span", {class:"sp"}), h("button", {class:"btn ghost", onclick:function(){ scrim.remove(); }}, "Cancelar"),
+      h("button", {class:"btn pri", onclick:function(){ scrim.remove(); onSim(); }}, "Confirmar"))));
+  document.body.appendChild(scrim);
+}
+
+/* ---------- upload de fotos e vídeos ---------- */
+/* Na web os arquivos vão direto para o Drive (sessão retomável aberta pela função drive-upload; o navegador manda em pedaços de 8 MB).
+   Dentro do claude.ai (artefato) usam o espaço de arquivos da máquina. */
+async function enviarDrive(file, ctx, nome, onProg){
+  var ses = (await WEBSB.auth.getSession()).data.session; if (!ses) throw new Error("Entre de novo para enviar arquivos.");
+  var r = await fetch(CONFIG.url + "/functions/v1/drive-upload", {method:"POST", headers:{Authorization:"Bearer "+ses.access_token, apikey:CONFIG.anon, "Content-Type":"application/json"},
+    body: JSON.stringify(Object.assign({acao:"iniciar", projeto:S.cur, nome:nome || file.name, tipo:file.type || "application/octet-stream", tamanho:file.size}, ctx))});
+  var j = await r.json().catch(function(){ return {}; }); if (!r.ok) throw new Error(j.erro || "O servidor recusou o envio.");
+  var CH = 8*1024*1024, off = 0, fim = null, tent = 0;
+  while (off < file.size || (file.size === 0 && !fim)) {
+    var end = Math.min(off + CH, file.size), corpo = file.slice(off, end), p;
+    try { p = await fetch(j.url, {method:"PUT", headers: file.size ? {"Content-Range":"bytes "+off+"-"+(end-1)+"/"+file.size} : {}, body:corpo}); }
+    catch(e){ if (++tent > 4) throw new Error("A conexão caiu durante o envio de "+file.name+"."); await new Promise(function(ok){ setTimeout(ok, 1500*tent); }); continue; }
+    if (p.status === 308) { var rg = p.headers.get("Range"); off = rg ? Number(rg.split("-")[1]) + 1 : end; tent = 0; if (onProg) onProg(off / file.size); continue; }
+    if (p.ok) { fim = await p.json(); if (onProg) onProg(1); break; }
+    if (p.status >= 500 && ++tent <= 4) { await new Promise(function(ok){ setTimeout(ok, 1500*tent); }); continue; }
+    throw new Error("O Drive recusou "+file.name+" ("+p.status+").");
+  }
+  return {driveId:fim.id, nome:fim.name, link:fim.webViewLink || ("https://drive.google.com/file/d/"+fim.id+"/view"), pasta:j.link, tamanho:file.size,
+    tipo: /^video\//.test(file.type) ? "video" : /pdf/.test(file.type) ? "pdf" : /^image\//.test(file.type) ? "foto" : "arquivo", em:new Date().toISOString(), por:(S.perfil && S.perfil.nome) || ""};
+}
+function comprimir(file){ return new Promise(function(res){
+  if (!/^image\//.test(file.type) || /gif|svg/.test(file.type)) return res(file);
+  var img = new Image(), url = URL.createObjectURL(file);
+  img.onload = function(){ var m = 1800, w = img.width, hh = img.height, k = Math.min(1, m / Math.max(w, hh));
+    var c = document.createElement("canvas"); c.width = Math.round(w*k); c.height = Math.round(hh*k); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+    URL.revokeObjectURL(url); c.toBlob(function(b){ res(b || file); }, "image/jpeg", .84); };
+  img.onerror = function(){ URL.revokeObjectURL(url); res(file); }; img.src = url; }); }
+async function enviarArquivos(files, rotulo, ctx){
+  if (WEB) { var res = [];
+    for (var k = 0; k < files.length; k++){ try { toast("Enviando "+(k+1)+" de "+files.length+" para o Drive…");
+        var b = /^image\//.test(files[k].type) ? await comprimir(files[k]) : files[k]; var nm = files[k].name; if (b !== files[k]) nm = nm.replace(/\.[^.]+$/, "") + ".jpg";
+        var m = await enviarDrive(b instanceof File ? b : new File([b], nm, {type:b.type || files[k].type}), ctx || {pasta:"diario"}, nm); m.rotulo = rotulo || ""; res.push(m); }
+      catch(e){ toast(e.message || "Falha ao enviar "+files[k].name); } }
+    return res; }
+  if (!S.assets) { toast("O envio de arquivos não está disponível nesta visualização."); return []; }
+  var out = [];
+  for (var i = 0; i < files.length; i++){ var f = files[i];
+    if (/^video\//.test(f.type) && f.size > 20*1048576) { toast("Vídeo acima de 20 MB: envie pelo Drive do projeto."); continue; }
+    try { toast("Enviando "+(i+1)+" de "+files.length+"…"); var b = await comprimir(f); var r = await S.assets.upload(b);
+      out.push({id:r.id, tipo: /^video\//.test(f.type) ? "video" : /pdf/.test(f.type) ? "pdf" : "foto", nome:f.name, rotulo:rotulo||"", em:new Date().toISOString()}); }
+    catch(e){ toast(e && /quota|full/i.test(String(e.code||e.message)) ? "O espaço de arquivos da máquina está cheio." : "Falha ao enviar "+f.name); } }
+  return out; }
+function seletorArquivos(aceita, multiplo, aoEscolher){ var inp = h("input", {type:"file", accept:aceita, multiple: multiplo ? true : null, hidden:true});
+  inp.addEventListener("change", function(){ var fs = Array.prototype.slice.call(inp.files || []); inp.remove(); if (fs.length) aoEscolher(fs); });
+  document.body.appendChild(inp); inp.click(); }
+function miniaturas(lista){ if (!lista || !lista.length) return null; return h("div", {class:"thumbs"}, lista.map(function(m){
+  if (m.driveId) return h("a", {class:"pill "+(m.tipo === "video" ? "p-warn" : m.tipo === "pdf" ? "p-info" : "p-ok"), href:m.link, target:"_blank", rel:"noopener", title:m.nome, text:(m.tipo === "video" ? "Vídeo · " : m.tipo === "pdf" ? "PDF · " : "Foto · ")+String(m.nome||"").slice(0, 28)});
+  if (m.tipo === "video") return h("video", {src:midiaUrl(m), muted:true, preload:"metadata", title:m.nome});
+  if (m.tipo === "pdf") return h("a", {href:midiaUrl(m), target:"_blank", rel:"noopener", class:"pill p-info", text:"PDF"});
+  return h("img", {src:midiaUrl(m), alt:m.rotulo || m.nome || "foto", loading:"lazy"}); })); }
+
+/* ---------- render raiz ---------- */
+function render(){
+  var sel = document.getElementById("selProj"); sel.textContent = "";
+  var ids = Object.keys(S.projetos).sort(function(a,b){ return String(S.projetos[a].numero).localeCompare(String(S.projetos[b].numero), "pt", {numeric:true}); });
+  sel.appendChild(h("option", {value:"", text: ids.length ? "Todos os projetos" : "Nenhum projeto ainda"}));
+  ids.forEach(function(id){ var p = S.projetos[id]; var o = h("option", {value:id, text:(p.numero ? p.numero+" · " : "")+p.nome}); if (id === S.cur) o.selected = true; sel.appendChild(o); });
+  var ms = modosPermitidos();
+  ["mEsc","mCampo","mPat"].forEach(function(b){ var el = document.getElementById(b); el.setAttribute("aria-pressed", el.dataset.modo === S.modo ? "true" : "false"); el.hidden = ms.indexOf(el.dataset.modo) < 0; });
+  document.querySelector(".seg").hidden = ms.length < 2; sel.hidden = WEB && (S.precisaLogin || !S.perfil);
+  var quem = document.getElementById("quem"); quem.textContent = "";
+  if (WEB && S.perfil) { quem.appendChild(h("span", {class:"small muted", text:S.perfil.nome || S.perfil.email}));
+    if (S.perfil.papel === "escritorio") quem.appendChild(h("button", {class:"btn ghost", onclick:function(){ abrirProjeto(null); S.modo = "escritorio"; S.telaHome = "acessos"; render(); }}, "Acessos"));
+    quem.appendChild(h("button", {class:"btn ghost", onclick:async function(){ await WEBSB.auth.signOut(); location.reload(); }}, "Sair")); }
+  var app = document.getElementById("app"); app.textContent = "";
+  if (WEB && S.recuperar) return renderNovaSenha(app);
+  if (WEB && S.erroWeb) { app.appendChild(h("div", {class:"note warn", style:"margin-top:24px", text:S.erroWeb})); return; }
+  if (WEB && S.precisaLogin && S.ready) return renderLogin(app);
+  if (WEB && S.semPerfil) { app.appendChild(h("div", {class:"note warn", style:"margin-top:24px"}, "O login "+S.semPerfil+" ainda não tem acesso definido. Peça ao Escritório de Projetos para liberar. ", h("button", {class:"btn", onclick:async function(){ await WEBSB.auth.signOut(); location.reload(); }}, "Sair"))); return; }
+  if (!S.ready) { app.appendChild(h("div", {class:"empty", style:"margin-top:40px"}, h("b", {text:"Abrindo a máquina…"}), "Conectando ao banco de projetos.")); return; }
+  if (!S.db) { app.appendChild(h("div", {class:"note warn", style:"margin-top:24px"}, "O banco de projetos não está disponível nesta visualização. Abra a máquina pelo link do claude.ai com sua conta NTICS.")); return; }
+  if (S.modo === "campo") return renderCampo(app);
+  if (S.modo === "patrocinador") return renderPatrocinador(app);
+  if (!S.cur) return S.telaHome === "acessos" && WEB ? renderAcessos(app) : renderHome(app);
+  renderEscritorio(app);
+}
+
+/* ---------- visão geral (todos os projetos) ---------- */
+var PORT = {carregando:false, em:null, dados:{}};
+async function carregarPortfolio(){
+  if (!S.db || PORT.carregando) return; PORT.carregando = true; render();
+  var ids = Object.keys(S.projetos), cols = ["tarefas","atividades","grade","diario","instituicoes"], novo = {};
+  for (var i = 0; i < ids.length; i++){ var D = {}; COLS.forEach(function(c){ D[c] = []; });
+    for (var j = 0; j < cols.length; j++){ try { var snap = await S.db.collection("projetos/"+ids[i]+"/"+cols[j]).get(); D[cols[j]] = snap.docs.map(function(d){ var x = Object.assign({}, d.data()); x.id = d.id; return x; }); } catch(e){} }
+    novo[ids[i]] = resumoProjeto(ids[i], D); }
+  PORT.dados = novo; PORT.em = new Date(); PORT.carregando = false; render(); }
+function resumoProjeto(id, D){
+  var salvo = S.data; S.data = D;
+  try { var p = S.projetos[id] || {}, pf = {}; FASES.forEach(function(f){ pf[f.k] = pctFase(f.k); });
+    var ts = D.tarefas.filter(function(t){ return statusEfetivo(t) !== "na"; }), hj = hoje();
+    var emCampo = (p.inicio && p.fim && hj >= p.inicio && hj <= p.fim) || D.grade.some(function(g){ return g.data && Math.abs(dias(g.data, hj)) <= 3; });
+    var r = {id:id, fase: D.tarefas.length ? faseAtual() : null, pf:pf, geral: pct(ts.filter(function(t){ return statusEfetivo(t) === "feito"; }).length, ts.length),
+      atrasadas: atrasadas().map(function(t){ return t; }), bloqueadas: bloqueadas().slice(), proximas: proximas(14).slice(0, 3), saude: saude(),
+      meta: metaTotal(), real: realizadoTotal(), ses: D.grade.length, sesF: D.grade.filter(function(g){ return sessaoFeita(g.id); }).length, emCampo: !!emCampo, temTarefas: D.tarefas.length > 0};
+    return r; } finally { S.data = salvo; } }
+function renderHome(app){
+  var ids = Object.keys(S.projetos).sort(function(a,b){ return String(S.projetos[a].numero).localeCompare(String(S.projetos[b].numero), "pt", {numeric:true}); });
+  app.appendChild(h("div", {class:"row", style:"margin:22px 0 14px"}, h("div", {style:"min-width:0"}, h("h1", {text:"Visão geral dos projetos"}),
+    h("div", {class:"muted", text: PORT.em ? "Atualizado às "+PORT.em.toLocaleTimeString("pt-BR", {hour:"2-digit", minute:"2-digit"})+". Clique num projeto para abrir a execução." : "Clique num projeto para abrir a execução."})), h("span", {class:"sp"}),
+    h("button", {class:"btn", disabled: PORT.carregando, onclick:carregarPortfolio}, PORT.carregando ? "Atualizando…" : "Atualizar"), h("button", {class:"btn pri", onclick:novoProjeto}, "Novo projeto")));
+  if (!ids.length) { app.appendChild(h("div", {class:"empty"}, h("b", {text:"Nenhum projeto na máquina ainda"}), "Clique em Novo projeto para cadastrar o primeiro. As fases e tarefas padrão do Escritório de Projetos são criadas junto.")); return; }
+  if (!PORT.em && !PORT.carregando) { setTimeout(carregarPortfolio, 0); }
+  var R = ids.map(function(id){ return PORT.dados[id]; }).filter(Boolean);
+  var emCampo = R.filter(function(r){ return r.emCampo; }), comProb = R.filter(function(r){ return r.saude.k !== "ok"; });
+  var meta = R.reduce(function(s,r){ return s + r.meta; }, 0), real = R.reduce(function(s,r){ return s + r.real; }, 0);
+  function k(lbl, v, sub){ return h("div", {class:"panel kpi"}, h("div", {class:"lbl", text:lbl}), h("div", {class:"v", text:v}), sub ? h("div", {class:"small muted", style:"margin-top:4px", text:sub}) : null); }
+  app.appendChild(h("div", {class:"grid g4", style:"margin-bottom:14px"}, k("Projetos na máquina", fnum(ids.length)), k("Em campo agora", fnum(emCampo.length), emCampo.map(function(r){ return S.projetos[r.id].numero; }).join(" · ")),
+    k("Com atraso ou impedimento", fnum(comProb.length), comProb.map(function(r){ return S.projetos[r.id].numero; }).join(" · ")), k("Público atendido", fnum(real), meta ? "de "+fnum(meta)+" previstos ("+pct(real, meta)+"%)" : "")));
+  // quadro por fase
+  var board = h("div", {class:"line", style:"padding-bottom:4px"});
+  FASES.forEach(function(f){ var ps = R.filter(function(r){ return r.fase === f.k; });
+    board.appendChild(h("div", {class:"stage", style:"flex:1 0 132px"}, h("div", {class:"stagehead", text:f.t+(ps.length ? " · "+ps.length : "")}),
+      ps.length ? ps.map(function(r){ var p = S.projetos[r.id]; return h("button", {class:"node", style:"min-height:0", onclick:function(){ abrirProjeto(r.id); }},
+        h("span", {class:"nm", text:(p.numero ? p.numero+" · " : "")+p.nome}), h("span", {class:"pill p-"+r.saude.k, text:r.saude.t}), h("span", {class:"pc", text:(r.pf[f.k] == null ? 0 : r.pf[f.k])+"% da fase"})); })
+      : h("div", {class:"small muted", style:"padding:8px 2px", text:"—"}))); });
+  app.appendChild(h("div", {class:"panel", style:"margin-bottom:14px"}, h("h2", {style:"margin-bottom:8px", text:"Em que fase cada projeto está"}), board));
+  // matriz de fases
+  var tb = h("table", null, h("thead", null, h("tr", null, [h("th", {text:"Projeto"}), h("th", {text:"Saúde"})].concat(FASES.map(function(f){ return h("th", {class:"num", title:f.t, text:f.t.split(" ")[0]}); }), [h("th", {class:"num", text:"Geral"}), h("th", {text:"Próxima entrega"})]))), h("tbody"));
+  ids.forEach(function(id){ var p = S.projetos[id], r = PORT.dados[id];
+    tb.lastChild.appendChild(h("tr", {style:"cursor:pointer", onclick:function(){ abrirProjeto(id); }},
+      h("td", null, h("b", {text:(p.numero ? p.numero+" · " : "")+p.nome}), h("div", {class:"small muted", text:(p.patrocinador||"")+(r && r.emCampo ? " · em campo" : "")})),
+      h("td", null, r ? h("span", {class:"pill p-"+r.saude.k, text:r.saude.t}) : h("span", {class:"muted small", text:"…"})),
+      FASES.map(function(f){ var v = r ? r.pf[f.k] : null; return h("td", {class:"num mono", style: v === 100 ? "color:var(--ok);font-weight:600" : v == null ? "color:var(--muted)" : (r && r.fase === f.k ? "background:var(--warn-bg)" : ""), text: v == null ? "—" : v+"%"}); }),
+      h("td", {class:"num mono", text: r ? r.geral+"%" : "…"}),
+      h("td", {class:"small", text: r && r.proximas[0] ? fdata(r.proximas[0].prazo)+" · "+r.proximas[0].titulo : "—"}))); });
+  app.appendChild(h("div", {class:"panel", style:"margin-bottom:14px"}, h("h2", {text:"Fases por projeto"}), h("div", {class:"tbl", style:"margin-top:10px"}, tb)));
+  // relatório geral
+  var rel = h("div", {class:"panel"}, h("h2", {text:"Relatório geral"}));
+  if (!R.length) rel.appendChild(h("div", {class:"muted small", text: PORT.carregando ? "Lendo os projetos…" : "Clique em Atualizar."}));
+  else {
+    var linhas = [];
+    linhas.push(ids.length+" projetos na máquina; "+emCampo.length+" em campo agora"+(emCampo.length ? " ("+emCampo.map(function(r){ return S.projetos[r.id].numero+" "+S.projetos[r.id].nome; }).join(", ")+")" : "")+".");
+    FASES.forEach(function(f){ var ps = R.filter(function(r){ return r.fase === f.k; }); if (ps.length) linhas.push(f.t+": "+ps.map(function(r){ return S.projetos[r.id].numero; }).join(", ")+"."); });
+    if (meta) linhas.push("Público: "+fnum(real)+" atendidos de "+fnum(meta)+" previstos nas metas cadastradas ("+pct(real, meta)+"%).");
+    rel.appendChild(h("ul", {style:"margin:10px 0 0;padding-left:18px"}, linhas.map(function(l){ return h("li", {style:"margin:3px 0", text:l}); })));
+    var probs = []; R.forEach(function(r){ r.bloqueadas.forEach(function(t){ probs.push({r:r, t:t, k:"Impedimento"}); }); r.atrasadas.forEach(function(t){ if (statusEfetivo(t) !== "bloqueado") probs.push({r:r, t:t, k:"Atrasada"}); }); });
+    probs.sort(function(a,b){ return (a.k === "Impedimento" ? 0 : 1) - (b.k === "Impedimento" ? 0 : 1) || String(a.t.prazo).localeCompare(b.t.prazo); });
+    rel.appendChild(h("h3", {style:"margin:16px 0 4px", text:"O que precisa de atenção ("+probs.length+")"}));
+    if (!probs.length) rel.appendChild(h("div", {class:"muted small", text:"Nenhum atraso ou impedimento nos projetos."}));
+    rel.appendChild(h("div", {class:"list"}, probs.slice(0, 12).map(function(x){ var p = S.projetos[x.r.id];
+      return h("div", {class:"li"}, h("span", {class:"pill p-bad", text:x.k}), h("div", {class:"main"}, h("b", {text:x.t.titulo}), h("div", {class:"meta"}, h("span", {text:(p.numero||"")+" · "+p.nome}), h("span", {text:FMAP[x.t.fase] ? FMAP[x.t.fase].t : ""}),
+        x.t.prazo ? h("span", {class:"late", text:"prazo "+fdata(x.t.prazo)}) : null, x.t.resp ? h("span", {text:"Resp.: "+x.t.resp}) : h("span", {class:"late", text:"sem responsável"})))); })));
+    if (probs.length > 12) rel.appendChild(h("div", {class:"small muted", style:"margin-top:6px", text:"+ "+(probs.length-12)+" itens. Abra cada projeto para ver todos."}));
+  }
+  app.appendChild(rel);
+}
+function camposProjeto(){ return [
+  {k:"numero", t:"Número do projeto", meio:true, req:true}, {k:"patrocinador", t:"Patrocinador", meio:true},
+  {k:"nome", t:"Nome do projeto", req:true},
+  {k:"resumo", t:"O que é o projeto (1 a 3 frases)", tipo:"textarea"},
+  {k:"cidades", t:"Cidades (uma por linha)", tipo:"textarea"},
+  {k:"inicio", t:"Início da execução", tipo:"date", meio:true}, {k:"fim", t:"Fim da execução", tipo:"date", meio:true},
+  {k:"pronac", t:"PRONAC (se for Lei Rouanet)", meio:true}, {k:"minc", t:"Projeto incentivado pelo MinC", tipo:"check"},
+  {k:"drive", t:"Pasta do projeto no Drive (link)"}, {k:"comunicacao", t:"Projeto na Máquina de Comunicação (link)"} ]; }
+function novoProjeto(){
+  abrirForm("Novo projeto", camposProjeto(), {}, async function(v){
+    var id = "p" + String(v.numero).replace(/[^\w-]/g, "") ; if (S.projetos[id]) id += "-" + uid().slice(-4);
+    v.criadoEm = new Date().toISOString(); var ok = await salvarProjeto(id, v); if (!ok) return false;
+    S.cur = id; await semearTarefas(id, v); abrirProjeto(id); toast("Projeto criado com as fases padrão.");
+  });
+}
+async function semearTarefas(id, p){
+  for (var i = 0; i < TEMPLATE.length; i++){ var t = TEMPLATE[i], base = t.ref === "fim" ? p.fim : p.inicio;
+    var doc = {fase:t.fase, titulo:t.t, ordem:i, status:"a_fazer", prazo: base ? addDias(base, t.off) : "", entrega:!!t.entrega, modulo:t.modulo||"", auto:t.auto||"", resp:"", nota:""};
+    try { await S.db.doc("projetos/"+id+"/tarefas/t"+String(i).padStart(2,"0")).set(doc); } catch(e){ toast("Parte das tarefas não foi criada. Recarregue."); return; } } }
+
+/* ---------- escritório ---------- */
+var TABS = [["painel","Painel"],["fases","Fases e tarefas"],["projeto","O projeto"],["atividades","Atividades e metas"],["stakeholders","Stakeholders"],
+  ["comunicacao","Comunicação"],["orcamento","Orçamento"],["engajamento","Engajamento e grade"],["diario","Diário de campo"],["consolidacao","Consolidação"]];
+function renderEscritorio(app){
+  var p = P(); if (!p) { S.cur = null; return renderHome(app); }
+  var s = saude();
+  app.appendChild(h("div", {class:"row", style:"margin-top:18px"},
+    h("button", {class:"back", onclick:function(){ abrirProjeto(null); }}, "‹ Projetos"), h("span", {class:"sp"}),
+    h("button", {class:"btn ghost", onclick:function(){ abrirForm("Dados do projeto", camposProjeto(), p, async function(v){ return salvarProjeto(S.cur, Object.assign({}, p, v)); }); }}, "Editar dados do projeto")));
+  app.appendChild(h("div", {class:"row", style:"margin-top:4px;align-items:flex-end"},
+    h("div", {style:"min-width:0"}, h("div", {class:"lbl", text:"Projeto "+(p.numero||"")+(p.patrocinador ? " · "+p.patrocinador : "")}), h("h1", {text:p.nome})),
+    h("span", {class:"sp"}), h("span", {class:"pill p-"+s.k, text:s.t+" · "+s.d})));
+  var tabs = h("div", {class:"tabs", role:"tablist"});
+  TABS.forEach(function(t){ tabs.appendChild(h("button", {role:"tab", "aria-selected": S.tab === t[0] ? "true" : "false", onclick:function(){ S.tab = t[0]; lsSet("mx-tab", t[0]); render(); }}, t[1])); });
+  app.appendChild(tabs);
+  if (!S.data.tarefas.length && S.tab !== "projeto") app.appendChild(h("div", {class:"note", style:"margin-bottom:14px"}, "Este projeto ainda não tem tarefas. ",
+    h("button", {class:"btn", onclick:async function(){ await semearTarefas(S.cur, p); toast("Fases e tarefas padrão criadas."); }}, "Criar fases e tarefas padrão")));
+  ({painel:tPainel, fases:tFases, projeto:tProjeto, atividades:tAtividades, stakeholders:tStakeholders, comunicacao:tComunicacao, orcamento:tOrcamento,
+    engajamento:tEngajamento, diario:tDiario, consolidacao:tConsolidacao}[S.tab] || tPainel)(app, p);
+  // guarda um resumo no projeto para a lista inicial (só quando muda)
+  var fa = faseAtual(); if (S.data.tarefas.length && (!p.resumoCache || p.resumoCache.fase !== fa)) { p.resumoCache = {fase:fa}; salvarProjeto(S.cur, p); }
+}
+
+function linhaFases(clicavel){
+  var line = h("div", {class:"line", "aria-label":"Fases do projeto"}), cur = faseAtual();
+  function node(f){ var pc = pctFase(f.k), done = pc === 100;
+    return h("button", {class:"node"+(f.k === cur ? " cur" : ""), onclick: clicavel ? function(){ S.tab = "fases"; S.fase = f.k; render(); } : null, "aria-label":f.t+": "+(pc === null ? "sem tarefas" : pc+"% concluído")},
+      h("span", {class:"nm", text:f.t}), h("div", {class:"bar"+(done ? "" : " amber")}, h("i", {style:"width:"+(pc||0)+"%"})), h("span", {class:"pc", text: pc === null ? "sem tarefas" : pc+"%"+(done ? " · concluída" : "")})); }
+  var seq = [["lab"],["kickoff"],["planejamento"],["comunicacao","orcamento","engajamento"],["preexecucao"],["execucao"],["consolidacao"],["finalizacao"]];
+  seq.forEach(function(grp, i){
+    if (i) line.appendChild(h("span", {class:"arrow", "aria-hidden":"true", text:"›"}));
+    if (grp.length === 1) line.appendChild(h("div", {class:"stage"}, node(FMAP[grp[0]])));
+    else line.appendChild(h("div", {class:"stack"}, h("span", {class:"stagehead", text:"Em paralelo"}), grp.map(function(k){ return node(FMAP[k]); })));
+  });
+  return line; }
+
+function itemTarefa(t, compacto){
+  var s = statusEfetivo(t), late = t.prazo && t.prazo < hoje() && s !== "feito" && s !== "na";
+  return h("div", {class:"li"}, h("span", {class:"pill "+(s === "bloqueado" ? "p-bad" : late ? "p-bad" : "p-warn"), text: s === "bloqueado" ? "Impedimento" : late ? "Atrasada" : fdata(t.prazo)}),
+    h("div", {class:"main"}, h("b", {text:t.titulo}), h("div", {class:"meta"}, h("span", {text:FMAP[t.fase] ? FMAP[t.fase].t : t.fase}),
+      t.resp ? h("span", {text:"Resp.: "+t.resp}) : h("span", {class:"late", text:"sem responsável"}), late ? h("span", {class:"late", text:"venceu em "+fdata(t.prazo)}) : null,
+      s === "bloqueado" && t.nota ? h("span", {text:"Motivo: "+t.nota}) : null))); }
+
+function tPainel(app){
+  app.appendChild(h("div", {class:"panel", style:"margin-bottom:14px"}, h("div", {class:"row", style:"margin-bottom:8px"}, h("h2", {text:"Fases do projeto"}), h("span", {class:"sp"}), h("span", {class:"muted small", text:"Clique numa fase para ver as tarefas"})), linhaFases(true)));
+  var ts = S.data.tarefas.filter(function(t){ return statusEfetivo(t) !== "na"; }), feitas = ts.filter(function(t){ return statusEfetivo(t) === "feito"; }).length;
+  var ent = S.data.tarefas.filter(function(t){ return t.entrega && statusEfetivo(t) !== "na"; }), entF = ent.filter(function(t){ return statusEfetivo(t) === "feito"; }).length;
+  var mt = metaTotal(), rt = realizadoTotal(), ses = S.data.grade.length, sesF = S.data.grade.filter(function(g){ return sessaoFeita(g.id); }).length;
+  var insts = S.data.instituicoes.filter(function(i){ return i.confirmada !== false; }), instOk = insts.filter(function(i){ return instCompleta(i).ok; }).length;
+  function kpi(lbl, v, de, barra){ return h("div", {class:"panel kpi"}, h("div", {class:"lbl", text:lbl}), h("div", {class:"v"}, v, de != null ? h("small", {text:"/ "+de}) : null), barra != null ? h("div", {class:"bar", style:"margin-top:10px"}, h("i", {style:"width:"+barra+"%"})) : null); }
+  app.appendChild(h("div", {class:"grid g4", style:"margin-bottom:14px"},
+    kpi("Concluído do projeto", pct(feitas, ts.length)+"%", null, pct(feitas, ts.length)),
+    kpi("Entregas feitas", fnum(entF), fnum(ent.length), pct(entF, ent.length)),
+    kpi("Público atendido", fnum(rt), fnum(mt), pct(rt, mt)),
+    kpi("Atividades realizadas", fnum(sesF), fnum(ses), pct(sesF, ses)),
+    kpi("Instituições comprovadas", fnum(instOk), fnum(insts.length), pct(instOk, insts.length))));
+  var at = atrasadas(), bl = bloqueadas(), px = proximas(14);
+  function bloco(tit, lista, vazio){ return h("div", {class:"panel"}, h("div", {class:"row", style:"margin-bottom:6px"}, h("h3", {text:tit}), h("span", {class:"sp"}), h("span", {class:"mono muted", text:String(lista.length)})),
+    lista.length ? h("div", {class:"list"}, lista.slice(0, 8).map(function(t){ return itemTarefa(t); })) : h("div", {class:"muted small", text:vazio}),
+    lista.length > 8 ? h("button", {class:"btn ghost small", onclick:function(){ S.tab = "fases"; render(); }}, "Ver todas ("+lista.length+")") : null); }
+  app.appendChild(h("div", {class:"grid g3"}, bloco("Impedimentos", bl, "Nada travado."), bloco("Atrasadas", at, "Nenhuma tarefa atrasada."), bloco("Próximas entregas (14 dias)", px, "Nada vencendo nas próximas duas semanas.")));
+}
+
+var STATUS = [["a_fazer","A fazer"],["andamento","Em andamento"],["feito","Feito"],["bloqueado","Impedimento"],["na","Não se aplica"]];
+var ST_ICON = {a_fazer:"", andamento:"…", feito:"✓", bloqueado:"!", na:"–"};
+function tFases(app){
+  var cur = S.fase || faseAtual(); S.fase = cur;
+  var chips = h("div", {class:"chips", style:"margin-bottom:14px"});
+  FASES.forEach(function(f){ var pc = pctFase(f.k); chips.appendChild(h("button", {class:"chip", "aria-pressed": f.k === cur ? "true" : "false", onclick:function(){ S.fase = f.k; render(); }}, f.t+(pc === null ? "" : " · "+pc+"%"))); });
+  app.appendChild(chips);
+  var f = FMAP[cur], deps = f.dep.map(function(k){ return {f:FMAP[k], p:pctFase(k)}; }).filter(function(d){ return d.p !== null && d.p < 100; });
+  var pan = h("div", {class:"panel"});
+  pan.appendChild(h("div", {class:"row"}, h("div", {style:"min-width:0;flex:1"}, h("h2", {text:f.t}), h("div", {class:"muted", text:f.resumo})),
+    h("button", {class:"btn pri", onclick:function(){ editarTarefa(null, cur); }}, "Nova tarefa")));
+  if (deps.length) pan.appendChild(h("div", {class:"note warn", style:"margin-top:10px"}, "Esta fase depende de "+deps.map(function(d){ return d.f.t+" ("+d.p+"%)"; }).join(", ")+". Dá para adiantar, mas confira o que vem de lá."));
+  var lista = h("div", {style:"margin-top:8px"}), ts = tarefasFase(cur);
+  if (!ts.length) lista.appendChild(h("div", {class:"empty", style:"margin-top:10px"}, h("b", {text:"Nenhuma tarefa nesta fase"}), "Crie a primeira com Nova tarefa."));
+  ts.forEach(function(t){ var s = statusEfetivo(t), late = t.prazo && t.prazo < hoje() && s !== "feito" && s !== "na", ap = t.auto ? autoProgresso(t.auto) : null;
+    var st = h("button", {class:"st "+s, title:"Mudar situação", "aria-label":"Situação: "+(STATUS.find(function(x){ return x[0] === s; })||[0,""])[1]+". Clique para avançar.", onclick:async function(){
+      var ordem = ["a_fazer","andamento","feito"], nx = ordem[(ordem.indexOf(t.status||"a_fazer")+1) % 3]; await atualizar("tarefas", t.id, {status:nx}); }}, ST_ICON[s]);
+    lista.appendChild(h("div", {class:"task"+(s === "feito" ? " done" : "")}, st,
+      h("div", {style:"min-width:0"}, h("div", {class:"t", text:t.titulo}),
+        h("div", {class:"meta"}, h("span", {class: late ? "late" : "", text: t.prazo ? (late ? "Venceu " : "Prazo ")+fdata(t.prazo) : "Sem prazo"}),
+          h("span", {text: t.resp ? "Resp.: "+t.resp : "Sem responsável"}), t.entrega ? h("span", {class:"pill p-info", text:"Entrega"}) : null,
+          s === "bloqueado" ? h("span", {class:"pill p-bad", text:"Impedimento"}) : null,
+          ap && ap.total ? h("span", {text:"Automático: "+ap.feito+" de "+ap.total}) : null,
+          t.modulo ? h("button", {class:"copy", onclick:function(){ S.tab = ({atividades:"atividades",pecas:"comunicacao",instituicoes:"engajamento",grade:"engajamento",stakeholders:"stakeholders",orcamento:"orcamento",diario:"diario",metas:"consolidacao",campo:"diario"})[t.modulo] || "fases"; render(); }}, "abrir módulo ›") : null,
+          t.link ? h("a", {href:t.link, target:"_blank", rel:"noopener", text:"arquivo ↗"}) : null),
+        t.nota ? h("div", {class:"small muted", style:"margin-top:4px", text:t.nota}) : null),
+      h("button", {class:"btn ghost", onclick:function(){ editarTarefa(t, cur); }}, "Editar")));
+  });
+  pan.appendChild(lista); app.appendChild(pan);
+}
+function editarTarefa(t, fase){
+  abrirForm(t ? "Editar tarefa" : "Nova tarefa", [
+    {k:"titulo", t:"Tarefa", req:true}, {k:"fase", t:"Fase", tipo:"select", opts:FASES.map(function(f){ return [f.k, f.t]; }), meio:true, def:fase},
+    {k:"status", t:"Situação", tipo:"select", opts:STATUS, meio:true, def:"a_fazer"}, {k:"resp", t:"Responsável", meio:true}, {k:"prazo", t:"Prazo", tipo:"date", meio:true},
+    {k:"nota", t:"Observação ou motivo do impedimento", tipo:"textarea"}, {k:"link", t:"Link do arquivo (Drive)"}, {k:"entrega", t:"É uma entrega do projeto", tipo:"check"}
+  ], t || {fase:fase}, async function(v){ if (t) return atualizar("tarefas", t.id, v); v.ordem = 900 + S.data.tarefas.length; v.modulo = ""; v.auto = ""; return salvar("tarefas", null, v); },
+  t ? h("button", {type:"button", class:"btn danger", onclick:function(){ confirmar("Apagar a tarefa \""+t.titulo+"\"?", function(){ apagar("tarefas", t.id); document.querySelector(".scrim") && document.querySelector(".scrim").remove(); }); }}, "Apagar") : null);
+}
+
+/* visual do projeto */
+function tProjeto(app, p){
+  var mt = metaTotal(), rt = realizadoTotal(), insts = S.data.instituicoes.filter(function(i){ return i.confirmada !== false; });
+  var cidades = String(p.cidades||"").split(/\n+/).map(function(c){ return c.trim(); }).filter(Boolean);
+  app.appendChild(h("section", {class:"hero"},
+    h("div", {style:"min-width:0"}, h("div", {class:"tag", text:"Projeto "+(p.numero||"")+(p.pronac ? " · PRONAC "+p.pronac : "")+(p.patrocinador ? " · "+p.patrocinador : "")}),
+      h("h1", {text:p.nome}), h("p", {text:p.resumo || "Descreva o projeto em Editar dados do projeto."}),
+      h("div", {class:"chips", style:"margin-top:14px"}, cidades.map(function(c){ return h("span", {class:"chip", style:"background:transparent;color:inherit;border-color:color-mix(in srgb,currentColor 35%,transparent)", text:c}); }))),
+    h("div", {class:"nums"}, h("div", null, h("b", {text:fnum(mt)}), h("span", {text:"meta de público"})), h("div", null, h("b", {text:fnum(rt)}), h("span", {text:"atendidos até agora"})),
+      h("div", null, h("b", {text:fnum(S.data.atividades.length)}), h("span", {text:"atividades"})), h("div", null, h("b", {text:fnum(insts.length)}), h("span", {text:"instituições"})))));
+  var g = h("div", {class:"grid g2", style:"margin-top:14px"});
+  var ats = h("div", {class:"panel"}, h("h2", {text:"Atividades"}));
+  if (!S.data.atividades.length) ats.appendChild(h("div", {class:"empty", style:"margin-top:10px"}, h("b", {text:"Atividades ainda não cadastradas"}), "Cadastre em Atividades e metas (vem do Lab)."));
+  S.data.atividades.slice().sort(function(a,b){ return num(a.ordem)-num(b.ordem); }).forEach(function(a){ var r = realizadoAtividade(a.id);
+    ats.appendChild(h("div", {class:"li"}, h("div", {class:"main"}, h("b", {text:a.nome}), h("div", {class:"meta"}, a.formato ? h("span", {text:a.formato}) : null, a.minc ? h("span", {class:"pill p-info", text:"MinC"}) : null),
+      a.metodologia ? h("div", {class:"small muted", style:"margin-top:3px", text:a.metodologia}) : null,
+      num(a.meta) ? h("div", {class:"row small", style:"margin-top:6px"}, h("div", {class:"bar", style:"flex:1"}, h("i", {style:"width:"+pct(r, a.meta)+"%"})), h("span", {class:"mono", text:fnum(r)+" / "+fnum(a.meta)+" "+(a.unidade||"")})) : null))); });
+  var ent = h("div", {class:"panel"}, h("h2", {text:"Entregas"}));
+  var es = S.data.tarefas.filter(function(t){ return t.entrega && statusEfetivo(t) !== "na"; }).sort(function(a,b){ return String(a.prazo).localeCompare(b.prazo); });
+  if (!es.length) ent.appendChild(h("div", {class:"muted small", text:"Nenhuma entrega marcada."}));
+  es.forEach(function(t){ var s = statusEfetivo(t); ent.appendChild(h("div", {class:"li"}, h("span", {class:"pill "+(s === "feito" ? "p-ok" : "p-mut"), text: s === "feito" ? "Entregue" : fdata(t.prazo)}), h("div", {class:"main"}, h("b", {text:t.titulo}), h("div", {class:"meta", text:FMAP[t.fase] ? FMAP[t.fase].t : ""})))); });
+  g.appendChild(ats); g.appendChild(ent); app.appendChild(g);
+  app.appendChild(h("div", {class:"panel", style:"margin-top:14px"}, h("h2", {text:"Cronograma"}), h("div", {style:"margin-top:12px"}, gantt())));
+  var eq = S.data.stakeholders.filter(function(s){ return s.lado === "ntics" || s.lado === "fornecedor"; });
+  if (eq.length) app.appendChild(h("div", {class:"panel", style:"margin-top:14px"}, h("h2", {text:"Equipe"}), h("div", {class:"chips", style:"margin-top:10px"}, eq.map(function(s){ return h("span", {class:"chip", text:s.nome+(s.papel ? " · "+s.papel : "")}); }))));
+}
+function gantt(){
+  var linhas = [];
+  FASES.forEach(function(f){ var ds = tarefasFase(f.k).map(function(t){ return t.prazo; }).filter(Boolean).sort(); if (ds.length) linhas.push({t:f.t, a:ds[0], b:ds[ds.length-1], c:""}); });
+  var porCidade = {}; S.data.grade.forEach(function(g){ var i = byId("instituicoes", g.instituicaoId), c = (i && i.cidade) || "Execução"; if (!g.data) return;
+    porCidade[c] = porCidade[c] || {a:g.data, b:g.data}; if (g.data < porCidade[c].a) porCidade[c].a = g.data; if (g.data > porCidade[c].b) porCidade[c].b = g.data; });
+  Object.keys(porCidade).forEach(function(c){ linhas.push({t:"Campo · "+c, a:porCidade[c].a, b:porCidade[c].b, c:" c2"}); });
+  if (!linhas.length) return h("div", {class:"muted small", text:"As datas aparecem aqui quando as tarefas e a grade tiverem prazo."});
+  var min = linhas.reduce(function(m,l){ return l.a < m ? l.a : m; }, linhas[0].a), max = linhas.reduce(function(m,l){ return l.b > m ? l.b : m; }, linhas[0].b);
+  var tot = Math.max(1, dias(min, max)), g = h("div", {class:"gantt"});
+  linhas.forEach(function(l){ var x = 100*dias(min, l.a)/tot, w = Math.max(.8, 100*dias(l.a, l.b)/tot), tk = h("div", {class:"gtrack"}, h("div", {class:"gbar"+l.c, style:"left:"+x+"%;width:"+w+"%", title:fdata(l.a)+" a "+fdata(l.b)}));
+    var hj = hoje(); if (hj >= min && hj <= max) tk.appendChild(h("div", {class:"gtoday", style:"left:"+(100*dias(min, hj)/tot)+"%", title:"Hoje"}));
+    g.appendChild(h("div", {text:l.t})); g.appendChild(tk); });
+  return h("div", null, h("div", {class:"row small muted", style:"margin-bottom:8px"}, h("span", {class:"mono", text:fdata(min)}), h("span", {class:"sp"}), h("span", {class:"mono", text:fdata(max)})), g); }
+
+/* atividades e metas */
+function tAtividades(app){
+  var pan = h("div", {class:"panel"}, h("div", {class:"row"}, h("div", {style:"flex:1;min-width:0"}, h("h2", {text:"Atividades e metas"}), h("div", {class:"muted", text:"Definidas no Lab: metodologia, equipe necessária, se é MinC e a meta de público de cada atividade."})),
+    h("button", {class:"btn pri", onclick:function(){ editarAtividade(null); }}, "Nova atividade")));
+  if (!S.data.atividades.length) pan.appendChild(h("div", {class:"empty", style:"margin-top:12px"}, h("b", {text:"Nenhuma atividade"}), "Cadastre as atividades do projeto. Elas alimentam a grade, o diário de campo e as metas."));
+  else { var tb = h("table", null, h("thead", null, h("tr", null, ["Atividade","Formato","Equipe","MinC","Meta","Realizado",""].map(function(x, i){ return h("th", {class: i >= 4 && i <= 5 ? "num" : null, text:x}); }))), h("tbody"));
+    S.data.atividades.slice().sort(function(a,b){ return num(a.ordem)-num(b.ordem); }).forEach(function(a){ var r = realizadoAtividade(a.id);
+      tb.lastChild.appendChild(h("tr", null, h("td", null, h("b", {text:a.nome}), a.metodologia ? h("div", {class:"small muted", text:a.metodologia}) : null), h("td", {text:a.formato||""}), h("td", {class:"num", text:a.equipe ? a.equipe+" pess." : ""}),
+        h("td", {text:a.minc ? "Sim" : "Não"}), h("td", {class:"num mono", text:fnum(a.meta)+" "+(a.unidade||"")}), h("td", {class:"num mono", text:fnum(r)}),
+        h("td", null, h("button", {class:"btn ghost", onclick:function(){ editarAtividade(a); }}, "Editar")))); });
+    pan.appendChild(h("div", {class:"tbl", style:"margin-top:12px"}, tb)); }
+  app.appendChild(pan); }
+function editarAtividade(a){
+  abrirForm(a ? "Editar atividade" : "Nova atividade", [
+    {k:"nome", t:"Nome da atividade", req:true}, {k:"formato", t:"Formato ou linguagem (ex.: Artes Plásticas, Fotografia, Livre)", meio:true}, {k:"ordem", t:"Ordem", tipo:"number", meio:true},
+    {k:"metodologia", t:"Metodologia e forma de execução", tipo:"textarea"},
+    {k:"equipe", t:"Pessoas necessárias na equipe", tipo:"number", meio:true}, {k:"meta", t:"Meta de público", tipo:"number", meio:true},
+    {k:"unidade", t:"Unidade da meta", tipo:"select", opts:["alunos","professores","pessoas","atendimentos"], meio:true, def:"alunos"}, {k:"minc", t:"Atividade ligada ao MinC", tipo:"check"},
+    {k:"acessibilidade", t:"Acessibilidade prevista nesta atividade", tipo:"textarea"}
+  ], a, async function(v){ return a ? atualizar("atividades", a.id, v) : salvar("atividades", null, v); },
+  a ? h("button", {type:"button", class:"btn danger", onclick:function(){ confirmar("Apagar a atividade \""+a.nome+"\"?", function(){ apagar("atividades", a.id); var s = document.querySelector(".scrim"); if (s) s.remove(); }); }}, "Apagar") : null); }
+
+/* stakeholders e formalização */
+var LADOS = [["ntics","Equipe NTICS"],["fornecedor","Fornecedores e contratados"],["patrocinador","Patrocinador"],["instituicao","Secretarias e instituições"],["cidade","Contatos na cidade"],["imprensa","Imprensa e assessoria"]];
+var FORMAL = [["","Não se aplica"],["pendente","A formalizar"],["andamento","Em formalização"],["assinado","Formalizado"]];
+var PAGTO = [["","Não se aplica"],["nao","Não pago"],["parcial","Pago parcial"],["pago","Pago"]];
+function tStakeholders(app){
+  var pan = h("div", {class:"panel"}, h("div", {class:"row"}, h("div", {style:"flex:1;min-width:0"}, h("h2", {text:"Stakeholders"}), h("div", {class:"muted", text:"Equipe, fornecedores, patrocinador, secretarias e contatos. Quem é contratado mostra formalização e pagamento."})),
+    h("button", {class:"btn pri", onclick:function(){ editarStake(null); }}, "Novo contato")));
+  if (!S.data.stakeholders.length) pan.appendChild(h("div", {class:"empty", style:"margin-top:12px"}, h("b", {text:"Nenhum contato ainda"}), "Comece pela equipe NTICS e pelo ponto focal do patrocinador."));
+  LADOS.forEach(function(l){ var xs = S.data.stakeholders.filter(function(s){ return (s.lado||"ntics") === l[0]; }); if (!xs.length) return;
+    var tb = h("table", null, h("thead", null, h("tr", null, ["Nome","Papel","E-mail","Telefone","Contratado","Formalização","Pagamento",""].map(function(x){ return h("th", {text:x}); }))), h("tbody"));
+    xs.forEach(function(s){ var f = FORMAL.find(function(x){ return x[0] === (s.formal||""); }) || FORMAL[0], pg = PAGTO.find(function(x){ return x[0] === (s.pagto||""); }) || PAGTO[0];
+      tb.lastChild.appendChild(h("tr", null, h("td", null, h("b", {text:s.nome}), s.empresa ? h("div", {class:"small muted", text:s.empresa}) : null, s.obs ? h("div", {class:"small muted", text:s.obs}) : null),
+        h("td", {text:s.papel||""}), h("td", null, s.email ? [h("span", {class:"mono small", text:s.email}), copyBtn(s.email)] : ""), h("td", null, s.telefone ? [h("span", {class:"mono small", text:s.telefone}), copyBtn(s.telefone)] : ""),
+        h("td", {text: s.contratado ? (s.valor ? brl(s.valor) : "Sim") : "—"}),
+        h("td", null, s.contratado ? h("span", {class:"pill "+(s.formal === "assinado" ? "p-ok" : s.formal === "andamento" ? "p-info" : "p-warn"), text:f[1]}) : "—"),
+        h("td", null, s.contratado ? h("span", {class:"pill "+(s.pagto === "pago" ? "p-ok" : s.pagto === "parcial" ? "p-info" : "p-mut"), text:pg[1]}) : "—"),
+        h("td", null, h("button", {class:"btn ghost", onclick:function(){ editarStake(s); }}, "Editar")))); });
+    pan.appendChild(h("h3", {style:"margin:18px 0 4px", text:l[1]})); pan.appendChild(h("div", {class:"tbl"}, tb)); });
+  app.appendChild(pan); }
+function editarStake(s){
+  abrirForm(s ? "Editar contato" : "Novo contato", [
+    {k:"nome", t:"Nome", req:true}, {k:"lado", t:"Grupo", tipo:"select", opts:LADOS, meio:true, def:"ntics"}, {k:"papel", t:"Papel ou função", meio:true},
+    {k:"empresa", t:"Empresa ou instituição"}, {k:"email", t:"E-mail", tipo:"email", meio:true}, {k:"telefone", t:"Telefone", meio:true},
+    {k:"obs", t:"Observação", tipo:"textarea"},
+    {tipo:"sep", t:"Contratação"}, {k:"contratado", t:"É contratado pelo projeto", tipo:"check"}, {k:"valor", t:"Valor contratado (R$)", tipo:"number", meio:true},
+    {k:"formal", t:"Formalização", tipo:"select", opts:FORMAL, meio:true}, {k:"pagto", t:"Pagamento", tipo:"select", opts:PAGTO, meio:true}, {k:"contrato", t:"Link do contrato", meio:true}
+  ], s, async function(v){ return s ? atualizar("stakeholders", s.id, v) : salvar("stakeholders", null, v); },
+  s ? h("button", {type:"button", class:"btn danger", onclick:function(){ confirmar("Apagar "+s.nome+"?", function(){ apagar("stakeholders", s.id); var x = document.querySelector(".scrim"); if (x) x.remove(); }); }}, "Apagar") : null); }
+
+/* comunicação (peças) */
+var TIPOS_PECA = ["Identidade visual","Impresso","Release","Vídeo","Carrossel","Post","Stories","Site","Relatório","Outro"];
+var ST_PECA = [["previsto","Prevista"],["producao","Em produção"],["aprovacao","Aguardando o cliente"],["ajuste","Ajuste pedido"],["aprovado","Aprovada"],["grafica","Na gráfica"],["publicado","Publicada ou entregue"]];
+function corPeca(s){ return {aprovado:"p-ok", publicado:"p-ok", grafica:"p-info", aprovacao:"p-warn", ajuste:"p-bad", producao:"p-info"}[s] || "p-mut"; }
+function tComunicacao(app, p){
+  var pan = h("div", {class:"panel"}, h("div", {class:"row"}, h("div", {style:"flex:1;min-width:0"}, h("h2", {text:"Peças de comunicação"}), h("div", {class:"muted", text:"Previstas no Lab, completadas no planejamento e produzidas pela Máquina de Comunicação. As que precisam de aprovação aparecem para o patrocinador."})),
+    p.comunicacao ? h("a", {class:"btn", href:p.comunicacao, target:"_blank", rel:"noopener"}, "Abrir na Máquina de Comunicação ↗") : null, h("button", {class:"btn pri", onclick:function(){ editarPeca(null); }}, "Nova peça")));
+  var cont = {}; ST_PECA.forEach(function(s){ cont[s[0]] = 0; }); S.data.pecas.forEach(function(x){ cont[x.status||"previsto"] = (cont[x.status||"previsto"]||0)+1; });
+  pan.appendChild(h("div", {class:"chips", style:"margin-top:12px"}, ST_PECA.map(function(s){ return h("span", {class:"pill "+corPeca(s[0]), text:s[1]+": "+cont[s[0]]}); })));
+  if (!S.data.pecas.length) pan.appendChild(h("div", {class:"empty", style:"margin-top:12px"}, h("b", {text:"Nenhuma peça cadastrada"}), "Cadastre o KV, banners, releases, vídeos e carrosséis previstos."));
+  else { var tb = h("table", null, h("thead", null, h("tr", null, ["Peça","Tipo","Prazo","Situação","Cliente aprova?",""].map(function(x){ return h("th", {text:x}); }))), h("tbody"));
+    S.data.pecas.slice().sort(function(a,b){ return String(a.prazo||"9").localeCompare(b.prazo||"9"); }).forEach(function(x){ var st = ST_PECA.find(function(s){ return s[0] === (x.status||"previsto"); }) || ST_PECA[0];
+      tb.lastChild.appendChild(h("tr", null, h("td", null, x.link ? h("a", {href:x.link, target:"_blank", rel:"noopener", text:x.nome}) : h("b", {text:x.nome}), x.comentario ? h("div", {class:"small muted", text:"Cliente: "+x.comentario}) : null),
+        h("td", {text:x.tipo||""}), h("td", {class:"mono", text:fdata(x.prazo)}), h("td", null, h("span", {class:"pill "+corPeca(x.status), text:st[1]})), h("td", {text:x.aprovacao ? "Sim" : "Não"}),
+        h("td", null, h("button", {class:"btn ghost", onclick:function(){ editarPeca(x); }}, "Editar")))); });
+    pan.appendChild(h("div", {class:"tbl", style:"margin-top:12px"}, tb)); }
+  app.appendChild(pan); }
+function editarPeca(x){
+  abrirForm(x ? "Editar peça" : "Nova peça", [
+    {k:"nome", t:"Peça", req:true}, {k:"tipo", t:"Tipo", tipo:"select", opts:TIPOS_PECA, meio:true}, {k:"status", t:"Situação", tipo:"select", opts:ST_PECA, meio:true, def:"previsto"},
+    {k:"prazo", t:"Prazo", tipo:"date", meio:true}, {k:"link", t:"Link (Drive ou Máquina de Comunicação)", meio:true},
+    {k:"aprovacao", t:"Precisa de aprovação do cliente", tipo:"check"}, {k:"comentario", t:"Comentário do cliente", tipo:"textarea"}
+  ], x, async function(v){ return x ? atualizar("pecas", x.id, v) : salvar("pecas", null, v); },
+  x ? h("button", {type:"button", class:"btn danger", onclick:function(){ confirmar("Apagar a peça \""+x.nome+"\"?", function(){ apagar("pecas", x.id); var s = document.querySelector(".scrim"); if (s) s.remove(); }); }}, "Apagar") : null); }
+
+/* orçamento */
+var CATS = ["Pessoas","Materiais","Gráfica","Evento e estrutura","Kits","Assessoria de imprensa","Designer","Transporte","Estadia","Locação","Outros"];
+var ST_ORC = [["cotar","A cotar"],["cotado","Cotado"],["aprovado","Aprovado"],["contratado","Contratado"]];
+function tOrcamento(app){
+  var tp = 0, tc = 0; S.data.orcamento.forEach(function(o){ tp += num(o.previsto); tc += num(o.cotado); });
+  var contratados = S.data.stakeholders.filter(function(s){ return s.contratado; }), formalizados = contratados.filter(function(s){ return s.formal === "assinado"; }).length, pagos = contratados.filter(function(s){ return s.pagto === "pago"; }).length;
+  app.appendChild(h("div", {class:"grid g4", style:"margin-bottom:14px"},
+    h("div", {class:"panel kpi"}, h("div", {class:"lbl", text:"Previsto"}), h("div", {class:"v", text:brl(tp)})),
+    h("div", {class:"panel kpi"}, h("div", {class:"lbl", text:"Cotado"}), h("div", {class:"v", text:brl(tc)}), tp ? h("div", {class:"small "+(tc > tp ? "late" : "muted"), text: tc > tp ? "acima do previsto em "+brl(tc-tp) : "dentro do previsto"}) : null),
+    h("div", {class:"panel kpi"}, h("div", {class:"lbl", text:"Contratações formalizadas"}), h("div", {class:"v"}, fnum(formalizados), h("small", {text:"/ "+contratados.length}))),
+    h("div", {class:"panel kpi"}, h("div", {class:"lbl", text:"Pagamentos quitados"}), h("div", {class:"v"}, fnum(pagos), h("small", {text:"/ "+contratados.length})))));
+  var pan = h("div", {class:"panel"}, h("div", {class:"row"}, h("div", {style:"flex:1;min-width:0"}, h("h2", {text:"Orçamento"}), h("div", {class:"muted", text:"Pessoas, materiais, gráfica, evento, kits, assessoria, designer, transporte, estadia e locação. Formalização e pagamento ficam no contato do fornecedor."})),
+    h("button", {class:"btn pri", onclick:function(){ editarOrc(null); }}, "Novo item")));
+  if (!S.data.orcamento.length) pan.appendChild(h("div", {class:"empty", style:"margin-top:12px"}, h("b", {text:"Nenhum item orçado"}), "Lance cada item com o valor previsto e, depois, o cotado."));
+  CATS.forEach(function(c){ var xs = S.data.orcamento.filter(function(o){ return (o.categoria||"Outros") === c; }); if (!xs.length) return;
+    var tb = h("table", null, h("thead", null, h("tr", null, ["Item","Fornecedor","Situação","Previsto","Cotado",""].map(function(x, i){ return h("th", {class: i === 3 || i === 4 ? "num" : null, text:x}); }))), h("tbody"));
+    var sp = 0, sc = 0;
+    xs.forEach(function(o){ sp += num(o.previsto); sc += num(o.cotado); var f = byId("stakeholders", o.fornecedorId), st = ST_ORC.find(function(s){ return s[0] === (o.status||"cotar"); }) || ST_ORC[0];
+      tb.lastChild.appendChild(h("tr", null, h("td", null, h("b", {text:o.item}), o.obs ? h("div", {class:"small muted", text:o.obs}) : null), h("td", {text: f ? f.nome : (o.fornecedor || "")}),
+        h("td", null, h("span", {class:"pill "+(o.status === "contratado" ? "p-ok" : o.status === "aprovado" ? "p-info" : "p-mut"), text:st[1]})),
+        h("td", {class:"num mono", text:brl(o.previsto)}), h("td", {class:"num mono "+(num(o.cotado) > num(o.previsto) && num(o.previsto) ? "late" : ""), text: o.cotado != null && o.cotado !== "" ? brl(o.cotado) : "—"}),
+        h("td", null, h("button", {class:"btn ghost", onclick:function(){ editarOrc(o); }}, "Editar")))); });
+    tb.lastChild.appendChild(h("tr", null, h("td", {colspan:"3", class:"lbl", text:"Total "+c}), h("td", {class:"num mono", text:brl(sp)}), h("td", {class:"num mono", text:brl(sc)}), h("td")));
+    pan.appendChild(h("h3", {style:"margin:18px 0 4px", text:c})); pan.appendChild(h("div", {class:"tbl"}, tb)); });
+  app.appendChild(pan); }
+function editarOrc(o){
+  var forn = [["","—"]].concat(S.data.stakeholders.filter(function(s){ return s.lado === "fornecedor" || s.contratado; }).map(function(s){ return [s.id, s.nome]; }));
+  abrirForm(o ? "Editar item do orçamento" : "Novo item do orçamento", [
+    {k:"item", t:"Item", req:true}, {k:"categoria", t:"Categoria", tipo:"select", opts:CATS, meio:true}, {k:"status", t:"Situação", tipo:"select", opts:ST_ORC, meio:true},
+    {k:"previsto", t:"Valor previsto (R$)", tipo:"number", meio:true}, {k:"cotado", t:"Valor cotado (R$)", tipo:"number", meio:true},
+    {k:"fornecedorId", t:"Fornecedor (dos stakeholders)", tipo:"select", opts:forn, meio:true}, {k:"fornecedor", t:"Ou nome do fornecedor", meio:true}, {k:"obs", t:"Observação", tipo:"textarea"}
+  ], o, async function(v){ return o ? atualizar("orcamento", o.id, v) : salvar("orcamento", null, v); },
+  o ? h("button", {type:"button", class:"btn danger", onclick:function(){ confirmar("Apagar o item \""+o.item+"\"?", function(){ apagar("orcamento", o.id); var s = document.querySelector(".scrim"); if (s) s.remove(); }); }}, "Apagar") : null); }
+
+/* engajamento: instituições e grade */
+function tEngajamento(app){
+  var pi = h("div", {class:"panel", style:"margin-bottom:14px"}, h("div", {class:"row"}, h("div", {style:"flex:1;min-width:0"}, h("h2", {text:"Instituições"}), h("div", {class:"muted", text:"Escolas, praças e outros locais. A meta por instituição é definida no engajamento."})),
+    h("button", {class:"btn pri", onclick:function(){ editarInst(null); }}, "Nova instituição")));
+  if (!S.data.instituicoes.length) pi.appendChild(h("div", {class:"empty", style:"margin-top:12px"}, h("b", {text:"Nenhuma instituição"}), "Cadastre as instituições indicadas no kick-off e as confirmadas no engajamento."));
+  else { var tb = h("table", null, h("thead", null, h("tr", null, ["Instituição","Cidade","Contato","Meta","Atendidos","Comprovações",""].map(function(x, i){ return h("th", {class: i === 3 || i === 4 ? "num" : null, text:x}); }))), h("tbody"));
+    S.data.instituicoes.slice().sort(function(a,b){ return String(a.cidade).localeCompare(b.cidade) || String(a.nome).localeCompare(b.nome); }).forEach(function(i){ var c = instCompleta(i);
+      tb.lastChild.appendChild(h("tr", null, h("td", null, h("b", {text:i.nome}), h("div", {class:"small muted", text:(i.tipo||"Escola")+(i.confirmada === false ? " · a confirmar" : "")})), h("td", {text:i.cidade||""}),
+        h("td", null, i.contato ? h("div", {text:i.contato}) : null, i.telefone ? h("span", {class:"mono small", text:i.telefone}) : null),
+        h("td", {class:"num mono", text:fnum(i.meta)}), h("td", {class:"num mono", text:fnum(realizadoInst(i.id))}),
+        h("td", null, c.ok ? h("span", {class:"pill p-ok", text:"Completas"}) : h("span", {class:"pill p-warn", text:(c.faltaA ? c.faltaA+" de acessibilidade" : "")+(c.faltaA && c.faltaC ? " · " : "")+(c.faltaC ? c.faltaC+" carta(s)" : "")+(!c.faltaA && !c.faltaC ? "sem atividades na grade" : "")})),
+        h("td", null, h("button", {class:"btn ghost", onclick:function(){ editarInst(i); }}, "Editar")))); });
+    pi.appendChild(h("div", {class:"tbl", style:"margin-top:12px"}, tb)); }
+  app.appendChild(pi);
+  var pg = h("div", {class:"panel"}, h("div", {class:"row"}, h("div", {style:"flex:1;min-width:0"}, h("h2", {text:"Grade de execução"}), h("div", {class:"muted", text:"Cada linha é uma atividade numa instituição, num dia, com uma turma. É o que o produtor vê no diário de campo."})),
+    h("button", {class:"btn pri", disabled: !S.data.instituicoes.length || !S.data.atividades.length, onclick:function(){ editarGrade(null); }}, "Nova linha na grade")));
+  if (!S.data.instituicoes.length || !S.data.atividades.length) pg.appendChild(h("div", {class:"note", style:"margin-top:10px"}, "Cadastre pelo menos uma instituição e uma atividade para montar a grade."));
+  if (S.data.grade.length) { var tg = h("table", null, h("thead", null, h("tr", null, ["Data","Turno","Instituição","Atividade","Turma","Previstos","Diário",""].map(function(x, i){ return h("th", {class: i === 5 ? "num" : null, text:x}); }))), h("tbody"));
+    S.data.grade.slice().sort(function(a,b){ return String(a.data).localeCompare(b.data) || String(a.turno).localeCompare(b.turno); }).forEach(function(g){ var d = diarioDe(g.id);
+      tg.lastChild.appendChild(h("tr", null, h("td", {class:"mono", text:fdata(g.data)}), h("td", {text:g.turno||""}), h("td", {text:nomeInst(g.instituicaoId)}), h("td", {text:nomeAtiv(g.atividadeId)}), h("td", {text:g.turma||""}),
+        h("td", {class:"num mono", text:fnum(g.previstos)}), h("td", null, d && d.enviado ? h("span", {class:"pill p-ok", text:fnum(d.publico)+" atendidos"}) : g.data && g.data < hoje() ? h("span", {class:"pill p-bad", text:"Pendente"}) : h("span", {class:"pill p-mut", text:"Agendada"})),
+        h("td", null, h("button", {class:"btn ghost", onclick:function(){ editarGrade(g); }}, "Editar")))); });
+    pg.appendChild(h("div", {class:"tbl", style:"margin-top:12px"}, tg)); }
+  else if (S.data.instituicoes.length && S.data.atividades.length) pg.appendChild(h("div", {class:"empty", style:"margin-top:12px"}, h("b", {text:"Grade vazia"}), "Lance as datas fechadas com as instituições."));
+  app.appendChild(pg); }
+function editarInst(i){
+  abrirForm(i ? "Editar instituição" : "Nova instituição", [
+    {k:"nome", t:"Nome", req:true}, {k:"tipo", t:"Tipo", tipo:"select", opts:["Escola","Praça","Secretaria","Espaço cultural","Outro"], meio:true}, {k:"cidade", t:"Cidade", meio:true},
+    {k:"contato", t:"Contato na instituição", meio:true}, {k:"telefone", t:"Telefone", meio:true}, {k:"email", t:"E-mail", tipo:"email", meio:true}, {k:"meta", t:"Meta de público nesta instituição", tipo:"number", meio:true},
+    {k:"confirmada", t:"Instituição confirmada", tipo:"check"}, {k:"obs", t:"Observação", tipo:"textarea"}
+  ], i || {confirmada:true}, async function(v){ return i ? atualizar("instituicoes", i.id, v) : salvar("instituicoes", null, v); },
+  i ? h("button", {type:"button", class:"btn danger", onclick:function(){ confirmar("Apagar "+i.nome+"?", function(){ apagar("instituicoes", i.id); var s = document.querySelector(".scrim"); if (s) s.remove(); }); }}, "Apagar") : null); }
+function editarGrade(g){
+  abrirForm(g ? "Editar linha da grade" : "Nova linha na grade", [
+    {k:"data", t:"Data", tipo:"date", req:true, meio:true}, {k:"turno", t:"Turno", tipo:"select", opts:["Manhã","Tarde","Noite","Integral"], meio:true},
+    {k:"instituicaoId", t:"Instituição", tipo:"select", opts:S.data.instituicoes.map(function(i){ return [i.id, i.nome+(i.cidade ? " · "+i.cidade : "")]; }), req:true},
+    {k:"atividadeId", t:"Atividade", tipo:"select", opts:S.data.atividades.map(function(a){ return [a.id, a.nome]; }), req:true},
+    {k:"turma", t:"Turma", meio:true}, {k:"previstos", t:"Público previsto", tipo:"number", meio:true}, {k:"resp", t:"Responsável em campo"}
+  ], g, async function(v){ return g ? atualizar("grade", g.id, v) : salvar("grade", null, v); },
+  g ? h("button", {type:"button", class:"btn danger", onclick:function(){ confirmar("Apagar esta linha da grade?", function(){ apagar("grade", g.id); var s = document.querySelector(".scrim"); if (s) s.remove(); }); }}, "Apagar") : null); }
+
+/* diário (visão do escritório) */
+function tDiario(app){
+  app.appendChild(h("div", {class:"note", style:"margin-bottom:14px"}, "O produtor e o fotógrafo preenchem pelo modo ", h("b", {text:"Campo"}), " (botão no topo). Aqui o escritório acompanha o que chegou."));
+  var sel = h("select", {class:"proj", "aria-label":"Filtrar por instituição", onchange:function(){ S.filtroInst = sel.value; render(); }}, h("option", {value:"", text:"Todas as instituições"}),
+    S.data.instituicoes.map(function(i){ var o = h("option", {value:i.id, text:i.nome}); if (S.filtroInst === i.id) o.selected = true; return o; }));
+  var pan = h("div", {class:"panel"}, h("div", {class:"row"}, h("h2", {text:"Registros do diário de campo"}), h("span", {class:"sp"}), sel));
+  var ds = S.data.diario.filter(function(d){ var g = byId("grade", d.id); return d.enviado && (!S.filtroInst || (g && g.instituicaoId === S.filtroInst)); })
+    .sort(function(a,b){ var ga = byId("grade", a.id), gb = byId("grade", b.id); return String(gb && gb.data).localeCompare(ga && ga.data); });
+  if (!ds.length) pan.appendChild(h("div", {class:"empty", style:"margin-top:12px"}, h("b", {text:"Nenhum registro ainda"}), "Os registros aparecem aqui assim que o produtor envia o diário de uma atividade."));
+  ds.forEach(function(d){ var g = byId("grade", d.id) || {};
+    pan.appendChild(h("div", {class:"li"}, h("div", {class:"main"}, h("b", {text:nomeAtiv(g.atividadeId)+" · "+nomeInst(g.instituicaoId)}),
+      h("div", {class:"meta"}, h("span", {class:"mono", text:fdata(g.data)}), g.turma ? h("span", {text:"Turma "+g.turma}) : null, h("span", {text:fnum(d.publico)+" atendidos"}),
+        d.autor ? h("span", {text:"por "+d.autor}) : null, d.acessibilidade ? h("span", {class:"pill p-info", text:"Acessibilidade"}) : null),
+      d.relato ? h("div", {class:"small", style:"margin-top:4px", text:d.relato}) : null,
+      (d.presentes||[]).length ? h("div", {class:"small muted", style:"margin-top:4px", text:"Presentes: "+d.presentes.map(function(x){ return x.nome+(x.funcao ? " ("+x.funcao+")" : ""); }).join(", ")}) : null,
+      h("div", {style:"margin-top:6px"}, miniaturas((d.fotos||[]).concat(d.fotosFotografo||[], d.midiaFotografo||[])))))); });
+  app.appendChild(pan); }
+
+/* consolidação */
+function tConsolidacao(app){
+  var rows = S.data.atividades.slice().sort(function(a,b){ return num(a.ordem)-num(b.ordem); });
+  var pan = h("div", {class:"panel", style:"margin-bottom:14px"}, h("h2", {text:"Metas por atividade"}));
+  if (!rows.length) pan.appendChild(h("div", {class:"muted small", text:"Sem atividades cadastradas."}));
+  else { var tb = h("table", null, h("thead", null, h("tr", null, ["Atividade","Meta","Realizado","%","Situação"].map(function(x, i){ return h("th", {class: i && i < 4 ? "num" : null, text:x}); }))), h("tbody"));
+    rows.forEach(function(a){ var r = realizadoAtividade(a.id), m = num(a.meta), pc = pct(r, m);
+      tb.lastChild.appendChild(h("tr", null, h("td", {text:a.nome}), h("td", {class:"num mono", text:fnum(m)}), h("td", {class:"num mono", text:fnum(r)}), h("td", {class:"num mono", text: m ? pc+"%" : "—"}),
+        h("td", null, h("span", {class:"pill "+(!m ? "p-mut" : r >= m ? "p-ok" : pc >= 70 ? "p-warn" : "p-bad"), text: !m ? "Sem meta" : r >= m ? "Meta batida" : "Faltam "+fnum(m - r)})))); });
+    pan.appendChild(h("div", {class:"tbl", style:"margin-top:10px"}, tb)); }
+  app.appendChild(pan);
+  var insts = S.data.instituicoes.filter(function(i){ return i.confirmada !== false; });
+  var pi = h("div", {class:"panel"}, h("h2", {text:"Instituições"}));
+  if (!insts.length) pi.appendChild(h("div", {class:"muted small", text:"Sem instituições confirmadas."}));
+  else { var ti = h("table", null, h("thead", null, h("tr", null, ["Instituição","Meta","Atendidos","Atividades na grade","Comprovações"].map(function(x, i){ return h("th", {class: i && i < 4 ? "num" : null, text:x}); }))), h("tbody"));
+    insts.forEach(function(i){ var c = instCompleta(i), r = realizadoInst(i.id);
+      ti.lastChild.appendChild(h("tr", null, h("td", {text:i.nome+(i.cidade ? " · "+i.cidade : "")}), h("td", {class:"num mono", text:fnum(i.meta)}), h("td", {class:"num mono", text:fnum(r)}), h("td", {class:"num mono", text:fnum(c.ats)}),
+        h("td", null, h("span", {class:"pill "+(c.ok ? "p-ok" : "p-warn"), text: c.ok ? "Completas" : "Pendentes"})))); });
+    pi.appendChild(h("div", {class:"tbl", style:"margin-top:10px"}, ti)); }
+  app.appendChild(pi); }
+
+/* ---------- modo campo ---------- */
+function renderCampo(app){
+  var w = h("div", {class:"campo"}); app.appendChild(w);
+  w.appendChild(h("div", {class:"note", style:"margin:16px 0"}, "Diário de campo. Produtor e fotógrafo registram aqui o que aconteceu em cada atividade. As fotos ficam guardadas na máquina."));
+  if (!S.cur) { w.appendChild(h("h2", {text:"Escolha o projeto"})); var ids = Object.keys(S.projetos);
+    if (!ids.length) w.appendChild(h("div", {class:"empty", style:"margin-top:10px", text:"Nenhum projeto cadastrado."}));
+    ids.forEach(function(id){ var p = S.projetos[id]; w.appendChild(h("button", {class:"card", style:"margin-top:8px", onclick:function(){ abrirProjeto(id); }}, h("div", {class:"lbl", text:"Projeto "+(p.numero||"")}), h("h3", {text:p.nome}))); }); return; }
+  var fixo = WEB && S.perfil && (S.perfil.papel === "produtor" || S.perfil.papel === "fotografo"), papel = fixo ? S.perfil.papel : (lsGet("mx-papel") || "produtor");
+  w.appendChild(h("div", {class:"row", style:"margin-bottom:12px"}, h("h2", {text:P().nome}), h("span", {class:"sp"}),
+    fixo ? h("span", {class:"pill p-info", text: papel === "fotografo" ? "Fotógrafo" : "Produtor"}) : h("div", {class:"seg", role:"group", "aria-label":"Quem está registrando"}, [["produtor","Produtor"],["fotografo","Fotógrafo"]].map(function(x){ return h("button", {"aria-pressed": papel === x[0] ? "true" : "false", onclick:function(){ lsSet("mx-papel", x[0]); render(); }}, x[1]); }))));
+  if (S.campo.tela === "inst" && S.campo.inst) return campoInst(w, byId("instituicoes", S.campo.inst));
+  if (papel === "fotografo") return S.campo.tela === "sess" && S.campo.sess ? campoFotografo(w, byId("grade", S.campo.sess)) : campoCalendario(w);
+  if (S.campo.tela === "sess" && S.campo.sess) return campoSessao(w, byId("grade", S.campo.sess), papel);
+  if (!S.data.grade.length) { w.appendChild(h("div", {class:"empty"}, h("b", {text:"A grade deste projeto ainda está vazia"}), "O escritório lança as datas na aba Engajamento e grade; elas aparecem aqui.")); return; }
+  var porInst = {}; S.data.grade.forEach(function(g){ (porInst[g.instituicaoId] = porInst[g.instituicaoId] || []).push(g); });
+  Object.keys(porInst).sort(function(a,b){ var ma = porInst[a].map(function(g){ return g.data; }).sort()[0], mb = porInst[b].map(function(g){ return g.data; }).sort()[0]; return String(ma).localeCompare(mb); }).forEach(function(iid){
+    var i = byId("instituicoes", iid) || {id:iid, nome:"Instituição"}, c = instCompleta(i), gs = porInst[iid].sort(function(a,b){ return String(a.data).localeCompare(b.data); });
+    w.appendChild(h("h3", {style:"margin:18px 0 6px", text:i.nome+(i.cidade ? " · "+i.cidade : "")}));
+    if (papel === "produtor") w.appendChild(h("button", {class:"card", onclick:function(){ S.campo = {tela:"inst", inst:iid}; render(); }},
+      h("div", {class:"row"}, h("b", {text:"Comprovações da instituição"}), h("span", {class:"sp"}), h("span", {class:"pill "+(c.ok ? "p-ok" : "p-warn"), text: c.ok ? "Completas" : "Pendentes"})),
+      h("div", {class:"small muted", text:"Acessibilidade (10 itens) e cartas de comprovação por atividade. Tudo precisa estar completo até a última atividade nesta instituição."})));
+    gs.forEach(function(g){ var d = diarioDe(g.id), feito = d && d.enviado, fotosF = d && (d.fotosFotografo||[]).length;
+      w.appendChild(h("button", {class:"card", onclick:function(){ S.campo = {tela:"sess", sess:g.id}; render(); }},
+        h("div", {class:"row"}, h("span", {class:"mono", text:fdata(g.data)+(g.turno ? " · "+g.turno : "")}), h("span", {class:"sp"}),
+          papel === "fotografo" ? h("span", {class:"pill "+(fotosF ? "p-ok" : "p-mut"), text: fotosF ? fotosF+" arquivos" : "Sem fotos"}) : h("span", {class:"pill "+(feito ? "p-ok" : g.data && g.data < hoje() ? "p-bad" : "p-mut"), text: feito ? "Enviado" : g.data && g.data < hoje() ? "Pendente" : "Agendada"})),
+        h("b", {text:nomeAtiv(g.atividadeId)}), h("div", {class:"small muted", text:(g.turma ? "Turma "+g.turma+" · " : "")+(g.previstos ? fnum(g.previstos)+" previstos" : "")}))); });
+  });
+}
+/* fotógrafo: calendário → dia → atividade → três pastas */
+var MESES = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+function campoCalendario(w){
+  var porDia = {}; S.data.grade.forEach(function(g){ if (g.data) (porDia[g.data] = porDia[g.data] || []).push(g); });
+  var diasG = Object.keys(porDia).sort();
+  if (!diasG.length) { w.appendChild(h("div", {class:"empty"}, h("b", {text:"A grade deste projeto ainda está vazia"}), "Quando o escritório lançar as datas, elas aparecem neste calendário.")); return; }
+  if (!S.campo.mes) { var hj = hoje(), prox = diasG.find(function(d){ return d >= hj; }) || diasG[diasG.length-1]; S.campo.mes = prox.slice(0,7); S.campo.dia = diasG.indexOf(hj) > -1 ? hj : null; }
+  var ano = Number(S.campo.mes.slice(0,4)), mes = Number(S.campo.mes.slice(5,7)) - 1;
+  function muda(n){ var d = new Date(ano, mes + n, 1); S.campo.mes = d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"); S.campo.dia = null; render(); }
+  w.appendChild(h("div", {class:"lbl", style:"margin-bottom:6px", text:"1. Escolha o dia em que você fotografou"}));
+  var cal = h("div", {class:"panel"}, h("div", {class:"row", style:"margin-bottom:10px"}, h("button", {class:"btn ghost", "aria-label":"Mês anterior", onclick:function(){ muda(-1); }}, "‹"),
+    h("h3", {style:"flex:1;text-align:center;text-transform:capitalize", text:MESES[mes]+" de "+ano}), h("button", {class:"btn ghost", "aria-label":"Próximo mês", onclick:function(){ muda(1); }}, "›")));
+  var grid = h("div", {style:"display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center"});
+  ["D","S","T","Q","Q","S","S"].forEach(function(x){ grid.appendChild(h("div", {class:"lbl", text:x})); });
+  var ini = new Date(ano, mes, 1).getDay(), nd = new Date(ano, mes + 1, 0).getDate();
+  for (var b = 0; b < ini; b++) grid.appendChild(h("div"));
+  for (var d = 1; d <= nd; d++){ var iso = ano+"-"+String(mes+1).padStart(2,"0")+"-"+String(d).padStart(2,"0"), tem = porDia[iso], sel = S.campo.dia === iso;
+    grid.appendChild(h("button", {disabled: tem ? null : true, "aria-pressed": sel ? "true" : "false", "aria-label": d+" de "+MESES[mes]+(tem ? ", "+tem.length+" atividade(s)" : ""),
+      style:"aspect-ratio:1;border-radius:8px;border:1px solid "+(sel ? "var(--ink)" : tem ? "var(--accent)" : "transparent")+";background:"+(sel ? "var(--ink)" : tem ? "var(--ok-bg)" : "transparent")+";color:"+(sel ? "var(--bg)" : tem ? "var(--ink)" : "var(--muted)")+";font-weight:"+(tem ? "700" : "400")+";cursor:"+(tem ? "pointer" : "default"),
+      onclick: tem ? (function(x){ return function(){ S.campo.dia = x; render(); }; })(iso) : null}, String(d))); }
+  cal.appendChild(grid); w.appendChild(cal);
+  if (!S.campo.dia) { w.appendChild(h("div", {class:"small muted", style:"margin-top:8px", text:"Os dias em verde têm atividade na grade."})); return; }
+  w.appendChild(h("div", {class:"lbl", style:"margin:16px 0 6px", text:"2. Escolha a atividade de "+fdata(S.campo.dia)}));
+  (porDia[S.campo.dia] || []).sort(function(a,b){ return String(a.turno).localeCompare(b.turno); }).forEach(function(g){ var d = diarioDe(g.id) || {}, m = d.midiaFotografo || [];
+    w.appendChild(h("button", {class:"card", onclick:function(){ S.campo = {tela:"sess", sess:g.id, mes:S.campo.mes, dia:S.campo.dia}; render(); }},
+      h("div", {class:"row"}, h("b", {style:"flex:1;min-width:0", text:nomeAtiv(g.atividadeId)}), h("span", {class:"pill "+(m.length ? "p-ok" : "p-mut"), text: m.length ? m.length+" arquivos" : "Nada enviado"})),
+      h("div", {class:"small muted", text:nomeInst(g.instituicaoId)+(g.turno ? " · "+g.turno : "")+(g.turma ? " · turma "+g.turma : "")}))); });
+}
+var PASTAS_FOTO = [["fotos","Fotos","image/*","Fotos da atividade: montagem com a identidade visual, alunos em ação, educador explicando."],
+  ["videos","Vídeos e B-roll","video/*","Imagens em vídeo da atividade e do espaço (B-roll)."],
+  ["depoimentos","Depoimentos","video/*","Um vídeo por pessoa. Antes de escolher o arquivo, escreva o nome e a função de quem fala: eles viram o nome do arquivo."]];
+function campoFotografo(w, g){
+  if (!g) { S.campo = {tela:"lista"}; return render(); }
+  var d = diarioDe(g.id) || {};
+  w.appendChild(h("button", {class:"back", onclick:function(){ S.campo = {tela:"lista", mes:S.campo.mes, dia:S.campo.dia}; render(); }}, "‹ Voltar ao calendário"));
+  w.appendChild(h("div", {class:"lbl", text:fdata(g.data)+(g.turno ? " · "+g.turno : "")+" · "+nomeInst(g.instituicaoId)})); w.appendChild(h("h2", {text:nomeAtiv(g.atividadeId)}));
+  w.appendChild(h("div", {class:"lbl", style:"margin:14px 0 6px", text:"3. Envie cada material na sua pasta"}));
+  if (!WEB) w.appendChild(h("div", {class:"note warn", style:"margin-bottom:10px"}, "Dentro do claude.ai os vídeos ficam limitados a 20 MB. Use o link do site da máquina para enviar vídeos grandes direto para o Drive."));
+  var fila = h("div", {class:"list", style:"margin-top:6px"});
+  async function enviar(files, pasta, renomear){
+    for (var k = 0; k < files.length; k++){ var f = files[k], nome = renomear ? renomear(f) : f.name;
+      var bar = h("i", {style:"width:0%"}), linha = h("div", {class:"li"}, h("div", {class:"main"}, h("b", {text:nome}), h("div", {class:"row small", style:"margin-top:4px"}, h("div", {class:"bar", style:"flex:1"}, bar), h("span", {class:"mono", text:(f.size/1048576).toFixed(1)+" MB"}))));
+      fila.prepend(linha);
+      try { var m;
+        if (WEB) m = await enviarDrive(f, {pasta:pasta, gradeId:g.id}, nome, function(p){ bar.style.width = Math.round(p*100)+"%"; });
+        else { var r = await enviarArquivos([new File([f], nome, {type:f.type})], pasta); if (!r.length) throw new Error("não enviado"); m = r[0]; bar.style.width = "100%"; }
+        m.pastaFoto = pasta; m.nome = nome;
+        var atual = diarioDe(g.id), lista = ((atual && atual.midiaFotografo) || []).concat([m]);
+        if (atual) await atualizar("diario", g.id, {midiaFotografo:lista}); else await salvar("diario", g.id, {midiaFotografo:lista, enviado:false});
+        linha.querySelector(".main").appendChild(h("span", {class:"pill p-ok", style:"margin-top:4px", text:"No Drive"}));
+      } catch(e){ bar.style.background = "var(--bad)"; linha.querySelector(".main").appendChild(h("div", {class:"late small", text:e.message || "Falha no envio"})); }
+    } }
+  PASTAS_FOTO.forEach(function(px){ var ja = (d.midiaFotografo || []).filter(function(m){ return m.pastaFoto === px[0]; });
+    var box = h("div", {class:"panel", style:"margin-top:10px"}, h("div", {class:"row"}, h("h3", {style:"flex:1", text:px[1]}), h("span", {class:"pill "+(ja.length ? "p-ok" : "p-mut"), text:ja.length+" enviados"})),
+      h("div", {class:"small muted", style:"margin:4px 0 10px", text:px[3]}));
+    if (px[0] === "depoimentos") {
+      var nm = h("input", {placeholder:"Nome da pessoa", "aria-label":"Nome da pessoa", style:"border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--bg);min-width:0"}),
+          fn = h("input", {placeholder:"Função (ex.: Professora de Arte)", "aria-label":"Função", style:"border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--bg);min-width:0"});
+      box.appendChild(h("div", {class:"two"}, nm, fn));
+      box.appendChild(h("button", {class:"btn pri", style:"margin-top:8px", onclick:function(){
+        var a = nm.value.trim(), b = fn.value.trim(); if (!a || !b) { toast("Escreva o nome e a função antes de escolher o vídeo."); return; }
+        seletorArquivos(px[2], false, function(fs){ var ext = (fs[0].name.match(/\.[^.]+$/) || [""])[0]; enviar(fs, "depoimentos", function(){ return a+" - "+b+ext; }); nm.value = ""; fn.value = ""; }); }}, "Escolher o vídeo do depoimento"));
+    } else box.appendChild(h("button", {class:"btn pri", onclick:function(){ seletorArquivos(px[2], true, function(fs){ enviar(fs, px[0]); }); }}, "Escolher "+px[1].toLowerCase()));
+    if (ja.length) box.appendChild(h("div", {style:"margin-top:10px"}, miniaturas(ja)));
+    w.appendChild(box); });
+  w.appendChild(h("h3", {style:"margin:16px 0 4px", text:"Envios desta sessão"})); w.appendChild(fila);
+  if (WEB) w.appendChild(h("button", {class:"btn ghost", style:"margin-top:8px", onclick:async function(){ try { var ses = (await WEBSB.auth.getSession()).data.session;
+      var r = await fetch(CONFIG.url+"/functions/v1/drive-upload", {method:"POST", headers:{Authorization:"Bearer "+ses.access_token, apikey:CONFIG.anon, "Content-Type":"application/json"}, body:JSON.stringify({acao:"pasta", projeto:S.cur, gradeId:g.id})});
+      var j = await r.json(); if (j.link) { var a = h("a", {href:j.link, target:"_blank", rel:"noopener", class:"btn", text:"Abrir a pasta no Drive ↗"}); this.replaceWith(a); } else toast(j.erro || "Não foi possível abrir a pasta."); } catch(e){ toast("Não foi possível abrir a pasta."); } }}, "Mostrar a pasta desta atividade no Drive"));
+}
+function campoInst(w, i){
+  if (!i) { S.campo = {tela:"lista"}; return render(); }
+  w.appendChild(h("button", {class:"back", onclick:function(){ S.campo = {tela:"lista"}; render(); }}, "‹ Voltar à grade"));
+  w.appendChild(h("h2", {text:i.nome}));
+  var ac = JSON.parse(JSON.stringify(i.acess || {}));
+  async function grava(){ await atualizar("instituicoes", i.id, {acess:ac}); }
+  w.appendChild(h("h3", {style:"margin:16px 0 4px", text:"Acessibilidade da instituição"}));
+  w.appendChild(h("div", {class:"small muted", style:"margin-bottom:8px", text:"Para cada item: se tem, foto; se não tem, justificativa. Se a instituição não tem nenhum ponto de acessibilidade, envie a carta assinada."}));
+  var cartaSem = h("div", {class:"accitem"}, h("div", {class:"row"}, h("b", {text:"Carta: a instituição não tem ou não necessita de acessibilidade"}), h("span", {class:"sp"}),
+    i.cartaSemAcess ? h("span", {class:"pill p-ok", text:"Enviada"}) : null,
+    h("button", {class:"btn", onclick:function(){ seletorArquivos("image/*,application/pdf", false, async function(fs){ var r = await enviarArquivos(fs, "carta sem acessibilidade", {pasta:"comprovacoes", instituicaoId:i.id}); if (r.length) { await atualizar("instituicoes", i.id, {cartaSemAcess:r[0]}); toast("Carta enviada."); } }); }}, i.cartaSemAcess ? "Trocar" : "Enviar carta")));
+  w.appendChild(cartaSem);
+  var lista = h("div", {class:"acc", style:"margin-top:8px"});
+  ACESS.forEach(function(a){ var x = ac[a.k] || {}, it = h("div", {class:"accitem"});
+    var yn = h("div", {class:"yn"}, [[true,"Tem"],[false,"Não tem"]].map(function(o){ return h("button", {"aria-pressed": x.tem === o[0] ? "true" : "false", onclick:async function(){ ac[a.k] = Object.assign({}, ac[a.k]||{}, {tem:o[0]}); await grava(); }}, o[1]); }));
+    it.appendChild(h("div", {class:"row"}, h("span", {style:"flex:1;min-width:0;font-weight:600", text:a.t}), yn));
+    if (x.tem === true) it.appendChild(h("div", {class:"row", style:"margin-top:8px"}, miniaturas(x.fotos), h("button", {class:"btn", onclick:function(){ seletorArquivos("image/*", true, async function(fs){ var r = await enviarArquivos(fs, "acessibilidade: "+a.t, {pasta:"comprovacoes", instituicaoId:i.id}); if (r.length) { ac[a.k] = Object.assign({}, ac[a.k]||{}, {tem:true, fotos:(x.fotos||[]).concat(r)}); await grava(); } }); }}, (x.fotos||[]).length ? "Mais fotos" : "Enviar foto")));
+    if (x.tem === false) { var ta = h("textarea", {"aria-label":"Justificativa: "+a.t, placeholder:"Justificativa", style:"width:100%;margin-top:8px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--bg)"}); ta.value = x.just || "";
+      ta.addEventListener("change", async function(){ ac[a.k] = Object.assign({}, ac[a.k]||{}, {tem:false, just:ta.value.trim()}); await grava(); }); it.appendChild(ta); }
+    lista.appendChild(it); });
+  w.appendChild(lista);
+  w.appendChild(h("h3", {style:"margin:20px 0 4px", text:"Cartas de comprovação por atividade"}));
+  var ats = atividadesDaInst(i.id), cartas = JSON.parse(JSON.stringify(i.cartas || {}));
+  if (!ats.length) w.appendChild(h("div", {class:"muted small", text:"Nenhuma atividade desta instituição na grade."}));
+  ats.forEach(function(aid){ var c = cartas[aid] || {}, it = h("div", {class:"accitem", style:"margin-top:8px"});
+    var al = h("input", {type:"number", min:"0", "aria-label":"Alunos na carta", placeholder:"Alunos", style:"width:110px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--bg)"}); al.value = c.alunos == null ? "" : c.alunos;
+    al.addEventListener("change", async function(){ cartas[aid] = Object.assign({}, cartas[aid]||{}, {alunos:al.value === "" ? null : Number(al.value)}); await atualizar("instituicoes", i.id, {cartas:cartas}); });
+    var lib = h("label", {class:"small", style:"display:flex;gap:6px;align-items:center"}, h("input", {type:"checkbox", checked: c.libras ? true : null, onchange:async function(e){ cartas[aid] = Object.assign({}, cartas[aid]||{}, {libras:e.target.checked}); await atualizar("instituicoes", i.id, {cartas:cartas}); }}), "Pedido de acessibilidade (Libras ou outro)");
+    it.appendChild(h("div", {class:"row"}, h("b", {style:"flex:1;min-width:0", text:nomeAtiv(aid)}), c.arquivo ? h("span", {class:"pill p-ok", text:"Carta enviada"}) : h("span", {class:"pill p-warn", text:"Falta a carta"})));
+    it.appendChild(h("div", {class:"row", style:"margin-top:8px"}, al, lib, h("span", {class:"sp"}), h("button", {class:"btn", onclick:function(){ seletorArquivos("image/*,application/pdf", false, async function(fs){ var r = await enviarArquivos(fs, "carta: "+nomeAtiv(aid), {pasta:"comprovacoes", instituicaoId:i.id}); if (r.length) { cartas[aid] = Object.assign({}, cartas[aid]||{}, {arquivo:r[0]}); await atualizar("instituicoes", i.id, {cartas:cartas}); toast("Carta enviada."); } }); }}, c.arquivo ? "Trocar carta" : "Enviar carta")));
+    w.appendChild(it); });
+}
+function campoSessao(w, g, papel){
+  if (!g) { S.campo = {tela:"lista"}; return render(); }
+  var d = diarioDe(g.id) || {};
+  w.appendChild(h("button", {class:"back", onclick:function(){ S.campo = {tela:"lista"}; render(); }}, "‹ Voltar à grade"));
+  w.appendChild(h("div", {class:"lbl", text:fdata(g.data)+(g.turno ? " · "+g.turno : "")+" · "+nomeInst(g.instituicaoId)})); w.appendChild(h("h2", {text:nomeAtiv(g.atividadeId)}));
+  if (papel === "fotografo") {
+    w.appendChild(h("div", {class:"panel", style:"margin-top:12px"}, h("h3", {text:"Fotos e vídeos do fotógrafo"}), h("div", {class:"small muted", style:"margin:4px 0 10px", text:"Envie por atividade. Vídeos acima de 20 MB vão pelo Drive do projeto."}),
+      miniaturas(d.fotosFotografo), h("button", {class:"btn pri", style:"margin-top:10px", onclick:function(){ seletorArquivos("image/*,video/*", true, async function(fs){ var r = await enviarArquivos(fs, "fotógrafo"); if (!r.length) return;
+        var atual = diarioDe(g.id); if (atual) await atualizar("diario", g.id, {fotosFotografo:(atual.fotosFotografo||[]).concat(r)}); else await salvar("diario", g.id, {fotosFotografo:r, enviado:false}); toast(r.length+" arquivo(s) enviados."); }); }}, "Enviar fotos e vídeos")));
+    return; }
+  var est = {presentes:(d.presentes||[]).slice(), entrevistados:(d.entrevistados||[]).slice(), fotos:(d.fotos||[]).slice(), fotosAcess:(d.fotosAcess||[]).slice()};
+  var f = h("form", {class:"form", onsubmit:async function(e){ e.preventDefault();
+    var dados = {turma:q("turma").value.trim(), publico:Number(q("publico").value||0), homens:q("homens").value === "" ? null : Number(q("homens").value), mulheres:q("mulheres").value === "" ? null : Number(q("mulheres").value),
+      relato:q("relato").value.trim(), acessibilidade:q("acess").checked, acessDesc:q("acessDesc").value.trim(), presentes:lerPessoas(pp), entrevistados:lerPessoas(pe), fotos:est.fotos, fotosAcess:est.fotosAcess,
+      fotosFotografo:(diarioDe(g.id)||{}).fotosFotografo||[], midiaFotografo:(diarioDe(g.id)||{}).midiaFotografo||[], autor:q("autor").value.trim(), enviado:true, enviadoEm:new Date().toISOString()};
+    if (!dados.publico) { toast("Informe quantos foram atendidos."); return; }
+    if (!dados.fotos.length) { toast("Envie pelo menos uma foto da atividade."); return; }
+    lsSet("mx-autor", dados.autor); var ok = await salvar("diario", g.id, dados); if (ok) { toast("Diário enviado."); S.campo = {tela:"lista"}; render(); } }});
+  function q(k){ return f.querySelector("#d_"+k); }
+  function campo(k, t, tipo, val, meio){ var el = tipo === "textarea" ? h("textarea", {id:"d_"+k}) : h("input", {id:"d_"+k, type:tipo||"text", min: tipo === "number" ? "0" : null}); el.value = val == null ? "" : val; return h("label", {for:"d_"+k}, t, el); }
+  f.appendChild(h("div", {class:"two"}, campo("turma", "Turma", "text", d.turma || g.turma), campo("publico", "Quantos foram atendidos", "number", d.publico)));
+  f.appendChild(h("div", {class:"two"}, campo("homens", "Homens (opcional)", "number", d.homens), campo("mulheres", "Mulheres (opcional)", "number", d.mulheres)));
+  f.appendChild(campo("relato", "Relato da atividade", "textarea", d.relato));
+  function blocoPessoas(tit, lista){ var box = h("div", {class:"people"}); function linha(p){ p = p || {}; var n = h("input", {placeholder:"Nome", "aria-label":"Nome"}), fn = h("input", {placeholder:"Função", "aria-label":"Função"}); n.value = p.nome||""; fn.value = p.funcao||"";
+      var r = h("div", {class:"pr"}, n, fn, h("button", {type:"button", class:"btn ghost", "aria-label":"Remover", onclick:function(){ r.remove(); }}, "×")); box.appendChild(r); }
+    lista.forEach(linha); if (!lista.length) linha();
+    return {el:h("div", null, h("div", {class:"lbl", style:"margin-bottom:6px", text:tit}), box, h("button", {type:"button", class:"btn ghost", style:"margin-top:4px", onclick:function(){ linha(); }}, "+ adicionar")), box:box}; }
+  function lerPessoas(b){ return Array.prototype.map.call(b.box.querySelectorAll(".pr"), function(r){ var ins = r.querySelectorAll("input"); return {nome:ins[0].value.trim(), funcao:ins[1].value.trim()}; }).filter(function(x){ return x.nome; }); }
+  var pp = blocoPessoas("Quem estava presente além dos alunos (parceiros, professores, equipe)", est.presentes), pe = blocoPessoas("Entrevistados", est.entrevistados);
+  f.appendChild(pp.el); f.appendChild(pe.el);
+  var fotosBox = h("div"); function desenhaFotos(){ fotosBox.textContent = ""; add(fotosBox, miniaturas(est.fotos)); }
+  desenhaFotos();
+  f.appendChild(h("div", null, h("div", {class:"lbl", style:"margin-bottom:6px", text:"Fotos de comprovação"}), h("div", {class:"small muted", style:"margin-bottom:6px", text:"Montagem com a identidade visual aparecendo (banners e materiais impressos), alunos fazendo a atividade e o educador explicando."}), fotosBox,
+    h("button", {type:"button", class:"btn", style:"margin-top:6px", onclick:function(){ seletorArquivos("image/*", true, async function(fs){ var r = await enviarArquivos(fs, "atividade", {pasta:"diario", gradeId:g.id}); est.fotos = est.fotos.concat(r); desenhaFotos(); }); }}, "Enviar fotos")));
+  var ck = h("input", {id:"d_acess", type:"checkbox"}); ck.checked = !!d.acessibilidade;
+  var acessBox = h("div"); function desenhaAcess(){ acessBox.textContent = ""; add(acessBox, miniaturas(est.fotosAcess)); }
+  desenhaAcess();
+  f.appendChild(h("div", {class:"accitem"}, h("label", {class:"ck"}, ck, "Houve atendimento de acessibilidade nesta atividade (Libras, audiodescrição, monitor dedicado…)"),
+    campo("acessDesc", "Como foi", "textarea", d.acessDesc), acessBox, h("button", {type:"button", class:"btn", style:"margin-top:6px", onclick:function(){ seletorArquivos("image/*", true, async function(fs){ var r = await enviarArquivos(fs, "acessibilidade na atividade", {pasta:"diario", gradeId:g.id}); est.fotosAcess = est.fotosAcess.concat(r); desenhaAcess(); }); }}, "Fotos de acessibilidade")));
+  f.appendChild(campo("autor", "Seu nome", "text", d.autor || lsGet("mx-autor") || ""));
+  f.appendChild(h("div", {class:"row"}, h("span", {class:"sp"}), h("button", {type:"submit", class:"btn pri"}, d.enviado ? "Atualizar diário" : "Enviar diário")));
+  w.appendChild(h("div", {class:"panel", style:"margin-top:12px"}, f));
+}
+
+/* ---------- modo patrocinador ---------- */
+var PAT_TABS = [["painel","Painel ao vivo"],["sobre","Sobre o projeto"],["cronograma","Cronograma"],["plano","Plano de comunicação"],["aprovacoes","Aprovações"],["diario","Diário de campo"],["arquivos","Fotos e vídeos"]];
+function renderPatrocinador(app){
+  app.appendChild(h("div", {class:"note", style:"margin:16px 0"}, "Visão do patrocinador. Mostra só o que vai para o cliente; dados internos (orçamento, contratos, tarefas) ficam fora."));
+  if (!S.cur) { app.appendChild(h("h2", {text:"Escolha o projeto no topo"})); return; }
+  var p = P();
+  app.appendChild(h("div", null, h("div", {class:"lbl", text:(p.patrocinador || "Patrocinador")+" · Projeto "+(p.numero||"")}), h("h1", {text:p.nome})));
+  var tabs = h("div", {class:"tabs", role:"tablist"});
+  PAT_TABS.forEach(function(t){ var n = t[0] === "aprovacoes" ? S.data.pecas.filter(function(x){ return x.aprovacao && x.status === "aprovacao"; }).length : 0;
+    tabs.appendChild(h("button", {role:"tab", "aria-selected": S.pat === t[0] ? "true" : "false", onclick:function(){ S.pat = t[0]; render(); }}, t[1]+(n ? " ("+n+")" : ""))); });
+  app.appendChild(tabs);
+  var mt = metaTotal(), rt = realizadoTotal();
+  if (S.pat === "painel") {
+    var insts = S.data.instituicoes.filter(function(i){ return i.confirmada !== false; }), ses = S.data.grade.length, sesF = S.data.grade.filter(function(g){ return sessaoFeita(g.id); }).length;
+    var pubs = S.data.pecas.filter(function(x){ return x.status === "publicado" || x.status === "aprovado" || x.status === "grafica"; }).length;
+    app.appendChild(h("div", {class:"grid g4"}, [["Público atendido", fnum(rt), fnum(mt)], ["Atividades realizadas", fnum(sesF), fnum(ses)], ["Instituições", fnum(insts.length), null], ["Materiais de comunicação", fnum(pubs), fnum(S.data.pecas.length)]].map(function(k){
+      return h("div", {class:"panel kpi"}, h("div", {class:"lbl", text:k[0]}), h("div", {class:"v"}, k[1], k[2] ? h("small", {text:"/ "+k[2]}) : null)); })));
+    var pa = h("div", {class:"panel", style:"margin-top:14px"}, h("h2", {text:"Atendimento por atividade"}));
+    S.data.atividades.forEach(function(a){ var r = realizadoAtividade(a.id); pa.appendChild(h("div", {class:"li"}, h("div", {class:"main"}, h("b", {text:a.nome}), h("div", {class:"row small", style:"margin-top:6px"}, h("div", {class:"bar", style:"flex:1"}, h("i", {style:"width:"+pct(r, a.meta)+"%"})), h("span", {class:"mono", text:fnum(r)+" / "+fnum(a.meta)}))))); });
+    if (!S.data.atividades.length) pa.appendChild(h("div", {class:"muted small", text:"As atividades aparecem quando forem cadastradas."}));
+    app.appendChild(pa); return; }
+  if (S.pat === "sobre") return tProjeto(app, p);
+  if (S.pat === "cronograma") { app.appendChild(h("div", {class:"panel"}, h("h2", {text:"Cronograma"}), h("div", {style:"margin-top:12px"}, gantt()))); return; }
+  if (S.pat === "plano") { var pl = h("div", {class:"panel"}, h("h2", {text:"Plano de comunicação"}));
+    if (!S.data.pecas.length) pl.appendChild(h("div", {class:"muted small", text:"O plano aparece quando as peças forem cadastradas."}));
+    S.data.pecas.slice().sort(function(a,b){ return String(a.prazo||"9").localeCompare(b.prazo||"9"); }).forEach(function(x){ var st = ST_PECA.find(function(s){ return s[0] === (x.status||"previsto"); }) || ST_PECA[0];
+      pl.appendChild(h("div", {class:"li"}, h("span", {class:"mono small", style:"width:64px", text:fdata(x.prazo)}), h("div", {class:"main"}, h("b", {text:x.nome}), h("div", {class:"meta", text:x.tipo||""})), h("span", {class:"pill "+corPeca(x.status), text:st[1]}))); });
+    app.appendChild(pl); return; }
+  if (S.pat === "aprovacoes") { var ap = h("div", {class:"panel"}, h("h2", {text:"Aprovações"}), h("div", {class:"muted small", style:"margin-top:2px", text:"Peças, releases, vídeos e carrosséis que precisam do seu aval."}));
+    var pend = S.data.pecas.filter(function(x){ return x.aprovacao && x.status === "aprovacao"; });
+    if (!pend.length) ap.appendChild(h("div", {class:"empty", style:"margin-top:12px"}, h("b", {text:"Nada aguardando aprovação"}), "Quando uma peça for enviada para aprovação, ela aparece aqui."));
+    pend.forEach(function(x){ var ta = h("textarea", {"aria-label":"Comentário", placeholder:"Comentário ou ajuste pedido", style:"width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--bg);margin-top:8px"});
+      ap.appendChild(h("div", {class:"li"}, h("div", {class:"main"}, x.link ? h("a", {href:x.link, target:"_blank", rel:"noopener", text:x.nome+" ↗"}) : h("b", {text:x.nome}), h("div", {class:"meta", text:x.tipo||""}), ta,
+        h("div", {class:"row", style:"margin-top:8px"}, h("button", {class:"btn pri", onclick:async function(){ await atualizar("pecas", x.id, {status:"aprovado", comentario:ta.value.trim(), decididoEm:new Date().toISOString()}); toast("Aprovada."); }}, "Aprovar"),
+          h("button", {class:"btn", onclick:async function(){ if (!ta.value.trim()) { toast("Escreva o ajuste que precisa ser feito."); return; } await atualizar("pecas", x.id, {status:"ajuste", comentario:ta.value.trim(), decididoEm:new Date().toISOString()}); toast("Ajuste enviado à equipe."); }}, "Pedir ajuste"))))); });
+    app.appendChild(ap); return; }
+  if (S.pat === "diario") return tDiarioPat(app);
+  if (S.pat === "arquivos") { var all = []; S.data.diario.forEach(function(d){ all = all.concat(d.fotosFotografo||[], d.midiaFotografo||[], d.enviado ? (d.fotos||[]) : []); });
+    var ga = h("div", {class:"panel"}, h("h2", {text:"Fotos e vídeos"}), h("div", {class:"muted small", style:"margin:2px 0 12px", text:all.length+" arquivos"}));
+    if (!all.length) ga.appendChild(h("div", {class:"empty", text:"As fotos e vídeos de campo aparecem aqui."}));
+    else ga.appendChild(h("div", {class:"gal"}, all.map(function(m){ if (m.driveId) return h("a", {href:m.link, target:"_blank", rel:"noopener", class:"card", style:"display:grid;place-items:center;aspect-ratio:1;text-align:center;font-size:12px"}, h("span", {class:"pill "+(m.tipo === "video" ? "p-warn" : "p-ok"), text: m.tipo === "video" ? "Vídeo" : "Foto"}), h("span", {class:"small", style:"word-break:break-word", text:m.nome})); return m.tipo === "video" ? h("video", {src:midiaUrl(m), controls:true, preload:"metadata"}) : h("a", {href:midiaUrl(m), target:"_blank", rel:"noopener"}, h("img", {src:midiaUrl(m), alt:m.rotulo||"foto de campo", loading:"lazy"})); })));
+    app.appendChild(ga); return; }
+}
+function tDiarioPat(app){
+  var pan = h("div", {class:"panel"}, h("h2", {text:"Diário de campo"}));
+  var ds = S.data.diario.filter(function(d){ return d.enviado; }).sort(function(a,b){ var ga = byId("grade", a.id), gb = byId("grade", b.id); return String(gb && gb.data).localeCompare(ga && ga.data); });
+  if (!ds.length) pan.appendChild(h("div", {class:"empty", style:"margin-top:12px", text:"Os registros de campo aparecem aqui depois de cada atividade."}));
+  ds.forEach(function(d){ var g = byId("grade", d.id) || {};
+    pan.appendChild(h("div", {class:"li"}, h("div", {class:"main"}, h("b", {text:nomeAtiv(g.atividadeId)+" · "+nomeInst(g.instituicaoId)}), h("div", {class:"meta"}, h("span", {class:"mono", text:fdata(g.data)}), h("span", {text:fnum(d.publico)+" atendidos"})),
+      d.relato ? h("div", {class:"small", style:"margin-top:4px", text:d.relato}) : null, h("div", {style:"margin-top:6px"}, miniaturas(d.fotos))))); });
+  app.appendChild(pan); }
+
+/* ---------- versão web: Supabase (banco único), login e acessos ---------- */
+function mergeFundo(a, b){ var o = Object.assign({}, a || {}); for (var k in b){ var v = b[k];
+  if (v && typeof v === "object" && !Array.isArray(v) && o[k] && typeof o[k] === "object" && !Array.isArray(o[k])) o[k] = mergeFundo(o[k], v); else o[k] = v; } return o; }
+function colDe(p){ return p.split("/").slice(0, -1).join("/"); }
+function snapDocs(rows){ var docs = rows.map(function(r){ return {id:r.path.split("/").pop(), data:function(){ return r.data; }}; }); return {docs:docs, size:docs.length, empty:!docs.length}; }
+function dbSupabase(sb){
+  function erro(e){ return {code: /row-level|permission|policy/i.test(String(e && e.message)) ? "invalid_argument" : "unavailable", message: e && e.message}; }
+  function doc(p){ return {
+    get: async function(){ var r = await sb.from("docs").select("path,data").eq("path", p).maybeSingle(); if (r.error) throw erro(r.error); return {exists:!!r.data, id:p.split("/").pop(), data:function(){ return r.data ? r.data.data : undefined; }}; },
+    set: async function(data){ var r = await sb.from("docs").upsert({path:p, col:colDe(p), data:data}); if (r.error) throw erro(r.error); },
+    update: async function(data){ var c = await sb.from("docs").select("data").eq("path", p).maybeSingle(); if (c.error || !c.data) throw {code:"invalid_argument", message:"documento não existe"};
+      var r = await sb.from("docs").update({data:mergeFundo(c.data.data, data)}).eq("path", p); if (r.error) throw erro(r.error); },
+    delete: async function(){ var r = await sb.from("docs").delete().eq("path", p); if (r.error) throw erro(r.error); } }; }
+  function collection(col){ var self = {
+    get: async function(){ var r = await sb.from("docs").select("path,data").eq("col", col).limit(5000); if (r.error) throw erro(r.error); return snapDocs(r.data || []); },
+    doc: function(id){ return doc(col + "/" + id); },
+    onSnapshot: function(next, err){ var vivo = true, t = null;
+      function puxa(){ self.get().then(function(s){ if (vivo) next(s); }, function(e){ if (vivo && err) err(e); }); }
+      var ch = sb.channel("c" + uid()).on("postgres_changes", {event:"*", schema:"public", table:"docs", filter:"col=eq." + col}, function(){ clearTimeout(t); t = setTimeout(puxa, 300); }).subscribe();
+      var iv = setInterval(puxa, 90000); puxa();
+      return function(){ vivo = false; clearInterval(iv); clearTimeout(t); try { sb.removeChannel(ch); } catch(e){} }; } };
+    return self; }
+  return {doc:doc, collection:collection};
+}
+function modosPermitidos(){ if (!WEB || !S.perfil) return ["escritorio","campo","patrocinador"];
+  return {escritorio:["escritorio","campo","patrocinador"], produtor:["campo"], fotografo:["campo"], patrocinador:["patrocinador"]}[S.perfil.papel] || []; }
+function assinarProjetos(){
+  var primeiro = true;
+  S.db.collection("projetos").onSnapshot(function(snap){
+    var novo = {}; snap.docs.forEach(function(d){ novo[d.id] = Object.assign({}, d.data()); }); S.projetos = novo;
+    if (primeiro) { primeiro = false; S.ready = true; var ids = Object.keys(novo);
+      if (S.modo !== "escritorio" || ids.length === 1) { var last = lsGet("mx-proj"); if (last && novo[last]) { abrirProjeto(last); return; } if (ids.length === 1) { abrirProjeto(ids[0]); return; } } }
+    render();
+  }, function(){ S.ready = true; toast("Não foi possível ler os projetos."); render(); });
+}
+async function initWeb(){
+  if (!window.supabase) { S.ready = true; S.erroWeb = "Não foi possível carregar a conexão com o banco. Verifique a internet e recarregue."; render(); return; }
+  WEBSB = window.supabase.createClient(CONFIG.url, CONFIG.anon);
+  WEBSB.auth.onAuthStateChange(function(ev){ if (ev === "PASSWORD_RECOVERY") { S.recuperar = true; render(); } });
+  var ses = (await WEBSB.auth.getSession()).data.session;
+  if (!ses) { S.ready = true; S.precisaLogin = true; render(); return; }
+  await entrouWeb(ses);
+}
+async function entrouWeb(ses){
+  var r = await WEBSB.from("perfis").select("*").eq("user_id", ses.user.id).maybeSingle();
+  if (!r.data) { S.ready = true; S.semPerfil = ses.user.email; render(); return; }
+  S.perfil = r.data; S.precisaLogin = false; S.db = dbSupabase(WEBSB);
+  var ms = modosPermitidos(); if (ms.indexOf(S.modo) < 0) S.modo = ms[0];
+  assinarProjetos(); render();
+}
+function renderLogin(app){
+  var em = h("input", {id:"lg_email", type:"email", autocomplete:"username", required:true}), se = h("input", {id:"lg_senha", type:"password", autocomplete:"current-password", required:true}), msg = h("div", {class:"small", style:"min-height:18px"});
+  var f = h("form", {class:"form", onsubmit:async function(e){ e.preventDefault(); msg.textContent = "Entrando…";
+    var r = await WEBSB.auth.signInWithPassword({email:em.value.trim(), password:se.value});
+    if (r.error) { msg.textContent = "E-mail ou senha incorretos."; msg.className = "small late"; return; } msg.textContent = ""; S.ready = false; render(); await entrouWeb(r.data.session); }},
+    h("label", {for:"lg_email"}, "E-mail", em), h("label", {for:"lg_senha"}, "Senha", se), msg,
+    h("div", {class:"row"}, h("button", {type:"button", class:"btn ghost", onclick:async function(){ if (!em.value.trim()) { msg.textContent = "Escreva seu e-mail e clique de novo em Esqueci minha senha."; return; }
+      var r = await WEBSB.auth.resetPasswordForEmail(em.value.trim(), {redirectTo: location.origin + location.pathname});
+      msg.className = "small"; msg.textContent = r.error ? "Não foi possível enviar agora. Peça a nova senha ao escritório." : "Se o e-mail estiver cadastrado, chega um link para criar uma nova senha."; }}, "Esqueci minha senha"),
+      h("span", {class:"sp"}), h("button", {type:"submit", class:"btn pri"}, "Entrar")));
+  app.appendChild(h("div", {class:"campo", style:"margin-top:8vh"}, h("div", {class:"panel"}, h("h1", {text:"Entrar"}),
+    h("p", {class:"muted", text:"Equipe NTICS, produtores, fotógrafos e patrocinadores entram com o e-mail e a senha que receberam do Escritório de Projetos."}), f)));
+}
+function renderNovaSenha(app){
+  var s1 = h("input", {id:"ns1", type:"password", autocomplete:"new-password", minlength:"8", required:true}), msg = h("div", {class:"small"});
+  app.appendChild(h("div", {class:"campo", style:"margin-top:8vh"}, h("div", {class:"panel"}, h("h1", {text:"Criar nova senha"}),
+    h("form", {class:"form", onsubmit:async function(e){ e.preventDefault(); var r = await WEBSB.auth.updateUser({password:s1.value});
+      if (r.error) { msg.textContent = "Não foi possível trocar a senha: " + r.error.message; return; } S.recuperar = false; toast("Senha trocada."); var ses = (await WEBSB.auth.getSession()).data.session; if (ses) await entrouWeb(ses); else render(); }},
+      h("label", {for:"ns1"}, "Nova senha (mínimo 8 caracteres)", s1), msg, h("div", {class:"row"}, h("span", {class:"sp"}), h("button", {type:"submit", class:"btn pri"}, "Salvar senha"))))));
+}
+var PAPEIS = [["escritorio","Equipe do escritório"],["produtor","Produtor de campo"],["fotografo","Fotógrafo"],["patrocinador","Patrocinador"]];
+async function chamarAcessos(corpo){ var ses = (await WEBSB.auth.getSession()).data.session;
+  var r = await fetch(CONFIG.url + "/functions/v1/acessos", {method:"POST", headers:{Authorization:"Bearer " + ses.access_token, apikey:CONFIG.anon, "Content-Type":"application/json"}, body:JSON.stringify(corpo)});
+  var j = await r.json().catch(function(){ return {}; }); if (!r.ok) throw new Error(j.erro || "Falha ao falar com o servidor."); return j; }
+function renderAcessos(app){
+  app.appendChild(h("div", {class:"row", style:"margin:18px 0 12px"}, h("button", {class:"back", onclick:function(){ S.telaHome = null; render(); }}, "‹ Visão geral"), h("span", {class:"sp"}),
+    h("button", {class:"btn pri", onclick:function(){ editarAcesso(null); }}, "Novo acesso")));
+  app.appendChild(h("h1", {text:"Acessos"})); app.appendChild(h("p", {class:"muted", text:"Quem entra na máquina e o que vê. Produtor e fotógrafo veem só o diário de campo dos projetos marcados; o patrocinador vê só o painel dele."}));
+  var pan = h("div", {class:"panel"}, h("div", {class:"muted small", text:"Carregando…"})); app.appendChild(pan);
+  chamarAcessos({acao:"listar"}).then(function(j){ S.acessos = j.perfis || []; pan.textContent = "";
+    if (!S.acessos.length) { pan.appendChild(h("div", {class:"muted small", text:"Nenhum acesso."})); return; }
+    var tb = h("table", null, h("thead", null, h("tr", null, ["Nome","E-mail","Papel","Projetos",""].map(function(x){ return h("th", {text:x}); }))), h("tbody"));
+    S.acessos.forEach(function(p){ tb.lastChild.appendChild(h("tr", null, h("td", {text:p.nome||""}), h("td", {class:"mono small", text:p.email||""}), h("td", {text:(PAPEIS.find(function(x){ return x[0] === p.papel; })||[0,p.papel])[1]}),
+      h("td", {class:"small", text: p.papel === "escritorio" ? "Todos" : (p.projetos||[]).map(function(id){ return S.projetos[id] ? S.projetos[id].numero : id; }).join(", ")}),
+      h("td", null, h("button", {class:"btn ghost", onclick:function(){ editarAcesso(p); }}, "Editar")))); });
+    pan.appendChild(h("div", {class:"tbl"}, tb)); }, function(e){ pan.textContent = e.message; });
+}
+function editarAcesso(p){
+  var campos = [{k:"nome", t:"Nome", req:true}, {k:"email", t:"E-mail", tipo:"email", req:true}, {k:"papel", t:"Papel", tipo:"select", opts:PAPEIS, def:"produtor"},
+    {k:"senha", t: p ? "Nova senha (deixe em branco para manter)" : "Senha inicial (mínimo 8 caracteres)", tipo:"text"}, {tipo:"sep", t:"Projetos que esta pessoa acessa"}];
+  Object.keys(S.projetos).forEach(function(id){ campos.push({k:"pj_" + id, t:(S.projetos[id].numero || "") + " · " + S.projetos[id].nome, tipo:"check"}); });
+  var val = Object.assign({}, p || {}); (p && p.projetos || []).forEach(function(id){ val["pj_" + id] = true; }); val.senha = "";
+  abrirForm(p ? "Editar acesso" : "Novo acesso", campos, val, async function(v){
+    var pjs = Object.keys(S.projetos).filter(function(id){ return v["pj_" + id]; });
+    try { await chamarAcessos({acao:"salvar", user_id: p ? p.user_id : undefined, nome:v.nome, email:v.email, papel:v.papel, projetos:pjs, senha:v.senha || undefined});
+      toast(p ? "Acesso atualizado." : "Acesso criado. Envie o e-mail e a senha para a pessoa."); render(); return true; } catch(e){ toast(e.message); return false; } },
+    p ? h("button", {type:"button", class:"btn danger", onclick:function(){ confirmar("Remover o acesso de " + (p.nome || p.email) + "?", async function(){ try { await chamarAcessos({acao:"remover", user_id:p.user_id}); toast("Acesso removido."); var x = document.querySelector(".scrim"); if (x) x.remove(); render(); } catch(e){ toast(e.message); } }); }}, "Remover") : null);
+}
+
+/* ---------- eventos do topo ---------- */
+document.getElementById("selProj").addEventListener("change", function(e){ abrirProjeto(e.target.value || null); });
+["mEsc","mCampo","mPat"].forEach(function(b){ document.getElementById(b).addEventListener("click", function(e){ S.modo = e.currentTarget.dataset.modo; S.campo = {tela:"lista"}; S.telaHome = null; lsSet("mx-modo", S.modo); render(); }); });
+
+/* ---------- inicialização ---------- */
+(function(){ var hs = String(location.hash || "").replace("#",""); if (hs === "campo" || hs === "patrocinador" || hs === "escritorio") S.modo = hs; else S.modo = lsGet("mx-modo") || "escritorio";
+  var t = lsGet("mx-tab"); if (t && TABS.some(function(x){ return x[0] === t; })) S.tab = t; })();
+render();
+if (WEB) initWeb(); else (async function(){
+  var c = window.claude;
+  var db = c && c.use ? await c.use("db") : null; S.db = db;
+  try { S.user = c && c.use ? await c.use("user") : null; } catch(e){}
+  try { S.assets = c && c.use ? await c.use("assets") : null; } catch(e){}
+  if (!db) { S.ready = true; render(); return; }
+  assinarProjetos();
+  setTimeout(function(){ if (!S.ready) { S.ready = true; render(); } }, 12000);
+})();
+</script>
+
+</body>
+</html>
