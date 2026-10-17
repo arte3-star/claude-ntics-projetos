@@ -286,7 +286,7 @@ function metaTotal(){ return S.data.atividades.reduce(function(s,a){ return s + 
 function realizadoTotal(){ return S.data.diario.filter(function(d){ return d.enviado; }).reduce(function(s,d){ return s + num(d.publico); }, 0); }
 function nomeInst(id){ var i = byId("instituicoes", id); return i ? i.nome : "Instituição"; }
 function nomeAtiv(id){ var a = byId("atividades", id); return a ? a.nome : "Atividade"; }
-function midiaUrl(m){ return m && m.id ? "/_blob/"+m.id : ""; }
+function midiaUrl(m){ return m && m.id ? "/_blob/"+m.id : (m && m.url) || ""; }
 
 /* ---------- formulário genérico ---------- */
 function abrirForm(titulo, campos, valores, onSalvar, extra){
@@ -396,6 +396,8 @@ function render(){
   if (WEB && S.semPerfil) { app.appendChild(h("div", {class:"note warn", style:"margin-top:24px"}, "O login "+S.semPerfil+" ainda não tem acesso definido. Peça ao Escritório de Projetos para liberar. ", h("button", {class:"btn", onclick:async function(){ await WEBSB.auth.signOut(); location.reload(); }}, "Sair"))); return; }
   if (!S.ready) { app.appendChild(h("div", {class:"empty", style:"margin-top:40px"}, h("b", {text:"Abrindo a máquina…"}), "Conectando ao banco de projetos.")); return; }
   if (!S.db) { app.appendChild(h("div", {class:"note warn", style:"margin-top:24px"}, "O banco de projetos não está disponível nesta visualização. Abra a máquina pelo link do claude.ai com sua conta NTICS.")); return; }
+  if (!WEB) app.appendChild(h("div", {class:"note warn", style:"margin-top:14px"}, "A máquina oficial agora está no site, com login para a equipe, o produtor, o fotógrafo e o patrocinador, e envio direto para o Drive: ",
+    h("a", {href:"https://arte3-star.github.io/claude-ntics-projetos/maquina-execucao/", target:"_blank", rel:"noopener", text:"abrir a Máquina de Execução ↗"}), ". Esta cópia no claude.ai é só para consulta e não recebe os dados de campo."));
   if (S.modo === "campo") return renderCampo(app);
   if (S.modo === "patrocinador") return renderPatrocinador(app);
   if (!S.cur) return S.telaHome === "acessos" && WEB ? renderAcessos(app) : renderHome(app);
@@ -432,7 +434,7 @@ function renderHome(app){
   var meta = R.reduce(function(s,r){ return s + r.meta; }, 0), real = R.reduce(function(s,r){ return s + r.real; }, 0);
   function k(lbl, v, sub){ return h("div", {class:"panel kpi"}, h("div", {class:"lbl", text:lbl}), h("div", {class:"v", text:v}), sub ? h("div", {class:"small muted", style:"margin-top:4px", text:sub}) : null); }
   app.appendChild(h("div", {class:"grid g4", style:"margin-bottom:14px"}, k("Projetos na máquina", fnum(ids.length)), k("Em campo agora", fnum(emCampo.length), emCampo.map(function(r){ return S.projetos[r.id].numero; }).join(" · ")),
-    k("Com atraso ou impedimento", fnum(comProb.length), comProb.map(function(r){ return S.projetos[r.id].numero; }).join(" · ")), k("Público atendido", fnum(real), meta ? "de "+fnum(meta)+" previstos ("+pct(real, meta)+"%)" : "")));
+    k("Com atraso ou impedimento", fnum(comProb.length), comProb.map(function(r){ return S.projetos[r.id].numero; }).join(" · ")), k("Público atendido", fnum(real), meta ? "de "+fnum(meta)+" previstos, somando as metas de todas as atividades ("+pct(real, meta)+"%)" : "")));
   // quadro por fase
   var board = h("div", {class:"line", style:"padding-bottom:4px"});
   FASES.forEach(function(f){ var ps = R.filter(function(r){ return r.fase === f.k; });
