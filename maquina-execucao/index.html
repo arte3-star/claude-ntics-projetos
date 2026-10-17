@@ -276,11 +276,14 @@ function realizadoAtividade(aid){ return S.data.diario.filter(function(d){ var g
 function realizadoInst(iid){ return S.data.diario.filter(function(d){ var g = byId("grade", d.id); return d.enviado && g && g.instituicaoId === iid; })
   .reduce(function(s, d){ return s + num(d.publico); }, 0); }
 function atividadesDaInst(iid){ var ids = {}; S.data.grade.forEach(function(g){ if (g.instituicaoId === iid && g.atividadeId) ids[g.atividadeId] = 1; }); return Object.keys(ids); }
+// Cartas exigidas por instituição: uma por entrega MinC (projeto.entregasMinc) ou, sem isso, uma por atividade da grade
+function cartasExigidas(iid){ var p = P() || {}; if (p.entregasMinc && p.entregasMinc.length) return p.entregasMinc.map(function(e){ return {id:e.id, nome:e.nome}; });
+  return atividadesDaInst(iid).map(function(a){ return {id:a, nome:nomeAtiv(a)}; }); }
 function instCompleta(i){ var ac = i.acess || {}, faltaA = 0;
   ACESS.forEach(function(a){ var x = ac[a.k]; if (!x || x.tem == null) { faltaA++; return; }
     if (x.tem && !(x.fotos && x.fotos.length)) faltaA++; if (x.tem === false && !String(x.just || "").trim()) faltaA++; });
   if (i.cartaSemAcess) faltaA = 0;
-  var ats = atividadesDaInst(i.id), cartas = i.cartas || {}, faltaC = ats.filter(function(a){ return !(cartas[a] && cartas[a].arquivo); }).length;
+  var ats = cartasExigidas(i.id), cartas = i.cartas || {}, faltaC = ats.filter(function(a){ return !(cartas[a.id] && cartas[a.id].arquivo); }).length;
   return {ok: faltaA === 0 && faltaC === 0 && ats.length > 0, faltaA: faltaA, faltaC: faltaC, ats: ats.length}; }
 function metaTotal(){ return S.data.atividades.reduce(function(s,a){ return s + num(a.meta); }, 0); }
 function realizadoTotal(){ return S.data.diario.filter(function(d){ return d.enviado; }).reduce(function(s,d){ return s + num(d.publico); }, 0); }
@@ -396,8 +399,8 @@ function render(){
   if (WEB && S.semPerfil) { app.appendChild(h("div", {class:"note warn", style:"margin-top:24px"}, "O login "+S.semPerfil+" ainda não tem acesso definido. Peça ao Escritório de Projetos para liberar. ", h("button", {class:"btn", onclick:async function(){ await WEBSB.auth.signOut(); location.reload(); }}, "Sair"))); return; }
   if (!S.ready) { app.appendChild(h("div", {class:"empty", style:"margin-top:40px"}, h("b", {text:"Abrindo a máquina…"}), "Conectando ao banco de projetos.")); return; }
   if (!S.db) { app.appendChild(h("div", {class:"note warn", style:"margin-top:24px"}, "O banco de projetos não está disponível nesta visualização. Abra a máquina pelo link do claude.ai com sua conta NTICS.")); return; }
-  if (!WEB) app.appendChild(h("div", {class:"note warn", style:"margin-top:14px"}, "A máquina oficial agora está no site, com login para a equipe, o produtor, o fotógrafo e o patrocinador, e envio direto para o Drive: ",
-    h("a", {href:"https://arte3-star.github.io/claude-ntics-projetos/maquina-execucao/", target:"_blank", rel:"noopener", text:"abrir a Máquina de Execução ↗"}), ". Esta cópia no claude.ai é só para consulta e não recebe os dados de campo."));
+  if (!WEB && !S.viaConector) app.appendChild(h("div", {class:"note warn", style:"margin-top:14px"}, "O conector ", h("b", {text:CONECTOR}), " não está ativo para você, então esta tela mostra uma cópia antiga, sem os dados de campo. Ative o conector nas configurações do claude.ai (Conectores) e recarregue. ",
+    "Produtor, fotógrafo e patrocinador usam a ", h("a", {href:"https://arte3-star.github.io/claude-ntics-projetos/maquina-execucao/", target:"_blank", rel:"noopener", text:"página da máquina ↗"}), "."));
   if (S.modo === "campo") return renderCampo(app);
   if (S.modo === "patrocinador") return renderPatrocinador(app);
   if (!S.cur) return S.telaHome === "acessos" && WEB ? renderAcessos(app) : renderHome(app);
@@ -939,20 +942,25 @@ function campoInst(w, i){
   ACESS.forEach(function(a){ var x = ac[a.k] || {}, it = h("div", {class:"accitem"});
     var yn = h("div", {class:"yn"}, [[true,"Tem"],[false,"Não tem"]].map(function(o){ return h("button", {"aria-pressed": x.tem === o[0] ? "true" : "false", onclick:async function(){ ac[a.k] = Object.assign({}, ac[a.k]||{}, {tem:o[0]}); await grava(); }}, o[1]); }));
     it.appendChild(h("div", {class:"row"}, h("span", {style:"flex:1;min-width:0;font-weight:600", text:a.t}), yn));
+    if (x.nota) it.appendChild(h("div", {class:"small muted", style:"margin-top:4px", text:x.nota}));
     if (x.tem === true) it.appendChild(h("div", {class:"row", style:"margin-top:8px"}, miniaturas(x.fotos), h("button", {class:"btn", onclick:function(){ seletorArquivos("image/*", true, async function(fs){ var r = await enviarArquivos(fs, "acessibilidade: "+a.t, {pasta:"comprovacoes", instituicaoId:i.id}); if (r.length) { ac[a.k] = Object.assign({}, ac[a.k]||{}, {tem:true, fotos:(x.fotos||[]).concat(r)}); await grava(); } }); }}, (x.fotos||[]).length ? "Mais fotos" : "Enviar foto")));
     if (x.tem === false) { var ta = h("textarea", {"aria-label":"Justificativa: "+a.t, placeholder:"Justificativa", style:"width:100%;margin-top:8px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--bg)"}); ta.value = x.just || "";
       ta.addEventListener("change", async function(){ ac[a.k] = Object.assign({}, ac[a.k]||{}, {tem:false, just:ta.value.trim()}); await grava(); }); it.appendChild(ta); }
     lista.appendChild(it); });
   w.appendChild(lista);
-  w.appendChild(h("h3", {style:"margin:20px 0 4px", text:"Cartas de comprovação por atividade"}));
-  var ats = atividadesDaInst(i.id), cartas = JSON.parse(JSON.stringify(i.cartas || {}));
+  if ((i.fotosAcessSemItem || []).length) w.appendChild(h("div", {class:"accitem", style:"margin-top:8px"}, h("b", {text:"Outras fotos de acessibilidade (sem item definido)"}), h("div", {style:"margin-top:6px"}, miniaturas(i.fotosAcessSemItem))));
+  if (i.pastasDrive) w.appendChild(h("div", {class:"row small", style:"margin-top:8px;gap:12px;flex-wrap:wrap"}, Object.keys(i.pastasDrive).map(function(k){ return h("a", {href:i.pastasDrive[k].link, target:"_blank", rel:"noopener", text:i.pastasDrive[k].nome+" ↗"}); })));
+  var porMinc = !!((P() || {}).entregasMinc || []).length;
+  w.appendChild(h("h3", {style:"margin:20px 0 4px", text:porMinc ? "Cartas de comprovação por entrega MinC" : "Cartas de comprovação por atividade"}));
+  var ats = cartasExigidas(i.id), cartas = JSON.parse(JSON.stringify(i.cartas || {}));
   if (!ats.length) w.appendChild(h("div", {class:"muted small", text:"Nenhuma atividade desta instituição na grade."}));
-  ats.forEach(function(aid){ var c = cartas[aid] || {}, it = h("div", {class:"accitem", style:"margin-top:8px"});
+  ats.forEach(function(ea){ var aid = ea.id, nomeC = ea.nome, c = cartas[aid] || {}, it = h("div", {class:"accitem", style:"margin-top:8px"});
     var al = h("input", {type:"number", min:"0", "aria-label":"Alunos na carta", placeholder:"Alunos", style:"width:110px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--bg)"}); al.value = c.alunos == null ? "" : c.alunos;
     al.addEventListener("change", async function(){ cartas[aid] = Object.assign({}, cartas[aid]||{}, {alunos:al.value === "" ? null : Number(al.value)}); await atualizar("instituicoes", i.id, {cartas:cartas}); });
     var lib = h("label", {class:"small", style:"display:flex;gap:6px;align-items:center"}, h("input", {type:"checkbox", checked: c.libras ? true : null, onchange:async function(e){ cartas[aid] = Object.assign({}, cartas[aid]||{}, {libras:e.target.checked}); await atualizar("instituicoes", i.id, {cartas:cartas}); }}), "Pedido de acessibilidade (Libras ou outro)");
-    it.appendChild(h("div", {class:"row"}, h("b", {style:"flex:1;min-width:0", text:nomeAtiv(aid)}), c.arquivo ? h("span", {class:"pill p-ok", text:"Carta enviada"}) : h("span", {class:"pill p-warn", text:"Falta a carta"})));
-    it.appendChild(h("div", {class:"row", style:"margin-top:8px"}, al, lib, h("span", {class:"sp"}), h("button", {class:"btn", onclick:function(){ seletorArquivos("image/*,application/pdf", false, async function(fs){ var r = await enviarArquivos(fs, "carta: "+nomeAtiv(aid), {pasta:"comprovacoes", instituicaoId:i.id}); if (r.length) { cartas[aid] = Object.assign({}, cartas[aid]||{}, {arquivo:r[0]}); await atualizar("instituicoes", i.id, {cartas:cartas}); toast("Carta enviada."); } }); }}, c.arquivo ? "Trocar carta" : "Enviar carta")));
+    it.appendChild(h("div", {class:"row"}, h("b", {style:"flex:1;min-width:0", text:nomeC}), c.periodo ? h("span", {class:"small muted", text:c.periodo}) : null, c.arquivo ? h("span", {class:"pill p-ok", text:"Carta enviada"}) : h("span", {class:"pill p-warn", text:"Falta a carta"})));
+    if (c.arquivo) it.appendChild(h("div", {style:"margin-top:6px"}, miniaturas([c.arquivo].concat(c.copias || []))));
+    it.appendChild(h("div", {class:"row", style:"margin-top:8px"}, al, lib, h("span", {class:"sp"}), h("button", {class:"btn", onclick:function(){ seletorArquivos("image/*,application/pdf", false, async function(fs){ var r = await enviarArquivos(fs, "carta: "+nomeC, {pasta:"comprovacoes", instituicaoId:i.id}); if (r.length) { cartas[aid] = Object.assign({}, cartas[aid]||{}, {arquivo:r[0]}); await atualizar("instituicoes", i.id, {cartas:cartas}); toast("Carta enviada."); } }); }}, c.arquivo ? "Trocar carta" : "Enviar carta")));
     w.appendChild(it); });
 }
 function campoSessao(w, g, papel){
@@ -1075,6 +1083,31 @@ function dbSupabase(sb){
     return self; }
   return {doc:doc, collection:collection};
 }
+/* artefato do coordenador: lê e grava no MESMO banco da página web pelo conector "NTICS Execução" (MCP) */
+var CONECTOR = "NTICS Execução";
+function payloadDe(r){ var p = r && (r.payload !== undefined ? r.payload : r.structuredContent);
+  if (typeof p === "string") { try { p = JSON.parse(p); } catch(e){} }
+  if (p && !Array.isArray(p) && Array.isArray(p.itens)) p = p.itens;
+  if (p == null && r && r.content) { try { p = JSON.parse(r.content.filter(function(c){ return c.type === "text"; }).map(function(c){ return c.text; }).join("")); } catch(e){} }
+  return p; }
+function dbConector(mcp){
+  function snap(lista){ var docs = (lista || []).map(function(x){ var d = x.dados !== undefined ? x.dados : (function(){ var o = Object.assign({}, x); delete o.id; delete o.atualizadoEm; return o; })();
+    return {id:x.id, data:function(){ return d; }}; }); return {docs:docs, size:docs.length, empty:!docs.length}; }
+  async function chama(tool, input){ var r = await mcp.callTool(CONECTOR, tool, input, {cache:false}); return payloadDe(r); }
+  async function escreveu(){ try { await mcp.invalidate(CONECTOR, "listar_colecao"); } catch(e){} }
+  function doc(p){ return {
+    get: async function(){ var r = await chama("ler_documento", {caminho:p}); return {exists:!!(r && r.existe), id:p.split("/").pop(), data:function(){ return r && r.dados; }}; },
+    set: async function(data){ await chama("salvar_documento", {caminho:p, dados:data}); await escreveu(); },
+    update: async function(data){ await chama("atualizar_documento", {caminho:p, dados:data}); await escreveu(); },
+    delete: async function(){ await chama("apagar_documento", {caminho:p}); await escreveu(); } }; }
+  function collection(col){ var self = {
+    get: async function(){ return snap(await chama("listar_colecao", {colecao:col})); },
+    doc: function(id){ return doc(col + "/" + id); },
+    onSnapshot: function(next, err){ return mcp.watchTool(CONECTOR, "listar_colecao", {colecao:col}, function(ev){
+      if (ev.type === "data") next(snap(payloadDe(ev.result))); else if (err) err(ev.error); }, {refetchInterval:30000}); } };
+    return self; }
+  return {doc:doc, collection:collection};
+}
 function modosPermitidos(){ if (!WEB || !S.perfil) return ["escritorio","campo","patrocinador"];
   return {escritorio:["escritorio","campo","patrocinador"], produtor:["campo"], fotografo:["campo"], patrocinador:["patrocinador"]}[S.perfil.papel] || []; }
 function assinarProjetos(){
@@ -1160,10 +1193,15 @@ document.getElementById("selProj").addEventListener("change", function(e){ abrir
 render();
 if (WEB) initWeb(); else (async function(){
   var c = window.claude;
-  var db = c && c.use ? await c.use("db") : null; S.db = db;
+  var db = c && c.use ? await c.use("db") : null;
   try { S.user = c && c.use ? await c.use("user") : null; } catch(e){}
   try { S.assets = c && c.use ? await c.use("assets") : null; } catch(e){}
-  if (!db) { S.ready = true; render(); return; }
+  // preferência: o banco único pelo conector; sem conector, o banco próprio do artefato (só consulta)
+  var mcp = null; try { mcp = c && c.use ? await c.use("mcp") : null; } catch(e){}
+  if (mcp) { try { var t = await mcp.callTool(CONECTOR, "listar_projetos", null, {cache:false}); if (Array.isArray(payloadDe(t))) { S.db = dbConector(mcp); S.viaConector = true; } }
+    catch(e){ S.erroConector = (e && e.code) || "erro"; } }
+  if (!S.db) S.db = db;
+  if (!S.db) { S.ready = true; render(); return; }
   assinarProjetos();
   setTimeout(function(){ if (!S.ready) { S.ready = true; render(); } }, 12000);
 })();
