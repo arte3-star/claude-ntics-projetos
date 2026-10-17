@@ -137,6 +137,18 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .gbar{position:absolute;top:2px;bottom:2px;border-radius:4px;background:var(--accent);min-width:4px}
 .gbar.c2{background:var(--amber)}
 .gtoday{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--bad)}
+.gx-wrap{overflow-x:auto}
+.gx{display:grid;grid-template-columns:minmax(150px,240px) minmax(420px,1fr);gap:6px 12px;align-items:center;font-size:12.5px}
+.gx-axis{position:relative;height:18px;border-bottom:1px solid var(--line)}
+.gx-axis span{position:absolute;top:0;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;padding-left:3px;border-left:1px solid var(--line);white-space:nowrap}
+.gx-sec{grid-column:1/-1;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:8px;padding-top:6px;border-top:1px solid var(--line)}
+.gx-lbl{min-width:0}.gx-lbl .b{font-weight:700}
+.gx-track{position:relative;height:20px;background:var(--sunk);border-radius:5px}
+.gx-bar{position:absolute;top:3px;bottom:3px;border-radius:4px;background:var(--accent);min-width:5px}
+.gx-bar.c-prep{background:var(--muted)}.gx-bar.c-exec{background:var(--amber)}.gx-bar.c-fim{background:var(--accent)}
+.gx-marco{position:absolute;top:4px;width:11px;height:11px;margin-left:-6px;transform:rotate(45deg);border:2px solid var(--accent);background:var(--surface)}
+.gx-marco.ok{background:var(--accent)}
+.tr-sec td{background:var(--sunk)}
 /* photos */
 .thumbs{display:flex;gap:6px;flex-wrap:wrap}
 .thumbs img,.thumbs video{width:76px;height:76px;object-fit:cover;border-radius:7px;border:1px solid var(--line);background:var(--sunk)}
@@ -1008,6 +1020,71 @@ function campoSessao(w, g, papel){
 }
 
 /* ---------- modo patrocinador ---------- */
+/* cronograma do patrocinador: linha do tempo do projeto (etapas, execução por local, entregas) + execução em detalhe + programação com horários */
+var MES3 = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"], SEM3 = ["dom","seg","ter","qua","qui","sex","sáb"];
+function semana(iso){ return SEM3[new Date(iso+"T12:00:00").getDay()]; }
+function locaisExec(){ var L = {};
+  S.data.grade.forEach(function(g){ if (!g.data) return; var i = byId("instituicoes", g.instituicaoId) || {id:g.instituicaoId, nome:"Local a definir"}, k = i.id;
+    L[k] = L[k] || {i:i, a:g.data, b:g.data, gs:[]}; if (g.data < L[k].a) L[k].a = g.data; if (g.data > L[k].b) L[k].b = g.data; L[k].gs.push(g); });
+  return Object.keys(L).map(function(k){ return L[k]; }).sort(function(x,y){ return x.a.localeCompare(y.a); }); }
+function eixoMeses(min, max, tot){ var t = h("div", {class:"gx-axis"}), d = new Date(min+"T12:00:00"); d.setDate(1);
+  while (true){ var iso = d.toISOString().slice(0,10); if (iso > max) break; var x = Math.max(0, 100*dias(min, iso)/tot);
+    t.appendChild(h("span", {style:"left:"+x+"%", text:MES3[d.getMonth()]+(d.getMonth() === 0 || iso <= min ? " "+String(d.getFullYear()).slice(2) : "")})); d.setMonth(d.getMonth()+1); }
+  return t; }
+function eixoSemanas(min, max, tot){ var t = h("div", {class:"gx-axis"}), d = new Date(min+"T12:00:00"); d.setDate(d.getDate() - ((d.getDay()+6)%7));
+  while (true){ var iso = d.toISOString().slice(0,10); if (iso > max) break; var x = 100*dias(min, iso)/tot; if (x >= 0) t.appendChild(h("span", {style:"left:"+x+"%", text:fdata(iso).slice(0,5)})); d.setDate(d.getDate()+7); }
+  return t; }
+function ganttX(linhas, min, max, eixo){
+  var tot = Math.max(1, dias(min, max) + 1), g = h("div", {class:"gx"}), hj = hoje();
+  g.appendChild(h("div")); g.appendChild(eixo(min, max, tot));
+  linhas.forEach(function(l){
+    if (l.secao) { g.appendChild(h("div", {class:"gx-sec", text:l.secao})); return; }
+    var tk = h("div", {class:"gx-track"});
+    if (hj >= min && hj <= max) tk.appendChild(h("div", {class:"gtoday", style:"left:"+(100*dias(min, hj)/tot)+"%", title:"Hoje"}));
+    if (l.marco) tk.appendChild(h("div", {class:"gx-marco"+(l.ok ? " ok" : ""), style:"left:"+(100*(dias(min, l.a)+.5)/tot)+"%", title:l.t+" · "+fdata(l.a)}));
+    else tk.appendChild(h("div", {class:"gx-bar "+(l.cor||""), style:"left:"+(100*dias(min, l.a)/tot)+"%;width:"+Math.max(.6, 100*(dias(l.a, l.b)+1)/tot)+"%", title:fdata(l.a)+" a "+fdata(l.b)}));
+    g.appendChild(h("div", {class:"gx-lbl"}, h("div", {class:l.forte ? "b" : null, text:l.t}), h("div", {class:"small muted mono", text: l.marco ? fdata(l.a) : fdata(l.a).slice(0,5)+" a "+fdata(l.b)})));
+    g.appendChild(tk); });
+  return h("div", {class:"gx-wrap"}, g); }
+function cronogramaPat(app){
+  var p = P() || {}, locais = locaisExec(), ent = S.data.tarefas.filter(function(t){ return t.entrega && prazoTarefa(t); }).sort(function(a,b){ return prazoTarefa(a).localeCompare(prazoTarefa(b)); });
+  var campoA = locais.length ? locais[0].a : p.inicio, campoB = locais.length ? locais.reduce(function(m, l){ return l.b > m ? l.b : m; }, locais[0].b) : p.fim;
+  function nomeT(t){ return t.t || t.titulo || "Entrega"; }
+  var rel = ent.find(function(t){ return /relat[oó]rio final/i.test(nomeT(t)); }), ult = ent.length ? ent[ent.length-1] : null;
+  function k(l, v, d){ return h("div", {class:"panel kpi"}, h("div", {class:"lbl", text:l}), h("div", {class:"v", style:"font-size:22px", text:v}), d ? h("div", {class:"small muted", text:d}) : null); }
+  app.appendChild(h("div", {class:"grid g4", style:"margin-bottom:14px"},
+    k("Execução", campoA ? fdata(campoA).slice(0,5)+" a "+fdata(campoB).slice(0,5) : "a definir", locais.length ? locais.length+" locais · "+fnum(S.data.grade.filter(function(g){ return g.data; }).length)+" atividades" : ""),
+    k("Relatório final", rel ? fdata(prazoTarefa(rel)) : "a definir", rel ? (statusEfetivo(rel) === "feito" ? "Entregue" : "Previsto") : ""),
+    k("Entrega final do projeto", ult ? fdata(prazoTarefa(ult)) : (p.fim ? fdata(p.fim) : "a definir"), ult ? nomeT(ult) : ""),
+    k("Entregas feitas", fnum(ent.filter(function(t){ return statusEfetivo(t) === "feito"; }).length)+" / "+fnum(ent.length), "do total previsto")));
+  // 1. linha do tempo do projeto
+  var L = [], datas = [];
+  var PREP = ["lab","kickoff","planejamento","comunicacao","orcamento","engajamento","preexecucao"];
+  function span(ks){ var ds = []; ks.forEach(function(fk){ tarefasFase(fk).forEach(function(t){ var d = prazoTarefa(t); if (d) ds.push(d); }); }); ds.sort(); return ds.length ? [ds[0], ds[ds.length-1]] : null; }
+  L.push({secao:"Etapas"});
+  var sp = span(PREP); if (sp) { if (campoA && sp[1] >= campoA) sp[1] = addDias(campoA, -1); L.push({t:"Preparação", a:sp[0], b:sp[1], cor:"c-prep", forte:true}); datas.push(sp[0], sp[1]); }
+  if (campoA) { L.push({t:"Execução", a:campoA, b:campoB, cor:"c-exec", forte:true}); datas.push(campoA, campoB); }
+  [["Consolidação dos resultados", ["consolidacao"]], ["Finalização e relatório", ["finalizacao"]]].forEach(function(e){ var s2 = span(e[1]); if (s2) { L.push({t:e[0], a:s2[0], b:s2[1], cor:"c-fim", forte:true}); datas.push(s2[0], s2[1]); } });
+  if (locais.length) { L.push({secao:"Execução por local"}); locais.forEach(function(l){ L.push({t:(l.i.cidade ? l.i.cidade+" · " : "")+l.i.nome, a:l.a, b:l.b, cor:"c-exec"}); }); }
+  if (ent.length) { L.push({secao:"Entregas"}); ent.forEach(function(t){ var d = prazoTarefa(t); L.push({t:nomeT(t), a:d, b:d, marco:true, ok:statusEfetivo(t) === "feito"}); datas.push(d); }); }
+  datas.sort();
+  var pan = h("div", {class:"panel"}, h("h2", {text:"Linha do tempo do projeto"}), h("div", {class:"small muted", style:"margin:2px 0 12px", text:"Da preparação ao relatório final. Losango cheio: entrega feita; vazio: prevista. Linha vermelha: hoje."}));
+  pan.appendChild(datas.length ? ganttX(L, datas[0], datas[datas.length-1], eixoMeses) : h("div", {class:"muted small", text:"As datas aparecem quando as entregas e a grade tiverem prazo."}));
+  app.appendChild(pan);
+  if (!locais.length) return;
+  // 2. execução em detalhe (por semana)
+  var LE = locais.map(function(l){ return {t:(l.i.cidade ? l.i.cidade+" · " : "")+l.i.nome, a:l.a, b:l.b, cor:"c-exec"}; });
+  app.appendChild(h("div", {class:"panel", style:"margin-top:14px"}, h("h2", {text:"Execução: período em cada local"}), h("div", {class:"small muted", style:"margin:2px 0 12px", text:"Uma barra por local, do primeiro ao último dia de atividade."}), ganttX(LE, addDias(campoA, -2), addDias(campoB, 2), eixoSemanas)));
+  // 3. programação detalhada
+  var tb = h("table", null, h("thead", null, h("tr", null, ["Data","Horário","Atividade","Situação"].map(function(x){ return h("th", {text:x}); }))), h("tbody"));
+  locais.forEach(function(l){
+    tb.lastChild.appendChild(h("tr", {class:"tr-sec"}, h("td", {colspan:"4"}, h("b", {text:(l.i.cidade ? l.i.cidade+" · " : "")+l.i.nome}), h("span", {class:"small muted", text:"  "+fdata(l.a).slice(0,5)+" a "+fdata(l.b)}))));
+    l.gs.slice().sort(function(a,b){ return (a.data+(a.horario||"")).localeCompare(b.data+(b.horario||"")); }).forEach(function(g){ var d = diarioDe(g.id), feito = d && d.enviado;
+      tb.lastChild.appendChild(h("tr", null, h("td", {class:"mono", text:semana(g.data)+" "+fdata(g.data).slice(0,5)}), h("td", {class:"mono", text:(g.horario || "a definir")+(g.turno ? " · "+g.turno : "")}),
+        h("td", null, h("b", {text:nomeAtiv(g.atividadeId)}), g.turma ? h("div", {class:"small muted", text:"Turma "+g.turma}) : null),
+        h("td", null, feito ? h("span", {class:"pill p-ok", text:"Realizada · "+fnum(d.publico)+" participantes"}) : h("span", {class:"pill "+(g.data < hoje() ? "p-warn" : "p-mut"), text: g.data < hoje() ? "Aguardando registro" : "Prevista"})))); }); });
+  app.appendChild(h("div", {class:"panel", style:"margin-top:14px"}, h("h2", {text:"Programação detalhada"}), h("div", {class:"small muted", style:"margin:2px 0 10px", text:"Cada atividade com data, horário e situação, atualizada pelo diário de campo."}), h("div", {style:"overflow-x:auto"}, tb)));
+}
 var PAT_TABS = [["painel","Painel ao vivo"],["sobre","Sobre o projeto"],["cronograma","Cronograma"],["plano","Plano de comunicação"],["aprovacoes","Aprovações"],["diario","Diário de campo"],["arquivos","Fotos e vídeos"]];
 function renderPatrocinador(app){
   app.appendChild(h("div", {class:"note", style:"margin:16px 0"}, "Visão do patrocinador. Mostra só o que vai para o cliente; dados internos (orçamento, contratos, tarefas) ficam fora."));
@@ -1029,7 +1106,7 @@ function renderPatrocinador(app){
     if (!S.data.atividades.length) pa.appendChild(h("div", {class:"muted small", text:"As atividades aparecem quando forem cadastradas."}));
     app.appendChild(pa); return; }
   if (S.pat === "sobre") return tProjeto(app, p);
-  if (S.pat === "cronograma") { app.appendChild(h("div", {class:"panel"}, h("h2", {text:"Cronograma"}), h("div", {style:"margin-top:12px"}, gantt()))); return; }
+  if (S.pat === "cronograma") return cronogramaPat(app);
   if (S.pat === "plano") { var pl = h("div", {class:"panel"}, h("h2", {text:"Plano de comunicação"}));
     if (!S.data.pecas.length) pl.appendChild(h("div", {class:"muted small", text:"O plano aparece quando as peças forem cadastradas."}));
     S.data.pecas.slice().sort(function(a,b){ return String(a.prazo||"9").localeCompare(b.prazo||"9"); }).forEach(function(x){ var st = ST_PECA.find(function(s){ return s[0] === (x.status||"previsto"); }) || ST_PECA[0];
