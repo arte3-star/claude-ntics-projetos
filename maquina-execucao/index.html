@@ -828,7 +828,7 @@ function tConsolidacao(app){
 /* ---------- modo campo ---------- */
 function renderCampo(app){
   var w = h("div", {class:"campo"}); app.appendChild(w);
-  w.appendChild(h("div", {class:"note", style:"margin:16px 0"}, "Diário de campo. Produtor e fotógrafo registram aqui o que aconteceu em cada atividade. As fotos ficam guardadas na máquina."));
+  w.appendChild(h("div", {class:"note", style:"margin:16px 0"}, WEB ? "Diário de campo. Produtor e fotógrafo registram aqui o que aconteceu em cada atividade. Fotos e vídeos vão direto para a pasta do projeto no Drive." : "Diário de campo. Produtor e fotógrafo registram aqui o que aconteceu em cada atividade. As fotos ficam guardadas na máquina."));
   if (!S.cur) { w.appendChild(h("h2", {text:"Escolha o projeto"})); var ids = Object.keys(S.projetos);
     if (!ids.length) w.appendChild(h("div", {class:"empty", style:"margin-top:10px", text:"Nenhum projeto cadastrado."}));
     ids.forEach(function(id){ var p = S.projetos[id]; w.appendChild(h("button", {class:"card", style:"margin-top:8px", onclick:function(){ abrirProjeto(id); }}, h("div", {class:"lbl", text:"Projeto "+(p.numero||"")}), h("h3", {text:p.nome}))); }); return; }
@@ -864,7 +864,7 @@ function campoCalendario(w){
   function muda(n){ var d = new Date(ano, mes + n, 1); S.campo.mes = d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"); S.campo.dia = null; render(); }
   w.appendChild(h("div", {class:"lbl", style:"margin-bottom:6px", text:"1. Escolha o dia em que você fotografou"}));
   var cal = h("div", {class:"panel"}, h("div", {class:"row", style:"margin-bottom:10px"}, h("button", {class:"btn ghost", "aria-label":"Mês anterior", onclick:function(){ muda(-1); }}, "‹"),
-    h("h3", {style:"flex:1;text-align:center;text-transform:capitalize", text:MESES[mes]+" de "+ano}), h("button", {class:"btn ghost", "aria-label":"Próximo mês", onclick:function(){ muda(1); }}, "›")));
+    h("h3", {style:"flex:1;text-align:center", text:MESES[mes].charAt(0).toUpperCase()+MESES[mes].slice(1)+" de "+ano}), h("button", {class:"btn ghost", "aria-label":"Próximo mês", onclick:function(){ muda(1); }}, "›")));
   var grid = h("div", {style:"display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center"});
   ["D","S","T","Q","Q","S","S"].forEach(function(x){ grid.appendChild(h("div", {class:"lbl", text:x})); });
   var ini = new Date(ano, mes, 1).getDay(), nd = new Date(ano, mes + 1, 0).getDate();
