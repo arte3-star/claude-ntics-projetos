@@ -399,7 +399,7 @@ function render(){
   if (WEB && S.semPerfil) { app.appendChild(h("div", {class:"note warn", style:"margin-top:24px"}, "O login "+S.semPerfil+" ainda não tem acesso definido. Peça ao Escritório de Projetos para liberar. ", h("button", {class:"btn", onclick:async function(){ await WEBSB.auth.signOut(); location.reload(); }}, "Sair"))); return; }
   if (!S.ready) { app.appendChild(h("div", {class:"empty", style:"margin-top:40px"}, h("b", {text:"Abrindo a máquina…"}), "Conectando ao banco de projetos.")); return; }
   if (!S.db) { app.appendChild(h("div", {class:"note warn", style:"margin-top:24px"}, "O banco de projetos não está disponível nesta visualização. Abra a máquina pelo link do claude.ai com sua conta NTICS.")); return; }
-  if (!WEB && !S.viaConector) app.appendChild(h("div", {class:"note warn", style:"margin-top:14px"}, "O conector ", h("b", {text:CONECTOR}), " não está ativo para você, então esta tela mostra uma cópia antiga, sem os dados de campo. Ative o conector nas configurações do claude.ai (Conectores) e recarregue. ",
+  if (!WEB && !S.viaConector) app.appendChild(h("div", {class:"note warn", style:"margin-top:14px"}, "O conector ", h("b", {text:CONECTOR}), " não está ativo para você, então esta tela mostra uma cópia guardada no próprio artefato, que não acompanha em tempo real o que o campo envia pela página. Ative o conector nas configurações do claude.ai (Conectores) e recarregue. ",
     "Produtor, fotógrafo e patrocinador usam a ", h("a", {href:"https://arte3-star.github.io/claude-ntics-projetos/maquina-execucao/", target:"_blank", rel:"noopener", text:"página da máquina ↗"}), "."));
   if (S.modo === "campo") return renderCampo(app);
   if (S.modo === "patrocinador") return renderPatrocinador(app);
