@@ -835,10 +835,10 @@ function renderCampo(app){
   if (!S.cur) { w.appendChild(h("h2", {text:"Escolha o projeto"})); var ids = Object.keys(S.projetos);
     if (!ids.length) w.appendChild(h("div", {class:"empty", style:"margin-top:10px", text:"Nenhum projeto cadastrado."}));
     ids.forEach(function(id){ var p = S.projetos[id]; w.appendChild(h("button", {class:"card", style:"margin-top:8px", onclick:function(){ abrirProjeto(id); }}, h("div", {class:"lbl", text:"Projeto "+(p.numero||"")}), h("h3", {text:p.nome}))); }); return; }
-  var fixo = WEB && S.perfil && (S.perfil.papel === "produtor" || S.perfil.papel === "fotografo"), papel = fixo ? S.perfil.papel : (lsGet("mx-papel") || "produtor");
+  var fixo = WEB && S.perfil && (S.perfil.papel === "produtor" || S.perfil.papel === "fotografo"), papel = fixo ? S.perfil.papel : (S.papel || lsGet("mx-papel") || "produtor");
   w.appendChild(h("div", {class:"row", style:"margin-bottom:12px"}, h("h2", {text:P().nome}), h("span", {class:"sp"}),
-    fixo ? h("span", {class:"pill p-info", text: papel === "fotografo" ? "Fotógrafo" : "Produtor"}) : h("div", {class:"seg", role:"group", "aria-label":"Quem está registrando"}, [["produtor","Produtor"],["fotografo","Fotógrafo"]].map(function(x){ return h("button", {"aria-pressed": papel === x[0] ? "true" : "false", onclick:function(){ lsSet("mx-papel", x[0]); render(); }}, x[1]); }))));
-  if (S.campo.tela === "inst" && S.campo.inst) return campoInst(w, byId("instituicoes", S.campo.inst));
+    fixo ? h("span", {class:"pill p-info", text: papel === "fotografo" ? "Fotógrafo" : "Produtor"}) : h("div", {class:"seg", role:"group", "aria-label":"Quem está registrando"}, [["produtor","Produtor"],["fotografo","Fotógrafo"]].map(function(x){ return h("button", {"aria-pressed": papel === x[0] ? "true" : "false", onclick:function(){ S.papel = x[0]; lsSet("mx-papel", x[0]); S.campo = {tela:"lista"}; render(); }}, x[1]); }))));
+  if (papel === "produtor" && S.campo.tela === "inst" && S.campo.inst) return campoInst(w, byId("instituicoes", S.campo.inst));
   if (papel === "fotografo") return S.campo.tela === "sess" && S.campo.sess ? campoFotografo(w, byId("grade", S.campo.sess)) : campoCalendario(w);
   if (S.campo.tela === "sess" && S.campo.sess) return campoSessao(w, byId("grade", S.campo.sess), papel);
   if (!S.data.grade.length) { w.appendChild(h("div", {class:"empty"}, h("b", {text:"A grade deste projeto ainda está vazia"}), "O escritório lança as datas na aba Engajamento e grade; elas aparecem aqui.")); return; }
