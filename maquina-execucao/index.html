@@ -690,8 +690,11 @@ function ampliar(m){
 function miniaturaDrive(m){
   var el = h("button", {type:"button", class:"thumbd", title:(m.rotulo ? m.rotulo+" · " : "")+(m.nome || ""), "aria-label":"Ampliar "+(m.nome || "foto"), onclick:function(){ ampliar(m); }},
     h("span", {class:"small muted", text: m.tipo === "video" ? "Vídeo" : "…"}));
-  thumbDrive(m.driveId, 400).then(function(src){ el.textContent = ""; el.appendChild(h("img", {src:src, alt:m.nome || "foto", loading:"lazy"})); if (m.tipo === "video") el.appendChild(h("span", {class:"play", "aria-hidden":"true", text:"▶"})); },
-    function(){ el.textContent = ""; el.appendChild(h("span", {class:"small", text:(m.tipo === "video" ? "Vídeo · " : "Foto · ")+String(m.nome || "").slice(0, 22)})); });
+  function carrega(){ thumbDrive(m.driveId, 400).then(function(src){ el.textContent = ""; el.appendChild(h("img", {src:src, alt:m.nome || "foto", loading:"lazy"})); if (m.tipo === "video") el.appendChild(h("span", {class:"play", "aria-hidden":"true", text:"▶"})); },
+    function(){ el.textContent = ""; el.appendChild(h("span", {class:"small", text:(m.tipo === "video" ? "Vídeo · " : "Foto · ")+String(m.nome || "").slice(0, 22)})); }); }
+  // só pede a miniatura quando ela chega perto da tela (galerias com mais de cem fotos abrem rápido)
+  if ("IntersectionObserver" in window) { var ob = new IntersectionObserver(function(es){ if (es.some(function(e){ return e.isIntersecting; })) { ob.disconnect(); carrega(); } }, {rootMargin:"300px"}); setTimeout(function(){ ob.observe(el); }, 0); }
+  else carrega();
   return el; }
 
 /* ---------- sem internet: fila no celular (só na página web) ---------- */
