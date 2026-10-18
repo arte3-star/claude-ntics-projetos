@@ -835,9 +835,11 @@ var PORT = {carregando:false, em:null, dados:{}};
 async function carregarPortfolio(){
   if (!S.db || PORT.carregando) return; PORT.carregando = true; render();
   var ids = Object.keys(S.projetos), cols = ["tarefas","atividades","grade","diario","instituicoes","stakeholders","pecas","orcamento"], novo = {}, raw = {};
-  for (var i = 0; i < ids.length; i++){ var D = {}; COLS.forEach(function(c){ D[c] = []; });
-    for (var j = 0; j < cols.length; j++){ try { var snap = await S.db.collection("projetos/"+ids[i]+"/"+cols[j]).get(); D[cols[j]] = snap.docs.map(function(d){ var x = Object.assign({}, d.data()); x.id = d.id; return x; }); } catch(e){} }
-    novo[ids[i]] = resumoProjeto(ids[i], D); raw[ids[i]] = D; }
+  // lê tudo em paralelo (7 projetos × 8 coleções em uma leva)
+  var Ds = await Promise.all(ids.map(async function(id){ var D = {}; COLS.forEach(function(c){ D[c] = []; });
+    await Promise.all(cols.map(async function(c){ try { var snap = await S.db.collection("projetos/"+id+"/"+c).get(); D[c] = snap.docs.map(function(d){ var x = Object.assign({}, d.data()); x.id = d.id; return x; }); } catch(e){} }));
+    return D; }));
+  ids.forEach(function(id, i){ novo[id] = resumoProjeto(id, Ds[i]); raw[id] = Ds[i]; });
   PORT.raw = raw;
   PORT.dados = novo; PORT.em = new Date(); PORT.carregando = false; render(); }
 function resumoProjeto(id, D){
