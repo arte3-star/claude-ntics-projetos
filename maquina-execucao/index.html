@@ -391,9 +391,9 @@ function alertasCruzados(){
     if (cc.risco.length > 6) add("bad", "Mais "+(cc.risco.length - 6)+" tarefa(s) de preparação previstas para depois do início do campo.", "fases");
     if (ac <= 14 && cc.xs.length) add("warn", "O campo começa "+quando(ac)+" e "+cc.xs.length+" tarefa(s) de preparação estão abertas.", "fases"); }
   S.data.verbas.forEach(function(v){ var r = verbaResumo(v);
-    if (r.saldo < 0) add("bad", "A verba de produção de "+v.nome+" passou do valor em "+brl(-r.saldo)+".", "orcamento");
+    if (r.saldo < 0) add("bad", "A verba de produção de "+v.nome+" passou do valor em "+brlc(-r.saldo)+".", "orcamento");
     if (r.semComp) add("warn", r.semComp+" despesa(s) de "+v.nome+" sem comprovante.", "orcamento");
-    if (r.nNaoPrev && r.aConferir) add("warn", v.nome+" lançou "+r.nNaoPrev+" despesa(s) não prevista(s) ("+brl(r.naoPrev)+"). Confira no Orçamento.", "orcamento"); });
+    if (r.nNaoPrev && r.aConferir) add("warn", v.nome+" lançou "+r.nNaoPrev+" despesa(s) não prevista(s) ("+brlc(r.naoPrev)+"). Confira no Orçamento.", "orcamento"); });
   S.data.tarefas.forEach(function(t){ var a = divergente(t); if (a) add("warn", "\""+t.titulo+"\" foi marcada como feita, mas a máquina vê "+a.feito+" de "+a.total+". "+(a.falta || ""), "fases"); });
   return A.sort(function(a,b){ return (a.n === "bad" ? 0 : 1) - (b.n === "bad" ? 0 : 1); }); }
 function painelAlertas(A){
@@ -719,6 +719,7 @@ function alocar(l){
     {equipe:equipeTxt(l.eq)}, async function(v){ try { await S.db.doc("projetos/"+l.pid+"/grade/"+l.g.id).update({equipe:equipeLer(v.equipe), atualizadoEm:new Date().toISOString()});
       l.g.equipe = equipeLer(v.equipe); toast("Equipe salva."); render(); return true; } catch(e){ toast("Não foi possível salvar."); return false; } }); }
 
+function brlc(n){ return Number(n||0).toLocaleString("pt-BR", {style:"currency", currency:"BRL"}); }
 /* ---------- budget do produtor: verba de produção por pessoa, despesas com comprovante ---------- */
 function verbaResumo(v){ var ds = S.data.despesas.filter(function(d){ return d.verbaId === v.id; }).sort(function(a, b){ return String(b.data).localeCompare(a.data); });
   var gasto = ds.reduce(function(s, d){ return s + num(d.valor); }, 0), np = ds.filter(function(d){ return !d.previsto; });
@@ -744,7 +745,7 @@ function tabelaDespesas(ds, escritorio){
   ds.forEach(function(d){ tb.lastChild.appendChild(h("tr", null, h("td", {class:"mono", text:fdata(d.data)}),
     h("td", null, h("b", {text:d.descricao}), d.gradeId && byId("grade", d.gradeId) ? h("div", {class:"small muted", text:nomeAtiv(byId("grade", d.gradeId).atividadeId)+" · "+nomeInst(byId("grade", d.gradeId).instituicaoId)}) : null,
       !d.previsto && d.justificativa ? h("div", {class:"small", text:"Justificativa: "+d.justificativa}) : null),
-    h("td", {class:"num mono", text:brl(d.valor)}),
+    h("td", {class:"num mono", text:brlc(d.valor)}),
     h("td", null, d.previsto ? h("span", {class:"pill p-ok", text:"Previsto"+(d.itemDesc ? " · "+d.itemDesc : "")}) : h("span", {class:"pill p-warn", text:"Não previsto"})),
     h("td", null, d.comprovante ? miniaturas([d.comprovante]) : h("span", {class:"pill p-bad", text:"Sem comprovante"})),
     h("td", null, escritorio ? h("label", {class:"small", style:"display:flex;gap:6px;align-items:center"}, h("input", {type:"checkbox", checked: d.conferido ? true : null, onchange:function(e){ atualizar("despesas", d.id, {conferido:e.target.checked, conferidoEm: e.target.checked ? new Date().toISOString() : null}); }}), "Conferida")
@@ -760,22 +761,22 @@ function painelVerbas(){
     pan.appendChild(h("div", {class:"accitem", style:"margin-top:10px"},
       h("div", {class:"row", style:"gap:10px;flex-wrap:wrap"}, h("div", {style:"flex:1;min-width:200px"}, h("b", {text:v.nome}), h("div", {class:"small muted", text:v.email+(v.rubrica ? " · "+v.rubrica : "")}),
           v.planilha ? h("a", {class:"small", href:v.planilha, target:"_blank", rel:"noopener", text:"planilha financeira ↗"}) : null),
-        h("div", {class:"mono small", style:"text-align:right"}, h("div", {text:"Verba "+brl(v.valor)}), h("div", {text:"Gasto "+brl(r.gasto)}), h("div", {class: r.saldo < 0 ? "late" : "", style:"font-weight:700", text:"Saldo "+brl(r.saldo)}))),
+        h("div", {class:"mono small", style:"text-align:right"}, h("div", {text:"Verba "+brlc(v.valor)}), h("div", {text:"Gasto "+brlc(r.gasto)}), h("div", {class: r.saldo < 0 ? "late" : "", style:"font-weight:700", text:"Saldo "+brlc(r.saldo)}))),
       h("div", {class:"bar", style:"margin-top:8px"}, h("i", {style:"width:"+pct(r.gasto, v.valor)+"%"+(r.saldo < 0 ? ";background:var(--bad)" : "")})),
       h("div", {class:"row small", style:"margin-top:6px;gap:8px;flex-wrap:wrap"}, h("span", {class:"pill p-mut", text:r.ds.length+" despesa(s)"}),
-        r.nNaoPrev ? h("span", {class:"pill p-warn", text:r.nNaoPrev+" não prevista(s) · "+brl(r.naoPrev)}) : null, r.semComp ? h("span", {class:"pill p-bad", text:r.semComp+" sem comprovante"}) : null,
+        r.nNaoPrev ? h("span", {class:"pill p-warn", text:r.nNaoPrev+" não prevista(s) · "+brlc(r.naoPrev)}) : null, r.semComp ? h("span", {class:"pill p-bad", text:r.semComp+" sem comprovante"}) : null,
         r.aConferir ? h("span", {class:"pill p-info", text:r.aConferir+" a conferir"}) : null, h("span", {class:"sp"}),
         h("button", {class:"btn ghost small", onclick:function(){ S.verbaAberta = aberto ? null : v.id; render(); }}, aberto ? "Fechar lançamentos" : "Ver lançamentos"),
         h("button", {class:"btn ghost small", onclick:function(){ editarVerba(v); }}, "Editar verba")),
       aberto ? h("div", {style:"margin-top:10px"}, (v.itens || []).length ? h("div", {class:"small", style:"margin-bottom:8px"}, h("b", {text:"Itens previstos: "}), (v.itens || []).map(function(i){ var g = r.ds.filter(function(d){ return d.itemId === i.id; }).reduce(function(s, d){ return s + num(d.valor); }, 0);
-          return i.descricao+" "+brl(g)+(num(i.valor) ? " de "+brl(i.valor) : ""); }).join(" · ")) : null, tabelaDespesas(r.ds, true)) : null)); });
+          return i.descricao+" "+brlc(g)+(num(i.valor) ? " de "+brlc(i.valor) : ""); }).join(" · ")) : null, tabelaDespesas(r.ds, true)) : null)); });
   return pan; }
 function campoBudget(w, v){
   if (!v) { S.campo = {tela:"lista"}; return render(); }
   var r = verbaResumo(v), edit = S.campo.editDesp ? S.data.despesas.find(function(d){ return d.id === S.campo.editDesp; }) : null;
   w.appendChild(h("button", {class:"back", onclick:function(){ S.campo = {tela:"lista"}; render(); }}, "‹ Voltar à grade"));
   w.appendChild(h("h2", {text:"Budget de produção · "+v.nome}));
-  w.appendChild(h("div", {class:"grid g3", style:"margin:10px 0"}, [["Verba", brl(v.valor)], ["Gasto", brl(r.gasto)], ["Saldo", brl(r.saldo)]].map(function(k, i){ return h("div", {class:"panel kpi"}, h("div", {class:"lbl", text:k[0]}), h("div", {class:"v"+(i === 2 && r.saldo < 0 ? " late" : ""), style:"font-size:22px", text:k[1]})); })));
+  w.appendChild(h("div", {class:"grid g3", style:"margin:10px 0"}, [["Verba", brlc(v.valor)], ["Gasto", brlc(r.gasto)], ["Saldo", brlc(r.saldo)]].map(function(k, i){ return h("div", {class:"panel kpi"}, h("div", {class:"lbl", text:k[0]}), h("div", {class:"v"+(i === 2 && r.saldo < 0 ? " late" : ""), style:"font-size:22px", text:k[1]})); })));
   if (v.obs) w.appendChild(h("div", {class:"note", text:v.obs}));
   // formulário de despesa
   var novoId = edit ? edit.id : "dp"+uid(), est = {comprovante: edit ? edit.comprovante || null : null};
@@ -794,7 +795,7 @@ function campoBudget(w, v){
   var inData = h("input", {type:"date"}); inData.value = edit ? edit.data : hoje();
   var inValor = h("input", {type:"number", min:"0", step:"0.01", placeholder:"0,00"}); inValor.value = edit ? edit.valor : "";
   var inDesc = h("input", {type:"text", placeholder:"Ex.: almoço da equipe em Toledo"}); inDesc.value = edit ? edit.descricao : "";
-  var inPrev = h("select", null, h("option", {value:"", text:"Escolha…"}), (v.itens || []).map(function(i){ return h("option", {value:"i:"+i.id, text:"Previsto: "+i.descricao+(num(i.valor) ? " ("+brl(i.valor)+")" : "")}); }),
+  var inPrev = h("select", null, h("option", {value:"", text:"Escolha…"}), (v.itens || []).map(function(i){ return h("option", {value:"i:"+i.id, text:"Previsto: "+i.descricao+(num(i.valor) ? " ("+brlc(i.valor)+")" : "")}); }),
     (v.itens || []).length ? null : h("option", {value:"sim", text:"Estava previsto"}), h("option", {value:"nao", text:"Não estava previsto"}));
   if (edit) inPrev.value = edit.previsto ? (edit.itemId ? "i:"+edit.itemId : "sim") : "nao";
   var inJust = h("textarea", {placeholder:"Por que foi preciso gastar com isso?"}); inJust.value = edit ? edit.justificativa || "" : "";
