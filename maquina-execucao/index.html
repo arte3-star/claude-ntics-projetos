@@ -198,11 +198,11 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 
 <script>
 "use strict";
-var MODELO = {"fases": [{"k": "lab", "t": "Lab", "cor": "lab", "dep": [], "resumo": "Equipe, estrutura, entregas, atividades com metodologia e metas, pré-cronograma, direção de comunicação e engajamento."}, {"k": "kickoff", "t": "Kick-off", "cor": "kickoff", "dep": ["lab"], "resumo": "Alinhamento estratégico com o cliente: instituições indicadas, equipe de comunicação dele, locais e contatos."}, {"k": "planejamento", "t": "Planejamento", "cor": "planejamento", "dep": ["kickoff"], "resumo": "Dados faltantes, stakeholders, datas de todas as entregas, site, régua e assessoria de imprensa."}, {"k": "comunicacao", "t": "Comunicação", "cor": "comunicacao", "dep": ["planejamento"], "paralela": true, "resumo": "KV, peças de identidade visual, aprovação do cliente, gráfica e releases. Ligada à Máquina de Comunicação."}, {"k": "orcamento", "t": "Orçamento e formalização", "cor": "orcamento", "dep": ["planejamento"], "paralela": true, "resumo": "Orçamento de pessoas, materiais, gráfica, evento, transporte, estadia e locação; contratos e pagamentos."}, {"k": "engajamento", "t": "Engajamento", "cor": "engajamento", "dep": ["planejamento"], "paralela": true, "resumo": "Instituições confirmadas, meta por instituição, grade fechada e cronograma definitivo."}, {"k": "preexecucao", "t": "Pré-execução", "cor": "preexecucao", "dep": ["comunicacao", "orcamento", "engajamento"], "resumo": "Treinamento da equipe, documentos de campo, cartas e formulários, acessos do app de campo."}, {"k": "execucao", "t": "Execução", "cor": "execucao", "dep": ["preexecucao"], "resumo": "Diário de campo por instituição e atividade, comprovações e relatórios semanais."}, {"k": "consolidacao", "t": "Consolidação", "cor": "consolidacao", "dep": ["execucao"], "resumo": "Conferência de metas: alunos, instituições, atividades e oficinas contra o previsto."}, {"k": "finalizacao", "t": "Finalização", "cor": "finalizacao", "dep": ["consolidacao"], "resumo": "Relatório final, vídeo final, vídeo case, clipping, carrossel, apresentação ao cliente e NPS."}], "tarefas": [{"fase": "lab", "t": "Equipe do projeto definida (produção, equipe de campo, fornecedores e quantas pessoas)", "ref": "inicio", "off": -95}, {"fase": "lab", "t": "Estrutura do projeto e entregas", "ref": "inicio", "off": -92, "entrega": true}, {"fase": "lab", "t": "Atividades com metodologia, equipe por atividade, MinC e metas", "ref": "inicio", "off": -92, "modulo": "atividades"}, {"fase": "lab", "t": "Pré-cronograma de execução", "ref": "inicio", "off": -90}, {"fase": "lab", "t": "Direção e plano de comunicação (rascunho)", "ref": "inicio", "off": -90}, {"fase": "lab", "t": "Peças de comunicação previstas", "ref": "inicio", "off": -90, "modulo": "pecas"}, {"fase": "lab", "t": "Plano de engajamento (rascunho)", "ref": "inicio", "off": -90}, {"fase": "kickoff", "t": "Reunião de kick-off com o cliente", "ref": "inicio", "off": -80, "entrega": true}, {"fase": "kickoff", "t": "Instituições e locais indicados pelo cliente (escolas, praças, outros)", "ref": "inicio", "off": -78, "modulo": "instituicoes"}, {"fase": "kickoff", "t": "Equipe de comunicação do cliente e pontos focais", "ref": "inicio", "off": -78, "modulo": "stakeholders"}, {"fase": "kickoff", "t": "Pontos estratégicos alinhados e registrados", "ref": "inicio", "off": -78}, {"fase": "planejamento", "t": "Dados faltantes levantados", "ref": "inicio", "off": -65}, {"fase": "planejamento", "t": "Stakeholders com contato (equipe NTICS, patrocinador, secretarias, cidade, fotógrafo)", "ref": "inicio", "off": -65, "modulo": "stakeholders"}, {"fase": "planejamento", "t": "Plano de comunicação e de engajamento concluídos", "ref": "inicio", "off": -60, "entrega": true}, {"fase": "planejamento", "t": "Peças extras de comunicação definidas", "ref": "inicio", "off": -60, "modulo": "pecas"}, {"fase": "planejamento", "t": "Site do projeto no ar", "ref": "inicio", "off": -55, "entrega": true}, {"fase": "planejamento", "t": "Régua do projeto (logo e aplicação de marca do patrocinador)", "ref": "inicio", "off": -58}, {"fase": "planejamento", "t": "Assessoria de imprensa e ponto focal de comunicação do cliente", "ref": "inicio", "off": -58}, {"fase": "planejamento", "t": "Datas de todas as entregas definidas", "ref": "inicio", "off": -60}, {"fase": "comunicacao", "t": "KV e material de marca recebidos", "ref": "inicio", "off": -50}, {"fase": "comunicacao", "t": "Peças de identidade visual criadas", "ref": "inicio", "off": -40, "modulo": "pecas"}, {"fase": "comunicacao", "t": "Peças aprovadas pelo cliente", "ref": "inicio", "off": -25, "modulo": "pecas", "entrega": true}, {"fase": "comunicacao", "t": "Peças enviadas para a gráfica", "ref": "inicio", "off": -21}, {"fase": "comunicacao", "t": "Releases", "ref": "inicio", "off": -14, "entrega": true}, {"fase": "orcamento", "t": "Orçamento de pessoas (produtor, monitores, fotógrafo, equipe)", "ref": "inicio", "off": -50, "modulo": "orcamento"}, {"fase": "orcamento", "t": "Orçamento de materiais e gráfica", "ref": "inicio", "off": -45, "modulo": "orcamento"}, {"fase": "orcamento", "t": "Estrutura de evento, kits e materiais de atividade", "ref": "inicio", "off": -45, "modulo": "orcamento"}, {"fase": "orcamento", "t": "Assessoria, designer, transporte, estadia e locação", "ref": "inicio", "off": -40, "modulo": "orcamento"}, {"fase": "orcamento", "t": "Formalizações (contratos assinados)", "ref": "inicio", "off": -30, "modulo": "stakeholders", "entrega": true}, {"fase": "orcamento", "t": "Pagamentos programados", "ref": "inicio", "off": -20, "modulo": "stakeholders"}, {"fase": "engajamento", "t": "Instituições confirmadas", "ref": "inicio", "off": -40, "modulo": "instituicoes"}, {"fase": "engajamento", "t": "Meta de público por instituição", "ref": "inicio", "off": -35, "modulo": "instituicoes"}, {"fase": "engajamento", "t": "Grade fechada com as instituições (datas, turmas, atividades)", "ref": "inicio", "off": -30, "modulo": "grade", "entrega": true}, {"fase": "engajamento", "t": "Cronograma definitivo de execução", "ref": "inicio", "off": -28, "modulo": "grade"}, {"fase": "preexecucao", "t": "Treinamento da equipe", "ref": "inicio", "off": -10, "entrega": true}, {"fase": "preexecucao", "t": "Cartas de comprovação e formulários de indicadores", "ref": "inicio", "off": -10}, {"fase": "preexecucao", "t": "Acessos do diário de campo (produtor e fotógrafo)", "ref": "inicio", "off": -7, "modulo": "campo"}, {"fase": "preexecucao", "t": "Materiais impressos entregues nas cidades", "ref": "inicio", "off": -5}, {"fase": "execucao", "t": "Diário de campo preenchido em todas as atividades", "ref": "fim", "off": 0, "modulo": "diario", "auto": "diario"}, {"fase": "execucao", "t": "Comprovações das instituições completas (acessibilidade e cartas)", "ref": "fim", "off": 1, "modulo": "instituicoes", "auto": "comprovacoes"}, {"fase": "execucao", "t": "Relatórios semanais enviados ao cliente", "ref": "fim", "off": 3}, {"fase": "consolidacao", "t": "Metas conferidas (alunos, instituições, atividades, oficinas)", "ref": "fim", "off": 7, "modulo": "metas", "auto": "metas"}, {"fase": "consolidacao", "t": "Dados consolidados para o relatório", "ref": "fim", "off": 9}, {"fase": "finalizacao", "t": "Relatório final", "ref": "fim", "off": 14, "entrega": true}, {"fase": "finalizacao", "t": "Vídeo final", "ref": "fim", "off": 14, "entrega": true}, {"fase": "finalizacao", "t": "Vídeo case", "ref": "fim", "off": 20, "entrega": true}, {"fase": "finalizacao", "t": "Relatório de clipping", "ref": "fim", "off": 12, "entrega": true}, {"fase": "finalizacao", "t": "Carrossel de finalização", "ref": "fim", "off": 16, "entrega": true}, {"fase": "finalizacao", "t": "Apresentação dos resultados ao cliente", "ref": "fim", "off": 20}, {"fase": "finalizacao", "t": "NPS preenchido", "ref": "fim", "off": 22}], "acessibilidade": [{"k": "ambientes", "t": "Ambientes acessíveis além da sala de atividade"}, {"k": "rota", "t": "Rota acessível da entrada até o local da atividade"}, {"k": "banheiro", "t": "Banheiro acessível e sinalizado"}, {"k": "plateia", "t": "Espaço para cadeira de rodas na plateia"}, {"k": "rampas", "t": "Rampas"}, {"k": "piso", "t": "Piso tátil"}, {"k": "corrimao", "t": "Corrimãos"}, {"k": "elevador", "t": "Elevadores"}, {"k": "braille", "t": "Sinalização visual e em braille"}, {"k": "mobilidade", "t": "Participação de estudante com mobilidade reduzida"}]};
+var MODELO = {"fases": [{"k": "lab", "t": "Lab", "cor": "lab", "dep": [], "resumo": "Equipe, estrutura, entregas, atividades com metodologia e metas, pré-cronograma, direção de comunicação e engajamento."}, {"k": "kickoff", "t": "Kick-off", "cor": "kickoff", "dep": ["lab"], "resumo": "Alinhamento estratégico com o cliente: instituições indicadas, equipe de comunicação dele, locais e contatos."}, {"k": "planejamento", "t": "Planejamento", "cor": "planejamento", "dep": ["kickoff"], "resumo": "Dados faltantes, stakeholders, datas de todas as entregas, site, régua e assessoria de imprensa."}, {"k": "comunicacao", "t": "Comunicação", "cor": "comunicacao", "dep": ["planejamento"], "paralela": true, "resumo": "KV, peças de identidade visual, aprovação do cliente, gráfica e releases. Ligada à Máquina de Comunicação."}, {"k": "orcamento", "t": "Orçamento e formalização", "cor": "orcamento", "dep": ["planejamento"], "paralela": true, "resumo": "Orçamento de pessoas, materiais, gráfica, evento, transporte, estadia e locação; contratos e pagamentos."}, {"k": "engajamento", "t": "Engajamento", "cor": "engajamento", "dep": ["planejamento"], "paralela": true, "resumo": "Instituições confirmadas, meta por instituição, grade fechada e cronograma definitivo."}, {"k": "preexecucao", "t": "Pré-execução", "cor": "preexecucao", "dep": ["comunicacao", "orcamento", "engajamento"], "resumo": "Treinamento da equipe, documentos de campo, cartas e formulários, acessos do app de campo."}, {"k": "execucao", "t": "Execução", "cor": "execucao", "dep": ["preexecucao"], "resumo": "Diário de campo por instituição e atividade, comprovações e relatórios semanais."}, {"k": "consolidacao", "t": "Consolidação", "cor": "consolidacao", "dep": ["execucao"], "resumo": "Conferência de metas: alunos, instituições, atividades e oficinas contra o previsto."}, {"k": "finalizacao", "t": "Finalização", "cor": "finalizacao", "dep": ["consolidacao"], "resumo": "Relatório final, vídeo final, vídeo case, clipping, carrossel, apresentação ao cliente e NPS."}], "tarefas": [{"fase": "lab", "t": "Equipe do projeto definida (produção, equipe de campo, fornecedores e quantas pessoas)", "ref": "inicio", "off": -95, "id": "t00", "dep": []}, {"fase": "lab", "t": "Estrutura do projeto e entregas", "ref": "inicio", "off": -92, "entrega": true, "id": "t01", "dep": ["t00"]}, {"fase": "lab", "t": "Atividades com metodologia, equipe por atividade, MinC e metas", "ref": "inicio", "off": -92, "modulo": "atividades", "id": "t02", "dep": ["t01"], "auto": "atividades_metas"}, {"fase": "lab", "t": "Pré-cronograma de execução", "ref": "inicio", "off": -90, "id": "t03", "dep": ["t02"]}, {"fase": "lab", "t": "Direção e plano de comunicação (rascunho)", "ref": "inicio", "off": -90, "id": "t04", "dep": ["t01"]}, {"fase": "lab", "t": "Peças de comunicação previstas", "ref": "inicio", "off": -90, "modulo": "pecas", "id": "t05", "dep": ["t04"], "auto": "pecas_previstas"}, {"fase": "lab", "t": "Plano de engajamento (rascunho)", "ref": "inicio", "off": -90, "id": "t06", "dep": ["t02"]}, {"fase": "kickoff", "t": "Reunião de kick-off com o cliente", "ref": "inicio", "off": -80, "entrega": true, "id": "t07", "dep": ["t01", "t02", "t03", "t04", "t05", "t06"]}, {"fase": "kickoff", "t": "Instituições e locais indicados pelo cliente (escolas, praças, outros)", "ref": "inicio", "off": -78, "modulo": "instituicoes", "id": "t08", "dep": ["t07"], "auto": "inst_indicadas"}, {"fase": "kickoff", "t": "Equipe de comunicação do cliente e pontos focais", "ref": "inicio", "off": -78, "modulo": "stakeholders", "id": "t09", "dep": ["t07"], "auto": "pontos_focais"}, {"fase": "kickoff", "t": "Pontos estratégicos alinhados e registrados", "ref": "inicio", "off": -78, "id": "t10", "dep": ["t07"]}, {"fase": "planejamento", "t": "Dados faltantes levantados", "ref": "inicio", "off": -65, "id": "t11", "dep": ["t07"]}, {"fase": "planejamento", "t": "Stakeholders com contato (equipe NTICS, patrocinador, secretarias, cidade, fotógrafo)", "ref": "inicio", "off": -65, "modulo": "stakeholders", "id": "t12", "dep": ["t09", "t11"], "auto": "contatos"}, {"fase": "planejamento", "t": "Plano de comunicação e de engajamento concluídos", "ref": "inicio", "off": -60, "entrega": true, "id": "t13", "dep": ["t10", "t11"]}, {"fase": "planejamento", "t": "Peças extras de comunicação definidas", "ref": "inicio", "off": -60, "modulo": "pecas", "id": "t14", "dep": ["t13"], "auto": "pecas_previstas"}, {"fase": "planejamento", "t": "Site do projeto no ar", "ref": "inicio", "off": -55, "entrega": true, "id": "t15", "dep": ["t13"]}, {"fase": "planejamento", "t": "Régua do projeto (logo e aplicação de marca do patrocinador)", "ref": "inicio", "off": -58, "id": "t16", "dep": ["t07"]}, {"fase": "planejamento", "t": "Assessoria de imprensa e ponto focal de comunicação do cliente", "ref": "inicio", "off": -58, "id": "t17", "dep": ["t09"]}, {"fase": "planejamento", "t": "Datas de todas as entregas definidas", "ref": "inicio", "off": -60, "id": "t18", "dep": ["t13"]}, {"fase": "comunicacao", "t": "KV e material de marca recebidos", "ref": "inicio", "off": -50, "id": "t19", "dep": ["t07"]}, {"fase": "comunicacao", "t": "Peças de identidade visual criadas", "ref": "inicio", "off": -40, "modulo": "pecas", "id": "t20", "dep": ["t19", "t16"], "auto": "pecas_criadas"}, {"fase": "comunicacao", "t": "Peças aprovadas pelo cliente", "ref": "inicio", "off": -25, "modulo": "pecas", "entrega": true, "id": "t21", "dep": ["t20"], "auto": "pecas_aprovadas"}, {"fase": "comunicacao", "t": "Peças enviadas para a gráfica", "ref": "inicio", "off": -21, "id": "t22", "dep": ["t21"]}, {"fase": "comunicacao", "t": "Releases", "ref": "inicio", "off": -14, "entrega": true, "id": "t23", "dep": ["t17", "t21"]}, {"fase": "orcamento", "t": "Orçamento de pessoas (produtor, monitores, fotógrafo, equipe)", "ref": "inicio", "off": -50, "modulo": "orcamento", "id": "t24", "dep": ["t00", "t07"], "auto": "orc_pessoas"}, {"fase": "orcamento", "t": "Orçamento de materiais e gráfica", "ref": "inicio", "off": -45, "modulo": "orcamento", "id": "t25", "dep": ["t05", "t07"], "auto": "orc_materiais"}, {"fase": "orcamento", "t": "Estrutura de evento, kits e materiais de atividade", "ref": "inicio", "off": -45, "modulo": "orcamento", "id": "t26", "dep": ["t07"], "auto": "orc_evento"}, {"fase": "orcamento", "t": "Assessoria, designer, transporte, estadia e locação", "ref": "inicio", "off": -40, "modulo": "orcamento", "id": "t27", "dep": ["t07"], "auto": "orc_servicos"}, {"fase": "orcamento", "t": "Formalizações (contratos assinados)", "ref": "inicio", "off": -30, "modulo": "stakeholders", "entrega": true, "id": "t28", "dep": ["t24", "t25", "t26", "t27"], "auto": "formalizacoes"}, {"fase": "orcamento", "t": "Pagamentos programados", "ref": "inicio", "off": -20, "modulo": "stakeholders", "id": "t29", "dep": ["t28"], "auto": "pagamentos"}, {"fase": "engajamento", "t": "Instituições confirmadas", "ref": "inicio", "off": -40, "modulo": "instituicoes", "id": "t30", "dep": ["t08"], "auto": "inst_confirmadas"}, {"fase": "engajamento", "t": "Meta de público por instituição", "ref": "inicio", "off": -35, "modulo": "instituicoes", "id": "t31", "dep": ["t30"], "auto": "inst_metas"}, {"fase": "engajamento", "t": "Grade fechada com as instituições (datas, turmas, atividades)", "ref": "inicio", "off": -30, "modulo": "grade", "entrega": true, "id": "t32", "dep": ["t30", "t03"], "auto": "grade_fechada"}, {"fase": "engajamento", "t": "Cronograma definitivo de execução", "ref": "inicio", "off": -28, "modulo": "grade", "id": "t33", "dep": ["t32"], "auto": "cronograma_def"}, {"fase": "preexecucao", "t": "Treinamento da equipe", "ref": "inicio", "off": -10, "entrega": true, "id": "t34", "dep": ["t33", "t28"]}, {"fase": "preexecucao", "t": "Cartas de comprovação e formulários de indicadores", "ref": "inicio", "off": -10, "id": "t35", "dep": ["t33"]}, {"fase": "preexecucao", "t": "Acessos do diário de campo (produtor e fotógrafo)", "ref": "inicio", "off": -7, "modulo": "campo", "id": "t36", "dep": ["t33"], "auto": "acessos_campo"}, {"fase": "preexecucao", "t": "Materiais impressos entregues nas cidades", "ref": "inicio", "off": -5, "id": "t37", "dep": ["t22"]}, {"fase": "execucao", "t": "Diário de campo preenchido em todas as atividades", "ref": "fim", "off": 0, "modulo": "diario", "auto": "diario", "id": "t38", "dep": ["t34", "t35", "t36", "t37"]}, {"fase": "execucao", "t": "Comprovações das instituições completas (acessibilidade e cartas)", "ref": "fim", "off": 1, "modulo": "instituicoes", "auto": "comprovacoes", "id": "t39", "dep": ["t35"]}, {"fase": "execucao", "t": "Relatórios semanais enviados ao cliente", "ref": "fim", "off": 3, "id": "t40", "dep": ["t38"]}, {"fase": "consolidacao", "t": "Metas conferidas (alunos, instituições, atividades, oficinas)", "ref": "fim", "off": 7, "modulo": "metas", "auto": "metas", "id": "t41", "dep": ["t38"]}, {"fase": "consolidacao", "t": "Dados consolidados para o relatório", "ref": "fim", "off": 9, "id": "t42", "dep": ["t41", "t39"]}, {"fase": "finalizacao", "t": "Relatório final", "ref": "fim", "off": 14, "entrega": true, "id": "t43", "dep": ["t42"]}, {"fase": "finalizacao", "t": "Vídeo final", "ref": "fim", "off": 14, "entrega": true, "id": "t44", "dep": ["t38"]}, {"fase": "finalizacao", "t": "Vídeo case", "ref": "fim", "off": 20, "entrega": true, "id": "t45", "dep": ["t44"]}, {"fase": "finalizacao", "t": "Relatório de clipping", "ref": "fim", "off": 12, "entrega": true, "id": "t46", "dep": ["t23"]}, {"fase": "finalizacao", "t": "Carrossel de finalização", "ref": "fim", "off": 16, "entrega": true, "id": "t47", "dep": ["t44"]}, {"fase": "finalizacao", "t": "Apresentação dos resultados ao cliente", "ref": "fim", "off": 20, "id": "t48", "dep": ["t43", "t45"]}, {"fase": "finalizacao", "t": "NPS preenchido", "ref": "fim", "off": 22, "id": "t49", "dep": ["t48"]}], "acessibilidade": [{"k": "ambientes", "t": "Ambientes acessíveis além da sala de atividade"}, {"k": "rota", "t": "Rota acessível da entrada até o local da atividade"}, {"k": "banheiro", "t": "Banheiro acessível e sinalizado"}, {"k": "plateia", "t": "Espaço para cadeira de rodas na plateia"}, {"k": "rampas", "t": "Rampas"}, {"k": "piso", "t": "Piso tátil"}, {"k": "corrimao", "t": "Corrimãos"}, {"k": "elevador", "t": "Elevadores"}, {"k": "braille", "t": "Sinalização visual e em braille"}, {"k": "mobilidade", "t": "Participação de estudante com mobilidade reduzida"}]};
 var CONFIG = window.MX_CONFIG || null, WEB = !!CONFIG, WEBSB = null;
 var FASES = MODELO.fases, ACESS = MODELO.acessibilidade, TEMPLATE = MODELO.tarefas;
 var FMAP = {}; FASES.forEach(function(f){ FMAP[f.k] = f; });
-var COLS = ["tarefas","atividades","instituicoes","grade","diario","stakeholders","pecas","orcamento"];
+var COLS = ["tarefas","atividades","instituicoes","grade","diario","stakeholders","pecas","orcamento","documentos"];
 var S = { db:null, user:null, assets:null, ready:false, projetos:{}, cur:null, tab:"painel", fase:null, modo:"escritorio",
           data:{}, unsubs:[], campo:{tela:"lista", inst:null, sess:null}, pat:"painel", filtroInst:"" };
 COLS.forEach(function(c){ S.data[c] = []; });
@@ -254,22 +254,219 @@ function abrirProjeto(id){
       S.data[c] = snap.docs.map(function(d){ var x = Object.assign({}, d.data()); x.id = d.id; return x; }); render();
     }, function(){ toast("A conexão com o banco caiu. Recarregue a página."); }));
   });
+  if (id && WEB && S.perfil && S.perfil.papel === "escritorio" && !S.acessos && !S.acessosPedido) { S.acessosPedido = true;
+    chamarAcessos({acao:"listar"}).then(function(j){ S.acessos = j.perfis || []; render(); }, function(){}); }
   render();
 }
 
 /* ---------- cálculos ---------- */
 function prazoTarefa(t){ return t.prazo || ""; }
-function statusEfetivo(t){
-  if (t.auto && t.status !== "na") { var a = autoProgresso(t.auto); if (a.total && a.feito >= a.total) return "feito"; }
-  return t.status || "a_fazer"; }
+/* ---------- fases que conversam: regra pelo dado, dependências em cascata, alertas entre fases, passagem de bastão ---------- */
+var TPL = {}; TEMPLATE.forEach(function(t){ if (t.id) TPL[t.id] = t; });
+// regras de existência: concluem quando o dado aparece; sem o dado, vale o que a equipe marcou
+var EXISTENCIA = {pecas_previstas:1, inst_indicadas:1, pontos_focais:1, orc_pessoas:1, orc_materiais:1, orc_evento:1, orc_servicos:1, acessos_campo:1};
+function tplDe(t){ var x = TPL[t.id]; return x && x.fase === t.fase ? x : null; }
+function autoDe(t){ if (t.auto) return t.auto; var x = tplDe(t); return (x && x.auto) || ""; }
+function depsDe(t){ var x = tplDe(t), ids = t.dep || (x && x.dep) || []; return ids.map(function(id){ return byId("tarefas", id); }).filter(Boolean); }
+function instsConf(){ return S.data.instituicoes.filter(function(i){ return i.confirmada !== false; }); }
+function orcCat(cs){ return S.data.orcamento.filter(function(o){ return cs.indexOf(o.categoria || "Outros") > -1 && (num(o.previsto) || num(o.cotado)); }).length; }
+function existe(n, falta){ return {feito: n > 0 ? 1 : 0, total:1, falta: n > 0 ? "" : falta}; }
+function conta(xs, ok, falta){ var f = xs.filter(ok).length; return {feito:f, total:xs.length, falta: f < xs.length ? falta(xs.length - f) : ""}; }
 function autoProgresso(tipo){
-  if (tipo === "diario") { var passadas = S.data.grade.filter(function(g){ return g.data && g.data <= hoje(); });
-    return {feito: passadas.filter(function(g){ return sessaoFeita(g.id); }).length, total: S.data.grade.length}; }
-  if (tipo === "comprovacoes") { var is = S.data.instituicoes.filter(function(i){ return i.confirmada !== false; });
-    return {feito: is.filter(function(i){ return instCompleta(i).ok; }).length, total: is.length}; }
-  if (tipo === "metas") { var at = S.data.atividades.filter(function(a){ return num(a.meta) > 0; });
-    return {feito: at.filter(function(a){ return realizadoAtividade(a.id) >= num(a.meta); }).length, total: at.length}; }
+  var D = S.data;
+  if (tipo === "diario") { var passadas = D.grade.filter(function(g){ return g.data && g.data <= hoje(); }), fs = passadas.filter(function(g){ return sessaoFeita(g.id); }).length;
+    return {feito:fs, total:D.grade.length, falta: passadas.length > fs ? (passadas.length - fs)+" atividade(s) já passaram sem diário." : ""}; }
+  if (tipo === "comprovacoes") return conta(instsConf(), function(i){ return instCompleta(i).ok; }, function(n){ return n+" instituição(ões) com comprovações pendentes."; });
+  if (tipo === "metas") return conta(D.atividades.filter(function(a){ return num(a.meta) > 0; }), function(a){ return realizadoAtividade(a.id) >= num(a.meta); }, function(n){ return n+" atividade(s) abaixo da meta."; });
+  if (tipo === "atividades_metas") return conta(D.atividades, function(a){ return num(a.meta) > 0; }, function(n){ return n+" atividade(s) sem meta."; });
+  if (tipo === "pecas_previstas") return existe(D.pecas.length, "Nenhuma peça cadastrada em Comunicação.");
+  if (tipo === "inst_indicadas") return existe(D.instituicoes.length, "Nenhuma instituição cadastrada.");
+  if (tipo === "pontos_focais") return existe(D.stakeholders.filter(function(s){ return s.lado === "patrocinador"; }).length, "Nenhum contato do patrocinador em Stakeholders.");
+  if (tipo === "contatos") return conta(D.stakeholders, function(s){ return s.email || s.telefone; }, function(n){ return n+" contato(s) sem e-mail nem telefone."; });
+  if (tipo === "pecas_criadas") return conta(D.pecas, function(x){ return (x.status || "previsto") !== "previsto"; }, function(n){ return n+" peça(s) ainda não começaram."; });
+  if (tipo === "pecas_aprovadas") { var pa = D.pecas.filter(function(x){ return x.aprovacao; }); if (!pa.length) pa = D.pecas;
+    return conta(pa, function(x){ return ["aprovado","grafica","publicado"].indexOf(x.status) > -1; }, function(n){ return n+" peça(s) sem aprovação do cliente."; }); }
+  if (tipo === "orc_pessoas") return existe(orcCat(["Pessoas"]), "Nenhum item de pessoas no orçamento.");
+  if (tipo === "orc_materiais") return existe(orcCat(["Materiais","Gráfica"]), "Nenhum item de materiais ou gráfica no orçamento.");
+  if (tipo === "orc_evento") return existe(orcCat(["Evento e estrutura","Kits"]), "Nenhum item de evento ou kits no orçamento.");
+  if (tipo === "orc_servicos") return existe(orcCat(["Assessoria de imprensa","Designer","Transporte","Estadia","Locação"]), "Nenhum item de serviços, transporte ou estadia no orçamento.");
+  if (tipo === "formalizacoes") return conta(D.stakeholders.filter(function(s){ return s.contratado; }), function(s){ return s.formal === "assinado"; }, function(n){ return n+" contratado(s) sem contrato assinado."; });
+  if (tipo === "pagamentos") return conta(D.stakeholders.filter(function(s){ return s.contratado; }), function(s){ return !!s.pagto; }, function(n){ return n+" contratado(s) sem pagamento programado."; });
+  if (tipo === "inst_confirmadas") return conta(D.instituicoes, function(i){ return i.confirmada !== false; }, function(n){ return n+" instituição(ões) a confirmar."; });
+  if (tipo === "inst_metas") return conta(instsConf(), function(i){ return num(i.meta) > 0; }, function(n){ return n+" instituição(ões) sem meta de público."; });
+  if (tipo === "grade_fechada") return conta(instsConf(), function(i){ return D.grade.some(function(g){ return g.instituicaoId === i.id && g.data; }); }, function(n){ return n+" instituição(ões) sem data na grade."; });
+  if (tipo === "cronograma_def") return conta(D.grade, function(g){ return g.data && (g.horario || g.turno); }, function(n){ return n+" linha(s) da grade sem horário ou turno."; });
+  if (tipo === "acessos_campo") { if (!S.acessos) return {feito:0, total:0};
+    var tem = function(pp){ return S.acessos.some(function(a){ return a.papel === pp && (a.projetos || []).indexOf(S.cur) > -1; }); };
+    return existe(tem("produtor") && tem("fotografo") ? 1 : 0, "Falta login de produtor e/ou de fotógrafo para este projeto (tela Acessos)."); }
   return {feito:0, total:0}; }
+function statusEfetivo(t){
+  var man = t.status || "a_fazer"; if (man === "na") return "na";
+  var tipo = autoDe(t); if (!tipo || t.forcado) return man;
+  var a = autoProgresso(tipo); if (!a.total) return man;
+  if (a.feito >= a.total) return "feito";
+  if (EXISTENCIA[tipo]) return man;
+  return man === "feito" ? "andamento" : man; }
+function divergente(t){ var tipo = autoDe(t); if (!tipo || t.forcado || (t.status || "") !== "feito" || EXISTENCIA[tipo]) return null;
+  var a = autoProgresso(tipo); return a.total && a.feito < a.total ? a : null; }
+
+/* projeção de datas: atraso de uma tarefa empurra as seguintes, mantendo a folga planejada entre elas */
+function projecao(){
+  var D = S.data, hj = hoje(), c = projecao.c;
+  if (c && c.hj === hj && c.ac === S.acessos && COLS.every(function(k){ return c[k] === D[k]; })) return c.v;
+  var v = {}, st = {};
+  D.tarefas.forEach(function(t){ st[t.id] = statusEfetivo(t); });
+  function calc(t, pilha){ if (v[t.id]) return v[t.id]; if (pilha[t.id]) return {data:t.prazo || ""}; pilha[t.id] = 1;
+    var s = st[t.id], r;
+    if (s === "na") r = {data:t.prazo || "", na:true};
+    else if (s === "feito") r = {data:t.feitoEm || t.prazo || "", feito:true};
+    else { var base = t.prazo || "", motivo = null;
+      depsDe(t).forEach(function(d){ var pd = calc(d, pilha); if (pd.na || !pd.data) return;
+        var gap = d.prazo && t.prazo ? Math.max(0, dias(d.prazo, t.prazo)) : 0, cand = addDias(pd.data, gap);
+        if (!base || cand > base) { base = cand; motivo = pd.motivo || (pd.feito ? null : d); } });
+      if (base && base < hj) base = hj;
+      var at = t.prazo && base ? Math.max(0, dias(t.prazo, base)) : 0;
+      r = {data:base, atraso:at, motivo: at > 0 && motivo && motivo.id !== t.id ? motivo : null}; }
+    v[t.id] = r; return r; }
+  D.tarefas.forEach(function(t){ calc(t, {}); });
+  projecao.c = {hj:hj, ac:S.acessos, v:v}; COLS.forEach(function(k){ projecao.c[k] = D[k]; });
+  return v; }
+// só as tarefas empurradas por uma anterior; a que venceu por conta própria continua aparecendo como atrasada
+function datasMudadas(){ var pr = projecao(); return S.data.tarefas.filter(function(t){ var p = pr[t.id]; return p && p.atraso > 0 && p.motivo && !(t.prazo < hoje()); }); }
+async function aplicarDatas(){ var pr = projecao(), xs = datasMudadas();
+  for (var i = 0; i < xs.length; i++){ await atualizar("tarefas", xs[i].id, {prazo:pr[xs[i].id].data, prazoAnterior: xs[i].prazoAnterior || xs[i].prazo}); }
+  toast(xs.length+" prazo(s) atualizados."); }
+function inicioCampo(){ var ds = S.data.grade.map(function(g){ return g.data; }).filter(Boolean).sort(); return ds[0] || (P() || {}).inicio || ""; }
+var PRE_CAMPO = ["lab","kickoff","planejamento","comunicacao","orcamento","engajamento","preexecucao"];
+function caminhoCampo(){ var ini = inicioCampo(), pr = projecao(); if (!ini || ini < hoje()) return null;
+  var xs = S.data.tarefas.filter(function(t){ var s = statusEfetivo(t); return PRE_CAMPO.indexOf(t.fase) > -1 && s !== "feito" && s !== "na"; })
+    .sort(function(a,b){ return String((pr[a.id]||{}).data).localeCompare(String((pr[b.id]||{}).data)); });
+  return {ini:ini, xs:xs, risco: xs.filter(function(t){ var p = pr[t.id]; return p && p.data && p.data >= ini; })}; }
+
+/* alertas que cruzam fases */
+function quando(n){ return n === 0 ? "hoje" : n === 1 ? "amanhã" : n < 0 ? "há "+(-n)+" dia"+(n < -1 ? "s" : "") : "em "+n+" dias"; }
+function abertaModelo(id){ var t = byId("tarefas", id), s = t && statusEfetivo(t); return t && s !== "feito" && s !== "na" ? t : null; }
+function alertasCruzados(){
+  var A = [], hj = hoje(), pr = projecao(), porI = {};
+  function add(n, txt, tab){ A.push({n:n, t:txt, tab:tab}); }
+  S.data.grade.forEach(function(g){ if (g.data) (porI[g.instituicaoId] = porI[g.instituicaoId] || []).push(g); });
+  S.data.instituicoes.forEach(function(i){ var gs = porI[i.id] || []; if (!gs.length) return;
+    var ds = gs.map(function(g){ return g.data; }).sort(), ini = ds[0], fim = ds[ds.length-1], ate = dias(hj, ini), nome = i.cidade ? String(i.cidade).split("/")[0] : i.nome;
+    if (ate >= 0 && ate <= 10) {
+      if (i.confirmada === false) add("bad", "Campo em "+nome+" "+quando(ate)+" e a instituição ainda não está confirmada.", "engajamento");
+      if (abertaModelo("t37")) add("bad", "Campo em "+nome+" "+quando(ate)+" e os materiais impressos ainda não chegaram nas cidades.", "fases");
+      else if (abertaModelo("t22")) add("warn", "Campo em "+nome+" "+quando(ate)+" e as peças ainda não foram para a gráfica.", "fases");
+      if (abertaModelo("t34")) add("warn", "Campo em "+nome+" "+quando(ate)+" e o treinamento da equipe ainda não aconteceu.", "fases");
+      var semH = gs.filter(function(g){ return !g.horario && !g.turno; }).length; if (semH) add("warn", semH+" atividade(s) em "+nome+" sem horário nem turno na grade.", "engajamento"); }
+    var semD = gs.filter(function(g){ return g.data < addDias(hj, -1) && !sessaoFeita(g.id); }).length;
+    if (semD) add("warn", semD+" atividade(s) em "+nome+" já passaram e estão sem diário de campo.", "diario");
+    var c = instCompleta(i);
+    if (!c.ok && c.ats) { var falt = [c.faltaA ? c.faltaA+" item(ns) de acessibilidade" : "", c.faltaC ? c.faltaC+" carta(s)" : ""].filter(Boolean).join(" e ");
+      if (fim < hj) add("bad", "A execução em "+nome+" terminou em "+fdata(fim)+" e faltam "+falt+" nas comprovações.", "engajamento");
+      else if (ini <= addDias(hj, 3)) add("warn", "Última atividade em "+nome+" "+quando(dias(hj, fim))+": faltam "+falt+". Recolha antes de sair da escola.", "engajamento"); } });
+  var rel = abertaModelo("t43");
+  if (rel) { var pd = (pr[rel.id] || {}).data || rel.prazo, ar = pd ? dias(hj, pd) : 99;
+    var cons = S.data.tarefas.filter(function(t){ return t.fase === "consolidacao" && statusEfetivo(t) !== "na"; });
+    if (ar <= 10 && cons.length && cons.every(function(t){ return (t.status || "a_fazer") === "a_fazer" && statusEfetivo(t) !== "feito"; }))
+      add("bad", "Relatório final "+quando(ar)+" ("+fdata(pd)+") e a consolidação dos resultados não começou.", "consolidacao"); }
+  var cc = caminhoCampo();
+  if (cc) { var ac = dias(hj, cc.ini);
+    cc.risco.slice(0, 6).forEach(function(t){ var p = pr[t.id]; add("bad", "\""+t.titulo+"\" agora está prevista para "+fdata(p.data)+(p.motivo ? ", por causa de \""+p.motivo.titulo+"\"" : "")+", depois do início do campo ("+fdata(cc.ini)+").", "fases"); });
+    if (cc.risco.length > 6) add("bad", "Mais "+(cc.risco.length - 6)+" tarefa(s) de preparação previstas para depois do início do campo.", "fases");
+    if (ac <= 14 && cc.xs.length) add("warn", "O campo começa "+quando(ac)+" e "+cc.xs.length+" tarefa(s) de preparação estão abertas.", "fases"); }
+  S.data.tarefas.forEach(function(t){ var a = divergente(t); if (a) add("warn", "\""+t.titulo+"\" foi marcada como feita, mas a máquina vê "+a.feito+" de "+a.total+". "+(a.falta || ""), "fases"); });
+  return A.sort(function(a,b){ return (a.n === "bad" ? 0 : 1) - (b.n === "bad" ? 0 : 1); }); }
+function painelAlertas(A){
+  var pan = h("div", {class:"panel", style:"margin-bottom:14px"}, h("div", {class:"row", style:"margin-bottom:6px"}, h("h2", {text:"Alertas entre fases"}), h("span", {class:"sp"}), h("span", {class:"mono muted", text:String(A.length)})));
+  if (!A.length) { pan.appendChild(h("div", {class:"muted small", text:"Nenhum cruzamento preocupante entre as fases agora."})); return pan; }
+  var lista = h("div", {class:"list"});
+  A.slice(0, S.verAlertas ? 99 : 8).forEach(function(a){ lista.appendChild(h("div", {class:"li"}, h("span", {class:"pill p-"+a.n, text: a.n === "bad" ? "Urgente" : "Atenção"}),
+    h("div", {class:"main"}, h("div", {text:a.t})), h("button", {class:"btn ghost small", onclick:function(){ S.tab = a.tab; render(); }}, "Abrir ›"))); });
+  pan.appendChild(lista);
+  if (A.length > 8 && !S.verAlertas) pan.appendChild(h("button", {class:"btn ghost small", onclick:function(){ S.verAlertas = true; render(); }}, "Ver todos ("+A.length+")"));
+  return pan; }
+function painelCaminho(){ var cc = caminhoCampo(); if (!cc) return null; var pr = projecao();
+  var pan = h("div", {class:"panel", style:"margin-bottom:14px"}, h("div", {class:"row"}, h("div", {style:"flex:1;min-width:0"}, h("h2", {text:"Caminho até o campo"}),
+    h("div", {class:"muted small", text:"O campo começa em "+fdata(cc.ini)+" ("+quando(dias(hoje(), cc.ini))+"). Estas tarefas de preparação ainda estão abertas, na ordem em que precisam acontecer."})),
+    h("span", {class:"pill "+(cc.risco.length ? "p-bad" : cc.xs.length ? "p-warn" : "p-ok"), text: cc.risco.length ? cc.risco.length+" depois do início" : cc.xs.length ? cc.xs.length+" abertas" : "Tudo pronto"})));
+  if (!cc.xs.length) pan.appendChild(h("div", {class:"muted small", style:"margin-top:8px", text:"Toda a preparação está concluída."}));
+  var lista = h("div", {class:"list", style:"margin-top:6px"});
+  cc.xs.slice(0, 10).forEach(function(t){ var p = pr[t.id] || {}, risco = p.data && p.data >= cc.ini;
+    lista.appendChild(h("div", {class:"li"}, h("span", {class:"pill "+(risco ? "p-bad" : p.atraso ? "p-warn" : "p-mut"), text:fdata(p.data || t.prazo)}),
+      h("div", {class:"main"}, h("b", {text:t.titulo}), h("div", {class:"meta"}, h("span", {text:FMAP[t.fase] ? FMAP[t.fase].t : t.fase}), t.resp ? h("span", {text:"Resp.: "+t.resp}) : h("span", {class:"late", text:"sem responsável"}),
+        p.motivo ? h("span", {class:"late", text:"+"+p.atraso+" dia(s) por causa de \""+p.motivo.titulo+"\""}) : t.prazo && t.prazo < hoje() ? h("span", {class:"late", text:"venceu em "+fdata(t.prazo)}) : null)))); });
+  pan.appendChild(lista);
+  if (cc.xs.length > 10) pan.appendChild(h("button", {class:"btn ghost small", onclick:function(){ S.tab = "fases"; render(); }}, "Ver todas ("+cc.xs.length+")"));
+  return pan; }
+function painelDatas(){ var xs = datasMudadas(); if (!xs.length) return null; var pr = projecao();
+  return h("div", {class:"note warn", style:"margin-bottom:14px"}, h("b", {text:xs.length+" prazo(s) andaram por causa de atrasos em tarefas anteriores. "}),
+    xs.slice(0, 3).map(function(t){ var p = pr[t.id]; return "\""+t.titulo+"\": "+fdata(t.prazo)+" → "+fdata(p.data)+". "; }), xs.length > 3 ? "E mais "+(xs.length - 3)+". " : "",
+    h("button", {class:"btn", style:"margin-left:6px", onclick:function(){ confirmar("Atualizar "+xs.length+" prazo(s) para as datas projetadas? O prazo antigo fica guardado na tarefa.", aplicarDatas); }}, "Aplicar novas datas")); }
+
+/* textos que passam de uma fase para a outra */
+function modalTexto(titulo, texto, botoes){
+  var ta = h("textarea", {"aria-label":titulo, style:"width:100%;min-height:52vh;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--bg);font:13px/1.5 var(--mono, ui-monospace, monospace)"}); ta.value = texto;
+  var scrim; function fechar(){ scrim.remove(); }
+  scrim = h("div", {class:"scrim", onclick:function(e){ if (e.target === scrim) fechar(); }}, h("div", {class:"modal", role:"dialog", "aria-modal":"true", "aria-label":titulo, style:"max-width:860px"},
+    h("h2", {text:titulo}), ta, h("div", {class:"row", style:"margin-top:10px;gap:8px;flex-wrap:wrap"},
+      h("button", {class:"btn pri", onclick:function(){ try { navigator.clipboard.writeText(ta.value).then(function(){ toast("Copiado"); }, function(){ ta.select(); toast("Selecionei o texto: use Ctrl+C."); }); } catch(e){ ta.select(); } }}, "Copiar"),
+      (botoes || []).map(function(b){ return h("button", {class:"btn", onclick:function(){ b[1](ta.value, ta); }}, b[0]); }), h("span", {class:"sp"}), h("button", {class:"btn ghost", onclick:fechar}, "Fechar"))));
+  document.body.appendChild(scrim); return ta; }
+function contatosTexto(){ return S.data.stakeholders.filter(function(s){ return s.email || s.telefone; }).map(function(s){ return "- "+s.nome+(s.papel ? " ("+s.papel+")" : "")+": "+[s.email, s.telefone].filter(Boolean).join(" · "); }).join("\n") || "- (nenhum contato com e-mail ou telefone em Stakeholders)"; }
+function proximasFases(k){ var i = FASES.findIndex(function(f){ return f.k === k; }); var ks = FASES.filter(function(f){ return f.dep && f.dep.indexOf(k) > -1; }).map(function(f){ return f.k; });
+  if (!ks.length && i > -1 && i < FASES.length - 1) ks = [FASES[i+1].k]; return ks; }
+function gerarPassagem(k){
+  var p = P() || {}, f = FMAP[k], pr = projecao(), ts = tarefasFase(k), nx = proximasFases(k), L = [];
+  L.push("PASSAGEM DE FASE · "+(p.numero || "")+" "+(p.nome || ""), "Fase: "+f.t+" → "+(nx.map(function(x){ return FMAP[x].t; }).join(", ") || "fim do projeto"), "Gerado em "+fdata(hoje()), "");
+  L.push("O QUE FOI FEITO E DECIDIDO");
+  ts.filter(function(t){ return statusEfetivo(t) === "feito"; }).forEach(function(t){ L.push("- "+t.titulo+(t.nota ? ": "+t.nota : "")+(t.link ? " ("+t.link+")" : "")); });
+  var pend = ts.filter(function(t){ var s = statusEfetivo(t); return s !== "feito" && s !== "na"; });
+  L.push("", "O QUE FICOU PENDENTE NESTA FASE"); if (!pend.length) L.push("- Nada.");
+  pend.forEach(function(t){ var a = autoProgresso(autoDe(t)); L.push("- "+t.titulo+" · prazo "+fdata((pr[t.id] || {}).data || t.prazo)+(t.resp ? " · "+t.resp : " · sem responsável")+(a.falta ? " · "+a.falta : "")+(t.nota ? " · "+t.nota : "")); });
+  L.push("", "O QUE VEM AGORA"); var nVem = L.length;
+  nx.forEach(function(x){ tarefasFase(x).filter(function(t){ var s = statusEfetivo(t); return s !== "feito" && s !== "na"; }).forEach(function(t){
+    var dp = depsDe(t).filter(function(d){ var s = statusEfetivo(d); return s !== "feito" && s !== "na"; });
+    L.push("- ["+FMAP[x].t+"] "+t.titulo+" · prazo "+fdata((pr[t.id] || {}).data || t.prazo)+(t.resp ? " · "+t.resp : "")+(dp.length ? " · aguarda: "+dp.map(function(d){ return d.titulo; }).join("; ") : "")); }); });
+  if (L.length === nVem) L.push("- Nada aberto nas próximas fases.");
+  var A = alertasCruzados(); if (A.length) { L.push("", "ALERTAS"); A.forEach(function(a){ L.push("- "+a.t); }); }
+  var insts = instsConf(); L.push("", "DADOS-CHAVE",
+    "- Instituições confirmadas: "+(insts.map(function(i){ return i.nome+(i.cidade ? " ("+i.cidade+")" : ""); }).join("; ") || "nenhuma"),
+    "- Atividades: "+(S.data.atividades.map(function(a){ return a.nome+(num(a.meta) ? " (meta "+fnum(a.meta)+")" : ""); }).join("; ") || "nenhuma"),
+    "- Campo: "+(S.data.grade.length ? fdata(inicioCampo())+" a "+fdata(S.data.grade.map(function(g){ return g.data; }).filter(Boolean).sort().pop())+", "+S.data.grade.length+" atividade(s) na grade" : "grade ainda vazia"),
+    "", "CONTATOS", contatosTexto());
+  modalTexto("Passagem: "+f.t, L.join("\n"), [["Salvar na máquina", async function(txt){ var ok = await salvar("documentos", "pass_"+k+"_"+hoje().replace(/-/g, ""), {tipo:"passagem", fase:k, titulo:"Passagem: "+f.t, texto:txt, criadoEm:new Date().toISOString(), autor:(S.perfil && (S.perfil.nome || S.perfil.email)) || ""}); if (ok) toast("Passagem salva no Painel."); }]]); }
+function rascunhoRelatorio(){
+  var p = P() || {}, L = [], ent = S.data.tarefas.filter(function(t){ return t.entrega && statusEfetivo(t) !== "na"; });
+  var ds = S.data.grade.map(function(g){ return g.data; }).filter(Boolean).sort(), env = S.data.diario.filter(function(d){ return d.enviado; });
+  function ini(i){ return S.data.grade.filter(function(g){ return g.instituicaoId === i.id && g.data; }).map(function(g){ return g.data; }).sort()[0] || "9"; }
+  var insts = instsConf().sort(function(a,b){ return ini(a).localeCompare(ini(b)); });
+  L.push("RASCUNHO DO RELATÓRIO FINAL · "+(p.numero || "")+" "+(p.nome || ""), (p.patrocinador ? "Patrocínio: "+p.patrocinador : "")+(p.pronac ? " · PRONAC "+p.pronac : ""), "Dados lidos da máquina em "+fdata(hoje())+". Confira antes de enviar.", "");
+  L.push("1. O PROJETO", p.resumo || "(descreva o projeto em Editar dados do projeto)", "");
+  L.push("2. EXECUÇÃO", "- Período de campo: "+(ds.length ? fdata(ds[0])+" a "+fdata(ds[ds.length-1]) : "sem datas na grade"),
+    "- Locais: "+(insts.map(function(i){ var gs = S.data.grade.filter(function(g){ return g.instituicaoId === i.id && g.data; }).map(function(g){ return g.data; }).sort();
+      return i.nome+(i.cidade ? " ("+i.cidade+")" : "")+(gs.length ? ", "+fdata(gs[0]).slice(0,5)+" a "+fdata(gs[gs.length-1]) : ""); }).join("; ") || "nenhum"),
+    "- Atividades realizadas: "+env.length+" de "+S.data.grade.length+" previstas na grade", "");
+  L.push("3. PÚBLICO ATENDIDO (participações registradas no diário de campo)", "- Total: "+fnum(realizadoTotal())+" de "+fnum(metaTotal())+" previstos ("+pct(realizadoTotal(), metaTotal())+"%)");
+  S.data.atividades.slice().sort(function(a,b){ return num(a.ordem)-num(b.ordem); }).forEach(function(a){ var r = realizadoAtividade(a.id); L.push("- "+a.nome+": "+fnum(r)+(num(a.meta) ? " de "+fnum(a.meta)+" "+(a.unidade || "") : "")); });
+  L.push("", "Por instituição:"); insts.forEach(function(i){ L.push("- "+i.nome+": "+fnum(realizadoInst(i.id))+(num(i.meta) ? " de "+fnum(i.meta) : "")); });
+  L.push("", "4. COMPROVAÇÕES E ACESSIBILIDADE");
+  insts.forEach(function(i){ var c = instCompleta(i), ac = i.acess || {}, tem = ACESS.filter(function(a){ return ac[a.k] && ac[a.k].tem === true; }).map(function(a){ return a.t.toLowerCase(); });
+    var cartas = cartasExigidas(i.id).filter(function(e){ return i.cartas && i.cartas[e.id] && i.cartas[e.id].arquivo; });
+    L.push("- "+i.nome+": "+cartas.length+" de "+cartasExigidas(i.id).length+" cartas"+(tem.length ? "; acessibilidade: "+tem.join(", ") : "")+(c.ok ? "" : " (pendente: "+[c.faltaA ? c.faltaA+" item(ns) de acessibilidade" : "", c.faltaC ? c.faltaC+" carta(s)" : ""].filter(Boolean).join(" e ")+")")); });
+  if (p.entregasMinc && p.entregasMinc.length) L.push("- Entregas MinC: "+p.entregasMinc.map(function(e){ return e.nome; }).join("; "));
+  L.push("", "5. ENTREGAS DO PROJETO"); ent.sort(function(a,b){ return String(a.prazo).localeCompare(b.prazo); }).forEach(function(t){ L.push("- "+t.titulo+": "+(statusEfetivo(t) === "feito" ? "entregue" : "prevista para "+fdata(t.prazo))); });
+  var rel = env.filter(function(d){ return String(d.relato || "").trim(); }).map(function(d){ var g = byId("grade", d.id) || {}; return "- "+fdata(g.data)+" · "+nomeAtiv(g.atividadeId)+" · "+nomeInst(g.instituicaoId)+": "+String(d.relato).trim(); });
+  L.push("", "6. RELATOS DO CAMPO (para escolher destaques)"); L.push(rel.length ? rel.join("\n") : "- (nenhum relato escrito no diário)");
+  var A = alertasCruzados(); if (A.length) { L.push("", "7. PENDÊNCIAS ANTES DE FECHAR"); A.forEach(function(a){ L.push("- "+a.t); }); }
+  return L.join("\n"); }
+async function claudeSample(){ try { return (!WEB && window.claude && window.claude.use) ? await window.claude.use("sample") : null; } catch(e){ return null; } }
+async function escreverComClaude(base, ta){
+  var sm = await claudeSample(); if (!sm) { toast("Disponível só no artefato do Claude."); return; }
+  ta.value = "Escrevendo…";
+  try { var r = await sm("Você escreve relatórios finais de projetos culturais da NTICS para o patrocinador. Escreva em português do Brasil, tom institucional e direto, sem travessão, sem inventar nenhum número, nome ou citação: use só os dados abaixo. Estruture em: Apresentação, Execução, Público atendido, Acessibilidade e comprovações, Entregas, Destaques do campo. Onde faltar dado, escreva [confirmar]. Dados:\n\n" + base,
+      {modelTier:"complex", cache:false, onText:function(x){ ta.value = x.text; }});
+    ta.value = r.text; }
+  catch(e){ ta.value = base; toast(e && e.code === "not_granted" ? "Permissão para o Claude escrever não foi dada." : "Não foi possível escrever agora."); } }
 function tarefasFase(k){ return S.data.tarefas.filter(function(t){ return t.fase === k; }).sort(function(a,b){ return (num(a.ordem)-num(b.ordem)) || String(prazoTarefa(a)).localeCompare(prazoTarefa(b)); }); }
 function pctFase(k){ var ts = tarefasFase(k).filter(function(t){ return statusEfetivo(t) !== "na"; }); if (!ts.length) return null;
   return pct(ts.filter(function(t){ return statusEfetivo(t) === "feito"; }).length, ts.length); }
@@ -424,20 +621,21 @@ function render(){
 var PORT = {carregando:false, em:null, dados:{}};
 async function carregarPortfolio(){
   if (!S.db || PORT.carregando) return; PORT.carregando = true; render();
-  var ids = Object.keys(S.projetos), cols = ["tarefas","atividades","grade","diario","instituicoes"], novo = {};
+  var ids = Object.keys(S.projetos), cols = ["tarefas","atividades","grade","diario","instituicoes","stakeholders","pecas","orcamento"], novo = {};
   for (var i = 0; i < ids.length; i++){ var D = {}; COLS.forEach(function(c){ D[c] = []; });
     for (var j = 0; j < cols.length; j++){ try { var snap = await S.db.collection("projetos/"+ids[i]+"/"+cols[j]).get(); D[cols[j]] = snap.docs.map(function(d){ var x = Object.assign({}, d.data()); x.id = d.id; return x; }); } catch(e){} }
     novo[ids[i]] = resumoProjeto(ids[i], D); }
   PORT.dados = novo; PORT.em = new Date(); PORT.carregando = false; render(); }
 function resumoProjeto(id, D){
-  var salvo = S.data; S.data = D;
+  var salvo = S.data, curSalvo = S.cur; S.data = D; S.cur = id;
   try { var p = S.projetos[id] || {}, pf = {}; FASES.forEach(function(f){ pf[f.k] = pctFase(f.k); });
     var ts = D.tarefas.filter(function(t){ return statusEfetivo(t) !== "na"; }), hj = hoje();
     var emCampo = (p.inicio && p.fim && hj >= p.inicio && hj <= p.fim) || D.grade.some(function(g){ return g.data && Math.abs(dias(g.data, hj)) <= 3; });
     var r = {id:id, fase: D.tarefas.length ? faseAtual() : null, pf:pf, geral: pct(ts.filter(function(t){ return statusEfetivo(t) === "feito"; }).length, ts.length),
       atrasadas: atrasadas().map(function(t){ return t; }), bloqueadas: bloqueadas().slice(), proximas: proximas(14).slice(0, 3), saude: saude(),
       meta: metaTotal(), real: realizadoTotal(), ses: D.grade.length, sesF: D.grade.filter(function(g){ return sessaoFeita(g.id); }).length, emCampo: !!emCampo, temTarefas: D.tarefas.length > 0};
-    return r; } finally { S.data = salvo; } }
+    var al = alertasCruzados(); r.alertas = al.length; r.urgentes = al.filter(function(a){ return a.n === "bad"; }).length;
+    return r; } finally { S.data = salvo; S.cur = curSalvo; } }
 function renderHome(app){
   var ids = Object.keys(S.projetos).sort(function(a,b){ return String(S.projetos[a].numero).localeCompare(String(S.projetos[b].numero), "pt", {numeric:true}); });
   app.appendChild(h("div", {class:"row", style:"margin:22px 0 14px"}, h("div", {style:"min-width:0"}, h("h1", {text:"Visão geral dos projetos"}),
@@ -464,7 +662,8 @@ function renderHome(app){
   ids.forEach(function(id){ var p = S.projetos[id], r = PORT.dados[id];
     tb.lastChild.appendChild(h("tr", {style:"cursor:pointer", onclick:function(){ abrirProjeto(id); }},
       h("td", null, h("b", {text:(p.numero ? p.numero+" · " : "")+p.nome}), h("div", {class:"small muted", text:(p.patrocinador||"")+(r && r.emCampo ? " · em campo" : "")})),
-      h("td", null, r ? h("span", {class:"pill p-"+r.saude.k, text:r.saude.t}) : h("span", {class:"muted small", text:"…"})),
+      h("td", null, r ? h("span", {class:"pill p-"+r.saude.k, text:r.saude.t}) : h("span", {class:"muted small", text:"…"}),
+        r && r.alertas ? h("div", {class:"small "+(r.urgentes ? "late" : "muted"), style:"margin-top:3px", text:r.alertas+" alerta(s)"+(r.urgentes ? ", "+r.urgentes+" urgente(s)" : "")}) : null),
       FASES.map(function(f){ var v = r ? r.pf[f.k] : null; return h("td", {class:"num mono", style: v === 100 ? "color:var(--ok);font-weight:600" : v == null ? "color:var(--muted)" : (r && r.fase === f.k ? "background:var(--warn-bg)" : ""), text: v == null ? "—" : v+"%"}); }),
       h("td", {class:"num mono", text: r ? r.geral+"%" : "…"}),
       h("td", {class:"small", text: r && r.proximas[0] ? fdata(r.proximas[0].prazo)+" · "+r.proximas[0].titulo : "—"}))); });
@@ -554,6 +753,9 @@ function itemTarefa(t, compacto){
 
 function tPainel(app){
   app.appendChild(h("div", {class:"panel", style:"margin-bottom:14px"}, h("div", {class:"row", style:"margin-bottom:8px"}, h("h2", {text:"Fases do projeto"}), h("span", {class:"sp"}), h("span", {class:"muted small", text:"Clique numa fase para ver as tarefas"})), linhaFases(true)));
+  var pdm = painelDatas(); if (pdm) app.appendChild(pdm);
+  app.appendChild(painelAlertas(alertasCruzados()));
+  var pcc = painelCaminho(); if (pcc) app.appendChild(pcc);
   var ts = S.data.tarefas.filter(function(t){ return statusEfetivo(t) !== "na"; }), feitas = ts.filter(function(t){ return statusEfetivo(t) === "feito"; }).length;
   var ent = S.data.tarefas.filter(function(t){ return t.entrega && statusEfetivo(t) !== "na"; }), entF = ent.filter(function(t){ return statusEfetivo(t) === "feito"; }).length;
   var mt = metaTotal(), rt = realizadoTotal(), ses = S.data.grade.length, sesF = S.data.grade.filter(function(g){ return sessaoFeita(g.id); }).length;
@@ -570,6 +772,10 @@ function tPainel(app){
     lista.length ? h("div", {class:"list"}, lista.slice(0, 8).map(function(t){ return itemTarefa(t); })) : h("div", {class:"muted small", text:vazio}),
     lista.length > 8 ? h("button", {class:"btn ghost small", onclick:function(){ S.tab = "fases"; render(); }}, "Ver todas ("+lista.length+")") : null); }
   app.appendChild(h("div", {class:"grid g3"}, bloco("Impedimentos", bl, "Nada travado."), bloco("Atrasadas", at, "Nenhuma tarefa atrasada."), bloco("Próximas entregas (14 dias)", px, "Nada vencendo nas próximas duas semanas.")));
+  var docs = S.data.documentos.slice().sort(function(a,b){ return String(b.criadoEm).localeCompare(a.criadoEm); });
+  if (docs.length) app.appendChild(h("div", {class:"panel", style:"margin-top:14px"}, h("h2", {text:"Passagens de fase e rascunhos"}), h("div", {class:"list", style:"margin-top:6px"}, docs.map(function(d){
+    return h("div", {class:"li"}, h("span", {class:"mono small", style:"width:64px", text:fdata(d.criadoEm)}), h("div", {class:"main"}, h("b", {text:d.titulo || "Documento"}), d.autor ? h("div", {class:"meta", text:"por "+d.autor}) : null),
+      h("button", {class:"btn ghost small", onclick:function(){ modalTexto(d.titulo || "Documento", d.texto || ""); }}, "Abrir")); }))));
 }
 
 var STATUS = [["a_fazer","A fazer"],["andamento","Em andamento"],["feito","Feito"],["bloqueado","Impedimento"],["na","Não se aplica"]];
@@ -582,22 +788,34 @@ function tFases(app){
   var f = FMAP[cur], deps = f.dep.map(function(k){ return {f:FMAP[k], p:pctFase(k)}; }).filter(function(d){ return d.p !== null && d.p < 100; });
   var pan = h("div", {class:"panel"});
   pan.appendChild(h("div", {class:"row"}, h("div", {style:"min-width:0;flex:1"}, h("h2", {text:f.t}), h("div", {class:"muted", text:f.resumo})),
-    h("button", {class:"btn pri", onclick:function(){ editarTarefa(null, cur); }}, "Nova tarefa")));
+    h("div", {class:"row", style:"gap:8px;flex-wrap:wrap"}, h("button", {class:"btn"+(pctFase(cur) === 100 ? " pri" : ""), onclick:function(){ gerarPassagem(cur); }}, "Gerar passagem de fase"),
+      h("button", {class:"btn"+(pctFase(cur) === 100 ? "" : " pri"), onclick:function(){ editarTarefa(null, cur); }}, "Nova tarefa"))));
+  var pdm = painelDatas(); if (pdm) pan.appendChild(h("div", {style:"margin-top:10px"}, pdm));
   if (deps.length) pan.appendChild(h("div", {class:"note warn", style:"margin-top:10px"}, "Esta fase depende de "+deps.map(function(d){ return d.f.t+" ("+d.p+"%)"; }).join(", ")+". Dá para adiantar, mas confira o que vem de lá."));
   var lista = h("div", {style:"margin-top:8px"}), ts = tarefasFase(cur);
   if (!ts.length) lista.appendChild(h("div", {class:"empty", style:"margin-top:10px"}, h("b", {text:"Nenhuma tarefa nesta fase"}), "Crie a primeira com Nova tarefa."));
-  ts.forEach(function(t){ var s = statusEfetivo(t), late = t.prazo && t.prazo < hoje() && s !== "feito" && s !== "na", ap = t.auto ? autoProgresso(t.auto) : null;
+  var PR = projecao();
+  ts.forEach(function(t){ var s = statusEfetivo(t), late = t.prazo && t.prazo < hoje() && s !== "feito" && s !== "na", tipo = autoDe(t), ap = tipo ? autoProgresso(tipo) : null, pj = PR[t.id] || {}, dv = divergente(t);
+    var depsAbertas = depsDe(t).filter(function(d){ var x = statusEfetivo(d); return x !== "feito" && x !== "na"; });
     var st = h("button", {class:"st "+s, title:"Mudar situação", "aria-label":"Situação: "+(STATUS.find(function(x){ return x[0] === s; })||[0,""])[1]+". Clique para avançar.", onclick:async function(){
-      var ordem = ["a_fazer","andamento","feito"], nx = ordem[(ordem.indexOf(t.status||"a_fazer")+1) % 3]; await atualizar("tarefas", t.id, {status:nx}); }}, ST_ICON[s]);
+      var ordem = ["a_fazer","andamento","feito"], nx = ordem[(ordem.indexOf(t.status||"a_fazer")+1) % 3], up = {status:nx};
+      if (nx === "feito") up.feitoEm = hoje(); else up.feitoEm = null;
+      await atualizar("tarefas", t.id, up);
+      if (nx === "feito" && ap && ap.total && ap.feito < ap.total && !EXISTENCIA[tipo] && !t.forcado) toast("A máquina só conclui quando o dado estiver completo: "+ap.feito+" de "+ap.total+". "+(ap.falta || "")); }}, ST_ICON[s]);
     lista.appendChild(h("div", {class:"task"+(s === "feito" ? " done" : "")}, st,
       h("div", {style:"min-width:0"}, h("div", {class:"t", text:t.titulo}),
         h("div", {class:"meta"}, h("span", {class: late ? "late" : "", text: t.prazo ? (late ? "Venceu " : "Prazo ")+fdata(t.prazo) : "Sem prazo"}),
           h("span", {text: t.resp ? "Resp.: "+t.resp : "Sem responsável"}), t.entrega ? h("span", {class:"pill p-info", text:"Entrega"}) : null,
           s === "bloqueado" ? h("span", {class:"pill p-bad", text:"Impedimento"}) : null,
-          ap && ap.total ? h("span", {text:"Automático: "+ap.feito+" de "+ap.total}) : null,
+          ap && ap.total ? h("span", {class: ap.feito >= ap.total ? "" : "late", title: ap.falta || "", text:"Conferido pelo dado: "+ap.feito+" de "+ap.total}) : tipo && !t.forcado ? h("span", {class:"muted", text:"Conferido pelo dado (sem dados ainda)"}) : null,
+          t.forcado ? h("span", {class:"pill p-mut", text:"Concluída sem o dado"}) : null,
+          dv ? h("span", {class:"pill p-warn", text:"Marcada como feita, mas faltam dados"}) : null,
+          pj.atraso && pj.motivo ? h("span", {class:"late", text:"Previsto agora "+fdata(pj.data)+" (+"+pj.atraso+" dia"+(pj.atraso > 1 ? "s" : "")+")"+(pj.motivo ? " por causa de \""+pj.motivo.titulo+"\"" : "")}) : null,
+          depsAbertas.length && s !== "feito" ? h("span", {class:"muted", text:"Aguarda: "+depsAbertas.map(function(d){ return d.titulo; }).join("; ")}) : null,
           t.modulo ? h("button", {class:"copy", onclick:function(){ S.tab = ({atividades:"atividades",pecas:"comunicacao",instituicoes:"engajamento",grade:"engajamento",stakeholders:"stakeholders",orcamento:"orcamento",diario:"diario",metas:"consolidacao",campo:"diario"})[t.modulo] || "fases"; render(); }}, "abrir módulo ›") : null,
           t.link ? h("a", {href:t.link, target:"_blank", rel:"noopener", text:"arquivo ↗"}) : null),
-        t.nota ? h("div", {class:"small muted", style:"margin-top:4px", text:t.nota}) : null),
+        t.nota ? h("div", {class:"small muted", style:"margin-top:4px", text:t.nota}) : null,
+        ap && ap.falta && s !== "feito" ? h("div", {class:"small late", style:"margin-top:4px", text:ap.falta}) : null),
       h("button", {class:"btn ghost", onclick:function(){ editarTarefa(t, cur); }}, "Editar")));
   });
   pan.appendChild(lista); app.appendChild(pan);
@@ -606,8 +824,10 @@ function editarTarefa(t, fase){
   abrirForm(t ? "Editar tarefa" : "Nova tarefa", [
     {k:"titulo", t:"Tarefa", req:true}, {k:"fase", t:"Fase", tipo:"select", opts:FASES.map(function(f){ return [f.k, f.t]; }), meio:true, def:fase},
     {k:"status", t:"Situação", tipo:"select", opts:STATUS, meio:true, def:"a_fazer"}, {k:"resp", t:"Responsável", meio:true}, {k:"prazo", t:"Prazo", tipo:"date", meio:true},
-    {k:"nota", t:"Observação ou motivo do impedimento", tipo:"textarea"}, {k:"link", t:"Link do arquivo (Drive)"}, {k:"entrega", t:"É uma entrega do projeto", tipo:"check"}
-  ], t || {fase:fase}, async function(v){ if (t) return atualizar("tarefas", t.id, v); v.ordem = 900 + S.data.tarefas.length; v.modulo = ""; v.auto = ""; return salvar("tarefas", null, v); },
+    {k:"nota", t:"Observação ou motivo do impedimento", tipo:"textarea"}, {k:"link", t:"Link do arquivo (Drive)"}, {k:"entrega", t:"É uma entrega do projeto", tipo:"check"},
+    {k:"forcado", t:"Concluir mesmo sem os dados completos na máquina (explique na observação)", tipo:"check"}
+  ], t || {fase:fase}, async function(v){ if (v.status === "feito" && (!t || t.status !== "feito")) v.feitoEm = hoje(); if (v.status !== "feito") v.feitoEm = null;
+    if (t) return atualizar("tarefas", t.id, v); v.ordem = 900 + S.data.tarefas.length; v.modulo = ""; v.auto = ""; return salvar("tarefas", null, v); },
   t ? h("button", {type:"button", class:"btn danger", onclick:function(){ confirmar("Apagar a tarefa \""+t.titulo+"\"?", function(){ apagar("tarefas", t.id); document.querySelector(".scrim") && document.querySelector(".scrim").remove(); }); }}, "Apagar") : null);
 }
 
@@ -772,7 +992,8 @@ function tEngajamento(app){
         h("td", null, i.contato ? h("div", {text:i.contato}) : null, i.telefone ? h("span", {class:"mono small", text:i.telefone}) : null),
         h("td", {class:"num mono", text:fnum(i.meta)}), h("td", {class:"num mono", text:fnum(realizadoInst(i.id))}),
         h("td", null, c.ok ? h("span", {class:"pill p-ok", text:"Completas"}) : h("span", {class:"pill p-warn", text:(c.faltaA ? c.faltaA+" de acessibilidade" : "")+(c.faltaA && c.faltaC ? " · " : "")+(c.faltaC ? c.faltaC+" carta(s)" : "")+(!c.faltaA && !c.faltaC ? "sem atividades na grade" : "")})),
-        h("td", null, h("button", {class:"btn ghost", onclick:function(){ editarInst(i); }}, "Editar")))); });
+        h("td", null, i.confirmada === false ? h("button", {class:"btn", onclick:function(){ atualizar("instituicoes", i.id, {confirmada:true}); }}, "Confirmar") : null,
+          h("button", {class:"btn ghost", onclick:function(){ editarInst(i); }}, "Editar")))); });
     pi.appendChild(h("div", {class:"tbl", style:"margin-top:12px"}, tb)); }
   app.appendChild(pi);
   var pg = h("div", {class:"panel"}, h("div", {class:"row"}, h("div", {style:"flex:1;min-width:0"}, h("h2", {text:"Grade de execução"}), h("div", {class:"muted", text:"Cada linha é uma atividade numa instituição, num dia, com uma turma. É o que o produtor vê no diário de campo."})),
@@ -839,6 +1060,12 @@ function tConsolidacao(app){
       ti.lastChild.appendChild(h("tr", null, h("td", {text:i.nome+(i.cidade ? " · "+i.cidade : "")}), h("td", {class:"num mono", text:fnum(i.meta)}), h("td", {class:"num mono", text:fnum(r)}), h("td", {class:"num mono", text:fnum(c.ats)}),
         h("td", null, h("span", {class:"pill "+(c.ok ? "p-ok" : "p-warn"), text: c.ok ? "Completas" : "Pendentes"})))); });
     pi.appendChild(h("div", {class:"tbl", style:"margin-top:10px"}, ti)); }
+  app.appendChild(pi);
+  pi = h("div", {class:"panel", style:"margin-top:14px"}, h("div", {class:"row"}, h("div", {style:"flex:1;min-width:0"}, h("h2", {text:"Rascunho do relatório final"}),
+      h("div", {class:"muted small", text:"Montado com os dados da máquina: execução, público por atividade e por instituição, comprovações, entregas e relatos do campo."+(WEB ? "" : " No artefato, o Claude pode escrever a versão em texto corrido a partir dele.")})),
+    h("button", {class:"btn pri", onclick:function(){ var base = rascunhoRelatorio(), bts = [["Salvar na máquina", async function(txt){ var ok = await salvar("documentos", "rel_"+hoje().replace(/-/g, ""), {tipo:"relatorio", titulo:"Rascunho do relatório final", texto:txt, criadoEm:new Date().toISOString()}); if (ok) toast("Rascunho salvo no Painel."); }]];
+      if (!WEB) bts.unshift(["Escrever com o Claude", function(txt, ta){ escreverComClaude(base, ta); }]);
+      modalTexto("Rascunho do relatório final", base, bts); }}, "Gerar rascunho")));
   app.appendChild(pi); }
 
 /* ---------- modo campo ---------- */
