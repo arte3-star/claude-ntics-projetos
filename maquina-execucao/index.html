@@ -1165,6 +1165,7 @@ function novoProjeto(){
 async function semearTarefas(id, p){
   for (var i = 0; i < TEMPLATE.length; i++){ var t = TEMPLATE[i], base = t.ref === "fim" ? p.fim : p.inicio; if (t.minc && !p.minc) continue;
     var doc = {fase:t.fase, titulo:t.t, ordem:i, status:"a_fazer", prazo: base ? addDias(base, t.off) : "", entrega:!!t.entrega, modulo:t.modulo||"", auto:t.auto||"", resp:"", nota:""};
+    if (t.patrocinador) { doc.patrocinador = true; doc.rotuloPatrocinador = t.rotuloPatrocinador || t.t; } if (t.entregaFinal) doc.entregaFinal = true;
     try { await S.db.doc("projetos/"+id+"/tarefas/"+(t.id || "t"+String(i).padStart(2,"0"))).set(doc); } catch(e){ toast("Parte das tarefas não foi criada. Recarregue."); return; } } }
 
 /* ---------- escritório ---------- */
@@ -2314,7 +2315,7 @@ function cartaoPeca(x, extra){
   return h("div", {class:"pc-card"}, h("div", {class:"row", style:"gap:12px;flex-wrap:nowrap;align-items:flex-start"}, previaPeca(x),
       h("div", {style:"min-width:0;flex:1"}, h("b", {text:x.nome}), h("div", {class:"row", style:"gap:6px;margin-top:4px;flex-wrap:wrap"}, h("span", {class:"sb-chip", text:x.tipo}),
         h("span", {class:"pill "+e[2], text:COM_UM[est]}),
-        dt ? h("span", {class:"small muted", text:(est === "postado" ? "Postado em " : est === "aprovado" && x.quando ? "Programado para " : "")+fdataHora(dt)}) : null,
+        dt && (est === "postado" || (est === "aprovado" && x.quando)) ? h("span", {class:"small muted", text:(est === "postado" ? "Postado em " : "Programado para ")+fdataHora(dt)}) : null,
         x.duracao ? h("span", {class:"small muted", text:Math.round(x.duracao)+" s"}) : null),
         x.falaPatrocinador && x.falaPatrocinador.length ? h("div", {class:"small", style:"margin-top:6px", text:"Fala do patrocinador: "+x.falaPatrocinador.join(", ")}) : null,
         x.link ? h("a", {class:"small", href:x.link, target:"_blank", rel:"noopener", style:"display:inline-block;margin-top:6px", text: g === "video" ? "Assistir no Drive ↗" : "Abrir no Drive ↗"}) : null)),
