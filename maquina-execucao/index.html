@@ -149,6 +149,30 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .gx-marco{position:absolute;top:4px;width:11px;height:11px;margin-left:-6px;transform:rotate(45deg);border:2px solid var(--accent);background:var(--surface)}
 .gx-marco.ok{background:var(--accent)}
 .tr-sec td{background:var(--sunk)}
+.pc-hero{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--accent);border-radius:12px;padding:20px 22px;margin-bottom:14px}
+.pc-prop{font-size:clamp(20px,2.6vw,28px);line-height:1.3;font-weight:700;margin:8px 0 10px;text-wrap:balance;max-width:40ch}
+.pc-nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.pc-nums .v{font-size:26px}
+.pc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.pc-card{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--bg)}
+.pc-n{font:700 12px/1 var(--mono,ui-monospace,monospace);color:var(--accent);margin-bottom:6px}
+.pc-msg{margin:10px 0 0;padding-left:20px;line-height:1.55}.pc-msg li{margin-bottom:6px}
+.pc-ul{margin:0;padding-left:18px;line-height:1.55}
+.pc-res{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.pc-res>div{background:var(--sunk);border-radius:10px;padding:10px 14px;min-width:110px}
+.pc-res b{display:block;font-size:22px}.pc-res span{font-size:12px;color:var(--muted)}
+.pc-prox{flex:1;min-width:200px}.pc-prox em{display:block;font-style:normal;font-size:12px;color:var(--muted)}.pc-prox b{font-size:15px!important}
+.pc-leg{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);margin-bottom:6px}.pc-leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.pc-leg i.ap,.pc-it.ap .pc-ico{background:#F2B705}.pc-leg i.pb,.pc-it.pb .pc-ico{background:var(--accent)}.pc-leg i.av,.pc-it.av .pc-ico{background:var(--bad)}.pc-leg i.im,.pc-it.im .pc-ico{background:var(--info)}
+.pc-mes{font-weight:700;margin:16px 0 6px;padding-top:8px;border-top:1px solid var(--line)}
+.pc-it{display:flex;gap:12px;align-items:flex-start;padding:8px 0}
+.pc-it.feito{opacity:.62}.pc-it.agora{background:var(--sunk);border-radius:10px;padding:8px}
+.pc-dia{width:42px;text-align:center;flex:0 0 auto}.pc-dia b{display:block;font-size:20px;line-height:1}.pc-dia span{font-size:11px;color:var(--muted);text-transform:uppercase}
+.pc-ico{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+.pc-ico svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pc-et{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.pc-qtd{min-width:38px;height:28px;border-radius:8px;background:var(--sunk);display:grid;place-items:center;font-weight:700;padding:0 6px}
+.pc-imp{display:flex;align-items:baseline;gap:8px;margin-top:8px}.pc-imp b{font-size:34px}.pc-imp span{color:var(--muted)}
 .tira .thumbs{flex-wrap:nowrap;overflow-x:auto}
 .tira .thumbd{width:150px;height:110px;flex:0 0 auto}
 .gx-inst{all:unset;cursor:pointer;min-width:0;display:block}
@@ -1694,19 +1718,6 @@ function textoFormatado(t){ var box = h("div", {class:"texto"}), lista = null;
     if (/^[-•]\s/.test(s)) { if (!lista) { lista = h("ul"); box.appendChild(lista); } lista.appendChild(h("li", {text:s.replace(/^[-•]\s*/, "")})); return; }
     lista = null; box.appendChild(h("p", {text:s})); });
   return box; }
-function painelPlanoPatrocinador(p){
-  var ta = h("textarea", {"aria-label":"Plano de comunicação para o patrocinador", style:"width:100%;min-height:220px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--bg);font:inherit;line-height:1.5",
-    placeholder:"# Objetivo da comunicação\nO que o projeto quer que o público e a comunidade saibam...\n\n# Como o patrocinador aparece\n- Régua de marcas em todas as peças\n- Menção nos releases e posts\n\n# Calendário\n..."}); ta.value = p.planoComPatrocinador || "";
-  var bts = [h("button", {class:"btn pri", onclick:async function(){ if (await salvarProjeto(S.cur, Object.assign({}, p, {planoComPatrocinador:ta.value, planoComEm:new Date().toISOString()}))) toast("Plano do patrocinador salvo."); }}, "Salvar"),
-    h("button", {class:"btn ghost", onclick:function(){ S.modo = "patrocinador"; S.pat = "plano"; render(); }}, "Ver como o patrocinador vê")];
-  if (!WEB) bts.push(h("button", {class:"btn", onclick:async function(){ var sm = await claudeSample(); if (!sm) { toast("Disponível no artefato do Claude."); return; }
-    var base = "Projeto: "+(p.numero||"")+" "+(p.nome||"")+" · patrocinador "+(p.patrocinador||"")+"\nResumo: "+(p.resumo||"")+"\nCidades: "+String(p.cidades||"").replace(/\n/g, ", ")+"\nPeças previstas:\n"+S.data.pecas.map(function(x){ return "- "+x.nome+(x.prazo ? " ("+fdata(x.prazo)+")" : ""); }).join("\n");
-    ta.value = "Escrevendo…";
-    try { var r = await sm("Escreva a parte do plano de comunicação de um projeto cultural da NTICS que vai para o PATROCINADOR: uma reflexão curta e clara sobre como o projeto vai ser comunicado e como a marca do patrocinador aparece. Português do Brasil, sem travessão, sem inventar números, datas ou nomes que não estejam nos dados. Use o formato: linhas que começam com '# ' são títulos, '- ' são itens, linha em branco separa parágrafos. Blocos: Objetivo da comunicação / Públicos / Como o patrocinador aparece / Momentos de comunicação / O que o patrocinador recebe no fim. Dados:\n\n"+base, {modelTier:"complex", cache:false, onText:function(x){ ta.value = x.text; }}); ta.value = r.text; }
-    catch(e){ ta.value = p.planoComPatrocinador || ""; toast("Não foi possível escrever agora."); } }}, "Rascunhar com o Claude"));
-  return h("div", {class:"panel", style:"margin-bottom:14px"}, h("h2", {text:"Plano de comunicação · parte do patrocinador"}),
-    h("div", {class:"muted small", style:"margin:2px 0 8px", text:"Texto que o patrocinador lê na aba Plano de comunicação do portal: a reflexão sobre a comunicação do projeto que é dele. O plano completo do projeto continua com a equipe. Formato: # título, - item, linha em branco separa parágrafos."}),
-    ta, h("div", {class:"row", style:"margin-top:8px;gap:8px;flex-wrap:wrap"}, bts)); }
 /* ---------- portal do patrocinador: sobre o projeto, fotos por instituição, resumo da semana ---------- */
 function negritos(el, txt){ String(txt).split(/(\*\*[^*]+\*\*)/).forEach(function(pt){ if (/^\*\*[^*]+\*\*$/.test(pt)) el.appendChild(h("b", {text:pt.slice(2, -2)})); else if (pt) el.appendChild(document.createTextNode(pt)); }); return el; }
 var TITULOS_SEMANA = /^(onde estivemos|o que aconteceu|números da semana|numeros da semana|destaques do campo|destaques)$/i;
@@ -1778,6 +1789,108 @@ function painelSobreEscritorio(p){
   return h("div", {class:"panel", style:"margin-top:14px"}, h("h2", {text:"Texto do projeto para o patrocinador"}),
     h("div", {class:"muted small", style:"margin:2px 0 8px", text:"Aparece em Sobre o projeto, no portal do patrocinador. A descrição de cada atividade fica em Atividades e metas (campo Descrição para o patrocinador). Formato: # título, - item, **negrito**."}),
     ta, h("div", {class:"row", style:"margin-top:8px;gap:8px;flex-wrap:wrap"}, bts)); }
+/* ---------- plano de comunicação do patrocinador: estruturado e visual (p.planoCom) ---------- */
+var PC_ICONE = {
+  video: '<svg viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg>',
+  post: '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.6"/><path d="M5 18l5-5 3 3 2-2 4 4"/></svg>',
+  convite: '<svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 8l9 6 9-6"/></svg>',
+  aovivo: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M7.5 7.5a6.5 6.5 0 000 9M16.5 7.5a6.5 6.5 0 010 9M4.5 4.5a10.5 10.5 0 000 15M19.5 4.5a10.5 10.5 0 010 15"/></svg>',
+  release: '<svg viewBox="0 0 24 24"><path d="M5 4h10l4 4v12H5z"/><path d="M8 11h8M8 15h8M8 7h5"/></svg>',
+  case: '<svg viewBox="0 0 24 24"><path d="M5 20V10M10 20V4M15 20v-7M20 20V8"/></svg>'};
+var PC_ETAPA = {aprovacao:["Envio para aprovação", "ap"], publicacao:["Publicação", "pb"], aovivo:["Ao vivo", "av"], imprensa:["Imprensa", "im"]};
+function svgIcone(tipo){ var s = h("span", {class:"pc-ico", "aria-hidden":"true"}); s.innerHTML = PC_ICONE[tipo] || PC_ICONE.post; return s; }
+function planoComPat(app, p){
+  var pc = p.planoCom;
+  if (!pc) { var pl = h("div", {class:"panel"}, h("h2", {text:"Plano de comunicação"}));
+    if (String(p.planoComPatrocinador || "").trim()) pl.appendChild(h("div", {style:"max-width:72ch;margin-top:8px"}, textoRico(p.planoComPatrocinador)));
+    else pl.appendChild(h("div", {class:"empty", style:"margin-top:12px", text:"O plano de comunicação do projeto está sendo preparado e aparece aqui assim que for compartilhado."}));
+    app.appendChild(pl); return; }
+  // 1. proposta
+  app.appendChild(h("section", {class:"pc-hero"}, h("div", {class:"lbl", text:"Plano de comunicação"}), h("p", {class:"pc-prop", text:pc.proposta || p.resumo || ""}),
+    h("div", {class:"small muted", text:[p.patrocinador ? p.patrocinador+" como patrocinador" : "", "NTICS como realizadora"].filter(Boolean).join(" · ")})));
+  // 2. números
+  if ((pc.numeros || []).length) app.appendChild(h("div", {class:"pc-nums"}, pc.numeros.map(function(n){ return h("div", {class:"panel kpi"}, h("div", {class:"v", text:n.v}), h("div", {class:"small muted", text:n.l})); })));
+  // 3. objetivos
+  if ((pc.objetivos || []).length) app.appendChild(h("div", {class:"panel", style:"margin-top:14px"}, h("h2", {text:"Objetivos da comunicação"}),
+    h("div", {class:"pc-grid", style:"margin-top:10px"}, pc.objetivos.map(function(o, k){ return h("div", {class:"pc-card"}, h("div", {class:"pc-n", text:String(k + 1).padStart(2, "0")}), h("b", {text:o.t}), o.d ? h("div", {class:"small muted", style:"margin-top:4px", text:o.d}) : null); }))));
+  // 4. públicos e mensagens
+  var pm = h("div", {class:"grid g2", style:"margin-top:14px"});
+  if ((pc.publicos || []).length) pm.appendChild(h("div", {class:"panel"}, h("h2", {text:"Para quem falamos"}), h("div", {class:"chips", style:"margin-top:10px"}, pc.publicos.map(function(x){ return h("span", {class:"chip", text:x}); }))));
+  if ((pc.mensagens || []).length) pm.appendChild(h("div", {class:"panel"}, h("h2", {text:"Mensagens-chave"}), h("ol", {class:"pc-msg"}, pc.mensagens.map(function(x){ return h("li", {text:x}); }))));
+  if (pm.childNodes.length) app.appendChild(pm);
+  // 5. calendário de comunicação
+  var L = (pc.calendario || []).slice().sort(function(a, b){ return String(a.data).localeCompare(b.data); });
+  if (L.length) { var hj = hoje(), prox = L.find(function(x){ return x.data >= hj; });
+    var cont = function(ts){ return L.filter(function(x){ return ts.indexOf(x.tipo) > -1; }).length; };
+    var cal = h("div", {class:"panel", style:"margin-top:14px"}, h("div", {class:"row"}, h("h2", {text:"Calendário de comunicação"}), h("span", {class:"sp"}), h("span", {class:"small muted", text:"vídeos, posts, imprensa e cobertura ao vivo"})));
+    cal.appendChild(h("div", {class:"pc-res"}, h("div", null, h("b", {text:String(cont(["video","case"]))}), h("span", {text:"vídeos"})), h("div", null, h("b", {text:String(cont(["post","convite"]))}), h("span", {text:"posts e convites"})),
+      cont(["release"]) ? h("div", null, h("b", {text:String(cont(["release"]))}), h("span", {text:"releases"})) : null, h("div", null, h("b", {text:String(cont(["aovivo"]))}), h("span", {text:"coberturas ao vivo"})),
+      prox ? h("div", {class:"pc-prox"}, h("span", {text:"Próxima entrega"}), h("b", {text:prox.titulo}), h("em", {text:fdata(prox.data)+(prox.data === hj ? " · hoje" : " · em "+dias(hj, prox.data)+" dias")})) : null));
+    cal.appendChild(h("div", {class:"pc-leg small"}, h("span", null, h("i", {class:"ap"}), "envio para aprovação"), h("span", null, h("i", {class:"pb"}), "publicação"), h("span", null, h("i", {class:"av"}), "ao vivo"), h("span", null, h("i", {class:"im"}), "imprensa")));
+    var meses = {}; L.forEach(function(x){ (meses[x.data.slice(0, 7)] = meses[x.data.slice(0, 7)] || []).push(x); });
+    Object.keys(meses).forEach(function(m){ cal.appendChild(h("div", {class:"pc-mes", text:MESES[+m.slice(5) - 1].replace(/^./, function(c){ return c.toUpperCase(); })+" de "+m.slice(0, 4)}));
+      meses[m].forEach(function(x){ var d = new Date(x.data+"T12:00:00"), et = PC_ETAPA[x.etapa] || ["", ""], st = x.data < hj ? "feito" : x === prox ? "agora" : "";
+        cal.appendChild(h("div", {class:"pc-it "+et[1]+" "+st}, h("div", {class:"pc-dia"}, h("b", {text:String(d.getDate())}), h("span", {text:SEM3[d.getDay()]})), svgIcone(x.tipo),
+          h("div", {style:"min-width:0;flex:1"}, h("div", {class:"row", style:"gap:6px;flex-wrap:wrap"}, h("b", {text:x.titulo}), h("span", {class:"pc-et", text:et[0]}), st === "feito" ? h("span", {class:"pill p-ok", text:"entregue"}) : st === "agora" ? h("span", {class:"pill p-warn", text:"próxima"}) : null),
+            x.conteudo ? h("div", {class:"small muted", style:"margin-top:2px", text:x.conteudo}) : null))); }); });
+    if (pc.notaCalendario) cal.appendChild(h("div", {class:"note", style:"margin-top:10px", text:pc.notaCalendario}));
+    app.appendChild(cal); }
+  // 6. entregas e 7. imprensa
+  var ei = h("div", {class:"grid g2", style:"margin-top:14px"});
+  if ((pc.entregas || []).length) ei.appendChild(h("div", {class:"panel"}, h("h2", {text:"O que o patrocinador recebe"}), h("div", {class:"list", style:"margin-top:6px"}, pc.entregas.map(function(e){
+    return h("div", {class:"li"}, h("span", {class:"pc-qtd", text:e.q || "•"}), h("div", {class:"main"}, h("b", {text:e.t}), e.d ? h("div", {class:"meta", text:e.d}) : null)); }))));
+  if (pc.imprensa) { var im = pc.imprensa;
+    ei.appendChild(h("div", {class:"panel"}, h("h2", {text:"Imprensa"}), im.realizado ? h("div", {class:"pc-imp"}, h("b", {text:String(im.realizado)}), h("span", {text:im.realizadoTxt || "matérias publicadas"})) : null,
+      (im.metas || []).length ? h("div", null, h("div", {class:"lbl", style:"margin:10px 0 6px", text:im.metasTitulo || "Metas por cidade"}), h("ul", {class:"pc-ul"}, im.metas.map(function(x){ return h("li", {text:x}); }))) : null,
+      im.meta ? h("div", {class:"small", style:"margin-top:6px"}, h("b", {text:"Meta global: "}), im.meta) : null)); }
+  if (ei.childNodes.length) app.appendChild(ei);
+  // 8. marca e 9. porta-vozes
+  var mp = h("div", {class:"grid g2", style:"margin-top:14px"});
+  if ((pc.marca || []).length) mp.appendChild(h("div", {class:"panel"}, h("h2", {text:"Como a marca aparece"}), h("ul", {class:"pc-ul", style:"margin-top:8px"}, pc.marca.map(function(x){ return h("li", {text:x}); }))));
+  if ((pc.portaVozes || []).length) mp.appendChild(h("div", {class:"panel"}, h("h2", {text:"Porta-vozes"}), h("div", {class:"list", style:"margin-top:6px"}, pc.portaVozes.map(function(x){ return h("div", {class:"li"}, h("div", {class:"main"}, h("b", {text:x.n}), x.c ? h("div", {class:"meta", text:x.c}) : null)); }))));
+  if (mp.childNodes.length) app.appendChild(mp);
+}
+/* editor por campos (escritório) */
+function linhas(t){ return String(t || "").split(/\n+/).map(function(l){ return l.trim(); }).filter(Boolean); }
+function par(l, sep){ var i = l.indexOf(sep); return i < 0 ? [l.trim(), ""] : [l.slice(0, i).trim(), l.slice(i + sep.length).trim()]; }
+function pcParaTexto(pc){ pc = pc || {}; return {
+  proposta: pc.proposta || "", numeros: (pc.numeros || []).map(function(n){ return n.v+" | "+n.l; }).join("\n"),
+  objetivos: (pc.objetivos || []).map(function(o){ return o.t+(o.d ? " | "+o.d : ""); }).join("\n"), publicos: (pc.publicos || []).join("\n"), mensagens: (pc.mensagens || []).join("\n"),
+  calendario: (pc.calendario || []).map(function(x){ return [fdata(x.data).replace(/\/(\d\d)$/, "/20$1"), x.tipo, x.etapa, x.titulo, x.conteudo || ""].join(" | "); }).join("\n"),
+  notaCalendario: pc.notaCalendario || "", entregas: (pc.entregas || []).map(function(e){ return (e.q ? e.q+" | " : "")+e.t+(e.d ? " | "+e.d : ""); }).join("\n"),
+  impRealizado: pc.imprensa && pc.imprensa.realizado || "", impRealizadoTxt: pc.imprensa && pc.imprensa.realizadoTxt || "", impMetas: (pc.imprensa && pc.imprensa.metas || []).join("\n"), impMeta: pc.imprensa && pc.imprensa.meta || "",
+  marca: (pc.marca || []).join("\n"), portaVozes: (pc.portaVozes || []).map(function(x){ return x.n+(x.c ? " | "+x.c : ""); }).join("\n")}; }
+function textoParaPc(v){ function data(s){ var m = String(s).match(/(\d{1,2})\/(\d{1,2})\/(\d{2,4})/); if (!m) return String(s).trim(); var y = m[3].length === 2 ? "20"+m[3] : m[3]; return y+"-"+m[2].padStart(2, "0")+"-"+m[1].padStart(2, "0"); }
+  return {proposta:v.proposta.trim(), numeros:linhas(v.numeros).map(function(l){ var x = par(l, "|"); return {v:x[0], l:x[1]}; }),
+    objetivos:linhas(v.objetivos).map(function(l){ var x = par(l, "|"); return {t:x[0], d:x[1]}; }), publicos:linhas(v.publicos), mensagens:linhas(v.mensagens),
+    calendario:linhas(v.calendario).map(function(l){ var c = l.split("|").map(function(s){ return s.trim(); }); return {data:data(c[0]), tipo:c[1] || "post", etapa:c[2] || "publicacao", titulo:c[3] || "", conteudo:c.slice(4).join(" | ")}; }),
+    notaCalendario:v.notaCalendario.trim(), entregas:linhas(v.entregas).map(function(l){ var c = l.split("|").map(function(s){ return s.trim(); }); return c.length > 2 ? {q:c[0], t:c[1], d:c.slice(2).join(" | ")} : c.length === 2 && /^\d|^[a-z]{0,3}\d/i.test(c[0]) ? {q:c[0], t:c[1]} : {t:c[0], d:c[1] || ""}; }),
+    imprensa:{realizado:v.impRealizado ? String(v.impRealizado).trim() : "", realizadoTxt:v.impRealizadoTxt.trim(), metas:linhas(v.impMetas), meta:v.impMeta.trim()},
+    marca:linhas(v.marca), portaVozes:linhas(v.portaVozes).map(function(l){ var x = par(l, "|"); return {n:x[0], c:x[1]}; })}; }
+function painelPlanoPatrocinador(p){
+  var pan = h("div", {class:"panel", style:"margin-bottom:14px"}, h("div", {class:"row"}, h("div", {style:"flex:1;min-width:0"}, h("h2", {text:"Plano de comunicação · parte do patrocinador"}),
+      h("div", {class:"muted small", text:"O que o patrocinador vê na aba Plano de comunicação: proposta, números, objetivos, públicos, mensagens, calendário, entregas, imprensa, marca e porta-vozes. O plano completo da assessoria continua com a equipe."})),
+    h("button", {class:"btn pri", onclick:function(){ editarPlanoCom(p); }}, p.planoCom ? "Editar plano" : "Montar plano"),
+    h("button", {class:"btn ghost", onclick:function(){ S.modo = "patrocinador"; S.pat = "plano"; render(); }}, "Ver como o patrocinador vê")));
+  if (p.planoCom) { var pc = p.planoCom; pan.appendChild(h("div", {class:"row small muted", style:"margin-top:8px;gap:12px;flex-wrap:wrap"},
+    [["números", (pc.numeros || []).length], ["objetivos", (pc.objetivos || []).length], ["mensagens", (pc.mensagens || []).length], ["itens no calendário", (pc.calendario || []).length], ["entregas", (pc.entregas || []).length]].map(function(x){ return h("span", {text:x[1]+" "+x[0]}); }),
+    pc.fonte ? h("span", {text:"Fonte: "+pc.fonte}) : null)); }
+  return pan; }
+function editarPlanoCom(p){
+  var tx = pcParaTexto(p.planoCom);
+  abrirForm("Plano de comunicação do patrocinador", [
+    {k:"proposta", t:"Proposta em uma frase", tipo:"textarea"},
+    {k:"numeros", t:"Números (um por linha: valor | rótulo). Ex.: 1.080 | estudantes", tipo:"textarea"},
+    {k:"objetivos", t:"Objetivos (título | descrição)", tipo:"textarea"},
+    {k:"publicos", t:"Públicos (um por linha)", tipo:"textarea", meio:true}, {k:"mensagens", t:"Mensagens-chave (uma por linha)", tipo:"textarea", meio:true},
+    {k:"calendario", t:"Calendário (data | tipo | etapa | título | conteúdo). Tipos: video, post, convite, release, aovivo, case. Etapas: aprovacao, publicacao, aovivo, imprensa", tipo:"textarea"},
+    {k:"notaCalendario", t:"Observação do calendário (opcional)"},
+    {k:"entregas", t:"O que o patrocinador recebe (quantidade | entrega | detalhe)", tipo:"textarea"},
+    {k:"impRealizado", t:"Imprensa: matérias publicadas até agora", meio:true}, {k:"impRealizadoTxt", t:"Texto ao lado do número (ex.: matérias até 13/10)", meio:true},
+    {k:"impMetas", t:"Imprensa: metas por cidade (uma por linha)", tipo:"textarea", meio:true}, {k:"impMeta", t:"Imprensa: meta global (opcional)", meio:true},
+    {k:"marca", t:"Como a marca aparece (uma regra por linha)", tipo:"textarea", meio:true}, {k:"portaVozes", t:"Porta-vozes (nome | cargo)", tipo:"textarea", meio:true}
+  ], tx, async function(v){ var pc = textoParaPc(v); pc.fonte = (p.planoCom && p.planoCom.fonte) || ""; pc.atualizadoEm = new Date().toISOString();
+    return salvarProjeto(S.cur, Object.assign({}, p, {planoCom:pc})); }); }
 var PAT_TABS = [["painel","Painel ao vivo"],["semana","Resumo da semana"],["sobre","Sobre o projeto"],["cronograma","Cronograma"],["plano","Plano de comunicação"],["aprovacoes","Aprovações"],["diario","Diário de campo"],["arquivos","Fotos e vídeos"]];
 function renderPatrocinador(app){
   app.appendChild(h("div", {class:"note", style:"margin:16px 0"}, "Visão do patrocinador. Mostra só o que vai para o cliente; dados internos (orçamento, contratos, tarefas) ficam fora."));
@@ -1800,10 +1913,7 @@ function renderPatrocinador(app){
     app.appendChild(pa); return; }
   if (S.pat === "sobre") return sobrePat(app, p);
   if (S.pat === "cronograma") return cronogramaPat(app);
-  if (S.pat === "plano") { var pl = h("div", {class:"panel"}, h("h2", {text:"Plano de comunicação"}));
-    if (String(p.planoComPatrocinador || "").trim()) pl.appendChild(h("div", {style:"max-width:72ch;margin-top:8px"}, textoFormatado(p.planoComPatrocinador)));
-    else pl.appendChild(h("div", {class:"empty", style:"margin-top:12px", text:"O plano de comunicação do projeto está sendo preparado e aparece aqui assim que for compartilhado."}));
-    app.appendChild(pl); return; }
+  if (S.pat === "plano") return planoComPat(app, p);
   if (S.pat === "aprovacoes") { var ap = h("div", {class:"panel"}, h("h2", {text:"Aprovações"}), h("div", {class:"muted small", style:"margin-top:2px", text:"Peças, releases, vídeos e carrosséis que precisam do seu aval."}));
     var pend = S.data.pecas.filter(function(x){ return x.aprovacao && x.status === "aprovacao"; });
     if (!pend.length) ap.appendChild(h("div", {class:"empty", style:"margin-top:12px"}, h("b", {text:"Nada aguardando aprovação"}), "Quando uma peça for enviada para aprovação, ela aparece aqui."));
