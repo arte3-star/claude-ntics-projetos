@@ -369,7 +369,7 @@ function alertasCruzados(){
     var semD = gs.filter(function(g){ return g.data < addDias(hj, -1) && !sessaoFeita(g.id); }).length;
     if (semD) add("warn", semD+" atividade(s) em "+nome+" já passaram e estão sem diário de campo.", "diario");
     var c = instCompleta(i);
-    if (!c.ok && c.ats) { var falt = [c.faltaA ? c.faltaA+" item(ns) de acessibilidade" : "", c.faltaC ? c.faltaC+" carta(s)" : ""].filter(Boolean).join(" e ");
+    if (!c.ok && c.ats) { var falt = [c.faltaA ? "foto de acessibilidade (ou justificativa)" : "", c.faltaC ? c.faltaC+" carta(s)" : ""].filter(Boolean).join(" e ");
       if (fim < hj) add("bad", "A execução em "+nome+" terminou em "+fdata(fim)+" e faltam "+falt+" nas comprovações.", "engajamento");
       else if (ini <= addDias(hj, 3)) add("warn", "Última atividade em "+nome+" "+quando(dias(hj, fim))+": faltam "+falt+". Recolha antes de sair da escola.", "engajamento"); } });
   var rel = abertaModelo("t43");
@@ -462,7 +462,7 @@ function rascunhoRelatorio(){
   L.push("", "4. COMPROVAÇÕES E ACESSIBILIDADE");
   insts.forEach(function(i){ var c = instCompleta(i), ac = i.acess || {}, tem = ACESS.filter(function(a){ return ac[a.k] && ac[a.k].tem === true; }).map(function(a){ return a.t.toLowerCase(); });
     var cartas = cartasExigidas(i.id).filter(function(e){ return i.cartas && i.cartas[e.id] && i.cartas[e.id].arquivo; });
-    L.push("- "+i.nome+": "+cartas.length+" de "+cartasExigidas(i.id).length+" cartas"+(tem.length ? "; acessibilidade: "+tem.join(", ") : "")+(c.ok ? "" : " (pendente: "+[c.faltaA ? c.faltaA+" item(ns) de acessibilidade" : "", c.faltaC ? c.faltaC+" carta(s)" : ""].filter(Boolean).join(" e ")+")")); });
+    L.push("- "+i.nome+": "+cartas.length+" de "+cartasExigidas(i.id).length+" cartas"+(tem.length ? "; acessibilidade: "+tem.join(", ") : "")+(c.ok ? "" : " (pendente: "+[c.faltaA ? "foto de acessibilidade ou justificativa" : "", c.faltaC ? c.faltaC+" carta(s)" : ""].filter(Boolean).join(" e ")+")")); });
   if (p.entregasMinc && p.entregasMinc.length) L.push("- Entregas MinC: "+p.entregasMinc.map(function(e){ return e.nome; }).join("; "));
   L.push("", "5. ENTREGAS DO PROJETO"); ent.sort(function(a,b){ return String(a.prazo).localeCompare(b.prazo); }).forEach(function(t){ L.push("- "+t.titulo+": "+(statusEfetivo(t) === "feito" ? "entregue" : "prevista para "+fdata(t.prazo))); });
   var rel = env.filter(function(d){ return String(d.relato || "").trim(); }).map(function(d){ var g = byId("grade", d.id) || {}; return "- "+fdata(g.data)+" · "+nomeAtiv(g.atividadeId)+" · "+nomeInst(g.instituicaoId)+": "+String(d.relato).trim(); });
@@ -502,10 +502,9 @@ function atividadesDaInst(iid){ var ids = {}; S.data.grade.forEach(function(g){ 
 // Cartas exigidas por instituição: uma por entrega MinC (projeto.entregasMinc) ou, sem isso, uma por atividade da grade
 function cartasExigidas(iid){ var p = P() || {}; if (p.entregasMinc && p.entregasMinc.length) return p.entregasMinc.map(function(e){ return {id:e.id, nome:e.nome}; });
   return atividadesDaInst(iid).map(function(a){ return {id:a, nome:nomeAtiv(a)}; }); }
-function instCompleta(i){ var ac = i.acess || {}, faltaA = 0;
-  ACESS.forEach(function(a){ var x = ac[a.k]; if (!x || x.tem == null) { faltaA++; return; }
-    if (x.tem && !(x.fotos && x.fotos.length)) faltaA++; if (x.tem === false && !String(x.just || "").trim()) faltaA++; });
-  if (i.cartaSemAcess) faltaA = 0;
+// Acessibilidade completa = fotos de pelo menos um item. Sem nenhuma foto, vale uma justificativa ou a carta assinada.
+function acessFotos(i){ var ac = i.acess || {}; return ACESS.filter(function(a){ var x = ac[a.k]; return x && x.tem && x.fotos && x.fotos.length; }).length; }
+function instCompleta(i){ var faltaA = acessFotos(i) || String(i.acessJust || "").trim() || i.cartaSemAcess ? 0 : 1;
   var ats = cartasExigidas(i.id), cartas = i.cartas || {}, faltaC = ats.filter(function(a){ return !(cartas[a.id] && cartas[a.id].arquivo); }).length;
   return {ok: faltaA === 0 && faltaC === 0 && ats.length > 0, faltaA: faltaA, faltaC: faltaC, ats: ats.length}; }
 function metaTotal(){ return S.data.atividades.reduce(function(s,a){ return s + num(a.meta); }, 0); }
@@ -611,7 +610,7 @@ function conferenciaMinc(){
     if (fim && datas.length) add(datas[0] >= fim, "Cartas", nome+": cartas datadas de "+fdata(datas[0])+(datas[0] >= fim ? ", depois da última atividade ("+fdata(fim)+")" : ", ANTES da última atividade ("+fdata(fim)+")"), "warn");
     var pi = pessoasInst(i), maxDia = 0; S.data.diario.forEach(function(d){ var g = byId("grade", d.id); if (d.enviado && g && g.instituicaoId === i.id && !ehVirtual(g) && num(d.publico) > maxDia && (byId("atividades", g.atividadeId) || {}).unidade !== "professores") maxDia = num(d.publico); });
     if (pi.alunos && maxDia) add(maxDia <= pi.alunos, "Diário × carta", nome+": a carta declara "+fnum(pi.alunos)+" alunos; o maior registro de uma atividade no diário foi "+fnum(maxDia)+(maxDia > pi.alunos ? ". O diário passa da carta: conferir" : ""), "warn");
-    var ci = instCompleta(i); add(ci.faltaA === 0, "Acessibilidade", nome+": "+(ci.faltaA ? ci.faltaA+" item(ns) de acessibilidade sem foto ou justificativa" : "acessibilidade completa"));
+    var ci = instCompleta(i); add(ci.faltaA === 0, "Acessibilidade", nome+": "+(ci.faltaA ? "nenhuma foto de acessibilidade e nenhuma justificativa" : acessFotos(i) ? "acessibilidade comprovada com fotos de "+acessFotos(i)+" item(ns)" : "sem fotos, com justificativa registrada"));
     var semFoto = S.data.grade.filter(function(g){ if (g.instituicaoId !== i.id || !g.data || g.data > hj) return false; var d = diarioDe(g.id); return !(d && d.enviado && ((d.fotos || []).length || (d.fotosFotografo || []).length || ehVirtual(g))); }).length;
     add(!semFoto, "Fotos de comprovação", nome+": "+(semFoto ? semFoto+" atividade(s) sem foto de comprovação" : "todas as atividades com foto"), "warn"); });
   var semDiario = S.data.grade.filter(function(g){ return g.data && g.data < hj && !sessaoFeita(g.id); }).length;
@@ -1215,7 +1214,7 @@ function tEngajamento(app){
       tb.lastChild.appendChild(h("tr", null, h("td", null, h("b", {text:i.nome}), h("div", {class:"small muted", text:(i.tipo||"Escola")+(i.confirmada === false ? " · a confirmar" : "")})), h("td", {text:i.cidade||""}),
         h("td", null, i.contato ? h("div", {text:i.contato}) : null, i.telefone ? h("span", {class:"mono small", text:i.telefone}) : null),
         h("td", {class:"num mono", text:fnum(i.meta)}), h("td", {class:"num mono", text:fnum(realizadoInst(i.id))}),
-        h("td", null, c.ok ? h("span", {class:"pill p-ok", text:"Completas"}) : h("span", {class:"pill p-warn", text:(c.faltaA ? c.faltaA+" de acessibilidade" : "")+(c.faltaA && c.faltaC ? " · " : "")+(c.faltaC ? c.faltaC+" carta(s)" : "")+(!c.faltaA && !c.faltaC ? "sem atividades na grade" : "")})),
+        h("td", null, c.ok ? h("span", {class:"pill p-ok", text:"Completas"}) : h("span", {class:"pill p-warn", text:(c.faltaA ? "acessibilidade" : "")+(c.faltaA && c.faltaC ? " · " : "")+(c.faltaC ? c.faltaC+" carta(s)" : "")+(!c.faltaA && !c.faltaC ? "sem atividades na grade" : "")})),
         h("td", null, i.confirmada === false ? h("button", {class:"btn", onclick:function(){ atualizar("instituicoes", i.id, {confirmada:true}); }}, "Confirmar") : null,
           h("button", {class:"btn ghost", onclick:function(){ editarInst(i); }}, "Editar")))); });
     pi.appendChild(h("div", {class:"tbl", style:"margin-top:12px"}, tb)); }
@@ -1401,7 +1400,13 @@ function campoInst(w, i){
   var ac = JSON.parse(JSON.stringify(i.acess || {}));
   async function grava(){ await atualizar("instituicoes", i.id, {acess:ac}); }
   w.appendChild(h("h3", {style:"margin:16px 0 4px", text:"Acessibilidade da instituição"}));
-  w.appendChild(h("div", {class:"small muted", style:"margin-bottom:8px", text:"Para cada item: se tem, foto; se não tem, justificativa. Se a instituição não tem nenhum ponto de acessibilidade, envie a carta assinada."}));
+  var nf = acessFotos(i), jt = String(i.acessJust || "").trim();
+  w.appendChild(h("div", {class:"note "+(nf || jt || i.cartaSemAcess ? "" : "warn"), style:"margin-bottom:8px"},
+    nf ? h("b", {text:"Acessibilidade comprovada: fotos de "+nf+" item(ns). "}) : jt ? h("b", {text:"Sem fotos, com justificativa registrada. "}) : i.cartaSemAcess ? h("b", {text:"Carta de não necessidade enviada. "}) : h("b", {text:"Falta comprovar a acessibilidade. "}),
+    "Não precisa ter foto de todos os itens: fotografe os que a escola tem. Se a escola não tiver nenhum ponto de acessibilidade, escreva a justificativa abaixo ou envie a carta assinada."));
+  var jta = h("textarea", {"aria-label":"Justificativa geral de acessibilidade", placeholder:"Ex.: escola térrea sem adaptações; direção informou que não há alunos com deficiência nas turmas atendidas.", style:"width:100%;margin-top:6px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--bg)"}); jta.value = i.acessJust || "";
+  w.appendChild(h("div", {class:"accitem"}, h("b", {text:"Justificativa (só se não houver nenhuma foto)"}), jta,
+    h("div", {class:"row", style:"margin-top:6px"}, h("span", {class:"sp"}), h("button", {class:"btn", onclick:async function(){ if (await atualizar("instituicoes", i.id, {acessJust:jta.value.trim()})) toast(jta.value.trim() ? "Justificativa salva." : "Justificativa apagada."); }}, "Salvar justificativa"))));
   var cartaSem = h("div", {class:"accitem"}, h("div", {class:"row"}, h("b", {text:"Carta: a instituição não tem ou não necessita de acessibilidade"}), h("span", {class:"sp"}),
     i.cartaSemAcess ? h("span", {class:"pill p-ok", text:"Enviada"}) : null,
     h("button", {class:"btn", onclick:function(){ seletorArquivos("image/*,application/pdf", false, async function(fs){ var r = await enviarArquivos(fs, "carta sem acessibilidade", {pasta:"comprovacoes", instituicaoId:i.id}); if (r.length) { await atualizar("instituicoes", i.id, {cartaSemAcess:r[0]}); toast("Carta enviada."); } }); }}, i.cartaSemAcess ? "Trocar" : "Enviar carta")));
@@ -1413,7 +1418,9 @@ function campoInst(w, i){
     if (x.nota) it.appendChild(h("div", {class:"small muted", style:"margin-top:4px", text:x.nota}));
     if (x.tem === true) it.appendChild(h("div", {class:"row", style:"margin-top:8px"}, miniaturas(x.fotos), h("button", {class:"btn", onclick:function(){ seletorArquivos("image/*", true, async function(fs){ var r = await enviarArquivos(fs, "acessibilidade: "+a.t, {pasta:"comprovacoes", instituicaoId:i.id}); if (r.length) { ac[a.k] = Object.assign({}, ac[a.k]||{}, {tem:true, fotos:(x.fotos||[]).concat(r)}); await grava(); } }); }}, (x.fotos||[]).length ? "Mais fotos" : "Enviar foto")));
     if (x.tem === false) { var ta = h("textarea", {"aria-label":"Justificativa: "+a.t, placeholder:"Justificativa", style:"width:100%;margin-top:8px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--bg)"}); ta.value = x.just || "";
-      ta.addEventListener("change", async function(){ ac[a.k] = Object.assign({}, ac[a.k]||{}, {tem:false, just:ta.value.trim()}); await grava(); }); it.appendChild(ta); }
+      ta.placeholder = "Observação (opcional)";
+      ta.addEventListener("change", async function(){ ac[a.k] = Object.assign({}, ac[a.k]||{}, {tem:false, just:ta.value.trim()}); await grava(); }); it.appendChild(ta);
+      it.appendChild(h("div", {class:"row", style:"margin-top:4px"}, h("span", {class:"sp"}), h("button", {class:"btn ghost small", onclick:async function(){ ac[a.k] = Object.assign({}, ac[a.k]||{}, {tem:false, just:ta.value.trim()}); await grava(); toast("Salvo."); }}, "Salvar observação"))); }
     lista.appendChild(it); });
   w.appendChild(lista);
   if ((i.fotosAcessSemItem || []).length) w.appendChild(h("div", {class:"accitem", style:"margin-top:8px"}, h("b", {text:"Outras fotos de acessibilidade (sem item definido)"}), h("div", {style:"margin-top:6px"}, miniaturas(i.fotosAcessSemItem))));
