@@ -1970,7 +1970,33 @@ function calendarioComVisual(L, notaCal){
   if (notaCal) cal.appendChild(h("div", {class:"note", style:"margin-top:10px", text:notaCal}));
   return cal; }
 
+/* ---------- fotos do patrocinador: a curadoria do painel (p.fotosCuradas), decisão do Lucas em 18/10/2026 ---------- */
+function curadoria(){ var p = P() || {}; return Array.isArray(p.fotosCuradas) && p.fotosCuradas.length ? p.fotosCuradas : null; }
+function fotoCur(f, rot){ return {driveId:f.id, nome:f.legenda || "Foto", rotulo:rot, tipo:"foto", link:"https://drive.google.com/file/d/"+f.id+"/view"}; }
+function fotosCuradasDe(filtro){ var C = curadoria(); if (!C) return null; var out = [];
+  C.forEach(function(c){ (c.dias || []).forEach(function(d){ if (!filtro || filtro(c.cidade, d.data)) (d.fotos || []).forEach(function(f){ out.push(fotoCur(f, c.cidade+" · "+fdata(d.data).slice(0, 5))); }); }); });
+  return out; }
+function galeriaCur(lista){ if (!lista || !lista.length) return null;
+  return h("div", {class:"pv-fotos"}, lista.map(function(m){ return WEB ? miniaturaDrive(m) : h("a", {href:m.link, target:"_blank", rel:"noopener", class:"pill p-ok", text:"Foto · "+String(m.nome).slice(0, 30)}); })); }
+function amostraCur(n){ var L = fotosCuradasDe() || []; if (!L.length) return []; var passo = Math.max(1, Math.floor(L.length / n)); return L.filter(function(_, i){ return i % passo === 0; }).slice(0, n); }
+function fotosCuradasPat(app, C){
+  var pan = h("div", {class:"panel"}, h("h2", {text:"Fotos e vídeos"}), h("div", {class:"muted small", style:"margin:2px 0 6px", text:"Fotos escolhidas pela equipe, por cidade e por dia de atividade. Clique numa foto para ampliar e ler a legenda."}));
+  var sel = h("select", {class:"proj", "aria-label":"Cidade", onchange:function(){ S.patFotoCid = sel.value; render(); }}, h("option", {value:"", text:"Todas as cidades"}),
+    C.map(function(c){ var o = h("option", {value:c.cidade, text:c.cidade}); if (S.patFotoCid === c.cidade) o.selected = true; return o; }));
+  pan.appendChild(h("div", {style:"margin:6px 0 10px"}, sel));
+  C.filter(function(c){ return !S.patFotoCid || c.cidade === S.patFotoCid; }).forEach(function(c){
+    var n = (c.dias || []).reduce(function(s, d){ return s + (d.fotos || []).length; }, 0);
+    var sec = h("div", {style:"border-top:1px solid var(--line);padding-top:12px;margin-top:12px"}, h("h3", {text:c.cidade}), h("div", {class:"small muted", text:n+" foto(s)"}));
+    (c.dias || []).forEach(function(d){ if (!(d.fotos || []).length) return;
+      sec.appendChild(h("div", {class:"lbl", style:"margin:12px 0 6px", text:semana(d.data)+" "+fdata(d.data).slice(0, 5)}));
+      sec.appendChild(galeriaCur(d.fotos.map(function(f){ return fotoCur(f, c.cidade+" · "+fdata(d.data).slice(0, 5)); }))); });
+    if ((c.acessibilidade || []).length) { sec.appendChild(h("div", {class:"lbl", style:"margin:12px 0 6px", text:"Acessibilidade"}));
+      sec.appendChild(galeriaCur(c.acessibilidade.map(function(f){ return fotoCur(f, c.cidade+" · acessibilidade"); }))); }
+    pan.appendChild(sec); });
+  app.appendChild(pan); }
+
 function fotosPat(app){
+  var Ccur = curadoria(); if (Ccur) return fotosCuradasPat(app, Ccur);
   var locais = locaisExec(), total = 0, pan = h("div", {class:"panel"}, h("h2", {text:"Fotos e vídeos"}));
   var cont = h("div"); pan.appendChild(h("div", {class:"muted small", style:"margin:2px 0 6px", text:"Separadas por cidade e instituição, e dentro de cada uma por dia e atividade. Clique numa foto para ampliar."}));
   var sel = h("select", {class:"proj", "aria-label":"Instituição", onchange:function(){ S.patFotoInst = sel.value; render(); }}, h("option", {value:"", text:"Todas as instituições"}),
@@ -2153,7 +2179,11 @@ function resumoGrade(G){ var feitas = G.filter(function(g){ return sessaoFeita(g
 function barrasAtiv(r){ return gBarras(Object.keys(r.porAtiv).sort(function(a, b){ return num((byId("atividades", a) || {}).ordem) - num((byId("atividades", b) || {}).ordem); }).map(function(aid){ var x = r.porAtiv[aid];
   return {nome:nomeAtiv(aid), v:x.v, cor:corAtiv(aid), extra:x.feitas+"/"+x.ses+" turmas"}; }), {vazio:"Nenhuma atividade registrada neste recorte."}); }
 function generoDe(r){ return r.homens + r.mulheres ? gDonut([{nome:"Mulheres", v:r.mulheres, cor:GX_CORES[3]}, {nome:"Homens", v:r.homens, cor:GX_CORES[2]}], null, "atendimentos") : null; }
-function fotosDe(G, max){ var fs = []; G.slice().sort(function(a, b){ return String(a.data).localeCompare(b.data); }).forEach(function(g){ var ms = midiasDaGrade(g).filter(function(m){ return m.tipo !== "video" && m.tipo !== "pdf"; }); if (ms.length) fs.push(ms[0]); if (ms.length > 3) fs.push(ms[Math.floor(ms.length/2)]); });
+function fotosDe(G, max){
+  if (curadoria()) { var ds = {}, cs = {}; G.forEach(function(g){ ds[g.data] = 1; var i = byId("instituicoes", g.instituicaoId); if (i && i.cidade) cs[normTxt(String(i.cidade).split("/")[0])] = 1; });
+    var L = fotosCuradasDe(function(c, d){ return ds[d] && (!Object.keys(cs).length || cs[normTxt(c)]); }) || [];
+    return L.length ? h("div", {style:"margin-top:12px"}, galeriaCur(L.slice(0, max || 12))) : null; }
+  var fs = []; G.slice().sort(function(a, b){ return String(a.data).localeCompare(b.data); }).forEach(function(g){ var ms = midiasDaGrade(g).filter(function(m){ return m.tipo !== "video" && m.tipo !== "pdf"; }); if (ms.length) fs.push(ms[0]); if (ms.length > 3) fs.push(ms[Math.floor(ms.length/2)]); });
   return fs.length ? h("div", {class:"tira", style:"margin-top:12px"}, miniaturas(fs.slice(0, max || 10))) : null; }
 function kpisRecorte(r, extra){ return h("div", {class:"pv-kpis"}, [vk("oficina", GX_CORES[0], fnum(r.feitas)+" de "+fnum(r.ses), "atividades realizadas"), vk("aluno", GX_CORES[1], fnum(r.atend), "atendimentos"),
   vk("escola", GX_CORES[2], fnum(r.insts), "instituições")].concat(extra || [])); }
@@ -2231,8 +2261,7 @@ function blocoCampoApp(c){
   sec.appendChild(h("div", {class:"pv-kpis"}, [vk("calendario", GX_CORES[0], fnum(c.registros), "registros de atividade"), vk("aluno", GX_CORES[1], fnum(c.atendimentos), "atendimentos registrados"),
     c.professores ? vk("escola", GX_CORES[2], fnum(c.professores), "professores presentes") : null, vk("luz", GX_CORES[3], fnum(c.fotos), "fotos registradas")].filter(Boolean)));
   if (c.porLocal && c.porLocal.length > 1) sec.appendChild(painelG("Por local", "", gBarras(c.porLocal.slice(0, 12).map(function(x, k){ return {nome:x.nome || "Local não informado", v:x.alunos, cor:GX_CORES[k % GX_CORES.length], extra:x.registros+" registro(s)"}; }))));
-  if (c.amostraFotos && c.amostraFotos.length) sec.appendChild(WEB ? h("div", {class:"pv-fotos"}, c.amostraFotos.map(function(u){ return h("button", {type:"button", class:"thumbd", onclick:function(){ ampliar({url:u, tipo:"foto", nome:"Foto do campo"}); }}, h("img", {src:u, alt:"Foto de atividade em campo", loading:"lazy"})); }))
-    : h("div", {class:"small muted", style:"margin-top:8px", text:fnum(c.fotos)+" fotos no aplicativo; as miniaturas aparecem na página do patrocinador."}));
+  var cur = amostraCur(12); if (cur.length) sec.appendChild(h("div", {style:"margin-top:12px"}, h("div", {class:"lbl", text:"Fotos escolhidas pela equipe"}), galeriaCur(cur)));
   return sec; }
 
 /* ---------- Relatórios (patrocinador): por semana, por cidade, por instituição ---------- */
