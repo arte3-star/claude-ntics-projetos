@@ -312,6 +312,13 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .sb-passo:before{counter-increment:passo;content:counter(passo);position:absolute;top:10px;left:14px;width:24px;height:24px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-weight:800;display:grid;place-items:center;font-size:13px}
 .sb-hero-nums{display:flex;flex-wrap:wrap;gap:18px;margin-top:16px}
 .sb-hero-nums div{min-width:90px}.sb-hero-nums b{display:block;font-family:var(--display);font-size:26px;font-weight:800;line-height:1}.sb-hero-nums span{font-size:12px;opacity:.85}
+.pc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:12px}
+.pc-card{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--bg);min-width:0}
+.pc-prev{flex:0 0 auto}.pc-prev .thumbd{width:84px;height:110px}
+.pc-slide{width:84px;height:110px;border-radius:8px;background:linear-gradient(160deg,var(--accent),color-mix(in srgb,var(--accent) 55%,#000));color:#fff;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;padding:8px;overflow:hidden}
+.pc-slide span{font-size:9px;text-transform:uppercase;letter-spacing:.05em;opacity:.85}.pc-slide b{font-size:11px;line-height:1.2}
+.pc-vid{align-items:center;justify-content:center}.pc-vid b{font-size:26px}
+.pc-slides{display:flex;gap:6px;overflow-x:auto;margin-top:8px;padding-bottom:2px}.pc-mini{width:74px;height:92px;flex:0 0 auto}
 </style>
 
 <div class="top"><div class="wrap">
@@ -1118,6 +1125,7 @@ function renderHome(app){
       h("td", {class:"num mono", text: r ? r.geral+"%" : "…"}),
       h("td", {class:"small", text: r && r.proximas[0] ? fdata(r.proximas[0].prazo)+" · "+r.proximas[0].titulo : "—"}))); });
   app.appendChild(h("div", {class:"panel", style:"margin-bottom:14px"}, h("h2", {text:"Fases por projeto"}), h("div", {class:"tbl", style:"margin-top:10px"}, tb)));
+  app.appendChild(quadroComunicacao(ids));
   // relatório geral
   var rel = h("div", {class:"panel"}, h("h2", {text:"Relatório geral"}));
   if (!R.length) rel.appendChild(h("div", {class:"muted small", text: PORT.carregando ? "Lendo os projetos…" : "Clique em Atualizar."}));
@@ -2283,7 +2291,65 @@ function relatoriosPat(app){
   pan.appendChild(ci); }
 function normTxt(s){ return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim(); }
 
-var PAT_TABS = [["painel","Painel ao vivo"],["semana","Relatórios"],["sobre","Sobre o projeto"],["cronograma","Cronograma"],["plano","Plano de comunicação"],["aprovacoes","Aprovações"],["diario","Diário de campo"],["arquivos","Fotos e vídeos"]];
+/* ---------- comunicação: vídeos e carrosséis (Máquina de Comunicação e Kanban do ClickUp) ---------- */
+function comGrupo(x){ var t = String(x.tipo || ""); return /carross/i.test(t) ? "carrossel" : /v[ií]deo|stor|reel/i.test(t) ? "video" : null; }
+function comEstado(x){ return x.status === "publicado" ? "postado" : x.status === "aprovacao" || x.status === "ajuste" ? "aprovar" : x.status === "aprovado" || x.status === "grafica" ? "aprovado" : "producao"; }
+var COM_UM = {postado:"Postado", aprovado:"Aprovado", aprovar:"Aguardando aprovação", producao:"Em produção"}, COM_CURTO = {postado:"postados", aprovado:"aprovados", aprovar:"a aprovar", producao:"em produção"};
+var COM_EST = [["postado", "Postados", "p-ok"], ["aprovado", "Aprovados", "p-info"], ["aprovar", "Aguardando aprovação", "p-warn"], ["producao", "Em produção ou previstos", "p-mut"]];
+function resumoCom(pecas){ var r = {video:{postado:0, aprovado:0, aprovar:0, producao:0}, carrossel:{postado:0, aprovado:0, aprovar:0, producao:0}};
+  (pecas || []).forEach(function(x){ var g = comGrupo(x); if (g) r[g][comEstado(x)]++; }); return r; }
+function dataPeca(x){ return String(x.postadoEm || x.quando || x.decididoEm || x.atualizadoEm || "").slice(0, 16); }
+function fdataHora(s){ if (!s) return ""; var d = fdata(s.slice(0, 10)), hm = s.length > 11 ? s.slice(11, 16) : ""; return d.slice(0, 5)+(hm && hm !== "00:00" ? " "+hm.replace(":", "h") : ""); }
+function previaPeca(x){
+  var g = comGrupo(x), box = h("div", {class:"pc-prev"});
+  if (x.driveId && WEB) box.appendChild(miniaturaDrive({driveId:x.driveId, nome:x.nome, tipo: g === "video" ? "video" : "foto", link:x.link}));
+  else if (g === "carrossel" && x.slides && x.slides.length) { var s = x.slides[0]; box.appendChild(h("div", {class:"pc-slide"}, s.kicker ? h("span", {text:s.kicker}) : null, h("b", {text:s.titulo || s.numero || x.nome}))); }
+  else box.appendChild(h("div", {class:"pc-slide pc-vid"}, h("b", {text: g === "video" ? "▶" : "▦"})));
+  return box; }
+function cartaoPeca(x, extra){
+  var g = comGrupo(x), est = comEstado(x), e = COM_EST.filter(function(c){ return c[0] === est; })[0], dt = dataPeca(x);
+  var tira = null;
+  if (g === "carrossel" && x.imagens && x.imagens.length > 1 && WEB) tira = h("div", {class:"thumbs", style:"margin-top:8px"}, x.imagens.slice(0, 10).map(function(id, k){ return miniaturaDrive({driveId:id, nome:(x.nome || "Carrossel")+" · slide "+(k + 1), tipo:"foto"}); }));
+  else if (g === "carrossel" && x.slides && x.slides.length > 1) tira = h("div", {class:"pc-slides"}, x.slides.slice(0, 8).map(function(s){ return h("div", {class:"pc-slide pc-mini"}, s.kicker ? h("span", {text:s.kicker}) : null, h("b", {text:s.numero ? s.numero+" "+(s.rotulo || "") : s.titulo || s.texto || ""})); }));
+  return h("div", {class:"pc-card"}, h("div", {class:"row", style:"gap:12px;flex-wrap:nowrap;align-items:flex-start"}, previaPeca(x),
+      h("div", {style:"min-width:0;flex:1"}, h("b", {text:x.nome}), h("div", {class:"row", style:"gap:6px;margin-top:4px;flex-wrap:wrap"}, h("span", {class:"sb-chip", text:x.tipo}),
+        h("span", {class:"pill "+e[2], text:COM_UM[est]}),
+        dt ? h("span", {class:"small muted", text:(est === "postado" ? "Postado em " : est === "aprovado" && x.quando ? "Programado para " : "")+fdataHora(dt)}) : null,
+        x.duracao ? h("span", {class:"small muted", text:Math.round(x.duracao)+" s"}) : null),
+        x.falaPatrocinador && x.falaPatrocinador.length ? h("div", {class:"small", style:"margin-top:6px", text:"Fala do patrocinador: "+x.falaPatrocinador.join(", ")}) : null,
+        x.link ? h("a", {class:"small", href:x.link, target:"_blank", rel:"noopener", style:"display:inline-block;margin-top:6px", text: g === "video" ? "Assistir no Drive ↗" : "Abrir no Drive ↗"}) : null)),
+    tira, x.legenda ? h("details", {style:"margin-top:8px"}, h("summary", {class:"small", style:"cursor:pointer", text:"Legenda"}), h("div", {class:"small", style:"white-space:pre-line;margin-top:6px;max-width:70ch", text:x.legenda})) : null,
+    extra || null); }
+/* aba Redes sociais do patrocinador: o que foi postado e o que está programado */
+function redesPat(app){
+  var ps = S.data.pecas.filter(function(x){ return comGrupo(x); }), r = resumoCom(ps), hj = new Date().toISOString().slice(0, 16);
+  var pan = h("div", {class:"panel"}, h("h2", {text:"Redes sociais"}), h("div", {class:"small muted", style:"margin:2px 0 6px", text:"Vídeos e carrosséis do projeto: o que já foi postado e o que está programado. O que precisa do seu aval fica em Aprovações."}));
+  pan.appendChild(h("div", {class:"pv-kpis"}, [vk("luz", GX_CORES[0], fnum(r.video.postado + r.carrossel.postado), "postados", null, fnum(r.video.postado)+" vídeo(s) e "+fnum(r.carrossel.postado)+" carrossel(éis)"),
+    vk("calendario", GX_CORES[2], fnum(r.video.aprovado + r.carrossel.aprovado), "aprovados e programados"),
+    vk("alvo", GX_CORES[1], fnum(r.video.aprovar + r.carrossel.aprovar), "aguardando sua aprovação")]));
+  if (r.video.aprovar + r.carrossel.aprovar) pan.appendChild(h("div", {class:"note", style:"margin-top:12px"}, h("span", {text:"Há "+(r.video.aprovar + r.carrossel.aprovar)+" material(is) esperando o seu aval. "}), h("button", {class:"btn ghost small", onclick:function(){ S.pat = "aprovacoes"; render(); }}, "Ir para Aprovações")));
+  var prog = ps.filter(function(x){ return comEstado(x) === "aprovado"; }).sort(function(a, b){ return dataPeca(a).localeCompare(dataPeca(b)); });
+  var post = ps.filter(function(x){ return comEstado(x) === "postado"; }).sort(function(a, b){ return dataPeca(b).localeCompare(dataPeca(a)); });
+  if (prog.length) { pan.appendChild(h("h3", {style:"margin:18px 0 8px", text:"Programados ("+prog.length+")"})); pan.appendChild(h("div", {class:"pc-grid"}, prog.map(function(x){ return cartaoPeca(x); }))); }
+  pan.appendChild(h("h3", {style:"margin:18px 0 8px", text:"Postados ("+post.length+")"}));
+  pan.appendChild(post.length ? h("div", {class:"pc-grid"}, post.map(function(x){ return cartaoPeca(x); })) : h("div", {class:"empty", text:"Os materiais aparecem aqui assim que forem postados."}));
+  app.appendChild(pan); }
+/* quadro do painel geral: vídeos e carrosséis por projeto */
+function quadroComunicacao(ids){
+  var tb = h("table", null, h("thead", null, h("tr", null, h("th", {text:"Projeto"}), h("th", {text:"Vídeos"}), h("th", {text:"Carrosséis"}), h("th", {class:"num", text:"Aguardando aprovação"}))), h("tbody"));
+  var tot = {aprovar:0}, algum = false;
+  ids.forEach(function(id){ var p = S.projetos[id], raw = PORT.raw && PORT.raw[id]; if (!raw) return; var r = resumoCom(raw.pecas);
+    function cel(x){ var t = x.postado + x.aprovado + x.aprovar + x.producao; if (!t) return h("td", {class:"muted small", text:"—"});
+      return h("td", null, h("div", {class:"row", style:"gap:4px;flex-wrap:wrap"}, COM_EST.filter(function(c){ return x[c[0]]; }).map(function(c){ return h("span", {class:"pill "+c[2], title:c[1], text:x[c[0]]+" "+COM_CURTO[c[0]]}); }))); }
+    var ap = r.video.aprovar + r.carrossel.aprovar; tot.aprovar += ap; if (r.video.postado + r.video.aprovado + r.video.aprovar + r.video.producao + r.carrossel.postado + r.carrossel.aprovado + r.carrossel.aprovar + r.carrossel.producao) algum = true;
+    tb.lastChild.appendChild(h("tr", {style:"cursor:pointer", onclick:function(){ S.tab = "comunicacao"; abrirProjeto(id); }}, h("td", null, h("b", {text:(p.numero ? p.numero+" · " : "")+p.nome})), cel(r.video), cel(r.carrossel),
+      h("td", {class:"num"}, ap ? h("span", {class:"pill p-warn", text:String(ap)}) : h("span", {class:"muted", text:"0"})))); });
+  return h("div", {class:"panel", style:"margin-bottom:14px"}, h("div", {class:"row"}, h("div", {style:"flex:1;min-width:0"}, h("h2", {text:"Comunicação por projeto"}),
+      h("div", {class:"small muted", text:"Vídeos e carrosséis da Máquina de Comunicação e do Kanban de Comunicação. Clique num projeto para ver as peças."})),
+      tot.aprovar ? h("span", {class:"pill p-warn", text:tot.aprovar+" aguardando aprovação"}) : null),
+    algum ? h("div", {class:"tbl", style:"margin-top:10px"}, tb) : h("div", {class:"muted small", style:"margin-top:8px", text: PORT.carregando ? "Lendo os projetos…" : "Nenhum vídeo ou carrossel registrado ainda."})); }
+
+var PAT_TABS = [["painel","Painel ao vivo"],["semana","Relatórios"],["sobre","Sobre o projeto"],["cronograma","Cronograma"],["plano","Plano de comunicação"],["redes","Redes sociais"],["aprovacoes","Aprovações"],["diario","Diário de campo"],["arquivos","Fotos e vídeos"]];
 function renderPatrocinador(app){
   app.appendChild(h("div", {class:"note", style:"margin:16px 0"}, "Visão do patrocinador. Mostra só o que vai para o cliente; dados internos (orçamento, contratos, tarefas) ficam fora."));
   if (!S.cur) { app.appendChild(h("h2", {text:"Escolha o projeto no topo"})); return; }
@@ -2298,13 +2364,15 @@ function renderPatrocinador(app){
   if (S.pat === "sobre") return sobrePat(app, p);
   if (S.pat === "cronograma") return cronogramaPat(app);
   if (S.pat === "plano") return planoComPat(app, p);
+  if (S.pat === "redes") return redesPat(app);
   if (S.pat === "aprovacoes") { var ap = h("div", {class:"panel"}, h("h2", {text:"Aprovações"}), h("div", {class:"muted small", style:"margin-top:2px", text:"Peças, releases, vídeos e carrosséis que precisam do seu aval."}));
     var pend = S.data.pecas.filter(function(x){ return x.aprovacao && x.status === "aprovacao"; });
     if (!pend.length) ap.appendChild(h("div", {class:"empty", style:"margin-top:12px"}, h("b", {text:"Nada aguardando aprovação"}), "Quando uma peça for enviada para aprovação, ela aparece aqui."));
-    pend.forEach(function(x){ var ta = h("textarea", {"aria-label":"Comentário", placeholder:"Comentário ou ajuste pedido", style:"width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--bg);margin-top:8px"});
-      ap.appendChild(h("div", {class:"li"}, h("div", {class:"main"}, x.link ? h("a", {href:x.link, target:"_blank", rel:"noopener", text:x.nome+" ↗"}) : h("b", {text:x.nome}), h("div", {class:"meta", text:x.tipo||""}), ta,
-        h("div", {class:"row", style:"margin-top:8px"}, h("button", {class:"btn pri", onclick:async function(){ await atualizar("pecas", x.id, {status:"aprovado", comentario:ta.value.trim(), decididoEm:new Date().toISOString()}); toast("Aprovada."); }}, "Aprovar"),
-          h("button", {class:"btn", onclick:async function(){ if (!ta.value.trim()) { toast("Escreva o ajuste que precisa ser feito."); return; } await atualizar("pecas", x.id, {status:"ajuste", comentario:ta.value.trim(), decididoEm:new Date().toISOString()}); toast("Ajuste enviado à equipe."); }}, "Pedir ajuste"))))); });
+    pend.forEach(function(x){ var ta = h("textarea", {"aria-label":"Comentário", placeholder:"Comentário ou ajuste pedido", style:"width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--surface);margin-top:8px"});
+      var quem = (S.perfil && (S.perfil.nome || S.perfil.email)) || "patrocinador";
+      ap.appendChild(h("div", {style:"margin-top:12px"}, cartaoPeca(x, h("div", null, ta,
+        h("div", {class:"row", style:"margin-top:8px;gap:8px"}, h("button", {class:"btn pri", onclick:async function(){ await atualizar("pecas", x.id, {status:"aprovado", comentario:ta.value.trim(), decididoEm:new Date().toISOString(), decididoPor:quem}); toast("Aprovada."); }}, "Aprovar"),
+          h("button", {class:"btn", onclick:async function(){ if (!ta.value.trim()) { toast("Escreva o ajuste que precisa ser feito."); return; } await atualizar("pecas", x.id, {status:"ajuste", comentario:ta.value.trim(), decididoEm:new Date().toISOString(), decididoPor:quem}); toast("Ajuste enviado à equipe."); }}, "Pedir ajuste")))))); });
     app.appendChild(ap); return; }
   if (S.pat === "diario") return tDiarioPat(app);
   if (S.pat === "semana") return relatoriosPat(app);
@@ -2376,7 +2444,8 @@ function assinarProjetos(){
   var primeiro = true;
   S.db.collection("projetos").onSnapshot(function(snap){
     var novo = {}; snap.docs.forEach(function(d){ novo[d.id] = Object.assign({}, d.data()); }); S.projetos = novo;
-    if (primeiro) { primeiro = false; S.ready = true; var ids = Object.keys(novo);
+    if (primeiro) { primeiro = false; S.ready = true; var ids = Object.keys(novo), ini = (CONFIG && CONFIG.inicio) || {};
+      if (ini.projeto && novo[ini.projeto]) { abrirProjeto(ini.projeto); return; }
       if (S.modo !== "escritorio" || ids.length === 1) { var last = lsGet("mx-proj"); if (last && novo[last]) { abrirProjeto(last); return; } if (ids.length === 1) { abrirProjeto(ids[0]); return; } } }
     render();
   }, function(){ S.ready = true; toast("Não foi possível ler os projetos."); render(); });
@@ -2399,7 +2468,9 @@ async function entrouWeb(ses){
   if (r.data) { try { localStorage.setItem("mx-perfil", JSON.stringify(r.data)); } catch(e){} }
   if (!r.data) { S.ready = true; S.semPerfil = ses.user.email; render(); return; }
   S.perfil = r.data; S.precisaLogin = false; S.db = dbSupabase(WEBSB);
-  var ms = modosPermitidos(); if (ms.indexOf(S.modo) < 0) S.modo = ms[0];
+  var ms = modosPermitidos(), ini = (CONFIG && CONFIG.inicio) || {};
+  if (ini.modo && ms.indexOf(ini.modo) > -1) { S.modo = ini.modo; if (ini.modo === "patrocinador") S.pat = S.pat || "painel"; }
+  if (ms.indexOf(S.modo) < 0) S.modo = ms[0];
   assinarProjetos(); render(); filaContar().then(function(){ render(); sincronizar(); });
 }
 function renderLogin(app){
@@ -2412,8 +2483,9 @@ function renderLogin(app){
       var r = await WEBSB.auth.resetPasswordForEmail(em.value.trim(), {redirectTo: location.origin + location.pathname});
       msg.className = "small"; msg.textContent = r.error ? "Não foi possível enviar agora. Peça a nova senha ao escritório." : "Se o e-mail estiver cadastrado, chega um link para criar uma nova senha."; }}, "Esqueci minha senha"),
       h("span", {class:"sp"}), h("button", {type:"submit", class:"btn pri"}, "Entrar")));
-  app.appendChild(h("div", {class:"campo", style:"margin-top:8vh"}, h("div", {class:"panel"}, h("h1", {text:"Entrar"}),
-    h("p", {class:"muted", text:"Equipe NTICS, produtores, fotógrafos e patrocinadores entram com o e-mail e a senha que receberam do Escritório de Projetos."}), f)));
+  var ini = (CONFIG && CONFIG.inicio) || {};
+  app.appendChild(h("div", {class:"campo", style:"margin-top:8vh"}, h("div", {class:"panel"}, ini.titulo ? h("div", {class:"lbl", text:ini.titulo}) : null, h("h1", {text:"Entrar"}),
+    h("p", {class:"muted", text: ini.modo === "patrocinador" ? "Use o e-mail e a senha que você recebeu da NTICS para acompanhar o projeto." : ini.modo === "campo" ? "Produtores e fotógrafos entram com o e-mail e a senha que receberam da coordenação do projeto." : "Equipe NTICS, produtores, fotógrafos e patrocinadores entram com o e-mail e a senha que receberam do Escritório de Projetos."}), f)));
 }
 function renderNovaSenha(app){
   var s1 = h("input", {id:"ns1", type:"password", autocomplete:"new-password", minlength:"8", required:true}), msg = h("div", {class:"small"});
