@@ -132,10 +132,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .hero .nums span{font-size:12px;color:color-mix(in srgb,var(--bg) 70%,transparent)}
 @media (max-width:720px){.hero{grid-template-columns:1fr}}
 /* gantt */
-.gantt{display:grid;grid-template-columns:minmax(110px,180px) 1fr;gap:6px 10px;align-items:center;font-size:12px}
 .gtrack{position:relative;height:18px;background:var(--sunk);border-radius:5px}
-.gbar{position:absolute;top:2px;bottom:2px;border-radius:4px;background:var(--accent);min-width:4px}
-.gbar.c2{background:var(--amber)}
 .gtoday{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--bad)}
 .gx-wrap{overflow-x:auto}
 .gx{display:grid;grid-template-columns:minmax(150px,240px) minmax(420px,1fr);gap:6px 12px;align-items:center;font-size:12.5px}
@@ -349,6 +346,7 @@ function h(tag, attrs){ var el = document.createElement(tag); attrs = attrs || {
   for (var k in attrs){ var v = attrs[k]; if (v == null || v === false) continue;
     if (k === "class") el.className = v; else if (k === "text") el.textContent = v; else if (k === "html") continue;
     else if (k.slice(0,2) === "on") el.addEventListener(k.slice(2), v); else if (k === "style") el.setAttribute("style", v);
+    else if ((k === "href" || k === "src") && /^\s*[a-z][\w+.-]*:/i.test(String(v)) && !/^\s*(https?:|blob:|data:image\/|mailto:|tel:)/i.test(String(v))) continue;   // links do banco: só esquemas seguros
     else el.setAttribute(k, v === true ? "" : v); }
   for (var i = 2; i < arguments.length; i++) add(el, arguments[i]); return el; }
 function add(el, c){ if (c == null || c === false) return; if (Array.isArray(c)) { c.forEach(function(x){ add(el, x); }); return; }
@@ -375,26 +373,48 @@ function path(col, id){ return "projetos/"+S.cur+"/"+col+(id ? "/"+id : ""); }
 async function salvar(col, id, dados){ if (!S.db) { toast("O banco ainda não conectou. Tente de novo em instantes."); return false; }
   var pth = path(col, id || uid()); FILA.ultimoOffline = false;
   try { dados.atualizadoEm = new Date().toISOString(); if (WEB && !navigator.onLine) throw new TypeError("offline"); await S.db.doc(pth).set(dados); return true; }
-  catch(e){ if (WEB && semRede(e)) { await filaGuardar({tipo:"doc", op:"set", path:pth, dados:dados}); FILA.ultimoOffline = true; return true; } toast(e && e.code === "invalid_argument" ? "Você não tem permissão para editar esta máquina." : "Não foi possível salvar. Tente de novo."); return false; } }
+  catch(e){ if (WEB && semRede(e)) { await filaGuardar({tipo:"doc", op:"set", path:pth, dados:dados}); FILA.ultimoOffline = true; return true; } toast(msgErro(e)); return false; } }
 async function atualizar(col, id, dados){ if (!S.db) return false;
   var pth = path(col, id); FILA.ultimoOffline = false;
   try { dados.atualizadoEm = new Date().toISOString(); if (WEB && !navigator.onLine) throw new TypeError("offline"); await S.db.doc(pth).update(dados); return true; }
-  catch(e){ if (WEB && semRede(e)) { await filaGuardar({tipo:"doc", op:"update", path:pth, dados:dados}); FILA.ultimoOffline = true; toast("Sem internet: guardado no celular."); return true; } toast("Não foi possível salvar. Tente de novo."); return false; } }
+  catch(e){ if (WEB && semRede(e)) { await filaGuardar({tipo:"doc", op:"update", path:pth, dados:dados}); FILA.ultimoOffline = true; toast("Sem internet: guardado no celular."); return true; } toast(msgErro(e)); return false; } }
+function msgErro(e){ var m = String((e && e.message) || ""); return /permitido|patrocinador só|fotógrafo só|produtor não|Situação inválida/i.test(m) ? m : e && e.code === "invalid_argument" ? "Você não tem permissão para esta alteração." : "Não foi possível salvar. Tente de novo."; }
+// grava só os campos enviados (e cria o documento se ainda não existir); no servidor é uma operação só, sem regravar o resto
+async function mesclar(col, id, dados){ if (!S.db) return false; var pth = path(col, id); FILA.ultimoOffline = false;
+  try { dados.atualizadoEm = new Date().toISOString(); if (WEB && !navigator.onLine) throw new TypeError("offline"); var d = S.db.doc(pth);
+    if (d.merge) await d.merge(dados); else { var g = await d.get(); if (g.exists) await d.update(dados); else await d.set(dados); } return true; }
+  catch(e){ if (WEB && semRede(e)) { await filaGuardar({tipo:"doc", op:"merge", path:pth, dados:dados}); FILA.ultimoOffline = true; return true; } toast(msgErro(e)); return false; } }
+// acrescenta itens a uma lista (fotos e vídeos) sem tocar no resto do documento
+async function anexar(col, id, campo, itens){ if (!S.db || !itens || !itens.length) return false; var pth = path(col, id); FILA.ultimoOffline = false;
+  try { if (WEB && !navigator.onLine) throw new TypeError("offline"); var d = S.db.doc(pth);
+    if (d.append) await d.append(campo, itens); else { var g = await d.get(), atual = g.exists ? (g.data() || {})[campo] || [] : [], o = {}; o[campo] = atual.concat(itens); if (g.exists) await d.update(o); else await d.set(o); } return true; }
+  catch(e){ if (WEB && semRede(e)) { await filaGuardar({tipo:"doc", op:"append", path:pth, campo:campo, dados:itens}); FILA.ultimoOffline = true; return true; } toast(msgErro(e)); return false; } }
 async function apagar(col, id){ if (!S.db) return; try { await S.db.doc(path(col, id)).delete(); } catch(e){ toast("Não foi possível apagar."); } }
+async function atualizarProjeto(id, patch){ if (!S.db) return false; try { await S.db.doc("projetos/"+id).update(patch); return true; } catch(e){ return false; } }
 async function salvarProjeto(id, dados){ if (!S.db) return false; try { await S.db.doc("projetos/"+id).set(dados); return true; } catch(e){ toast("Não foi possível salvar o projeto."); return false; } }
 
+// cada papel só acompanha o que pode ler (o banco devolveria vazio de qualquer forma)
+function colsDoPapel(){ var pp = WEB && S.perfil ? S.perfil.papel : "";
+  if (pp === "patrocinador") return ["tarefas","atividades","instituicoes","grade","diario","pecas","documentos"];
+  if (pp === "produtor" || pp === "fotografo") return ["atividades","instituicoes","grade","diario","verbas","despesas"];
+  return COLS; }
+// redesenho vindo do banco: espera a pessoa terminar o formulário (o que ela digitou não some)
+function renderRemoto(){ if (S.sujo) { if (!S.avisouPendente) { S.avisouPendente = true; toast("Há atualizações: elas aparecem quando você salvar ou sair desta tela."); } S.pendente = true; return; } render(); }
+document.addEventListener("input", function(e){ if (e.target && e.target.closest && e.target.closest("#app") && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) S.sujo = true; }, true);
 function abrirProjeto(id){
   S.unsubs.forEach(function(u){ try { u(); } catch(e){} }); S.unsubs = [];
   COLS.forEach(function(c){ S.data[c] = []; });
   S.cur = id; S.fase = null; S.campo = {tela:"lista", inst:null, sess:null}; lsSet("mx-proj", id || "");
-  if (!id) PORT.em = null;   // ao voltar para a visão geral, relê os projetos
-  if (id && S.db) COLS.forEach(function(c){
+  if (!id && PORT.em && Date.now() - PORT.em > 300000) PORT.em = null;   // a visão geral relê os projetos se a leitura tiver mais de 5 minutos
+  S.assin = {};
+  if (id && S.db) colsDoPapel().forEach(function(c){
     S.unsubs.push(S.db.collection("projetos/"+id+"/"+c).onSnapshot(function(snap){
-      S.data[c] = snap.docs.map(function(d){ var x = Object.assign({}, d.data()); x.id = d.id; return x; }); render();
+      var novo = snap.docs.map(function(d){ var x = Object.assign({}, d.data()); x.id = d.id; return x; }), assin = JSON.stringify(novo);
+      if (S.assin[c] === assin) return; S.assin[c] = assin; S.data[c] = novo; renderRemoto();
     }, function(){ toast("A conexão com o banco caiu. Recarregue a página."); }));
   });
   if (id && WEB && S.perfil && S.perfil.papel === "escritorio" && !S.acessos && !S.acessosPedido) { S.acessosPedido = true;
-    chamarAcessos({acao:"listar"}).then(function(j){ S.acessos = j.perfis || []; render(); }, function(){}); }
+    chamarAcessos({acao:"listar"}).then(function(j){ S.acessos = j.perfis || []; renderRemoto(); }, function(){}); }
   render();
 }
 
@@ -637,15 +657,15 @@ function realizadoInst(iid){ return S.data.diario.filter(function(d){ var g = by
   .reduce(function(s, d){ return s + num(d.publico); }, 0); }
 function atividadesDaInst(iid){ var ids = {}; S.data.grade.forEach(function(g){ if (g.instituicaoId === iid && g.atividadeId) ids[g.atividadeId] = 1; }); return Object.keys(ids); }
 // Cartas exigidas por instituição: uma por entrega MinC (projeto.entregasMinc) ou, sem isso, uma por atividade da grade
-function cartasExigidas(iid){ var p = P() || {}; if (p.entregasMinc && p.entregasMinc.length) return p.entregasMinc.map(function(e){ return {id:e.id, nome:e.nome}; });
+function cartasExigidas(iid){ var p = P() || {}, inst = byId("instituicoes", iid); if (inst && inst.semComprovacao) return []; if (p.entregasMinc && p.entregasMinc.length) return p.entregasMinc.map(function(e){ return {id:e.id, nome:e.nome}; });
   return atividadesDaInst(iid).map(function(a){ return {id:a, nome:nomeAtiv(a)}; }); }
 // Acessibilidade completa = fotos de pelo menos um item. Sem nenhuma foto, vale uma justificativa ou a carta assinada.
 function acessFotos(i){ var ac = i.acess || {}; return ACESS.filter(function(a){ var x = ac[a.k]; return x && x.tem && x.fotos && x.fotos.length; }).length; }
-function instCompleta(i){ var faltaA = acessFotos(i) || String(i.acessJust || "").trim() || i.cartaSemAcess ? 0 : 1;
+function instCompleta(i){ if (i.semComprovacao) return {ok:true, faltaA:0, faltaC:0, ats:0, dispensada:true}; var faltaA = acessFotos(i) || String(i.acessJust || "").trim() || i.cartaSemAcess ? 0 : 1;
   var ats = cartasExigidas(i.id), cartas = i.cartas || {}, faltaC = ats.filter(function(a){ return !(cartas[a.id] && cartas[a.id].arquivo); }).length;
   return {ok: faltaA === 0 && faltaC === 0 && ats.length > 0, faltaA: faltaA, faltaC: faltaC, ats: ats.length}; }
 function metaTotal(){ return S.data.atividades.reduce(function(s,a){ return s + num(a.meta); }, 0); }
-function realizadoTotal(){ return S.data.diario.filter(function(d){ return d.enviado; }).reduce(function(s,d){ return s + num(d.publico); }, 0); }
+function realizadoTotal(){ var ids = {}; S.data.grade.forEach(function(g){ ids[g.id] = 1; }); return S.data.diario.filter(function(d){ return d.enviado && ids[d.id]; }).reduce(function(s,d){ return s + num(d.publico); }, 0); }
 function nomeInst(id){ var i = byId("instituicoes", id); return i ? i.nome : "Instituição"; }
 function nomeAtiv(id){ var a = byId("atividades", id); return a ? a.nome : "Atividade"; }
 function midiaUrl(m){ return m && m.id ? "/_blob/"+m.id : (m && m.url) || ""; }
@@ -703,35 +723,51 @@ function filaDb(){ if (FILA.db) return FILA.db; FILA.db = new Promise(function(o
   r.onupgradeneeded = function(){ r.result.createObjectStore("itens", {keyPath:"k", autoIncrement:true}); r.result.createObjectStore("mapa", {keyPath:"filaId"}); };
   r.onsuccess = function(){ ok(r.result); }; r.onerror = function(){ falha(r.error); }; } catch(e){ falha(e); } }); return FILA.db; }
 async function filaOp(loja, modo, fn){ var db = await filaDb(); return new Promise(function(ok, falha){ var tx = db.transaction(loja, modo), st = tx.objectStore(loja), r = fn(st); tx.oncomplete = function(){ ok(r && r.result); }; tx.onerror = function(){ falha(tx.error); }; }); }
-async function filaContar(){ try { FILA.n = await filaOp("itens", "readonly", function(st){ return st.count(); }); } catch(e){ FILA.n = 0; } return FILA.n; }
+async function filaContar(){ try { var its = await filaOp("itens", "readonly", function(st){ return st.getAll(); }) || [], dono = donoFila(); its = its.filter(function(x){ return !x.dono || x.dono === dono; });
+  FILA.n = its.length; FILA.falhas = its.filter(function(x){ return x.falhas >= 3; }); } catch(e){ FILA.n = 0; FILA.falhas = []; } return FILA.n; }
 function semRede(e){ return !navigator.onLine || (e && (e.name === "TypeError" || /fetch|network|Failed to fetch|NetworkError|conexão caiu/i.test(String(e.message || e)))); }
-async function filaGuardar(item){ await filaOp("itens", "readwrite", function(st){ return st.add(item); }); await filaContar(); render(); }
+function donoFila(){ return (S.perfil && S.perfil.user_id) || ""; }
+async function filaGuardar(item){ item.dono = donoFila(); item.criadoEm = new Date().toISOString(); await filaOp("itens", "readwrite", function(st){ return st.add(item); }); await filaContar(); renderRemoto(); }
 async function filaArquivo(file, ctx, nome, rotulo){
-  var filaId = "f"+uid(); await filaGuardar({tipo:"arquivo", filaId:filaId, file:file, ctx:ctx || {pasta:"diario"}, nome:nome || file.name, rotulo:rotulo || "", projeto:S.cur});
+  var filaId = "f"+uid();
+  try { await filaGuardar({tipo:"arquivo", filaId:filaId, file:file, ctx:ctx || {pasta:"diario"}, nome:nome || file.name, rotulo:rotulo || "", projeto:S.cur}); }
+  catch(e){ toast("Sem espaço no celular para guardar "+(nome || file.name)+". Libere espaço ou envie quando tiver internet."); throw e; }
   return {pendente:true, filaId:filaId, nome:nome || file.name, rotulo:rotulo || "", tipo: /^video\//.test(file.type) ? "video" : /^image\//.test(file.type) ? "foto" : "arquivo", localUrl:URL.createObjectURL(file)}; }
 function trocaPend(v, mapa){ if (Array.isArray(v)) return v.map(function(x){ return trocaPend(x, mapa); });
   if (v && typeof v === "object") { if (v.pendente && v.filaId && mapa[v.filaId]) return mapa[v.filaId]; var o = {}; for (var k in v) if (k !== "localUrl") o[k] = trocaPend(v[k], mapa); return o; } return v; }
-async function sincronizar(){
+async function sincronizar(manual){
   if (!WEB || FILA.rodando || !navigator.onLine || !S.db) return; FILA.rodando = true;
-  try { var itens = await filaOp("itens", "readonly", function(st){ return st.getAll(); }) || [], mapa = {};
+  try { var dono = donoFila(), itens = (await filaOp("itens", "readonly", function(st){ return st.getAll(); }) || []).filter(function(x){ return !x.dono || x.dono === dono; }), mapa = {};
+    if (!manual) itens = itens.filter(function(x){ return !(x.falhas >= 3); });     // os que falharam 3 vezes esperam a pessoa pedir "tentar de novo"
     (await filaOp("mapa", "readonly", function(st){ return st.getAll(); }) || []).forEach(function(x){ mapa[x.filaId] = x.meta; });
-    if (itens.length) toast("Internet de volta: enviando "+itens.length+" item(ns) guardados…");
-    var antes = S.cur;
+    if (itens.length) { toast("Internet de volta: enviando "+itens.length+" item(ns) guardados…"); try { await WEBSB.auth.refreshSession(); } catch(e){} }
     for (var i = 0; i < itens.length; i++){ var it = itens[i];
       try {
-        if (it.tipo === "arquivo") { S.cur = it.projeto; var m = await enviarDrive(it.file, it.ctx, it.nome); m.rotulo = it.rotulo; mapa[it.filaId] = m;
+        if (it.tipo === "arquivo") { var m = await enviarDrive(it.file, Object.assign({}, it.ctx, {projeto:it.projeto}), it.nome); m.rotulo = it.rotulo; mapa[it.filaId] = m;
           await filaOp("mapa", "readwrite", function(st){ return st.put({filaId:it.filaId, meta:m}); });
           var alvo = it.ctx.alvoPath ? it.ctx.alvoPath : it.ctx.gradeId ? "projetos/"+it.projeto+"/diario/"+it.ctx.gradeId : it.ctx.instituicaoId ? "projetos/"+it.projeto+"/instituicoes/"+it.ctx.instituicaoId : null;
-          if (alvo) { var d = await S.db.doc(alvo).get(); if (d.exists) await S.db.doc(alvo).set(trocaPend(d.data(), mapa)); } }
-        else if (it.tipo === "doc") { var dados = trocaPend(it.dados, mapa);
-          if (it.op === "set") await S.db.doc(it.path).set(dados); else { try { await S.db.doc(it.path).update(dados); } catch(e2){ if (semRede(e2)) throw e2; await S.db.doc(it.path).set(dados); } } }
+          if (alvo) { var d = await S.db.doc(alvo).get(); if (d.exists) { var atual = d.data() || {}, troc = trocaPend(atual, mapa), patch = {};
+            Object.keys(troc).forEach(function(k){ if (JSON.stringify(troc[k]) !== JSON.stringify(atual[k])) patch[k] = troc[k]; });
+            if (Object.keys(patch).length) await S.db.doc(alvo).update(patch); } } }
+        else if (it.tipo === "doc") { var dados = trocaPend(it.dados, mapa), dc = S.db.doc(it.path);
+          if (it.op === "set") await dc.set(dados);
+          else if (it.op === "append") { if (dc.append) await dc.append(it.campo, dados); else { var g0 = await dc.get(), o = {}; o[it.campo] = ((g0.exists && g0.data()[it.campo]) || []).concat(dados); await (g0.exists ? dc.update(o) : dc.set(o)); } }
+          else if (dc.merge) await dc.merge(dados);
+          else { try { await dc.update(dados); } catch(e2){ if (semRede(e2)) throw e2; await dc.set(dados); } } }
         await filaOp("itens", "readwrite", function(st){ return st.delete(it.k); }); }
-      catch(e){ if (semRede(e)) break; toast("Um item guardado não pôde ser enviado: "+(e.message || e)); await filaOp("itens", "readwrite", function(st){ return st.delete(it.k); }); } }
-    S.cur = antes; }
-  catch(e){} finally { FILA.rodando = false; await filaContar(); render(); } }
-function faixaFila(){ if (!WEB || !FILA.n) return null;
+      catch(e){ if (semRede(e)) break;
+        // erro que não é de rede (login vencido, recusa do servidor): o item fica guardado, marcado, para tentar de novo
+        it.falhas = (it.falhas || 0) + 1; it.erro = String((e && e.message) || e).slice(0, 200); it.falhouEm = new Date().toISOString();
+        await filaOp("itens", "readwrite", function(st){ return st.put(it); });
+        if (it.falhas >= 3) toast("Um item guardado não foi enviado depois de 3 tentativas. Veja o aviso no topo da tela."); } } }
+  catch(e){} finally { FILA.rodando = false; await filaContar(); renderRemoto(); } }
+async function filaDescartarFalhas(){ var ids = (FILA.falhas || []).map(function(x){ return x.k; });
+  for (var i = 0; i < ids.length; i++) { var k = ids[i]; await filaOp("itens", "readwrite", function(st){ return st.delete(k); }); } await filaContar(); render(); }
+function faixaFila(){ if (!WEB || !FILA.n) return null; var nf = (FILA.falhas || []).length;
   return h("div", {class:"note warn", style:"margin:10px 0"}, h("b", {text:FILA.n+" item(ns) guardados no celular. "}), navigator.onLine ? "Enviando assim que possível. " : "Sem internet: vão sozinhos quando o sinal voltar. Não feche a página sem necessidade. ",
-    navigator.onLine ? h("button", {class:"btn", onclick:sincronizar}, "Enviar agora") : null); }
+    nf ? h("div", {class:"small", style:"margin:6px 0"}, nf+" não foram aceitos pelo servidor ("+((FILA.falhas[0] || {}).erro || "erro")+"). Tente de novo; se continuar, avise a coordenação antes de descartar.") : null,
+    navigator.onLine ? h("button", {class:"btn", onclick:function(){ sincronizar(true); }}, nf ? "Tentar de novo" : "Enviar agora") : null,
+    nf ? h("button", {class:"btn ghost", style:"margin-left:6px", onclick:function(){ confirmar("Descartar "+nf+" item(ns) que o servidor recusou? Eles não serão enviados.", filaDescartarFalhas); }}, "Descartar os recusados") : null); }
 function cacheGet(col){ try { var v = localStorage.getItem("mx-c:"+col); return v ? JSON.parse(v) : null; } catch(e){ return null; } }
 function cachePut(col, rows){ try { var s = JSON.stringify(rows); if (s.length < 1500000) localStorage.setItem("mx-c:"+col, s); } catch(e){} }
 
@@ -1046,7 +1082,12 @@ function miniaturas(lista){ if (!lista || !lista.length) return null; return h("
   return h("img", {src:midiaUrl(m), alt:m.rotulo || m.nome || "foto", loading:"lazy", style:"cursor:zoom-in", onclick:function(){ ampliar(m); }}); })); }
 
 /* ---------- render raiz ---------- */
+async function sair(){ try { await WEBSB.auth.signOut(); } catch(e){}
+  try { Object.keys(localStorage).filter(function(k){ return /^mx-/.test(k); }).forEach(function(k){ localStorage.removeItem(k); }); } catch(e){}
+  try { if (FILA.db) { (await FILA.db).close(); } indexedDB.deleteDatabase("mx-fila"); } catch(e){}
+  location.reload(); }
 function render(){
+  S.sujo = false; S.avisouPendente = false; S.pendente = false;   // redesenho pedido pela própria pessoa (navegar, salvar)
   var sel = document.getElementById("selProj"); sel.textContent = "";
   var ids = Object.keys(S.projetos).sort(function(a,b){ return String(S.projetos[a].numero).localeCompare(String(S.projetos[b].numero), "pt", {numeric:true}); });
   sel.appendChild(h("option", {value:"", text: ids.length ? "Todos os projetos" : "Nenhum projeto ainda"}));
@@ -1057,8 +1098,9 @@ function render(){
   var quem = document.getElementById("quem"); quem.textContent = "";
   if (WEB && S.perfil) { quem.appendChild(h("span", {class:"small muted", text:S.perfil.nome || S.perfil.email}));
     if (S.perfil.papel === "escritorio" || S.perfil.papel === "coordenador") quem.appendChild(h("button", {class:"btn ghost", onclick:function(){ abrirProjeto(null); S.modo = "escritorio"; S.telaHome = "acessos"; render(); }}, "Acessos"));
-    quem.appendChild(h("button", {class:"btn ghost", onclick:async function(){ await WEBSB.auth.signOut(); location.reload(); }}, "Sair")); }
+    quem.appendChild(h("button", {class:"btn ghost", onclick:function(){ if (FILA.n) confirmar(FILA.n+" item(ns) ainda não foram enviados. Se sair agora, eles se perdem. Sair mesmo assim?", sair); else sair(); }}, "Sair")); }
   var app = document.getElementById("app"); app.textContent = "";
+  if (!WEB) app.appendChild(h("div", {class:"note", style:"margin-top:10px"}, "Esta é a cópia da máquina no claude.ai, atualizada todo dia às 6h40 a partir da página web. Para editar, use a página web: o que for mudado só aqui pode ser substituído na próxima atualização."));
   if (WEB && S.recuperar) return renderNovaSenha(app);
   if (WEB && S.erroWeb) { app.appendChild(h("div", {class:"note warn", style:"margin-top:24px", text:S.erroWeb})); return; }
   if (WEB && S.precisaLogin && S.ready) return renderLogin(app);
@@ -1084,7 +1126,7 @@ async function carregarPortfolio(){
     return D; }));
   ids.forEach(function(id, i){ novo[id] = resumoProjeto(id, Ds[i]); raw[id] = Ds[i]; });
   PORT.raw = raw;
-  PORT.dados = novo; PORT.em = new Date(); PORT.carregando = false; render(); }
+  PORT.dados = novo; PORT.em = new Date(); PORT.carregando = false; renderRemoto(); }
 function resumoProjeto(id, D){
   var salvo = S.data, curSalvo = S.cur; S.data = D; S.cur = id;
   try { var p = S.projetos[id] || {}, pf = {}; FASES.forEach(function(f){ pf[f.k] = pctFase(f.k); });
@@ -1156,7 +1198,9 @@ function camposProjeto(){ return [
   {k:"cidades", t:"Cidades (uma por linha)", tipo:"textarea"},
   {k:"inicio", t:"Início da execução", tipo:"date", meio:true}, {k:"fim", t:"Fim da execução", tipo:"date", meio:true},
   {k:"pronac", t:"PRONAC (se for Lei Rouanet)", meio:true}, {k:"minc", t:"Projeto incentivado pelo MinC", tipo:"check"},
-  {k:"metaPessoas", t:"Meta de pessoas atendidas (MinC, alunos)", tipo:"number", meio:true}, {k:"metaProfessores", t:"Meta de professores (MinC)", tipo:"number", meio:true},
+  {k:"metaPessoas", t:"Meta de pessoas atendidas (MinC, alunos)", tipo:"number", meio:true},
+  {k:"fontePessoas", t:"Pessoas atendidas no portal do patrocinador vêm de", tipo:"select", opts:[["cartas","Cartas das instituições"],["app","Aplicativo de campo"]], meio:true, def:"cartas"},
+  {k:"fonteAtendimentos", t:"Atendimentos no portal do patrocinador vêm de", tipo:"select", opts:[["maquina","Diários da máquina"],["app","Aplicativo de campo"]], meio:true, def:"maquina"}, {k:"metaProfessores", t:"Meta de professores (MinC)", tipo:"number", meio:true},
   {k:"drive", t:"Pasta do projeto no Drive (link)"}, {k:"comunicacao", t:"Projeto na Máquina de Comunicação (link)"} ]; }
 function novoProjeto(){
   abrirForm("Novo projeto", camposProjeto(), {}, async function(v){
@@ -1191,7 +1235,8 @@ function renderEscritorio(app){
   ({painel:tPainel, fases:tFases, projeto:tProjeto, atividades:tAtividades, stakeholders:tStakeholders, comunicacao:tComunicacao, orcamento:tOrcamento,
     engajamento:tEngajamento, diario:tDiario, consolidacao:tConsolidacao}[S.tab] || tPainel)(app, p);
   // guarda um resumo no projeto para a lista inicial (só quando muda)
-  var fa = faseAtual(); if (S.data.tarefas.length && (!p.resumoCache || p.resumoCache.fase !== fa)) { p.resumoCache = {fase:fa}; salvarProjeto(S.cur, p); }
+  var fa = faseAtual(), tudo = colsDoPapel().every(function(c){ return S.assin && S.assin[c] !== undefined; });
+  if (tudo && S.data.tarefas.length && (!p.resumoCache || p.resumoCache.fase !== fa) && S.faseGravada !== S.cur+":"+fa) { S.faseGravada = S.cur+":"+fa; atualizarProjeto(S.cur, {resumoCache:{fase:fa}}); }
 }
 
 function linhaFases(clicavel){
@@ -1330,20 +1375,6 @@ function tProjeto(app, p){
   var eq = S.data.stakeholders.filter(function(s){ return s.lado === "ntics" || s.lado === "fornecedor"; });
   if (eq.length) app.appendChild(h("div", {class:"panel", style:"margin-top:14px"}, h("h2", {text:"Equipe"}), h("div", {class:"chips", style:"margin-top:10px"}, eq.map(function(s){ return h("span", {class:"chip", text:s.nome+(s.papel ? " · "+s.papel : "")}); }))));
 }
-function gantt(){
-  var linhas = [];
-  FASES.forEach(function(f){ var ds = tarefasFase(f.k).map(function(t){ return t.prazo; }).filter(Boolean).sort(); if (ds.length) linhas.push({t:f.t, a:ds[0], b:ds[ds.length-1], c:""}); });
-  var porCidade = {}; S.data.grade.forEach(function(g){ var i = byId("instituicoes", g.instituicaoId), c = (i && i.cidade) || "Execução"; if (!g.data) return;
-    porCidade[c] = porCidade[c] || {a:g.data, b:g.data}; if (g.data < porCidade[c].a) porCidade[c].a = g.data; if (g.data > porCidade[c].b) porCidade[c].b = g.data; });
-  Object.keys(porCidade).forEach(function(c){ linhas.push({t:"Campo · "+c, a:porCidade[c].a, b:porCidade[c].b, c:" c2"}); });
-  if (!linhas.length) return h("div", {class:"muted small", text:"As datas aparecem aqui quando as tarefas e a grade tiverem prazo."});
-  var min = linhas.reduce(function(m,l){ return l.a < m ? l.a : m; }, linhas[0].a), max = linhas.reduce(function(m,l){ return l.b > m ? l.b : m; }, linhas[0].b);
-  var tot = Math.max(1, dias(min, max)), g = h("div", {class:"gantt"});
-  linhas.forEach(function(l){ var x = 100*dias(min, l.a)/tot, w = Math.max(.8, 100*dias(l.a, l.b)/tot), tk = h("div", {class:"gtrack"}, h("div", {class:"gbar"+l.c, style:"left:"+x+"%;width:"+w+"%", title:fdata(l.a)+" a "+fdata(l.b)}));
-    var hj = hoje(); if (hj >= min && hj <= max) tk.appendChild(h("div", {class:"gtoday", style:"left:"+(100*dias(min, hj)/tot)+"%", title:"Hoje"}));
-    g.appendChild(h("div", {text:l.t})); g.appendChild(tk); });
-  return h("div", null, h("div", {class:"row small muted", style:"margin-bottom:8px"}, h("span", {class:"mono", text:fdata(min)}), h("span", {class:"sp"}), h("span", {class:"mono", text:fdata(max)})), g); }
-
 /* atividades e metas */
 function tAtividades(app){
   var pan = h("div", {class:"panel"}, h("div", {class:"row"}, h("div", {style:"flex:1;min-width:0"}, h("h2", {text:"Atividades e metas"}), h("div", {class:"muted", text:"Definidas no Lab: metodologia, equipe necessária, se é MinC e a meta de público de cada atividade."})),
@@ -1489,7 +1520,7 @@ function editarInst(i){
   abrirForm(i ? "Editar instituição" : "Nova instituição", [
     {k:"nome", t:"Nome", req:true}, {k:"tipo", t:"Tipo", tipo:"select", opts:["Escola","Praça","Secretaria","Espaço cultural","Outro"], meio:true}, {k:"cidade", t:"Cidade", meio:true},
     {k:"contato", t:"Contato na instituição", meio:true}, {k:"telefone", t:"Telefone", meio:true}, {k:"email", t:"E-mail", tipo:"email", meio:true}, {k:"meta", t:"Meta de público nesta instituição", tipo:"number", meio:true},
-    {k:"confirmada", t:"Instituição confirmada", tipo:"check"}, {k:"obs", t:"Observação", tipo:"textarea"}
+    {k:"confirmada", t:"Instituição confirmada", tipo:"check"}, {k:"semComprovacao", t:"Não exige comprovação (espaço público, evento aberto): sem cartas nem acessibilidade", tipo:"check"}, {k:"obs", t:"Observação", tipo:"textarea"}
   ], i || {confirmada:true}, async function(v){ return i ? atualizar("instituicoes", i.id, v) : salvar("instituicoes", null, v); },
   i ? h("button", {type:"button", class:"btn danger", onclick:function(){ confirmar("Apagar "+i.nome+"?", function(){ apagar("instituicoes", i.id); var s = document.querySelector(".scrim"); if (s) s.remove(); }); }}, "Apagar") : null); }
 function editarGrade(g){
@@ -1557,6 +1588,7 @@ function renderCampo(app){
   if (!S.cur) { w.appendChild(h("h2", {text:"Escolha o projeto"})); var ids = Object.keys(S.projetos);
     if (!ids.length) w.appendChild(h("div", {class:"empty", style:"margin-top:10px", text:"Nenhum projeto cadastrado."}));
     ids.forEach(function(id){ var p = S.projetos[id]; w.appendChild(h("button", {class:"card", style:"margin-top:8px", onclick:function(){ abrirProjeto(id); }}, h("div", {class:"lbl", text:"Projeto "+(p.numero||"")}), h("h3", {text:p.nome}))); }); return; }
+  if (!P()) { w.appendChild(h("div", {class:"empty"}, h("b", {text:"Projeto não encontrado"}), "Você pode não ter mais acesso a este projeto.")); return; }
   var fixo = WEB && S.perfil && (S.perfil.papel === "produtor" || S.perfil.papel === "fotografo"), papel = fixo ? S.perfil.papel : (S.papel || lsGet("mx-papel") || "produtor");
   w.appendChild(h("div", {class:"row", style:"margin-bottom:12px"}, h("h2", {text:P().nome}), h("span", {class:"sp"}),
     fixo ? h("span", {class:"pill p-info", text: papel === "fotografo" ? "Fotógrafo" : "Produtor"}) : h("div", {class:"seg", role:"group", "aria-label":"Quem está registrando"}, [["produtor","Produtor"],["fotografo","Fotógrafo"]].map(function(x){ return h("button", {"aria-pressed": papel === x[0] ? "true" : "false", onclick:function(){ S.papel = x[0]; lsSet("mx-papel", x[0]); S.campo = {tela:"lista"}; render(); }}, x[1]); }))));
@@ -1570,11 +1602,20 @@ function renderCampo(app){
       h("div", {class:"bar", style:"margin-top:8px"}, h("i", {style:"width:"+pct(r.gasto, v.valor)+"%"})),
       h("div", {class:"small muted", style:"margin-top:6px", text:"Gasto "+brl(r.gasto)+" de "+brl(v.valor)+" · "+r.ds.length+" despesa(s)"+(r.semComp ? " · "+r.semComp+" sem comprovante" : "")+". Toque para lançar despesas e comprovantes."}))); });
   if (!S.data.grade.length) { w.appendChild(h("div", {class:"empty"}, h("b", {text:"A grade deste projeto ainda está vazia"}), "O escritório lança as datas na aba Engajamento e grade; elas aparecem aqui.")); return; }
+  var hjC = hoje(), ate = addDias(hjC, 7), agora = papel === "fotografo" ? [] : S.data.grade.filter(function(g){ var d = diarioDe(g.id); return g.data && !(d && d.enviado) && g.data <= ate && !g.planejado || (g.data && g.data >= hjC && g.data <= ate); })
+    .sort(function(a, b){ return String(a.data).localeCompare(b.data); });
+  if (agora.length) { w.appendChild(h("h3", {style:"margin:6px 0 6px", text:"Para fazer agora"}));
+    agora.slice(0, 12).forEach(function(g){ var atras = g.data < hjC;
+      w.appendChild(h("button", {class:"card", onclick:function(){ S.campo = {tela:"sess", sess:g.id}; render(); }},
+        h("div", {class:"row"}, h("span", {class:"mono", text:fdata(g.data)+(g.turno ? " · "+g.turno : "")}), h("span", {class:"sp"}), h("span", {class:"pill "+(atras ? "p-bad" : g.data === hjC ? "p-warn" : "p-mut"), text: atras ? "Diário pendente" : g.data === hjC ? "Hoje" : "Próxima"})),
+        h("b", {text:nomeAtiv(g.atividadeId)}), h("div", {class:"small muted", text:nomeInst(g.instituicaoId)}))); }); }
+  var todas = h("details", {open: agora.length ? null : true, style:"margin-top:14px"}, h("summary", {style:"cursor:pointer;font-weight:700", text:"Todas as atividades, por instituição"}));
+  w.appendChild(todas); var w0 = w; w = todas;
   var porInst = {}; S.data.grade.forEach(function(g){ (porInst[g.instituicaoId] = porInst[g.instituicaoId] || []).push(g); });
   Object.keys(porInst).sort(function(a,b){ var ma = porInst[a].map(function(g){ return g.data; }).sort()[0], mb = porInst[b].map(function(g){ return g.data; }).sort()[0]; return String(ma).localeCompare(mb); }).forEach(function(iid){
     var i = byId("instituicoes", iid) || {id:iid, nome:"Instituição"}, c = instCompleta(i), gs = porInst[iid].sort(function(a,b){ return String(a.data).localeCompare(b.data); });
     w.appendChild(h("h3", {style:"margin:18px 0 6px", text:i.nome+(i.cidade ? " · "+i.cidade : "")}));
-    if (papel === "produtor") w.appendChild(h("button", {class:"card", onclick:function(){ S.campo = {tela:"inst", inst:iid}; render(); }},
+    if (papel === "produtor" && !i.semComprovacao) w.appendChild(h("button", {class:"card", onclick:function(){ S.campo = {tela:"inst", inst:iid}; render(); }},
       h("div", {class:"row"}, h("b", {text:"Comprovações da instituição"}), h("span", {class:"sp"}), h("span", {class:"pill "+(c.ok ? "p-ok" : "p-warn"), text: c.ok ? "Completas" : "Pendentes"})),
       h("div", {class:"small muted", text:"Acessibilidade (10 itens) e cartas de comprovação por atividade. Tudo precisa estar completo até a última atividade nesta instituição."})));
     gs.forEach(function(g){ var d = diarioDe(g.id), feito = d && d.enviado, fotosF = d && (d.fotosFotografo||[]).length;
@@ -1631,8 +1672,7 @@ function campoFotografo(w, g){
         if (WEB) m = await enviarDrive(f, {pasta:pasta, gradeId:g.id}, nome, function(p){ bar.style.width = Math.round(p*100)+"%"; });
         else { var r = await enviarArquivos([new File([f], nome, {type:f.type})], pasta); if (!r.length) throw new Error("não enviado"); m = r[0]; bar.style.width = "100%"; }
         m.pastaFoto = pasta; m.nome = nome;
-        var atual = diarioDe(g.id), lista = ((atual && atual.midiaFotografo) || []).concat([m]);
-        if (atual) await atualizar("diario", g.id, {midiaFotografo:lista}); else await salvar("diario", g.id, {midiaFotografo:lista, enviado:false});
+        if (!(await anexar("diario", g.id, "midiaFotografo", [m]))) throw new Error("Não foi possível registrar no diário.");
         linha.querySelector(".main").appendChild(h("span", {class:"pill p-ok", style:"margin-top:4px", text:"No Drive"}));
       } catch(e){ bar.style.background = "var(--bad)"; linha.querySelector(".main").appendChild(h("div", {class:"late small", text:e.message || "Falha no envio"})); }
     } }
@@ -1707,13 +1747,13 @@ function campoSessao(w, g, papel){
   if (papel === "fotografo") {
     w.appendChild(h("div", {class:"panel", style:"margin-top:12px"}, h("h3", {text:"Fotos e vídeos do fotógrafo"}), h("div", {class:"small muted", style:"margin:4px 0 10px", text:"Envie por atividade. Vídeos acima de 20 MB vão pelo Drive do projeto."}),
       miniaturas(d.fotosFotografo), h("button", {class:"btn pri", style:"margin-top:10px", onclick:function(){ seletorArquivos("image/*,video/*", true, async function(fs){ var r = await enviarArquivos(fs, "fotógrafo"); if (!r.length) return;
-        var atual = diarioDe(g.id); if (atual) await atualizar("diario", g.id, {fotosFotografo:(atual.fotosFotografo||[]).concat(r)}); else await salvar("diario", g.id, {fotosFotografo:r, enviado:false}); toast(r.length+" arquivo(s) enviados."); }); }}, "Enviar fotos e vídeos")));
+        if (await anexar("diario", g.id, "fotosFotografo", r)) toast(r.length+" arquivo(s) enviados."); }); }}, "Enviar fotos e vídeos")));
     return; }
   var est = {presentes:(d.presentes||[]).slice(), entrevistados:(d.entrevistados||[]).slice(), fotos:(d.fotos||[]).slice(), fotosAcess:(d.fotosAcess||[]).slice()};
   var f = h("form", {class:"form", onsubmit:async function(e){ e.preventDefault();
     var dados = {turma:q("turma").value.trim(), publico:Number(q("publico").value||0), professores:q("professores").value === "" ? null : Number(q("professores").value), homens:q("homens").value === "" ? null : Number(q("homens").value), mulheres:q("mulheres").value === "" ? null : Number(q("mulheres").value),
       relato:q("relato").value.trim(), acessibilidade:q("acess").checked, acessDesc:q("acessDesc").value.trim(), presentes:lerPessoas(pp), entrevistados:lerPessoas(pe), fotos:est.fotos, fotosAcess:est.fotosAcess,
-      fotosFotografo:(diarioDe(g.id)||{}).fotosFotografo||[], midiaFotografo:(diarioDe(g.id)||{}).midiaFotografo||[], autor:q("autor").value.trim(), enviado:true, enviadoEm:new Date().toISOString()};
+      autor:q("autor").value.trim(), enviado:true, enviadoEm:new Date().toISOString()};   // o material do fotógrafo não vai junto: cada um grava só o que é seu
     if (!dados.publico) { toast("Informe quantos foram atendidos."); return; }
     if (!dados.fotos.length && !ehVirtual(g)) { toast("Envie pelo menos uma foto da atividade."); return; }
     var av = [];
@@ -1724,7 +1764,7 @@ function campoSessao(w, g, papel){
     if (!dados.presentes.length) av.push("Ninguém da equipe ou de parceiros foi listado como presente.");
     if (num(g.previstos) && dados.publico > num(g.previstos) * 1.3) av.push("O público ("+dados.publico+") está bem acima do previsto ("+g.previstos+").");
     if (!dados.autor) av.push("Falta o seu nome no fim do formulário.");
-    async function envia(){ lsSet("mx-autor", dados.autor); var ok = await salvar("diario", g.id, dados); if (ok) { toast(FILA.ultimoOffline ? "Sem internet: diário guardado no celular." : "Diário enviado."); S.campo = {tela:"lista"}; render(); } }
+    async function envia(){ lsSet("mx-autor", dados.autor); var ok = await mesclar("diario", g.id, dados); if (ok) { toast(FILA.ultimoOffline ? "Sem internet: diário guardado no celular." : "Diário enviado."); S.campo = {tela:"lista"}; render(); } }
     if (av.length) confirmar("Antes de enviar, confira:\n\n• "+av.join("\n• ")+"\n\nEnviar mesmo assim?", envia); else await envia(); }});
   function q(k){ return f.querySelector("#d_"+k); }
   function campo(k, t, tipo, val, meio){ var el = tipo === "textarea" ? h("textarea", {id:"d_"+k}) : h("input", {id:"d_"+k, type:tipo||"text", min: tipo === "number" ? "0" : null}); el.value = val == null ? "" : val; return h("label", {for:"d_"+k}, t, el); }
@@ -1768,18 +1808,6 @@ function eixoMeses(min, max, tot){ var t = h("div", {class:"gx-axis"}), d = new 
 function eixoSemanas(min, max, tot){ var t = h("div", {class:"gx-axis"}), d = new Date(min+"T12:00:00"); d.setDate(d.getDate() - ((d.getDay()+6)%7));
   while (true){ var iso = d.toISOString().slice(0,10); if (iso > max) break; var x = 100*dias(min, iso)/tot; if (x >= 0) t.appendChild(h("span", {style:"left:"+x+"%", text:fdata(iso).slice(0,5)})); d.setDate(d.getDate()+7); }
   return t; }
-function ganttX(linhas, min, max, eixo){
-  var tot = Math.max(1, dias(min, max) + 1), g = h("div", {class:"gx"}), hj = hoje();
-  g.appendChild(h("div")); g.appendChild(eixo(min, max, tot));
-  linhas.forEach(function(l){
-    if (l.secao) { g.appendChild(h("div", {class:"gx-sec", text:l.secao})); return; }
-    var tk = h("div", {class:"gx-track"});
-    if (hj >= min && hj <= max) tk.appendChild(h("div", {class:"gtoday", style:"left:"+(100*dias(min, hj)/tot)+"%", title:"Hoje"}));
-    if (l.marco) tk.appendChild(h("div", {class:"gx-marco"+(l.ok ? " ok" : ""), style:"left:"+(100*(dias(min, l.a)+.5)/tot)+"%", title:l.t+" · "+fdata(l.a)}));
-    else tk.appendChild(h("div", {class:"gx-bar "+(l.cor||""), style:"left:"+(100*dias(min, l.a)/tot)+"%;width:"+Math.max(.6, 100*(dias(l.a, l.b)+1)/tot)+"%", title:fdata(l.a)+" a "+fdata(l.b)}));
-    g.appendChild(h("div", {class:"gx-lbl"}, h("div", {class:l.forte ? "b" : null, text:l.t}), h("div", {class:"small muted mono", text: l.marco ? fdata(l.a) : fdata(l.a).slice(0,5)+" a "+fdata(l.b)})));
-    g.appendChild(tk); });
-  return h("div", {class:"gx-wrap"}, g); }
 /* ---------- Gantt da execução: cidade › instituição › atividade › turma e horário ---------- */
 var GX_CORES = ["#2E7D5B", "#C77D1A", "#3B6EA8", "#A1456B", "#6B5BA8", "#2B8C8C", "#9A6B2F", "#5E7D2E", "#B5483A", "#4A6572"];
 function corAtiv(aid){ var ids = S.data.atividades.slice().sort(function(a, b){ return num(a.ordem) - num(b.ordem); }).map(function(a){ return a.id; }); var i = ids.indexOf(aid); return GX_CORES[(i < 0 ? 0 : i) % GX_CORES.length]; }
@@ -1852,13 +1880,6 @@ function cronogramaPat(app){
   app.appendChild(painelCronogramaExec("Cronograma de execução", dFin ? {data:dFin, ok:finOk, t:"Entrega dos materiais finais", d:"reunião com o patrocinador"} : null));
 }
 /* plano de comunicação: a parte que vai para o patrocinador, em texto (# título, - item, linha em branco = parágrafo) */
-function textoFormatado(t){ var box = h("div", {class:"texto"}), lista = null;
-  String(t || "").split(/\n/).forEach(function(l){ var s = l.trim();
-    if (!s) { lista = null; return; }
-    if (/^#+\s/.test(s)) { lista = null; box.appendChild(h("h3", {text:s.replace(/^#+\s*/, "")})); return; }
-    if (/^[-•]\s/.test(s)) { if (!lista) { lista = h("ul"); box.appendChild(lista); } lista.appendChild(h("li", {text:s.replace(/^[-•]\s*/, "")})); return; }
-    lista = null; box.appendChild(h("p", {text:s})); });
-  return box; }
 /* ---------- portal do patrocinador: sobre o projeto, fotos por instituição, resumo da semana ---------- */
 function negritos(el, txt){ String(txt).split(/(\*\*[^*]+\*\*)/).forEach(function(pt){ if (/^\*\*[^*]+\*\*$/.test(pt)) el.appendChild(h("b", {text:pt.slice(2, -2)})); else if (pt) el.appendChild(document.createTextNode(pt)); }); return el; }
 var TITULOS_SEMANA = /^(onde estivemos|o que aconteceu|números da semana|numeros da semana|destaques do campo|destaques)$/i;
@@ -1920,7 +1941,9 @@ function sobrePat(app, p){
   var dsG = S.data.grade.map(function(g){ return g.data; }).filter(Boolean).sort();
   if (dsG.length) numeros.push(["calendario", fdata(dsG[0]).slice(0, 5)+" a "+fdata(dsG[dsG.length-1]).slice(0, 5), "execução em campo", GX_CORES[4]]);
   if (numeros.length) app.appendChild(h("div", {class:"sb-nums"}, numeros.map(function(n){ return h("div", {class:"sb-num"}, ico(n[0], n[3]), h("div", null, h("b", {text:n[1]}), h("span", {text:n[2]}))); })));
-  var secs = secoesTexto(p.sobrePatrocinador), passos = secs.filter(function(x){ return /como funciona/i.test(x.t); })[0];
+  var equipe = !WEB || (S.perfil && (S.perfil.papel === "escritorio" || S.perfil.papel === "coordenador")), liberado = !!p.sobreRevisado;
+  if (!liberado && equipe && p.sobrePatrocinador) app.appendChild(h("div", {class:"note warn", style:"margin-top:12px"}, "Rascunho: o patrocinador ainda não vê os textos desta página. Revise em O projeto > Texto do projeto para o patrocinador e marque como revisado."));
+  var secs = liberado || equipe ? secoesTexto(p.sobrePatrocinador) : [], passos = secs.filter(function(x){ return /como funciona/i.test(x.t); })[0];
   if (passos) secs = secs.filter(function(x){ return x !== passos; });
   if (secs.length) app.appendChild(h("div", {class:"sb-secs"}, secs.map(function(s, k){ var cor = GX_CORES[k % GX_CORES.length];
     return h("div", {class:"sb-sec", style:"--c:"+cor}, h("div", {class:"row", style:"gap:10px;flex-wrap:nowrap"}, ico(SEC_ICO[k % SEC_ICO.length], cor), h("h3", {text:s.t || "O projeto"})),
@@ -1933,7 +1956,7 @@ function sobrePat(app, p){
       return h("div", {class:"sb-ativ", style:"--c:"+cor}, h("div", {class:"row", style:"gap:10px;flex-wrap:nowrap;align-items:flex-start"}, ico(icoAtiv(a), cor),
           h("div", {style:"min-width:0"}, h("b", {text:a.nome}), h("div", {class:"row", style:"gap:6px;margin-top:4px;flex-wrap:wrap"}, a.formato ? h("span", {class:"sb-chip", text:a.formato}) : null,
             a.modalidade === "virtual" ? h("span", {class:"sb-chip", text:"Virtual"}) : null, num(a.meta) ? h("span", {class:"sb-chip forte", text:"Meta "+fnum(a.meta)+" "+(a.unidade || "")}) : null))),
-        a.descricaoPublica ? h("p", {class:"small", style:"margin:10px 0 0;line-height:1.55", text:a.descricaoPublica}) : null,
+        a.descricaoPublica && (liberado || equipe) ? h("p", {class:"small", style:"margin:10px 0 0;line-height:1.55", text:a.descricaoPublica}) : null,
         etapas.length ? h("div", {class:"sb-etapas"}, etapas.sort(function(x, y){ return num(x.ordem) - num(y.ordem); }).map(function(e){ return h("span", {style:"border-color:"+corAtiv(e.id)}, e.nome); })) : null); }))));
   if (locais.length) { var porCid = {}, ordem = []; locais.forEach(function(l){ var c = l.i.cidade || "Local a definir"; if (!porCid[c]) { porCid[c] = []; ordem.push(c); } porCid[c].push(l); });
     app.appendChild(h("div", {class:"panel", style:"margin-top:14px"}, h("h2", {text:"Onde acontece"}), h("div", {class:"sb-cards"}, ordem.map(function(c, k){ var ls = porCid[c], a = ls.map(function(l){ return l.a; }).sort()[0], b = ls.map(function(l){ return l.b; }).sort().pop();
@@ -2016,22 +2039,13 @@ function fotosPat(app){
     cont.appendChild(sec); });
   if (!total) cont.appendChild(h("div", {class:"empty", text:"As fotos e vídeos de campo aparecem aqui."}));
   pan.appendChild(cont); app.appendChild(pan); }
-function semanaPat(app){
-  var ss = S.data.documentos.filter(function(d){ return d.tipo === "semanal" && !d.oculto; }).sort(function(a, b){ return String(b.semanaAte || b.criadoEm).localeCompare(a.semanaAte || a.criadoEm); });
-  var ps = h("div", {class:"panel"}, h("h2", {text:"Resumo da semana"}), h("div", {class:"muted small", style:"margin:2px 0 6px", text:"Escrito a partir dos diários de campo de cada semana."}));
-  if (!ss.length) ps.appendChild(h("div", {class:"empty", text:"Os resumos aparecem aqui ao fim de cada semana com atividade em campo."}));
-  ss.forEach(function(d, k){
-    var fotos = []; S.data.grade.filter(function(g){ return g.data && g.data >= d.semanaDe && g.data <= d.semanaAte; }).sort(function(a, b){ return a.data.localeCompare(b.data); })
-      .forEach(function(g){ var ms = midiasDaGrade(g).filter(function(m){ return m.tipo !== "video" && m.tipo !== "pdf"; }); if (ms.length) fotos.push(ms[0]); if (ms.length > 3) fotos.push(ms[Math.floor(ms.length / 2)]); });
-    var det = h("details", {open: k === 0 ? true : null, style:"border-top:1px solid var(--line);padding:12px 0"}, h("summary", {style:"cursor:pointer;font-weight:700;font-size:16px", text:d.titulo || "Semana"}),
-      fotos.length ? h("div", {class:"tira", style:"margin-top:10px"}, miniaturas(fotos.slice(0, 8))) : null,
-      h("div", {style:"max-width:72ch;margin-top:6px"}, textoRico(d.texto || "")));
-    ps.appendChild(det); });
-  app.appendChild(ps); }
 function painelSobreEscritorio(p){
   var ta = h("textarea", {"aria-label":"Texto do projeto para o patrocinador", style:"width:100%;min-height:180px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--bg);font:inherit;line-height:1.5",
     placeholder:"# O que é o projeto\n...\n\n# Por que ele existe\n...\n\n# Como funciona\n..."}); ta.value = p.sobrePatrocinador || "";
-  var bts = [h("button", {class:"btn pri", onclick:async function(){ if (await salvarProjeto(S.cur, Object.assign({}, p, {sobrePatrocinador:ta.value}))) toast("Texto salvo."); }}, "Salvar"),
+  var rev = h("input", {type:"checkbox", checked: p.sobreRevisado ? true : null});
+  var bts = [h("label", {class:"small", style:"display:flex;gap:6px;align-items:center"}, rev, "Revisado: o patrocinador pode ver este texto e as descrições das atividades"),
+    h("button", {class:"btn pri", onclick:async function(){ var quem = (S.perfil && (S.perfil.nome || S.perfil.email)) || "equipe";
+      if (await atualizarProjeto(S.cur, {sobrePatrocinador:ta.value, sobreRevisado:rev.checked, sobreRevisadoPor: rev.checked ? quem : null, sobreRevisadoEm: rev.checked ? new Date().toISOString() : null})) toast(rev.checked ? "Texto salvo e liberado para o patrocinador." : "Texto salvo como rascunho."); }}, "Salvar"),
     h("button", {class:"btn ghost", onclick:function(){ S.modo = "patrocinador"; S.pat = "sobre"; render(); }}, "Ver como o patrocinador vê")];
   return h("div", {class:"panel", style:"margin-top:14px"}, h("h2", {text:"Texto do projeto para o patrocinador"}),
     h("div", {class:"muted small", style:"margin:2px 0 8px", text:"Aparece em Sobre o projeto, no portal do patrocinador. A descrição de cada atividade fica em Atividades e metas (campo Descrição para o patrocinador). Formato: # título, - item, **negrito**."}),
@@ -2149,11 +2163,11 @@ function gEvolucao(pts, cor){ // pts [{d:iso, v}] -> colunas por dia + linha acu
   var X = function(i){ return L + (n === 1 ? (W - L - R) / 2 : i * (W - L - R) / (n - 1)); }, YD = function(v){ return H - B - (H - B - T) * v / maxD; }, YA = function(v){ return H - B - (H - B - T) * v / maxA; };
   var s = '<svg viewBox="0 0 '+W+' '+H+'">';
   [0, .5, 1].forEach(function(f){ var y = H - B - (H - B - T) * f; s += '<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" class="gv-grid"/><text x="'+(L-6)+'" y="'+(y+4)+'" text-anchor="end" class="gv-ax">'+fnum(Math.round(maxD*f))+'</text><text x="'+(W-R+6)+'" y="'+(y+4)+'" class="gv-ax">'+fnum(Math.round(maxA*f))+'</text>'; });
-  pts.forEach(function(x, i){ s += '<rect x="'+(X(i)-bw/2).toFixed(1)+'" y="'+YD(num(x.v)).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+(H-B-YD(num(x.v))).toFixed(1)+'" rx="2" fill="'+cor+'" opacity=".35"><title>'+fdata(x.d)+': '+fnum(x.v)+'</title></rect>'; });
+  pts.forEach(function(x, i){ s += '<rect x="'+(X(i)-bw/2).toFixed(1)+'" y="'+YD(num(x.v)).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+(H-B-YD(num(x.v))).toFixed(1)+'" rx="2" fill="'+cor+'" opacity=".35"><title>'+escH(fdata(x.d))+': '+fnum(x.v)+'</title></rect>'; });
   s += '<polyline fill="none" stroke="'+cor+'" stroke-width="2.5" stroke-linejoin="round" points="'+pts.map(function(x, i){ return X(i).toFixed(1)+","+YA(ac[i]).toFixed(1); }).join(" ")+'"/>';
   pts.forEach(function(x, i){ s += '<circle cx="'+X(i).toFixed(1)+'" cy="'+YA(ac[i]).toFixed(1)+'" r="3" fill="'+cor+'"/>'; });
   var marc = n <= 8 ? pts.map(function(_, i){ return i; }) : [0, Math.floor(n/3), Math.floor(2*n/3), n-1];
-  marc.forEach(function(i){ s += '<text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" class="gv-ax">'+fdata(pts[i].d).slice(0, 5)+'</text>'; });
+  marc.forEach(function(i){ s += '<text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" class="gv-ax">'+escH(fdata(pts[i].d).slice(0, 5))+'</text>'; });
   return h("div", null, svgBox(s+'</svg>', "ge", "Atendimentos por dia e acumulado"), h("div", {class:"gv-leg small muted"}, h("span", null, h("i", {class:"gq", style:"background:"+cor+";opacity:.35"}), "por dia (eixo da esquerda)"), h("span", null, h("i", {class:"gq ln", style:"background:"+cor}), "acumulado: "+fnum(acc)+" (eixo da direita)"))); }
 function gFunil(etapas, cor){ var base = num(etapas[0] && etapas[0].v) || 1; cor = cor || "var(--accent)";
   return h("div", {class:"gf"}, etapas.map(function(e, k){ var p = Math.round(100 * num(e.v) / base);
@@ -2198,9 +2212,9 @@ var IND_SAIDA = {futuro_agro:1, refletiu_carreira:1, de_novo:1};
 function painelVivoPat(app, p){
   var ai = p.appIndicadores || {}, campo = ai.campo && ai.campo.registros ? ai.campo : null, plat = ai.plataforma && ai.plataforma.cadastrados ? ai.plataforma : null;
   var r = resumoGrade(S.data.grade), pt = pessoasTotal(), mt = metaTotal(), insts = instsConf();
-  var pessoas = pt.alunos, fonteP = "cartas das instituições", atend = r.atend, fonteA = "diários de campo";
-  if (!pessoas && campo && campo.pessoas) { pessoas = campo.pessoas; fonteP = "aplicativo de campo"; }
-  if (!atend && campo) { atend = campo.atendimentos; fonteA = "aplicativo de campo"; }
+  var fp = p.fontePessoas || "cartas", fa0 = p.fonteAtendimentos || "maquina";
+  var pessoas = fp === "app" && campo ? campo.pessoas : pt.alunos, fonteP = fp === "app" && campo ? "aplicativo de campo" : "cartas das instituições";
+  var atend = fa0 === "app" && campo ? campo.atendimentos : r.atend, fonteA = fa0 === "app" && campo ? "aplicativo de campo" : "diários de campo";
   var pubs = S.data.pecas.filter(function(x){ return x.status === "publicado" || x.status === "aprovado" || x.status === "grafica"; }).length;
   var cids = {}; insts.forEach(function(i){ if (i.cidade) cids[String(i.cidade).split("/")[0]] = 1; });
   var dsG = S.data.grade.map(function(g){ return g.data; }).filter(Boolean).sort(), hj = hoje();
@@ -2215,18 +2229,18 @@ function painelVivoPat(app, p){
     vk("escola", GX_CORES[3], fnum(insts.length), "instituições", null, pt.comCarta ? pt.comCarta+" com carta de comprovação" : null),
     vk("luz", GX_CORES[4], fnum(pubs), "materiais de comunicação", null, S.data.pecas.length ? "de "+fnum(S.data.pecas.length)+" previstos" : null)]));
   var g1 = h("div", {class:"pv-g2"});
-  var usaApp = !r.atend && campo;
+  var usaApp = fa0 === "app" && campo;
   g1.appendChild(painelG("Atendimento por atividade", usaApp ? "Do aplicativo de campo, por atividade registrada." : "Realizado em relação à meta de cada atividade.",
     usaApp ? gBarras(campo.porAtividade.slice(0, 10).map(function(x, k){ return {nome:x.nome, v:x.alunos, cor:GX_CORES[k % GX_CORES.length], extra:x.registros+" registro(s)"}; }))
       : gBarras(S.data.atividades.filter(function(a){ return !a.grupo; }).sort(function(a, b){ return num(a.ordem) - num(b.ordem); }).map(function(a){ return {nome:a.nome, v:realizadoAtividade(a.id), meta:num(a.meta) || null, cor:corAtiv(a.id)}; }))));
   var gen = r.homens + r.mulheres ? {m:r.mulheres, h:r.homens, f:"diários de campo"} : campo && campo.mulheres + campo.homens ? {m:campo.mulheres, h:campo.homens, f:"aplicativo de campo"} : plat && plat.genero ? {m:num(plat.genero.feminino), h:num(plat.genero.masculino), f:"cadastro na plataforma"} : null;
   g1.appendChild(painelG("Quem participou", gen ? "Por gênero, segundo "+gen.f+"." : "", gen ? gDonut([{nome:"Mulheres", v:gen.m, cor:GX_CORES[3]}, {nome:"Homens", v:gen.h, cor:GX_CORES[2]}], null, gen.f === "cadastro na plataforma" ? "cadastrados" : "atendimentos") : h("div", {class:"muted small", text:"O gênero aparece quando os registros de campo trouxerem essa informação."})));
   app.appendChild(g1);
-  var evo = r.porDia.length ? r.porDia : campo ? campo.porDia.map(function(x){ return {d:x.data, v:x.alunos}; }) : [];
+  var evo = usaApp ? campo.porDia.map(function(x){ return {d:x.data, v:x.alunos}; }) : r.porDia;
   app.appendChild(painelG("Evolução dos atendimentos", "Cada coluna é um dia de atividade; a linha soma tudo o que já foi feito.", gEvolucao(evo)));
   var porCid = {}; S.data.grade.forEach(function(g){ var i = byId("instituicoes", g.instituicaoId), c = i && i.cidade ? String(i.cidade).split("/")[0] : ""; if (!c) return; porCid[c] = porCid[c] || {v:0, prev:0, ses:0, feitas:0};
     porCid[c].ses++; porCid[c].prev += num(g.previstos); if (sessaoFeita(g.id)) { porCid[c].feitas++; porCid[c].v += num(diarioDe(g.id).publico); } });
-  var itCid = Object.keys(porCid).filter(function(c){ return porCid[c].v; }).length ? Object.keys(porCid).map(function(c, k){ var x = porCid[c]; return {nome:c, v:x.v, cor:GX_CORES[k % GX_CORES.length], extra:x.feitas+"/"+x.ses+" turmas"}; })
+  var itCid = !usaApp ? Object.keys(porCid).map(function(c, k){ var x = porCid[c]; return {nome:c, v:x.v, cor:GX_CORES[k % GX_CORES.length], extra:x.feitas+"/"+x.ses+" turmas"}; })
     : campo ? campo.porCidade.map(function(x, k){ return {nome:x.nome || "Sem cidade", v:x.alunos, cor:GX_CORES[k % GX_CORES.length], extra:x.registros+" registro(s)"}; }) : [];
   if (itCid.length) app.appendChild(painelG("Atendimento por cidade", "", gBarras(itCid)));
   if (plat) app.appendChild(blocoPlataforma(plat));
@@ -2386,6 +2400,7 @@ var PAT_TABS = [["painel","Painel ao vivo"],["semana","Relatórios"],["sobre","S
 function renderPatrocinador(app){
   app.appendChild(h("div", {class:"note", style:"margin:16px 0"}, "Visão do patrocinador. Mostra só o que vai para o cliente; dados internos (orçamento, contratos, tarefas) ficam fora."));
   if (!S.cur) { app.appendChild(h("h2", {text:"Escolha o projeto no topo"})); return; }
+  if (!P()) { app.appendChild(h("div", {class:"empty", style:"margin-top:16px"}, h("b", {text:"Projeto não encontrado"}), "Você pode não ter mais acesso a este projeto. Escolha outro no topo.")); return; }
   var p = P();
   if (p.cor) { var wcor = h("div", {class:"pat-cor", style:"--pcor:"+p.cor}); app.appendChild(wcor); app = wcor; }
   app.appendChild(h("div", null, h("div", {class:"lbl", text:(p.patrocinador || "Patrocinador")+" · Projeto "+(p.numero||"")}), h("h1", {text:p.nome})));
@@ -2430,11 +2445,13 @@ function dbSupabase(sb){
   function doc(p){ return {
     get: async function(){ var r = await sb.from("docs").select("path,data").eq("path", p).maybeSingle(); if (r.error) throw erro(r.error); return {exists:!!r.data, id:p.split("/").pop(), data:function(){ return r.data ? r.data.data : undefined; }}; },
     set: async function(data){ var r = await sb.from("docs").upsert({path:p, col:colDe(p), data:data}); if (r.error) throw erro(r.error); },
-    update: async function(data){ var c = await sb.from("docs").select("data").eq("path", p).maybeSingle(); if (c.error || !c.data) throw {code:"invalid_argument", message:"documento não existe"};
-      var r = await sb.from("docs").update({data:mergeFundo(c.data.data, data)}).eq("path", p); if (r.error) throw erro(r.error); },
+    update: async function(data){ var r = await sb.rpc("docs_merge", {p_path:p, p_patch:data, p_criar:false}); if (r.error) throw erro(r.error); },
+    merge: async function(data){ var r = await sb.rpc("docs_merge", {p_path:p, p_patch:data, p_criar:true}); if (r.error) throw erro(r.error); },
+    append: async function(campo, itens){ var r = await sb.rpc("docs_append", {p_path:p, p_campo:campo, p_itens:itens}); if (r.error) throw erro(r.error); },
     delete: async function(){ var r = await sb.from("docs").delete().eq("path", p); if (r.error) throw erro(r.error); } }; }
   function collection(col){ var self = {
-    get: async function(){ var r; try { r = await sb.from("docs").select("path,data").eq("col", col).limit(5000); } catch(e){ r = {error:e}; }
+    get: async function(){ var r, tab = S.perfil && S.perfil.papel === "patrocinador" && !/\/pecas$/.test(col) ? "docs_pat" : "docs";
+      try { r = await sb.from(tab).select("path,data").eq("col", col).limit(5000); } catch(e){ r = {error:e}; }
       if (r.error) { var c = cacheGet(col); if (c && (semRede(r.error) || !navigator.onLine)) return snapDocs(c); throw erro(r.error); }
       cachePut(col, r.data || []); return snapDocs(r.data || []); },
     doc: function(id){ return doc(col + "/" + id); },
@@ -2475,15 +2492,19 @@ function modosPermitidos(){ if (!WEB || !S.perfil) return ["escritorio","campo",
   return {escritorio:["escritorio","campo","patrocinador"], coordenador:["escritorio","campo","patrocinador"], produtor:["campo"], fotografo:["campo"], patrocinador:["patrocinador"]}[S.perfil.papel] || []; }
 function assinarProjetos(){
   var primeiro = true;
+  var assinP = null;
   S.db.collection("projetos").onSnapshot(function(snap){
-    var novo = {}; snap.docs.forEach(function(d){ novo[d.id] = Object.assign({}, d.data()); }); S.projetos = novo;
+    var novo = {}; snap.docs.forEach(function(d){ novo[d.id] = Object.assign({}, d.data()); }); var a = JSON.stringify(novo);
+    if (!primeiro && a === assinP) return; assinP = a; S.projetos = novo;
     if (primeiro) { primeiro = false; S.ready = true; var ids = Object.keys(novo), ini = (CONFIG && CONFIG.inicio) || {};
       if (ini.projeto && novo[ini.projeto]) { abrirProjeto(ini.projeto); return; }
-      if (S.modo !== "escritorio" || ids.length === 1) { var last = lsGet("mx-proj"); if (last && novo[last]) { abrirProjeto(last); return; } if (ids.length === 1) { abrirProjeto(ids[0]); return; } } }
-    render();
+      if (S.modo !== "escritorio" || ids.length === 1) { var last = lsGet("mx-proj"); if (last && novo[last]) { abrirProjeto(last); return; } if (ids.length === 1) { abrirProjeto(ids[0]); return; } }
+      render(); return; }
+    if (S.cur && !novo[S.cur]) { abrirProjeto(null); return; }   // perdeu o acesso ao projeto aberto
+    renderRemoto();
   }, function(){ S.ready = true; toast("Não foi possível ler os projetos."); render(); });
 }
-window.addEventListener("online", function(){ render(); sincronizar(); }); window.addEventListener("offline", function(){ render(); });
+window.addEventListener("online", function(){ renderRemoto(); sincronizar(); }); window.addEventListener("offline", function(){ renderRemoto(); });
 async function initWeb(){
   if ("serviceWorker" in navigator && /^https:/.test(location.protocol)) { try { navigator.serviceWorker.register("sw.js"); } catch(e){} }
   if (!window.supabase) { S.ready = true; S.erroWeb = "Não foi possível carregar a conexão com o banco. Verifique a internet e recarregue."; render(); return; }
