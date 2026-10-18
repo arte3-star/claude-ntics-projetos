@@ -214,7 +214,7 @@ var MODELO = {"fases": [{"k": "lab", "t": "Lab", "cor": "lab", "dep": [], "resum
 var CONFIG = window.MX_CONFIG || null, WEB = !!CONFIG, WEBSB = null;
 var FASES = MODELO.fases, ACESS = MODELO.acessibilidade, TEMPLATE = MODELO.tarefas;
 var FMAP = {}; FASES.forEach(function(f){ FMAP[f.k] = f; });
-var COLS = ["tarefas","atividades","instituicoes","grade","diario","stakeholders","pecas","orcamento","documentos"];
+var COLS = ["tarefas","atividades","instituicoes","grade","diario","stakeholders","pecas","orcamento","documentos","verbas","despesas"];
 var S = { db:null, user:null, assets:null, ready:false, projetos:{}, cur:null, tab:"painel", fase:null, modo:"escritorio",
           data:{}, unsubs:[], campo:{tela:"lista", inst:null, sess:null}, pat:"painel", filtroInst:"" };
 COLS.forEach(function(c){ S.data[c] = []; });
@@ -390,6 +390,10 @@ function alertasCruzados(){
     cc.risco.slice(0, 6).forEach(function(t){ var p = pr[t.id]; add("bad", "\""+t.titulo+"\" agora está prevista para "+fdata(p.data)+(p.motivo ? ", por causa de \""+p.motivo.titulo+"\"" : "")+", depois do início do campo ("+fdata(cc.ini)+").", "fases"); });
     if (cc.risco.length > 6) add("bad", "Mais "+(cc.risco.length - 6)+" tarefa(s) de preparação previstas para depois do início do campo.", "fases");
     if (ac <= 14 && cc.xs.length) add("warn", "O campo começa "+quando(ac)+" e "+cc.xs.length+" tarefa(s) de preparação estão abertas.", "fases"); }
+  S.data.verbas.forEach(function(v){ var r = verbaResumo(v);
+    if (r.saldo < 0) add("bad", "A verba de produção de "+v.nome+" passou do valor em "+brl(-r.saldo)+".", "orcamento");
+    if (r.semComp) add("warn", r.semComp+" despesa(s) de "+v.nome+" sem comprovante.", "orcamento");
+    if (r.nNaoPrev && r.aConferir) add("warn", v.nome+" lançou "+r.nNaoPrev+" despesa(s) não prevista(s) ("+brl(r.naoPrev)+"). Confira no Orçamento.", "orcamento"); });
   S.data.tarefas.forEach(function(t){ var a = divergente(t); if (a) add("warn", "\""+t.titulo+"\" foi marcada como feita, mas a máquina vê "+a.feito+" de "+a.total+". "+(a.falta || ""), "fases"); });
   return A.sort(function(a,b){ return (a.n === "bad" ? 0 : 1) - (b.n === "bad" ? 0 : 1); }); }
 function painelAlertas(A){
@@ -589,7 +593,7 @@ async function sincronizar(){
       try {
         if (it.tipo === "arquivo") { S.cur = it.projeto; var m = await enviarDrive(it.file, it.ctx, it.nome); m.rotulo = it.rotulo; mapa[it.filaId] = m;
           await filaOp("mapa", "readwrite", function(st){ return st.put({filaId:it.filaId, meta:m}); });
-          var alvo = it.ctx.gradeId ? "projetos/"+it.projeto+"/diario/"+it.ctx.gradeId : it.ctx.instituicaoId ? "projetos/"+it.projeto+"/instituicoes/"+it.ctx.instituicaoId : null;
+          var alvo = it.ctx.alvoPath ? it.ctx.alvoPath : it.ctx.gradeId ? "projetos/"+it.projeto+"/diario/"+it.ctx.gradeId : it.ctx.instituicaoId ? "projetos/"+it.projeto+"/instituicoes/"+it.ctx.instituicaoId : null;
           if (alvo) { var d = await S.db.doc(alvo).get(); if (d.exists) await S.db.doc(alvo).set(trocaPend(d.data(), mapa)); } }
         else if (it.tipo === "doc") { var dados = trocaPend(it.dados, mapa);
           if (it.op === "set") await S.db.doc(it.path).set(dados); else { try { await S.db.doc(it.path).update(dados); } catch(e2){ if (semRede(e2)) throw e2; await S.db.doc(it.path).set(dados); } } }
@@ -714,6 +718,109 @@ function alocar(l){
   abrirForm("Equipe · "+(l.a.nome || "atividade")+" · "+fdata(l.g.data), [{k:"equipe", t:"Equipe alocada (uma pessoa por linha: Nome - Função)", tipo:"textarea"}],
     {equipe:equipeTxt(l.eq)}, async function(v){ try { await S.db.doc("projetos/"+l.pid+"/grade/"+l.g.id).update({equipe:equipeLer(v.equipe), atualizadoEm:new Date().toISOString()});
       l.g.equipe = equipeLer(v.equipe); toast("Equipe salva."); render(); return true; } catch(e){ toast("Não foi possível salvar."); return false; } }); }
+
+/* ---------- budget do produtor: verba de produção por pessoa, despesas com comprovante ---------- */
+function verbaResumo(v){ var ds = S.data.despesas.filter(function(d){ return d.verbaId === v.id; }).sort(function(a, b){ return String(b.data).localeCompare(a.data); });
+  var gasto = ds.reduce(function(s, d){ return s + num(d.valor); }, 0), np = ds.filter(function(d){ return !d.previsto; });
+  return {ds:ds, gasto:gasto, saldo:num(v.valor) - gasto, naoPrev:np.reduce(function(s, d){ return s + num(d.valor); }, 0), nNaoPrev:np.length,
+    semComp:ds.filter(function(d){ return !d.comprovante; }).length, aConferir:ds.filter(function(d){ return !d.conferido; }).length}; }
+function itensVerbaTxt(xs){ return (xs || []).map(function(i){ return i.descricao+(num(i.valor) ? " - "+num(i.valor) : ""); }).join("\n"); }
+function itensVerbaLer(t, antigos){ return String(t || "").split(/\n+/).map(function(l, k){ var m = l.match(/^(.*?)(?:\s+-\s+R?\$?\s*([\d.,]+))?\s*$/); if (!m || !m[1].trim()) return null;
+  var desc = m[1].trim(), val = m[2] ? Number(m[2].replace(/\.(?=\d{3}(\D|$))/g, "").replace(",", ".")) : null, velho = (antigos || []).find(function(a){ return a.descricao === desc; });
+  return {id: velho ? velho.id : "it"+uid(), descricao:desc, valor:val}; }).filter(Boolean); }
+function editarVerba(v){
+  abrirForm(v ? "Editar verba de produção" : "Nova verba de produção", [
+    {k:"nome", t:"Pessoa (produtor)", req:true, meio:true}, {k:"email", t:"E-mail do login da pessoa na máquina", tipo:"email", req:true, meio:true},
+    {k:"valor", t:"Verba de produção (R$)", tipo:"number", req:true, meio:true}, {k:"rubrica", t:"Linha/rubrica na planilha financeira (formalização)", meio:true},
+    {k:"planilha", t:"Link da planilha financeira ou da formalização"},
+    {k:"itens", t:"Itens previstos (um por linha: descrição - valor). Ex.: Alimentação da equipe - 800", tipo:"textarea"},
+    {k:"obs", t:"Observação para o produtor", tipo:"textarea"}
+  ], v ? Object.assign({}, v, {itens:itensVerbaTxt(v.itens)}) : {}, async function(x){ x.itens = itensVerbaLer(x.itens, v && v.itens); x.email = String(x.email || "").trim().toLowerCase();
+    return v ? atualizar("verbas", v.id, x) : salvar("verbas", "vb_"+x.email.replace(/[^\w]/g, "_"), x); },
+  v ? h("button", {type:"button", class:"btn danger", onclick:function(){ confirmar("Apagar a verba de "+v.nome+"? As despesas lançadas continuam guardadas.", function(){ apagar("verbas", v.id); var s = document.querySelector(".scrim"); if (s) s.remove(); }); }}, "Apagar") : null); }
+function tabelaDespesas(ds, escritorio){
+  if (!ds.length) return h("div", {class:"muted small", text:"Nenhuma despesa lançada ainda."});
+  var tb = h("table", null, h("thead", null, h("tr", null, ["Data","Despesa","Valor","Previsto?","Comprovante", escritorio ? "Conferência" : "Situação"].map(function(x, i){ return h("th", {class: i === 2 ? "num" : null, text:x}); }))), h("tbody"));
+  ds.forEach(function(d){ tb.lastChild.appendChild(h("tr", null, h("td", {class:"mono", text:fdata(d.data)}),
+    h("td", null, h("b", {text:d.descricao}), d.gradeId && byId("grade", d.gradeId) ? h("div", {class:"small muted", text:nomeAtiv(byId("grade", d.gradeId).atividadeId)+" · "+nomeInst(byId("grade", d.gradeId).instituicaoId)}) : null,
+      !d.previsto && d.justificativa ? h("div", {class:"small", text:"Justificativa: "+d.justificativa}) : null),
+    h("td", {class:"num mono", text:brl(d.valor)}),
+    h("td", null, d.previsto ? h("span", {class:"pill p-ok", text:"Previsto"+(d.itemDesc ? " · "+d.itemDesc : "")}) : h("span", {class:"pill p-warn", text:"Não previsto"})),
+    h("td", null, d.comprovante ? miniaturas([d.comprovante]) : h("span", {class:"pill p-bad", text:"Sem comprovante"})),
+    h("td", null, escritorio ? h("label", {class:"small", style:"display:flex;gap:6px;align-items:center"}, h("input", {type:"checkbox", checked: d.conferido ? true : null, onchange:function(e){ atualizar("despesas", d.id, {conferido:e.target.checked, conferidoEm: e.target.checked ? new Date().toISOString() : null}); }}), "Conferida")
+      : d.conferido ? h("span", {class:"pill p-ok", text:"Conferida"}) : h("span", {class:"row", style:"gap:4px"}, h("span", {class:"pill p-mut", text:"Aguardando conferência"}),
+        h("button", {class:"btn ghost small", onclick:function(){ S.campo = Object.assign({}, S.campo, {editDesp:d.id}); render(); }}, "Editar"))))); });
+  return h("div", {style:"overflow-x:auto"}, tb); }
+function painelVerbas(){
+  var pan = h("div", {class:"panel", style:"margin-bottom:14px"}, h("div", {class:"row"}, h("div", {style:"flex:1;min-width:0"}, h("h2", {text:"Budget dos produtores (verba de produção)"}),
+    h("div", {class:"muted", text:"A verba de produção de cada produtor, tirada da planilha financeira e da formalização. O produtor lança cada gasto com comprovante pelo modo Campo e diz se estava previsto."})),
+    h("button", {class:"btn pri", onclick:function(){ editarVerba(null); }}, "Nova verba")));
+  if (!S.data.verbas.length) { pan.appendChild(h("div", {class:"empty", style:"margin-top:12px"}, h("b", {text:"Nenhuma verba aberta"}), "Abra a verba do produtor com o valor da formalização e os itens previstos.")); return pan; }
+  S.data.verbas.forEach(function(v){ var r = verbaResumo(v), aberto = S.verbaAberta === v.id;
+    pan.appendChild(h("div", {class:"accitem", style:"margin-top:10px"},
+      h("div", {class:"row", style:"gap:10px;flex-wrap:wrap"}, h("div", {style:"flex:1;min-width:200px"}, h("b", {text:v.nome}), h("div", {class:"small muted", text:v.email+(v.rubrica ? " · "+v.rubrica : "")}),
+          v.planilha ? h("a", {class:"small", href:v.planilha, target:"_blank", rel:"noopener", text:"planilha financeira ↗"}) : null),
+        h("div", {class:"mono small", style:"text-align:right"}, h("div", {text:"Verba "+brl(v.valor)}), h("div", {text:"Gasto "+brl(r.gasto)}), h("div", {class: r.saldo < 0 ? "late" : "", style:"font-weight:700", text:"Saldo "+brl(r.saldo)}))),
+      h("div", {class:"bar", style:"margin-top:8px"}, h("i", {style:"width:"+pct(r.gasto, v.valor)+"%"+(r.saldo < 0 ? ";background:var(--bad)" : "")})),
+      h("div", {class:"row small", style:"margin-top:6px;gap:8px;flex-wrap:wrap"}, h("span", {class:"pill p-mut", text:r.ds.length+" despesa(s)"}),
+        r.nNaoPrev ? h("span", {class:"pill p-warn", text:r.nNaoPrev+" não prevista(s) · "+brl(r.naoPrev)}) : null, r.semComp ? h("span", {class:"pill p-bad", text:r.semComp+" sem comprovante"}) : null,
+        r.aConferir ? h("span", {class:"pill p-info", text:r.aConferir+" a conferir"}) : null, h("span", {class:"sp"}),
+        h("button", {class:"btn ghost small", onclick:function(){ S.verbaAberta = aberto ? null : v.id; render(); }}, aberto ? "Fechar lançamentos" : "Ver lançamentos"),
+        h("button", {class:"btn ghost small", onclick:function(){ editarVerba(v); }}, "Editar verba")),
+      aberto ? h("div", {style:"margin-top:10px"}, (v.itens || []).length ? h("div", {class:"small", style:"margin-bottom:8px"}, h("b", {text:"Itens previstos: "}), (v.itens || []).map(function(i){ var g = r.ds.filter(function(d){ return d.itemId === i.id; }).reduce(function(s, d){ return s + num(d.valor); }, 0);
+          return i.descricao+" "+brl(g)+(num(i.valor) ? " de "+brl(i.valor) : ""); }).join(" · ")) : null, tabelaDespesas(r.ds, true)) : null)); });
+  return pan; }
+function campoBudget(w, v){
+  if (!v) { S.campo = {tela:"lista"}; return render(); }
+  var r = verbaResumo(v), edit = S.campo.editDesp ? S.data.despesas.find(function(d){ return d.id === S.campo.editDesp; }) : null;
+  w.appendChild(h("button", {class:"back", onclick:function(){ S.campo = {tela:"lista"}; render(); }}, "‹ Voltar à grade"));
+  w.appendChild(h("h2", {text:"Budget de produção · "+v.nome}));
+  w.appendChild(h("div", {class:"grid g3", style:"margin:10px 0"}, [["Verba", brl(v.valor)], ["Gasto", brl(r.gasto)], ["Saldo", brl(r.saldo)]].map(function(k, i){ return h("div", {class:"panel kpi"}, h("div", {class:"lbl", text:k[0]}), h("div", {class:"v"+(i === 2 && r.saldo < 0 ? " late" : ""), style:"font-size:22px", text:k[1]})); })));
+  if (v.obs) w.appendChild(h("div", {class:"note", text:v.obs}));
+  // formulário de despesa
+  var novoId = edit ? edit.id : "dp"+uid(), est = {comprovante: edit ? edit.comprovante || null : null};
+  var f = h("form", {class:"form panel", style:"margin-top:12px", onsubmit:async function(e){ e.preventDefault();
+    var sel = q("prev").value, it = (v.itens || []).find(function(i){ return "i:"+i.id === sel; });
+    var dados = {verbaId:v.id, email:v.email, pessoa:v.nome, data:q("data").value, descricao:q("desc").value.trim(), valor:Number(String(q("valor").value).replace(",", ".")) || 0,
+      previsto: sel !== "nao", itemId: it ? it.id : null, itemDesc: it ? it.descricao : (sel === "sim" ? "Previsto" : null), justificativa:q("just").value.trim(), gradeId:q("ativ").value || null,
+      comprovante:est.comprovante, autor:(S.perfil && (S.perfil.nome || S.perfil.email)) || v.nome, criadoEm: edit ? edit.criadoEm : new Date().toISOString(), conferido:false};
+    if (!dados.data || !dados.descricao || !dados.valor) { toast("Preencha data, descrição e valor."); return; }
+    if (!sel) { toast("Diga se a despesa estava prevista."); return; }
+    if (!dados.previsto && !dados.justificativa) { toast("Despesa não prevista precisa de justificativa."); return; }
+    async function grava(){ var ok = await salvar("despesas", novoId, dados); if (ok) { toast(FILA.ultimoOffline ? "Sem internet: despesa guardada no celular." : "Despesa lançada."); S.campo = {tela:"budget", verba:v.id}; render(); } }
+    if (!dados.comprovante) confirmar("Esta despesa está sem comprovante. Salvar assim e enviar o comprovante depois?", grava); else await grava(); }});
+  function q(k){ return f.querySelector("#b_"+k); }
+  function campo(k, t, el){ el.id = "b_"+k; return h("label", {for:"b_"+k}, t, el); }
+  var inData = h("input", {type:"date"}); inData.value = edit ? edit.data : hoje();
+  var inValor = h("input", {type:"number", min:"0", step:"0.01", placeholder:"0,00"}); inValor.value = edit ? edit.valor : "";
+  var inDesc = h("input", {type:"text", placeholder:"Ex.: almoço da equipe em Toledo"}); inDesc.value = edit ? edit.descricao : "";
+  var inPrev = h("select", null, h("option", {value:"", text:"Escolha…"}), (v.itens || []).map(function(i){ return h("option", {value:"i:"+i.id, text:"Previsto: "+i.descricao+(num(i.valor) ? " ("+brl(i.valor)+")" : "")}); }),
+    (v.itens || []).length ? null : h("option", {value:"sim", text:"Estava previsto"}), h("option", {value:"nao", text:"Não estava previsto"}));
+  if (edit) inPrev.value = edit.previsto ? (edit.itemId ? "i:"+edit.itemId : "sim") : "nao";
+  var inJust = h("textarea", {placeholder:"Por que foi preciso gastar com isso?"}); inJust.value = edit ? edit.justificativa || "" : "";
+  var inAtiv = h("select", null, h("option", {value:"", text:"Geral (não é de uma atividade)"}), S.data.grade.slice().sort(function(a, b){ return String(a.data).localeCompare(b.data); }).map(function(g){ return h("option", {value:g.id, text:fdata(g.data)+" · "+nomeInst(g.instituicaoId)+" · "+nomeAtiv(g.atividadeId)}); }));
+  if (edit && edit.gradeId) inAtiv.value = edit.gradeId;
+  var justBox = campo("just", "Justificativa (obrigatória se não estava previsto)", inJust); justBox.hidden = inPrev.value !== "nao";
+  inPrev.addEventListener("change", function(){ justBox.hidden = inPrev.value !== "nao"; });
+  var compBox = h("div"); function desenhaComp(){ compBox.textContent = ""; if (est.comprovante) add(compBox, miniaturas([est.comprovante])); }
+  desenhaComp();
+  f.appendChild(h("h3", {text: edit ? "Editar despesa" : "Lançar despesa"}));
+  f.appendChild(h("div", {class:"two"}, campo("data", "Data", inData), campo("valor", "Valor (R$)", inValor)));
+  f.appendChild(campo("desc", "Descrição", inDesc));
+  f.appendChild(h("div", {class:"two"}, campo("prev", "Estava previsto?", inPrev), campo("ativ", "Atividade (opcional)", inAtiv)));
+  f.appendChild(justBox);
+  f.appendChild(h("div", null, h("div", {class:"lbl", style:"margin-bottom:6px", text:"Comprovante (nota, cupom ou recibo)"}), compBox,
+    h("button", {type:"button", class:"btn", style:"margin-top:6px", onclick:function(){ seletorArquivos("image/*,application/pdf", false, async function(fs){
+      var ext = (fs[0].name.match(/\.[^.]+$/) || [""])[0], nome = (inData.value || hoje())+" - "+(inDesc.value.trim() || "despesa").slice(0, 40)+" - R$ "+(inValor.value || "0")+ext;
+      var res = await enviarArquivos([new File([fs[0]], nome, {type:fs[0].type})], "comprovante", {pasta:"despesas", pessoa:v.nome, alvoPath:path("despesas", novoId)});
+      if (res.length) { est.comprovante = res[0]; desenhaComp(); toast("Comprovante anexado."); } }); }}, est.comprovante ? "Trocar comprovante" : "Anexar comprovante")));
+  f.appendChild(h("div", {class:"row"}, edit ? h("button", {type:"button", class:"btn ghost", onclick:function(){ S.campo = {tela:"budget", verba:v.id}; render(); }}, "Cancelar") : null,
+    edit ? h("button", {type:"button", class:"btn danger", onclick:function(){ confirmar("Apagar esta despesa?", async function(){ await apagar("despesas", edit.id); S.campo = {tela:"budget", verba:v.id}; render(); }); }}, "Apagar") : null,
+    h("span", {class:"sp"}), h("button", {type:"submit", class:"btn pri"}, edit ? "Salvar alterações" : "Lançar despesa")));
+  w.appendChild(f);
+  w.appendChild(h("h3", {style:"margin:18px 0 6px", text:"Despesas lançadas"}));
+  w.appendChild(h("div", {class:"panel"}, tabelaDespesas(r.ds, false)));
+}
 
 /* ---------- formulário genérico ---------- */
 function abrirForm(titulo, campos, valores, onSalvar, extra){
@@ -1186,6 +1293,7 @@ function editarPeca(x){
 var CATS = ["Pessoas","Materiais","Gráfica","Evento e estrutura","Kits","Assessoria de imprensa","Designer","Transporte","Estadia","Locação","Outros"];
 var ST_ORC = [["cotar","A cotar"],["cotado","Cotado"],["aprovado","Aprovado"],["contratado","Contratado"]];
 function tOrcamento(app){
+  app.appendChild(painelVerbas());
   var tp = 0, tc = 0; S.data.orcamento.forEach(function(o){ tp += num(o.previsto); tc += num(o.cotado); });
   var contratados = S.data.stakeholders.filter(function(s){ return s.contratado; }), formalizados = contratados.filter(function(s){ return s.formal === "assinado"; }).length, pagos = contratados.filter(function(s){ return s.pagto === "pago"; }).length;
   app.appendChild(h("div", {class:"grid g4", style:"margin-bottom:14px"},
@@ -1320,6 +1428,12 @@ function renderCampo(app){
   if (papel === "produtor" && S.campo.tela === "inst" && S.campo.inst) return campoInst(w, byId("instituicoes", S.campo.inst));
   if (papel === "fotografo") return S.campo.tela === "sess" && S.campo.sess ? campoFotografo(w, byId("grade", S.campo.sess)) : campoCalendario(w);
   if (S.campo.tela === "sess" && S.campo.sess) return campoSessao(w, byId("grade", S.campo.sess), papel);
+  if (papel === "produtor" && S.campo.tela === "budget") return campoBudget(w, S.data.verbas.find(function(v){ return v.id === S.campo.verba; }));
+  if (papel === "produtor" && S.data.verbas.length) S.data.verbas.forEach(function(v){ var r = verbaResumo(v);
+    w.appendChild(h("button", {class:"card", style:"margin-bottom:10px", onclick:function(){ S.campo = {tela:"budget", verba:v.id}; render(); }},
+      h("div", {class:"row"}, h("b", {text:"Budget de produção"+(S.data.verbas.length > 1 || !WEB ? " · "+v.nome : "")}), h("span", {class:"sp"}), h("span", {class:"pill "+(r.saldo < 0 ? "p-bad" : "p-ok"), text:"Saldo "+brl(r.saldo)})),
+      h("div", {class:"bar", style:"margin-top:8px"}, h("i", {style:"width:"+pct(r.gasto, v.valor)+"%"})),
+      h("div", {class:"small muted", style:"margin-top:6px", text:"Gasto "+brl(r.gasto)+" de "+brl(v.valor)+" · "+r.ds.length+" despesa(s)"+(r.semComp ? " · "+r.semComp+" sem comprovante" : "")+". Toque para lançar despesas e comprovantes."}))); });
   if (!S.data.grade.length) { w.appendChild(h("div", {class:"empty"}, h("b", {text:"A grade deste projeto ainda está vazia"}), "O escritório lança as datas na aba Engajamento e grade; elas aparecem aqui.")); return; }
   var porInst = {}; S.data.grade.forEach(function(g){ (porInst[g.instituicaoId] = porInst[g.instituicaoId] || []).push(g); });
   Object.keys(porInst).sort(function(a,b){ var ma = porInst[a].map(function(g){ return g.data; }).sort()[0], mb = porInst[b].map(function(g){ return g.data; }).sort()[0]; return String(ma).localeCompare(mb); }).forEach(function(iid){
