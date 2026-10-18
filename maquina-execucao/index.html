@@ -480,7 +480,10 @@ async function escreverComClaude(base, ta){
 function tarefasFase(k){ return S.data.tarefas.filter(function(t){ return t.fase === k; }).sort(function(a,b){ return (num(a.ordem)-num(b.ordem)) || String(prazoTarefa(a)).localeCompare(prazoTarefa(b)); }); }
 function pctFase(k){ var ts = tarefasFase(k).filter(function(t){ return statusEfetivo(t) !== "na"; }); if (!ts.length) return null;
   return pct(ts.filter(function(t){ return statusEfetivo(t) === "feito"; }).length, ts.length); }
-function faseAtual(){ for (var i = 0; i < FASES.length; i++){ var p = pctFase(FASES[i].k); if (p !== null && p < 100) return FASES[i].k; } return FASES[FASES.length-1].k; }
+// fase atual = a mais avançada em que o projeto já começou; se ela está concluída, a seguinte.
+// (uma pendência que reabre numa fase antiga aparece como alerta, não puxa o projeto para trás)
+function faseAtual(){ var ult = -1; for (var i = 0; i < FASES.length; i++){ var p = pctFase(FASES[i].k); if (p !== null && p > 0) ult = i; }
+  if (ult < 0) return FASES[0].k; if (pctFase(FASES[ult].k) === 100 && ult < FASES.length - 1) return FASES[ult+1].k; return FASES[ult].k; }
 function atrasadas(){ var d = hoje(); return S.data.tarefas.filter(function(t){ var s = statusEfetivo(t); return s !== "feito" && s !== "na" && t.prazo && t.prazo < d; }); }
 function bloqueadas(){ return S.data.tarefas.filter(function(t){ return statusEfetivo(t) === "bloqueado"; }); }
 function proximas(n){ var d = hoje(), lim = addDias(d, n || 14); return S.data.tarefas.filter(function(t){ var s = statusEfetivo(t); return s !== "feito" && s !== "na" && t.prazo && t.prazo >= d && t.prazo <= lim; })
