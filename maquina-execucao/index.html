@@ -666,7 +666,7 @@ function instCompleta(i){ if (i.semComprovacao) return {ok:true, faltaA:0, falta
   var ats = cartasExigidas(i.id), cartas = i.cartas || {}, faltaC = ats.filter(function(a){ return !(cartas[a.id] && cartas[a.id].arquivo); }).length, hj = hoje();
   var faltaD = S.data.grade.filter(function(g){ return g.instituicaoId === i.id && gradeValida(g) && g.data && g.data <= hj; }).filter(function(g){ var d = diarioDe(g.id); return !(d && d.enviado && d.completo !== false); }).length;
   return {ok: faltaA === 0 && faltaC === 0 && faltaD === 0 && ats.length > 0, faltaA: faltaA, faltaC: faltaC, faltaD: faltaD, ats: ats.length}; }
-function faltasInst(c){ var f = []; if (c.faltaA) f.push("acessibilidade da instituição"); if (c.faltaD) f.push(c.faltaD+" diário(s) sem envio ou com fotos/lista de presença faltando"); if (c.faltaC) f.push(c.faltaC+" carta(s) de comprovação"); return f; }
+function faltasInst(c){ var f = []; if (c.faltaA) f.push("acessibilidade da instituição"); if (c.faltaD) f.push(c.faltaD+" diário(s) sem envio ou com fotos obrigatórias faltando"); if (c.faltaC) f.push(c.faltaC+" carta(s) de comprovação"); return f; }
 function metaTotal(){ return S.data.atividades.reduce(function(s,a){ return s + num(a.meta); }, 0); }
 function realizadoTotal(){ var ids = {}; S.data.grade.forEach(function(g){ if (gradeValida(g)) ids[g.id] = 1; }); return S.data.diario.filter(function(d){ return d.enviado && ids[d.id]; }).reduce(function(s,d){ return s + num(d.publico); }, 0); }
 function nomeInst(id){ var i = byId("instituicoes", id); return i ? i.nome : "Instituição"; }
@@ -1398,6 +1398,7 @@ function editarAtividade(a){
     {k:"equipe", t:"Pessoas necessárias na equipe", tipo:"number", meio:true}, {k:"meta", t:"Meta de público", tipo:"number", meio:true},
     {k:"unidade", t:"Unidade da meta", tipo:"select", opts:["alunos","professores","pessoas","atendimentos"], meio:true, def:"alunos"}, {k:"modalidade", t:"Modalidade", tipo:"select", opts:[["presencial","Presencial"],["virtual","Virtual"]], meio:true, def:"presencial"},
     {k:"minc", t:"Atividade ligada ao MinC", tipo:"check"},
+    {k:"exposicao", t:"É uma exposição (o diário pede fotos da exposição)", tipo:"check"}, {k:"exigePresenca", t:"Exige foto da lista de presença no diário", tipo:"check"},
     {k:"acessibilidade", t:"Acessibilidade prevista nesta atividade", tipo:"textarea"},
     {k:"descricaoPublica", t:"Descrição para o patrocinador (como é a atividade, em 2 ou 3 frases)", tipo:"textarea"}
   ], a, async function(v){ return a ? atualizar("atividades", a.id, v) : salvar("atividades", null, v); },
@@ -1634,7 +1635,7 @@ function renderCampo(app){
     w.appendChild(h("h3", {style:"margin:18px 0 6px", text:i.nome+(i.cidade ? " · "+i.cidade : "")}));
     if (papel === "produtor" && !i.semComprovacao) w.appendChild(h("button", {class:"card", onclick:function(){ S.campo = {tela:"inst", inst:iid}; render(); }},
       h("div", {class:"row"}, h("b", {text:"Comprovações da instituição"}), h("span", {class:"sp"}), h("span", {class:"pill "+(c.ok ? "p-ok" : "p-warn"), text: c.ok ? "Completas" : "Pendentes"})),
-      h("div", {class:"small muted", text: c.ok ? "Acessibilidade, diários completos (com lista de presença) e cartas: tudo certo." : "Falta: "+faltasInst(c).join("; ")+"."})));
+      h("div", {class:"small muted", text: c.ok ? "Acessibilidade, diários completos e cartas: tudo certo." : "Falta: "+faltasInst(c).join("; ")+"."})));
     gs.forEach(function(g){ var d = diarioDe(g.id), feito = d && d.enviado, fotosF = d && (d.fotosFotografo||[]).length;
       w.appendChild(h("button", {class:"card", onclick:function(){ S.campo = {tela:"sess", sess:g.id}; render(); }},
         h("div", {class:"row"}, h("span", {class:"mono", text:fdata(g.data)+(ehVirtual(g) ? " · Virtual" : g.turno ? " · "+g.turno : "")}), h("span", {class:"sp"}),
@@ -1851,7 +1852,11 @@ function campoSessao(w, g, papel){
       rot.observacao ? h("div", {class:"small muted", style:"margin-top:4px", text:rot.observacao}) : null)); });
   var leg = d.fotosSlot ? null : {atividade:(d.fotos||[]).slice(), acessibilidade:(d.fotosAcess||[]).slice(), presenca:(d.fotosPresenca||[]).slice()};
   var est = {presentes:(d.presentes||[]).slice(), patrocinadorPresentes:(d.patrocinadorPresentes||[]).slice(), entrevistados:(d.entrevistados||[]).slice(), slots:JSON.parse(JSON.stringify(d.fotosSlot || leg || {}))};
-  function slotsDef(){ return FOTO_SLOTS.map(function(x){ return {k:x[0], t:x[1], min: x[0] === "acessibilidade" ? (pediuAcess || q("acess") && q("acess").checked ? 1 : 0) : x[0] === "presenca" && virtual ? 0 : x[0] === "atividade" && virtual ? 1 : x[2], dica:x[3]}; }); }
+  function slotsDef(){ return FOTO_SLOTS.filter(function(x){ return x[0] !== "exposicao" || ehExposicao(at) || (est.slots.exposicao || []).length; }).map(function(x){ var m = x[2];
+      if (x[0] === "acessibilidade") m = pediuAcess || q("acess") && q("acess").checked ? 1 : 0;
+      else if (x[0] === "presenca") m = at.exigePresenca && !virtual ? 1 : 0;
+      else if (virtual) m = x[0] === "atividade" ? 1 : 0;
+      return {k:x[0], t:x[1], min:m, dica: x[0] === "presenca" && at.exigePresenca ? "Foto da lista de presença assinada. Esta atividade exige." : x[3]}; }); }
   function faltam(){ return slotsDef().filter(function(x){ return (est.slots[x.k] || []).length < x.min; }).map(function(x){ return x.t+" ("+(est.slots[x.k] || []).length+" de "+x.min+")"; }); }
   function fotosCompat(){ return [].concat(est.slots.montagem || [], est.slots.atividade || [], est.slots.educador || [], est.slots.exposicao || []); }
   var f = h("form", {class:"form", onsubmit:async function(e){ e.preventDefault();
@@ -1916,12 +1921,13 @@ function campoSessao(w, g, papel){
   f.appendChild(h("div", {class:"row"}, h("span", {class:"sp"}), h("button", {type:"submit", class:"btn pri"}, d.enviado ? "Atualizar diário" : "Enviar diário")));
   w.appendChild(h("div", {class:"panel", style:"margin-top:12px"}, f));
 }
-var FOTO_SLOTS = [["montagem","Montagem do espaço",1,"O espaço pronto antes de começar, com a identidade visual aparecendo (banners e materiais)."],
+var FOTO_SLOTS = [["montagem","Montagem do espaço",2,"2 fotos do espaço pronto antes de começar, com a identidade visual aparecendo (banners e materiais)."],
   ["atividade","Atividade com identidade visual",8,"8 fotos: a atividade, aluno executando, parte teórica com slides, parte prática que mostre a linguagem, atividade final, interação educador e aluno."],
-  ["educador","Educador identificado",1,"Quem conduziu a atividade, com camiseta ou crachá do projeto."],
-  ["exposicao","Exposição",0,"Só quando houver exposição na atividade."],
+  ["educador","Educador identificado",2,"2 fotos de quem conduziu a atividade, com camiseta ou crachá do projeto."],
+  ["exposicao","Exposição",1,"A exposição montada e o público visitando."],
   ["acessibilidade","Acessibilidade",0,"A pessoa de acessibilidade (Libras, monitor) com o aluno e momentos de interação."],
-  ["presenca","Lista de presença",1,"Foto da lista de presença assinada. Obrigatória em todas as atividades."]];
+  ["presenca","Lista de presença",0,"Foto da lista de presença assinada, quando houver."]];
+function ehExposicao(at){ return !!(at && (at.exposicao || /exposi/i.test(at.nome || ""))); }
 // 10. instituição anterior ainda pendente (a coordenação recebe um e-mail por instituição)
 function instAnteriorPendente(g){ if (!g || !g.data) return null; var porI = {};
   S.data.grade.forEach(function(x){ if (!gradeValida(x) || !x.data) return; var o = porI[x.instituicaoId] = porI[x.instituicaoId] || {a:x.data, b:x.data}; if (x.data < o.a) o.a = x.data; if (x.data > o.b) o.b = x.data; });
@@ -1961,8 +1967,14 @@ function campoChecklist(w){
   w.appendChild(h("h2", {text:"Checklist da cidade"}));
   var ETP = {antes:"Antes", execucao:"Durante a execução", pos:"Depois"}, porC = {};
   S.data.checklist.slice().sort(function(a, b){ return num(a.ordem) - num(b.ordem); }).forEach(function(x){ var c = x.cidade || "Projeto"; (porC[c] = porC[c] || []).push(x); });
-  Object.keys(porC).sort().forEach(function(c){ var feitos = porC[c].filter(function(x){ return x.concluido; }).length;
-    var det = h("details", {class:"panel", style:"margin-top:10px", open: Object.keys(porC).length === 1 ? true : null}, h("summary", {style:"cursor:pointer;font-weight:700", text:c+" · "+feitos+" de "+porC[c].length}));
+  // cidades na ordem da grade; abre a da próxima atividade (ou a última, se o campo acabou)
+  var semAc = function(t){ return String(t || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().split("/")[0].trim(); }, prim = {}, hj = hoje(), prox = null, ult = null;
+  S.data.grade.filter(gradeValida).forEach(function(g){ var c = semAc((byId("instituicoes", g.instituicaoId) || {}).cidade); if (!c || !g.data) return;
+    if (!prim[c] || g.data < prim[c]) prim[c] = g.data; if (g.data >= hj && (!prox || g.data < prox.d)) prox = {c:c, d:g.data}; if (!ult || g.data > ult.d) ult = {c:c, d:g.data}; });
+  function chaveC(c){ var k = semAc(c); return Object.keys(prim).filter(function(x){ return x.indexOf(k) === 0 || k.indexOf(x) === 0; })[0]; }
+  var abrir = (prox || ult || {}).c, cs = Object.keys(porC).sort(function(a, b){ return String(prim[chaveC(a)] || "9").localeCompare(String(prim[chaveC(b)] || "9")) || a.localeCompare(b); });
+  cs.forEach(function(c){ var feitos = porC[c].filter(function(x){ return x.concluido; }).length;
+    var det = h("details", {class:"panel", style:"margin-top:10px", open: cs.length === 1 || (abrir && chaveC(c) === abrir) ? true : null}, h("summary", {style:"cursor:pointer;font-weight:700", text:c+" · "+feitos+" de "+porC[c].length}));
     var porE = {}; porC[c].forEach(function(x){ var e = x.etapa || "outros"; (porE[e] = porE[e] || []).push(x); });
     ["antes","execucao","pos"].concat(Object.keys(porE).filter(function(e){ return !ETP[e]; })).forEach(function(e){ if (!porE[e]) return;
       det.appendChild(h("div", {class:"lbl", style:"margin:10px 0 4px", text:ETP[e] || e}));
