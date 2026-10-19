@@ -336,7 +336,7 @@ var MODELO = {"fases": [{"k": "lab", "t": "Lab", "cor": "lab", "dep": [], "resum
 var CONFIG = window.MX_CONFIG || null, WEB = !!CONFIG, WEBSB = null;
 var FASES = MODELO.fases, ACESS = MODELO.acessibilidade, TEMPLATE = MODELO.tarefas;
 var FMAP = {}; FASES.forEach(function(f){ FMAP[f.k] = f; });
-var COLS = ["tarefas","atividades","instituicoes","grade","diario","stakeholders","pecas","orcamento","documentos","verbas","despesas"];
+var COLS = ["tarefas","atividades","instituicoes","grade","diario","stakeholders","pecas","orcamento","documentos","verbas","despesas","checklist"];
 var S = { db:null, user:null, assets:null, ready:false, projetos:{}, cur:null, tab:"painel", fase:null, modo:"escritorio",
           data:{}, unsubs:[], campo:{tela:"lista", inst:null, sess:null}, pat:"painel", filtroInst:"" };
 COLS.forEach(function(c){ S.data[c] = []; });
@@ -396,7 +396,7 @@ async function salvarProjeto(id, dados){ if (!S.db) return false; try { await S.
 // cada papel só acompanha o que pode ler (o banco devolveria vazio de qualquer forma)
 function colsDoPapel(){ var pp = WEB && S.perfil ? S.perfil.papel : "";
   if (pp === "patrocinador") return ["tarefas","atividades","instituicoes","grade","diario","pecas","documentos"];
-  if (pp === "produtor" || pp === "fotografo") return ["atividades","instituicoes","grade","diario","verbas","despesas"];
+  if (pp === "produtor" || pp === "fotografo") return ["atividades","instituicoes","grade","diario","verbas","despesas","checklist"];
   return COLS; }
 // redesenho vindo do banco: espera a pessoa terminar o formulário (o que ela digitou não some)
 function renderRemoto(){ if (S.sujo) { if (!S.avisouPendente) { S.avisouPendente = true; toast("Há atualizações: elas aparecem quando você salvar ou sair desta tela."); } S.pendente = true; return; } render(); }
@@ -662,9 +662,11 @@ function cartasExigidas(iid){ var p = P() || {}, inst = byId("instituicoes", iid
   return atividadesDaInst(iid).map(function(a){ return {id:a, nome:nomeAtiv(a)}; }); }
 // Acessibilidade completa = fotos de pelo menos um item. Sem nenhuma foto, vale uma justificativa ou a carta assinada.
 function acessFotos(i){ var ac = i.acess || {}; return ACESS.filter(function(a){ var x = ac[a.k]; return x && x.tem && x.fotos && x.fotos.length; }).length; }
-function instCompleta(i){ if (i.semComprovacao) return {ok:true, faltaA:0, faltaC:0, ats:0, dispensada:true}; var faltaA = acessFotos(i) || String(i.acessJust || "").trim() || i.cartaSemAcess ? 0 : 1;
-  var ats = cartasExigidas(i.id), cartas = i.cartas || {}, faltaC = ats.filter(function(a){ return !(cartas[a.id] && cartas[a.id].arquivo); }).length;
-  return {ok: faltaA === 0 && faltaC === 0 && ats.length > 0, faltaA: faltaA, faltaC: faltaC, ats: ats.length}; }
+function instCompleta(i){ if (i.semComprovacao) return {ok:true, faltaA:0, faltaC:0, faltaD:0, ats:0, dispensada:true}; var faltaA = acessFotos(i) || String(i.acessJust || "").trim() || i.cartaSemAcess ? 0 : 1;
+  var ats = cartasExigidas(i.id), cartas = i.cartas || {}, faltaC = ats.filter(function(a){ return !(cartas[a.id] && cartas[a.id].arquivo); }).length, hj = hoje();
+  var faltaD = S.data.grade.filter(function(g){ return g.instituicaoId === i.id && gradeValida(g) && g.data && g.data <= hj; }).filter(function(g){ var d = diarioDe(g.id); return !(d && d.enviado && d.completo !== false); }).length;
+  return {ok: faltaA === 0 && faltaC === 0 && faltaD === 0 && ats.length > 0, faltaA: faltaA, faltaC: faltaC, faltaD: faltaD, ats: ats.length}; }
+function faltasInst(c){ var f = []; if (c.faltaA) f.push("acessibilidade da instituição"); if (c.faltaD) f.push(c.faltaD+" diário(s) sem envio ou com fotos/lista de presença faltando"); if (c.faltaC) f.push(c.faltaC+" carta(s) de comprovação"); return f; }
 function metaTotal(){ return S.data.atividades.reduce(function(s,a){ return s + num(a.meta); }, 0); }
 function realizadoTotal(){ var ids = {}; S.data.grade.forEach(function(g){ if (gradeValida(g)) ids[g.id] = 1; }); return S.data.diario.filter(function(d){ return d.enviado && ids[d.id]; }).reduce(function(s,d){ return s + num(d.publico); }, 0); }
 function nomeInst(id){ var i = byId("instituicoes", id); return i ? i.nome : "Instituição"; }
@@ -954,7 +956,7 @@ function campoBudget(w, v){
     if (!sel) { toast("Diga se a despesa estava prevista."); return; }
     if (!dados.previsto && !dados.justificativa) { toast("Despesa não prevista precisa de justificativa."); return; }
     async function grava(){ var ok = await salvar("despesas", novoId, dados); if (ok) { toast(FILA.ultimoOffline ? "Sem internet: despesa guardada no celular." : "Despesa lançada."); S.campo = {tela:"budget", verba:v.id}; render(); } }
-    if (!dados.comprovante) confirmar("Esta despesa está sem comprovante. Salvar assim e enviar o comprovante depois?", grava); else await grava(); }});
+    if (!dados.comprovante) { toast("Anexe a foto da nota ou do comprovante para salvar a despesa."); return; } await grava(); }});
   function q(k){ return f.querySelector("#b_"+k); }
   function campo(k, t, el){ el.id = "b_"+k; return h("label", {for:"b_"+k}, t, el); }
   var inData = h("input", {type:"date"}); inData.value = edit ? edit.data : hoje();
@@ -1523,7 +1525,7 @@ function editarInst(i){
   abrirForm(i ? "Editar instituição" : "Nova instituição", [
     {k:"nome", t:"Nome", req:true}, {k:"tipo", t:"Tipo", tipo:"select", opts:["Escola","Praça","Secretaria","Espaço cultural","Outro"], meio:true}, {k:"cidade", t:"Cidade", meio:true},
     {k:"contato", t:"Contato na instituição", meio:true}, {k:"telefone", t:"Telefone", meio:true}, {k:"email", t:"E-mail", tipo:"email", meio:true}, {k:"meta", t:"Meta de público nesta instituição", tipo:"number", meio:true},
-    {k:"confirmada", t:"Instituição confirmada", tipo:"check"}, {k:"semComprovacao", t:"Não exige comprovação (espaço público, evento aberto): sem cartas nem acessibilidade", tipo:"check"}, {k:"obs", t:"Observação", tipo:"textarea"}
+    {k:"confirmada", t:"Instituição confirmada", tipo:"check"}, {k:"semComprovacao", t:"Não exige comprovação (espaço público, evento aberto): sem cartas nem acessibilidade", tipo:"check"}, {k:"cnpj", t:"CNPJ da instituição (vai na carta)", meio:true}, {k:"responsavel", t:"Quem assina a carta pela instituição", meio:true}, {k:"obs", t:"Observação", tipo:"textarea"}
   ], i || {confirmada:true}, async function(v){ return i ? atualizar("instituicoes", i.id, v) : salvar("instituicoes", null, v); },
   i ? h("button", {type:"button", class:"btn danger", onclick:function(){ confirmar("Apagar "+i.nome+"?", function(){ apagar("instituicoes", i.id); var s = document.querySelector(".scrim"); if (s) s.remove(); }); }}, "Apagar") : null); }
 function editarGrade(g){
@@ -1599,12 +1601,22 @@ function renderCampo(app){
   if (papel === "fotografo") return S.campo.tela === "sess" && S.campo.sess ? campoFotografo(w, byId("grade", S.campo.sess)) : campoCalendario(w);
   if (S.campo.tela === "sess" && S.campo.sess) return campoSessao(w, byId("grade", S.campo.sess), papel);
   if (papel === "produtor" && S.campo.tela === "budget") return campoBudget(w, S.data.verbas.find(function(v){ return v.id === S.campo.verba; }));
+  if (papel === "produtor" && S.campo.tela === "check") return campoChecklist(w);
   if (papel === "produtor" && S.data.verbas.length) S.data.verbas.forEach(function(v){ var r = verbaResumo(v);
     w.appendChild(h("button", {class:"card", style:"margin-bottom:10px", onclick:function(){ S.campo = {tela:"budget", verba:v.id}; render(); }},
       h("div", {class:"row"}, h("b", {text:"Budget de produção"+(S.data.verbas.length > 1 || !WEB ? " · "+v.nome : "")}), h("span", {class:"sp"}), h("span", {class:"pill "+(r.saldo < 0 ? "p-bad" : "p-ok"), text:"Saldo "+brl(r.saldo)})),
       h("div", {class:"bar", style:"margin-top:8px"}, h("i", {style:"width:"+pct(r.gasto, v.valor)+"%"})),
       h("div", {class:"small muted", style:"margin-top:6px", text:"Gasto "+brl(r.gasto)+" de "+brl(v.valor)+" · "+r.ds.length+" despesa(s)"+(r.semComp ? " · "+r.semComp+" sem comprovante" : "")+". Toque para lançar despesas e comprovantes."}))); });
   if (!S.data.grade.length) { w.appendChild(h("div", {class:"empty"}, h("b", {text:"A grade deste projeto ainda está vazia"}), "O escritório lança as datas na aba Engajamento e grade; elas aparecem aqui.")); return; }
+  if (papel === "produtor") { var ics = instsConf().filter(function(i){ return atividadesDaInst(i.id).length && !i.semComprovacao; }), feitas = ics.filter(function(i){ return instCompleta(i).ok; }).length;
+    w.appendChild(h("div", {class:"pv-kpis", style:"margin:0 0 12px"}, [vk("oficina", GX_CORES[1], fnum(realizadoTotal()), "atendimentos até agora"), vk("aluno", GX_CORES[0], fnum(pessoasTotal().alunos), "pessoas comprovadas nas cartas"),
+      vk("escola", GX_CORES[2], feitas+" de "+ics.length, "instituições com tudo comprovado")]));
+    var pj0 = P() || {};
+    if (S.data.checklist.length) { var nc = S.data.checklist.filter(function(x){ return x.concluido; }).length;
+      w.appendChild(h("button", {class:"card", style:"margin-bottom:10px", onclick:function(){ S.campo = {tela:"check"}; render(); }}, h("div", {class:"row"}, h("b", {text:"Checklist da cidade"}), h("span", {class:"sp"}), h("span", {class:"pill "+(nc === S.data.checklist.length ? "p-ok" : "p-warn"), text:nc+" de "+S.data.checklist.length})),
+        h("div", {class:"small muted", text:"Antes, durante e depois da execução, do Plano do Projeto."}))); }
+    if ((pj0.regrasCampo || []).length) w.appendChild(h("details", {class:"panel", style:"margin-bottom:10px"}, h("summary", {style:"cursor:pointer;font-weight:700", text:"Regras de campo do projeto"}),
+      h("ul", {style:"margin:8px 0 0;padding-left:18px"}, pj0.regrasCampo.map(function(r){ return h("li", {style:"margin:4px 0", text:r}); })))); }
   if (papel === "produtor") w.appendChild(h("button", {class:"card", style:"margin-bottom:10px;border-style:dashed", onclick:novaAtividadeExtra},
     h("b", {text:"+ Registrar uma atividade fora da grade"}), h("div", {class:"small muted", text:"Aconteceu algo que não estava no calendário? Lance aqui e já preencha o diário. A coordenação aprova depois."})));
   var hjC = hoje(), ate = addDias(hjC, 7), agora = papel === "fotografo" ? [] : S.data.grade.filter(function(g){ var d = diarioDe(g.id); return g.data && !(d && d.enviado) && g.data <= ate && !g.planejado || (g.data && g.data >= hjC && g.data <= ate); })
@@ -1622,7 +1634,7 @@ function renderCampo(app){
     w.appendChild(h("h3", {style:"margin:18px 0 6px", text:i.nome+(i.cidade ? " · "+i.cidade : "")}));
     if (papel === "produtor" && !i.semComprovacao) w.appendChild(h("button", {class:"card", onclick:function(){ S.campo = {tela:"inst", inst:iid}; render(); }},
       h("div", {class:"row"}, h("b", {text:"Comprovações da instituição"}), h("span", {class:"sp"}), h("span", {class:"pill "+(c.ok ? "p-ok" : "p-warn"), text: c.ok ? "Completas" : "Pendentes"})),
-      h("div", {class:"small muted", text:"Acessibilidade (10 itens) e cartas de comprovação por atividade. Tudo precisa estar completo até a última atividade nesta instituição."})));
+      h("div", {class:"small muted", text: c.ok ? "Acessibilidade, diários completos (com lista de presença) e cartas: tudo certo." : "Falta: "+faltasInst(c).join("; ")+"."})));
     gs.forEach(function(g){ var d = diarioDe(g.id), feito = d && d.enviado, fotosF = d && (d.fotosFotografo||[]).length;
       w.appendChild(h("button", {class:"card", onclick:function(){ S.campo = {tela:"sess", sess:g.id}; render(); }},
         h("div", {class:"row"}, h("span", {class:"mono", text:fdata(g.data)+(ehVirtual(g) ? " · Virtual" : g.turno ? " · "+g.turno : "")}), h("span", {class:"sp"}),
@@ -1657,7 +1669,9 @@ function novaAtividadeExtra(){
     S.campo = {tela:"sess", sess:gid}; render(); }); }
 // coordenação: aprovar ou recusar o que o campo lançou fora da grade
 function painelExtras(){ var ps = S.data.grade.filter(function(g){ return g.extraPendente; }).sort(function(a, b){ return String(a.data).localeCompare(b.data); });
-  if (!ps.length) return null;
+  var dp = S.data.grade.filter(function(g){ return g.dataProposta && !g.extraPendente; });
+  if (!ps.length && !dp.length) return null;
+  if (!ps.length) return painelDatasPropostas(dp);
   var pan = h("div", {class:"panel", style:"margin-bottom:14px;border-left:4px solid var(--warn)"}, h("h2", {text:"Atividades lançadas pelo campo fora da grade ("+ps.length+")"}),
     h("div", {class:"small muted", style:"margin:2px 0 8px", text:"Só contam nos números e só aparecem para o patrocinador depois de aprovadas."}));
   ps.forEach(function(g){ var d = diarioDe(g.id), inst = byId("instituicoes", g.instituicaoId) || {}, quem = (S.perfil && (S.perfil.nome || S.perfil.email)) || "coordenação";
@@ -1673,6 +1687,15 @@ function painelExtras(){ var ps = S.data.grade.filter(function(g){ return g.extr
           await atualizar("grade", g.id, {extraPendente:false, extraRecusado:true, motivoRecusa:v.motivoRecusa, aprovadoPor:quem, aprovadoEm:new Date().toISOString()});
           if (inst.id && inst.extraPendente && !S.data.grade.some(function(x){ return x.id !== g.id && x.instituicaoId === inst.id && !x.extraRecusado; })) await atualizar("instituicoes", inst.id, {extraPendente:false, extraRecusado:true});
           toast("Atividade recusada."); }); }}, "Recusar"))))); });
+  if (dp.length) pan.appendChild(painelDatasPropostas(dp));
+  return pan; }
+function painelDatasPropostas(dp){ var quem = (S.perfil && (S.perfil.nome || S.perfil.email)) || "coordenação";
+  var pan = h("div", {class:"panel", style:"margin-bottom:14px;border-left:4px solid var(--info)"}, h("h2", {text:"Datas propostas pelo campo ("+dp.length+")"}),
+    h("div", {class:"small muted", style:"margin:2px 0 8px", text:"Atividades que estavam a confirmar. Confirmando, a data entra no cronograma."}));
+  dp.forEach(function(g){ pan.appendChild(h("div", {class:"li"}, h("div", {class:"main"}, h("b", {text:nomeAtiv(g.atividadeId)+" · "+nomeInst(g.instituicaoId)}),
+    h("div", {class:"meta"}, h("span", {text:"prevista "+fdata(g.data)}), h("b", {text:"proposta "+fdata(g.dataProposta)}), h("span", {text:"por "+(g.dataPropostaPor || "produtor")})),
+    h("div", {class:"row", style:"margin-top:8px;gap:8px"}, h("button", {class:"btn pri", onclick:async function(){ if (await atualizar("grade", g.id, {data:g.dataProposta, planejado:false, dataProposta:null, dataConfirmadaPor:quem, dataConfirmadaEm:new Date().toISOString()})) toast("Data confirmada."); }}, "Confirmar"),
+      h("button", {class:"btn", onclick:async function(){ if (await atualizar("grade", g.id, {dataProposta:null, dataRecusada:g.dataProposta})) toast("Proposta recusada; a data prevista continua."); }}, "Manter a prevista"))))); });
   return pan; }
 /* fotógrafo: calendário → dia → atividade → três pastas */
 var MESES = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
@@ -1747,8 +1770,21 @@ function campoInst(w, i){
   if (!i) { S.campo = {tela:"lista"}; return render(); }
   w.appendChild(h("button", {class:"back", onclick:function(){ S.campo = {tela:"lista"}; render(); }}, "‹ Voltar à grade"));
   w.appendChild(h("h2", {text:i.nome}));
+  var ci = instCompleta(i); if (!ci.dispensada) w.appendChild(h("div", {class:"note"+(ci.ok ? "" : " warn"), style:"margin-top:8px"}, ci.ok ? "Instituição com tudo comprovado." : "Para fechar esta instituição falta: "+faltasInst(ci).join("; ")+"."));
   var ac = JSON.parse(JSON.stringify(i.acess || {}));
   async function grava(){ await atualizar("instituicoes", i.id, {acess:ac}); }
+  var pa = Object.assign({}, i.pedidoAcess || {}), pab = h("div", {class:"accitem"}, h("b", {text:"Pedido de acessibilidade da escola"}),
+    h("div", {class:"small muted", style:"margin:2px 0 6px", text:"Pergunte à escola antes do primeiro diário. O que for marcado vira foto obrigatória em cada diário e entra na carta."}));
+  [["libras","Intérprete de Libras"],["monitor","Monitor especializado"],["braile","Material em braile"]].forEach(function(x){
+    pab.appendChild(h("label", {class:"ck"}, h("input", {type:"checkbox", checked: pa[x[0]] ? true : null, onchange:async function(e){ pa[x[0]] = e.target.checked; pa.registradoEm = new Date().toISOString(); await atualizar("instituicoes", i.id, {pedidoAcess:pa}); }}), x[1])); });
+  var pao = h("input", {placeholder:"Outro pedido (opcional)", style:"width:100%;margin-top:6px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--bg)"}); pao.value = pa.outro || "";
+  pao.addEventListener("change", async function(){ pa.outro = pao.value.trim(); await atualizar("instituicoes", i.id, {pedidoAcess:pa}); }); pab.appendChild(pao);
+  pab.appendChild(h("label", {class:"ck"}, h("input", {type:"checkbox", checked: pa.nenhum ? true : null, onchange:async function(e){ pa.nenhum = e.target.checked; await atualizar("instituicoes", i.id, {pedidoAcess:pa}); }}), "A escola informou que não precisa"));
+  w.appendChild(pab);
+  var dc = h("div", {class:"accitem", style:"margin-top:8px"}, h("b", {text:"Dados da instituição para a carta"}));
+  [["responsavel","Nome de quem assina pela instituição"],["cnpj","CNPJ da instituição"]].forEach(function(x){ var inp = h("input", {placeholder:x[1], "aria-label":x[1], style:"width:100%;margin-top:6px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--bg)"}); inp.value = i[x[0]] || "";
+    inp.addEventListener("change", async function(){ var o = {}; o[x[0]] = inp.value.trim(); await atualizar("instituicoes", i.id, o); }); dc.appendChild(inp); });
+  w.appendChild(dc);
   w.appendChild(h("h3", {style:"margin:16px 0 4px", text:"Acessibilidade da instituição"}));
   var nf = acessFotos(i), jt = String(i.acessJust || "").trim();
   w.appendChild(h("div", {class:"note "+(nf || jt || i.cartaSemAcess ? "" : "warn"), style:"margin-bottom:8px"},
@@ -1782,10 +1818,12 @@ function campoInst(w, i){
   ats.forEach(function(ea){ var aid = ea.id, nomeC = ea.nome, c = cartas[aid] || {}, it = h("div", {class:"accitem", style:"margin-top:8px"});
     var al = h("input", {type:"number", min:"0", "aria-label":"Alunos na carta", placeholder:"Alunos", style:"width:110px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--bg)"}); al.value = c.alunos == null ? "" : c.alunos;
     al.addEventListener("change", async function(){ cartas[aid] = Object.assign({}, cartas[aid]||{}, {alunos:al.value === "" ? null : Number(al.value)}); await atualizar("instituicoes", i.id, {cartas:cartas}); });
-    var lib = h("label", {class:"small", style:"display:flex;gap:6px;align-items:center"}, h("input", {type:"checkbox", checked: c.libras ? true : null, onchange:async function(e){ cartas[aid] = Object.assign({}, cartas[aid]||{}, {libras:e.target.checked}); await atualizar("instituicoes", i.id, {cartas:cartas}); }}), "Pedido de acessibilidade (Libras ou outro)");
+    var lib = h("label", {class:"small", style:"display:flex;gap:6px;align-items:center"}, h("input", {type:"checkbox", checked: (c.libras != null ? c.libras : (i.pedidoAcess || {}).libras) ? true : null, onchange:async function(e){ cartas[aid] = Object.assign({}, cartas[aid]||{}, {libras:e.target.checked}); await atualizar("instituicoes", i.id, {cartas:cartas}); }}), "Pedido de acessibilidade (Libras ou outro)");
     it.appendChild(h("div", {class:"row"}, h("b", {style:"flex:1;min-width:0", text:nomeC}), c.periodo ? h("span", {class:"small muted", text:c.periodo}) : null, c.arquivo ? h("span", {class:"pill p-ok", text:"Carta enviada"}) : h("span", {class:"pill p-warn", text:"Falta a carta"})));
     if (c.arquivo) it.appendChild(h("div", {style:"margin-top:6px"}, miniaturas([c.arquivo].concat(c.copias || []))));
-    it.appendChild(h("div", {class:"row", style:"margin-top:8px"}, al, lib, h("span", {class:"sp"}), h("button", {class:"btn", onclick:function(){ seletorArquivos("image/*,application/pdf", false, async function(fs){ var r = await enviarArquivos(fs, "carta: "+nomeC, {pasta:"comprovacoes", instituicaoId:i.id}); if (r.length) { cartas[aid] = Object.assign({}, cartas[aid]||{}, {arquivo:r[0]}); await atualizar("instituicoes", i.id, {cartas:cartas}); toast("Carta enviada."); } }); }}, c.arquivo ? "Trocar carta" : "Enviar carta")));
+    if (c.conferencia) it.appendChild(h("div", {class:"small muted", style:"margin-top:4px", text:"Conferida por "+(c.conferencia.por || "")+" em "+fdata(String(c.conferencia.em || "").slice(0, 10))}));
+    if (WEB && !c.arquivo) it.appendChild(h("div", {style:"margin-top:8px"}, h("button", {class:"btn ghost small", onclick:function(){ gerarCarta(i, aid, nomeC, this); }}, "Gerar a carta preenchida (.docx)")));
+    it.appendChild(h("div", {class:"row", style:"margin-top:8px"}, al, lib, h("span", {class:"sp"}), h("button", {class:"btn", onclick:function(){ conferirCarta(nomeC, function(conf){ seletorArquivos("image/*,application/pdf", false, async function(fs){ var r = await enviarArquivos(fs, "carta: "+nomeC, {pasta:"comprovacoes", instituicaoId:i.id}); if (r.length) { cartas[aid] = Object.assign({}, cartas[aid]||{}, {arquivo:r[0], conferencia:conf}); await atualizar("instituicoes", i.id, {cartas:cartas}); toast("Carta enviada e conferida."); } }); }); }}, c.arquivo ? "Trocar carta" : "Enviar carta assinada")));
     w.appendChild(it); });
 }
 function campoSessao(w, g, papel){
@@ -1798,49 +1836,142 @@ function campoSessao(w, g, papel){
       miniaturas(d.fotosFotografo), h("button", {class:"btn pri", style:"margin-top:10px", onclick:function(){ seletorArquivos("image/*,video/*", true, async function(fs){ var r = await enviarArquivos(fs, "fotógrafo"); if (!r.length) return;
         if (await anexar("diario", g.id, "fotosFotografo", r)) toast(r.length+" arquivo(s) enviados."); }); }}, "Enviar fotos e vídeos")));
     return; }
-  var est = {presentes:(d.presentes||[]).slice(), entrevistados:(d.entrevistados||[]).slice(), fotos:(d.fotos||[]).slice(), fotosAcess:(d.fotosAcess||[]).slice()};
+  var inst = byId("instituicoes", g.instituicaoId) || {}, at = byId("atividades", g.atividadeId) || {}, pj = P() || {}, pedido = inst.pedidoAcess || {};
+  var pediuAcess = !pedido.nenhum && !!(pedido.libras || pedido.monitor || pedido.braile || pedido.outro), virtual = ehVirtual(g);
+  add(w, extraTag(g));
+  var ant = instAnteriorPendente(g);
+  if (ant) { w.appendChild(h("div", {class:"note warn", style:"margin-top:10px"}, h("b", {text:"A instituição anterior ainda tem pendências: "+ant.i.nome+". "}), "Falta: "+ant.falta.join("; ")+". Você pode seguir; a coordenação foi avisada."));
+    avisarOrdem(ant, inst, g); }
+  if (g.planejado || g.dataProposta) w.appendChild(caixaData(g));
+  var rots = (at.roteiros || (at.grupo && (byId("atividades", at.grupo) || {}).roteiros) || []).concat(pj.roteirosGerais || []);
+  rots.forEach(function(rot){ if (!(rot.etapas || []).length) return;
+    w.appendChild(h("details", {class:"panel", style:"margin-top:10px"}, h("summary", {style:"cursor:pointer;font-weight:700", text:"Roteiro: "+(rot.titulo || "atividade")+(rot.duracaoTotal ? " · "+rot.duracaoTotal : "")}),
+      h("ol", {style:"margin:8px 0 0;padding-left:20px"}, rot.etapas.map(function(e){ return h("li", {style:"margin:6px 0"}, h("b", {text:(e.etapa || "")+(e.tempo ? " · "+e.tempo : "")}), e.descricao ? h("div", {class:"small", text:e.descricao}) : null); })),
+      (rot.materiais || []).length ? h("div", {class:"small muted", style:"margin-top:6px", text:"Materiais: "+rot.materiais.join("; ")}) : null,
+      rot.observacao ? h("div", {class:"small muted", style:"margin-top:4px", text:rot.observacao}) : null)); });
+  var leg = d.fotosSlot ? null : {atividade:(d.fotos||[]).slice(), acessibilidade:(d.fotosAcess||[]).slice(), presenca:(d.fotosPresenca||[]).slice()};
+  var est = {presentes:(d.presentes||[]).slice(), patrocinadorPresentes:(d.patrocinadorPresentes||[]).slice(), entrevistados:(d.entrevistados||[]).slice(), slots:JSON.parse(JSON.stringify(d.fotosSlot || leg || {}))};
+  function slotsDef(){ return FOTO_SLOTS.map(function(x){ return {k:x[0], t:x[1], min: x[0] === "acessibilidade" ? (pediuAcess || q("acess") && q("acess").checked ? 1 : 0) : x[0] === "presenca" && virtual ? 0 : x[0] === "atividade" && virtual ? 1 : x[2], dica:x[3]}; }); }
+  function faltam(){ return slotsDef().filter(function(x){ return (est.slots[x.k] || []).length < x.min; }).map(function(x){ return x.t+" ("+(est.slots[x.k] || []).length+" de "+x.min+")"; }); }
+  function fotosCompat(){ return [].concat(est.slots.montagem || [], est.slots.atividade || [], est.slots.educador || [], est.slots.exposicao || []); }
   var f = h("form", {class:"form", onsubmit:async function(e){ e.preventDefault();
-    var dados = {turma:q("turma").value.trim(), publico:Number(q("publico").value||0), professores:q("professores").value === "" ? null : Number(q("professores").value), homens:q("homens").value === "" ? null : Number(q("homens").value), mulheres:q("mulheres").value === "" ? null : Number(q("mulheres").value),
-      relato:q("relato").value.trim(), acessibilidade:q("acess").checked, acessDesc:q("acessDesc").value.trim(), presentes:lerPessoas(pp), entrevistados:lerPessoas(pe), fotos:est.fotos, fotosAcess:est.fotosAcess,
+    var dados = {turma:q("turma").value.trim(), publico:Number(q("publico").value||0), novos:q("novos").value === "" ? null : Number(q("novos").value), professores:q("professores").value === "" ? null : Number(q("professores").value),
+      homens:q("homens").value === "" ? null : Number(q("homens").value), mulheres:q("mulheres").value === "" ? null : Number(q("mulheres").value), horaInicio:q("hi").value, horaFim:q("hf").value,
+      relato:q("relato").value.trim(), acessibilidade:q("acess").checked, acessDesc:q("acessDesc").value.trim(), presentes:lerPessoas(pp), patrocinadorPresentes:lerPessoas(ppat), entrevistados:lerPessoas(pe),
+      fotosSlot:est.slots, fotos:fotosCompat(), fotosAcess:(est.slots.acessibilidade || []).slice(), fotosPresenca:(est.slots.presenca || []).slice(),
       autor:q("autor").value.trim(), enviado:true, enviadoEm:new Date().toISOString()};   // o material do fotógrafo não vai junto: cada um grava só o que é seu
+    var fl = faltam(); dados.completo = !fl.length; dados.faltando = fl;
     if (!dados.publico) { toast("Informe quantos foram atendidos."); return; }
-    if (!dados.fotos.length && !ehVirtual(g)) { toast("Envie pelo menos uma foto da atividade."); return; }
+    if (dados.novos != null && dados.novos > dados.publico) { toast("Pessoas novas não pode ser maior que o total atendido."); return; }
+    if (!dados.fotos.length && !virtual) { toast("Envie pelo menos uma foto da atividade."); return; }
     var av = [];
+    if (fl.length) av.push("Faltam fotos obrigatórias: "+fl.join("; ")+". O diário vai como incompleto e a instituição só fecha quando completar.");
+    if (dados.horaInicio && dados.horaFim && dados.horaFim <= dados.horaInicio) av.push("O horário de término está antes do início.");
+    if (!dados.horaInicio || !dados.horaFim) av.push("Faltou o horário real de início ou de término.");
     if (dados.homens != null && dados.mulheres != null && dados.homens + dados.mulheres !== dados.publico) av.push("Homens + mulheres = "+(dados.homens + dados.mulheres)+", mas o total atendido é "+dados.publico+".");
     if ((dados.homens == null) !== (dados.mulheres == null)) av.push("Você preencheu só homens ou só mulheres.");
-    if (!ehVirtual(g) && dados.fotos.length < 3) av.push("Só "+dados.fotos.length+" foto(s). O ideal é ao menos 3: identidade visual aparecendo, alunos na atividade e o educador explicando.");
+    if (dados.novos == null) av.push("Faltou dizer quantos vieram pela primeira vez.");
     if (dados.relato.length < 40) av.push("O relato está muito curto. Conte em 2 ou 3 frases como foi a atividade.");
-    if (!dados.presentes.length) av.push("Ninguém da equipe ou de parceiros foi listado como presente.");
+    if (!dados.presentes.length) av.push("Ninguém da equipe NTICS foi listado como presente.");
     if (num(g.previstos) && dados.publico > num(g.previstos) * 1.3) av.push("O público ("+dados.publico+") está bem acima do previsto ("+g.previstos+").");
     if (!dados.autor) av.push("Falta o seu nome no fim do formulário.");
-    async function envia(){ lsSet("mx-autor", dados.autor); var ok = await mesclar("diario", g.id, dados); if (ok) { toast(FILA.ultimoOffline ? "Sem internet: diário guardado no celular." : "Diário enviado."); S.campo = {tela:"lista"}; render(); } }
+    async function envia(){ lsSet("mx-autor", dados.autor); var ok = await mesclar("diario", g.id, dados); if (ok) { toast(FILA.ultimoOffline ? "Sem internet: diário guardado no celular." : dados.completo ? "Diário enviado e completo." : "Diário enviado. Complete as fotos que faltam."); S.campo = {tela:"lista"}; render(); } }
     if (av.length) confirmar("Antes de enviar, confira:\n\n• "+av.join("\n• ")+"\n\nEnviar mesmo assim?", envia); else await envia(); }});
   function q(k){ return f.querySelector("#d_"+k); }
-  function campo(k, t, tipo, val, meio){ var el = tipo === "textarea" ? h("textarea", {id:"d_"+k}) : h("input", {id:"d_"+k, type:tipo||"text", min: tipo === "number" ? "0" : null}); el.value = val == null ? "" : val; return h("label", {for:"d_"+k}, t, el); }
+  function campo(k, t, tipo, val, dica){ var el = tipo === "textarea" ? h("textarea", {id:"d_"+k}) : h("input", {id:"d_"+k, type:tipo||"text", min: tipo === "number" ? "0" : null}); el.value = val == null ? "" : val;
+    return h("label", {for:"d_"+k}, t, el, dica ? h("span", {class:"small muted", style:"font-weight:400", text:dica}) : null); }
+  var hor = String(g.horario || "").match(/(\d{1,2}[:h]\d{2})\D+(\d{1,2}[:h]\d{2})/), hn = function(x){ return x ? x.replace("h", ":").padStart(5, "0") : ""; };
+  f.appendChild(h("div", {class:"two"}, campo("hi", "Início real", "time", d.horaInicio || hn(hor && hor[1])), campo("hf", "Término real", "time", d.horaFim || hn(hor && hor[2]))));
+  var primeira = !S.data.grade.some(function(x){ return x.instituicaoId === g.instituicaoId && x.id !== g.id && String(x.data) < String(g.data) && (diarioDe(x.id) || {}).enviado; });
   f.appendChild(h("div", {class:"two"}, campo("turma", "Turma", "text", d.turma || g.turma), campo("publico", "Quantos foram atendidos", "number", d.publico)));
+  f.appendChild(h("div", {class:"two"}, campo("novos", "Quantos vieram pela primeira vez", "number", d.novos, primeira ? "Primeira atividade nesta instituição: normalmente é igual ao total." : "Quem já participou de outra atividade aqui não entra."), campo("professores", "Professores presentes", "number", d.professores)));
   f.appendChild(h("div", {class:"two"}, campo("homens", "Homens (opcional)", "number", d.homens), campo("mulheres", "Mulheres (opcional)", "number", d.mulheres)));
-  f.appendChild(h("div", {class:"two"}, campo("professores", "Professores presentes (opcional)", "number", d.professores), h("span")));
   f.appendChild(campo("relato", "Relato da atividade", "textarea", d.relato));
   function blocoPessoas(tit, lista){ var box = h("div", {class:"people"}); function linha(p){ p = p || {}; var n = h("input", {placeholder:"Nome", "aria-label":"Nome"}), fn = h("input", {placeholder:"Função", "aria-label":"Função"}); n.value = p.nome||""; fn.value = p.funcao||"";
       var r = h("div", {class:"pr"}, n, fn, h("button", {type:"button", class:"btn ghost", "aria-label":"Remover", onclick:function(){ r.remove(); }}, "×")); box.appendChild(r); }
     lista.forEach(linha); if (!lista.length) linha();
     return {el:h("div", null, h("div", {class:"lbl", style:"margin-bottom:6px", text:tit}), box, h("button", {type:"button", class:"btn ghost", style:"margin-top:4px", onclick:function(){ linha(); }}, "+ adicionar")), box:box}; }
   function lerPessoas(b){ return Array.prototype.map.call(b.box.querySelectorAll(".pr"), function(r){ var ins = r.querySelectorAll("input"); return {nome:ins[0].value.trim(), funcao:ins[1].value.trim()}; }).filter(function(x){ return x.nome; }); }
-  var pp = blocoPessoas("Quem estava presente além dos alunos (parceiros, professores, equipe)", est.presentes), pe = blocoPessoas("Entrevistados", est.entrevistados);
-  f.appendChild(pp.el); f.appendChild(pe.el);
-  var fotosBox = h("div"); function desenhaFotos(){ fotosBox.textContent = ""; add(fotosBox, miniaturas(est.fotos)); }
-  desenhaFotos();
-  f.appendChild(h("div", null, h("div", {class:"lbl", style:"margin-bottom:6px", text:"Fotos de comprovação"}), h("div", {class:"small muted", style:"margin-bottom:6px", text:"Montagem com a identidade visual aparecendo (banners e materiais impressos), alunos fazendo a atividade e o educador explicando."}), fotosBox,
-    h("button", {type:"button", class:"btn", style:"margin-top:6px", onclick:function(){ seletorArquivos("image/*", true, async function(fs){ var r = await enviarArquivos(fs, "atividade", {pasta:"diario", gradeId:g.id}); est.fotos = est.fotos.concat(r); desenhaFotos(); }); }}, "Enviar fotos")));
-  var ck = h("input", {id:"d_acess", type:"checkbox"}); ck.checked = !!d.acessibilidade;
-  var acessBox = h("div"); function desenhaAcess(){ acessBox.textContent = ""; add(acessBox, miniaturas(est.fotosAcess)); }
-  desenhaAcess();
+  var pp = blocoPessoas("Equipe NTICS presente (educadores, produção, foto)", est.presentes), ppat = blocoPessoas("Equipe do patrocinador presente (empresa, concessionária, parceiros dele)", est.patrocinadorPresentes), pe = blocoPessoas("Entrevistados", est.entrevistados);
+  f.appendChild(pp.el); f.appendChild(ppat.el); f.appendChild(pe.el);
+  var ck = h("input", {id:"d_acess", type:"checkbox"}); ck.checked = !!d.acessibilidade || pediuAcess;
   f.appendChild(h("div", {class:"accitem"}, h("label", {class:"ck"}, ck, "Houve atendimento de acessibilidade nesta atividade (Libras, audiodescrição, monitor dedicado…)"),
-    campo("acessDesc", "Como foi", "textarea", d.acessDesc), acessBox, h("button", {type:"button", class:"btn", style:"margin-top:6px", onclick:function(){ seletorArquivos("image/*", true, async function(fs){ var r = await enviarArquivos(fs, "acessibilidade na atividade", {pasta:"diario", gradeId:g.id}); est.fotosAcess = est.fotosAcess.concat(r); desenhaAcess(); }); }}, "Fotos de acessibilidade")));
+    pediuAcess ? h("div", {class:"small", style:"margin-top:4px", text:"A escola pediu: "+["libras","monitor","braile"].filter(function(k){ return pedido[k]; }).map(function(k){ return {libras:"Libras", monitor:"monitor", braile:"braile"}[k]; }).concat(pedido.outro ? [pedido.outro] : []).join(", ")+". A foto de acessibilidade é obrigatória."}) : null,
+    campo("acessDesc", "Como foi", "textarea", d.acessDesc)));
+  // espaços de foto com nome; cada foto já sai com o nome padrão e fica guardada no diário assim que sobe
+  var boxes = h("div");
+  function desenhaSlots(){ boxes.textContent = ""; boxes.appendChild(h("div", {class:"lbl", style:"margin:8px 0 6px", text:"Fotos de comprovação"}));
+    slotsDef().forEach(function(x){ var n = (est.slots[x.k] || []).length, ok = n >= x.min;
+      boxes.appendChild(h("div", {class:"accitem", style:"margin-bottom:8px"}, h("div", {class:"row"}, h("b", {style:"flex:1;min-width:0", text:x.t}),
+          h("span", {class:"pill "+(x.min ? (ok ? "p-ok" : "p-warn") : "p-mut"), text: x.min ? n+" de "+x.min+(x.min && !ok ? " · obrigatória" : "") : n+" (opcional)"})),
+        h("div", {class:"small muted", style:"margin:4px 0 6px", text:x.dica}), miniaturas(est.slots[x.k] || []),
+        h("button", {type:"button", class:"btn", style:"margin-top:6px", onclick:function(){ seletorArquivos("image/*", true, async function(fs){
+          var base = [g.data, inst.nome, String(inst.cidade || "").split("/")[0], nomeAtiv(g.atividadeId), x.t].filter(Boolean).join(" ").replace(/[\\/:*?"<>|]+/g, "-"), ini = (est.slots[x.k] || []).length;
+          var ren = Array.prototype.map.call(fs, function(fl, j){ var ext = (fl.name.match(/\.[^.]+$/) || [".jpg"])[0]; return new File([fl], base+" "+(ini + j + 1)+ext, {type:fl.type}); });
+          var r = await enviarArquivos(ren, x.t, {pasta:"diario", gradeId:g.id}); if (!r.length) return;
+          est.slots[x.k] = (est.slots[x.k] || []).concat(r); desenhaSlots();
+          await mesclar("diario", g.id, {fotosSlot:est.slots, fotos:fotosCompat(), fotosAcess:(est.slots.acessibilidade || []).slice(), fotosPresenca:(est.slots.presenca || []).slice()}); }); }}, "Enviar fotos"))); }); }
+  desenhaSlots(); ck.addEventListener("change", desenhaSlots); f.appendChild(boxes);
   f.appendChild(campo("autor", "Seu nome", "text", d.autor || lsGet("mx-autor") || ""));
   f.appendChild(h("div", {class:"row"}, h("span", {class:"sp"}), h("button", {type:"submit", class:"btn pri"}, d.enviado ? "Atualizar diário" : "Enviar diário")));
   w.appendChild(h("div", {class:"panel", style:"margin-top:12px"}, f));
 }
+var FOTO_SLOTS = [["montagem","Montagem do espaço",1,"O espaço pronto antes de começar, com a identidade visual aparecendo (banners e materiais)."],
+  ["atividade","Atividade com identidade visual",8,"8 fotos: a atividade, aluno executando, parte teórica com slides, parte prática que mostre a linguagem, atividade final, interação educador e aluno."],
+  ["educador","Educador identificado",1,"Quem conduziu a atividade, com camiseta ou crachá do projeto."],
+  ["exposicao","Exposição",0,"Só quando houver exposição na atividade."],
+  ["acessibilidade","Acessibilidade",0,"A pessoa de acessibilidade (Libras, monitor) com o aluno e momentos de interação."],
+  ["presenca","Lista de presença",1,"Foto da lista de presença assinada. Obrigatória em todas as atividades."]];
+// 10. instituição anterior ainda pendente (a coordenação recebe um e-mail por instituição)
+function instAnteriorPendente(g){ if (!g || !g.data) return null; var porI = {};
+  S.data.grade.forEach(function(x){ if (!gradeValida(x) || !x.data) return; var o = porI[x.instituicaoId] = porI[x.instituicaoId] || {a:x.data, b:x.data}; if (x.data < o.a) o.a = x.data; if (x.data > o.b) o.b = x.data; });
+  var cand = Object.keys(porI).filter(function(iid){ return iid !== g.instituicaoId && porI[iid].b < g.data; }).sort(function(a, b){ return porI[b].b.localeCompare(porI[a].b); });
+  for (var k = 0; k < cand.length; k++){ var i = byId("instituicoes", cand[k]); if (!i || i.semComprovacao) continue; var c = instCompleta(i); return c.ok ? null : {i:i, falta:faltasInst(c)}; }
+  return null; }
+var AVISADO = {};
+async function avisarOrdem(ant, inst, g){ if (!WEB || !S.perfil || S.perfil.papel !== "produtor" || inst.avisoOrdemEm || AVISADO[inst.id]) return; AVISADO[inst.id] = 1;
+  try { var ses = (await WEBSB.auth.getSession()).data.session;
+    await fetch(CONFIG.url+"/functions/v1/avisos", {method:"POST", headers:{Authorization:"Bearer "+ses.access_token, apikey:CONFIG.anon, "Content-Type":"application/json"},
+      body:JSON.stringify({tipo:"ordem", projeto:S.cur, instAnterior:ant.i.id, instAtual:inst.id, falta:ant.falta})}); } catch(e){} }
+// 7. data a confirmar: o produtor propõe, a coordenação confirma
+function caixaData(g){ var box = h("div", {class:"note", style:"margin-top:10px"});
+  if (g.dataProposta) { box.appendChild(h("div", null, h("b", {text:"Data proposta: "+fdata(g.dataProposta)+". "}), "Aguardando a coordenação confirmar.")); return box; }
+  var inp = h("input", {type:"date", value:g.data || "", style:"border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--bg)"});
+  box.appendChild(h("div", null, h("b", {text:"Data a confirmar. "}), "Prevista para "+fdata(g.data)+". Se aconteceu (ou vai acontecer) em outro dia, proponha a data certa:"));
+  box.appendChild(h("div", {class:"row", style:"margin-top:6px;gap:8px"}, inp, h("button", {class:"btn", onclick:async function(){ if (!inp.value) return; if (await atualizar("grade", g.id, {dataProposta:inp.value})) toast("Data proposta. A coordenação confirma."); }}, inp.value && inp.value === g.data ? "Confirmar esta data" : "Propor data")));
+  return box; }
+// 11. carta: gerar no modelo oficial e conferir antes de subir a assinada
+async function gerarCarta(i, aid, nomeC, bt){ bt.disabled = true; bt.textContent = "Gerando…";
+  try { var ses = (await WEBSB.auth.getSession()).data.session;
+    var r = await fetch(CONFIG.url+"/functions/v1/carta-docx", {method:"POST", headers:{Authorization:"Bearer "+ses.access_token, apikey:CONFIG.anon, "Content-Type":"application/json"}, body:JSON.stringify({projeto:S.cur, instituicaoId:i.id, entregaId:aid})});
+    var j = await r.json(); if (!r.ok || !j.ok) throw new Error(j.erro || "falhou");
+    var bin = atob(j.arquivo), u8 = new Uint8Array(bin.length); for (var k = 0; k < bin.length; k++) u8[k] = bin.charCodeAt(k);
+    var a = h("a", {href:URL.createObjectURL(new Blob([u8], {type:"application/vnd.openxmlformats-officedocument.wordprocessingml.document"})), download:j.nome}); document.body.appendChild(a); a.click(); a.remove();
+    bt.replaceWith(h("div", {class:"small", style:"margin-top:4px"}, "Carta gerada com "+(j.alunos || 0)+" alunos"+(j.libras ? " e Libras" : "")+". ", j.link ? h("a", {href:j.link, target:"_blank", rel:"noopener", text:"Abrir no Drive ↗"}) : null,
+      (j.faltando || []).length ? h("div", {class:"late", text:"Complete na carta: "+j.faltando.join(", ")+"."}) : null)); }
+  catch(e){ bt.disabled = false; bt.textContent = "Gerar a carta preenchida (.docx)"; toast("Não foi possível gerar a carta: "+(e.message || e)); } }
+function conferirCarta(nomeC, seguir){
+  var itens = [["timbre","Está no papel timbrado da instituição"],["carimbo","Tem assinatura e carimbo (ou CNPJ) da instituição"],["proponente","Proponente e CNPJ do proponente estão corretos"],["projeto","Nome do projeto, PRONAC e número de alunos estão corretos"]];
+  abrirForm("Conferir a carta assinada: "+nomeC, itens.map(function(x){ return {k:x[0], t:x[1], tipo:"check"}; }), {}, function(v){
+    if (itens.some(function(x){ return !v[x[0]]; })) { toast("Confira os quatro pontos antes de subir a carta."); return false; }
+    seguir({timbre:true, carimbo:true, proponente:true, projeto:true, por:(S.perfil && (S.perfil.nome || S.perfil.email)) || lsGet("mx-autor") || "produtor", em:new Date().toISOString()}); }); }
+// 12. checklist da cidade (do Plano do Projeto)
+function campoChecklist(w){
+  w.appendChild(h("button", {class:"back", onclick:function(){ S.campo = {tela:"lista"}; render(); }}, "‹ Voltar"));
+  w.appendChild(h("h2", {text:"Checklist da cidade"}));
+  var ETP = {antes:"Antes", execucao:"Durante a execução", pos:"Depois"}, porC = {};
+  S.data.checklist.slice().sort(function(a, b){ return num(a.ordem) - num(b.ordem); }).forEach(function(x){ var c = x.cidade || "Projeto"; (porC[c] = porC[c] || []).push(x); });
+  Object.keys(porC).sort().forEach(function(c){ var feitos = porC[c].filter(function(x){ return x.concluido; }).length;
+    var det = h("details", {class:"panel", style:"margin-top:10px", open: Object.keys(porC).length === 1 ? true : null}, h("summary", {style:"cursor:pointer;font-weight:700", text:c+" · "+feitos+" de "+porC[c].length}));
+    var porE = {}; porC[c].forEach(function(x){ var e = x.etapa || "outros"; (porE[e] = porE[e] || []).push(x); });
+    ["antes","execucao","pos"].concat(Object.keys(porE).filter(function(e){ return !ETP[e]; })).forEach(function(e){ if (!porE[e]) return;
+      det.appendChild(h("div", {class:"lbl", style:"margin:10px 0 4px", text:ETP[e] || e}));
+      porE[e].forEach(function(x){ det.appendChild(h("label", {class:"ck", style:"align-items:flex-start"}, h("input", {type:"checkbox", checked: x.concluido ? true : null, onchange:async function(ev){
+          var quem = (S.perfil && (S.perfil.nome || S.perfil.email)) || lsGet("mx-autor") || "produtor";
+          await atualizar("checklist", x.id, {concluido:ev.target.checked, concluidoPor: ev.target.checked ? quem : null, concluidoEm: ev.target.checked ? new Date().toISOString() : null}); }}),
+        h("span", null, x.item, x.responsavel ? h("span", {class:"small muted", text:" · "+x.responsavel}) : null, x.concluidoPor ? h("span", {class:"small muted", text:" · feito por "+x.concluidoPor}) : null))); }); });
+    w.appendChild(det); }); }
+
 
 /* ---------- modo patrocinador ---------- */
 /* cronograma do patrocinador: linha do tempo do projeto (etapas, execução por local, entregas) + execução em detalhe + programação com horários */
