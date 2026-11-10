@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entrar — Estação Samarco</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{margin:0;padding:0;min-height:100vh;font-family:'Nunito Sans',sans-serif;}
+    :root{
+      --azul:#0f406b;
+      --azulcl:#4bc1eb;
+      --azulmd:#1b5fa8;
+      --magenta:#c43f62;
+      --texto:#2b2d42;
+    }
+    body{
+      background:
+        radial-gradient(ellipse at 20% 50%,rgba(75,193,235,.35) 0%,transparent 55%),
+        radial-gradient(ellipse at 80% 20%,rgba(27,95,168,.45) 0%,transparent 50%),
+        var(--azul);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      min-height:100vh;padding:20px;
+    }
+
+    /* Card */
+    .login-card{
+      background:#fff;
+      border-radius:24px;
+      padding:48px 40px;
+      width:100%;max-width:420px;
+      box-shadow:0 32px 80px rgba(0,0,0,0.25);
+    }
+    .login-logo{
+      text-align:center;margin-bottom:32px;
+    }
+    .login-logo img{height:56px;width:auto}
+    .login-title{
+      font-family:'Dancing Script',cursive;
+      font-size:1.6rem;color:var(--azul);
+      text-align:center;margin:0 0 6px;
+    }
+    .login-sub{
+      font-size:.85rem;color:#8a9bb5;text-align:center;margin:0 0 32px;
+    }
+
+    /* Form */
+    label{
+      display:block;font-size:.82rem;font-weight:700;
+      color:var(--azul);margin-bottom:6px;
+    }
+    input[type="text"],input[type="password"]{
+      width:100%;padding:12px 16px;
+      border:1.5px solid rgba(15,64,107,.2);
+      border-radius:10px;font-size:.95rem;
+      font-family:'Nunito Sans',sans-serif;
+      color:var(--texto);background:#f7f9fc;
+      transition:border-color .2s;outline:none;
+      margin-bottom:20px;
+    }
+    input[type="text"]:focus,input[type="password"]:focus{
+      border-color:var(--azulcl);background:#fff;
+    }
+    .login-btn{
+      width:100%;padding:14px;border:none;border-radius:50px;
+      background:var(--magenta);color:#fff;
+      font-family:'Nunito Sans',sans-serif;
+      font-size:1rem;font-weight:700;cursor:pointer;
+      box-shadow:0 8px 24px rgba(196,63,98,.35);
+      transition:all .25s;
+    }
+    .login-btn:hover{background:#a83354;transform:translateY(-2px);}
+
+    /* Forgot / links */
+    .login-links{
+      text-align:center;margin-top:20px;
+      font-size:.82rem;color:#8a9bb5;
+    }
+    .login-links a{color:var(--azulmd);text-decoration:none;font-weight:600}
+    .login-links a:hover{text-decoration:underline}
+
+    /* Error message */
+    .login-error{
+      background:#fff0f3;border:1px solid rgba(196,63,98,.25);
+      border-radius:10px;padding:12px 16px;
+      font-size:.85rem;color:var(--magenta);
+      margin-bottom:20px;display:none;
+    }
+    .login-error.visible{display:block}
+
+    /* Back link */
+    .back-link{
+      margin-top:28px;text-align:center;
+      font-size:.82rem;color:rgba(255,255,255,.65);
+    }
+    .back-link a{color:rgba(255,255,255,.85);text-decoration:none;font-weight:600}
+    .back-link a:hover{color:#fff}
+
+    /* Mobile */
+    @media(max-width:480px){
+      .login-card{padding:32px 24px}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="/estacao-samarco/logo-estacao.svg" alt="Estação Samarco"
+           onerror="this.src='/estacao-samarco/logo-estacao.svg'" />
+    </div>
+    <h1 class="login-title">Acesse sua conta</h1>
+    <p class="login-sub">Plataforma de formação digital</p>
+
+    <div class="login-error" id="login-error"></div>
+
+    <form method="post" action="/wp-login.php" id="login-form">
+      <input type="hidden" name="redirect_to" value="/courses/estacao-samarco-formacao-digital/" />
+      <input type="hidden" name="rememberme" value="forever" />
+
+      <label for="user_login">E-mail ou usuário</label>
+      <input type="text" id="user_login" name="log" placeholder="seu@email.com" autocomplete="username" required />
+
+      <label for="user_pass">Senha</label>
+      <input type="password" id="user_pass" name="pwd" placeholder="••••••••" autocomplete="current-password" required />
+
+      <button type="submit" name="wp-submit" value="Entrar" class="login-btn">Entrar</button>
+    </form>
+
+    <div class="login-links">
+      <a href="/wp-login.php?action=lostpassword">Esqueci minha senha</a>
+    </div>
+  </div>
+
+  <div class="back-link">
+    <a href="/estacao-samarco/">← Voltar ao site do programa</a>
+  </div>
+
+  <script>
+  // Detectar erro de login na URL e mostrar mensagem
+  (function(){
+    var params = new URLSearchParams(window.location.search);
+    var errCode = params.get('login');
+    var msg = '';
+    if (errCode === 'failed' || params.get('error') === 'invalidcombo') {
+      msg = 'Usuário ou senha incorretos. Verifique e tente novamente.';
+    } else if (errCode === 'empty') {
+      msg = 'Preencha o usuário e a senha.';
+    }
+    if (msg) {
+      var el = document.getElementById('login-error');
+      el.textContent = msg;
+      el.classList.add('visible');
+    }
+  })();
+  </script>
+</body>
+</html>

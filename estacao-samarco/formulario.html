@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inscrição — Estação Samarco</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Nunito Sans', sans-serif; color: #2b2d42; margin: 0; background: #f8fbff; }
+
+    :root {
+      --azul:    #0f406b;
+      --azulcl:  #4bc1eb;
+      --azulmd:  #1b5fa8;
+      --verde:   #427459;
+      --roxo:    #6d5ba4;
+      --magenta: #c43f62;
+      --laranja: #e68e3c;
+      --texto:   #2b2d42;
+      --fundo:   #b7d4f0;
+    }
+
+    .form-header {
+      background: #eaf3fc;
+      border-bottom: 1px solid rgba(75,193,235,0.35);
+    }
+
+    .form-section {
+      background: white;
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 12px rgba(15,64,107,0.07);
+      border: 1px solid rgba(183,212,240,0.5);
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--azulmd);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(183,212,240,0.6);
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--azul);
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #d1dce8;
+      border-radius: 10px;
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.9rem;
+      color: #2b2d42;
+      background: #fafcff;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      outline: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    input[type="date"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--azulcl);
+      box-shadow: 0 0 0 3px rgba(75,193,235,0.15);
+      background: white;
+    }
+
+    .field-row {
+      margin-bottom: 16px;
+    }
+
+    /* Validação inline */
+    .field-row input.invalido,
+    .field-row select.invalido {
+      border-color: #c43f62 !important;
+      background: rgba(196,63,98,0.04) !important;
+    }
+    .field-row input.invalido:focus,
+    .field-row select.invalido:focus {
+      box-shadow: 0 0 0 3px rgba(196,63,98,0.15) !important;
+    }
+    .campo-erro {
+      display: none;
+      font-size: 0.78rem;
+      color: #c43f62;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .campo-erro.ativo { display: block; }
+
+    .field-row input.valido,
+    .field-row select.valido {
+      border-color: #427459;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .form-section { padding: 20px 18px; }
+    }
+
+    .radio-group, .check-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .radio-option, .check-option {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      font-size: 0.87rem;
+      font-weight: 600;
+      color: var(--texto);
+      padding: 6px 14px;
+      border: 1.5px solid #d1dce8;
+      border-radius: 50px;
+      transition: all 0.2s ease;
+      background: #fafcff;
+    }
+
+    .radio-option:hover, .check-option:hover {
+      border-color: var(--azulcl);
+      background: rgba(75,193,235,0.06);
+    }
+
+    .radio-option input[type="radio"],
+    .check-option input[type="checkbox"] {
+      width: auto;
+      accent-color: var(--azulmd);
+    }
+
+    .radio-option input[type="radio"]:checked ~ span,
+    .check-option input[type="checkbox"]:checked ~ span {
+      color: var(--azulmd);
+    }
+
+    .curso-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 18px 20px;
+      border: 2px solid #d1dce8;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #fafcff;
+      margin-bottom: 10px;
+    }
+
+    .curso-option:hover {
+      border-color: var(--azulcl);
+      background: rgba(75,193,235,0.04);
+    }
+
+    .curso-option input[type="radio"] {
+      width: auto;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--azulmd);
+    }
+
+    .curso-option input[type="radio"]:checked {
+      accent-color: var(--azulmd);
+    }
+
+    .note {
+      font-size: 0.8rem;
+      color: #6b7281;
+      margin-top: 5px;
+      font-style: italic;
+    }
+
+    .btn-submit {
+      background: var(--magenta);
+      color: white;
+      padding: 16px 40px;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      box-shadow: 0 8px 24px rgba(196,63,98,0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background: #a83354;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(196,63,98,0.4);
+    }
+
+    .sucesso { display: none; }
+
+    .required-star { color: var(--magenta); margin-left: 2px; }
+
+    .aceite-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1.5px solid #d1dce8;
+      border-radius: 12px;
+      background: #fafcff;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .aceite-row:hover { border-color: var(--azulcl); background: rgba(75,193,235,0.04); }
+
+    .aceite-row input[type="checkbox"] {
+      width: auto;
+      flex-shrink: 0;
+      margin-top: 2px;
+      accent-color: var(--azulmd);
+    }
+
+    .aceite-text { font-size: 0.85rem; line-height: 1.5; color: var(--texto); }
+    .aceite-text strong { color: var(--azul); }
+
+    .disponib-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+    .disponib-table th {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--azulmd);
+      padding: 0 12px 4px;
+      text-align: left;
+    }
+
+    .disponib-table td {
+      background: #fafcff;
+      border: 1.5px solid #d1dce8;
+      padding: 10px 14px;
+      font-size: 0.87rem;
+      font-weight: 600;
+      color: var(--texto);
+    }
+
+    .disponib-table td:first-child { border-radius: 10px 0 0 10px; }
+    .disponib-table td:last-child { border-radius: 0 10px 10px 0; text-align: center; }
+    .disponib-table td input[type="checkbox"] { width: auto; accent-color: var(--azulmd); }
+  </style>
+  <style>
+    /* Quando embutido em iframe: esconde cabeçalho e rodapé redundantes,
+       deixa o fundo transparente para se misturar com a página pai */
+    body.embedded { background: transparent !important; }
+    body.embedded .form-header,
+    body.embedded .rodape-form { display: none !important; }
+
+    /* Gate por cidade: por padrão Seções 1, 3 e 4 ficam ocultas até a cidade
+       ser escolhida e o estado avaliado. Bloco essencial só some quando o
+       formulário está em modo aguardando (cidade ainda não abriu inscrições). */
+    .gate-essencial { display: none; }
+    body.cidade-aberta .gate-essencial,
+    body.cidade-encerrada .gate-essencial { display: block; }
+
+    /* Modo lista de espera (encerrada): esconde campos opcionais. */
+    body.cidade-encerrada .modo-completo { display: none !important; }
+
+    /* Botão de submit segue o estado do gate. */
+    .btn-submit { display: none; }
+    body.cidade-aberta .btn-submit,
+    body.cidade-encerrada .btn-submit { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- Header compacto -->
+<div class="form-header px-5 py-4">
+  <div class="max-w-2xl mx-auto flex items-center gap-4">
+    <img src="https://ntics.com.br/estacao-samarco/logo-estacao.svg" alt="Estação Samarco" style="height:40px;width:auto" />
+    <div style="color:#6b7281;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;border-left:1px solid rgba(15,64,107,0.2);padding-left:14px">Formulário de Inscrição</div>
+  </div>
+</div>
+
+<!-- Intro -->
+<div class="max-w-2xl mx-auto px-4 pt-6 pb-2">
+  <div style="background:rgba(75,193,235,0.12);border:1px solid rgba(75,193,235,0.35);border-radius:12px;padding:14px 18px">
+    <p style="font-size:0.85rem;color:#0f406b;margin:0;line-height:1.55">
+      <strong>Programa Estação Samarco — Territórios do Futuro.</strong>
+      Preencha os campos abaixo. A confirmação de vaga ocorre após análise pela coordenação. Campos com <span style="color:#c43f62">*</span> são obrigatórios.
+    </p>
+  </div>
+</div>
+
+<!-- Formulário -->
+<form id="form-inscricao" class="max-w-2xl mx-auto px-4 py-5" onsubmit="enviarForm(event)" novalidate>
+
+  <!-- ─── Seleção de cidade (primeiro, sempre visível) ─── -->
+  <div class="form-section">
+    <p style="font-size:0.82rem;font-weight:700;color:#1b5fa8;margin:0 0 14px;text-transform:uppercase;letter-spacing:0.07em">Para começar, selecione sua cidade</p>
+
+    <div class="grid-2">
+      <div class="field-row">
+        <label>Estado <span class="required-star">*</span></label>
+        <select name="estado" id="select-estado" required>
+          <option value="">Selecione o estado...</option>
+          <option value="MG">Minas Gerais</option>
+          <option value="ES">Espírito Santo</option>
+        </select>
+        <span class="campo-erro" data-for="estado"></span>
+      </div>
+
+      <div class="field-row">
+        <label>Cidade <span class="required-star">*</span></label>
+        <select name="cidade" id="select-cidade" required disabled>
+          <option value="">Selecione primeiro o estado...</option>
+        </select>
+        <span id="cidade-status-badge" style="display:none;margin-top:6px;font-size:0.78rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:0.03em"></span>
+        <span class="campo-erro" data-for="cidade"></span>
+      </div>
+    </div>
+
+    <!-- Painel de datas (cidade ABERTA) — fundo azul -->
+    <div id="painel-datas" style="display:none;margin-top:14px;background:#f0f9ff;border:1px solid rgba(75,193,235,0.4);border-radius:12px;padding:14px 18px">
+      <p id="aberta-titulo" style="font-size:0.92rem;font-weight:700;color:#1b5fa8;margin:0 0 10px;line-height:1.5"></p>
+      <div id="aberta-trilhas" style="font-size:0.83rem;color:#1e3a5f;line-height:1.8;display:flex;flex-direction:column;gap:8px"></div>
+    </div>
+
+    <!-- Painel AGUARDANDO — fundo amarelo -->
+    <div id="painel-aguardando" style="display:none;margin-top:14px;background:#fff7ee;border-left:4px solid #e68e3c;border-radius:8px;padding:16px 20px">
+      <p style="font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:#b76a1d;margin:0 0 8px">⏰ Inscrições ainda não abertas</p>
+      <p id="aguardando-titulo" style="font-size:1.02rem;font-weight:700;color:#7a5230;margin:0 0 10px;line-height:1.4"></p>
+      <div id="aguardando-trilhas" style="font-size:0.83rem;color:#7a5230;line-height:1.8;display:flex;flex-direction:column;gap:8px"></div>
+    </div>
+
+    <!-- Painel ENCERRADA -->
+    <div id="painel-encerrada" style="display:none;margin-top:14px;background:#fef2f2;border-left:4px solid #c43f62;border-radius:8px;padding:16px 20px">
+      <p style="font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:#a83354;margin:0 0 8px">Inscrições encerradas</p>
+      <p id="encerrada-titulo" style="font-size:1.02rem;font-weight:700;color:#7a1f3a;margin:0 0 6px;line-height:1.4"></p>
+      <p style="font-size:0.88rem;color:#7a1f3a;margin:0;line-height:1.5">As inscrições para esta localidade foram encerradas.</p>
+    </div>
+  </div>
+
+  <!-- ─── Seção 1: Identificação ─── -->
+  <div class="form-section gate-essencial">
+    <div class="section-label">1. Identificação</div>
+
+    <div class="field-row">
+      <label>Nome completo <span class="required-star">*</span></label>
+      <input type="text" name="nome_completo" id="campo-nome" required placeholder="Seu nome completo" autocomplete="name" />
+      <span class="campo-erro" data-for="nome_completo"></span>
+    </div>
+
+    <div class="field-row">
+      <label>CPF <span class="required-star">*</span></label>
+      <input type="text" name="cpf" id="campo-cpf" required placeholder="000.000.000-00" maxlength="14" inputmode="numeric" />
+      <span class="campo-erro" data-for="cpf"></span>
+    </div>
+  </div>
+
+  <!-- ─── Seção 2: Contato ─── -->
+  <div class="form-section gate-essencial">
+    <div class="section-label">2. Contato</div>
+
+    <div class="grid-2">
+      <div class="field-row">
+        <label>WhatsApp <span class="required-star">*</span></label>
+        <input type="tel" id="campo-whatsapp" name="whatsapp" required
+               placeholder="(00) 00000-0000" maxlength="15" autocomplete="tel" inputmode="tel" />
+        <span class="campo-erro" data-for="whatsapp" id="whatsapp-erro"></span>
+      </div>
+      <div class="field-row">
+        <label>E-mail <span class="required-star">*</span></label>
+        <input type="email" name="email" id="campo-email" required placeholder="seu@email.com" autocomplete="email" />
+        <span class="campo-erro" data-for="email"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Seção 3: Formação ─── -->
+  <div class="form-section gate-essencial">
+    <div class="section-label">3. Formação</div>
+
+    <div style="background:rgba(75,193,235,0.1);border:1px solid rgba(75,193,235,0.35);border-radius:10px;padding:12px 16px;margin-bottom:18px">
+      <p style="font-size:0.85rem;color:#0f406b;margin:0;line-height:1.5">
+        Todos os inscritos participam da <strong>Trilha Inicial de Empreendedorismo (9h presenciais)</strong>. A participação nesta etapa é <strong>obrigatória</strong> para ingressar nas trilhas de Culinária e Beleza.
+      </p>
+    </div>
+
+    <p style="font-size:0.87rem;font-weight:600;color:#2b2d42;margin-bottom:12px">
+      Além da Trilha Inicial, em qual(is) trilha(s) de aprofundamento você tem interesse?
+    </p>
+
+    <label class="curso-option">
+      <input type="checkbox" name="curso" value="culinaria" />
+      <div>
+        <div style="font-weight:700;color:#427459;font-size:0.9rem">Trilha Culinária</div>
+        <div style="font-size:0.8rem;color:#6b7281;margin-top:3px">18h de formação presencial + 23h de plataforma online</div>
+      </div>
+    </label>
+
+    <label class="curso-option">
+      <input type="checkbox" name="curso" value="beleza" />
+      <div>
+        <div style="font-weight:700;color:#6d5ba4;font-size:0.9rem">Trilha Beleza</div>
+        <div style="font-size:0.8rem;color:#6b7281;margin-top:3px">18h de formação presencial + 23h de plataforma online</div>
+      </div>
+    </label>
+
+    <label class="curso-option">
+      <input type="checkbox" name="curso" value="trilha-inicial" />
+      <div>
+        <div style="font-weight:700;color:#e68e3c;font-size:0.9rem">Somente a Trilha de Empreendedorismo, sem trilha adicional</div>
+        <div style="font-size:0.8rem;color:#6b7281;margin-top:3px">Apenas as 9h presenciais da Trilha Inicial</div>
+      </div>
+    </label>
+  </div>
+
+  <!-- ─── Seção 4: Termos ─── -->
+  <div class="form-section gate-essencial">
+    <div class="section-label">4. Aceites obrigatórios</div>
+
+    <label class="aceite-row modo-completo">
+      <input type="checkbox" name="aceite_regulamento" />
+      <div class="aceite-text">
+        <strong>Regulamento do participante.</strong> Declaro que li, compreendi e aceito as regras do programa: frequência mínima de 75%, conclusão dos módulos digitais, conduta esperada e critérios de certificação.
+        <span class="required-star">*</span>
+      </div>
+    </label>
+
+    <label class="aceite-row">
+      <input type="checkbox" name="aceite_lgpd" required />
+      <div class="aceite-text">
+        <strong>Proteção de dados (LGPD).</strong> Autorizo o tratamento dos meus dados pessoais para fins de gestão do programa Estação Samarco, pelo prazo de 5 anos, com compartilhamento exclusivo com a Samarco Mineração para relatório de execução.
+        <span class="required-star">*</span>
+      </div>
+    </label>
+
+  </div>
+
+  <button type="submit" class="btn-submit" id="btn-submit">Enviar inscrição</button>
+  <input type="hidden" name="token" id="hidden-token" value="" />
+
+</form>
+
+<!-- Tela de sucesso -->
+<div class="sucesso max-w-2xl mx-auto px-4 pb-10 text-center" id="tela-sucesso">
+  <div style="background:white;border-radius:20px;padding:48px 32px;box-shadow:0 4px 24px rgba(15,64,107,0.1);border:1px solid rgba(183,212,240,0.5)">
+    <div style="width:72px;height:72px;border-radius:50%;background:rgba(66,116,89,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="#427459" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+    </div>
+    <h2 style="font-family:'Dancing Script',cursive;font-size:2rem;color:#0f406b;margin-bottom:10px">Inscrição recebida!</h2>
+    <p style="color:#6b7281;font-size:0.95rem;line-height:1.65;max-width:400px;margin:0 auto 20px">
+      Obrigado(a) pela inscrição no programa Estação Samarco. A equipe entrará em contato pelo WhatsApp informado para confirmar sua vaga.
+    </p>
+
+    <!-- Bloco do grupo WhatsApp -->
+    <div id="bloco-whatsapp" style="display:none;margin:0 auto 20px;max-width:400px;border-radius:20px;overflow:hidden;box-shadow:0 6px 28px rgba(18,140,126,0.22)">
+      <!-- Cabeçalho verde -->
+      <div style="background:linear-gradient(135deg,#25d366,#128c7e);padding:20px 24px 16px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <div>
+            <div style="color:white;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;opacity:0.8">Próximo passo obrigatório</div>
+            <div style="color:white;font-size:1.05rem;font-weight:800;line-height:1.2">Grupo Estação Samarco <span id="nome-cidade-wa"></span></div>
+          </div>
+        </div>
+        <p style="color:white;font-size:0.88rem;line-height:1.55;margin:0;opacity:0.93">
+          Toda comunicação da equipe acontece por aqui: confirmações, datas, informações e lembretes. <strong style="color:white">Sua participação no grupo é essencial.</strong>
+        </p>
+      </div>
+      <!-- Rodapé com botão -->
+      <div style="background:#f0fdf4;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <div style="font-size:0.8rem;color:#166534;line-height:1.4">Entre agora e fique por dentro de tudo sobre a sua turma.</div>
+        <a id="link-whatsapp" href="#" target="_blank" rel="noopener"
+          style="flex-shrink:0;display:inline-flex;align-items:center;gap:8px;background:#25d366;color:white;font-weight:800;font-size:0.88rem;padding:10px 18px;border-radius:50px;text-decoration:none;box-shadow:0 3px 12px rgba(37,211,102,0.4);white-space:nowrap">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Entrar no grupo
+        </a>
+      </div>
+    </div>
+
+    <!-- Acesso à plataforma digital -->
+    <div id="bloco-acesso" style="display:none;background:#f0f9ff;border:1.5px solid rgba(75,193,235,0.4);border-radius:16px;padding:22px 26px;margin:0 auto 24px;max-width:380px;text-align:left">
+      <p style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#1b5fa8;margin:0 0 12px">Acesso à plataforma digital</p>
+      <div style="display:flex;align-items:flex-start;gap:12px">
+        <span style="font-size:1.4rem;margin-top:2px">📱</span>
+        <div>
+          <div style="font-size:0.88rem;color:#0f406b;line-height:1.6">
+            Acesse a plataforma e entre com o seu <strong>CPF</strong> — sem senha.
+          </div>
+          <a href="https://ntics.com.br/estacao-samarco/plataforma-estacao/" target="_blank" rel="noopener"
+            style="display:inline-block;margin-top:10px;background:#1b5fa8;color:white;font-weight:700;font-size:0.85rem;padding:9px 20px;border-radius:50px;text-decoration:none">
+            Acessar plataforma →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(75,193,235,0.1);border:1px solid rgba(75,193,235,0.3);border-radius:50px;padding:8px 20px;font-size:0.82rem;font-weight:700;color:#0f406b">
+      <span>Prazo de análise: até 5 dias úteis</span>
+    </div>
+  </div>
+</div>
+
+<!-- Rodapé mínimo -->
+<div class="rodape-form" style="text-align:center;padding:24px 16px;color:#6b7281;font-size:0.75rem;border-top:1px solid rgba(183,212,240,0.4);margin-top:12px">
+  Estação Samarco · Realização NTICS Projetos e Samarco Mineração<br>
+  Dados tratados conforme LGPD — Lei 13.709/2018
+</div>
+
+<script>
+  // Token de acesso secreto: ?t=CA2026 reabre Catas Altas sem alterar o site público
+  const _urlToken = new URLSearchParams(window.location.search).get('t') || '';
+
+  // Cronograma oficial — fonte: planilha 15AxwYZk7jRmJI7OHt9-9FoEW4sBrpq1Ek0Hb171J77M (2026-06-27)
+  // Quando o cronograma mudar, atualizar aqui E em inscricao.php ($datas_inscricao)
+  const CRONOGRAMA = {
+    // ── MG ───────────────────────────────────────────────────────────
+    'Catas Altas': {
+      estado: 'MG',
+      abertura: '22/07/2026', encerramento: '03/07/2026',
+      inicial:   { data: '16/06/2026',         local: 'Sala Mineira',     horario: '17h00 às 21h30' },
+      culinaria: { data: '22 a 26/06/2026',    local: 'Sala Mineira',     horario: '17h00 às 21h30' },
+      beleza:    { data: '29/06 a 03/07/2026', local: 'Sala Mineira',     horario: '17h00 às 21h30' },
+      whatsapp:  'https://chat.whatsapp.com/HxMiB1ba65N7B4Ih5yWsgP'
+    },
+    'Camargos': {
+      estado: 'MG',
+      abertura: '22/07/2026', encerramento: '24/07/2026',
+      inicial:   { data: '10/07/2026',         local: '',                 horario: '17h00 às 21h30' },
+      culinaria: { data: '20 a 24/07/2026',    local: '',                 horario: '17h00 às 21h30' },
+      beleza:    { data: '13 a 17/07/2026',    local: '',                 horario: '17h00 às 21h30' },
+      whatsapp:  'https://chat.whatsapp.com/ICcZLEvglCgF4EsjrdeVdh'
+    },
+    'Santa Rita': {
+      estado: 'MG',
+      abertura: '22/07/2026', encerramento: '10/08/2026',
+      inicial:   { data: '28 a 29/07/2026',    local: 'Anexo Integral',   horario: '17h00 às 21h30' },
+      culinaria: { data: '03 a 06/08/2026',    local: 'Anexo Integral',   horario: '17h00 às 21h30' },
+      beleza:    { data: '10 a 13/08/2026',    local: 'Anexo Integral',   horario: '17h00 às 21h30' },
+      whatsapp:  'https://chat.whatsapp.com/FgTWSV5P1EcEay6Qc5mmV1'
+    },
+    'Paracatu': {
+      estado: 'MG',
+      abertura: '22/07/2026', encerramento: '24/08/2026',
+      inicial:   { data: '18 a 19/08/2026',    local: 'Ass. Comunitária', horario: '17h00 às 21h30' },
+      culinaria: null,
+      beleza:    { data: '24 a 27/08/2026',    local: 'Ass. Comunitária', horario: '17h00 às 21h30' },
+      whatsapp:  'https://chat.whatsapp.com/HUnc4pndowPLKvHQX4KuhX'
+    },
+    'Novo Bento Rodrigues': {
+      estado: 'MG',
+      abertura: '22/07/2026', encerramento: '21/09/2026',
+      inicial:   { data: '08 e 09/09/2026',         local: 'Salão Paroquial', horario: '17h00 às 21h30' },
+      culinaria: { data: '10, 14, 15 e 16/09/2026', local: 'Salão Paroquial', horario: '17h00 às 21h30' },
+      beleza:    { data: '21 a 24/09/2026',          local: 'Salão Paroquial', horario: '17h00 às 21h30' },
+      whatsapp:  'https://chat.whatsapp.com/LnL6dSURLzb5DWpgaJxRqF'
+    },
+    'Brumal': {
+      estado: 'MG',
+      abertura: '22/07/2026', encerramento: '05/10/2026',
+      inicial:   { data: '28 a 29/09/2026',    local: 'Ass. Comunitária', horario: '17h00 às 21h30' },
+      culinaria: null,
+      beleza:    { data: '05 a 08/10/2026',    local: 'Ass. Comunitária', horario: '17h00 às 21h30' },
+      whatsapp:  'https://chat.whatsapp.com/EP3tU9aBodj6RuWgQ8U8ZI'
+    },
+    'Antonio Pereira': {
+      estado: 'MG',
+      abertura: '22/07/2026', encerramento: '26/10/2026',
+      inicial:   { data: '20 e 21/10/2026',    local: 'Empreendelas',     horario: '17h00 às 21h30' },
+      culinaria: { data: '02 a 05/11/2026',    local: 'Empreendelas',     horario: '17h00 às 21h30' },
+      beleza:    { data: '26 a 29/10/2026',    local: 'Empreendelas',     horario: '17h00 às 21h30' },
+      whatsapp:  'https://chat.whatsapp.com/DhHSynP7nY5FeOVcFBuW7J'
+    },
+    // ── ES ───────────────────────────────────────────────────────────────
+    'Anchieta/Benevente e Nova Jerusalém': {
+      estado: 'ES',
+      abertura: '22/07/2026', encerramento: '10/08/2026',
+      inicial:   { data: '28 a 29/07/2026',    local: 'CRAS Benevente',                         horario: '17h00 às 21h30' },
+      culinaria: { data: '03 a 06/08/2026',    local: 'CRAS Benevente',                         horario: '17h00 às 21h30' },
+      beleza:    { data: '10 a 13/08/2026',    local: 'Centro de Convivência (Nova Jerusalém)', horario: '17h00 às 21h30' },
+      whatsapp:  'https://chat.whatsapp.com/CUDWTXbzNT996Jz4GsRIox'
+    },
+    'Anchieta/Ubu e Parati': {
+      estado: 'ES',
+      abertura: '22/07/2026', encerramento: '31/08/2026',
+      inicial:   { data: '18 e 20/08/2026',    local: 'Associação Comunitária',                 horario: '17h00 às 21h30' },
+      culinaria: { data: '24 a 27/08/2026',    local: 'Associação Comunitária',                 horario: '17h00 às 21h30' },
+      beleza:    { data: '31/08 a 03/09/2026', local: 'Centro de Convivência (Parati)',          horario: '17h00 às 21h30' },
+      whatsapp:  'https://chat.whatsapp.com/GSMnnXjsJL591wZJ8oNVHO'
+    },
+    'Anchieta/Recanto do Sol e Belo Horizonte': {
+      estado: 'ES',
+      abertura: '22/07/2026', encerramento: '21/09/2026',
+      inicial:   { data: '09 a 10/09/2026',    local: 'Salão Comunitário',                           horario: '17h00 às 21h30' },
+      culinaria: { data: '14 a 17/09/2026',    local: 'Telecentro Comunitário (Belo Horizonte)',      horario: '17h00 às 21h30' },
+      beleza:    { data: '21 a 24/09/2026',    local: 'Salão Comunitário',                           horario: '17h00 às 21h30' },
+      whatsapp:  'https://chat.whatsapp.com/JcqKTWv0Qkh6ZWeM2xP56M'
+    },
+    'Anchieta/Mãe-Bá': {
+      estado: 'ES',
+      abertura: '22/07/2026', encerramento: '13/10/2026',
+      inicial:   { data: '29 a 30/09/2026',    local: 'Centro de Convivência de Mãe-Bá', horario: '17h00 às 21h30' },
+      culinaria: { data: '05 a 08/10/2026',    local: 'Centro de Convivência de Mãe-Bá', horario: '17h00 às 21h30' },
+      beleza:    { data: '13 a 16/10/2026',    local: 'Centro de Convivência de Mãe-Bá', horario: '17h00 às 21h30' },
+      whatsapp:  'https://chat.whatsapp.com/H2A0SvVzKyQ5NXpq7AD1Sx'
+    },
+    'Guarapari/Meaípe e Condados': {
+      estado: 'ES',
+      abertura: '22/07/2026', encerramento: '10/11/2026',
+      inicial:   { data: '20 a 21/10/2026',    local: 'A definir',                                   horario: '17h00 às 21h30' },
+      beleza:    { data: '03 a 06/11/2026',    local: 'Associação Comunitária (Condados)',            horario: '17h00 às 21h30' },
+      culinaria: { data: '10 a 13/11/2026',    local: 'A definir',                                   horario: '17h00 às 21h30' },
+      whatsapp:  'https://chat.whatsapp.com/KrqITGeRdS2FRWbBJlN1rg'
+    },
+    'Mariana': {
+      estado: 'MG',
+      abertura: '29/10/2026', encerramento: '23/11/2026',
+      inicial:   { data: '09 e 10/11/2026',    local: 'A definir',                                   horario: '17h00 às 21h30' },
+      culinaria: { data: '16 a 19/11/2026',    local: 'A definir',                                   horario: '17h00 às 21h30' },
+      beleza:    { data: '23 a 26/11/2026',    local: 'A definir',                                   horario: '17h00 às 21h30' },
+      whatsapp:  ''
+    },
+  };
+
+
+  // ── Selects encadeados + estados (aguardando / aberta / encerrada) ──
+  (function() {
+    const selEstado = document.getElementById('select-estado');
+    const selCidade = document.getElementById('select-cidade');
+    const painelOk  = document.getElementById('painel-datas');
+    const tituloOk  = document.getElementById('aberta-titulo');
+    const painelAg  = document.getElementById('painel-aguardando');
+    const tituloAg  = document.getElementById('aguardando-titulo');
+    const painelEn  = document.getElementById('painel-encerrada');
+    const tituloEn  = document.getElementById('encerrada-titulo');
+    const btn       = document.getElementById('btn-submit');
+    document.getElementById('hidden-token').value = _urlToken;
+
+    function parseDataBR(s) {
+      // 'DD/MM/YYYY' -> Date à meia-noite
+      const m = (s || '').match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+      if (!m) return null;
+      return new Date(+m[3], +m[2] - 1, +m[1]);
+    }
+
+    function diffDias(fromDate, toDate) {
+      return Math.ceil((toDate - fromDate) / 86400000);
+    }
+
+    function estadoInscricao(d) {
+      const hoje = new Date(); hoje.setHours(0,0,0,0);
+      const ab = parseDataBR(d.abertura);
+      const en = parseDataBR(d.encerramento);
+      if (!ab || !en) return 'aberta'; // fallback se faltar data
+      if (hoje < ab)  return 'aguardando';
+      if (hoje > en)  return 'encerrada';
+      return 'aberta';
+    }
+
+    function montarLinhasDatas(d) {
+      function linha(t) {
+        const loc = t.local ? ` &middot; <em>${t.local}</em>` : '';
+        return `${t.data} &middot; <strong>${t.horario}</strong>${loc}`;
+      }
+      const linhas = [];
+      if (d.inicial)   linhas.push(`<div><strong style="color:#1b5fa8">📅 Trilha Inicial (Empreendedorismo)</strong><br><span style="padding-left:20px;color:#4b6080">${linha(d.inicial)}</span></div>`);
+      if (d.culinaria) linhas.push(`<div><strong style="color:#427459">📅 Trilha Culinária</strong><br><span style="padding-left:20px;color:#4b6080">${linha(d.culinaria)}</span></div>`);
+      if (d.beleza)    linhas.push(`<div><strong style="color:#6d5ba4">📅 Trilha Beleza</strong><br><span style="padding-left:20px;color:#4b6080">${linha(d.beleza)}</span></div>`);
+      return linhas.join('');
+    }
+
+    const cidadeBadge = document.getElementById('cidade-status-badge');
+
+    function ocultarBadge() {
+      cidadeBadge.style.display = 'none';
+    }
+
+    function mostrarBadge(modo, d) {
+      const cfg = {
+        aberta:    { txt: '✓ Inscrições abertas',     bg: '#d1fae5', cor: '#065f46' },
+        aguardando:{ txt: `⏰ Abre em ${(d.abertura||'').slice(0,5)}`, bg: '#fff7ee', cor: '#b76a1d' },
+        encerrada: { txt: '✗ Inscrições encerradas',  bg: '#fef2f2', cor: '#a83354' },
+      }[modo];
+      if (!cfg) { ocultarBadge(); return; }
+      cidadeBadge.textContent = cfg.txt;
+      cidadeBadge.style.background = cfg.bg;
+      cidadeBadge.style.color = cfg.cor;
+      cidadeBadge.style.display = 'inline-block';
+    }
+
+    function popularCidadesPorEstado(estado) {
+      selCidade.innerHTML = '<option value="">Selecione a cidade...</option>';
+      ocultarBadge();
+      if (!estado) {
+        selCidade.disabled = true;
+        return;
+      }
+      const labels = {
+        'Catas Altas': 'Catas Altas',
+        'Santa Rita': 'Santa Rita Durão',
+        'Camargos': 'Camargos',
+        'Paracatu': 'Paracatu',
+        'Novo Bento Rodrigues': 'Novo Bento Rodrigues',
+        'Brumal': 'Brumal',
+        'Antonio Pereira': 'Antônio Pereira',
+        'Mariana': 'Mariana',
+        'Anchieta/Benevente e Nova Jerusalém': 'Anchieta/Benevente e Nova Jerusalém',
+        'Anchieta/Ubu e Parati': 'Anchieta/Ubu e Parati',
+        'Anchieta/Recanto do Sol e Belo Horizonte': 'Anchieta/Recanto do Sol e Belo Horizonte',
+        'Anchieta/Mãe-Bá': 'Anchieta/Mãe-Bá',
+        'Guarapari/Meaípe e Condados': 'Guarapari/Meaípe e Condados',
+      };
+      const statusSufixo = {
+        aberta:    ' — Abertas',
+        aguardando:' — Aguardando',
+        encerrada: ' — Encerradas',
+      };
+      Object.keys(CRONOGRAMA).filter(k => CRONOGRAMA[k].estado === estado).forEach(k => {
+        const opt = document.createElement('option');
+        opt.value = k;
+        const st = estadoInscricao(CRONOGRAMA[k]);
+        opt.textContent = (labels[k] || k) + (statusSufixo[st] || '');
+        selCidade.appendChild(opt);
+      });
+      selCidade.disabled = false;
+    }
+
+    function aplicarModoCidade(modo, d, cidade) {
+      document.body.classList.remove('cidade-aberta', 'cidade-aguardando', 'cidade-encerrada');
+      painelOk.style.display = 'none';
+      painelAg.style.display = 'none';
+      painelEn.style.display = 'none';
+
+      if (!modo) { ocultarBadge(); return; }
+      mostrarBadge(modo, d || {});
+      document.body.classList.add('cidade-' + modo);
+
+      if (modo === 'aberta') {
+        tituloOk.textContent = `Inscrições abertas até ${d.encerramento}.`;
+        document.getElementById('aberta-trilhas').innerHTML = montarLinhasDatas(d);
+        painelOk.style.display = 'block';
+        btn.textContent = 'Enviar inscrição';
+      } else if (modo === 'aguardando') {
+        const hoje = new Date(); hoje.setHours(0,0,0,0);
+        const dias = diffDias(hoje, parseDataBR(d.abertura));
+        const sufixo = dias === 1 ? 'em 1 dia' : `em ${dias} dias`;
+        tituloAg.textContent = `As inscrições para ${cidade} abrem em ${d.abertura} (${sufixo}).`;
+        document.getElementById('aguardando-trilhas').innerHTML = montarLinhasDatas(d);
+        painelAg.style.display = 'block';
+      } else if (modo === 'encerrada') {
+        tituloEn.textContent = `As inscrições para ${cidade} foram encerradas em ${d.encerramento}.`;
+        painelEn.style.display = 'block';
+        btn.style.display = 'none';
+      }
+
+      // Adapta Seção 3 (trilhas) — esconde culinária/beleza se não tiver
+      const optCul = document.querySelector('label.curso-option input[value="culinaria"]').closest('.curso-option');
+      const optBel = document.querySelector('label.curso-option input[value="beleza"]').closest('.curso-option');
+      optCul.style.display = d.culinaria ? '' : 'none';
+      optBel.style.display = d.beleza    ? '' : 'none';
+      if (!d.culinaria) optCul.querySelector('input').checked = false;
+      if (!d.beleza)    optBel.querySelector('input').checked = false;
+    }
+
+    selEstado.addEventListener('change', function() {
+      popularCidadesPorEstado(this.value);
+      aplicarModoCidade(null);
+    });
+
+    selCidade.addEventListener('change', function() {
+      const cidade = this.value;
+      const d = CRONOGRAMA[cidade];
+      if (!d) { aplicarModoCidade(null); return; }
+      const modo = estadoInscricao(d);
+      // Catas Altas: continua marcada como "fechada" (selo + rótulo), mas segue aceitando
+      // inscrição normal (preenche e envia como inscrição, não lista de espera).
+      if (cidade === 'Catas Altas' && modo === 'encerrada') {
+        aplicarModoCidade('aberta', d, cidade);           // habilita o preenchimento e o envio normal
+        tituloOk.textContent = 'Turma de Catas Altas.';   // sem "abertas até <data>"
+        mostrarBadge('encerrada', d);                     // mantém o selo "✗ Inscrições encerradas"
+        return;
+      }
+      aplicarModoCidade(modo, d, cidade);
+    });
+  })();
+
+  // ── Sistema de validação inline ─────────────────────────────────
+  // Marca campo como inválido (borda vermelha + mensagem embaixo)
+  // ou como válido (limpa erro). Helpers reutilizados nas validações abaixo.
+  function setErro(input, mensagem) {
+    input.classList.add('invalido');
+    input.classList.remove('valido');
+    const span = document.querySelector(`.campo-erro[data-for="${input.name || input.id}"]`);
+    if (span) { span.textContent = mensagem; span.classList.add('ativo'); }
+  }
+  function limparErro(input, marcarValido) {
+    input.classList.remove('invalido');
+    if (marcarValido) input.classList.add('valido');
+    const span = document.querySelector(`.campo-erro[data-for="${input.name || input.id}"]`);
+    if (span) { span.textContent = ''; span.classList.remove('ativo'); }
+  }
+
+  // ── Máscara e validação do CPF ──────────────────────────────────
+  (function() {
+    const input = document.getElementById('campo-cpf');
+
+    function mascara(v) {
+      const d = v.replace(/\D/g, '').slice(0, 11);
+      if (d.length <= 3)  return d;
+      if (d.length <= 6)  return d.slice(0,3) + '.' + d.slice(3);
+      if (d.length <= 9)  return d.slice(0,3) + '.' + d.slice(3,6) + '.' + d.slice(6);
+      return d.slice(0,3) + '.' + d.slice(3,6) + '.' + d.slice(6,9) + '-' + d.slice(9);
+    }
+
+    // Algoritmo padrão dos dígitos verificadores
+    function cpfValido(d) {
+      if (d.length !== 11 || /^(\d)\1{10}$/.test(d)) return false;
+      let s = 0;
+      for (let i = 0; i < 9; i++) s += parseInt(d[i],10) * (10 - i);
+      let r = (s * 10) % 11; if (r === 10) r = 0;
+      if (r !== parseInt(d[9],10)) return false;
+      s = 0;
+      for (let i = 0; i < 10; i++) s += parseInt(d[i],10) * (11 - i);
+      r = (s * 10) % 11; if (r === 10) r = 0;
+      return r === parseInt(d[10],10);
+    }
+
+    function validar() {
+      const digits = input.value.replace(/\D/g, '');
+      if (digits.length === 0) {
+        setErro(input, 'Informe o CPF.');
+        return false;
+      }
+      if (digits.length < 11) {
+        setErro(input, 'CPF incompleto. Precisa de 11 dígitos.');
+        return false;
+      }
+      if (!cpfValido(digits)) {
+        setErro(input, 'CPF inválido. Confira os números.');
+        return false;
+      }
+      limparErro(input, true);
+      return true;
+    }
+
+    input.addEventListener('input', function() {
+      this.value = mascara(this.value);
+      // Se já tem erro mostrado, revalida em tempo real conforme digita
+      if (this.classList.contains('invalido')) validar();
+    });
+    input.addEventListener('blur', validar);
+
+    window._validarCpf = validar;
+  })();
+
+  // ── Validação do nome completo ──────────────────────────────────
+  (function() {
+    const input = document.getElementById('campo-nome');
+    function validar() {
+      const v = input.value.trim().replace(/\s+/g, ' ');
+      if (v.length === 0)      { setErro(input, 'Informe seu nome completo.'); return false; }
+      if (v.length < 3)        { setErro(input, 'Nome muito curto.'); return false; }
+      if (!v.includes(' '))    { setErro(input, 'Informe nome e sobrenome.'); return false; }
+      if (/[0-9]/.test(v))     { setErro(input, 'O nome não deve conter números.'); return false; }
+      limparErro(input, true);
+      return true;
+    }
+    input.addEventListener('blur', validar);
+    input.addEventListener('input', function() {
+      if (this.classList.contains('invalido')) validar();
+    });
+    window._validarNome = validar;
+  })();
+
+  // ── Validação do e-mail ─────────────────────────────────────────
+  (function() {
+    const input = document.getElementById('campo-email');
+    if (!input) return;
+    function validar() {
+      const v = input.value.trim();
+      if (!v) { setErro(input, 'Informe seu e-mail.'); return false; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { setErro(input, 'E-mail inválido.'); return false; }
+      limparErro(input, true);
+      return true;
+    }
+    input.addEventListener('blur', validar);
+    input.addEventListener('input', function() { if (this.classList.contains('invalido')) validar(); });
+    window._validarEmail = validar;
+  })();
+
+  // ── Exclusão mútua: trilha-inicial vs culinaria/beleza ──────────
+  (function() {
+    const cbCul = document.querySelector('[name="curso"][value="culinaria"]');
+    const cbBel = document.querySelector('[name="curso"][value="beleza"]');
+    const cbIni = document.querySelector('[name="curso"][value="trilha-inicial"]');
+    if (!cbCul || !cbBel || !cbIni) return;
+    function limparErro() {
+      const span = document.querySelector('.campo-erro-curso');
+      if (span) span.classList.remove('ativo');
+    }
+    [cbCul, cbBel].forEach(cb => cb.addEventListener('change', function() {
+      if (this.checked) { cbIni.checked = false; }
+      limparErro();
+    }));
+    cbIni.addEventListener('change', function() {
+      if (this.checked) { cbCul.checked = false; cbBel.checked = false; }
+      limparErro();
+    });
+  })();
+
+  // ── Validação da cidade ─────────────────────────────────────────
+  (function() {
+    const sel = document.getElementById('select-cidade');
+    function validar() {
+      if (!sel.value) { setErro(sel, 'Selecione a cidade.'); return false; }
+      limparErro(sel, true);
+      return true;
+    }
+    sel.addEventListener('blur', validar);
+    sel.addEventListener('change', function() {
+      if (this.value) limparErro(this, true);
+    });
+    window._validarCidade = validar;
+  })();
+
+  // ── Máscara e validação do WhatsApp ─────────────────────────────
+  (function() {
+    const input = document.getElementById('campo-whatsapp');
+    const DDDS_VALIDOS = [
+      11,12,13,14,15,16,17,18,19, 21,22,24,27,28, 31,32,33,34,35,37,38,
+      41,42,43,44,45,46,47,48,49, 51,53,54,55, 61,62,63,64,65,66,67,68,69,
+      71,73,74,75,77,79, 81,82,83,84,85,86,87,88,89, 91,92,93,94,95,96,97,98,99,
+    ];
+    function mascara(v) {
+      const d = v.replace(/\D/g, '').slice(0, 11);
+      if (d.length <= 2)  return d.length ? '(' + d : '';
+      if (d.length <= 6)  return '(' + d.slice(0,2) + ') ' + d.slice(2);
+      if (d.length <= 10) return '(' + d.slice(0,2) + ') ' + d.slice(2,6) + '-' + d.slice(6);
+      return '(' + d.slice(0,2) + ') ' + d.slice(2,7) + '-' + d.slice(7);
+    }
+    function validar() {
+      const digits = input.value.replace(/\D/g,'');
+      const ddd    = parseInt(digits.slice(0,2), 10);
+      const num    = digits.slice(2);
+      if (digits.length === 0) { setErro(input, 'Informe o WhatsApp com DDD.'); return false; }
+      if (digits.length < 10)  { setErro(input, 'Número incompleto. Informe DDD + número.'); return false; }
+      if (!DDDS_VALIDOS.includes(ddd)) { setErro(input, 'DDD inválido (' + String(ddd).padStart(2,'0') + ').'); return false; }
+      if (num.length === 9 && num[0] !== '9') { setErro(input, 'Celular de 9 dígitos deve começar com 9.'); return false; }
+      limparErro(input, true);
+      return true;
+    }
+    input.addEventListener('input', function() {
+      const pos = this.selectionStart;
+      const antes = this.value.replace(/\D/g,'').length;
+      this.value = mascara(this.value);
+      const depois = this.value.replace(/\D/g,'').length;
+      if (depois > antes) this.setSelectionRange(pos+1, pos+1);
+      if (this.classList.contains('invalido')) validar();
+    });
+    input.addEventListener('blur', validar);
+    input.addEventListener('paste', function() { setTimeout(() => { this.value = mascara(this.value); }, 0); });
+    window._validarWhatsapp = validar;
+  })();
+
+  function enviarForm(e) {
+    e.preventDefault();
+    const form = document.getElementById('form-inscricao');
+    const btn  = form.querySelector('.btn-submit');
+    const sucesso = document.getElementById('tela-sucesso');
+
+    // ── Validação completa antes de enviar ─────────────────────────
+    const validacoes = [
+      { fn: window._validarNome,     elId: 'campo-nome' },
+      { fn: window._validarCpf,      elId: 'campo-cpf' },
+      { fn: window._validarWhatsapp, elId: 'campo-whatsapp' },
+      { fn: window._validarEmail,    elId: 'campo-email' },
+      { fn: window._validarCidade,   elId: 'select-cidade' },
+    ];
+    let primeiroComErro = null;
+    for (const v of validacoes) {
+      if (typeof v.fn === 'function' && !v.fn()) {
+        if (!primeiroComErro) primeiroComErro = v.elId;
+      }
+    }
+
+    // Curso obrigatório (pelo menos um checkbox marcado)
+    const cursoChecks = Array.from(form.querySelectorAll('[name="curso"]:checked'));
+    if (cursoChecks.length === 0) {
+      if (!primeiroComErro) primeiroComErro = 'curso';
+      const sec3 = form.querySelector('input[name="curso"]').closest('.form-section');
+      let span = sec3.querySelector('.campo-erro-curso');
+      if (!span) {
+        span = document.createElement('span');
+        span.className = 'campo-erro ativo campo-erro-curso';
+        sec3.appendChild(span);
+      }
+      span.textContent = 'Selecione ao menos uma opção de trilha.';
+      span.classList.add('ativo');
+    } else {
+      const span = form.querySelector('.campo-erro-curso');
+      if (span) span.classList.remove('ativo');
+    }
+
+    // Aceites obrigatórios
+    const reg = form.querySelector('[name="aceite_regulamento"]');
+    const lgpd = form.querySelector('[name="aceite_lgpd"]');
+    const sec4 = form.querySelector('input[name="aceite_lgpd"]').closest('.form-section');
+    let spanAceites = sec4.querySelector('.campo-erro-aceites');
+    if (!spanAceites) {
+      spanAceites = document.createElement('span');
+      spanAceites.className = 'campo-erro campo-erro-aceites';
+      sec4.appendChild(spanAceites);
+    }
+    const faltas = [];
+    if (reg && !reg.checked) faltas.push('regulamento');
+    if (!lgpd.checked) faltas.push('LGPD');
+    if (faltas.length > 0) {
+      spanAceites.textContent = 'Para continuar, marque: ' + faltas.join(', ') + '.';
+      spanAceites.classList.add('ativo');
+      if (!primeiroComErro) primeiroComErro = 'aceite_lgpd';
+    } else {
+      spanAceites.classList.remove('ativo');
+    }
+
+    if (primeiroComErro) {
+      const el = document.getElementById(primeiroComErro) || form.querySelector(`[name="${primeiroComErro}"]`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => el.focus({ preventScroll: true }), 250);
+      }
+      return;
+    }
+
+    // Coleta todos os campos
+    const formData = {};
+    new FormData(form).forEach((v, k) => { formData[k] = v; });
+    // Curso: junta múltiplos checkboxes marcados em string separada por vírgula
+    const cursoVals = Array.from(form.querySelectorAll('[name="curso"]:checked')).map(el => el.value);
+    formData['curso'] = cursoVals.join(',');
+
+    // Estado de envio
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    fetch('https://ntics.com.br/wp-json/estacao/v1/inscricao', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    })
+    .then(async r => {
+      let data;
+      try { data = await r.json(); }
+      catch (_) { throw new Error('Resposta inválida do servidor (HTTP ' + r.status + ')'); }
+      // Mesmo com 4xx/5xx, queremos o data.msg detalhado vindo do backend
+      if (!r.ok || !data.ok) throw new Error(data.msg || ('Erro HTTP ' + r.status));
+      return data;
+    })
+    .then(data => {
+
+      // Preenche bloco WhatsApp
+      const waLink = data.whatsapp_link || '';
+      if (waLink) {
+        const nomeCidadeEl = document.getElementById('nome-cidade-wa');
+        if (nomeCidadeEl) nomeCidadeEl.textContent = data.cidade || '';
+        const linkWaEl = document.getElementById('link-whatsapp');
+        if (linkWaEl) linkWaEl.href = waLink;
+        const blocoWa = document.getElementById('bloco-whatsapp');
+        if (blocoWa) blocoWa.style.display = 'block';
+      }
+
+      const blocoAcesso = document.getElementById('bloco-acesso');
+      if (blocoAcesso) blocoAcesso.style.display = 'block';
+
+      form.style.display = 'none';
+      sucesso.style.display = 'block';
+
+      // Scroll: se em iframe, notifica o pai para rolar ao topo; senão rola direto
+      if (window.self !== window.top) {
+        window.parent.postMessage({ type: 'estacao-scroll-top' }, '*');
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    })
+    .catch(err => {
+      btn.disabled = false;
+      btn.textContent = 'Enviar inscrição';
+      alert('Não foi possível enviar sua inscrição. Verifique sua conexão e tente novamente.\n\n' + (err.message || ''));
+    });
+  }
+
+  // ── Auto-resize quando embutido em iframe ────────────────────────
+  // Detecta iframe; esconde cabeçalho/rodapé redundantes; envia altura ao pai
+  (function() {
+    const dentroIframe = (window.self !== window.top);
+    if (!dentroIframe) return;
+
+    document.body.classList.add('embedded');
+
+    let ultima = 0;
+    let throttle = null;
+
+    function medir() {
+      // body.scrollHeight reflete apenas o conteúdo (não cresce com o tamanho do iframe);
+      // documentElement.scrollHeight cresceria com a altura do iframe, criando loop.
+      return document.body.scrollHeight;
+    }
+
+    function postarAltura() {
+      const h = medir();
+      if (h === ultima || h < 100) return;        // ignora ruído e medidas inválidas
+      if (Math.abs(h - ultima) < 4) return;       // ignora flutuações de <4px
+      ultima = h;
+      window.parent.postMessage({ type: 'estacao-form-height', height: h }, '*');
+    }
+
+    function postarThrottled() {
+      if (throttle) return;
+      throttle = setTimeout(() => { throttle = null; postarAltura(); }, 80);
+    }
+
+    window.addEventListener('load', postarAltura);
+    window.addEventListener('resize', postarThrottled);
+
+    // Só observa childList (subtree); evita 'attributes' que dispara em focus/blur
+    const obs = new MutationObserver(postarThrottled);
+    obs.observe(document.body, { childList: true, subtree: true });
+
+    // Heartbeats iniciais — fontes podem mudar a altura depois do load
+    setTimeout(postarAltura, 300);
+    setTimeout(postarAltura, 1000);
+    setTimeout(postarAltura, 2500);
+  })();
+</script>
+
+</body>
+</html>

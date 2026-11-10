@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estação Samarco — Empreendedorismo e Capacitação</title>
+  <meta name="description" content="Programa de capacitação profissional em culinária, beleza e empreendedorismo em 16 comunidades de Minas Gerais e Espírito Santo." />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            azul:    '#0f406b',
+            azulcl:  '#4bc1eb',
+            azulmd:  '#1b5fa8',
+            verde:   '#427459',
+            roxo:    '#6d5ba4',
+            magenta: '#c43f62',
+            laranja: '#e68e3c',
+            cinza:   '#6b7281',
+            texto:   '#2b2d42',
+            fundo:   '#b7d4f0',
+          },
+          fontFamily: {
+            display: ['"Dancing Script"', 'cursive'],
+            body:    ['"Nunito Sans"', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito Sans', sans-serif; color: #2b2d42; margin: 0; overflow-x: hidden; }
+
+    /* ── CSS vars ── */
+    :root {
+      --azul:    #0f406b;
+      --azulcl:  #4bc1eb;
+      --azulmd:  #1b5fa8;
+      --verde:   #427459;
+      --roxo:    #6d5ba4;
+      --magenta: #c43f62;
+      --laranja: #e68e3c;
+      --texto:   #2b2d42;
+      --fundo:   #b7d4f0;
+    }
+
+    /* ── Hero gradient: branco → azul claro (fundo claro para logo transparente) ── */
+    .hero-bg {
+      background:
+        radial-gradient(ellipse at 70% 30%, rgba(75,193,235,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(27,95,168,0.12) 0%, transparent 55%),
+        linear-gradient(160deg, #ffffff 0%, #e8f4fb 35%, #c8e6f7 65%, #b7d4f0 100%);
+    }
+
+    /* ── Floating animations ── */
+    @keyframes float1 {
+      0%, 100% { transform: translateY(0px) rotate(-4deg); }
+      50%       { transform: translateY(-18px) rotate(4deg); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translateY(0px) rotate(3deg) scale(1); }
+      50%       { transform: translateY(-14px) rotate(-5deg) scale(1.05); }
+    }
+    @keyframes float3 {
+      0%, 100% { transform: translateY(0px) rotate(-6deg); }
+      50%       { transform: translateY(-22px) rotate(6deg); }
+    }
+    @keyframes float4 {
+      0%, 100% { transform: translateY(0px) rotate(2deg); }
+      50%       { transform: translateY(-12px) rotate(-4deg); }
+    }
+    @keyframes float5 {
+      0%, 100% { transform: translateY(0px) rotate(-3deg) scale(1); }
+      50%       { transform: translateY(-16px) rotate(5deg) scale(1.03); }
+    }
+    .float1 { animation: float1 5.5s ease-in-out infinite; }
+    .float2 { animation: float2 4.8s ease-in-out infinite 0.8s; }
+    .float3 { animation: float3 6.2s ease-in-out infinite 1.5s; }
+    .float4 { animation: float4 4.4s ease-in-out infinite 0.3s; }
+    .float5 { animation: float5 5.8s ease-in-out infinite 1.1s; }
+
+    /* ── 3D trilha cards ── */
+    .trilha-card {
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.08);
+      transform: perspective(1000px) rotateX(2deg);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      position: relative;
+      overflow: visible;
+    }
+    .trilha-card:hover {
+      transform: perspective(1000px) rotateX(0deg) translateY(-10px);
+      box-shadow: 0 36px 80px rgba(0,0,0,0.22), 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    /* ── Floating icon inside card ── */
+    .card-icon {
+      position: absolute;
+      pointer-events: none;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.18));
+      transition: transform 0.35s ease;
+    }
+    .trilha-card:hover .card-icon { transform: translateY(-6px) scale(1.08) !important; }
+
+    /* ── Section titles ── */
+    .section-title {
+      font-family: 'Dancing Script', cursive;
+      color: var(--azul);
+      line-height: 1.15;
+    }
+
+    /* ── Sticky header ── */
+    header { position: sticky; top: 0; z-index: 50; background: #eaf3fc; border-bottom: 1px solid rgba(75,193,235,0.35); }
+
+    /* ── Cidade badge ── */
+    .cidade-badge {
+      background: rgba(183,212,240,0.6);
+      border: 1px solid rgba(15,64,107,0.15);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--azul);
+      white-space: nowrap;
+    }
+
+    /* ── CTA buttons ── */
+    .btn-primary {
+      background: var(--magenta);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 8px 24px rgba(196,63,98,0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .btn-primary:hover {
+      background: #a83354;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(196,63,98,0.45);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--azul);
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
+      border: 2px solid rgba(15,64,107,0.45);
+      transition: all 0.2s ease;
+    }
+    .btn-secondary:hover {
+      background: rgba(15,64,107,0.08);
+      border-color: var(--azul);
+    }
+
+    /* ── Step number ── */
+    .step-num {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.75rem; font-weight: 900;
+      margin: 0 auto 20px;
+    }
+
+    /* ── Form iframe ── */
+    .form-iframe {
+      width: 100%;
+      min-height: 680px;
+      border: none;
+      border-radius: 16px;
+    }
+
+    /* ── Responsive hide ── */
+    @media (max-width: 767px) {
+      .hide-mobile { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════ -->
+<header>
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="#topo" class="flex items-center" aria-label="Estação Samarco">
+      <img src="https://ntics.com.br/estacao-samarco/logo-estacao.svg" alt="Estação Samarco" class="h-10 w-auto" />
+    </a>
+
+    <!-- Nav desktop -->
+    <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-azul">
+      <a href="#sobre" class="hover:text-azulmd transition-colors">Sobre</a>
+      <a href="#trilhas" class="hover:text-azulmd transition-colors">Trilhas</a>
+      <a href="#como-funciona" class="hover:text-azulmd transition-colors">Como funciona</a>
+      <a href="#inscricao" class="hover:text-azulmd transition-colors">Inscrição</a>
+    </nav>
+
+    <!-- CTAs do header -->
+    <div class="flex items-center gap-3">
+      <a href="https://ntics.com.br/estacao-samarco/plataforma-estacao/" target="_blank" rel="noopener" class="btn-secondary text-sm py-2.5 px-5">Acessar plataforma</a>
+      <a href="#inscricao" class="btn-primary text-sm py-2.5 px-6">Inscreva-se</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════ -->
+<section id="topo" class="hero-bg min-h-screen flex items-center relative overflow-hidden py-24 px-4">
+
+  <!-- Ícones flutuantes decorativos — assets reais do projeto -->
+  <!-- Chef mulher (grande, esquerda baixo) -->
+  <div class="float1 hide-mobile absolute left-4 bottom-8 opacity-80" style="width:180px; animation-duration:5.5s;">
+    <img src="https://ntics.com.br/estacao-samarco/elementos/culinaria/chef-mulher.svg" alt="" style="width:100%;filter:drop-shadow(0 12px 24px rgba(0,0,0,0.2));" />
+  </div>
+
+  <!-- Laranja (topo direita) -->
+  <div class="float2 absolute right-16 top-20 opacity-85" style="width:80px; animation-duration:4.8s;">
+    <img src="https://ntics.com.br/estacao-samarco/elementos/culinaria/laranja.svg" alt="" style="width:100%;filter:drop-shadow(0 6px 12px rgba(0,0,0,0.15));" />
+  </div>
+
+  <!-- Maleta (topo esquerda) -->
+  <div class="float3 hide-mobile absolute left-40 top-16 opacity-80" style="width:90px; animation-duration:6.2s;">
+    <img src="https://ntics.com.br/estacao-samarco/elementos/culinaria/maleta.svg" alt="" style="width:100%;filter:drop-shadow(0 6px 16px rgba(0,0,0,0.18));" />
+  </div>
+
+  <!-- Batom (direita baixo) -->
+  <div class="float4 hide-mobile absolute right-8 bottom-24 opacity-80" style="width:60px; animation-duration:4.4s;">
+    <img src="https://ntics.com.br/estacao-samarco/elementos/beleza/batom.svg" alt="" style="width:100%;filter:drop-shadow(0 6px 12px rgba(0,0,0,0.18));" />
+  </div>
+
+  <!-- Escova cabelo (esquerda meio) -->
+  <div class="float5 hide-mobile absolute left-16 top-1/2 opacity-60" style="width:65px; animation-duration:5.8s;">
+    <img src="https://ntics.com.br/estacao-samarco/elementos/beleza/escova-cabelo.svg" alt="" style="width:100%;filter:drop-shadow(0 6px 12px rgba(0,0,0,0.15));" />
+  </div>
+
+  <!-- Conteúdo central do hero -->
+  <div class="relative z-10 max-w-3xl mx-auto text-center">
+    <!-- Badge -->
+    <div class="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 text-sm font-semibold" style="background:rgba(15,64,107,0.08);border:1.5px solid rgba(15,64,107,0.2);color:#0f406b;">
+      <span class="w-2 h-2 rounded-full animate-pulse" style="background:#4bc1eb;"></span>
+      Minas Gerais &amp; Espírito Santo · 16 comunidades
+    </div>
+
+    <!-- Logo com fundo degradê branco → transparente (sem caixa visível) -->
+    <div class="mb-6">
+      <img src="https://ntics.com.br/estacao-samarco/logo-estacao.svg" alt="Estação Samarco" style="height:330px; width:auto; display:block; margin:0 auto; filter:drop-shadow(0 4px 24px rgba(255,255,255,0.9));" />
+    </div>
+
+    <!-- Subtítulo -->
+    <p class="font-bold text-xl md:text-2xl mb-3 tracking-wide uppercase" style="letter-spacing:0.08em;color:#1b5fa8;">
+      Empreendedorismo &amp; Capacitação
+    </p>
+    <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed font-body" style="color:#1b5fa8;">
+      Transformando conhecimento em renda. Cursos profissionalizantes gratuitos em culinária, beleza e empreendedorismo para quem está construindo um futuro melhor.
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#inscricao" class="btn-primary text-base">Inscreva-se agora</a>
+      <a href="#sobre" class="btn-secondary text-base">Saiba mais</a>
+    </div>
+
+    <!-- Stats -->
+    <div class="mt-14 grid grid-cols-3 gap-6 max-w-lg mx-auto">
+      <div class="text-center">
+        <div class="font-black text-3xl" style="color:#0f406b;">3</div>
+        <div class="text-sm font-semibold mt-1" style="color:#1b5fa8;">Trilhas formativas</div>
+      </div>
+      <div class="text-center" style="border-left:1px solid rgba(15,64,107,0.2);border-right:1px solid rgba(15,64,107,0.2);">
+        <div class="font-black text-3xl" style="color:#0f406b;">50h</div>
+        <div class="text-sm font-semibold mt-1" style="color:#1b5fa8;">de capacitação</div>
+      </div>
+      <div class="text-center">
+        <div class="font-black text-3xl" style="color:#0f406b;">16</div>
+        <div class="text-sm font-semibold mt-1" style="color:#1b5fa8;">comunidades atendidas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SOBRE O PROJETO
+════════════════════════════════════════════════ -->
+<section id="sobre" class="bg-white py-20 px-4">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+
+      <!-- Texto -->
+      <div>
+        <p class="text-azulcl font-bold text-sm uppercase tracking-widest mb-3">O Programa</p>
+        <h2 class="section-title text-5xl mb-6">O que é a<br>Estação Samarco?</h2>
+        <p class="text-texto text-lg leading-relaxed mb-5">
+          A Estação Samarco é um programa de <strong>empregabilidade e capacitação profissional</strong> que chega diretamente nas comunidades, levando cursos gratuitos com certificação reconhecida.
+        </p>
+        <p class="text-texto text-lg leading-relaxed mb-8">
+          Com trilhas em culinária sustentável, beleza e estética, e empreendedorismo aplicado à inteligência artificial, o programa abre portas para geração de renda e desenvolvimento local.
+        </p>
+
+        <!-- Diferenciais -->
+        <div class="space-y-4">
+          <div class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full flex-shrink-0 mt-0.5" style="background:#427459"></div>
+            <div>
+              <strong class="text-azul">Certificação rastreável</strong>
+              <p class="text-cinza text-sm mt-0.5">Certificado digital com código público, verificável por qualquer empresa.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full flex-shrink-0 mt-0.5" style="background:#6d5ba4"></div>
+            <div>
+              <strong class="text-azul">Presencial + digital</strong>
+              <p class="text-cinza text-sm mt-0.5">Aulas práticas nas comunidades combinadas com módulos digitais flexíveis.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full flex-shrink-0 mt-0.5" style="background:#e68e3c"></div>
+            <div>
+              <strong class="text-azul">Inteligência artificial na prática</strong>
+              <p class="text-cinza text-sm mt-0.5">Todas as trilhas ensinam IA aplicada ao negócio: divulgação, precificação e vendas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid de cidades -->
+      <div>
+        <p class="text-azul font-bold text-sm uppercase tracking-widest mb-5 text-center">Cidades atendidas</p>
+
+        <div class="mb-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-3 h-3 rounded-full" style="background:#0f406b"></span>
+            <span class="text-azul font-bold text-sm uppercase tracking-wider">Minas Gerais (7 comunidades)</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="cidade-badge">Camargos</span>
+            <span class="cidade-badge">Antônio Pereira</span>
+            <span class="cidade-badge">Novo Bento Rodrigues</span>
+            <span class="cidade-badge">Paracatu</span>
+            <span class="cidade-badge">Santa Rita Durão</span>
+            <span class="cidade-badge">Brumal</span>
+            <span class="cidade-badge">Catas Altas</span>
+          </div>
+        </div>
+
+        <div class="border-t border-fundo pt-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-3 h-3 rounded-full" style="background:#4bc1eb"></span>
+            <span class="text-azulmd font-bold text-sm uppercase tracking-wider">Espírito Santo (9 comunidades)</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="cidade-badge" style="border-color:rgba(75,193,235,0.3); color:#1b5fa8">Benevente</span>
+            <span class="cidade-badge" style="border-color:rgba(75,193,235,0.3); color:#1b5fa8">Nova Jerusalém</span>
+            <span class="cidade-badge" style="border-color:rgba(75,193,235,0.3); color:#1b5fa8">Ubu</span>
+            <span class="cidade-badge" style="border-color:rgba(75,193,235,0.3); color:#1b5fa8">Parati</span>
+            <span class="cidade-badge" style="border-color:rgba(75,193,235,0.3); color:#1b5fa8">Recanto do Sol</span>
+            <span class="cidade-badge" style="border-color:rgba(75,193,235,0.3); color:#1b5fa8">Belo Horizonte</span>
+            <span class="cidade-badge" style="border-color:rgba(75,193,235,0.3); color:#1b5fa8">Mãe-Bá</span>
+            <span class="cidade-badge" style="border-color:rgba(75,193,235,0.3); color:#1b5fa8">Meaípe</span>
+            <span class="cidade-badge" style="border-color:rgba(75,193,235,0.3); color:#1b5fa8">Condados</span>
+          </div>
+        </div>
+
+        <!-- Patrocinador -->
+        <div class="mt-8 p-5 rounded-2xl border border-fundo" style="background:rgba(183,212,240,0.2)">
+          <p class="text-cinza text-xs font-semibold uppercase tracking-wider mb-3">Realização</p>
+          <div class="flex items-center gap-6 flex-wrap">
+            <img src="logo-ntics-verde.png" alt="NTICS Projetos" style="height:54px;width:auto;object-fit:contain" />
+            <span class="w-px h-10 bg-fundo"></span>
+            <img src="logo-samarco-cor.jpg" alt="Samarco Mineração" style="height:36px;width:auto;object-fit:contain" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     3 TRILHAS
+════════════════════════════════════════════════ -->
+<section id="trilhas" class="py-20 px-4" style="background:linear-gradient(180deg,#f8fbff 0%,#eaf3fc 100%)">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-azulcl font-bold text-sm uppercase tracking-widest mb-3">O que você vai aprender</p>
+      <h2 class="section-title text-5xl">As trilhas formativas</h2>
+      <p class="text-cinza text-lg mt-4 max-w-2xl mx-auto">Todos os participantes começam pela Trilha Inicial. Depois, escolhem a especialização que faz mais sentido para o seu momento.</p>
+    </div>
+
+    <!-- ─── PASSO 1: Trilha Inicial (obrigatória) ─── -->
+    <div class="relative mb-4">
+      <div class="absolute -top-5 left-1/2 -translate-x-1/2 z-10">
+        <span class="text-white text-xs font-bold px-5 py-2 rounded-full uppercase tracking-widest shadow-lg" style="background:#e68e3c">Passo 1 — Obrigatório para todos</span>
+      </div>
+      <div class="trilha-card rounded-3xl bg-white overflow-hidden" style="border-top: 4px solid #e68e3c; padding-top: 8px;">
+        <div class="p-8 pt-10 flex flex-col md:flex-row gap-6 items-start">
+          <!-- Ícone maleta -->
+          <div class="flex-shrink-0 mx-auto md:mx-0">
+            <div style="width:88px;height:88px;border-radius:22px;background:linear-gradient(135deg,#e68e3c,#c43f62);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 28px rgba(230,142,60,0.35)">
+              <img src="https://ntics.com.br/estacao-samarco/elementos/culinaria/maleta.svg" alt="Maleta" style="width:52px;height:52px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.9;" />
+            </div>
+          </div>
+          <!-- Conteúdo -->
+          <div class="flex-1">
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+              <span class="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full text-white" style="background:#e68e3c">Trilha Inicial</span>
+              <span class="text-cinza text-xs font-semibold">9h presenciais · Certificado próprio</span>
+            </div>
+            <h3 class="text-azul font-black text-2xl mb-2">Empreendedorismo e Turismo</h3>
+            <p class="text-cinza text-sm leading-relaxed mb-4">Porta de entrada obrigatória do programa. Desenvolve a mentalidade empreendedora, apresenta o potencial turístico das comunidades e as ferramentas para crescer. Também pode ser cursada de forma autônoma, com certificado próprio.</p>
+            <ul class="grid grid-cols-2 gap-x-6 gap-y-2 mb-3">
+              <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#e68e3c"></span>Mentalidade empreendedora</li>
+              <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#e68e3c"></span>Gestão e fluxo de caixa</li>
+              <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#e68e3c"></span>Turismo e identidade local</li>
+              <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#e68e3c"></span>Marketing digital básico</li>
+              <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#e68e3c"></span>Precificação de produtos</li>
+              <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#e68e3c"></span>Divulgação nas redes sociais</li>
+            </ul>
+            <p class="text-cinza text-xs" style="font-style:italic">Inclui noções de inteligência artificial aplicada ao negócio local.</p>
+            <div class="mt-4">
+              <a href="https://drive.google.com/file/d/1TuWdVgxeOGu_TMlU6rv1-JAujBWAi7QW/view" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-full" style="background:rgba(230,142,60,0.1);color:#e68e3c;border:1.5px solid rgba(230,142,60,0.3)">Ver ementa completa →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conector visual -->
+    <div class="flex flex-col items-center py-6 gap-3">
+      <div style="width:2px;height:32px;background:linear-gradient(to bottom,#e68e3c,#4bc1eb)"></div>
+      <div class="flex items-center gap-4 w-full max-w-lg">
+        <div class="flex-1" style="height:2px;background:linear-gradient(to right,transparent,#4bc1eb)"></div>
+        <span class="font-bold text-sm uppercase tracking-widest px-5 py-2 rounded-full" style="background:#eaf3fc;color:#1b5fa8;border:2px solid rgba(75,193,235,0.4);white-space:nowrap">Passo 2 — Escolha sua especialização</span>
+        <div class="flex-1" style="height:2px;background:linear-gradient(to left,transparent,#4bc1eb)"></div>
+      </div>
+    </div>
+
+    <!-- ─── Cards Sabores + Beleza ─── -->
+    <div class="grid md:grid-cols-2 gap-8">
+
+      <!-- Card: Trilha de Culinária -->
+      <div class="trilha-card rounded-3xl overflow-hidden bg-white">
+        <div class="relative h-44 flex items-end justify-center pb-4" style="background:linear-gradient(135deg,#427459 0%,#2d5740 100%)">
+          <div class="absolute top-4 left-4 opacity-30">
+            <img src="https://ntics.com.br/estacao-samarco/elementos/culinaria/laranja.svg" alt="" style="width:48px;" />
+          </div>
+          <div class="absolute top-4 right-4 opacity-25">
+            <img src="https://ntics.com.br/estacao-samarco/elementos/culinaria/tigela-comida.svg" alt="" style="width:42px;" />
+          </div>
+          <div class="card-icon" style="width:115px; bottom:6px; position:absolute; left:50%; transform:translateX(-50%);">
+            <img src="https://ntics.com.br/estacao-samarco/elementos/culinaria/chef-mulher-tigela.svg" alt="Chef culinária" style="width:115px;filter:drop-shadow(0 10px 20px rgba(0,0,0,0.35));" />
+          </div>
+        </div>
+        <div class="p-7 pt-10">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full text-white" style="background:#427459">Trilha de Culinária</span>
+            <span class="text-cinza text-xs font-semibold">50h · presencial + digital</span>
+          </div>
+          <h3 class="text-azul font-black text-2xl mb-3">Culinária<br>Sustentável</h3>
+          <p class="text-cinza text-sm leading-relaxed mb-4">Técnicas gastronômicas práticas, aproveitamento de ingredientes locais, marmitas, salgados e gestão do negócio na cozinha.</p>
+          <ul class="space-y-2 mb-5">
+            <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#427459"></span>Higiene e segurança alimentar</li>
+            <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#427459"></span>Saladas de pote e lanches</li>
+            <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#427459"></span>Marmitas e pratos executivos</li>
+            <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#427459"></span>Massas artesanais e nhoque de mandioca</li>
+            <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#427459"></span>Precificação e atendimento ao cliente</li>
+          </ul>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+            <div>
+              <p class="text-xs text-cinza font-semibold">Carga total</p>
+              <p class="text-azul font-black text-xl">50h</p>
+            </div>
+            <div class="text-center">
+              <p class="text-xs text-cinza font-semibold">Presencial</p>
+              <p class="font-black text-lg" style="color:#427459">18h</p>
+            </div>
+            <div class="text-right">
+              <p class="text-xs text-cinza font-semibold">Digital</p>
+              <p class="font-black text-lg" style="color:#427459">23h</p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <a href="https://drive.google.com/file/d/1ai_jA5FM0onTM_sxTsyoLsezaSf_0pDt/view" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-full" style="background:rgba(66,116,89,0.1);color:#427459;border:1.5px solid rgba(66,116,89,0.3)">Ver ementa completa →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Trilha de Beleza -->
+      <div class="trilha-card rounded-3xl overflow-hidden bg-white">
+        <div class="relative h-44 flex items-end justify-center pb-4" style="background:linear-gradient(135deg,#6d5ba4 0%,#c43f62 100%)">
+          <div class="absolute top-4 left-4 opacity-30">
+            <img src="https://ntics.com.br/estacao-samarco/elementos/beleza/batom.svg" alt="" style="width:32px;" />
+          </div>
+          <div class="absolute top-4 right-4 opacity-25">
+            <img src="https://ntics.com.br/estacao-samarco/elementos/beleza/esmalte.svg" alt="" style="width:28px;" />
+          </div>
+          <div class="card-icon" style="width:105px; bottom:6px; position:absolute; left:50%; transform:translateX(-50%);">
+            <img src="https://ntics.com.br/estacao-samarco/elementos/beleza/mulher-maquiagem.svg" alt="Mulher beleza" style="width:105px;filter:drop-shadow(0 8px 20px rgba(0,0,0,0.35));" />
+          </div>
+        </div>
+        <div class="p-7 pt-10">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full text-white" style="background:#6d5ba4">Trilha de Beleza</span>
+            <span class="text-cinza text-xs font-semibold">50h · presencial + digital</span>
+          </div>
+          <h3 class="text-azul font-black text-2xl mb-3">Beleza<br>&amp; Estética</h3>
+          <p class="text-cinza text-sm leading-relaxed mb-4">Manicure, escova, maquiagem e gestão do negócio de beleza. Foco em serviços de alta demanda local e início imediato de renda.</p>
+          <ul class="space-y-2 mb-5">
+            <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#6d5ba4"></span>Higiene, biossegurança e postura profissional</li>
+            <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#6d5ba4"></span>Manicure e pedicure básica</li>
+            <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#6d5ba4"></span>Escova e penteados</li>
+            <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#6d5ba4"></span>Maquiagem básica completa</li>
+            <li class="flex items-center gap-2 text-sm text-texto"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:#6d5ba4"></span>Atendimento, preço e divulgação</li>
+          </ul>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+            <div>
+              <p class="text-xs text-cinza font-semibold">Carga total</p>
+              <p class="text-azul font-black text-xl">50h</p>
+            </div>
+            <div class="text-center">
+              <p class="text-xs text-cinza font-semibold">Presencial</p>
+              <p class="font-black text-lg" style="color:#6d5ba4">18h</p>
+            </div>
+            <div class="text-right">
+              <p class="text-xs text-cinza font-semibold">Digital</p>
+              <p class="font-black text-lg" style="color:#6d5ba4">23h</p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <a href="https://drive.google.com/file/d/176tlAMDHKgMRZfU8g6EI_7e0mbGLsLYn/view" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-full" style="background:rgba(109,91,164,0.1);color:#6d5ba4;border:1.5px solid rgba(109,91,164,0.3)">Ver ementa completa →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     COMO FUNCIONA
+════════════════════════════════════════════════ -->
+<section id="como-funciona" class="py-20 px-4" style="background:#0f406b">
+  <div class="max-w-5xl mx-auto text-center">
+    <p class="text-azulcl font-bold text-sm uppercase tracking-widest mb-3">Simples e acessível</p>
+    <h2 class="font-display text-5xl text-white mb-14" style="font-family:'Dancing Script',cursive;">Como funciona</h2>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Passo 1 -->
+      <div>
+        <div class="step-num text-azul font-black" style="background:#4bc1eb; color:#0f406b">1</div>
+        <h3 class="text-white font-bold text-xl mb-3">Inscrição</h3>
+        <p class="text-white/70 leading-relaxed">Preencha o formulário com seus dados. A equipe de sensibilização Samarco entrará em contato para confirmar sua vaga.</p>
+      </div>
+      <!-- Passo 2 -->
+      <div>
+        <div class="step-num" style="background:rgba(255,255,255,0.15); color:white; border:2px solid rgba(255,255,255,0.4)">2</div>
+        <h3 class="text-white font-bold text-xl mb-3">Formação</h3>
+        <p class="text-white/70 leading-relaxed">Aulas presenciais na sua comunidade + módulos digitais na plataforma online. Você aprende no seu tempo e no seu espaço.</p>
+      </div>
+      <!-- Passo 3 -->
+      <div>
+        <div class="step-num" style="background:rgba(196,63,98,0.3); color:#f5a0b8; border:2px solid rgba(196,63,98,0.4)">3</div>
+        <h3 class="text-white font-bold text-xl mb-3">Certificação</h3>
+        <p class="text-white/70 leading-relaxed">Ao completar 75% da frequência e os módulos digitais, você recebe um certificado digital rastreável e reconhecido pelo mercado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CERTIFICAÇÃO
+════════════════════════════════════════════════ -->
+<section class="py-16 px-4" style="background:#b7d4f0">
+  <div class="max-w-4xl mx-auto text-center">
+    <p class="text-azulmd font-bold text-sm uppercase tracking-widest mb-3">Reconhecimento profissional</p>
+    <h2 class="section-title text-4xl mb-5">Certificado com rastreabilidade</h2>
+    <p class="text-azul text-lg leading-relaxed max-w-2xl mx-auto mb-10">
+      Ao concluir o programa, você recebe um certificado digital emitido pela plataforma <strong>e-certificado.com</strong>, com código único de validação pública — reconhecido pelo mercado e verificável por qualquer empresa.
+    </p>
+    <div class="grid sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
+      <div class="bg-white rounded-2xl p-5 shadow-sm">
+        <div class="text-3xl font-black text-azul">50h</div>
+        <div class="text-cinza text-sm mt-1 font-semibold">Carga total (culinária/beleza)</div>
+      </div>
+      <div class="bg-white rounded-2xl p-5 shadow-sm">
+        <div class="text-3xl font-black text-azul">75%</div>
+        <div class="text-cinza text-sm mt-1 font-semibold">Frequência mínima exigida</div>
+      </div>
+      <div class="bg-white rounded-2xl p-5 shadow-sm">
+        <div class="text-3xl font-black" style="color:#427459">✓</div>
+        <div class="text-cinza text-sm mt-1 font-semibold">Reconhecido pelo mercado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     INSCRIÇÃO
+════════════════════════════════════════════════ -->
+<section id="inscricao" class="py-20 px-4 bg-white">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-10">
+      <p class="text-magenta font-bold text-sm uppercase tracking-widest mb-3">Vagas limitadas por turma</p>
+      <h2 class="section-title text-5xl mb-4">Inscreva-se agora</h2>
+      <p class="text-cinza text-lg leading-relaxed">
+        Preencha o formulário abaixo. Após o envio, a equipe de sensibilização Samarco na sua cidade entrará em contato para confirmar sua vaga e informar datas e local.
+      </p>
+    </div>
+
+    <!-- LGPD aviso -->
+    <div class="mb-6 p-4 rounded-2xl border border-fundo" style="background:rgba(183,212,240,0.2)">
+      <p class="text-cinza text-sm leading-relaxed">
+        <strong class="text-azul">Dados protegidos.</strong> Suas informações são tratadas conforme a Lei Geral de Proteção de Dados (LGPD) e utilizadas exclusivamente para gerenciamento do programa. Prazo de guarda: 5 anos.
+      </p>
+    </div>
+
+    <!-- Formulário embutido — iframe sem moldura, altura sincronizada via postMessage -->
+    <iframe
+      id="form-iframe"
+      src="formulario.html"
+      title="Formulário de Inscrição — Estação Samarco"
+      style="width:100%;border:none;display:block;background:transparent"
+      scrolling="no">
+    </iframe>
+    <script>
+      // Recebe a altura do form filho e ajusta o iframe (sem scroll interno)
+      window.addEventListener('message', function(e) {
+        if (e.data && e.data.type === 'estacao-form-height' && typeof e.data.height === 'number') {
+          document.getElementById('form-iframe').style.height = e.data.height + 'px';
+        }
+      });
+    </script>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════ -->
+<footer style="background:#0f406b">
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    <!-- Logos na ordem correta: Estação Samarco → Samarco → NTICS -->
+    <div class="flex flex-col md:flex-row items-center justify-center gap-10 mb-8">
+
+      <!-- 1. Logo Estação Samarco (soberana) -->
+      <div class="text-center">
+        <p class="text-white/50 text-xs uppercase tracking-widest mb-3 font-semibold">Programa</p>
+        <img src="https://ntics.com.br/estacao-samarco/logo-estacao.svg" alt="Estação Samarco" class="h-10 w-auto mx-auto" style="filter:brightness(0) invert(1);opacity:0.95" />
+      </div>
+
+      <div class="hidden md:block w-px h-12 bg-white/20"></div>
+
+      <!-- 2. NTICS + Samarco (realização conjunta) -->
+      <div class="text-center">
+        <p class="text-white/50 text-xs uppercase tracking-widest mb-3 font-semibold">Realização</p>
+        <div class="flex items-center justify-center gap-6">
+          <img src="logo-ntics.png" alt="NTICS Projetos" class="h-10 w-auto" style="opacity:0.92" />
+          <span class="w-px h-8 bg-white/20"></span>
+          <img src="logo-samarco-dark.jpg" alt="Samarco Mineração" class="h-10 w-auto" style="opacity:0.95;border-radius:6px" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>
