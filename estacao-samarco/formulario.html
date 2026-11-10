@@ -655,7 +655,7 @@
       inicial:   { data: '09 e 10/11/2026',    local: 'A definir',                                   horario: '17h00 às 21h30' },
       culinaria: { data: '16 a 19/11/2026',    local: 'A definir',                                   horario: '17h00 às 21h30' },
       beleza:    { data: '23 a 26/11/2026',    local: 'A definir',                                   horario: '17h00 às 21h30' },
-      whatsapp:  ''
+      whatsapp:  'https://chat.whatsapp.com/JA7QZy6WQVtA3mjOo6VV7k'
     },
   };
 
@@ -1089,18 +1089,27 @@
     .then(() => {
       // Resposta opaca — se chegou aqui o request foi enviado
 
+      // Bloco WhatsApp: lê o link direto do CRONOGRAMA local (sem depender da resposta)
+      const cidadeData = CRONOGRAMA[formData.cidade];
+      if (cidadeData && cidadeData.whatsapp) {
+        document.getElementById('nome-cidade-wa').textContent = formData.cidade;
+        document.getElementById('link-whatsapp').href = cidadeData.whatsapp;
+        document.getElementById('bloco-whatsapp').style.display = 'block';
+      }
+
       const blocoAcesso = document.getElementById('bloco-acesso');
       if (blocoAcesso) blocoAcesso.style.display = 'block';
 
       form.style.display = 'none';
       sucesso.style.display = 'block';
 
-      // Scroll: se em iframe, notifica o pai para rolar ao topo; senão rola direto
-      if (window.self !== window.top) {
-        window.parent.postMessage({ type: 'estacao-scroll-top' }, '*');
-      } else {
+      // Scroll ao topo após o layout atualizar
+      requestAnimationFrame(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+        if (window.self !== window.top) {
+          window.parent.postMessage({ type: 'estacao-scroll-top' }, '*');
+        }
+      });
     })
     .catch(err => {
       btn.disabled = false;
