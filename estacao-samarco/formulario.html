@@ -1079,31 +1079,15 @@
     btn.disabled = true;
     btn.textContent = 'Enviando...';
 
-    // GET com query params evita CORS redirect do Apps Script (Safari iOS)
+    // no-cors: Safari iOS bloqueia redirects do Apps Script mesmo em GET.
+    // Com no-cors a resposta é opaca (não lemos), mas o request chega ao servidor.
     const _params = new URLSearchParams({ action: 'inscricao', ...formData });
     fetch('https://script.google.com/macros/s/AKfycbxDRC5dHMGsi-D9JDKGrXzd92z8pJdNAFVKhAJhBgcVW7lBujM0vyaMBZNQldVfmvyl/exec?' + _params.toString(), {
       method: 'GET',
-      redirect: 'follow',
+      mode: 'no-cors',
     })
-    .then(async r => {
-      let data;
-      try { data = await r.json(); }
-      catch (_) { throw new Error('Resposta inválida do servidor (HTTP ' + r.status + ')'); }
-      if (!r.ok || !data.ok) throw new Error(data.msg || ('Erro HTTP ' + r.status));
-      return data;
-    })
-    .then(data => {
-
-      // Preenche bloco WhatsApp
-      const waLink = data.whatsapp_link || '';
-      if (waLink) {
-        const nomeCidadeEl = document.getElementById('nome-cidade-wa');
-        if (nomeCidadeEl) nomeCidadeEl.textContent = data.cidade || '';
-        const linkWaEl = document.getElementById('link-whatsapp');
-        if (linkWaEl) linkWaEl.href = waLink;
-        const blocoWa = document.getElementById('bloco-whatsapp');
-        if (blocoWa) blocoWa.style.display = 'block';
-      }
+    .then(() => {
+      // Resposta opaca — se chegou aqui o request foi enviado
 
       const blocoAcesso = document.getElementById('bloco-acesso');
       if (blocoAcesso) blocoAcesso.style.display = 'block';
