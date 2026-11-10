@@ -4524,7 +4524,7 @@ function auth(){
     document.getElementById('dash').style.display='block';
     renderAll();
     loadData();
-    setInterval(loadData, 5*60*1000);
+    setInterval(loadData, 30*60*1000);
   } else {
     document.getElementById('pwd-err').style.display='block';
     const i=document.getElementById('pwd'); i.value=''; i.focus();
