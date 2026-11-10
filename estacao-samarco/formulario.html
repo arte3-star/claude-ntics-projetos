@@ -1079,16 +1079,16 @@
     btn.disabled = true;
     btn.textContent = 'Enviando...';
 
-    fetch('https://script.google.com/macros/s/AKfycbxDRC5dHMGsi-D9JDKGrXzd92z8pJdNAFVKhAJhBgcVW7lBujM0vyaMBZNQldVfmvyl/exec', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
+    // GET com query params evita CORS redirect do Apps Script (Safari iOS)
+    const _params = new URLSearchParams({ action: 'inscricao', ...formData });
+    fetch('https://script.google.com/macros/s/AKfycbxDRC5dHMGsi-D9JDKGrXzd92z8pJdNAFVKhAJhBgcVW7lBujM0vyaMBZNQldVfmvyl/exec?' + _params.toString(), {
+      method: 'GET',
+      redirect: 'follow',
     })
     .then(async r => {
       let data;
       try { data = await r.json(); }
       catch (_) { throw new Error('Resposta inválida do servidor (HTTP ' + r.status + ')'); }
-      // Mesmo com 4xx/5xx, queremos o data.msg detalhado vindo do backend
       if (!r.ok || !data.ok) throw new Error(data.msg || ('Erro HTTP ' + r.status));
       return data;
     })
