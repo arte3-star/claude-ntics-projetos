@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Festival Agricultura Sustentável · Praça da Espanha · 14 de novembro</title>
+<meta name="description" content="Sábado, 14 de novembro, das 10h às 16h, na Praça da Espanha, em Curitiba. Exposição imersiva no domo, tendas de parceiros, trabalhos de estudantes, palhaçaria, música, contação de histórias e talk sobre agricultura sustentável. Gratuito e aberto ao público.">
+<meta property="og:title" content="Festival Agricultura Sustentável · Praça da Espanha, Curitiba">
+<meta property="og:description" content="14/11, das 10h às 16h, Praça da Espanha. Exposição imersiva no domo, tendas, atrações e talk. Gratuito e aberto ao público.">
+<meta property="og:image" content="https://arte3-star.github.io/claude-ntics-projetos/eventos/festival-agricultura-128/img/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap">
+<style>
+/* KV do Festival Agricultura Sustentável: azul e amarelo, folha, sans geométrica pesada */
+:root{
+  --navy:#1A2D55; --ink:#14213F; --yellow:#F9BB28; --yellow-soft:#FFF4D6;
+  --bg:#FFFFFF; --soft:#EEF1F7; --muted:#4F5B73; --line:#DCE1EC;
+  --f:"Montserrat",system-ui,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 17px/1.6 var(--f)}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px}
+h1,h2,h3{margin:0;line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
+h2{font-size:clamp(32px,4.6vw,50px);font-weight:900;text-transform:uppercase;color:var(--navy)}
+h3{font-size:21px;font-weight:800}
+p{margin:0}
+.eyebrow{font:800 13px var(--f);letter-spacing:.16em;text-transform:uppercase;color:var(--navy);display:inline-flex;align-items:center;gap:10px;margin-bottom:12px}
+.eyebrow::before{content:"";width:16px;height:24px;background:var(--yellow);border-radius:0 100% 0 100%;transform:rotate(-20deg)}
+.lede{font-size:19px;color:var(--muted);max-width:62ch}
+section{padding-block:84px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:12px 24px;border-radius:999px;font:800 15px var(--f);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.y{background:var(--yellow);color:var(--navy)}
+.btn.n{background:var(--navy);color:#fff}
+.btn.line{border:2px solid var(--navy);color:var(--navy)}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+.faixa{height:14px;background:repeating-linear-gradient(115deg,var(--yellow) 0 90px,var(--navy) 90px 116px)}
+
+/* topo */
+.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.top img{height:38px;width:auto}
+.top nav{display:flex;gap:22px;font:700 14px var(--f)}
+.top nav a{text-decoration:none}
+.top nav a:hover{color:#9a6b00}
+@media (max-width:860px){.top nav{display:none}.top .btn{padding:10px 16px;font-size:13px}}
+
+/* filme */
+.filme{background:var(--ink);padding-block:0}
+.filme .box{position:relative;height:min(56.25vw,calc(100vh - 68px))}
+.filme video{width:100%;height:100%;display:block;object-fit:cover}
+.som{position:absolute;right:18px;bottom:18px;min-height:48px;padding:10px 18px;border-radius:999px;border:0;background:#fff;color:var(--navy);font:800 14px var(--f);cursor:pointer}
+
+/* hero */
+.hero{padding-block:60px 72px;position:relative;overflow:hidden}
+.hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+@media (max-width:900px){.hero .grid{grid-template-columns:1fr}}
+.hero .logo{width:min(400px,88%);margin-bottom:26px}
+.hero .mc{font:700 12px var(--f);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.hero h1{font-size:clamp(42px,6.6vw,82px);font-weight:900;text-transform:uppercase;color:var(--navy);line-height:1}
+.hero h1 b{color:var(--navy);font-weight:900;display:inline;background:linear-gradient(transparent 58%,var(--yellow) 58% 92%,transparent 92%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hero .lede{margin-top:20px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{display:flex;flex-direction:column;padding:12px 18px;border-radius:14px;background:var(--soft);min-width:150px}
+.chip small{font:700 11px var(--f);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.chip strong{font:800 19px var(--f);color:var(--navy)}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero figure{margin:0;position:relative}
+.hero figure img{border-radius:24px;aspect-ratio:4/5;object-fit:cover;width:100%}
+.folha{position:absolute;aspect-ratio:1/1.6;border-radius:0 100% 0 100%;background:var(--yellow)}
+.hero .f1{width:96px;top:-34px;right:-18px;transform:rotate(25deg);animation:balanca 7s ease-in-out infinite}
+.hero .f2{width:70px;bottom:-30px;left:-22px;background:var(--navy);transform:rotate(-150deg);animation:balanca 9s ease-in-out infinite reverse}
+.hero .f3{width:42px;top:40%;right:-14px;transform:rotate(70deg);animation:balanca 6s ease-in-out infinite}
+.hero figcaption{position:absolute;left:16px;bottom:16px;background:#fff;border-radius:10px;padding:8px 12px;font-size:13px;color:var(--muted);max-width:82%}
+@keyframes balanca{0%,100%{translate:0 0}50%{translate:0 -14px}}
+
+/* faixa corrida */
+.marquee{background:var(--navy);color:#fff;overflow:hidden;padding-block:14px}
+.marquee .t{display:flex;width:max-content;animation:corre 34s linear infinite;font:800 22px var(--f);text-transform:uppercase}
+.marquee span{padding-inline:24px;white-space:nowrap}
+.marquee i{width:13px;height:20px;background:var(--yellow);border-radius:0 100% 0 100%;align-self:center;transform:rotate(-20deg)}
+@keyframes corre{to{transform:translateX(-50%)}}
+
+/* sobre */
+.sobre .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:48px;align-items:start;margin-top:28px}
+.sobre p+p{margin-top:14px}
+.nums{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.num{border-top:6px solid var(--yellow);background:var(--soft);border-radius:0 0 14px 14px;padding:18px}
+.num strong{display:block;font:900 50px/1 var(--f);color:var(--navy)}
+.num span{font-size:15px;color:var(--muted)}
+.cidades{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:18px;margin-top:44px}
+.cidade{background:#fff;border-radius:18px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column}
+.cidade img{aspect-ratio:16/10;object-fit:cover;width:100%}
+.cidade .agora{aspect-ratio:16/10;background:var(--navy);display:grid;place-items:center;position:relative;overflow:hidden}
+.cidade .agora b{font:900 30px var(--f);color:#fff;text-transform:uppercase;text-align:center;line-height:1.05;z-index:1}
+.cidade .agora b em{font-style:normal;color:var(--yellow)}
+.cidade .c{padding:18px 20px 22px;display:grid;gap:6px}
+.cidade h3{color:var(--navy)}
+.cidade p{font-size:14px;color:var(--muted)}
+.tag{justify-self:start;font:800 11px var(--f);letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--soft);color:var(--navy)}
+.tag.now{background:var(--yellow)}
+
+/* programação */
+.prog{display:grid;margin-top:34px;border-top:3px solid var(--navy)}
+.item{display:grid;grid-template-columns:130px 1fr;gap:6px 24px;padding:20px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.item time{font:900 28px var(--f);color:var(--navy)}
+.item time small{display:block;font:600 14px var(--f);color:var(--muted);margin-top:2px}
+.item h3{font-size:21px;color:var(--navy)}
+.item p{grid-column:2;color:var(--muted);font-size:16px}
+.item p a{color:var(--navy);font-weight:800}
+.item.alto{background:linear-gradient(90deg,var(--yellow-soft),transparent 75%);padding-inline:14px;margin-inline:-14px}
+@media (max-width:560px){.item{grid-template-columns:1fr}.item p{grid-column:1}.item time small{display:inline;margin-left:8px}}
+
+/* tendas */
+.tendas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:18px;margin-top:34px}
+.tenda{border-radius:18px;padding:24px 22px;display:grid;gap:10px;align-content:start;background:#fff;border:1px solid var(--line);border-top:10px solid var(--c,var(--navy));transition:transform .25s,box-shadow .25s}
+.tenda:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(20,33,63,.12)}
+.tenda h3{font-size:22px;color:var(--navy)}
+.tenda p{font-size:15px;color:var(--muted)}
+.tenda a{justify-self:start;font:800 14px var(--f);color:var(--navy)}
+.tenda.domo{background:var(--navy);border-color:var(--navy);border-top-color:var(--yellow);color:#fff;grid-column:1/-1}
+.tenda.domo h3{color:#fff;font-size:28px}
+.tenda.domo p{color:#d8deeb;font-size:17px;max-width:70ch}
+.tenda.domo .n{color:var(--yellow)}
+.tenda .n{font:800 11px var(--f);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* talk */
+.talk{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;margin-top:34px;align-items:start}
+@media (max-width:860px){.talk{grid-template-columns:1fr}}
+.quem{border:2px solid var(--navy);border-radius:18px;padding:22px}
+.quem small{font:800 12px var(--f);letter-spacing:.14em;text-transform:uppercase;color:#9a6b00}
+.med{display:grid;gap:4px;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+.med b{font:800 22px var(--f);color:var(--navy)}
+.quem span{font-size:15px;color:var(--muted)}
+.quem ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:14px}
+.quem li{display:grid;gap:2px}
+.quem li b{font:800 18px var(--f);color:var(--navy)}
+
+/* local */
+.local{background:var(--navy);color:#fff}
+.local h2{color:#fff}
+.local .eyebrow{color:var(--yellow)}
+.local .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:40px;align-items:center;margin-top:28px}
+.local dl{display:grid;grid-template-columns:auto 1fr;gap:12px 18px;margin:0}
+.local dt{font:800 13px var(--f);letter-spacing:.1em;text-transform:uppercase;color:var(--yellow)}
+.local dd{margin:0}
+.mapa{background:rgba(255,255,255,.08);border-radius:20px;padding:30px;display:grid;gap:16px;justify-items:start}
+.mapa b{font:900 34px/1.05 var(--f);text-transform:uppercase}
+
+/* agenda */
+.acoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:16px;margin-top:32px}
+.acao{display:grid;gap:8px;align-content:start;padding:24px;border-radius:18px;text-decoration:none;border:2px solid var(--navy);background:#fff;transition:transform .2s}
+.acao:hover{transform:translateY(-4px)}
+.acao b{font:800 22px var(--f);color:var(--navy)}
+.acao span{font-size:15px;color:var(--muted)}
+.acao small{font:700 12px var(--f);letter-spacing:.06em;color:var(--navy)}
+.acao.cal{background:var(--yellow);border-color:var(--yellow)}
+.acao.cal span{color:var(--ink)}
+
+footer{border-top:1px solid var(--line);padding-block:40px 56px}
+footer .reg{width:100%;max-width:1060px;margin:0 auto}
+footer p{text-align:center;font-size:14px;color:var(--muted);margin-top:22px}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <a href="#inicio" aria-label="Início"><img src="img/logo_azul.png" alt="Festival Agricultura Sustentável"></a>
+  <nav aria-label="Seções"><a href="#programacao">Programação</a><a href="#tendas">Tendas</a><a href="#talk">Talk</a><a href="#cidades">O projeto</a><a href="#local">Como chegar</a></nav>
+  <a class="btn y" href="#local">Sábado, 14/11</a>
+</div></header>
+
+<main id="inicio">
+<section class="filme" aria-label="Vídeo de apresentação do festival"><div class="box"><video id="intro" src="festival-agricultura-intro.mp4" poster="img/poster.jpg" autoplay muted loop playsinline preload="metadata"></video><button class="som" id="som" type="button">Ativar som</button></div></section>
+<div class="faixa" aria-hidden="true"></div>
+
+<section class="hero"><div class="wrap grid">
+  <div>
+    <img class="logo" src="img/logo_azul.png" alt="Festival Agricultura Sustentável">
+    <div class="mc">O Ministério da Cultura apresenta</div>
+    <div class="eyebrow">Festa aberta à cidade · Curitiba</div>
+    <h1>O futuro do agro <b>começa aqui</b></h1>
+    <p class="lede">O encerramento do projeto reúne atrações artísticas, tendas de parceiros, trabalhos de estudantes e uma exposição imersiva sobre a presença da agricultura no nosso dia a dia.</p>
+    <div class="chips">
+      <div class="chip"><small>Quando</small><strong>Sábado, 14 de novembro</strong></div>
+      <div class="chip"><small>Horário</small><strong>10h às 16h</strong></div>
+      <div class="chip"><small>Entrada</small><strong>Gratuita</strong></div>
+    </div>
+    <div class="ctas"><a class="btn n" href="#programacao">Ver a programação</a><a class="btn line" href="#agenda">Pôr na agenda</a></div>
+  </div>
+  <figure><span class="folha f1" aria-hidden="true"></span><span class="folha f2" aria-hidden="true"></span><span class="folha f3" aria-hidden="true"></span>
+    <img src="img/hero.jpg" alt="Turma de estudantes de colete laranja reunida com o educador, em Guarapuava" fetchpriority="high">
+    <figcaption>Semana do Festival em Guarapuava (PR), outubro de 2026</figcaption></figure>
+</div></section>
+
+<div class="marquee" aria-hidden="true"><div class="t"><span>Exposição imersiva no domo</span><i></i><span>Palhaçaria e perna de pau</span><i></i><span>Formiga Session</span><i></i><span>Contação de histórias</span><i></i><span>Backstreet Bloco</span><i></i><span>Talk</span><i></i><span>Hortas inteligentes</span><i></i><span>Abelhas sem ferrão</span><i></i><span>Hackathon</span><i></i><span>14 de novembro</span><i></i><span>Exposição imersiva no domo</span><i></i><span>Palhaçaria e perna de pau</span><i></i><span>Formiga Session</span><i></i><span>Contação de histórias</span><i></i><span>Backstreet Bloco</span><i></i><span>Talk</span><i></i><span>Hortas inteligentes</span><i></i><span>Abelhas sem ferrão</span><i></i><span>Hackathon</span><i></i><span>14 de novembro</span><i></i></div></div>
+
+<section id="programacao"><div class="wrap">
+  <div class="eyebrow">Sábado, 14 de novembro</div>
+  <h2>Programação</h2>
+  <div class="prog">
+    <div class="item reveal"><time>10h<small>às 11h</small></time><h3>Abertura</h3><p>Acolhimento do público, chegada dos parceiros e música ambiente.</p></div>
+    <div class="item reveal"><time>11h<small>às 12h</small></time><h3>Palhaçaria com bambolê e perna de pau</h3><p>Com Palhaça Chorona e Waleska Saddock.</p></div>
+    <div class="item reveal"><time>12h<small>às 13h</small></time><h3>Formiga Session</h3><p>Música na praça.</p></div>
+    <div class="item reveal"><time>13h10<small>às 14h</small></time><h3>Contação de histórias</h3><p>Histórias para todas as idades.</p></div>
+    <div class="item reveal"><time>14h<small>às 15h</small></time><h3>Backstreet Bloco</h3><p>Bloco na praça para animar a tarde.</p></div>
+    <div class="item alto reveal"><time>15h<small>às 16h</small></time><h3>Talk: Agricultura Sustentável, Inovação e Tecnologia</h3><p>Políticas públicas, educação e tecnologia a serviço de práticas agrícolas mais sustentáveis. <a href="#talk">Quem participa</a></p></div>
+  </div>
+  <p style="margin-top:18px;font-size:15px;color:var(--muted)">A exposição imersiva e as tendas ficam abertas durante todo o festival.</p>
+</div></section>
+
+<section id="tendas" style="background:var(--soft)"><div class="wrap">
+  <div class="eyebrow">Para visitar durante todo o dia</div>
+  <h2>Tendas e exposição imersiva</h2>
+  <div class="tendas">
+    <article class="tenda domo reveal"><span class="n">No domo</span><h3>Exposição imersiva</h3><p>Uma projeção dentro do domo sobre como a agricultura faz parte do nosso dia a dia.</p></article>
+    <article class="tenda reveal" style="--c:var(--yellow)"><h3>EVA Agricultura Urbana</h3><p>Hortas inteligentes e tecnologia para o cultivo em pequenos espaços.</p><a href="https://eva-au.com/home" target="_blank" rel="noopener">Site oficial</a></article>
+    <article class="tenda reveal"><h3>Abelha Brasil</h3><p>Meliponicultura, abelhas sem ferrão e os produtos da atividade.</p><a href="https://www.abelhabrasil.com.br/" target="_blank" rel="noopener">Site oficial</a></article>
+    <article class="tenda reveal" style="--c:var(--yellow)"><h3>CEEP Olegário Macedo</h3><p>O colégio agrícola de Castro (PR) apresenta projetos estudantis: monitoramento de colmeias, criação de peixes, tratamento da água com plantas, compostagem e cultivo de champignon.</p></article>
+    <article class="tenda reveal"><h3>Hackathon</h3><p>Exposição dos trabalhos sobre agricultura sustentável desenvolvidos durante a semana nas escolas de Curitiba.</p></article>
+    <article class="tenda reveal" style="--c:var(--yellow)"><h3>New Holland</h3><p>Ativação e acolhimento, com distribuição de água, pipoca e pintura facial.</p></article>
+    <article class="tenda reveal"><h3>Good Truck</h3><p>Participação na programação das tendas.</p><a href="https://goodtruck.org.br/" target="_blank" rel="noopener">Site oficial</a></article>
+  </div>
+</div></section>
+
+<section id="talk"><div class="wrap">
+  <div class="eyebrow">15h às 16h · Palco</div>
+  <h2>Talk: Agricultura Sustentável, Inovação e Tecnologia</h2>
+  <div class="talk">
+    <p class="lede reveal">Uma conversa sobre como políticas públicas, educação e tecnologia podem contribuir para práticas agrícolas e sistemas alimentares mais sustentáveis.</p>
+    <div class="quem reveal">
+      <div class="med"><small>Mediação</small><b>Pablo Goyannes de Araújo</b><span>NTICS Projetos. Biólogo e mestre em Ecologia pela UERJ, com mais de 15 anos de experiência em educação ambiental e sustentabilidade.</span></div>
+      <small>Participantes</small>
+      <ul>
+        <li><b>Maurício Barcellos Degelmann</b><span>Especialista em Políticas Públicas, coordenador do Movimento Nacional ODS Paraná e presidente do Instituto GT3.</span></li>
+        <li><b>Felipe Jesus</b><span>Diretor de Estratégias em Sistemas Alimentares Sustentáveis da Prefeitura de Curitiba e secretário-geral da Pró Metrópole. Formado em Agroecologia pela UFPR e mestre em Agroecossistemas pela UFSC.</span></li>
+        <li><b>Lorenzo Mesadri</b><span>Engenheiro agrônomo pela UFPR, fundador da EVA Agricultura Urbana e diretor financeiro da Agrociência Cooperativa.</span></li>
+        <li><b>Professora Marly Burda</b><span>Centro Estadual de Educação Profissional Olegário Macedo, de Castro (PR), onde coordena projetos estudantis de sustentabilidade.</span></li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section id="cidades" class="sobre" style="background:var(--soft)"><div class="wrap">
+  <div class="eyebrow">O projeto</div>
+  <h2>Quatro cidades, um festival na praça</h2>
+  <div class="grid">
+    <div>
+      <p class="lede">O Festival Agricultura Sustentável levou a escolas do Rio Grande do Sul e do Paraná uma semana de oficinas práticas sobre o campo, a tecnologia e a sustentabilidade.</p>
+      <p style="margin-top:16px">Em cada escola, estudantes do ensino médio trabalharam em equipe, conheceram de perto a tecnologia do campo e, no fim da semana, apresentaram suas ideias num hackathon. A festa na Praça da Espanha encerra o projeto e abre para toda a cidade o que foi vivido nas escolas.</p>
+    </div>
+    <div class="nums">
+      <div class="num reveal"><strong>4</strong><span>cidades no RS e no PR</span></div>
+      <div class="num reveal"><strong>7</strong><span>oficinas por escola, em uma semana</span></div>
+      <div class="num reveal"><strong>1</strong><span>hackathon por cidade</span></div>
+      <div class="num reveal"><strong>1</strong><span>domo com exposição imersiva na praça</span></div>
+    </div>
+  </div>
+  <div class="cidades">
+    <article class="cidade reveal"><img src="img/dom-pedrito.jpg" alt="Foto coletiva dos estudantes no ginásio, em Dom Pedrito" loading="lazy"><div class="c"><span class="tag">Realizado</span><h3>Dom Pedrito (RS)</h3><p>21 a 25 de setembro · Escola Estadual de Educação Profissional de Dom Pedrito</p></div></article>
+    <article class="cidade reveal"><img src="img/toledo.jpg" alt="Equipe de estudantes de colete amarelo à mesa da oficina, em Toledo" loading="lazy"><div class="c"><span class="tag">Realizado</span><h3>Toledo (PR)</h3><p>28 de setembro a 2 de outubro · Colégio Agrícola Estadual de Toledo</p></div></article>
+    <article class="cidade reveal"><img src="img/guarapuava.jpg" alt="Demonstração de drone agrícola para os estudantes, em Guarapuava" loading="lazy"><div class="c"><span class="tag">Realizado</span><h3>Guarapuava (PR)</h3><p>5 a 9 de outubro · Colégio Dom Pedro I</p></div></article>
+    <article class="cidade reveal"><div class="agora"><b>Curitiba<br><em>nesta semana</em></b></div><div class="c"><span class="tag now">Agora</span><h3>Curitiba (PR)</h3><p>9 a 13 de novembro · Colégio Estadual Leôncio Correia. No sábado, o festival na praça.</p></div></article>
+  </div>
+</div></section>
+
+<section id="local" class="local"><div class="wrap">
+  <div class="eyebrow">Como chegar</div>
+  <h2>Praça da Espanha, Curitiba</h2>
+  <div class="grid">
+    <dl>
+      <dt>Data</dt><dd>Sábado, 14 de novembro de 2026</dd>
+      <dt>Horário</dt><dd>Das 10h às 16h</dd>
+      <dt>Local</dt><dd>Praça da Espanha, Curitiba (PR)</dd>
+      <dt>Entrada</dt><dd>Gratuita e aberta a todas as idades</dd>
+    </dl>
+    <div class="mapa"><b>Praça da Espanha</b><span>Curitiba (PR)</span><a class="btn y" href="https://maps.google.com/?q=Pra%C3%A7a+da+Espanha+Curitiba+PR" target="_blank" rel="noopener">Abrir no mapa</a></div>
+  </div>
+</div></section>
+
+<section id="agenda"><div class="wrap">
+  <div class="eyebrow">Participe</div>
+  <h2>Leve o festival na agenda</h2>
+  <div class="acoes">
+    <a class="acao cal reveal" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Festival+Agricultura+Sustent%C3%A1vel&amp;dates=20261114T130000Z/20261114T190000Z&amp;ctz=America/Sao_Paulo&amp;location=Pra%C3%A7a+da+Espanha%2C+Curitiba+(PR)&amp;details=Exposi%C3%A7%C3%A3o+imersiva+no+domo%2C+tendas%2C+palha%C3%A7aria%2C+m%C3%BAsica%2C+conta%C3%A7%C3%A3o+de+hist%C3%B3rias+e+talk+sobre+agricultura+sustent%C3%A1vel.+Entrada+gratuita." target="_blank" rel="noopener"><b>Adicionar à agenda</b><span>Sábado, 14/11, das 10h às 16h, com o local do festival.</span></a>
+    <a class="acao reveal" href="festival-agricultura.ics" download><b>Outra agenda</b><span>Arquivo para iPhone, Outlook e outros calendários, com lembrete 3 horas antes.</span></a>
+    <a class="acao reveal" href="mailto:contato@ntics.com.br?subject=D%C3%BAvida%20%C2%B7%20Festival%20Agricultura%20Sustent%C3%A1vel%2014%2F11"><b>Dúvidas</b><span>Fale com a equipe do festival.</span><small>contato@ntics.com.br</small></a>
+  </div>
+</div></section>
+</main>
+
+<div class="faixa" aria-hidden="true"></div>
+<footer><div class="wrap">
+  <img class="reg" src="img/regua128.png" alt="Lei Rouanet · Patrocínio CNH Capital, New Holland, Simex, Dall'Oglio e Agro Máquinas Comin · Realização Sustentabilidade e Cultura, NTICS Projetos e Ministério da Cultura">
+  <p>O Festival Agricultura Sustentável é realizado por meio da Lei de Incentivo à Cultura, com patrocínio da CNH Capital e da New Holland, com Simex, Dall'Oglio e Agro Máquinas Comin. Realização: Sustentabilidade e Cultura e NTICS Projetos.</p>
+</div></footer>
+
+<script>
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el,i){el.style.transitionDelay=(i%5)*70+'ms';io.observe(el)});
+var v=document.getElementById('intro'),b=document.getElementById('som');
+if(b)b.addEventListener('click',function(){v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.play()}b.textContent=v.muted?'Ativar som':'Desativar som'});
+</script>
+</body>
+</html>

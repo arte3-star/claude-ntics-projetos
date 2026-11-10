@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//NTICS Projetos//Festival Agricultura Sustentavel//PT
+BEGIN:VEVENT
+UID:festival-agricultura-20261114@ntics.com.br
+DTSTAMP:20261110T120000Z
+DTSTART:20261114T130000Z
+DTEND:20261114T190000Z
+SUMMARY:Festival Agricultura Sustentável
+LOCATION:Praça da Espanha\, Curitiba (PR)
+DESCRIPTION:Exposição imersiva no domo\, tendas\, palhaçaria\, música\, contação de histórias e talk sobre agricultura sustentável. Entrada gratuita.
+BEGIN:VALARM
+TRIGGER:-PT3H
+ACTION:DISPLAY
+DESCRIPTION:Festival Agricultura Sustentável
+END:VALARM
+END:VEVENT
+END:VCALENDAR
